@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakan's Math Practice!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen active">
+        <div class="start-container">
+            <h1 class="title bounce">🧮 Hakan's Math Practice! 🌟</h1>
+            <div class="mascot">🦊</div>
+            <p class="subtitle">Let's have fun with numbers!</p>
+
+            <div class="mode-selection">
+                <h2>What do you want to practice?</h2>
+                <div class="mode-buttons">
+                    <button class="mode-btn addition-btn" onclick="startGame('addition')">
+                        <span class="mode-icon">➕</span>
+                        <span class="mode-label">Addition</span>
+                    </button>
+                    <button class="mode-btn subtraction-btn" onclick="startGame('subtraction')">
+                        <span class="mode-icon">➖</span>
+                        <span class="mode-label">Subtraction</span>
+                    </button>
+                    <button class="mode-btn mixed-btn" onclick="startGame('mixed')">
+                        <span class="mode-icon">🔀</span>
+                        <span class="mode-label">Mixed!</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="difficulty-selection">
+                <h2>Pick your level:</h2>
+                <div class="difficulty-buttons">
+                    <button class="diff-btn easy active" onclick="setDifficulty('easy', this)">
+                        <span>🐣</span> Easy<br><small>(up to 10)</small>
+                    </button>
+                    <button class="diff-btn medium" onclick="setDifficulty('medium', this)">
+                        <span>🐥</span> Medium<br><small>(up to 50)</small>
+                    </button>
+                    <button class="diff-btn hard" onclick="setDifficulty('hard', this)">
+                        <span>🐔</span> Hard<br><small>(up to 99)</small>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <button class="back-btn" onclick="goHome()">🏠 Home</button>
+            <div class="score-display">
+                <span class="stars-label">⭐</span>
+                <span id="score">0</span>
+            </div>
+            <div class="streak-display">
+                <span id="streak-text">🔥 0</span>
+            </div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+                <span id="progress-text">0 / 10</span>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div id="mascot-speech" class="mascot-speech">
+                <div class="speech-bubble">
+                    <span id="mascot-message">You can do it! 💪</span>
+                </div>
+                <div class="game-mascot">🦊</div>
+            </div>
+
+            <div class="problem-card" id="problem-card">
+                <div class="problem-display">
+                    <span id="num1" class="number">5</span>
+                    <span id="operator" class="operator">+</span>
+                    <span id="num2" class="number">3</span>
+                    <span class="equals">=</span>
+                    <span class="answer-box">
+                        <input type="number" id="answer-input" class="answer-input"
+                               autocomplete="off" inputmode="numeric"
+                               onkeydown="handleKeyPress(event)">
+                    </span>
+                </div>
+            </div>
+
+            <div id="hint-area" class="hint-area">
+                <button id="hint-btn" class="hint-btn" onclick="showHint()">💡 Hint</button>
+                <div id="hint-steps" class="hint-steps"></div>
+            </div>
+
+            <div class="number-pad">
+                <button class="num-key" onclick="typeNumber('1')">1</button>
+                <button class="num-key" onclick="typeNumber('2')">2</button>
+                <button class="num-key" onclick="typeNumber('3')">3</button>
+                <button class="num-key" onclick="typeNumber('4')">4</button>
+                <button class="num-key" onclick="typeNumber('5')">5</button>
+                <button class="num-key" onclick="typeNumber('6')">6</button>
+                <button class="num-key" onclick="typeNumber('7')">7</button>
+                <button class="num-key" onclick="typeNumber('8')">8</button>
+                <button class="num-key" onclick="typeNumber('9')">9</button>
+                <button class="num-key delete-key" onclick="deleteNumber()">⌫</button>
+                <button class="num-key" onclick="typeNumber('0')">0</button>
+                <button class="num-key check-key" onclick="checkAnswer()">✓</button>
+            </div>
+        </div>
+
+        <!-- Feedback overlay -->
+        <div id="feedback-overlay" class="feedback-overlay hidden">
+            <div id="feedback-content" class="feedback-content"></div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="screen">
+        <div class="results-container">
+            <h1 id="results-title" class="results-title">🎉 Great Job! 🎉</h1>
+            <div id="results-mascot" class="results-mascot">🦊</div>
+            <div class="results-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">⭐</span>
+                    <span class="stat-label">Score</span>
+                    <span id="final-score" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">✅</span>
+                    <span class="stat-label">Correct</span>
+                    <span id="final-correct" class="stat-value">0 / 10</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🔥</span>
+                    <span class="stat-label">Best Streak</span>
+                    <span id="final-streak" class="stat-value">0</span>
+                </div>
+            </div>
+            <div id="star-rating" class="star-rating"></div>
+            <div class="results-buttons">
+                <button class="play-again-btn" onclick="playAgain()">🔄 Play Again</button>
+                <button class="home-btn" onclick="goHome()">🏠 Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="game.js"></script>
+</body>
+</html>
