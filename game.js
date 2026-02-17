@@ -149,7 +149,7 @@ function pickVoice() {
 
     // Male voice names to look for (in priority order)
     // These are common male voice names across platforms
-    const maleNames = ['Daniel', 'Aaron', 'Tom', 'Arthur', 'Ralph', 'Guy', 'James',
+    const maleNames = ['Nathan', 'Daniel', 'Aaron', 'Tom', 'Arthur', 'Ralph', 'Guy', 'James',
                         'Alex', 'Fred', 'Junior', 'Oliver', 'Gordon', 'Malcolm', 'Martin'];
 
     // Known female voice names to EXCLUDE from fallback
