@@ -847,6 +847,82 @@ body {
     80% { transform: translateX(6px); }
 }
 
+/* ===== Ten Frame Styles ===== */
+.tenframe-btn {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    color: white;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 184, 148, 0.3);
+    transition: all 0.2s ease;
+    touch-action: manipulation;
+}
+
+.tenframe-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 184, 148, 0.4);
+}
+
+.tenframe-btn:active {
+    transform: translateY(0);
+}
+
+.tenframe-btn.used {
+    background: linear-gradient(135deg, #b2bec3, #636e72);
+    cursor: default;
+    box-shadow: none;
+}
+
+.tenframes-area {
+    margin-bottom: 12px;
+    text-align: center;
+    animation: hintSlideIn 0.4s ease;
+}
+
+.ten-frame-svg {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+}
+
+.tf-dot-appear {
+    animation: tfDotPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes tfDotPop {
+    0% { r: 0; opacity: 0; }
+    60% { r: 22; }
+    100% { r: 18; opacity: 1; }
+}
+
+.tf-dot-remove {
+    animation: tfDotFade 0.3s ease-out forwards;
+}
+
+@keyframes tfDotFade {
+    0% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+.tf-status {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 700;
+    color: #00b894;
+    margin-top: 8px;
+    animation: hintSlideIn 0.3s ease;
+}
+
 /* Number Pad */
 .number-pad {
     display: grid;

@@ -86,6 +86,7 @@ const state = {
     hintSteps: [],           // array of hint strings for current problem
     sessionRobux: 0,         // Robux earned this game session
     usedNumberLine: false,   // whether number line was used for current problem
+    usedTenFrames: false,    // whether ten frames was used for current problem
 };
 
 // ===== Difficulty Ranges =====
@@ -727,6 +728,7 @@ function resetHints() {
 // ===== Interactive Number Line =====
 // Kid taps each number to hop along the line — they do the counting!
 let nlState = null; // number line state for current problem
+let tfState = null; // ten frame state for current problem
 
 function showNumberLine() {
     if (state.usedNumberLine) return;
@@ -1008,6 +1010,342 @@ function moveMarker(toN) {
     }
 }
 
+// ===== Interactive Ten Frames =====
+// Kid taps cells to add or remove dots — visual counting aid!
+
+function showTenFrames() {
+    if (state.usedTenFrames) return;
+
+    playSound('click');
+    state.usedTenFrames = true;
+
+    const btn = document.getElementById('tenframe-btn');
+    btn.textContent = '🔟 Tap cells!';
+    btn.classList.add('used');
+
+    const problem = state.currentProblem;
+    const isAddition = problem.type === 'addition';
+    const isLevel2 = (state.difficulty === 'medium');
+
+    let firstNum, secondNum, tensCarry;
+
+    if (isLevel2) {
+        firstNum = problem.a % 10;
+        tensCarry = Math.floor(problem.a / 10) * 10;
+        secondNum = problem.b;
+
+        // Skip ten frames for Level 2 subtraction with borrowing
+        if (!isAddition && firstNum < secondNum) {
+            state.usedTenFrames = false;
+            btn.textContent = '🔟 Ten Frame';
+            btn.classList.remove('used');
+            setMascotMessage("This one needs borrowing — try the hint! 💡", true);
+            return;
+        }
+    } else {
+        firstNum = problem.a;
+        secondNum = problem.b;
+        tensCarry = 0;
+    }
+
+    const needsTwoFrames = isAddition && (firstNum + secondNum > 10);
+
+    tfState = {
+        isAddition,
+        firstNum,
+        secondNum,
+        answer: problem.answer,
+        tapsCompleted: 0,
+        targetTaps: secondNum,
+        cellStates: [],
+        needsTwoFrames,
+        isLevel2,
+        tensCarry,
+    };
+
+    // Initialize cell states
+    const totalCells = needsTwoFrames ? 20 : 10;
+    tfState.cellStates = new Array(totalCells).fill('empty');
+
+    // Fill first number's dots (blue)
+    for (let i = 0; i < firstNum; i++) {
+        tfState.cellStates[i] = 'filled-blue';
+    }
+
+    const area = document.getElementById('tenframes-area');
+    area.style.display = '';
+    area.innerHTML = '';
+
+    const svg = buildTenFramesSVG();
+    area.appendChild(svg);
+
+    // Status text
+    const statusDiv = document.createElement('div');
+    statusDiv.className = 'tf-status';
+    statusDiv.id = 'tf-status';
+    if (isLevel2) {
+        if (isAddition) {
+            statusDiv.textContent = `${tensCarry} + ones → Tap ${secondNum} empty cells!`;
+        } else {
+            statusDiv.textContent = `${tensCarry} + ones → Tap ${secondNum} dots to remove!`;
+        }
+    }
+    if (isLevel2) area.appendChild(statusDiv);
+
+    // Mascot instruction
+    if (isAddition) {
+        setMascotMessage(`Tap ${secondNum} empty cells to add dots! 🟠`, false);
+    } else {
+        setMascotMessage(`Tap ${secondNum} blue dots to take away! ❌`, false);
+    }
+}
+
+function buildTenFramesSVG() {
+    const NS = 'http://www.w3.org/2000/svg';
+    const CELL = 54;
+    const GAP = 6;
+    const PAD = 15;
+    const COLS = 5;
+    const ROWS = 2;
+    const FRAME_GAP = 24;
+    const CORNER_R = 8;
+
+    const frameW = COLS * (CELL + GAP) - GAP;
+    const frameH = ROWS * (CELL + GAP) - GAP;
+
+    const twoFrames = tfState.needsTwoFrames;
+    const svgW = twoFrames
+        ? 2 * frameW + FRAME_GAP + 2 * PAD
+        : frameW + 2 * PAD;
+
+    const labelH = tfState.isLevel2 ? 30 : 0;
+    const svgH = frameH + 2 * PAD + labelH;
+
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${svgW} ${svgH}`);
+    svg.setAttribute('class', 'ten-frame-svg');
+
+    // Level 2 label
+    if (tfState.isLevel2) {
+        const label = document.createElementNS(NS, 'text');
+        label.setAttribute('x', svgW / 2);
+        label.setAttribute('y', 22);
+        label.setAttribute('text-anchor', 'middle');
+        label.setAttribute('font-size', '18');
+        label.setAttribute('font-weight', '700');
+        label.setAttribute('fill', '#6C63FF');
+        label.textContent = `${tfState.tensCarry} + ones:`;
+        svg.appendChild(label);
+    }
+
+    const yOff = labelH;
+
+    for (let frame = 0; frame < (twoFrames ? 2 : 1); frame++) {
+        const fxOff = frame === 0
+            ? PAD
+            : PAD + frameW + FRAME_GAP;
+
+        // Frame border
+        const border = document.createElementNS(NS, 'rect');
+        border.setAttribute('x', fxOff - 4);
+        border.setAttribute('y', yOff + PAD - 4);
+        border.setAttribute('width', frameW + 8);
+        border.setAttribute('height', frameH + 8);
+        border.setAttribute('rx', '12');
+        border.setAttribute('ry', '12');
+        border.setAttribute('fill', 'none');
+        border.setAttribute('stroke', '#6C63FF');
+        border.setAttribute('stroke-width', '3');
+        border.setAttribute('opacity', '0.25');
+        svg.appendChild(border);
+
+        // Draw 10 cells
+        for (let row = 0; row < ROWS; row++) {
+            for (let col = 0; col < COLS; col++) {
+                const idx = frame * 10 + row * COLS + col;
+                const cx = fxOff + col * (CELL + GAP) + CELL / 2;
+                const cy = yOff + PAD + row * (CELL + GAP) + CELL / 2;
+                const rx = fxOff + col * (CELL + GAP);
+                const ry = yOff + PAD + row * (CELL + GAP);
+
+                // Cell background
+                const cellRect = document.createElementNS(NS, 'rect');
+                cellRect.setAttribute('x', rx);
+                cellRect.setAttribute('y', ry);
+                cellRect.setAttribute('width', CELL);
+                cellRect.setAttribute('height', CELL);
+                cellRect.setAttribute('rx', CORNER_R);
+                cellRect.setAttribute('ry', CORNER_R);
+                cellRect.setAttribute('fill', '#f0f0f0');
+                cellRect.setAttribute('stroke', '#ddd');
+                cellRect.setAttribute('stroke-width', '1.5');
+                cellRect.setAttribute('data-tf-cell', idx);
+                svg.appendChild(cellRect);
+
+                // Pre-filled blue dot
+                if (tfState.cellStates[idx] === 'filled-blue') {
+                    const dot = document.createElementNS(NS, 'circle');
+                    dot.setAttribute('cx', cx);
+                    dot.setAttribute('cy', cy);
+                    dot.setAttribute('r', '20');
+                    dot.setAttribute('fill', '#4A90D9');
+                    dot.setAttribute('data-tf-dot', idx);
+                    svg.appendChild(dot);
+                }
+
+                // Tap target (full cell)
+                const tap = document.createElementNS(NS, 'rect');
+                tap.setAttribute('x', rx);
+                tap.setAttribute('y', ry);
+                tap.setAttribute('width', CELL);
+                tap.setAttribute('height', CELL);
+                tap.setAttribute('fill', 'transparent');
+                tap.setAttribute('cursor', 'pointer');
+                tap.setAttribute('style', 'user-select: none; -webkit-user-select: none;');
+                tap.setAttribute('data-tf-tap', idx);
+                tap.addEventListener('click', () => handleTenFrameTap(idx));
+                tap.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                    handleTenFrameTap(idx);
+                });
+                svg.appendChild(tap);
+            }
+        }
+    }
+
+    return svg;
+}
+
+function handleTenFrameTap(cellIndex) {
+    if (!tfState || tfState.tapsCompleted >= tfState.targetTaps) return;
+
+    const cellState = tfState.cellStates[cellIndex];
+
+    if (tfState.isAddition) {
+        // Addition: tap empty cells to place orange dots
+        if (cellState !== 'empty') return; // silently ignore filled cells
+
+        tfState.cellStates[cellIndex] = 'filled-orange';
+        tfState.tapsCompleted++;
+        playSound('hop');
+        drawTenFrameDot(cellIndex, '#FF914D');
+
+        if (tfState.tapsCompleted >= tfState.targetTaps) {
+            handleTenFrameComplete();
+        } else {
+            const rem = tfState.targetTaps - tfState.tapsCompleted;
+            setMascotMessage(`${tfState.tapsCompleted} added! ${rem} more! 🟠`, false);
+        }
+    } else {
+        // Subtraction: tap blue dots to remove them
+        if (cellState !== 'filled-blue') return; // ignore empty/already removed
+
+        tfState.cellStates[cellIndex] = 'removed';
+        tfState.tapsCompleted++;
+        playSound('hop');
+        removeTenFrameDot(cellIndex);
+
+        if (tfState.tapsCompleted >= tfState.targetTaps) {
+            handleTenFrameComplete();
+        } else {
+            const rem = tfState.targetTaps - tfState.tapsCompleted;
+            setMascotMessage(`${tfState.tapsCompleted} removed! ${rem} more! ❌`, false);
+        }
+    }
+}
+
+function drawTenFrameDot(cellIndex, color) {
+    const svg = document.querySelector('.ten-frame-svg');
+    if (!svg) return;
+    const NS = 'http://www.w3.org/2000/svg';
+
+    const cellRect = svg.querySelector(`[data-tf-cell="${cellIndex}"]`);
+    if (!cellRect) return;
+
+    const x = parseFloat(cellRect.getAttribute('x')) + 27; // center of 54px cell
+    const y = parseFloat(cellRect.getAttribute('y')) + 27;
+
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', x);
+    dot.setAttribute('cy', y);
+    dot.setAttribute('r', '20');
+    dot.setAttribute('fill', color);
+    dot.setAttribute('data-tf-dot', cellIndex);
+    dot.classList.add('tf-dot-appear');
+
+    const tapTarget = svg.querySelector(`[data-tf-tap="${cellIndex}"]`);
+    svg.insertBefore(dot, tapTarget);
+}
+
+function removeTenFrameDot(cellIndex) {
+    const svg = document.querySelector('.ten-frame-svg');
+    if (!svg) return;
+    const NS = 'http://www.w3.org/2000/svg';
+
+    const dot = svg.querySelector(`[data-tf-dot="${cellIndex}"]`);
+    if (!dot) return;
+
+    dot.classList.add('tf-dot-remove');
+    dot.setAttribute('fill', '#ccc');
+
+    const cx = parseFloat(dot.getAttribute('cx'));
+    const cy = parseFloat(dot.getAttribute('cy'));
+    const xMark = document.createElementNS(NS, 'text');
+    xMark.setAttribute('x', cx);
+    xMark.setAttribute('y', cy + 7);
+    xMark.setAttribute('text-anchor', 'middle');
+    xMark.setAttribute('font-size', '30');
+    xMark.setAttribute('font-weight', '800');
+    xMark.setAttribute('fill', '#FF6B6B');
+    xMark.textContent = '✕';
+    xMark.classList.add('tf-dot-appear');
+
+    const tapTarget = svg.querySelector(`[data-tf-tap="${cellIndex}"]`);
+    svg.insertBefore(xMark, tapTarget);
+}
+
+function handleTenFrameComplete() {
+    setTimeout(() => {
+        const resultNum = tfState.answer;
+
+        const statusEl = document.getElementById('tf-status');
+        if (statusEl) {
+            statusEl.textContent = `You got ${resultNum}! Now type your answer! 🎉`;
+        } else {
+            // Create status if not Level 2
+            const area = document.getElementById('tenframes-area');
+            const statusDiv = document.createElement('div');
+            statusDiv.className = 'tf-status';
+            statusDiv.id = 'tf-status';
+            statusDiv.textContent = `You got ${resultNum}! Now type your answer! 🎉`;
+            area.appendChild(statusDiv);
+        }
+
+        setMascotMessage(`You got ${resultNum}! Now type your answer! 🎉`, false);
+
+        const svg = document.querySelector('.ten-frame-svg');
+        if (svg) {
+            svg.style.boxShadow = '0 4px 15px rgba(0, 184, 148, 0.4)';
+            svg.style.border = '2px solid #00b894';
+        }
+    }, 300);
+}
+
+function resetTenFrames() {
+    state.usedTenFrames = false;
+    tfState = null;
+    const area = document.getElementById('tenframes-area');
+    if (area) {
+        area.style.display = 'none';
+        area.innerHTML = '';
+    }
+    const btn = document.getElementById('tenframe-btn');
+    if (btn) {
+        btn.textContent = '🔟 Ten Frame';
+        btn.classList.remove('used');
+    }
+}
+
 // ===== Screen Management =====
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1171,6 +1509,7 @@ function nextProblem() {
     state.hintSteps = getHints(state.currentProblem);
     resetHints();
     resetNumberLine();
+    resetTenFrames();
 
     const { a, b, operator } = state.currentProblem;
 
@@ -1227,7 +1566,7 @@ function checkAnswer() {
         }
 
         // Robux reward for Hakan (no reward if hints or number line were used)
-        if (currentUser === 'hakan' && state.hintStep === 0 && !state.usedNumberLine) {
+        if (currentUser === 'hakan' && state.hintStep === 0 && !state.usedNumberLine && !state.usedTenFrames) {
             const robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.50;
 
             const currentRobux = loadRobux();
