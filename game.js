@@ -181,11 +181,12 @@ function pickVoice() {
         );
     }
 
-    // 3. Standard male voice by name (Daniel, Aaron, Tom, etc.)
+    // 3. Standard male voice by name — search in OUR priority order, not browser order
     if (!cachedVoice) {
-        cachedVoice = voices.find(v =>
-            isEnglish(v) && isMaleName(v)
-        );
+        for (const name of maleNames) {
+            cachedVoice = voices.find(v => isEnglish(v) && v.name.includes(name));
+            if (cachedVoice) break;
+        }
     }
 
     // 4. Google UK English Male (Chrome on any platform)
@@ -608,6 +609,28 @@ function setDifficulty(diff, btn) {
 // ===== Start Game =====
 function startGame(mode) {
     playSound('click');
+
+    // iOS Safari: voices only load after user gesture.
+    // Force re-detection and kick-start speech engine with a silent utterance.
+    if ('speechSynthesis' in window) {
+        voiceCacheReady = false;
+        cachedVoice = null;
+        window.speechSynthesis.getVoices(); // trigger load
+        pickVoice();
+
+        // Silent utterance to unlock speech on iOS
+        const silent = new SpeechSynthesisUtterance('');
+        silent.volume = 0;
+        window.speechSynthesis.speak(silent);
+
+        // Retry voice pick after a short delay (iOS may need time)
+        setTimeout(() => {
+            voiceCacheReady = false;
+            cachedVoice = null;
+            pickVoice();
+        }, 500);
+    }
+
     state.mode = mode;
     state.score = 0;
     state.streak = 0;
