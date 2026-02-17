@@ -232,11 +232,13 @@ function pickVoice() {
     if (!debugEl) {
         debugEl = document.createElement('div');
         debugEl.id = 'voice-debug';
-        debugEl.style.cssText = 'position:fixed;bottom:4px;left:4px;background:rgba(0,0,0,0.7);color:#0f0;font-size:11px;padding:4px 8px;border-radius:6px;z-index:9999;max-width:90vw;word-break:break-all;';
+        debugEl.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.85);color:#0f0;font-size:12px;padding:8px;z-index:9999;max-height:40vh;overflow-y:auto;font-family:monospace;line-height:1.6;';
         document.body.appendChild(debugEl);
     }
-    const allEnglish = voices.filter(v => v.lang.startsWith('en')).map(v => v.name).join(', ');
-    debugEl.textContent = `[${matchStep}] ${cachedVoice ? cachedVoice.name : 'NONE'} | ${allEnglish}`;
+    const allEnglish = voices.filter(v => v.lang.startsWith('en')).map(v => `${v.name} [${v.lang}]`);
+    debugEl.innerHTML = `<b style="color:#ff0">Selected: [${matchStep}] ${cachedVoice ? cachedVoice.name : 'NONE'}</b><br>` +
+        `<b style="color:#0ff">All ${allEnglish.length} English voices:</b><br>` +
+        allEnglish.map((v, i) => `${i+1}. ${v}`).join('<br>');
 
     voiceCacheReady = true;
     return cachedVoice;
