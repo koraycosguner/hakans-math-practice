@@ -20,7 +20,7 @@
     <div id="user-screen" class="screen active">
         <div class="start-container">
             <h1 class="title bounce">🧮 Math Practice! 🌟</h1>
-            <div class="mascot">🦊</div>
+            <div class="mascot"><img src="hakan.jpg" alt="Hakan" class="mascot-photo"></div>
             <p class="subtitle">Who's playing?</p>
 
             <div class="user-selection">
@@ -40,7 +40,7 @@
     <div id="start-screen" class="screen">
         <div class="start-container">
             <h1 class="title bounce">🧮 <span id="start-title-name">Hakan's</span> Math Practice! 🌟</h1>
-            <div class="mascot">🦊</div>
+            <div class="mascot"><img src="hakan.jpg" alt="Hakan" class="mascot-photo"></div>
             <p class="subtitle">Let's have fun with numbers!</p>
 
             <!-- Robux display (Hakan only) -->
@@ -67,10 +67,10 @@
                 <h2>Pick your level:</h2>
                 <div class="difficulty-buttons">
                     <button class="diff-btn easy active" onclick="setDifficulty('easy', this)">
-                        <span>🐣</span> Level 1<br><small>(single digits · 💎 0.15)</small>
+                        <span>🐣</span> Level 1<br><small>(single digits · 💎 0.50)</small>
                     </button>
                     <button class="diff-btn medium" onclick="setDifficulty('medium', this)">
-                        <span>🐥</span> Level 2<br><small>(bigger numbers · 💎 0.25)</small>
+                        <span>🐥</span> Level 2<br><small>(bigger numbers · 💎 0.50)</small>
                     </button>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                         <div class="speech-bubble">
                             <span id="mascot-message">You can do it! 💪</span>
                         </div>
-                        <div class="game-mascot">🦊</div>
+                        <div class="game-mascot"><img src="hakan.jpg" alt="Hakan" class="mascot-photo-small"></div>
                     </div>
 
                     <div class="problem-card" id="problem-card">
@@ -141,8 +141,13 @@
                         </div>
                     </div>
 
+                    <div id="numberline-area" class="numberline-area" style="display: none;"></div>
+
                     <div id="hint-area" class="hint-area">
-                        <button id="hint-btn" class="hint-btn" onclick="showHint()">💡 Hint</button>
+                        <div class="hint-buttons-row">
+                            <button id="hint-btn" class="hint-btn" onclick="showHint()">💡 Hint</button>
+                            <button id="numberline-btn" class="numberline-btn" onclick="showNumberLine()">📏 Number Line</button>
+                        </div>
                         <div id="hint-steps" class="hint-steps"></div>
                     </div>
                 </div>
@@ -176,7 +181,7 @@
     <div id="results-screen" class="screen">
         <div class="results-container">
             <h1 id="results-title" class="results-title">🎉 Great Job! 🎉</h1>
-            <div id="results-mascot" class="results-mascot">🦊</div>
+            <div id="results-mascot" class="results-mascot"><img src="hakan.jpg" alt="Hakan" class="mascot-photo"></div>
             <div class="results-stats">
                 <div class="stat-item">
                     <span class="stat-icon">⭐</span>

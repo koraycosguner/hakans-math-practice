@@ -1,8 +1,8 @@
 // ===== User & Robux =====
 let currentUser = null; // 'hakan' or 'koray'
 const ROBUX_BY_LEVEL = {
-    easy: 0.15,
-    medium: 0.25,
+    easy: 0.50,
+    medium: 0.50,
 };
 const ROBUX_STORAGE_KEY = 'hakans-math-robux';
 
@@ -85,6 +85,7 @@ const state = {
     hintStep: 0,             // current hint step shown (0 = none)
     hintSteps: [],           // array of hint strings for current problem
     sessionRobux: 0,         // Robux earned this game session
+    usedNumberLine: false,   // whether number line was used for current problem
 };
 
 // ===== Difficulty Ranges =====
@@ -155,6 +156,13 @@ function playSound(type) {
             gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
             oscillator.start(ctx.currentTime);
             oscillator.stop(ctx.currentTime + 0.08);
+        } else if (type === 'hop') {
+            oscillator.frequency.setValueAtTime(440, ctx.currentTime);
+            oscillator.frequency.setValueAtTime(587, ctx.currentTime + 0.05);
+            gainNode.gain.setValueAtTime(0.12, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.15);
         } else if (type === 'win') {
             const notes = [523, 587, 659, 698, 784, 880, 988, 1047];
             notes.forEach((freq, i) => {
@@ -716,6 +724,290 @@ function resetHints() {
     hintBtn.classList.remove('exhausted');
 }
 
+// ===== Interactive Number Line =====
+// Kid taps each number to hop along the line — they do the counting!
+let nlState = null; // number line state for current problem
+
+function showNumberLine() {
+    if (state.usedNumberLine) return;
+
+    playSound('click');
+    state.usedNumberLine = true;
+
+    const btn = document.getElementById('numberline-btn');
+    btn.textContent = '📏 Tap to count!';
+    btn.classList.add('used');
+
+    const problem = state.currentProblem;
+    const isAddition = problem.type === 'addition';
+    const startAt = isAddition ? Math.max(problem.a, problem.b) : problem.a;
+    const hopCount = isAddition ? Math.min(problem.a, problem.b) : problem.b;
+
+    nlState = {
+        isAddition,
+        startAt,
+        hopCount,
+        currentPos: startAt,  // where we are now
+        hopsCompleted: 0,
+        answer: problem.answer,
+        rangeMin: 0,
+        rangeMax: 20,
+    };
+
+    // Calculate range
+    if (state.difficulty === 'easy') {
+        nlState.rangeMin = 0;
+        nlState.rangeMax = 20;
+    } else {
+        const lo = Math.min(startAt, problem.answer);
+        const hi = Math.max(startAt, problem.answer);
+        nlState.rangeMin = Math.max(0, lo - 3);
+        nlState.rangeMax = hi + 3;
+        if (nlState.rangeMax - nlState.rangeMin < 12) nlState.rangeMax = nlState.rangeMin + 12;
+    }
+
+    const area = document.getElementById('numberline-area');
+    area.style.display = '';
+    area.innerHTML = '';
+
+    const svg = buildNumberLineSVG();
+    area.appendChild(svg);
+
+    const direction = isAddition ? 'Count forward! Tap the next number →' : 'Count backward! Tap the next number ←';
+    setMascotMessage(direction + ' 🐸', false);
+}
+
+function resetNumberLine() {
+    state.usedNumberLine = false;
+    nlState = null;
+    const area = document.getElementById('numberline-area');
+    if (area) {
+        area.style.display = 'none';
+        area.innerHTML = '';
+    }
+    const btn = document.getElementById('numberline-btn');
+    if (btn) {
+        btn.textContent = '📏 Number Line';
+        btn.classList.remove('used');
+    }
+}
+
+function buildNumberLineSVG() {
+    const { isAddition, startAt, rangeMin, rangeMax } = nlState;
+    const W = 750, PAD = 35, usable = W - 2 * PAD;
+    const BASELINE = isAddition ? 120 : 50;
+    const H = 170;
+    const NS = 'http://www.w3.org/2000/svg';
+
+    function nx(n) {
+        return PAD + ((n - rangeMin) / (rangeMax - rangeMin)) * usable;
+    }
+
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('class', 'number-line-svg');
+
+    // Main horizontal line
+    const mainLine = document.createElementNS(NS, 'line');
+    mainLine.setAttribute('x1', PAD);
+    mainLine.setAttribute('y1', BASELINE);
+    mainLine.setAttribute('x2', W - PAD);
+    mainLine.setAttribute('y2', BASELINE);
+    mainLine.setAttribute('stroke', '#6C63FF');
+    mainLine.setAttribute('stroke-width', '3.5');
+    mainLine.setAttribute('stroke-linecap', 'round');
+    svg.appendChild(mainLine);
+
+    // Tick marks, labels, and tap targets
+    const labelSize = (rangeMax - rangeMin) > 15 ? '14' : '17';
+    for (let n = rangeMin; n <= rangeMax; n++) {
+        const x = nx(n);
+
+        // Tick mark
+        const tick = document.createElementNS(NS, 'line');
+        tick.setAttribute('x1', x);
+        tick.setAttribute('y1', BASELINE - 10);
+        tick.setAttribute('x2', x);
+        tick.setAttribute('y2', BASELINE + 10);
+        tick.setAttribute('stroke', '#6C63FF');
+        tick.setAttribute('stroke-width', '2.5');
+        svg.appendChild(tick);
+
+        // Label (below for addition, above for subtraction)
+        const labelY = isAddition ? BASELINE + 30 : BASELINE - 18;
+        const label = document.createElementNS(NS, 'text');
+        label.setAttribute('x', x);
+        label.setAttribute('y', labelY);
+        label.setAttribute('text-anchor', 'middle');
+        label.setAttribute('font-size', labelSize);
+        label.setAttribute('font-weight', n === startAt ? '800' : '600');
+        label.setAttribute('fill', n === startAt ? '#FF914D' : '#636E72');
+        label.setAttribute('data-nl-num', n);
+        label.setAttribute('cursor', 'pointer');
+        label.setAttribute('style', 'user-select: none; -webkit-user-select: none;');
+        label.textContent = n;
+        label.addEventListener('click', () => handleNumberLineTap(n));
+        label.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            handleNumberLineTap(n);
+        });
+        svg.appendChild(label);
+
+        // Invisible tap target (larger hit area)
+        const tapTarget = document.createElementNS(NS, 'circle');
+        tapTarget.setAttribute('cx', x);
+        tapTarget.setAttribute('cy', BASELINE);
+        tapTarget.setAttribute('r', '22');
+        tapTarget.setAttribute('fill', 'transparent');
+        tapTarget.setAttribute('cursor', 'pointer');
+        tapTarget.setAttribute('data-nl-tap', n);
+        tapTarget.addEventListener('click', () => handleNumberLineTap(n));
+        tapTarget.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            handleNumberLineTap(n);
+        });
+        svg.appendChild(tapTarget);
+    }
+
+    // Starting point marker (orange)
+    const startMarker = document.createElementNS(NS, 'circle');
+    startMarker.setAttribute('cx', nx(startAt));
+    startMarker.setAttribute('cy', BASELINE);
+    startMarker.setAttribute('r', '9');
+    startMarker.setAttribute('fill', '#FF914D');
+    startMarker.setAttribute('stroke', '#fff');
+    startMarker.setAttribute('stroke-width', '2.5');
+    startMarker.id = 'nl-current-marker';
+    svg.appendChild(startMarker);
+
+    return svg;
+}
+
+function handleNumberLineTap(n) {
+    if (!nlState || nlState.hopsCompleted >= nlState.hopCount) return;
+
+    const { isAddition, currentPos, hopCount, rangeMin, rangeMax } = nlState;
+    const expectedNext = isAddition ? currentPos + 1 : currentPos - 1;
+
+    if (n === expectedNext) {
+        // Correct tap! Draw arc and advance
+        nlState.hopsCompleted++;
+        nlState.currentPos = n;
+
+        playSound('hop');
+        drawHopArc(currentPos, n);
+        moveMarker(n);
+
+        // Update hop counter in mascot
+        const remaining = hopCount - nlState.hopsCompleted;
+        if (remaining > 0) {
+            setMascotMessage(`${nlState.hopsCompleted} hop${nlState.hopsCompleted > 1 ? 's' : ''}! ${remaining} more to go! 🐸`, false);
+        }
+
+        // Check if done
+        if (nlState.hopsCompleted >= hopCount) {
+            // All hops complete — show green answer marker
+            setTimeout(() => {
+                const marker = document.getElementById('nl-current-marker');
+                if (marker) {
+                    marker.setAttribute('fill', '#43e97b');
+                    marker.setAttribute('r', '9');
+                    marker.classList.add('visible');
+                }
+                // Highlight answer label green
+                document.querySelectorAll('[data-nl-num]').forEach(el => {
+                    if (parseInt(el.getAttribute('data-nl-num')) === n) {
+                        el.setAttribute('fill', '#2E7D32');
+                        el.setAttribute('font-weight', '800');
+                    }
+                });
+                setMascotMessage(`You got to ${n}! Now type your answer! 🎉`, false);
+                speak(`${n}!`);
+            }, 200);
+        }
+    } else {
+        // Wrong tap — reset back to start!
+        playSound('wrong');
+        const svg = document.querySelector('.number-line-svg');
+        if (svg) {
+            svg.classList.add('nl-shake');
+            setTimeout(() => svg.classList.remove('nl-shake'), 400);
+        }
+
+        // Remove all drawn arcs and labels
+        document.querySelectorAll('.hop-arc, .hop-label').forEach(el => el.remove());
+
+        // Reset state back to beginning
+        nlState.currentPos = nlState.startAt;
+        nlState.hopsCompleted = 0;
+
+        // Move marker back to start
+        moveMarker(nlState.startAt);
+
+        const direction = isAddition ? 'forward' : 'backward';
+        setMascotMessage(`Oops! Back to ${nlState.startAt}. Count ${direction}! 🤔`, false);
+    }
+}
+
+function drawHopArc(fromN, toN) {
+    const { isAddition, rangeMin, rangeMax } = nlState;
+    const svg = document.querySelector('.number-line-svg');
+    if (!svg) return;
+
+    const W = 750, PAD = 35, usable = W - 2 * PAD;
+    const BASELINE = isAddition ? 120 : 50;
+    const arcHeight = state.difficulty === 'easy' ? 42 : 38;
+    const NS = 'http://www.w3.org/2000/svg';
+
+    function nx(n) {
+        return PAD + ((n - rangeMin) / (rangeMax - rangeMin)) * usable;
+    }
+
+    const x1 = nx(fromN);
+    const x2 = nx(toN);
+    const cx = (x1 + x2) / 2;
+    const cy = isAddition ? BASELINE - arcHeight : BASELINE + arcHeight;
+
+    // Draw arc
+    const arc = document.createElementNS(NS, 'path');
+    arc.setAttribute('d', `M ${x1} ${BASELINE} Q ${cx} ${cy} ${x2} ${BASELINE}`);
+    arc.setAttribute('class', 'hop-arc visible');
+    arc.setAttribute('stroke', '#6C63FF');
+    arc.setAttribute('stroke-width', '3');
+    arc.setAttribute('fill', 'none');
+    arc.setAttribute('stroke-linecap', 'round');
+
+    // Insert arc BEFORE the current marker so marker stays on top
+    const marker = document.getElementById('nl-current-marker');
+    svg.insertBefore(arc, marker);
+
+    // Hop count label at apex
+    const hopLabel = document.createElementNS(NS, 'text');
+    hopLabel.setAttribute('x', cx);
+    hopLabel.setAttribute('y', isAddition ? cy - 5 : cy + 16);
+    hopLabel.setAttribute('text-anchor', 'middle');
+    hopLabel.setAttribute('font-size', '13');
+    hopLabel.setAttribute('font-weight', '700');
+    hopLabel.setAttribute('fill', '#6C63FF');
+    hopLabel.setAttribute('class', 'hop-label visible');
+    hopLabel.textContent = nlState.hopsCompleted;
+    svg.insertBefore(hopLabel, marker);
+}
+
+function moveMarker(toN) {
+    const { rangeMin, rangeMax } = nlState;
+    const W = 750, PAD = 35, usable = W - 2 * PAD;
+
+    function nx(n) {
+        return PAD + ((n - rangeMin) / (rangeMax - rangeMin)) * usable;
+    }
+
+    const marker = document.getElementById('nl-current-marker');
+    if (marker) {
+        marker.setAttribute('cx', nx(toN));
+    }
+}
+
 // ===== Screen Management =====
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -878,6 +1170,7 @@ function nextProblem() {
     state.currentProblem = generateProblem();
     state.hintSteps = getHints(state.currentProblem);
     resetHints();
+    resetNumberLine();
 
     const { a, b, operator } = state.currentProblem;
 
@@ -933,14 +1226,9 @@ function checkAnswer() {
             state.bestStreak = state.streak;
         }
 
-        // Robux reward for Hakan (no reward if hints were used)
-        if (currentUser === 'hakan' && state.hintStep === 0) {
-            let robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.15;
-
-            // Bonus for 10 correct in a row!
-            if (state.streak === 10) {
-                robuxEarned = Math.round((robuxEarned + 0.2) * 100) / 100;
-            }
+        // Robux reward for Hakan (no reward if hints or number line were used)
+        if (currentUser === 'hakan' && state.hintStep === 0 && !state.usedNumberLine) {
+            const robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.50;
 
             const currentRobux = loadRobux();
             const newRobux = Math.round((currentRobux + robuxEarned) * 100) / 100;
@@ -954,9 +1242,7 @@ function checkAnswer() {
 
         // Show encouragement
         let message;
-        if (state.streak === 10 && currentUser === 'hakan') {
-            message = '🔥 10 in a row! +0.20 BONUS Robux! 💎🎉';
-        } else if (state.streak >= 3 && state.streak % 3 === 0) {
+        if (state.streak >= 3 && state.streak % 3 === 0) {
             message = randomChoice(MESSAGES.streak) + ` (${state.streak} in a row!)`;
         } else {
             message = randomChoice(MESSAGES.correct);
@@ -1144,23 +1430,30 @@ function showResults() {
     const pct = state.correctAnswers / state.totalQuestions;
 
     // Title based on performance
-    let title, mascotEmoji;
+    let title, badgeEmoji;
     if (pct === 1) {
         title = "🏆 PERFECT SCORE! 🏆";
-        mascotEmoji = "🦊🎓";
+        badgeEmoji = "🎓";
     } else if (pct >= 0.8) {
         title = "🎉 Great Job! 🎉";
-        mascotEmoji = "🦊👏";
+        badgeEmoji = "👏";
     } else if (pct >= 0.5) {
         title = "👍 Good Try! 👍";
-        mascotEmoji = "🦊💪";
+        badgeEmoji = "💪";
     } else {
         title = "Keep Practicing! 📚";
-        mascotEmoji = "🦊🤗";
+        badgeEmoji = "🤗";
     }
 
     document.getElementById('results-title').textContent = title;
-    document.getElementById('results-mascot').textContent = mascotEmoji;
+    // Keep the photo, just update the badge
+    const resultsMascot = document.getElementById('results-mascot');
+    const existingBadge = resultsMascot.querySelector('.results-badge');
+    if (existingBadge) existingBadge.remove();
+    const badge = document.createElement('span');
+    badge.className = 'results-badge';
+    badge.textContent = badgeEmoji;
+    resultsMascot.appendChild(badge);
     document.getElementById('final-score').textContent = state.score;
     document.getElementById('final-correct').textContent =
         `${state.correctAnswers} / ${state.totalQuestions}`;
