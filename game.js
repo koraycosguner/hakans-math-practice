@@ -886,9 +886,15 @@ function checkAnswer() {
             state.bestStreak = state.streak;
         }
 
-        // Robux reward for Hakan (varies by difficulty)
-        if (currentUser === 'hakan') {
-            const robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.15;
+        // Robux reward for Hakan (no reward if hints were used)
+        if (currentUser === 'hakan' && state.hintStep === 0) {
+            let robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.15;
+
+            // Bonus for 10 correct in a row!
+            if (state.streak === 10) {
+                robuxEarned = Math.round((robuxEarned + 0.2) * 100) / 100;
+            }
+
             const currentRobux = loadRobux();
             const newRobux = Math.round((currentRobux + robuxEarned) * 100) / 100;
             saveRobux(newRobux);
@@ -901,7 +907,9 @@ function checkAnswer() {
 
         // Show encouragement
         let message;
-        if (state.streak >= 3 && state.streak % 3 === 0) {
+        if (state.streak === 10 && currentUser === 'hakan') {
+            message = '🔥 10 in a row! +0.20 BONUS Robux! 💎🎉';
+        } else if (state.streak >= 3 && state.streak % 3 === 0) {
             message = randomChoice(MESSAGES.streak) + ` (${state.streak} in a row!)`;
         } else {
             message = randomChoice(MESSAGES.correct);
