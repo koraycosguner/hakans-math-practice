@@ -223,6 +223,17 @@ function pickVoice() {
         console.log('Selected voice:', cachedVoice.name, cachedVoice.lang);
     }
 
+    // Debug: show selected voice on screen (temporary — remove later)
+    let debugEl = document.getElementById('voice-debug');
+    if (!debugEl) {
+        debugEl = document.createElement('div');
+        debugEl.id = 'voice-debug';
+        debugEl.style.cssText = 'position:fixed;bottom:4px;left:4px;background:rgba(0,0,0,0.7);color:#0f0;font-size:11px;padding:4px 8px;border-radius:6px;z-index:9999;max-width:90vw;word-break:break-all;';
+        document.body.appendChild(debugEl);
+    }
+    const allEnglish = voices.filter(v => v.lang.startsWith('en')).map(v => v.name).join(', ');
+    debugEl.textContent = `Voice: ${cachedVoice ? cachedVoice.name : 'NONE'} | EN voices: ${allEnglish}`;
+
     voiceCacheReady = true;
     return cachedVoice;
 }
