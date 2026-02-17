@@ -123,10 +123,6 @@ function speak(text) {
     utterance.pitch = 0.95; // Slightly lower for a deeper male sound
     utterance.volume = 0.85;
 
-    // Pick the best available male voice
-    // Priority: Premium > Enhanced > Standard quality
-    // Preferred male voices on Apple: Daniel, Aaron, Tom
-    // On other platforms: Google UK English Male, Microsoft Guy, etc.
     const voice = pickVoice();
     if (voice) utterance.voice = voice;
 
@@ -152,10 +148,17 @@ function pickVoice() {
     const maleNames = ['Nathan', 'Daniel', 'Aaron', 'Tom', 'Arthur', 'Guy', 'James',
                         'Alex', 'Oliver', 'Gordon', 'Malcolm', 'Martin', 'Rishi', 'Reed'];
 
-    // Known female voice names to EXCLUDE from fallback
+    // Novelty/robotic voices to AVOID (sound terrible for kids)
+    const noveltyNames = ['Albert', 'Bad News', 'Bahh', 'Bells', 'Boing', 'Bubbles',
+                           'Cellos', 'Good News', 'Jester', 'Organ', 'Trinoids',
+                           'Whisper', 'Wobble', 'Zarvox', 'Fred', 'Junior', 'Ralph',
+                           'Superstar', 'Rocko', 'Grandma', 'Grandpa', 'Sandy'];
+
+    // Known female voice names
     const femaleNames = ['Samantha', 'Karen', 'Victoria', 'Tessa', 'Moira', 'Fiona',
                           'Kate', 'Serena', 'Veena', 'Allison', 'Ava', 'Susan', 'Zoe',
-                          'Nicky', 'Joelle', 'Satu', 'Sara', 'Sandy', 'Ellen', 'Martha'];
+                          'Nicky', 'Joelle', 'Satu', 'Sara', 'Ellen', 'Martha',
+                          'Flo', 'Kathy'];
 
     function isEnglish(v) {
         return v.lang.startsWith('en');
@@ -167,6 +170,10 @@ function pickVoice() {
 
     function isFemaleName(v) {
         return femaleNames.some(n => v.name.includes(n));
+    }
+
+    function isNovelty(v) {
+        return noveltyNames.some(n => v.name.includes(n));
     }
 
     let matchStep = 'none';
@@ -205,24 +212,30 @@ function pickVoice() {
         if (cachedVoice) matchStep = '5-male-keyword';
     }
 
-    // 6. Any Enhanced/Premium English voice (prefer non-female)
+    // 6. Any Enhanced/Premium English voice (non-novelty)
     if (!cachedVoice) {
         cachedVoice = voices.find(v =>
-            isEnglish(v) && (v.name.includes('(Premium)') || v.name.includes('(Enhanced)')) && !isFemaleName(v)
+            isEnglish(v) && (v.name.includes('(Premium)') || v.name.includes('(Enhanced)')) && !isNovelty(v)
         );
         if (cachedVoice) matchStep = '6-enhanced-any';
     }
 
-    // 7. Any English voice that isn't female
+    // 7. Any normal English voice (not novelty, not female)
     if (!cachedVoice) {
-        cachedVoice = voices.find(v => isEnglish(v) && !isFemaleName(v));
-        if (cachedVoice) matchStep = '7-non-female';
+        cachedVoice = voices.find(v => isEnglish(v) && !isFemaleName(v) && !isNovelty(v));
+        if (cachedVoice) matchStep = '7-normal-male';
     }
 
-    // 8. Last fallback
+    // 8. Any normal English voice (even female — better than novelty)
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v => isEnglish(v) && !isNovelty(v));
+        if (cachedVoice) matchStep = '8-any-normal';
+    }
+
+    // 9. Last fallback: anything English
     if (!cachedVoice) {
         cachedVoice = voices.find(v => isEnglish(v));
-        if (cachedVoice) matchStep = '8-fallback';
+        if (cachedVoice) matchStep = '9-fallback';
     }
 
     console.log('Selected voice:', cachedVoice?.name, cachedVoice?.lang, 'step:', matchStep);
