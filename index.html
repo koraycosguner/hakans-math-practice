@@ -127,16 +127,24 @@
                     </div>
 
                     <div class="problem-card" id="problem-card">
-                        <div class="problem-display">
-                            <span id="num1" class="number">5</span>
-                            <span id="operator" class="operator">+</span>
-                            <span id="num2" class="number">3</span>
-                            <span class="equals">=</span>
-                            <span class="answer-box">
-                                <input type="number" id="answer-input" class="answer-input"
-                                       autocomplete="off" inputmode="numeric"
-                                       onkeydown="handleKeyPress(event)">
-                            </span>
+                        <div class="problem-display vertical">
+                            <div class="problem-row top-number">
+                                <span class="row-spacer"></span>
+                                <span id="num1" class="number">5</span>
+                            </div>
+                            <div class="problem-row bottom-number">
+                                <span id="operator" class="operator">+</span>
+                                <span id="num2" class="number">3</span>
+                            </div>
+                            <div class="problem-line"></div>
+                            <div class="problem-row answer-row">
+                                <span class="row-spacer"></span>
+                                <span class="answer-box">
+                                    <input type="number" id="answer-input" class="answer-input"
+                                           autocomplete="off" inputmode="numeric"
+                                           onkeydown="handleKeyPress(event)">
+                                </span>
+                            </div>
                         </div>
                         <div id="correct-answer-display" class="correct-answer-display">
                             <div class="correct-answer-equation">
