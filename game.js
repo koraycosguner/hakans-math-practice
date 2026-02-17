@@ -503,6 +503,30 @@ function getAdditionHints(a, b, answer) {
         ];
     }
 
+    // 2-digit + 1-digit: no carrying (ones digits don't exceed 9)
+    // e.g. 43 + 5 = 48 → just add the ones
+    if (a >= 10 && b <= 9) {
+        const addAOnes = a % 10;
+        const addATens = Math.floor(a / 10) * 10;
+        if (addAOnes + b <= 9) {
+            return [
+                `Look at the ones: ${addAOnes} + ${b} = ${addAOnes + b} 🔢`,
+                `The tens stay the same: ${addATens}`,
+                `So ${a} + ${b} = ${answer}! ✨`,
+            ];
+        } else {
+            // Carrying: ones overflow past 9
+            // e.g. 47 + 6 → 7+6=13, carry the 1 → 53
+            const onesSum = addAOnes + b;
+            const newOnes = onesSum % 10;
+            return [
+                `Add the ones: ${addAOnes} + ${b} = ${onesSum}. That's more than 9! 🤔`,
+                `Write down ${newOnes} and carry the 1 to the tens ✋`,
+                `Tens: ${Math.floor(a / 10)} + 1 = ${Math.floor(a / 10) + 1}, so the answer is ${answer}! 🌟`,
+            ];
+        }
+    }
+
     // Bigger numbers: break apart strategy
     if (a > 10 || b > 10) {
         const bTens = Math.floor(b / 10) * 10;
@@ -597,7 +621,30 @@ function getSubtractionHints(a, b, answer) {
         ];
     }
 
-    // Think addition
+    // 2-digit minus 1-digit: ones digit is big enough (no borrowing)
+    // e.g. 46 − 3 → just subtract the ones: 6 − 3 = 3, answer is 43
+    const aOnes = a % 10;
+    const aTens = Math.floor(a / 10) * 10;
+    if (a >= 10 && b <= 9 && aOnes >= b) {
+        return [
+            `Look at the ones digit: ${aOnes} − ${b} = ${aOnes - b} 🔢`,
+            `The tens stay the same: ${aTens}`,
+            `So ${a} − ${b} = ${aTens + (aOnes - b)}! ✨`,
+        ];
+    }
+
+    // 2-digit minus 1-digit: need to borrow (ones digit too small)
+    // e.g. 43 − 7 → take away 3 to get to 40, then take away 4 more = 36
+    if (a >= 10 && b <= 9 && aOnes < b) {
+        const remaining = b - aOnes;
+        return [
+            `The ones digit ${aOnes} is smaller than ${b}... let's go through the tens! 🎯`,
+            `First take away ${aOnes} to get to ${aTens}: ${a} − ${aOnes} = ${aTens}`,
+            `Still need to take away ${remaining} more: ${aTens} − ${remaining} = ${answer}! 🌟`,
+        ];
+    }
+
+    // Think addition (works well for single digits)
     if (b <= 10 && a <= 20) {
         return [
             `Think addition! ${b} + ? = ${a} 🤔`,
