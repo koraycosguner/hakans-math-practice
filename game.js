@@ -1,3 +1,72 @@
+// ===== User & Robux =====
+let currentUser = null; // 'hakan' or 'koray'
+const ROBUX_PER_CORRECT = 0.2;
+const ROBUX_STORAGE_KEY = 'hakans-math-robux';
+
+function loadRobux() {
+    try {
+        const data = JSON.parse(localStorage.getItem(ROBUX_STORAGE_KEY));
+        return data ? data.robux : 0;
+    } catch (e) {
+        return 0;
+    }
+}
+
+function saveRobux(amount) {
+    localStorage.setItem(ROBUX_STORAGE_KEY, JSON.stringify({ robux: amount }));
+}
+
+function selectUser(name) {
+    currentUser = name;
+    playSound('click');
+
+    // Update start screen for this user
+    const titleName = document.getElementById('start-title-name');
+    titleName.textContent = name === 'hakan' ? "Hakan's" : "Koray's";
+
+    const robuxBanner = document.getElementById('robux-banner');
+    const adminSection = document.getElementById('admin-section');
+    const robuxDisplay = document.getElementById('robux-display');
+
+    if (name === 'hakan') {
+        // Show Robux banner, hide admin
+        const robux = loadRobux();
+        document.getElementById('robux-total').textContent = robux.toFixed(1);
+        robuxBanner.style.display = '';
+        adminSection.style.display = 'none';
+        robuxDisplay.style.display = '';
+        document.getElementById('robux-game').textContent = robux.toFixed(1);
+    } else {
+        // Koray: show admin section, hide Robux banner
+        const robux = loadRobux();
+        document.getElementById('admin-robux').textContent = robux.toFixed(1);
+        robuxBanner.style.display = 'none';
+        adminSection.style.display = '';
+        robuxDisplay.style.display = 'none';
+    }
+
+    showScreen('start-screen');
+}
+
+function switchUser() {
+    playSound('click');
+    showScreen('user-screen');
+}
+
+function resetRobux() {
+    if (confirm('Reset Hakan\'s Robux to 0? (Do this after buying Robux)')) {
+        saveRobux(0);
+        document.getElementById('admin-robux').textContent = '0.0';
+        alert('Robux reset to 0!');
+    }
+}
+
+function updateRobuxDisplay() {
+    if (currentUser !== 'hakan') return;
+    const robux = loadRobux();
+    document.getElementById('robux-game').textContent = robux.toFixed(1);
+}
+
 // ===== Game State =====
 const state = {
     mode: 'addition',        // addition, subtraction, mixed
@@ -12,6 +81,7 @@ const state = {
     attempts: 0,             // attempts for current problem
     hintStep: 0,             // current hint step shown (0 = none)
     hintSteps: [],           // array of hint strings for current problem
+    sessionRobux: 0,         // Robux earned this game session
 };
 
 // ===== Difficulty Ranges =====
@@ -642,10 +712,12 @@ function startGame(mode) {
     state.bestStreak = 0;
     state.questionNumber = 0;
     state.correctAnswers = 0;
+    state.sessionRobux = 0;
 
     updateScoreDisplay();
     updateStreakDisplay();
     updateProgress();
+    updateRobuxDisplay();
 
     showScreen('game-screen');
     setMascotMessage(randomChoice(MESSAGES.start));
@@ -797,6 +869,15 @@ function checkAnswer() {
         state.correctAnswers++;
         if (state.streak > state.bestStreak) {
             state.bestStreak = state.streak;
+        }
+
+        // Robux reward for Hakan
+        if (currentUser === 'hakan') {
+            const currentRobux = loadRobux();
+            const newRobux = Math.round((currentRobux + ROBUX_PER_CORRECT) * 10) / 10;
+            saveRobux(newRobux);
+            state.sessionRobux = Math.round((state.sessionRobux + ROBUX_PER_CORRECT) * 10) / 10;
+            updateRobuxDisplay();
         }
 
         card.classList.add('correct');
@@ -970,6 +1051,13 @@ function handleKeyPress(e) {
 // ===== Navigation =====
 function goHome() {
     playSound('click');
+    // Refresh Robux displays on start screen
+    if (currentUser === 'hakan') {
+        const robux = loadRobux();
+        document.getElementById('robux-total').textContent = robux.toFixed(1);
+    } else if (currentUser === 'koray') {
+        document.getElementById('admin-robux').textContent = loadRobux().toFixed(1);
+    }
     showScreen('start-screen');
 }
 
@@ -1011,6 +1099,16 @@ function showResults() {
     const stars = Math.ceil(pct * 5);
     const starRating = document.getElementById('star-rating');
     starRating.textContent = '⭐'.repeat(stars) + '☆'.repeat(5 - stars);
+
+    // Robux results (Hakan only)
+    const robuxResults = document.getElementById('robux-results');
+    if (currentUser === 'hakan') {
+        document.getElementById('robux-session').textContent = state.sessionRobux.toFixed(1);
+        document.getElementById('robux-total-result').textContent = loadRobux().toFixed(1);
+        robuxResults.style.display = '';
+    } else {
+        robuxResults.style.display = 'none';
+    }
 
     // Update progress to 100%
     document.getElementById('progress-fill').style.width = '100%';

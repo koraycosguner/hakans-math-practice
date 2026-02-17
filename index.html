@@ -16,12 +16,48 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Start Screen -->
-    <div id="start-screen" class="screen active">
+    <!-- User Selection Screen -->
+    <div id="user-screen" class="screen active">
         <div class="start-container">
-            <h1 class="title bounce">🧮 Hakan's Math Practice! 🌟</h1>
+            <h1 class="title bounce">🧮 Math Practice! 🌟</h1>
+            <div class="mascot">🦊</div>
+            <p class="subtitle">Who's playing?</p>
+
+            <div class="user-selection">
+                <button class="user-btn hakan-btn" onclick="selectUser('hakan')">
+                    <span class="user-avatar">🎮</span>
+                    <span class="user-name">Hakan</span>
+                </button>
+                <button class="user-btn koray-btn" onclick="selectUser('koray')">
+                    <span class="user-avatar">🧪</span>
+                    <span class="user-name">Koray</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="start-screen" class="screen">
+        <div class="start-container">
+            <h1 class="title bounce">🧮 <span id="start-title-name">Hakan's</span> Math Practice! 🌟</h1>
             <div class="mascot">🦊</div>
             <p class="subtitle">Let's have fun with numbers!</p>
+
+            <!-- Robux display (Hakan only) -->
+            <div id="robux-banner" class="robux-banner" style="display:none;">
+                <span class="robux-gem">💎</span>
+                <span id="robux-total">0.0</span> Robux earned
+            </div>
+
+            <!-- Admin section (Koray only) -->
+            <div id="admin-section" class="admin-section" style="display:none;">
+                <div class="admin-card">
+                    <span>Hakan's Robux: 💎 <span id="admin-robux">0.0</span></span>
+                    <button class="admin-reset-btn" onclick="resetRobux()">Reset Robux</button>
+                </div>
+            </div>
+
+            <button class="switch-user-btn" onclick="switchUser()">👤 Switch User</button>
 
             <div class="mode-selection">
                 <h2>What do you want to practice?</h2>
@@ -70,6 +106,10 @@
                 </div>
                 <div class="streak-display">
                     <span id="streak-text">🔥 0</span>
+                </div>
+                <div id="robux-display" class="robux-display" style="display:none;">
+                    <span>💎</span>
+                    <span id="robux-game">0.0</span>
                 </div>
                 <div class="progress-bar">
                     <div id="progress-fill" class="progress-fill"></div>
@@ -160,6 +200,10 @@
                 </div>
             </div>
             <div id="star-rating" class="star-rating"></div>
+            <div id="robux-results" class="robux-results" style="display:none;">
+                <div class="robux-earned">💎 +<span id="robux-session">0.0</span> Robux this game!</div>
+                <div class="robux-total-result">Total: 💎 <span id="robux-total-result">0.0</span></div>
+            </div>
             <div class="results-buttons">
                 <button class="play-again-btn" onclick="playAgain()">🔄 Play Again</button>
                 <button class="home-btn" onclick="goHome()">🏠 Home</button>
