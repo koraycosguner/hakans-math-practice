@@ -1,6 +1,9 @@
 // ===== User & Robux =====
 let currentUser = null; // 'hakan' or 'koray'
-const ROBUX_PER_CORRECT = 0.2;
+const ROBUX_BY_LEVEL = {
+    easy: 0.15,
+    medium: 0.25,
+};
 const ROBUX_STORAGE_KEY = 'hakans-math-robux';
 
 function loadRobux() {
@@ -31,15 +34,15 @@ function selectUser(name) {
     if (name === 'hakan') {
         // Show Robux banner, hide admin
         const robux = loadRobux();
-        document.getElementById('robux-total').textContent = robux.toFixed(1);
+        document.getElementById('robux-total').textContent = robux.toFixed(2);
         robuxBanner.style.display = '';
         adminSection.style.display = 'none';
         robuxDisplay.style.display = '';
-        document.getElementById('robux-game').textContent = robux.toFixed(1);
+        document.getElementById('robux-game').textContent = robux.toFixed(2);
     } else {
         // Koray: show admin section, hide Robux banner
         const robux = loadRobux();
-        document.getElementById('admin-robux').textContent = robux.toFixed(1);
+        document.getElementById('admin-robux').textContent = robux.toFixed(2);
         robuxBanner.style.display = 'none';
         adminSection.style.display = '';
         robuxDisplay.style.display = 'none';
@@ -64,7 +67,7 @@ function resetRobux() {
 function updateRobuxDisplay() {
     if (currentUser !== 'hakan') return;
     const robux = loadRobux();
-    document.getElementById('robux-game').textContent = robux.toFixed(1);
+    document.getElementById('robux-game').textContent = robux.toFixed(2);
 }
 
 // ===== Game State =====
@@ -86,9 +89,8 @@ const state = {
 
 // ===== Difficulty Ranges =====
 const RANGES = {
-    easy:   { min: 1, max: 10 },
-    medium: { min: 1, max: 50 },
-    hard:   { min: 1, max: 99 },
+    easy:   { min: 1, max: 9 },
+    medium: { min: 1, max: 99 },
 };
 
 // ===== Encouraging Messages =====
@@ -767,9 +769,8 @@ function generateProblem() {
 
     let a, b, answer, operator;
 
-    // On easy/medium, 50% chance of a confidence-building pattern
-    const useConfidence = (state.difficulty === 'easy' && Math.random() < 0.6)
-                       || (state.difficulty === 'medium' && Math.random() < 0.3);
+    // On easy, 60% chance of confidence-building patterns
+    const useConfidence = (state.difficulty === 'easy' && Math.random() < 0.6);
 
     if (useConfidence) {
         const patterns = CONFIDENCE_PATTERNS[type];
@@ -785,16 +786,30 @@ function generateProblem() {
             answer = a - b;
             operator = '−';
         }
+    } else if (state.difficulty === 'medium') {
+        // Level 2: one 1-2 digit number and one 1-digit number
+        const big = randomInt(10, 99);  // 1-2 digit number (10-99)
+        const small = randomInt(1, 9);  // single digit
+
+        if (type === 'addition') {
+            a = big;
+            b = small;
+            answer = a + b;
+            operator = '+';
+        } else {
+            a = big;
+            b = small;
+            answer = a - b;
+            operator = '−';
+        }
     } else if (type === 'addition') {
+        // Easy: single digits
         a = randomInt(range.min, range.max);
         b = randomInt(range.min, range.max);
-        if (state.difficulty === 'easy' && a + b > 20) {
-            b = randomInt(range.min, 10 - a > 0 ? 10 - a : range.min);
-        }
         answer = a + b;
         operator = '+';
     } else {
-        // Subtraction: ensure a >= b so no negative results
+        // Easy subtraction: ensure a >= b so no negative results
         a = randomInt(range.min, range.max);
         b = randomInt(range.min, a);
         answer = a - b;
@@ -871,12 +886,13 @@ function checkAnswer() {
             state.bestStreak = state.streak;
         }
 
-        // Robux reward for Hakan
+        // Robux reward for Hakan (varies by difficulty)
         if (currentUser === 'hakan') {
+            const robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.15;
             const currentRobux = loadRobux();
-            const newRobux = Math.round((currentRobux + ROBUX_PER_CORRECT) * 10) / 10;
+            const newRobux = Math.round((currentRobux + robuxEarned) * 100) / 100;
             saveRobux(newRobux);
-            state.sessionRobux = Math.round((state.sessionRobux + ROBUX_PER_CORRECT) * 10) / 10;
+            state.sessionRobux = Math.round((state.sessionRobux + robuxEarned) * 100) / 100;
             updateRobuxDisplay();
         }
 
@@ -1054,9 +1070,9 @@ function goHome() {
     // Refresh Robux displays on start screen
     if (currentUser === 'hakan') {
         const robux = loadRobux();
-        document.getElementById('robux-total').textContent = robux.toFixed(1);
+        document.getElementById('robux-total').textContent = robux.toFixed(2);
     } else if (currentUser === 'koray') {
-        document.getElementById('admin-robux').textContent = loadRobux().toFixed(1);
+        document.getElementById('admin-robux').textContent = loadRobux().toFixed(2);
     }
     showScreen('start-screen');
 }
@@ -1103,8 +1119,8 @@ function showResults() {
     // Robux results (Hakan only)
     const robuxResults = document.getElementById('robux-results');
     if (currentUser === 'hakan') {
-        document.getElementById('robux-session').textContent = state.sessionRobux.toFixed(1);
-        document.getElementById('robux-total-result').textContent = loadRobux().toFixed(1);
+        document.getElementById('robux-session').textContent = state.sessionRobux.toFixed(2);
+        document.getElementById('robux-total-result').textContent = loadRobux().toFixed(2);
         robuxResults.style.display = '';
     } else {
         robuxResults.style.display = 'none';

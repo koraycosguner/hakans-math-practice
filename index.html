@@ -60,37 +60,24 @@
             <button class="switch-user-btn" onclick="switchUser()">👤 Switch User</button>
 
             <div class="mode-selection">
-                <h2>What do you want to practice?</h2>
-                <div class="mode-buttons">
-                    <button class="mode-btn addition-btn" onclick="startGame('addition')">
-                        <span class="mode-icon">➕</span>
-                        <span class="mode-label">Addition</span>
-                    </button>
-                    <button class="mode-btn subtraction-btn" onclick="startGame('subtraction')">
-                        <span class="mode-icon">➖</span>
-                        <span class="mode-label">Subtraction</span>
-                    </button>
-                    <button class="mode-btn mixed-btn" onclick="startGame('mixed')">
-                        <span class="mode-icon">🔀</span>
-                        <span class="mode-label">Mixed!</span>
-                    </button>
-                </div>
+                <h2>Let's practice Addition & Subtraction!</h2>
             </div>
 
             <div class="difficulty-selection">
                 <h2>Pick your level:</h2>
                 <div class="difficulty-buttons">
                     <button class="diff-btn easy active" onclick="setDifficulty('easy', this)">
-                        <span>🐣</span> Easy<br><small>(up to 10)</small>
+                        <span>🐣</span> Level 1<br><small>(single digits · 💎 0.15)</small>
                     </button>
                     <button class="diff-btn medium" onclick="setDifficulty('medium', this)">
-                        <span>🐥</span> Medium<br><small>(up to 50)</small>
-                    </button>
-                    <button class="diff-btn hard" onclick="setDifficulty('hard', this)">
-                        <span>🐔</span> Hard<br><small>(up to 99)</small>
+                        <span>🐥</span> Level 2<br><small>(bigger numbers · 💎 0.25)</small>
                     </button>
                 </div>
             </div>
+
+            <button class="start-game-btn" onclick="startGame('mixed')">
+                🚀 Start!
+            </button>
         </div>
     </div>
 

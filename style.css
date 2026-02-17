@@ -270,48 +270,28 @@ body {
     flex-wrap: wrap;
 }
 
-.mode-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 20px 32px;
-    border: 3px solid transparent;
-    border-radius: 20px;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 140px;
-    touch-action: manipulation;
-}
-
-.mode-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-.mode-btn:active {
-    transform: translateY(-1px);
-}
-
-.mode-icon {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-}
-
-.addition-btn {
+.start-game-btn {
+    padding: 18px 60px;
+    border: none;
+    border-radius: 24px;
     background: linear-gradient(135deg, #43e97b, #38f9d7);
     color: #1a5c38;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    touch-action: manipulation;
+    margin-top: 10px;
+    box-shadow: 0 6px 20px rgba(67, 233, 123, 0.4);
 }
 
-.subtraction-btn {
-    background: linear-gradient(135deg, #fa709a, #fee140);
-    color: #7a2040;
+.start-game-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(67, 233, 123, 0.5);
 }
 
-.mixed-btn {
-    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
-    color: #4a2070;
+.start-game-btn:active {
+    transform: translateY(-1px);
 }
 
 /* Difficulty Buttons */
