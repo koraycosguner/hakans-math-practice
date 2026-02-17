@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Hakan's Math Practice!</title>
+
+    <!-- PWA / Full-screen on iPad -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Math Practice">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#667eea">
+    <link rel="manifest" href="manifest.json">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -51,62 +60,68 @@
 
     <!-- Game Screen -->
     <div id="game-screen" class="screen">
-        <div class="game-header">
-            <button class="back-btn" onclick="goHome()">🏠 Home</button>
-            <button class="sound-btn" id="sound-btn" onclick="toggleSpeech()">🔊</button>
-            <div class="score-display">
-                <span class="stars-label">⭐</span>
-                <span id="score">0</span>
-            </div>
-            <div class="streak-display">
-                <span id="streak-text">🔥 0</span>
-            </div>
-            <div class="progress-bar">
-                <div id="progress-fill" class="progress-fill"></div>
-                <span id="progress-text">0 / 10</span>
-            </div>
-        </div>
-
-        <div class="game-area">
-            <div id="mascot-speech" class="mascot-speech">
-                <div class="speech-bubble">
-                    <span id="mascot-message">You can do it! 💪</span>
+        <div class="game-layout">
+            <div class="game-header">
+                <button class="back-btn" onclick="goHome()">🏠 Home</button>
+                <button class="sound-btn" id="sound-btn" onclick="toggleSpeech()">🔊</button>
+                <div class="score-display">
+                    <span class="stars-label">⭐</span>
+                    <span id="score">0</span>
                 </div>
-                <div class="game-mascot">🦊</div>
-            </div>
-
-            <div class="problem-card" id="problem-card">
-                <div class="problem-display">
-                    <span id="num1" class="number">5</span>
-                    <span id="operator" class="operator">+</span>
-                    <span id="num2" class="number">3</span>
-                    <span class="equals">=</span>
-                    <span class="answer-box">
-                        <input type="number" id="answer-input" class="answer-input"
-                               autocomplete="off" inputmode="numeric"
-                               onkeydown="handleKeyPress(event)">
-                    </span>
+                <div class="streak-display">
+                    <span id="streak-text">🔥 0</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                    <span id="progress-text">0 / 10</span>
                 </div>
             </div>
 
-            <div id="hint-area" class="hint-area">
-                <button id="hint-btn" class="hint-btn" onclick="showHint()">💡 Hint</button>
-                <div id="hint-steps" class="hint-steps"></div>
-            </div>
+            <div class="game-main">
+                <div class="game-left">
+                    <div id="mascot-speech" class="mascot-speech">
+                        <div class="speech-bubble">
+                            <span id="mascot-message">You can do it! 💪</span>
+                        </div>
+                        <div class="game-mascot">🦊</div>
+                    </div>
 
-            <div class="number-pad">
-                <button class="num-key" onclick="typeNumber('1')">1</button>
-                <button class="num-key" onclick="typeNumber('2')">2</button>
-                <button class="num-key" onclick="typeNumber('3')">3</button>
-                <button class="num-key" onclick="typeNumber('4')">4</button>
-                <button class="num-key" onclick="typeNumber('5')">5</button>
-                <button class="num-key" onclick="typeNumber('6')">6</button>
-                <button class="num-key" onclick="typeNumber('7')">7</button>
-                <button class="num-key" onclick="typeNumber('8')">8</button>
-                <button class="num-key" onclick="typeNumber('9')">9</button>
-                <button class="num-key delete-key" onclick="deleteNumber()">⌫</button>
-                <button class="num-key" onclick="typeNumber('0')">0</button>
-                <button class="num-key check-key" onclick="checkAnswer()">✓</button>
+                    <div class="problem-card" id="problem-card">
+                        <div class="problem-display">
+                            <span id="num1" class="number">5</span>
+                            <span id="operator" class="operator">+</span>
+                            <span id="num2" class="number">3</span>
+                            <span class="equals">=</span>
+                            <span class="answer-box">
+                                <input type="number" id="answer-input" class="answer-input"
+                                       autocomplete="off" inputmode="numeric"
+                                       onkeydown="handleKeyPress(event)">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div id="hint-area" class="hint-area">
+                        <button id="hint-btn" class="hint-btn" onclick="showHint()">💡 Hint</button>
+                        <div id="hint-steps" class="hint-steps"></div>
+                    </div>
+                </div>
+
+                <div class="game-right">
+                    <div class="number-pad">
+                        <button class="num-key" onclick="typeNumber('1')">1</button>
+                        <button class="num-key" onclick="typeNumber('2')">2</button>
+                        <button class="num-key" onclick="typeNumber('3')">3</button>
+                        <button class="num-key" onclick="typeNumber('4')">4</button>
+                        <button class="num-key" onclick="typeNumber('5')">5</button>
+                        <button class="num-key" onclick="typeNumber('6')">6</button>
+                        <button class="num-key" onclick="typeNumber('7')">7</button>
+                        <button class="num-key" onclick="typeNumber('8')">8</button>
+                        <button class="num-key" onclick="typeNumber('9')">9</button>
+                        <button class="num-key delete-key" onclick="deleteNumber()">⌫</button>
+                        <button class="num-key" onclick="typeNumber('0')">0</button>
+                        <button class="num-key check-key" onclick="checkAnswer()">✓</button>
+                    </div>
+                </div>
             </div>
         </div>
 

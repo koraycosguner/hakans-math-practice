@@ -1,0 +1,11 @@
+{
+    "name": "Hakan's Math Practice",
+    "short_name": "Math Practice",
+    "description": "Fun math practice for kids with hints and strategies",
+    "start_url": ".",
+    "display": "fullscreen",
+    "orientation": "any",
+    "background_color": "#667eea",
+    "theme_color": "#667eea",
+    "icons": []
+}

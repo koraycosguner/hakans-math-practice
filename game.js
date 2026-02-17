@@ -112,29 +112,105 @@ function speak(text) {
     // Cancel any ongoing speech
     window.speechSynthesis.cancel();
 
-    // Strip emojis for cleaner speech
-    const cleanText = text.replace(/[\u{1F000}-\u{1FFFF}]|[\u{2600}-\u{27BF}]|[\u{FE00}-\u{FEFF}]|[\u200D\uFE0F]/gu, '').trim();
+    // Strip emojis and special chars for cleaner speech
+    const cleanText = text.replace(/[\u{1F000}-\u{1FFFF}]|[\u{2600}-\u{27BF}]|[\u{FE00}-\u{FEFF}]|[\u200D\uFE0F]/gu, '')
+                          .replace(/[−–—]/g, 'minus')  // speak math minus signs
+                          .trim();
     if (!cleanText) return;
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.rate = 0.9;   // Slightly slower for kids
-    utterance.pitch = 1.2;  // Slightly higher for a friendly fox voice
-    utterance.volume = 0.8;
+    utterance.pitch = 1.0;  // Natural pitch for male voice
+    utterance.volume = 0.85;
 
-    // Try to pick a friendly voice
-    const voices = window.speechSynthesis.getVoices();
-    const preferred = voices.find(v => v.name.includes('Samantha'))
-                   || voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'))
-                   || voices.find(v => v.lang.startsWith('en'));
-    if (preferred) utterance.voice = preferred;
+    // Pick the best available male voice
+    // Priority: Premium > Enhanced > Standard quality
+    // Preferred male voices on Apple: Daniel, Aaron, Tom
+    // On other platforms: Google UK English Male, Microsoft Guy, etc.
+    const voice = pickVoice();
+    if (voice) utterance.voice = voice;
 
     window.speechSynthesis.speak(utterance);
+}
+
+let cachedVoice = null;
+let voiceCacheReady = false;
+
+function pickVoice() {
+    if (voiceCacheReady) return cachedVoice;
+
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) return null;
+
+    // Male voice names to look for (in priority order)
+    const maleNames = ['Daniel', 'Aaron', 'Tom', 'Arthur', 'Ralph', 'Guy', 'James'];
+
+    // 1. Best: Premium male English voice
+    cachedVoice = voices.find(v =>
+        v.lang.startsWith('en') && v.name.includes('(Premium)') &&
+        maleNames.some(n => v.name.includes(n))
+    );
+
+    // 2. Good: Enhanced male English voice
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v =>
+            v.lang.startsWith('en') && v.name.includes('(Enhanced)') &&
+            maleNames.some(n => v.name.includes(n))
+        );
+    }
+
+    // 3. Decent: Any Premium English voice
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v =>
+            v.lang.startsWith('en') && v.name.includes('(Premium)')
+        );
+    }
+
+    // 4. Any Enhanced English voice
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v =>
+            v.lang.startsWith('en') && v.name.includes('(Enhanced)')
+        );
+    }
+
+    // 5. Standard male voice by name (Daniel is Apple's best default male)
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v =>
+            v.lang.startsWith('en') &&
+            maleNames.some(n => v.name.includes(n))
+        );
+    }
+
+    // 6. Google UK English Male (Chrome on any platform)
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v =>
+            v.name.includes('Google UK English Male')
+        );
+    }
+
+    // 7. Any voice with "Male" in the name
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v =>
+            v.lang.startsWith('en') && /male/i.test(v.name)
+        );
+    }
+
+    // 8. Fallback: any English voice
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v => v.lang.startsWith('en'));
+    }
+
+    voiceCacheReady = true;
+    return cachedVoice;
 }
 
 // Preload voices (some browsers load them async)
 if ('speechSynthesis' in window) {
     window.speechSynthesis.getVoices();
-    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => {
+        voiceCacheReady = false; // Reset cache when voices change
+        pickVoice();             // Re-pick best voice
+    };
 }
 
 function toggleSpeech() {
