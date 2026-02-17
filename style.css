@@ -225,6 +225,21 @@ body {
     background: rgba(255, 255, 255, 0.35);
 }
 
+.sound-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+    touch-action: manipulation;
+}
+
+.sound-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
 .score-display, .streak-display {
     background: rgba(255, 255, 255, 0.2);
     padding: 8px 16px;

@@ -103,6 +103,47 @@ function playSound(type) {
     }
 }
 
+// ===== Text-to-Speech (Fox Talks!) =====
+let speechEnabled = true;
+
+function speak(text) {
+    if (!speechEnabled || !('speechSynthesis' in window)) return;
+
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+
+    // Strip emojis for cleaner speech
+    const cleanText = text.replace(/[\u{1F000}-\u{1FFFF}]|[\u{2600}-\u{27BF}]|[\u{FE00}-\u{FEFF}]|[\u200D\uFE0F]/gu, '').trim();
+    if (!cleanText) return;
+
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.rate = 0.9;   // Slightly slower for kids
+    utterance.pitch = 1.2;  // Slightly higher for a friendly fox voice
+    utterance.volume = 0.8;
+
+    // Try to pick a friendly voice
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = voices.find(v => v.name.includes('Samantha'))
+                   || voices.find(v => v.lang.startsWith('en') && v.name.includes('Female'))
+                   || voices.find(v => v.lang.startsWith('en'));
+    if (preferred) utterance.voice = preferred;
+
+    window.speechSynthesis.speak(utterance);
+}
+
+// Preload voices (some browsers load them async)
+if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+function toggleSpeech() {
+    speechEnabled = !speechEnabled;
+    document.getElementById('sound-btn').textContent = speechEnabled ? '🔊' : '🔇';
+    if (!speechEnabled) window.speechSynthesis.cancel();
+    playSound('click');
+}
+
 // ===== Utility Functions =====
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -413,8 +454,9 @@ function showHint() {
         hintBtn.textContent = '💡 Next Hint';
     }
 
-    // Update mascot
-    setMascotMessage("Let me help you think! 🧠");
+    // Update mascot (don't double-speak; speak the hint content instead)
+    setMascotMessage("Let me help you think! 🧠", false);
+    speak(state.hintSteps[state.hintStep - 1]);
 }
 
 function resetHints() {
@@ -571,6 +613,10 @@ function nextProblem() {
     card.style.animation = 'none';
     card.offsetHeight; // trigger reflow
     card.style.animation = 'fadeIn 0.4s ease';
+
+    // Read the problem aloud
+    const spokenOp = state.currentProblem.type === 'addition' ? 'plus' : 'minus';
+    speak(`${a} ${spokenOp} ${b}?`);
 }
 
 // ===== Check Answer =====
@@ -669,8 +715,9 @@ function updateProgress() {
         `${state.questionNumber} / ${state.totalQuestions}`;
 }
 
-function setMascotMessage(msg) {
+function setMascotMessage(msg, alsoSpeak = true) {
     document.getElementById('mascot-message').textContent = msg;
+    if (alsoSpeak) speak(msg);
 }
 
 // ===== Feedback Popup =====
