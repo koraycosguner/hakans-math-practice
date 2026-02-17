@@ -148,9 +148,9 @@ function pickVoice() {
     }
 
     // Male voice names to look for (in priority order)
-    // These are common male voice names across platforms
-    const maleNames = ['Nathan', 'Daniel', 'Aaron', 'Tom', 'Arthur', 'Ralph', 'Guy', 'James',
-                        'Alex', 'Fred', 'Junior', 'Oliver', 'Gordon', 'Malcolm', 'Martin'];
+    // Excludes novelty/robotic voices (Fred, Albert, Junior, Ralph)
+    const maleNames = ['Nathan', 'Daniel', 'Aaron', 'Tom', 'Arthur', 'Guy', 'James',
+                        'Alex', 'Oliver', 'Gordon', 'Malcolm', 'Martin', 'Rishi', 'Reed'];
 
     // Known female voice names to EXCLUDE from fallback
     const femaleNames = ['Samantha', 'Karen', 'Victoria', 'Tessa', 'Moira', 'Fiona',
@@ -169,62 +169,65 @@ function pickVoice() {
         return femaleNames.some(n => v.name.includes(n));
     }
 
-    // 1. Best: Premium male English voice (Apple "Downloaded" premium voices)
+    let matchStep = 'none';
+
+    // 1. Best: Premium male English voice
     cachedVoice = voices.find(v =>
         isEnglish(v) && v.name.includes('(Premium)') && isMaleName(v)
     );
+    if (cachedVoice) matchStep = '1-premium-male';
 
     // 2. Good: Enhanced male English voice
     if (!cachedVoice) {
         cachedVoice = voices.find(v =>
             isEnglish(v) && v.name.includes('(Enhanced)') && isMaleName(v)
         );
+        if (cachedVoice) matchStep = '2-enhanced-male';
     }
 
-    // 3. Standard male voice by name — search in OUR priority order, not browser order
+    // 3. Standard male voice by name — search in OUR priority order
     if (!cachedVoice) {
         for (const name of maleNames) {
             cachedVoice = voices.find(v => isEnglish(v) && v.name.includes(name));
-            if (cachedVoice) break;
+            if (cachedVoice) { matchStep = '3-standard-' + name; break; }
         }
     }
 
-    // 4. Google UK English Male (Chrome on any platform)
+    // 4. Google UK English Male
     if (!cachedVoice) {
-        cachedVoice = voices.find(v =>
-            v.name.includes('Google UK English Male')
-        );
+        cachedVoice = voices.find(v => v.name.includes('Google UK English Male'));
+        if (cachedVoice) matchStep = '4-google-male';
     }
 
     // 5. Any voice with "Male" in the name
     if (!cachedVoice) {
-        cachedVoice = voices.find(v =>
-            isEnglish(v) && /male/i.test(v.name)
-        );
+        cachedVoice = voices.find(v => isEnglish(v) && /male/i.test(v.name));
+        if (cachedVoice) matchStep = '5-male-keyword';
     }
 
-    // 6. Premium or Enhanced English voice (any gender — but prefer non-female)
+    // 6. Any Enhanced/Premium English voice (prefer non-female)
     if (!cachedVoice) {
         cachedVoice = voices.find(v =>
             isEnglish(v) && (v.name.includes('(Premium)') || v.name.includes('(Enhanced)')) && !isFemaleName(v)
         );
+        if (cachedVoice) matchStep = '6-enhanced-any';
     }
 
-    // 7. Any English voice that doesn't have a female name
+    // 7. Any English voice that isn't female
     if (!cachedVoice) {
         cachedVoice = voices.find(v => isEnglish(v) && !isFemaleName(v));
+        if (cachedVoice) matchStep = '7-non-female';
     }
 
-    // 8. Last fallback: any English voice at all
+    // 8. Last fallback
     if (!cachedVoice) {
         cachedVoice = voices.find(v => isEnglish(v));
+        if (cachedVoice) matchStep = '8-fallback';
     }
 
-    if (cachedVoice) {
-        console.log('Selected voice:', cachedVoice.name, cachedVoice.lang);
-    }
+    console.log('Selected voice:', cachedVoice?.name, cachedVoice?.lang, 'step:', matchStep);
 
-    // Debug: show selected voice on screen (temporary — remove later)
+    // Debug: show on screen (temporary — remove later)
     let debugEl = document.getElementById('voice-debug');
     if (!debugEl) {
         debugEl = document.createElement('div');
@@ -233,7 +236,7 @@ function pickVoice() {
         document.body.appendChild(debugEl);
     }
     const allEnglish = voices.filter(v => v.lang.startsWith('en')).map(v => v.name).join(', ');
-    debugEl.textContent = `Voice: ${cachedVoice ? cachedVoice.name : 'NONE'} | EN voices: ${allEnglish}`;
+    debugEl.textContent = `[${matchStep}] ${cachedVoice ? cachedVoice.name : 'NONE'} | ${allEnglish}`;
 
     voiceCacheReady = true;
     return cachedVoice;
