@@ -120,7 +120,7 @@ function speak(text) {
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.rate = 0.9;   // Slightly slower for kids
-    utterance.pitch = 1.0;  // Natural pitch for male voice
+    utterance.pitch = 0.95; // Slightly lower for a deeper male sound
     utterance.volume = 0.85;
 
     // Pick the best available male voice
@@ -137,80 +137,116 @@ let cachedVoice = null;
 let voiceCacheReady = false;
 
 function pickVoice() {
-    if (voiceCacheReady) return cachedVoice;
+    if (voiceCacheReady && cachedVoice) return cachedVoice;
 
     const voices = window.speechSynthesis.getVoices();
     if (!voices.length) return null;
 
-    // Male voice names to look for (in priority order)
-    const maleNames = ['Daniel', 'Aaron', 'Tom', 'Arthur', 'Ralph', 'Guy', 'James'];
+    // Log available voices for debugging (only once)
+    if (!voiceCacheReady) {
+        console.log('Available voices:', voices.map(v => `${v.name} (${v.lang})`));
+    }
 
-    // 1. Best: Premium male English voice
+    // Male voice names to look for (in priority order)
+    // These are common male voice names across platforms
+    const maleNames = ['Daniel', 'Aaron', 'Tom', 'Arthur', 'Ralph', 'Guy', 'James',
+                        'Alex', 'Fred', 'Junior', 'Oliver', 'Gordon', 'Malcolm', 'Martin'];
+
+    // Known female voice names to EXCLUDE from fallback
+    const femaleNames = ['Samantha', 'Karen', 'Victoria', 'Tessa', 'Moira', 'Fiona',
+                          'Kate', 'Serena', 'Veena', 'Allison', 'Ava', 'Susan', 'Zoe',
+                          'Nicky', 'Joelle', 'Satu', 'Sara', 'Sandy', 'Ellen', 'Martha'];
+
+    function isEnglish(v) {
+        return v.lang.startsWith('en');
+    }
+
+    function isMaleName(v) {
+        return maleNames.some(n => v.name.includes(n));
+    }
+
+    function isFemaleName(v) {
+        return femaleNames.some(n => v.name.includes(n));
+    }
+
+    // 1. Best: Premium male English voice (Apple "Downloaded" premium voices)
     cachedVoice = voices.find(v =>
-        v.lang.startsWith('en') && v.name.includes('(Premium)') &&
-        maleNames.some(n => v.name.includes(n))
+        isEnglish(v) && v.name.includes('(Premium)') && isMaleName(v)
     );
 
     // 2. Good: Enhanced male English voice
     if (!cachedVoice) {
         cachedVoice = voices.find(v =>
-            v.lang.startsWith('en') && v.name.includes('(Enhanced)') &&
-            maleNames.some(n => v.name.includes(n))
+            isEnglish(v) && v.name.includes('(Enhanced)') && isMaleName(v)
         );
     }
 
-    // 3. Decent: Any Premium English voice
+    // 3. Standard male voice by name (Daniel, Aaron, Tom, etc.)
     if (!cachedVoice) {
         cachedVoice = voices.find(v =>
-            v.lang.startsWith('en') && v.name.includes('(Premium)')
+            isEnglish(v) && isMaleName(v)
         );
     }
 
-    // 4. Any Enhanced English voice
-    if (!cachedVoice) {
-        cachedVoice = voices.find(v =>
-            v.lang.startsWith('en') && v.name.includes('(Enhanced)')
-        );
-    }
-
-    // 5. Standard male voice by name (Daniel is Apple's best default male)
-    if (!cachedVoice) {
-        cachedVoice = voices.find(v =>
-            v.lang.startsWith('en') &&
-            maleNames.some(n => v.name.includes(n))
-        );
-    }
-
-    // 6. Google UK English Male (Chrome on any platform)
+    // 4. Google UK English Male (Chrome on any platform)
     if (!cachedVoice) {
         cachedVoice = voices.find(v =>
             v.name.includes('Google UK English Male')
         );
     }
 
-    // 7. Any voice with "Male" in the name
+    // 5. Any voice with "Male" in the name
     if (!cachedVoice) {
         cachedVoice = voices.find(v =>
-            v.lang.startsWith('en') && /male/i.test(v.name)
+            isEnglish(v) && /male/i.test(v.name)
         );
     }
 
-    // 8. Fallback: any English voice
+    // 6. Premium or Enhanced English voice (any gender — but prefer non-female)
     if (!cachedVoice) {
-        cachedVoice = voices.find(v => v.lang.startsWith('en'));
+        cachedVoice = voices.find(v =>
+            isEnglish(v) && (v.name.includes('(Premium)') || v.name.includes('(Enhanced)')) && !isFemaleName(v)
+        );
+    }
+
+    // 7. Any English voice that doesn't have a female name
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v => isEnglish(v) && !isFemaleName(v));
+    }
+
+    // 8. Last fallback: any English voice at all
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v => isEnglish(v));
+    }
+
+    if (cachedVoice) {
+        console.log('Selected voice:', cachedVoice.name, cachedVoice.lang);
     }
 
     voiceCacheReady = true;
     return cachedVoice;
 }
 
-// Preload voices (some browsers load them async)
+// Preload voices — on iOS/Safari, voices load lazily and may require retries
 if ('speechSynthesis' in window) {
     window.speechSynthesis.getVoices();
     window.speechSynthesis.onvoiceschanged = () => {
         voiceCacheReady = false; // Reset cache when voices change
         pickVoice();             // Re-pick best voice
     };
+
+    // On Safari/iOS, onvoiceschanged may not fire. Retry a few times.
+    let retries = 0;
+    const retryVoices = setInterval(() => {
+        const voices = window.speechSynthesis.getVoices();
+        retries++;
+        if (voices.length > 0 || retries > 10) {
+            clearInterval(retryVoices);
+            if (!voiceCacheReady && voices.length > 0) {
+                pickVoice();
+            }
+        }
+    }, 300);
 }
 
 function toggleSpeech() {
@@ -682,6 +718,7 @@ function nextProblem() {
 
     const card = document.getElementById('problem-card');
     card.classList.remove('correct', 'wrong');
+    hideCorrectAnswer();
 
     updateProgress();
 
@@ -738,16 +775,17 @@ function checkAnswer() {
         // Floating stars
         spawnFloatingStars(3);
 
-        // Show feedback
-        showFeedback('✅ ' + (state.attempts === 1 ? '+10' : '+5'));
+        // Show the correct answer celebration underneath the problem
+        showCorrectAnswer(state.currentProblem, points);
 
         updateScoreDisplay();
         updateStreakDisplay();
 
-        // Move to next problem after a short delay
+        // Move to next problem after a delay so they can see the answer
         setTimeout(() => {
+            hideCorrectAnswer();
             nextProblem();
-        }, 1200);
+        }, 2800);
     } else {
         // Wrong
         card.classList.add('wrong');
@@ -806,6 +844,51 @@ function showFeedback(content) {
     setTimeout(() => {
         overlay.classList.add('hidden');
     }, 1000);
+}
+
+// ===== Correct Answer Celebration =====
+function showCorrectAnswer(problem, points) {
+    const input = document.getElementById('answer-input');
+    const answerBox = input.closest('.answer-box');
+    const display = document.getElementById('correct-answer-display');
+    const eqSpan = document.getElementById('correct-eq');
+
+    // Hide the input and show the big animated answer in its place
+    input.style.display = 'none';
+
+    // Create the answer number that replaces the input
+    const answerNum = document.createElement('span');
+    answerNum.id = 'answer-revealed';
+    answerNum.className = 'answer-revealed';
+    answerNum.textContent = problem.answer;
+    answerBox.appendChild(answerNum);
+
+    // Show the celebration display underneath with points
+    eqSpan.textContent = `${problem.a} ${problem.operator} ${problem.b} = ${problem.answer}`;
+    const starsDiv = display.querySelector('.correct-answer-stars');
+    if (points >= 10) {
+        starsDiv.textContent = '🌟 Perfect! +' + points + ' 🌟';
+    } else if (points >= 5) {
+        starsDiv.textContent = '⭐ Great! +' + points;
+    } else {
+        starsDiv.textContent = '✨ +' + points;
+    }
+
+    // Force reflow to restart animation, then show
+    display.classList.remove('show');
+    void display.offsetWidth;
+    display.classList.add('show');
+}
+
+function hideCorrectAnswer() {
+    const input = document.getElementById('answer-input');
+    const display = document.getElementById('correct-answer-display');
+    const existing = document.getElementById('answer-revealed');
+
+    // Remove the revealed answer and restore input
+    if (existing) existing.remove();
+    input.style.display = '';
+    display.classList.remove('show');
 }
 
 // ===== Floating Stars =====
