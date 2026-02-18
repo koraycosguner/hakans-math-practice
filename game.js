@@ -87,6 +87,7 @@ const state = {
     sessionRobux: 0,         // Robux earned this game session
     usedNumberLine: false,   // whether number line was used for current problem
     usedTenFrames: false,    // whether ten frames was used for current problem
+    usedFactFamily: false,   // whether fact family was used for current problem
 };
 
 // ===== Difficulty Ranges =====
@@ -729,6 +730,7 @@ function resetHints() {
 // Kid taps each number to hop along the line — they do the counting!
 let nlState = null; // number line state for current problem
 let tfState = null; // ten frame state for current problem
+let ffState = null; // fact family state for current problem
 
 function showNumberLine() {
     if (state.usedNumberLine) return;
@@ -1362,6 +1364,293 @@ function resetTenFrames() {
     document.getElementById('mascot-speech').classList.remove('compact-hidden');
 }
 
+// ===== Interactive Fact Family Triangle =====
+// Shows how 3 numbers relate: sum at top, addends at bottom
+// Kid taps to reveal 4 related equations
+
+function showFactFamily() {
+    if (state.usedFactFamily) return;
+
+    playSound('click');
+    state.usedFactFamily = true;
+
+    // Compact the problem card to make room
+    document.getElementById('problem-card').classList.add('compact');
+    document.getElementById('mascot-speech').classList.add('compact-hidden');
+
+    const btn = document.getElementById('factfamily-btn');
+    btn.textContent = '🔺 Tap equations!';
+    btn.classList.add('used');
+
+    const problem = state.currentProblem;
+
+    // Compute the fact family triple
+    let sum, addendA, addendB;
+    if (problem.type === 'addition') {
+        addendA = problem.a;
+        addendB = problem.b;
+        sum = problem.answer;
+    } else {
+        // subtraction: a - b = answer → sum=a, addends=b and answer
+        sum = problem.a;
+        addendA = problem.b;
+        addendB = problem.answer;
+    }
+
+    // Build 4 equations
+    const equations = [
+        { text: `${addendA} + ${addendB} = ${sum}`, type: 'addition' },
+        { text: `${addendB} + ${addendA} = ${sum}`, type: 'addition' },
+        { text: `${sum} − ${addendA} = ${addendB}`, type: 'subtraction' },
+        { text: `${sum} − ${addendB} = ${addendA}`, type: 'subtraction' },
+    ];
+
+    // Which equation matches the current problem?
+    let currentEqIndex;
+    if (problem.type === 'addition') {
+        currentEqIndex = 0; // a + b = sum
+    } else {
+        currentEqIndex = 2; // sum - addendA = addendB
+    }
+
+    ffState = {
+        sum,
+        addendA,
+        addendB,
+        equations,
+        currentEqIndex,
+        revealedCount: 0,
+        totalEquations: 4,
+    };
+
+    const area = document.getElementById('factfamily-area');
+    area.style.display = '';
+    area.innerHTML = '';
+
+    const svg = buildFactFamilySVG();
+    area.appendChild(svg);
+
+    setMascotMessage('Tap each equation to reveal it! 🔺', false);
+}
+
+function buildFactFamilySVG() {
+    const NS = 'http://www.w3.org/2000/svg';
+    const W = 500, H = 260;
+
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('class', 'fact-family-svg');
+
+    // Triangle vertices
+    const topX = 250, topY = 45;
+    const blX = 120, blY = 145;
+    const brX = 380, brY = 145;
+
+    // Draw triangle lines
+    const lineCoords = [
+        [topX, topY, blX, blY],
+        [topX, topY, brX, brY],
+        [blX, blY, brX, brY],
+    ];
+    lineCoords.forEach(([x1, y1, x2, y2]) => {
+        const line = document.createElementNS(NS, 'line');
+        line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+        line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+        line.setAttribute('stroke', '#6C63FF');
+        line.setAttribute('stroke-width', '3');
+        line.setAttribute('opacity', '0.25');
+        line.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(line);
+    });
+
+    // Determine circle size based on digit count
+    const hasLargeNum = ffState.sum >= 10 || ffState.addendA >= 10 || ffState.addendB >= 10;
+    const circleR = hasLargeNum ? 32 : 28;
+    const numFontSize = hasLargeNum ? '20' : '24';
+
+    // Helper: draw number in colored circle
+    function drawNumberCircle(cx, cy, num, fillColor) {
+        const circle = document.createElementNS(NS, 'circle');
+        circle.setAttribute('cx', cx);
+        circle.setAttribute('cy', cy);
+        circle.setAttribute('r', circleR);
+        circle.setAttribute('fill', fillColor);
+        circle.setAttribute('stroke', 'white');
+        circle.setAttribute('stroke-width', '3');
+        svg.appendChild(circle);
+
+        const text = document.createElementNS(NS, 'text');
+        text.setAttribute('x', cx);
+        text.setAttribute('y', cy + 8);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('font-size', numFontSize);
+        text.setAttribute('font-weight', '800');
+        text.setAttribute('fill', 'white');
+        text.setAttribute('style', 'user-select: none; -webkit-user-select: none;');
+        text.textContent = num;
+        svg.appendChild(text);
+    }
+
+    // Draw the three number circles
+    drawNumberCircle(topX, topY, ffState.sum, '#FF914D');       // Sum at top (orange)
+    drawNumberCircle(blX, blY, ffState.addendA, '#4A90D9');     // Addend A bottom-left (blue)
+    drawNumberCircle(brX, brY, ffState.addendB, '#43e97b');     // Addend B bottom-right (green)
+
+    // "+" label between bottom vertices
+    const plusLabel = document.createElementNS(NS, 'text');
+    plusLabel.setAttribute('x', (blX + brX) / 2);
+    plusLabel.setAttribute('y', blY + 8);
+    plusLabel.setAttribute('text-anchor', 'middle');
+    plusLabel.setAttribute('font-size', '20');
+    plusLabel.setAttribute('font-weight', '700');
+    plusLabel.setAttribute('fill', '#6C63FF');
+    plusLabel.setAttribute('opacity', '0.4');
+    plusLabel.textContent = '+';
+    svg.appendChild(plusLabel);
+
+    // "=" label on left edge of triangle
+    const eqLabelLeft = document.createElementNS(NS, 'text');
+    eqLabelLeft.setAttribute('x', (topX + blX) / 2 - 15);
+    eqLabelLeft.setAttribute('y', (topY + blY) / 2 + 5);
+    eqLabelLeft.setAttribute('text-anchor', 'middle');
+    eqLabelLeft.setAttribute('font-size', '18');
+    eqLabelLeft.setAttribute('font-weight', '700');
+    eqLabelLeft.setAttribute('fill', '#6C63FF');
+    eqLabelLeft.setAttribute('opacity', '0.4');
+    eqLabelLeft.textContent = '=';
+    svg.appendChild(eqLabelLeft);
+
+    // Equation slots below the triangle
+    const eqStartY = 185;
+    const eqSpacing = 28;
+    const eqPositions = [
+        { x: 135, y: eqStartY },                       // Eq 0: addendA + addendB = sum
+        { x: 365, y: eqStartY },                       // Eq 1: addendB + addendA = sum
+        { x: 135, y: eqStartY + eqSpacing },           // Eq 2: sum − addendA = addendB
+        { x: 365, y: eqStartY + eqSpacing },           // Eq 3: sum − addendB = addendA
+    ];
+
+    // Separator labels
+    const addLabel = document.createElementNS(NS, 'text');
+    addLabel.setAttribute('x', 250);
+    addLabel.setAttribute('y', eqStartY - 10);
+    addLabel.setAttribute('text-anchor', 'middle');
+    addLabel.setAttribute('font-size', '11');
+    addLabel.setAttribute('fill', '#b2bec3');
+    addLabel.textContent = 'addition                                subtraction';
+    svg.appendChild(addLabel);
+
+    ffState.equations.forEach((eq, i) => {
+        const pos = eqPositions[i];
+        const isCurrent = (i === ffState.currentEqIndex);
+
+        // Hidden placeholder text
+        const placeholder = i < 2 ? '? + ? = ?' : '? − ? = ?';
+        const hiddenText = document.createElementNS(NS, 'text');
+        hiddenText.setAttribute('x', pos.x);
+        hiddenText.setAttribute('y', pos.y);
+        hiddenText.setAttribute('text-anchor', 'middle');
+        hiddenText.setAttribute('font-size', '16');
+        hiddenText.setAttribute('font-weight', '600');
+        hiddenText.setAttribute('fill', '#b2bec3');
+        hiddenText.setAttribute('data-ff-hidden', i);
+        hiddenText.textContent = placeholder;
+        svg.appendChild(hiddenText);
+
+        // Revealed equation text (initially invisible)
+        const revealedText = document.createElementNS(NS, 'text');
+        revealedText.setAttribute('x', pos.x);
+        revealedText.setAttribute('y', pos.y);
+        revealedText.setAttribute('text-anchor', 'middle');
+        revealedText.setAttribute('font-size', '16');
+        revealedText.setAttribute('font-weight', '700');
+        revealedText.setAttribute('fill', isCurrent ? '#FF914D' : '#2D3436');
+        revealedText.setAttribute('data-ff-revealed', i);
+        revealedText.setAttribute('opacity', '0');
+        revealedText.textContent = (isCurrent ? '⭐ ' : '') + eq.text;
+        svg.appendChild(revealedText);
+
+        // Tap target (invisible rect)
+        const tap = document.createElementNS(NS, 'rect');
+        tap.setAttribute('x', pos.x - 110);
+        tap.setAttribute('y', pos.y - 18);
+        tap.setAttribute('width', 220);
+        tap.setAttribute('height', 28);
+        tap.setAttribute('fill', 'transparent');
+        tap.setAttribute('cursor', 'pointer');
+        tap.setAttribute('style', 'user-select: none; -webkit-user-select: none;');
+        tap.setAttribute('data-ff-tap', i);
+        tap.addEventListener('click', () => handleFactFamilyTap(i));
+        tap.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            handleFactFamilyTap(i);
+        });
+        svg.appendChild(tap);
+    });
+
+    return svg;
+}
+
+function handleFactFamilyTap(eqIndex) {
+    if (!ffState) return;
+
+    const svg = document.querySelector('.fact-family-svg');
+    if (!svg) return;
+
+    // Check if already revealed
+    const revealedEl = svg.querySelector(`[data-ff-revealed="${eqIndex}"]`);
+    if (!revealedEl || revealedEl.getAttribute('opacity') === '1') return;
+
+    // Reveal the equation
+    playSound('hop');
+    ffState.revealedCount++;
+
+    // Hide the placeholder
+    const hiddenEl = svg.querySelector(`[data-ff-hidden="${eqIndex}"]`);
+    if (hiddenEl) hiddenEl.setAttribute('opacity', '0');
+
+    // Show the real equation with pop animation
+    revealedEl.setAttribute('opacity', '1');
+    revealedEl.classList.add('ff-equation-pop');
+
+    // Update mascot
+    const remaining = ffState.totalEquations - ffState.revealedCount;
+    if (remaining > 0) {
+        setMascotMessage(`${ffState.revealedCount} found! ${remaining} more! 🔺`, false);
+    }
+
+    // All 4 revealed
+    if (ffState.revealedCount >= ffState.totalEquations) {
+        setTimeout(() => {
+            setMascotMessage('These numbers are a family! Now type your answer! 🎉', false);
+
+            // Visual completion feedback
+            if (svg) {
+                svg.style.boxShadow = '0 4px 15px rgba(108, 99, 255, 0.4)';
+                svg.style.border = '2px solid #6C63FF';
+            }
+        }, 300);
+    }
+}
+
+function resetFactFamily() {
+    state.usedFactFamily = false;
+    ffState = null;
+    const area = document.getElementById('factfamily-area');
+    if (area) {
+        area.style.display = 'none';
+        area.innerHTML = '';
+    }
+    const btn = document.getElementById('factfamily-btn');
+    if (btn) {
+        btn.textContent = '🔺 Fact Family';
+        btn.classList.remove('used');
+    }
+    // Remove compact mode
+    document.getElementById('problem-card').classList.remove('compact');
+    document.getElementById('mascot-speech').classList.remove('compact-hidden');
+}
+
 // ===== Screen Management =====
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1526,6 +1815,7 @@ function nextProblem() {
     resetHints();
     resetNumberLine();
     resetTenFrames();
+    resetFactFamily();
 
     const { a, b, operator } = state.currentProblem;
 
@@ -1582,7 +1872,7 @@ function checkAnswer() {
         }
 
         // Robux reward for Hakan (no reward if hints or number line were used)
-        if (currentUser === 'hakan' && state.hintStep === 0 && !state.usedNumberLine && !state.usedTenFrames) {
+        if (currentUser === 'hakan' && state.hintStep === 0 && !state.usedNumberLine && !state.usedTenFrames && !state.usedFactFamily) {
             const robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.50;
 
             const currentRobux = loadRobux();
