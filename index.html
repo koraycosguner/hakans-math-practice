@@ -60,22 +60,22 @@
             <button class="switch-user-btn" onclick="switchUser()">👤 Switch User</button>
 
             <div class="mode-selection">
-                <h2>Let's practice Addition & Subtraction!</h2>
-            </div>
-
-            <div class="difficulty-selection">
-                <h2>Pick your level:</h2>
-                <div class="difficulty-buttons">
-                    <button class="diff-btn easy active" onclick="setDifficulty('easy', this)">
-                        <span>🐣</span> Level 1<br><small>(single digits · 💎 0.50)</small>
+                <h2>Pick your game:</h2>
+                <div class="mode-buttons">
+                    <button class="mode-btn active" onclick="setMode('addsub', this)">
+                        <span class="mode-icon">🧮</span>
+                        <span class="mode-label">Addition &<br>Subtraction</span>
+                        <small>💎 0.50 each</small>
                     </button>
-                    <button class="diff-btn medium" onclick="setDifficulty('medium', this)">
-                        <span>🐥</span> Level 2<br><small>(bigger numbers · 💎 0.50)</small>
+                    <button class="mode-btn" onclick="setMode('factfamily', this)">
+                        <span class="mode-icon">🔺</span>
+                        <span class="mode-label">Fact<br>Families</span>
+                        <small>💎 0.25 each</small>
                     </button>
                 </div>
             </div>
 
-            <button class="start-game-btn" onclick="startGame('mixed')">
+            <button class="start-game-btn" onclick="startSelected()">
                 🚀 Start!
             </button>
         </div>
@@ -143,14 +143,11 @@
 
                     <div id="numberline-area" class="numberline-area" style="display: none;"></div>
                     <div id="tenframes-area" class="tenframes-area" style="display: none;"></div>
-                    <div id="factfamily-area" class="factfamily-area" style="display: none;"></div>
-
                     <div id="hint-area" class="hint-area">
                         <div class="hint-buttons-row">
                             <button id="hint-btn" class="hint-btn" onclick="showHint()">💡 Hint</button>
                             <button id="numberline-btn" class="numberline-btn" onclick="showNumberLine()">📏 Number Line</button>
                             <button id="tenframe-btn" class="tenframe-btn" onclick="showTenFrames()">🔟 Ten Frame</button>
-                            <button id="factfamily-btn" class="factfamily-btn" onclick="showFactFamily()">🔺 Fact Family</button>
                         </div>
                         <div id="hint-steps" class="hint-steps"></div>
                     </div>
@@ -178,6 +175,83 @@
         <!-- Feedback overlay -->
         <div id="feedback-overlay" class="feedback-overlay hidden">
             <div id="feedback-content" class="feedback-content"></div>
+        </div>
+    </div>
+
+    <!-- Fact Family Screen -->
+    <div id="factfamily-screen" class="screen">
+        <div class="game-layout">
+            <div class="game-header">
+                <button class="back-btn" onclick="goHome()">🏠 Home</button>
+                <button class="sound-btn" id="ff-sound-btn" onclick="toggleSpeech()">🔊</button>
+                <div class="score-display">
+                    <span class="stars-label">⭐</span>
+                    <span id="ff-score">0</span>
+                </div>
+                <div class="streak-display">
+                    <span id="ff-streak-text">🔥 0</span>
+                </div>
+                <div id="ff-robux-display" class="robux-display" style="display:none;">
+                    <span>💎</span>
+                    <span id="ff-robux-game">0.0</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="ff-progress-fill" class="progress-fill"></div>
+                    <span id="ff-progress-text">Family 1 / 5</span>
+                </div>
+            </div>
+
+            <div class="game-main">
+                <div class="game-left">
+                    <div id="ff-mascot-speech" class="mascot-speech">
+                        <div class="speech-bubble">
+                            <span id="ff-mascot-message">Let's learn fact families! 🔺</span>
+                        </div>
+                        <div class="game-mascot"><img src="hakan.jpg" alt="Hakan" class="mascot-photo-small"></div>
+                    </div>
+
+                    <div id="ff-triangle-area" class="ff-triangle-area"></div>
+
+                    <div id="ff-equation-card" class="ff-equation-card">
+                        <div class="ff-equation-display">
+                            <span id="ff-eq-part1" class="ff-eq-number">3</span>
+                            <span id="ff-eq-operator" class="ff-eq-operator">+</span>
+                            <span id="ff-eq-part2" class="ff-eq-number">7</span>
+                            <span class="ff-eq-equals">=</span>
+                            <span class="ff-answer-box">
+                                <input type="number" id="ff-answer-input" class="ff-answer-input"
+                                       autocomplete="off" inputmode="numeric"
+                                       onkeydown="handleFFKeyPress(event)">
+                            </span>
+                        </div>
+                        <div id="ff-equation-progress" class="ff-equation-progress">
+                            Equation 1 / 4
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-right">
+                    <div class="number-pad">
+                        <button class="num-key" onclick="ffTypeNumber('1')">1</button>
+                        <button class="num-key" onclick="ffTypeNumber('2')">2</button>
+                        <button class="num-key" onclick="ffTypeNumber('3')">3</button>
+                        <button class="num-key" onclick="ffTypeNumber('4')">4</button>
+                        <button class="num-key" onclick="ffTypeNumber('5')">5</button>
+                        <button class="num-key" onclick="ffTypeNumber('6')">6</button>
+                        <button class="num-key" onclick="ffTypeNumber('7')">7</button>
+                        <button class="num-key" onclick="ffTypeNumber('8')">8</button>
+                        <button class="num-key" onclick="ffTypeNumber('9')">9</button>
+                        <button class="num-key delete-key" onclick="ffDeleteNumber()">⌫</button>
+                        <button class="num-key" onclick="ffTypeNumber('0')">0</button>
+                        <button class="num-key check-key" onclick="ffCheckAnswer()">✓</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback overlay -->
+        <div id="ff-feedback-overlay" class="feedback-overlay hidden">
+            <div id="ff-feedback-content" class="feedback-content"></div>
         </div>
     </div>
 

@@ -276,7 +276,7 @@ body {
 }
 
 /* Mode Selection */
-.mode-selection, .difficulty-selection {
+.mode-selection {
     background: var(--card-bg);
     border-radius: 24px;
     padding: 20px 24px;
@@ -284,15 +284,15 @@ body {
     box-shadow: var(--shadow);
 }
 
-.mode-selection h2, .difficulty-selection h2 {
+.mode-selection h2 {
     font-size: clamp(1.1rem, 2.5vw, 1.5rem);
     margin-bottom: 14px;
     color: var(--text-dark);
 }
 
-.mode-buttons, .difficulty-buttons {
+.mode-buttons {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -321,40 +321,58 @@ body {
     transform: translateY(-1px);
 }
 
-/* Difficulty Buttons */
-.diff-btn {
-    padding: 14px 24px;
+/* Mode Buttons (Start Screen) */
+.mode-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 28px;
     border: 3px solid #e0e0e0;
-    border-radius: 16px;
+    border-radius: 20px;
     background: white;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 120px;
+    min-width: 150px;
+    flex: 1;
+    max-width: 220px;
     touch-action: manipulation;
 }
 
-.diff-btn:hover {
+.mode-btn:hover {
     border-color: var(--primary);
     background: #f0efff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.diff-btn.active {
+.mode-btn.active {
     border-color: var(--primary);
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
 }
 
-.diff-btn span {
-    font-size: 1.6rem;
-    display: block;
-    margin-bottom: 4px;
+.mode-btn.active small {
+    color: rgba(255, 255, 255, 0.85);
 }
 
-.diff-btn small {
-    font-weight: 400;
-    opacity: 0.8;
+.mode-icon {
+    font-size: 2.4rem;
+    display: block;
+}
+
+.mode-label {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.mode-btn small {
+    font-weight: 500;
+    opacity: 0.7;
+    font-size: 0.85rem;
 }
 
 /* ===== Game Screen ===== */
@@ -962,67 +980,134 @@ body {
     animation: hintSlideIn 0.3s ease;
 }
 
-/* ===== Fact Family Triangle ===== */
-.factfamily-btn {
-    padding: 12px 32px;
-    border: none;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #a18cd1, #6C63FF);
-    color: white;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
-    transition: all 0.2s ease;
-    touch-action: manipulation;
+/* ===== Fact Family Screen ===== */
+#factfamily-screen.active {
+    padding: 12px;
+    align-items: stretch;
 }
 
-.factfamily-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(108, 99, 255, 0.4);
-}
-
-.factfamily-btn:active {
-    transform: translateY(0);
-}
-
-.factfamily-btn.used {
-    background: linear-gradient(135deg, #b2bec3, #636e72);
-    cursor: default;
-    box-shadow: none;
-}
-
-.factfamily-area {
-    margin-bottom: 8px;
+.ff-triangle-area {
     text-align: center;
-    animation: hintSlideIn 0.4s ease;
+    margin-bottom: 12px;
 }
 
-.fact-family-svg {
+.ff-triangle-svg {
     width: 100%;
-    max-width: 500px;
-    max-height: 260px;
+    max-width: 320px;
+    max-height: 180px;
     display: block;
     margin: 0 auto;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.95);
     padding: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease, border 0.3s ease;
 }
 
-.ff-equation-pop {
-    animation: ffEquationPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+.ff-equation-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: clamp(14px, 3vw, 28px);
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
-@keyframes ffEquationPop {
-    0% { transform: scale(0.5); opacity: 0; }
-    60% { transform: scale(1.15); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+.ff-equation-card.correct {
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    animation: correctPulse 0.6s ease;
 }
 
-.ff-status {
-    font-size: clamp(1rem, 2vw, 1.3rem);
+.ff-equation-card.wrong {
+    background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+    animation: shake 0.5s ease;
+}
+
+.ff-equation-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(6px, 1.5vw, 14px);
+    flex-wrap: nowrap;
+}
+
+.ff-eq-number {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    min-width: clamp(40px, 7vw, 65px);
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.ff-eq-number.highlight-sum {
+    color: #FF914D;
+}
+
+.ff-eq-number.highlight-a {
+    color: #4A90D9;
+}
+
+.ff-eq-number.highlight-b {
+    color: #43e97b;
+}
+
+.ff-eq-operator {
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--warning);
+}
+
+.ff-eq-equals {
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--text-light);
+}
+
+.ff-answer-input {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    width: clamp(70px, 10vw, 110px);
+    text-align: center;
+    border: 4px dashed var(--primary-light);
+    border-radius: 16px;
+    padding: 6px;
+    outline: none;
+    color: var(--primary);
+    background: rgba(108, 99, 255, 0.05);
+    transition: border-color 0.3s;
+    -moz-appearance: textfield;
+}
+
+.ff-answer-input::-webkit-outer-spin-button,
+.ff-answer-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.ff-answer-input:focus {
+    border-color: var(--primary);
+    background: rgba(108, 99, 255, 0.1);
+}
+
+.ff-answer-revealed {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #2E7D32;
+    min-width: clamp(40px, 7vw, 65px);
+    text-align: center;
+    display: inline-block;
+    animation: answerPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ff-equation-progress {
+    margin-top: 10px;
+    font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.ff-family-complete {
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
     font-weight: 700;
     color: #6C63FF;
     margin-top: 8px;

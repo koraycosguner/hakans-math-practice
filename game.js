@@ -87,7 +87,6 @@ const state = {
     sessionRobux: 0,         // Robux earned this game session
     usedNumberLine: false,   // whether number line was used for current problem
     usedTenFrames: false,    // whether ten frames was used for current problem
-    usedFactFamily: false,   // whether fact family was used for current problem
 };
 
 // ===== Difficulty Ranges =====
@@ -350,7 +349,10 @@ if ('speechSynthesis' in window) {
 
 function toggleSpeech() {
     speechEnabled = !speechEnabled;
-    document.getElementById('sound-btn').textContent = speechEnabled ? '🔊' : '🔇';
+    const icon = speechEnabled ? '🔊' : '🔇';
+    document.getElementById('sound-btn').textContent = icon;
+    const ffBtn = document.getElementById('ff-sound-btn');
+    if (ffBtn) ffBtn.textContent = icon;
     if (!speechEnabled) window.speechSynthesis.cancel();
     playSound('click');
 }
@@ -730,7 +732,6 @@ function resetHints() {
 // Kid taps each number to hop along the line — they do the counting!
 let nlState = null; // number line state for current problem
 let tfState = null; // ten frame state for current problem
-let ffState = null; // fact family state for current problem
 
 function showNumberLine() {
     if (state.usedNumberLine) return;
@@ -1038,30 +1039,10 @@ function showTenFrames() {
 
     const problem = state.currentProblem;
     const isAddition = problem.type === 'addition';
-    const isLevel2 = (state.difficulty === 'medium');
 
-    let firstNum, secondNum, tensCarry;
-
-    if (isLevel2) {
-        firstNum = problem.a % 10;
-        tensCarry = Math.floor(problem.a / 10) * 10;
-        secondNum = problem.b;
-
-        // Skip ten frames for Level 2 subtraction with borrowing
-        if (!isAddition && firstNum < secondNum) {
-            state.usedTenFrames = false;
-            btn.textContent = '🔟 Ten Frame';
-            btn.classList.remove('used');
-            document.getElementById('problem-card').classList.remove('compact');
-            document.getElementById('mascot-speech').classList.remove('compact-hidden');
-            setMascotMessage("This one needs borrowing — try the hint! 💡", true);
-            return;
-        }
-    } else {
-        firstNum = problem.a;
-        secondNum = problem.b;
-        tensCarry = 0;
-    }
+    let firstNum = problem.a;
+    let secondNum = problem.b;
+    let tensCarry = 0;
 
     const needsTwoFrames = isAddition && (firstNum + secondNum > 10);
 
@@ -1074,8 +1055,8 @@ function showTenFrames() {
         targetTaps: secondNum,
         cellStates: [],
         needsTwoFrames,
-        isLevel2,
-        tensCarry,
+        isLevel2: false,
+        tensCarry: 0,
     };
 
     // Initialize cell states
@@ -1364,311 +1345,33 @@ function resetTenFrames() {
     document.getElementById('mascot-speech').classList.remove('compact-hidden');
 }
 
-// ===== Interactive Fact Family Triangle =====
-// Shows how 3 numbers relate: sum at top, addends at bottom
-// Kid taps to reveal 4 related equations
-
-function showFactFamily() {
-    if (state.usedFactFamily) return;
-
-    playSound('click');
-    state.usedFactFamily = true;
-
-    // Compact the problem card to make room
-    document.getElementById('problem-card').classList.add('compact');
-    document.getElementById('mascot-speech').classList.add('compact-hidden');
-
-    const btn = document.getElementById('factfamily-btn');
-    btn.textContent = '🔺 Tap equations!';
-    btn.classList.add('used');
-
-    const problem = state.currentProblem;
-
-    // Compute the fact family triple
-    let sum, addendA, addendB;
-    if (problem.type === 'addition') {
-        addendA = problem.a;
-        addendB = problem.b;
-        sum = problem.answer;
-    } else {
-        // subtraction: a - b = answer → sum=a, addends=b and answer
-        sum = problem.a;
-        addendA = problem.b;
-        addendB = problem.answer;
-    }
-
-    // Build 4 equations
-    const equations = [
-        { text: `${addendA} + ${addendB} = ${sum}`, type: 'addition' },
-        { text: `${addendB} + ${addendA} = ${sum}`, type: 'addition' },
-        { text: `${sum} − ${addendA} = ${addendB}`, type: 'subtraction' },
-        { text: `${sum} − ${addendB} = ${addendA}`, type: 'subtraction' },
-    ];
-
-    // Which equation matches the current problem?
-    let currentEqIndex;
-    if (problem.type === 'addition') {
-        currentEqIndex = 0; // a + b = sum
-    } else {
-        currentEqIndex = 2; // sum - addendA = addendB
-    }
-
-    ffState = {
-        sum,
-        addendA,
-        addendB,
-        equations,
-        currentEqIndex,
-        revealedCount: 0,
-        totalEquations: 4,
-    };
-
-    const area = document.getElementById('factfamily-area');
-    area.style.display = '';
-    area.innerHTML = '';
-
-    const svg = buildFactFamilySVG();
-    area.appendChild(svg);
-
-    setMascotMessage('Tap each equation to reveal it! 🔺', false);
-}
-
-function buildFactFamilySVG() {
-    const NS = 'http://www.w3.org/2000/svg';
-    const W = 500, H = 260;
-
-    const svg = document.createElementNS(NS, 'svg');
-    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    svg.setAttribute('class', 'fact-family-svg');
-
-    // Triangle vertices
-    const topX = 250, topY = 45;
-    const blX = 120, blY = 145;
-    const brX = 380, brY = 145;
-
-    // Draw triangle lines
-    const lineCoords = [
-        [topX, topY, blX, blY],
-        [topX, topY, brX, brY],
-        [blX, blY, brX, brY],
-    ];
-    lineCoords.forEach(([x1, y1, x2, y2]) => {
-        const line = document.createElementNS(NS, 'line');
-        line.setAttribute('x1', x1); line.setAttribute('y1', y1);
-        line.setAttribute('x2', x2); line.setAttribute('y2', y2);
-        line.setAttribute('stroke', '#6C63FF');
-        line.setAttribute('stroke-width', '3');
-        line.setAttribute('opacity', '0.25');
-        line.setAttribute('stroke-linecap', 'round');
-        svg.appendChild(line);
-    });
-
-    // Determine circle size based on digit count
-    const hasLargeNum = ffState.sum >= 10 || ffState.addendA >= 10 || ffState.addendB >= 10;
-    const circleR = hasLargeNum ? 32 : 28;
-    const numFontSize = hasLargeNum ? '20' : '24';
-
-    // Helper: draw number in colored circle
-    function drawNumberCircle(cx, cy, num, fillColor) {
-        const circle = document.createElementNS(NS, 'circle');
-        circle.setAttribute('cx', cx);
-        circle.setAttribute('cy', cy);
-        circle.setAttribute('r', circleR);
-        circle.setAttribute('fill', fillColor);
-        circle.setAttribute('stroke', 'white');
-        circle.setAttribute('stroke-width', '3');
-        svg.appendChild(circle);
-
-        const text = document.createElementNS(NS, 'text');
-        text.setAttribute('x', cx);
-        text.setAttribute('y', cy + 8);
-        text.setAttribute('text-anchor', 'middle');
-        text.setAttribute('font-size', numFontSize);
-        text.setAttribute('font-weight', '800');
-        text.setAttribute('fill', 'white');
-        text.setAttribute('style', 'user-select: none; -webkit-user-select: none;');
-        text.textContent = num;
-        svg.appendChild(text);
-    }
-
-    // Draw the three number circles
-    drawNumberCircle(topX, topY, ffState.sum, '#FF914D');       // Sum at top (orange)
-    drawNumberCircle(blX, blY, ffState.addendA, '#4A90D9');     // Addend A bottom-left (blue)
-    drawNumberCircle(brX, brY, ffState.addendB, '#43e97b');     // Addend B bottom-right (green)
-
-    // "+" label between bottom vertices
-    const plusLabel = document.createElementNS(NS, 'text');
-    plusLabel.setAttribute('x', (blX + brX) / 2);
-    plusLabel.setAttribute('y', blY + 8);
-    plusLabel.setAttribute('text-anchor', 'middle');
-    plusLabel.setAttribute('font-size', '20');
-    plusLabel.setAttribute('font-weight', '700');
-    plusLabel.setAttribute('fill', '#6C63FF');
-    plusLabel.setAttribute('opacity', '0.4');
-    plusLabel.textContent = '+';
-    svg.appendChild(plusLabel);
-
-    // "=" label on left edge of triangle
-    const eqLabelLeft = document.createElementNS(NS, 'text');
-    eqLabelLeft.setAttribute('x', (topX + blX) / 2 - 15);
-    eqLabelLeft.setAttribute('y', (topY + blY) / 2 + 5);
-    eqLabelLeft.setAttribute('text-anchor', 'middle');
-    eqLabelLeft.setAttribute('font-size', '18');
-    eqLabelLeft.setAttribute('font-weight', '700');
-    eqLabelLeft.setAttribute('fill', '#6C63FF');
-    eqLabelLeft.setAttribute('opacity', '0.4');
-    eqLabelLeft.textContent = '=';
-    svg.appendChild(eqLabelLeft);
-
-    // Equation slots below the triangle
-    const eqStartY = 185;
-    const eqSpacing = 28;
-    const eqPositions = [
-        { x: 135, y: eqStartY },                       // Eq 0: addendA + addendB = sum
-        { x: 365, y: eqStartY },                       // Eq 1: addendB + addendA = sum
-        { x: 135, y: eqStartY + eqSpacing },           // Eq 2: sum − addendA = addendB
-        { x: 365, y: eqStartY + eqSpacing },           // Eq 3: sum − addendB = addendA
-    ];
-
-    // Separator labels
-    const addLabel = document.createElementNS(NS, 'text');
-    addLabel.setAttribute('x', 250);
-    addLabel.setAttribute('y', eqStartY - 10);
-    addLabel.setAttribute('text-anchor', 'middle');
-    addLabel.setAttribute('font-size', '11');
-    addLabel.setAttribute('fill', '#b2bec3');
-    addLabel.textContent = 'addition                                subtraction';
-    svg.appendChild(addLabel);
-
-    ffState.equations.forEach((eq, i) => {
-        const pos = eqPositions[i];
-        const isCurrent = (i === ffState.currentEqIndex);
-
-        // Hidden placeholder text
-        const placeholder = i < 2 ? '? + ? = ?' : '? − ? = ?';
-        const hiddenText = document.createElementNS(NS, 'text');
-        hiddenText.setAttribute('x', pos.x);
-        hiddenText.setAttribute('y', pos.y);
-        hiddenText.setAttribute('text-anchor', 'middle');
-        hiddenText.setAttribute('font-size', '16');
-        hiddenText.setAttribute('font-weight', '600');
-        hiddenText.setAttribute('fill', '#b2bec3');
-        hiddenText.setAttribute('data-ff-hidden', i);
-        hiddenText.textContent = placeholder;
-        svg.appendChild(hiddenText);
-
-        // Revealed equation text (initially invisible)
-        const revealedText = document.createElementNS(NS, 'text');
-        revealedText.setAttribute('x', pos.x);
-        revealedText.setAttribute('y', pos.y);
-        revealedText.setAttribute('text-anchor', 'middle');
-        revealedText.setAttribute('font-size', '16');
-        revealedText.setAttribute('font-weight', '700');
-        revealedText.setAttribute('fill', isCurrent ? '#FF914D' : '#2D3436');
-        revealedText.setAttribute('data-ff-revealed', i);
-        revealedText.setAttribute('opacity', '0');
-        revealedText.textContent = (isCurrent ? '⭐ ' : '') + eq.text;
-        svg.appendChild(revealedText);
-
-        // Tap target (invisible rect)
-        const tap = document.createElementNS(NS, 'rect');
-        tap.setAttribute('x', pos.x - 110);
-        tap.setAttribute('y', pos.y - 18);
-        tap.setAttribute('width', 220);
-        tap.setAttribute('height', 28);
-        tap.setAttribute('fill', 'transparent');
-        tap.setAttribute('cursor', 'pointer');
-        tap.setAttribute('style', 'user-select: none; -webkit-user-select: none;');
-        tap.setAttribute('data-ff-tap', i);
-        tap.addEventListener('click', () => handleFactFamilyTap(i));
-        tap.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            handleFactFamilyTap(i);
-        });
-        svg.appendChild(tap);
-    });
-
-    return svg;
-}
-
-function handleFactFamilyTap(eqIndex) {
-    if (!ffState) return;
-
-    const svg = document.querySelector('.fact-family-svg');
-    if (!svg) return;
-
-    // Check if already revealed
-    const revealedEl = svg.querySelector(`[data-ff-revealed="${eqIndex}"]`);
-    if (!revealedEl || revealedEl.getAttribute('opacity') === '1') return;
-
-    // Reveal the equation
-    playSound('hop');
-    ffState.revealedCount++;
-
-    // Hide the placeholder
-    const hiddenEl = svg.querySelector(`[data-ff-hidden="${eqIndex}"]`);
-    if (hiddenEl) hiddenEl.setAttribute('opacity', '0');
-
-    // Show the real equation with pop animation
-    revealedEl.setAttribute('opacity', '1');
-    revealedEl.classList.add('ff-equation-pop');
-
-    // Update mascot
-    const remaining = ffState.totalEquations - ffState.revealedCount;
-    if (remaining > 0) {
-        setMascotMessage(`${ffState.revealedCount} found! ${remaining} more! 🔺`, false);
-    }
-
-    // All 4 revealed
-    if (ffState.revealedCount >= ffState.totalEquations) {
-        setTimeout(() => {
-            setMascotMessage('These numbers are a family! Now type your answer! 🎉', false);
-
-            // Visual completion feedback
-            if (svg) {
-                svg.style.boxShadow = '0 4px 15px rgba(108, 99, 255, 0.4)';
-                svg.style.border = '2px solid #6C63FF';
-            }
-        }, 300);
-    }
-}
-
-function resetFactFamily() {
-    state.usedFactFamily = false;
-    ffState = null;
-    const area = document.getElementById('factfamily-area');
-    if (area) {
-        area.style.display = 'none';
-        area.innerHTML = '';
-    }
-    const btn = document.getElementById('factfamily-btn');
-    if (btn) {
-        btn.textContent = '🔺 Fact Family';
-        btn.classList.remove('used');
-    }
-    // Remove compact mode
-    document.getElementById('problem-card').classList.remove('compact');
-    document.getElementById('mascot-speech').classList.remove('compact-hidden');
-}
-
 // ===== Screen Management =====
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
 }
 
-// ===== Difficulty Selection =====
-function setDifficulty(diff, btn) {
-    state.difficulty = diff;
-    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+// ===== Mode Selection =====
+let selectedMode = 'addsub'; // 'addsub' or 'factfamily'
+let activeGameMode = 'addsub'; // which mode is currently running
+
+function setMode(mode, btn) {
+    selectedMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     playSound('click');
 }
 
-// ===== Start Game =====
-function startGame(mode) {
-    playSound('click');
+function startSelected() {
+    if (selectedMode === 'addsub') {
+        startGame('mixed');
+    } else {
+        startFactFamilyGame();
+    }
+}
 
+// ===== Start Game =====
+function initSpeechOnGesture() {
     // iOS Safari: voices only load after user gesture.
     // Force re-detection and kick-start speech engine with a silent utterance.
     if ('speechSynthesis' in window) {
@@ -1689,8 +1392,15 @@ function startGame(mode) {
             pickVoice();
         }, 500);
     }
+}
 
+function startGame(mode) {
+    playSound('click');
+    initSpeechOnGesture();
+
+    activeGameMode = 'addsub';
     state.mode = mode;
+    state.difficulty = 'easy'; // hardcoded — Level 2 removed
     state.score = 0;
     state.streak = 0;
     state.bestStreak = 0;
@@ -1768,22 +1478,6 @@ function generateProblem() {
             answer = a - b;
             operator = '−';
         }
-    } else if (state.difficulty === 'medium') {
-        // Level 2: one 1-2 digit number and one 1-digit number
-        const big = randomInt(10, 99);  // 1-2 digit number (10-99)
-        const small = randomInt(1, 9);  // single digit
-
-        if (type === 'addition') {
-            a = big;
-            b = small;
-            answer = a + b;
-            operator = '+';
-        } else {
-            a = big;
-            b = small;
-            answer = a - b;
-            operator = '−';
-        }
     } else if (type === 'addition') {
         // Easy: single digits
         a = randomInt(range.min, range.max);
@@ -1815,7 +1509,6 @@ function nextProblem() {
     resetHints();
     resetNumberLine();
     resetTenFrames();
-    resetFactFamily();
 
     const { a, b, operator } = state.currentProblem;
 
@@ -1872,7 +1565,7 @@ function checkAnswer() {
         }
 
         // Robux reward for Hakan (no reward if hints or number line were used)
-        if (currentUser === 'hakan' && state.hintStep === 0 && !state.usedNumberLine && !state.usedTenFrames && !state.usedFactFamily) {
+        if (currentUser === 'hakan' && state.hintStep === 0 && !state.usedNumberLine && !state.usedTenFrames) {
             const robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.50;
 
             const currentRobux = loadRobux();
@@ -2065,7 +1758,11 @@ function goHome() {
 
 function playAgain() {
     playSound('click');
-    startGame(state.mode);
+    if (activeGameMode === 'factfamily') {
+        startFactFamilyGame();
+    } else {
+        startGame(state.mode);
+    }
 }
 
 // ===== Results Screen =====
@@ -2199,3 +1896,445 @@ window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
+
+// ===== Fact Family Practice Mode =====
+const ffGameState = {
+    familyNumber: 0,
+    totalFamilies: 5,
+    equationIndex: 0,
+    totalEquations: 4,
+    currentFamily: null,     // { a, b, sum, equations: [...] }
+    score: 0,
+    streak: 0,
+    bestStreak: 0,
+    correctAnswers: 0,
+    totalAnswered: 0,
+    attempts: 0,             // attempts for current equation
+    sessionRobux: 0,
+    waiting: false,          // prevent double-taps during transitions
+};
+
+function startFactFamilyGame() {
+    playSound('click');
+    initSpeechOnGesture();
+
+    activeGameMode = 'factfamily';
+
+    // Reset state
+    ffGameState.familyNumber = 0;
+    ffGameState.equationIndex = 0;
+    ffGameState.currentFamily = null;
+    ffGameState.score = 0;
+    ffGameState.streak = 0;
+    ffGameState.bestStreak = 0;
+    ffGameState.correctAnswers = 0;
+    ffGameState.totalAnswered = 0;
+    ffGameState.attempts = 0;
+    ffGameState.sessionRobux = 0;
+    ffGameState.waiting = false;
+
+    // Show Robux display for Hakan
+    const ffRobux = document.getElementById('ff-robux-display');
+    if (currentUser === 'hakan') {
+        ffRobux.style.display = '';
+        document.getElementById('ff-robux-game').textContent = loadRobux().toFixed(2);
+    } else {
+        ffRobux.style.display = 'none';
+    }
+
+    ffUpdateScoreDisplay();
+    ffUpdateStreakDisplay();
+
+    showScreen('factfamily-screen');
+    ffSetMascotMessage(randomChoice(MESSAGES.start));
+    ffNextFamily();
+}
+
+function generateFactFamily() {
+    // Generate two distinct single-digit numbers (1-9)
+    let a = randomInt(1, 9);
+    let b = randomInt(1, 8);
+    if (b >= a) b++; // ensure distinct
+
+    // Always make a < b for consistency (smaller first)
+    if (a > b) [a, b] = [b, a];
+
+    const sum = a + b;
+
+    // Build 4 equations with metadata for coloring
+    const equations = [
+        { parts: [a, '+', b], answer: sum, display: `${a} + ${b} = ?`, colors: ['a', 'op', 'b'], answerColor: 'sum' },
+        { parts: [b, '+', a], answer: sum, display: `${b} + ${a} = ?`, colors: ['b', 'op', 'a'], answerColor: 'sum' },
+        { parts: [sum, '−', a], answer: b, display: `${sum} − ${a} = ?`, colors: ['sum', 'op', 'a'], answerColor: 'b' },
+        { parts: [sum, '−', b], answer: a, display: `${sum} − ${b} = ?`, colors: ['sum', 'op', 'b'], answerColor: 'a' },
+    ];
+
+    return { a, b, sum, equations };
+}
+
+function buildFFTriangleSVG(family) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const W = 320, H = 180;
+
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('class', 'ff-triangle-svg');
+
+    // Triangle vertices (compact)
+    const topX = 160, topY = 35;
+    const blX = 60, blY = 140;
+    const brX = 260, brY = 140;
+
+    // Draw triangle lines
+    [[topX, topY, blX, blY], [topX, topY, brX, brY], [blX, blY, brX, brY]].forEach(([x1, y1, x2, y2]) => {
+        const line = document.createElementNS(NS, 'line');
+        line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+        line.setAttribute('x2', x2); line.setAttribute('y2', y2);
+        line.setAttribute('stroke', '#6C63FF');
+        line.setAttribute('stroke-width', '3');
+        line.setAttribute('opacity', '0.25');
+        line.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(line);
+    });
+
+    const circleR = family.sum >= 10 ? 28 : 24;
+    const fontSize = family.sum >= 10 ? '18' : '22';
+
+    function drawCircle(cx, cy, num, fill) {
+        const c = document.createElementNS(NS, 'circle');
+        c.setAttribute('cx', cx); c.setAttribute('cy', cy);
+        c.setAttribute('r', circleR);
+        c.setAttribute('fill', fill);
+        c.setAttribute('stroke', 'white');
+        c.setAttribute('stroke-width', '3');
+        svg.appendChild(c);
+
+        const t = document.createElementNS(NS, 'text');
+        t.setAttribute('x', cx); t.setAttribute('y', cy + 7);
+        t.setAttribute('text-anchor', 'middle');
+        t.setAttribute('font-size', fontSize);
+        t.setAttribute('font-weight', '800');
+        t.setAttribute('fill', 'white');
+        t.textContent = num;
+        svg.appendChild(t);
+    }
+
+    // Sum at top (orange), A bottom-left (blue), B bottom-right (green)
+    drawCircle(topX, topY, family.sum, '#FF914D');
+    drawCircle(blX, blY, family.a, '#4A90D9');
+    drawCircle(brX, brY, family.b, '#43e97b');
+
+    // "+" label between bottom
+    const plus = document.createElementNS(NS, 'text');
+    plus.setAttribute('x', (blX + brX) / 2);
+    plus.setAttribute('y', blY + 7);
+    plus.setAttribute('text-anchor', 'middle');
+    plus.setAttribute('font-size', '18');
+    plus.setAttribute('font-weight', '700');
+    plus.setAttribute('fill', '#6C63FF');
+    plus.setAttribute('opacity', '0.4');
+    plus.textContent = '+';
+    svg.appendChild(plus);
+
+    // "=" on left edge
+    const eq = document.createElementNS(NS, 'text');
+    eq.setAttribute('x', (topX + blX) / 2 - 12);
+    eq.setAttribute('y', (topY + blY) / 2 + 5);
+    eq.setAttribute('text-anchor', 'middle');
+    eq.setAttribute('font-size', '16');
+    eq.setAttribute('font-weight', '700');
+    eq.setAttribute('fill', '#6C63FF');
+    eq.setAttribute('opacity', '0.4');
+    eq.textContent = '=';
+    svg.appendChild(eq);
+
+    return svg;
+}
+
+function ffNextFamily() {
+    if (ffGameState.familyNumber >= ffGameState.totalFamilies) {
+        ffShowResults();
+        return;
+    }
+
+    ffGameState.familyNumber++;
+    ffGameState.equationIndex = 0;
+    ffGameState.currentFamily = generateFactFamily();
+
+    // Draw triangle
+    const area = document.getElementById('ff-triangle-area');
+    area.innerHTML = '';
+    const svg = buildFFTriangleSVG(ffGameState.currentFamily);
+    area.appendChild(svg);
+
+    ffUpdateProgress();
+    ffSetMascotMessage(`Family ${ffGameState.familyNumber}: ${ffGameState.currentFamily.a}, ${ffGameState.currentFamily.b}, ${ffGameState.currentFamily.sum}! 🔺`);
+
+    ffNextEquation();
+}
+
+function ffNextEquation() {
+    if (ffGameState.equationIndex >= ffGameState.totalEquations) {
+        // All 4 equations done for this family — celebrate and move on
+        ffGameState.waiting = true;
+        ffSetMascotMessage('Great family! 🎉 Next one coming!');
+        playSound('correct');
+        spawnFloatingStars(3);
+
+        setTimeout(() => {
+            ffGameState.waiting = false;
+            ffNextFamily();
+        }, 2000);
+        return;
+    }
+
+    ffGameState.attempts = 0;
+    const family = ffGameState.currentFamily;
+    const eq = family.equations[ffGameState.equationIndex];
+
+    // Color mapping
+    const colorMap = { sum: 'highlight-sum', a: 'highlight-a', b: 'highlight-b' };
+
+    // Update equation display
+    const part1El = document.getElementById('ff-eq-part1');
+    const opEl = document.getElementById('ff-eq-operator');
+    const part2El = document.getElementById('ff-eq-part2');
+
+    part1El.textContent = eq.parts[0];
+    opEl.textContent = eq.parts[1];
+    part2El.textContent = eq.parts[2];
+
+    // Apply color classes
+    part1El.className = 'ff-eq-number ' + (colorMap[eq.colors[0]] || '');
+    part2El.className = 'ff-eq-number ' + (colorMap[eq.colors[2]] || '');
+
+    // Clear answer input
+    const input = document.getElementById('ff-answer-input');
+    const answerBox = input.closest('.ff-answer-box') || input.parentElement;
+    // Remove any revealed answer
+    const revealed = answerBox.querySelector('.ff-answer-revealed');
+    if (revealed) revealed.remove();
+    input.style.display = '';
+    input.value = '';
+    input.focus();
+
+    // Update equation progress
+    document.getElementById('ff-equation-progress').textContent =
+        `Equation ${ffGameState.equationIndex + 1} / ${ffGameState.totalEquations}`;
+
+    // Card animation
+    const card = document.getElementById('ff-equation-card');
+    card.classList.remove('correct', 'wrong');
+    card.style.animation = 'none';
+    card.offsetHeight;
+    card.style.animation = 'fadeIn 0.4s ease';
+
+    // Speak the equation
+    const spokenOp = eq.parts[1] === '+' ? 'plus' : 'minus';
+    speak(`${eq.parts[0]} ${spokenOp} ${eq.parts[2]}?`);
+}
+
+function ffCheckAnswer() {
+    if (ffGameState.waiting) return;
+
+    const input = document.getElementById('ff-answer-input');
+    const userAnswer = parseInt(input.value);
+    const card = document.getElementById('ff-equation-card');
+
+    if (isNaN(userAnswer) || input.value === '') {
+        input.style.animation = 'none';
+        input.offsetHeight;
+        input.style.animation = 'shake 0.4s ease';
+        return;
+    }
+
+    const eq = ffGameState.currentFamily.equations[ffGameState.equationIndex];
+    ffGameState.attempts++;
+    ffGameState.totalAnswered++;
+
+    if (userAnswer === eq.answer) {
+        // Correct!
+        const points = ffGameState.attempts === 1 ? 10 : Math.max(5, 10 - ffGameState.attempts * 2);
+        ffGameState.score += points;
+        ffGameState.streak++;
+        ffGameState.correctAnswers++;
+        if (ffGameState.streak > ffGameState.bestStreak) {
+            ffGameState.bestStreak = ffGameState.streak;
+        }
+
+        // Robux for Hakan (first attempt only, 0.25 per equation)
+        if (currentUser === 'hakan' && ffGameState.attempts === 1) {
+            const robuxEarned = 0.25;
+            const current = loadRobux();
+            const newTotal = Math.round((current + robuxEarned) * 100) / 100;
+            saveRobux(newTotal);
+            ffGameState.sessionRobux = Math.round((ffGameState.sessionRobux + robuxEarned) * 100) / 100;
+            document.getElementById('ff-robux-game').textContent = newTotal.toFixed(2);
+        }
+
+        card.classList.add('correct');
+        playSound('correct');
+
+        // Show the answer replacing input
+        ffGameState.waiting = true;
+        input.style.display = 'none';
+        const answerBox = input.parentElement;
+        const ansNum = document.createElement('span');
+        ansNum.className = 'ff-answer-revealed';
+        ansNum.textContent = eq.answer;
+        answerBox.appendChild(ansNum);
+
+        let message;
+        if (ffGameState.streak >= 3 && ffGameState.streak % 3 === 0) {
+            message = randomChoice(MESSAGES.streak) + ` (${ffGameState.streak} in a row!)`;
+        } else {
+            message = randomChoice(MESSAGES.correct);
+        }
+        ffSetMascotMessage(message);
+        spawnFloatingStars(2);
+
+        ffUpdateScoreDisplay();
+        ffUpdateStreakDisplay();
+
+        setTimeout(() => {
+            ffGameState.waiting = false;
+            ffGameState.equationIndex++;
+            ffNextEquation();
+        }, 1800);
+    } else {
+        // Wrong
+        card.classList.add('wrong');
+        playSound('wrong');
+        ffGameState.streak = 0;
+        ffUpdateStreakDisplay();
+
+        ffSetMascotMessage(randomChoice(MESSAGES.wrong));
+        ffShowFeedback('❌');
+
+        setTimeout(() => {
+            card.classList.remove('wrong');
+            input.value = '';
+            input.focus();
+        }, 800);
+
+        // After 3 wrong attempts, reveal and move on
+        if (ffGameState.attempts >= 3) {
+            ffGameState.waiting = true;
+            ffSetMascotMessage(`The answer is ${eq.answer}. Let's keep going! 📖`);
+
+            input.style.display = 'none';
+            const answerBox = input.parentElement;
+            const ansNum = document.createElement('span');
+            ansNum.className = 'ff-answer-revealed';
+            ansNum.textContent = eq.answer;
+            answerBox.appendChild(ansNum);
+
+            setTimeout(() => {
+                ffGameState.waiting = false;
+                ffGameState.equationIndex++;
+                ffNextEquation();
+            }, 2500);
+        }
+    }
+}
+
+// ===== Fact Family UI Helpers =====
+function ffTypeNumber(num) {
+    playSound('click');
+    const input = document.getElementById('ff-answer-input');
+    if (input.value.length < 3) {
+        input.value += num;
+    }
+}
+
+function ffDeleteNumber() {
+    playSound('click');
+    const input = document.getElementById('ff-answer-input');
+    input.value = input.value.slice(0, -1);
+}
+
+function handleFFKeyPress(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        ffCheckAnswer();
+    }
+}
+
+function ffUpdateScoreDisplay() {
+    document.getElementById('ff-score').textContent = ffGameState.score;
+}
+
+function ffUpdateStreakDisplay() {
+    document.getElementById('ff-streak-text').textContent = `🔥 ${ffGameState.streak}`;
+}
+
+function ffUpdateProgress() {
+    const total = ffGameState.totalFamilies;
+    const current = ffGameState.familyNumber;
+    const pct = ((current - 1) / total) * 100;
+    document.getElementById('ff-progress-fill').style.width = pct + '%';
+    document.getElementById('ff-progress-text').textContent = `Family ${current} / ${total}`;
+}
+
+function ffSetMascotMessage(msg, alsoSpeak = true) {
+    document.getElementById('ff-mascot-message').textContent = msg;
+    if (alsoSpeak) speak(msg);
+}
+
+function ffShowFeedback(content) {
+    const overlay = document.getElementById('ff-feedback-overlay');
+    const contentEl = document.getElementById('ff-feedback-content');
+    contentEl.textContent = content;
+    overlay.classList.remove('hidden');
+
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+    }, 1000);
+}
+
+function ffShowResults() {
+    playSound('win');
+
+    const totalEqs = ffGameState.totalFamilies * ffGameState.totalEquations; // 20
+    const pct = ffGameState.correctAnswers / totalEqs;
+
+    let title;
+    if (pct === 1) title = "🏆 PERFECT SCORE! 🏆";
+    else if (pct >= 0.8) title = "🎉 Great Job! 🎉";
+    else if (pct >= 0.5) title = "👍 Good Try! 👍";
+    else title = "Keep Practicing! 📚";
+
+    document.getElementById('results-title').textContent = title;
+
+    const resultsMascot = document.getElementById('results-mascot');
+    const existingBadge = resultsMascot.querySelector('.results-badge');
+    if (existingBadge) existingBadge.remove();
+    const badge = document.createElement('span');
+    badge.className = 'results-badge';
+    badge.textContent = pct === 1 ? '🎓' : pct >= 0.8 ? '👏' : pct >= 0.5 ? '💪' : '🤗';
+    resultsMascot.appendChild(badge);
+
+    document.getElementById('final-score').textContent = ffGameState.score;
+    document.getElementById('final-correct').textContent = `${ffGameState.correctAnswers} / ${totalEqs}`;
+    document.getElementById('final-streak').textContent = ffGameState.bestStreak;
+
+    const stars = Math.ceil(pct * 5);
+    document.getElementById('star-rating').textContent = '⭐'.repeat(stars) + '☆'.repeat(5 - stars);
+
+    // Robux results
+    const robuxResults = document.getElementById('robux-results');
+    if (currentUser === 'hakan') {
+        document.getElementById('robux-session').textContent = ffGameState.sessionRobux.toFixed(2);
+        document.getElementById('robux-total-result').textContent = loadRobux().toFixed(2);
+        robuxResults.style.display = '';
+    } else {
+        robuxResults.style.display = 'none';
+    }
+
+    // Progress to 100%
+    document.getElementById('ff-progress-fill').style.width = '100%';
+
+    showScreen('results-screen');
+
+    if (pct >= 0.5) launchConfetti();
+}
