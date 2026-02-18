@@ -736,6 +736,10 @@ function showNumberLine() {
     playSound('click');
     state.usedNumberLine = true;
 
+    // Compact the problem card to make room
+    document.getElementById('problem-card').classList.add('compact');
+    document.getElementById('mascot-speech').classList.add('compact-hidden');
+
     const btn = document.getElementById('numberline-btn');
     btn.textContent = '📏 Tap to count!';
     btn.classList.add('used');
@@ -792,6 +796,9 @@ function resetNumberLine() {
         btn.textContent = '📏 Number Line';
         btn.classList.remove('used');
     }
+    // Remove compact mode
+    document.getElementById('problem-card').classList.remove('compact');
+    document.getElementById('mascot-speech').classList.remove('compact-hidden');
 }
 
 function buildNumberLineSVG() {
@@ -1019,6 +1026,10 @@ function showTenFrames() {
     playSound('click');
     state.usedTenFrames = true;
 
+    // Compact the problem card to make room
+    document.getElementById('problem-card').classList.add('compact');
+    document.getElementById('mascot-speech').classList.add('compact-hidden');
+
     const btn = document.getElementById('tenframe-btn');
     btn.textContent = '🔟 Tap cells!';
     btn.classList.add('used');
@@ -1039,6 +1050,8 @@ function showTenFrames() {
             state.usedTenFrames = false;
             btn.textContent = '🔟 Ten Frame';
             btn.classList.remove('used');
+            document.getElementById('problem-card').classList.remove('compact');
+            document.getElementById('mascot-speech').classList.remove('compact-hidden');
             setMascotMessage("This one needs borrowing — try the hint! 💡", true);
             return;
         }
@@ -1344,6 +1357,9 @@ function resetTenFrames() {
         btn.textContent = '🔟 Ten Frame';
         btn.classList.remove('used');
     }
+    // Remove compact mode
+    document.getElementById('problem-card').classList.remove('compact');
+    document.getElementById('mascot-speech').classList.remove('compact-hidden');
 }
 
 // ===== Screen Management =====

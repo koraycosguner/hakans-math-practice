@@ -521,6 +521,45 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Compact mode: shrink problem card when visual aids are open */
+.problem-card.compact {
+    padding: clamp(8px, 2vw, 16px);
+    margin-bottom: 8px;
+}
+
+.problem-card.compact .number {
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    min-width: clamp(40px, 7vw, 70px);
+}
+
+.problem-card.compact .operator {
+    font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+    min-width: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+.problem-card.compact .problem-line {
+    margin: clamp(2px, 0.5vw, 4px) 0;
+    height: 3px;
+}
+
+.problem-card.compact .answer-input {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px);
+    min-width: clamp(40px, 7vw, 70px);
+}
+
+.problem-card.compact .row-spacer {
+    width: clamp(1.5rem, 3.5vw, 2.5rem);
+}
+
+.problem-card.compact .correct-answer-display.show {
+    display: none;
+}
+
+.mascot-speech.compact-hidden {
+    display: none;
+}
+
 .problem-card.correct {
     background: linear-gradient(135deg, #d4edda, #c3e6cb);
     animation: correctPulse 0.6s ease;
@@ -793,12 +832,12 @@ body {
 .number-line-svg {
     width: 100%;
     max-width: 750px;
-    height: auto;
+    max-height: 160px;
     display: block;
     margin: 0 auto;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.95);
-    padding: 12px;
+    padding: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -878,20 +917,20 @@ body {
 }
 
 .tenframes-area {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     text-align: center;
     animation: hintSlideIn 0.4s ease;
 }
 
 .ten-frame-svg {
     width: 100%;
-    max-width: 700px;
-    height: auto;
+    max-width: 600px;
+    max-height: 200px;
     display: block;
     margin: 0 auto;
     border-radius: 16px;
     background: rgba(255, 255, 255, 0.95);
-    padding: 12px;
+    padding: 8px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease, border 0.3s ease;
 }
