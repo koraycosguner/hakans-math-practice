@@ -1,8 +1,8 @@
 // ===== User & Robux =====
 let currentUser = null; // 'hakan' or 'koray'
 const ROBUX_BY_LEVEL = {
-    easy: 0.50,
-    medium: 0.50,
+    easy: 4,
+    medium: 4,
 };
 const ROBUX_STORAGE_KEY = 'hakans-math-robux';
 
@@ -2162,9 +2162,9 @@ function ffCheckAnswer() {
             ffGameState.bestStreak = ffGameState.streak;
         }
 
-        // Robux for Hakan (first attempt only, 0.25 per equation)
+        // Robux for Hakan (first attempt only, 2 per equation)
         if (currentUser === 'hakan' && ffGameState.attempts === 1) {
-            const robuxEarned = 0.25;
+            const robuxEarned = 2;
             const current = loadRobux();
             const newTotal = Math.round((current + robuxEarned) * 100) / 100;
             saveRobux(newTotal);
