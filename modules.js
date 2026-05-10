@@ -20118,6 +20118,7243 @@ const MODULES = [
         "hint": "Make 10: 9+1=10, then 10+6=16."
       }
     ]
+  },
+  {
+    "id": "tenframe-3",
+    "title": "Ten-Frame: 3 dots",
+    "emoji": "🟥",
+    "category": "A",
+    "description": "Count 3 dots in a ten-frame.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "A Ten-Frame Shows 3",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "text": "A ten-frame holds 10 dots. This frame has 3 red dots.",
+        "caption": "3 dots"
+      },
+      {
+        "title": "Count the Dots",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "text": "Touch each dot and count: 1, 2, 3!",
+        "caption": "Total: 3"
+      },
+      {
+        "title": "Empty Cells Tell You Too",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "text": "There are 7 EMPTY cells. 3 + 7 = 10!",
+        "caption": "3 + 7 = 10"
+      },
+      {
+        "title": "Compare Frames",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 4
+        },
+        "text": "One more dot makes 4. Ten-frames make counting fast!",
+        "caption": "3+1 = 4"
+      },
+      {
+        "title": "You Can Read It!",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "text": "Read it instantly: 3 dots. The ten-frame is your friend!",
+        "caption": "3 ✓"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 0
+        },
+        "prompt": "How many dots?",
+        "answer": 0,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 1
+        },
+        "prompt": "How many dots?",
+        "answer": 1,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 2
+        },
+        "prompt": "How many dots?",
+        "answer": 2,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "prompt": "How many dots?",
+        "answer": 3,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 4
+        },
+        "prompt": "How many dots?",
+        "answer": 4,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots?",
+        "answer": 5,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "prompt": "How many dots?",
+        "answer": 6,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots?",
+        "answer": 7,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 2
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 4
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 1
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 2
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 4
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 3
+      }
+    ]
+  },
+  {
+    "id": "tenframe-5",
+    "title": "Ten-Frame: 5 dots",
+    "emoji": "🟥",
+    "category": "A",
+    "description": "Count 5 dots in a ten-frame.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "A Ten-Frame Shows 5",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "text": "A ten-frame holds 10 dots. This frame has 5 red dots.",
+        "caption": "5 dots"
+      },
+      {
+        "title": "Count the Dots",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "text": "Touch each dot and count: 1, 2, 3, 4, 5!",
+        "caption": "Total: 5"
+      },
+      {
+        "title": "Empty Cells Tell You Too",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "text": "There are 5 EMPTY cells. 5 + 5 = 10!",
+        "caption": "5 + 5 = 10"
+      },
+      {
+        "title": "Compare Frames",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "text": "One more dot makes 6. Ten-frames make counting fast!",
+        "caption": "5+1 = 6"
+      },
+      {
+        "title": "You Can Read It!",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "text": "Read it instantly: 5 dots. The ten-frame is your friend!",
+        "caption": "5 ✓"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 2
+        },
+        "prompt": "How many dots?",
+        "answer": 2,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "prompt": "How many dots?",
+        "answer": 3,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 4
+        },
+        "prompt": "How many dots?",
+        "answer": 4,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots?",
+        "answer": 5,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "prompt": "How many dots?",
+        "answer": 6,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots?",
+        "answer": 7,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots?",
+        "answer": 8,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots?",
+        "answer": 9,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 4
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 3
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 4
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 5
+      }
+    ]
+  },
+  {
+    "id": "tenframe-7",
+    "title": "Ten-Frame: 7 dots",
+    "emoji": "🟥",
+    "category": "A",
+    "description": "Count 7 dots in a ten-frame.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "A Ten-Frame Shows 7",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "text": "A ten-frame holds 10 dots. This frame has 7 red dots.",
+        "caption": "7 dots"
+      },
+      {
+        "title": "Count the Dots",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "text": "Touch each dot and count: 1, 2, 3, 4, 5, 6, 7!",
+        "caption": "Total: 7"
+      },
+      {
+        "title": "Empty Cells Tell You Too",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "text": "There are 3 EMPTY cells. 7 + 3 = 10!",
+        "caption": "7 + 3 = 10"
+      },
+      {
+        "title": "Compare Frames",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "text": "One more dot makes 8. Ten-frames make counting fast!",
+        "caption": "7+1 = 8"
+      },
+      {
+        "title": "You Can Read It!",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "text": "Read it instantly: 7 dots. The ten-frame is your friend!",
+        "caption": "7 ✓"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 4
+        },
+        "prompt": "How many dots?",
+        "answer": 4,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots?",
+        "answer": 5,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "prompt": "How many dots?",
+        "answer": 6,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots?",
+        "answer": 7,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots?",
+        "answer": 8,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots?",
+        "answer": 9,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots?",
+        "answer": 10,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 5
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 7
+      }
+    ]
+  },
+  {
+    "id": "tenframe-9",
+    "title": "Ten-Frame: 9 dots",
+    "emoji": "🟥",
+    "category": "A",
+    "description": "Count 9 dots in a ten-frame.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "A Ten-Frame Shows 9",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "text": "A ten-frame holds 10 dots. This frame has 9 red dots.",
+        "caption": "9 dots"
+      },
+      {
+        "title": "Count the Dots",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "text": "Touch each dot and count: 1, 2, 3, 4, 5, 6, 7, 8, 9!",
+        "caption": "Total: 9"
+      },
+      {
+        "title": "Empty Cells Tell You Too",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "text": "There are 1 EMPTY cells. 9 + 1 = 10!",
+        "caption": "9 + 1 = 10"
+      },
+      {
+        "title": "Compare Frames",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "text": "One more dot makes 10. Ten-frames make counting fast!",
+        "caption": "9+1 = 10"
+      },
+      {
+        "title": "You Can Read It!",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "text": "Read it instantly: 9 dots. The ten-frame is your friend!",
+        "caption": "9 ✓"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 6
+        },
+        "prompt": "How many dots?",
+        "answer": 6,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots?",
+        "answer": 7,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots?",
+        "answer": 8,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots?",
+        "answer": 9,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots?",
+        "answer": 10,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 9
+      }
+    ]
+  },
+  {
+    "id": "tenframe-10",
+    "title": "Ten-Frame: 10 dots",
+    "emoji": "🟥",
+    "category": "A",
+    "description": "Count 10 dots in a ten-frame.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "A Ten-Frame Shows 10",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "text": "A ten-frame holds 10 dots. This frame has 10 red dots.",
+        "caption": "10 dots"
+      },
+      {
+        "title": "Count the Dots",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "text": "Touch each dot and count: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10!",
+        "caption": "Total: 10"
+      },
+      {
+        "title": "Empty Cells Tell You Too",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "text": "There are 0 EMPTY cells. 10 + 0 = 10!",
+        "caption": "10 + 0 = 10"
+      },
+      {
+        "title": "Compare Frames",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "text": "One more dot makes 11. Ten-frames make counting fast!",
+        "caption": "10+1 = 11"
+      },
+      {
+        "title": "You Can Read It!",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "text": "Read it instantly: 10 dots. The ten-frame is your friend!",
+        "caption": "10 ✓"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 7
+        },
+        "prompt": "How many dots?",
+        "answer": 7,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots?",
+        "answer": 8,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots?",
+        "answer": 9,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots?",
+        "answer": 10,
+        "hint": "Count one row at a time. Top has up to 5, bottom has up to 5."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 8
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 9
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "ten-frame",
+          "filled": 10
+        },
+        "prompt": "How many dots in this ten-frame?",
+        "answer": 10
+      }
+    ]
+  },
+  {
+    "id": "compare-frames",
+    "title": "Compare Ten-Frames",
+    "emoji": "🟥",
+    "category": "E",
+    "description": "Which ten-frame has more dots?",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Two Frames",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 4,
+          "filledB": 7
+        },
+        "text": "Look at both frames. Which has MORE dots?",
+        "caption": "4 vs 7"
+      },
+      {
+        "title": "Count Each",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 4,
+          "filledB": 7
+        },
+        "text": "Left has 4. Right has 7.",
+        "caption": "7 > 4"
+      },
+      {
+        "title": "Bigger is More",
+        "visual": {
+          "type": "compare-pair",
+          "a": 4,
+          "b": 7
+        },
+        "text": "7 is bigger than 4. So the right frame has more.",
+        "caption": "7 wins!"
+      },
+      {
+        "title": "Try Another",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 9,
+          "filledB": 3
+        },
+        "text": "9 vs 3. Which has more dots? Nine!",
+        "caption": "9 > 3"
+      },
+      {
+        "title": "Equal Frames",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 5,
+          "filledB": 5
+        },
+        "text": "When frames look the same, they are EQUAL.",
+        "caption": "5 = 5"
+      }
+    ],
+    "practice": [
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 4,
+          "filledB": 7
+        },
+        "prompt": "Which has more dots?",
+        "choices": [
+          "Red (left)",
+          "Green (right)",
+          "Same"
+        ],
+        "answerIndex": 1,
+        "hint": "Red has 4, green has 7."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 8,
+          "filledB": 3
+        },
+        "prompt": "Which has more dots?",
+        "choices": [
+          "Red (left)",
+          "Green (right)",
+          "Same"
+        ],
+        "answerIndex": 0,
+        "hint": "Red has 8, green has 3."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 5,
+          "filledB": 5
+        },
+        "prompt": "Which has more dots?",
+        "choices": [
+          "Red (left)",
+          "Green (right)",
+          "Same"
+        ],
+        "answerIndex": 2,
+        "hint": "Red has 5, green has 5."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 2,
+          "filledB": 9
+        },
+        "prompt": "Which has more dots?",
+        "choices": [
+          "Red (left)",
+          "Green (right)",
+          "Same"
+        ],
+        "answerIndex": 1,
+        "hint": "Red has 2, green has 9."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 6,
+          "filledB": 4
+        },
+        "prompt": "Which has more dots?",
+        "choices": [
+          "Red (left)",
+          "Green (right)",
+          "Same"
+        ],
+        "answerIndex": 0,
+        "hint": "Red has 6, green has 4."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 10,
+          "filledB": 7
+        },
+        "prompt": "Which has more dots?",
+        "choices": [
+          "Red (left)",
+          "Green (right)",
+          "Same"
+        ],
+        "answerIndex": 0,
+        "hint": "Red has 10, green has 7."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 3,
+          "filledB": 3
+        },
+        "prompt": "Which has more dots?",
+        "choices": [
+          "Red (left)",
+          "Green (right)",
+          "Same"
+        ],
+        "answerIndex": 2,
+        "hint": "Red has 3, green has 3."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 7,
+          "filledB": 8
+        },
+        "prompt": "Which has more dots?",
+        "choices": [
+          "Red (left)",
+          "Green (right)",
+          "Same"
+        ],
+        "answerIndex": 1,
+        "hint": "Red has 7, green has 8."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 2,
+          "filledB": 5
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 8,
+          "filledB": 4
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 3,
+          "filledB": 7
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 9,
+          "filledB": 9
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 2
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 6,
+          "filledB": 1
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 4,
+          "filledB": 8
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 10,
+          "filledB": 5
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 2,
+          "filledB": 2
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 2
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 7,
+          "filledB": 3
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "two-ten-frames",
+          "filledA": 5,
+          "filledB": 9
+        },
+        "prompt": "Which has more?",
+        "choices": [
+          "Red",
+          "Green",
+          "Same"
+        ],
+        "answerIndex": 1
+      }
+    ]
+  },
+  {
+    "id": "build-13",
+    "title": "Build 13",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 13 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 13",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "text": "13 = 1 ten-bars + 3 ones.",
+        "caption": "1 tens, 3 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "text": "Count the tens: 1. Count the ones: 3. Total: 13.",
+        "caption": "10 + 3 = 13"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 13 is 1.",
+        "caption": "Tens = 1"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 13 is 3.",
+        "caption": "Ones = 3"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "text": "You built 13 from blocks!",
+        "caption": "13!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "prompt": "What number?",
+        "answer": 13,
+        "hint": "1 tens + 3 ones = 13."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 1,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 3,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "prompt": "What number?",
+        "answer": 13,
+        "hint": "13!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 1,
+        "hint": "1."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 3,
+        "hint": "3."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "prompt": "What number?",
+        "answer": 13,
+        "hint": "1 tens + 3 ones = 13."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 1,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 3,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "prompt": "What number?",
+        "answer": 13,
+        "hint": "13!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 1,
+        "hint": "1."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 3,
+        "hint": "3."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "prompt": "What number?",
+        "answer": 13
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "prompt": "What number?",
+        "answer": 13
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "prompt": "What number?",
+        "answer": 13
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 1,
+          "ones": 3
+        },
+        "prompt": "What number?",
+        "answer": 13
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 13,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 3
+      }
+    ]
+  },
+  {
+    "id": "build-25",
+    "title": "Build 25",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 25 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 25",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "text": "25 = 2 ten-bars + 5 ones.",
+        "caption": "2 tens, 5 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "text": "Count the tens: 2. Count the ones: 5. Total: 25.",
+        "caption": "20 + 5 = 25"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 25 is 2.",
+        "caption": "Tens = 2"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 25 is 5.",
+        "caption": "Ones = 5"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "text": "You built 25 from blocks!",
+        "caption": "25!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 25,
+        "hint": "2 tens + 5 ones = 25."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 2,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 5,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 25,
+        "hint": "25!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 2,
+        "hint": "2."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 5,
+        "hint": "5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 25,
+        "hint": "2 tens + 5 ones = 25."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 2,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 5,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 25,
+        "hint": "25!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 2,
+        "hint": "2."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 5,
+        "hint": "5."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 25
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 25
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 25
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 2,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 25
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 25,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 5
+      }
+    ]
+  },
+  {
+    "id": "build-38",
+    "title": "Build 38",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 38 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 38",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "text": "38 = 3 ten-bars + 8 ones.",
+        "caption": "3 tens, 8 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "text": "Count the tens: 3. Count the ones: 8. Total: 38.",
+        "caption": "30 + 8 = 38"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 38 is 3.",
+        "caption": "Tens = 3"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 38 is 8.",
+        "caption": "Ones = 8"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "text": "You built 38 from blocks!",
+        "caption": "38!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 38,
+        "hint": "3 tens + 8 ones = 38."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 3,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 8,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 38,
+        "hint": "38!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 3,
+        "hint": "3."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 8,
+        "hint": "8."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 38,
+        "hint": "3 tens + 8 ones = 38."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 3,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 8,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 38,
+        "hint": "38!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 3,
+        "hint": "3."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 8,
+        "hint": "8."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 38
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 38
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 38
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 3,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 38
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 38,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 8
+      }
+    ]
+  },
+  {
+    "id": "build-47",
+    "title": "Build 47",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 47 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 47",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "text": "47 = 4 ten-bars + 7 ones.",
+        "caption": "4 tens, 7 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "text": "Count the tens: 4. Count the ones: 7. Total: 47.",
+        "caption": "40 + 7 = 47"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 47 is 4.",
+        "caption": "Tens = 4"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 47 is 7.",
+        "caption": "Ones = 7"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "text": "You built 47 from blocks!",
+        "caption": "47!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "prompt": "What number?",
+        "answer": 47,
+        "hint": "4 tens + 7 ones = 47."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 4,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 7,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "prompt": "What number?",
+        "answer": 47,
+        "hint": "47!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 4,
+        "hint": "4."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 7,
+        "hint": "7."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "prompt": "What number?",
+        "answer": 47,
+        "hint": "4 tens + 7 ones = 47."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 4,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 7,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "prompt": "What number?",
+        "answer": 47,
+        "hint": "47!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 4,
+        "hint": "4."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 7,
+        "hint": "7."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "prompt": "What number?",
+        "answer": 47
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "prompt": "What number?",
+        "answer": 47
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "prompt": "What number?",
+        "answer": 47
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 4,
+          "ones": 7
+        },
+        "prompt": "What number?",
+        "answer": 47
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 47,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 7
+      }
+    ]
+  },
+  {
+    "id": "build-56",
+    "title": "Build 56",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 56 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 56",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "text": "56 = 5 ten-bars + 6 ones.",
+        "caption": "5 tens, 6 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "text": "Count the tens: 5. Count the ones: 6. Total: 56.",
+        "caption": "50 + 6 = 56"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 56 is 5.",
+        "caption": "Tens = 5"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 56 is 6.",
+        "caption": "Ones = 6"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "text": "You built 56 from blocks!",
+        "caption": "56!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "prompt": "What number?",
+        "answer": 56,
+        "hint": "5 tens + 6 ones = 56."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 5,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 6,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "prompt": "What number?",
+        "answer": 56,
+        "hint": "56!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 5,
+        "hint": "5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 6,
+        "hint": "6."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "prompt": "What number?",
+        "answer": 56,
+        "hint": "5 tens + 6 ones = 56."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 5,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 6,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "prompt": "What number?",
+        "answer": 56,
+        "hint": "56!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 5,
+        "hint": "5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 6,
+        "hint": "6."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "prompt": "What number?",
+        "answer": 56
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "prompt": "What number?",
+        "answer": 56
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "prompt": "What number?",
+        "answer": 56
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 5,
+          "ones": 6
+        },
+        "prompt": "What number?",
+        "answer": 56
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 56,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 6
+      }
+    ]
+  },
+  {
+    "id": "build-64",
+    "title": "Build 64",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 64 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 64",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "text": "64 = 6 ten-bars + 4 ones.",
+        "caption": "6 tens, 4 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "text": "Count the tens: 6. Count the ones: 4. Total: 64.",
+        "caption": "60 + 4 = 64"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 64 is 6.",
+        "caption": "Tens = 6"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 64 is 4.",
+        "caption": "Ones = 4"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "text": "You built 64 from blocks!",
+        "caption": "64!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "prompt": "What number?",
+        "answer": 64,
+        "hint": "6 tens + 4 ones = 64."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 6,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 4,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "prompt": "What number?",
+        "answer": 64,
+        "hint": "64!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 6,
+        "hint": "6."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 4,
+        "hint": "4."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "prompt": "What number?",
+        "answer": 64,
+        "hint": "6 tens + 4 ones = 64."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 6,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 4,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "prompt": "What number?",
+        "answer": 64,
+        "hint": "64!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 6,
+        "hint": "6."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 4,
+        "hint": "4."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "prompt": "What number?",
+        "answer": 64
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "prompt": "What number?",
+        "answer": 64
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "prompt": "What number?",
+        "answer": 64
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 6,
+          "ones": 4
+        },
+        "prompt": "What number?",
+        "answer": 64
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 64,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 4
+      }
+    ]
+  },
+  {
+    "id": "build-79",
+    "title": "Build 79",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 79 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 79",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "text": "79 = 7 ten-bars + 9 ones.",
+        "caption": "7 tens, 9 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "text": "Count the tens: 7. Count the ones: 9. Total: 79.",
+        "caption": "70 + 9 = 79"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 79 is 7.",
+        "caption": "Tens = 7"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 79 is 9.",
+        "caption": "Ones = 9"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "text": "You built 79 from blocks!",
+        "caption": "79!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "prompt": "What number?",
+        "answer": 79,
+        "hint": "7 tens + 9 ones = 79."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 7,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 9,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "prompt": "What number?",
+        "answer": 79,
+        "hint": "79!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 7,
+        "hint": "7."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 9,
+        "hint": "9."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "prompt": "What number?",
+        "answer": 79,
+        "hint": "7 tens + 9 ones = 79."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 7,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 9,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "prompt": "What number?",
+        "answer": 79,
+        "hint": "79!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 7,
+        "hint": "7."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 9,
+        "hint": "9."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "prompt": "What number?",
+        "answer": 79
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "prompt": "What number?",
+        "answer": 79
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "prompt": "What number?",
+        "answer": 79
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 7,
+          "ones": 9
+        },
+        "prompt": "What number?",
+        "answer": 79
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 79,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 9
+      }
+    ]
+  },
+  {
+    "id": "build-88",
+    "title": "Build 88",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 88 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 88",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "text": "88 = 8 ten-bars + 8 ones.",
+        "caption": "8 tens, 8 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "text": "Count the tens: 8. Count the ones: 8. Total: 88.",
+        "caption": "80 + 8 = 88"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 88 is 8.",
+        "caption": "Tens = 8"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 88 is 8.",
+        "caption": "Ones = 8"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "text": "You built 88 from blocks!",
+        "caption": "88!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 88,
+        "hint": "8 tens + 8 ones = 88."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 8,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 8,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 88,
+        "hint": "88!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 8,
+        "hint": "8."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 8,
+        "hint": "8."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 88,
+        "hint": "8 tens + 8 ones = 88."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 8,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 8,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 88,
+        "hint": "88!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 8,
+        "hint": "8."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 8,
+        "hint": "8."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 88
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 88
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 88
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 8,
+          "ones": 8
+        },
+        "prompt": "What number?",
+        "answer": 88
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 88,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 8
+      }
+    ]
+  },
+  {
+    "id": "build-95",
+    "title": "Build 95",
+    "emoji": "🧱",
+    "category": "D",
+    "description": "Make 95 with tens and ones.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Build 95",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "text": "95 = 9 ten-bars + 5 ones.",
+        "caption": "9 tens, 5 ones"
+      },
+      {
+        "title": "See Them Together",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "text": "Count the tens: 9. Count the ones: 5. Total: 95.",
+        "caption": "90 + 5 = 95"
+      },
+      {
+        "title": "Tens Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "tens"
+        },
+        "text": "The tens digit of 95 is 9.",
+        "caption": "Tens = 9"
+      },
+      {
+        "title": "Ones Place",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "ones"
+        },
+        "text": "The ones digit of 95 is 5.",
+        "caption": "Ones = 5"
+      },
+      {
+        "title": "Master It",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "text": "You built 95 from blocks!",
+        "caption": "95!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 95,
+        "hint": "9 tens + 5 ones = 95."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 9,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 5,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 95,
+        "hint": "95!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 9,
+        "hint": "9."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 5,
+        "hint": "5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 95,
+        "hint": "9 tens + 5 ones = 95."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "tens"
+        },
+        "prompt": "How many tens?",
+        "answer": 9,
+        "hint": "First digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "ones"
+        },
+        "prompt": "How many ones?",
+        "answer": 5,
+        "hint": "Last digit."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 95,
+        "hint": "95!"
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "tens"
+        },
+        "prompt": "Tens digit?",
+        "answer": 9,
+        "hint": "9."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "ones"
+        },
+        "prompt": "Ones digit?",
+        "answer": 5,
+        "hint": "5."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 95
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 95
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 95
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "blocks",
+          "tens": 9,
+          "ones": 5
+        },
+        "prompt": "What number?",
+        "answer": 95
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "tens"
+        },
+        "prompt": "Tens?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-num",
+          "n": 95,
+          "highlight": "ones"
+        },
+        "prompt": "Ones?",
+        "answer": 5
+      }
+    ]
+  },
+  {
+    "id": "time-all-hours",
+    "title": "All O'Clock Hours",
+    "emoji": "🕐",
+    "category": "F",
+    "description": "Read every o'clock from 1 to 12.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "O'Clock Means Long Hand on 12",
+        "visual": {
+          "type": "clock",
+          "hour": 1,
+          "minute": 0
+        },
+        "text": "When the long hand is on 12, it is exactly o'clock.",
+        "caption": "O'Clock"
+      },
+      {
+        "title": "1 O'Clock",
+        "visual": {
+          "type": "clock",
+          "hour": 1,
+          "minute": 0
+        },
+        "text": "Short hand on 1.",
+        "caption": "1:00"
+      },
+      {
+        "title": "3 O'Clock",
+        "visual": {
+          "type": "clock",
+          "hour": 3,
+          "minute": 0
+        },
+        "text": "Short hand on 3.",
+        "caption": "3:00"
+      },
+      {
+        "title": "6 O'Clock",
+        "visual": {
+          "type": "clock",
+          "hour": 6,
+          "minute": 0
+        },
+        "text": "Short hand on 6.",
+        "caption": "6:00"
+      },
+      {
+        "title": "9 O'Clock",
+        "visual": {
+          "type": "clock",
+          "hour": 9,
+          "minute": 0
+        },
+        "text": "Short hand on 9.",
+        "caption": "9:00"
+      },
+      {
+        "title": "12 O'Clock",
+        "visual": {
+          "type": "clock",
+          "hour": 12,
+          "minute": 0
+        },
+        "text": "Both hands on 12. That is noon or midnight!",
+        "caption": "12:00"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 1,
+          "minute": 0
+        },
+        "prompt": "What hour is it? (just the number)",
+        "answer": 1,
+        "hint": "Read the SHORT hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 2,
+          "minute": 0
+        },
+        "prompt": "What hour is it? (just the number)",
+        "answer": 2,
+        "hint": "Read the SHORT hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 4,
+          "minute": 0
+        },
+        "prompt": "What hour is it? (just the number)",
+        "answer": 4,
+        "hint": "Read the SHORT hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 5,
+          "minute": 0
+        },
+        "prompt": "What hour is it? (just the number)",
+        "answer": 5,
+        "hint": "Read the SHORT hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 7,
+          "minute": 0
+        },
+        "prompt": "What hour is it? (just the number)",
+        "answer": 7,
+        "hint": "Read the SHORT hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 8,
+          "minute": 0
+        },
+        "prompt": "What hour is it? (just the number)",
+        "answer": 8,
+        "hint": "Read the SHORT hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 10,
+          "minute": 0
+        },
+        "prompt": "What hour is it? (just the number)",
+        "answer": 10,
+        "hint": "Read the SHORT hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 11,
+          "minute": 0
+        },
+        "prompt": "What hour is it? (just the number)",
+        "answer": 11,
+        "hint": "Read the SHORT hand."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 1,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 2,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 3,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 4,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 5,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 6,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 7,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 8,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 9,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 10,
+          "minute": 0
+        },
+        "prompt": "What hour is it?",
+        "answer": 10
+      }
+    ]
+  },
+  {
+    "id": "time-all-half",
+    "title": "All Half-Past Hours",
+    "emoji": "🕢",
+    "category": "F",
+    "description": "Read every half-past hour from 1 to 12.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Half Past = Long Hand on 6",
+        "visual": {
+          "type": "clock",
+          "hour": 3,
+          "minute": 30
+        },
+        "text": "When the long hand is on 6, it is half past the hour.",
+        "caption": "Half past"
+      },
+      {
+        "title": "Half Past 1",
+        "visual": {
+          "type": "clock",
+          "hour": 1,
+          "minute": 30
+        },
+        "text": "Short hand between 1 and 2.",
+        "caption": "1:30"
+      },
+      {
+        "title": "Half Past 4",
+        "visual": {
+          "type": "clock",
+          "hour": 4,
+          "minute": 30
+        },
+        "text": "Short hand between 4 and 5.",
+        "caption": "4:30"
+      },
+      {
+        "title": "Half Past 7",
+        "visual": {
+          "type": "clock",
+          "hour": 7,
+          "minute": 30
+        },
+        "text": "Short hand between 7 and 8.",
+        "caption": "7:30"
+      },
+      {
+        "title": "Half Past 10",
+        "visual": {
+          "type": "clock",
+          "hour": 10,
+          "minute": 30
+        },
+        "text": "Short hand between 10 and 11.",
+        "caption": "10:30"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 2,
+          "minute": 30
+        },
+        "prompt": "It is half past which hour?",
+        "answer": 2,
+        "hint": "Pick the SMALLER number near the short hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 3,
+          "minute": 30
+        },
+        "prompt": "It is half past which hour?",
+        "answer": 3,
+        "hint": "Pick the SMALLER number near the short hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 5,
+          "minute": 30
+        },
+        "prompt": "It is half past which hour?",
+        "answer": 5,
+        "hint": "Pick the SMALLER number near the short hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 6,
+          "minute": 30
+        },
+        "prompt": "It is half past which hour?",
+        "answer": 6,
+        "hint": "Pick the SMALLER number near the short hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 8,
+          "minute": 30
+        },
+        "prompt": "It is half past which hour?",
+        "answer": 8,
+        "hint": "Pick the SMALLER number near the short hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 9,
+          "minute": 30
+        },
+        "prompt": "It is half past which hour?",
+        "answer": 9,
+        "hint": "Pick the SMALLER number near the short hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 11,
+          "minute": 30
+        },
+        "prompt": "It is half past which hour?",
+        "answer": 11,
+        "hint": "Pick the SMALLER number near the short hand."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 12,
+          "minute": 30
+        },
+        "prompt": "It is half past which hour?",
+        "answer": 12,
+        "hint": "Pick the SMALLER number near the short hand."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 1,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 2,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 3,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 4,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 5,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 6,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 7,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 8,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 9,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "clock",
+          "hour": 10,
+          "minute": 30
+        },
+        "prompt": "Half past which hour?",
+        "answer": 10
+      }
+    ]
+  },
+  {
+    "id": "coin-pennies",
+    "title": "Counting pennys",
+    "emoji": "🟤",
+    "category": "G",
+    "description": "Each penny = 1¢. Count them up!",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "A penny",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "🟤"
+        },
+        "text": "A penny is worth 1 cents.",
+        "caption": "penny = 1¢"
+      },
+      {
+        "title": "Two pennys",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "🟤"
+        },
+        "text": "Two pennys = 2 cents.",
+        "caption": "2¢"
+      },
+      {
+        "title": "Skip Count",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "🟤"
+        },
+        "text": "Count by 1: 1, 2, 3, 4, 5!",
+        "caption": "+1 each"
+      },
+      {
+        "title": "Five pennys",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🟤"
+        },
+        "text": "Five pennys = 5 cents.",
+        "caption": "5×1=5¢"
+      },
+      {
+        "title": "Practice Counting",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🟤"
+        },
+        "text": "Touch each coin and skip count. Easy!",
+        "caption": "Skip count"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 1 penny?",
+        "answer": 1,
+        "hint": "Skip count by 1: 1."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 2 pennys?",
+        "answer": 2,
+        "hint": "Skip count by 1: 1, 2."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 3 pennys?",
+        "answer": 3,
+        "hint": "Skip count by 1: 1, 2, 3."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 4 pennys?",
+        "answer": 4,
+        "hint": "Skip count by 1: 1, 2, 3, 4."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 5 pennys?",
+        "answer": 5,
+        "hint": "Skip count by 1: 1, 2, 3, 4, 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 6 pennys?",
+        "answer": 6,
+        "hint": "Skip count by 1: 1, 2, 3, 4, 5, 6."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 7 pennys?",
+        "answer": 7,
+        "hint": "Skip count by 1: 1, 2, 3, 4, 5, 6, 7."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 8 pennys?",
+        "answer": 8,
+        "hint": "Skip count by 1: 1, 2, 3, 4, 5, 6, 7, 8."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 1 penny?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 2 pennys?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 3 pennys?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 4 pennys?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 5 pennys?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 6 pennys?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 7 pennys?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 8 pennys?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 9,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 9 pennys?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 10,
+          "emoji": "🟤"
+        },
+        "prompt": "How many cents in 10 pennys?",
+        "answer": 10
+      }
+    ]
+  },
+  {
+    "id": "coin-nickels",
+    "title": "Counting nickels",
+    "emoji": "⚪",
+    "category": "G",
+    "description": "Each nickel = 5¢. Count them up!",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "A nickel",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "⚪"
+        },
+        "text": "A nickel is worth 5 cents.",
+        "caption": "nickel = 5¢"
+      },
+      {
+        "title": "Two nickels",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "⚪"
+        },
+        "text": "Two nickels = 10 cents.",
+        "caption": "10¢"
+      },
+      {
+        "title": "Skip Count",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "⚪"
+        },
+        "text": "Count by 5: 5, 10, 15, 20, 25!",
+        "caption": "+5 each"
+      },
+      {
+        "title": "Five nickels",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "⚪"
+        },
+        "text": "Five nickels = 25 cents.",
+        "caption": "5×5=25¢"
+      },
+      {
+        "title": "Practice Counting",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "⚪"
+        },
+        "text": "Touch each coin and skip count. Easy!",
+        "caption": "Skip count"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 1 nickel?",
+        "answer": 5,
+        "hint": "Skip count by 5: 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 2 nickels?",
+        "answer": 10,
+        "hint": "Skip count by 5: 5, 10."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 3 nickels?",
+        "answer": 15,
+        "hint": "Skip count by 5: 5, 10, 15."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 4 nickels?",
+        "answer": 20,
+        "hint": "Skip count by 5: 5, 10, 15, 20."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 5 nickels?",
+        "answer": 25,
+        "hint": "Skip count by 5: 5, 10, 15, 20, 25."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 6 nickels?",
+        "answer": 30,
+        "hint": "Skip count by 5: 5, 10, 15, 20, 25, 30."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 7 nickels?",
+        "answer": 35,
+        "hint": "Skip count by 5: 5, 10, 15, 20, 25, 30, 35."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 8 nickels?",
+        "answer": 40,
+        "hint": "Skip count by 5: 5, 10, 15, 20, 25, 30, 35, 40."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 1 nickel?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 2 nickels?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 3 nickels?",
+        "answer": 15
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 4 nickels?",
+        "answer": 20
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 5 nickels?",
+        "answer": 25
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 6 nickels?",
+        "answer": 30
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 7 nickels?",
+        "answer": 35
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 8 nickels?",
+        "answer": 40
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 9,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 9 nickels?",
+        "answer": 45
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 10,
+          "emoji": "⚪"
+        },
+        "prompt": "How many cents in 10 nickels?",
+        "answer": 50
+      }
+    ]
+  },
+  {
+    "id": "coin-dimes",
+    "title": "Counting dimes",
+    "emoji": "🔘",
+    "category": "G",
+    "description": "Each dime = 10¢. Count them up!",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "A dime",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "🔘"
+        },
+        "text": "A dime is worth 10 cents.",
+        "caption": "dime = 10¢"
+      },
+      {
+        "title": "Two dimes",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "🔘"
+        },
+        "text": "Two dimes = 20 cents.",
+        "caption": "20¢"
+      },
+      {
+        "title": "Skip Count",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "🔘"
+        },
+        "text": "Count by 10: 10, 20, 30, 40, 50!",
+        "caption": "+10 each"
+      },
+      {
+        "title": "Five dimes",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🔘"
+        },
+        "text": "Five dimes = 50 cents.",
+        "caption": "5×10=50¢"
+      },
+      {
+        "title": "Practice Counting",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🔘"
+        },
+        "text": "Touch each coin and skip count. Easy!",
+        "caption": "Skip count"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 1 dime?",
+        "answer": 10,
+        "hint": "Skip count by 10: 10."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 2 dimes?",
+        "answer": 20,
+        "hint": "Skip count by 10: 10, 20."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 3 dimes?",
+        "answer": 30,
+        "hint": "Skip count by 10: 10, 20, 30."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 4 dimes?",
+        "answer": 40,
+        "hint": "Skip count by 10: 10, 20, 30, 40."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 5 dimes?",
+        "answer": 50,
+        "hint": "Skip count by 10: 10, 20, 30, 40, 50."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 6 dimes?",
+        "answer": 60,
+        "hint": "Skip count by 10: 10, 20, 30, 40, 50, 60."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 7 dimes?",
+        "answer": 70,
+        "hint": "Skip count by 10: 10, 20, 30, 40, 50, 60, 70."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 8 dimes?",
+        "answer": 80,
+        "hint": "Skip count by 10: 10, 20, 30, 40, 50, 60, 70, 80."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 1,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 1 dime?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 2 dimes?",
+        "answer": 20
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 3 dimes?",
+        "answer": 30
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 4 dimes?",
+        "answer": 40
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 5 dimes?",
+        "answer": 50
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 6 dimes?",
+        "answer": 60
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 7 dimes?",
+        "answer": 70
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 8 dimes?",
+        "answer": 80
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 9,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 9 dimes?",
+        "answer": 90
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 10,
+          "emoji": "🔘"
+        },
+        "prompt": "How many cents in 10 dimes?",
+        "answer": 100
+      }
+    ]
+  },
+  {
+    "id": "length-cubes",
+    "title": "Measure with Cubes",
+    "emoji": "🟩",
+    "category": "J",
+    "description": "Count cubes to measure how long.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Line Up the Cubes",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🟩"
+        },
+        "text": "To measure length, line up cubes end to end.",
+        "caption": "No gaps!"
+      },
+      {
+        "title": "Count Them",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🟩"
+        },
+        "text": "Touch each one and count.",
+        "caption": "1, 2, 3, 4, 5"
+      },
+      {
+        "title": "Try a Bigger One",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "🟩"
+        },
+        "text": "A bigger object needs more cubes.",
+        "caption": "8 long"
+      },
+      {
+        "title": "Compare",
+        "visual": {
+          "type": "compare-pair",
+          "a": 5,
+          "b": 8
+        },
+        "text": "8 cubes is LONGER than 5 cubes.",
+        "caption": "More = longer"
+      },
+      {
+        "title": "You Can Measure!",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "🟩"
+        },
+        "text": "Just count and you have a measurement.",
+        "caption": "6 cubes long"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 3,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 4,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 5,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 6,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 7,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 8,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 9,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 9,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 10,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 10,
+        "hint": "Count each one."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 9,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 10,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🟩"
+        },
+        "prompt": "How many cubes long?",
+        "answer": 5
+      }
+    ]
+  },
+  {
+    "id": "length-paperclips",
+    "title": "Measure with Paperclips",
+    "emoji": "📎",
+    "category": "J",
+    "description": "Count paperclips to measure how long.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Line Up the Paperclips",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "📎"
+        },
+        "text": "To measure length, line up paperclips end to end.",
+        "caption": "No gaps!"
+      },
+      {
+        "title": "Count Them",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "📎"
+        },
+        "text": "Touch each one and count.",
+        "caption": "1, 2, 3, 4, 5"
+      },
+      {
+        "title": "Try a Bigger One",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "📎"
+        },
+        "text": "A bigger object needs more paperclips.",
+        "caption": "8 long"
+      },
+      {
+        "title": "Compare",
+        "visual": {
+          "type": "compare-pair",
+          "a": 5,
+          "b": 8
+        },
+        "text": "8 paperclips is LONGER than 5 paperclips.",
+        "caption": "More = longer"
+      },
+      {
+        "title": "You Can Measure!",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "📎"
+        },
+        "text": "Just count and you have a measurement.",
+        "caption": "6 paperclips long"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 3,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 4,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 5,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 6,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 7,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 8,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 9,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 9,
+        "hint": "Count each one."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 10,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 10,
+        "hint": "Count each one."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 2,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 3,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 4,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 6,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 8,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 9,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 10,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "📎"
+        },
+        "prompt": "How many paperclips long?",
+        "answer": 5
+      }
+    ]
+  },
+  {
+    "id": "add3-20",
+    "title": "Add Three to 20",
+    "emoji": "3️⃣",
+    "category": "B",
+    "description": "Add three numbers that total 20.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Three Numbers, One Total",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 2,
+          "b": 3
+        },
+        "text": "When we have three numbers to add, we add them in any order!",
+        "caption": "a + b + c"
+      },
+      {
+        "title": "Add Two First",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 2,
+          "b": 3
+        },
+        "text": "For 2 + 3 + 4: add 2 + 3 first to get 5.",
+        "caption": "Step 1"
+      },
+      {
+        "title": "Then Add the Third",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 5,
+          "b": 4
+        },
+        "text": "5 + 4 = 9. So 2 + 3 + 4 = 9!",
+        "caption": "Step 2"
+      },
+      {
+        "title": "Look for Pairs to 10",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 3,
+          "b": 7
+        },
+        "text": "For 3 + 7 + 4: 3 + 7 = 10. Then 10 + 4 = 14. Pairs to 10 make it FAST.",
+        "caption": "Make 10 first!"
+      },
+      {
+        "title": "Use Doubles Too",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 5,
+          "b": 5
+        },
+        "text": "For 5 + 5 + 2: 5 + 5 = 10 (double!), then + 2 = 12.",
+        "caption": "Doubles + 1 more"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 2,
+          "b": 3
+        },
+        "prompt": "Two plus three plus four?",
+        "answer": 9,
+        "hint": "2+3=5, 5+4=9."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 1,
+          "b": 4
+        },
+        "prompt": "One plus four plus five?",
+        "answer": 10,
+        "hint": "1+4=5, 5+5=10."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 3,
+          "b": 7
+        },
+        "prompt": "Three plus seven plus two?",
+        "answer": 12,
+        "hint": "Make 10 first: 3+7=10, then +2=12."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 4,
+          "b": 6
+        },
+        "prompt": "Four plus six plus three?",
+        "answer": 13,
+        "hint": "Make 10: 4+6=10, +3=13."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 2,
+          "b": 2
+        },
+        "prompt": "Two plus two plus two?",
+        "answer": 6,
+        "hint": "2+2+2: 4 then +2=6."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 5,
+          "b": 5
+        },
+        "prompt": "Five plus five plus four?",
+        "answer": 14,
+        "hint": "Doubles! 5+5=10, +4=14."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 3,
+          "b": 3
+        },
+        "prompt": "Three plus three plus three?",
+        "answer": 9,
+        "hint": "3+3+3: 6 then +3=9."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 6,
+          "b": 4
+        },
+        "prompt": "Six plus four plus five?",
+        "answer": 15,
+        "hint": "Make 10: 6+4=10, +5=15."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 2,
+          "b": 3
+        },
+        "prompt": "Two plus three plus four?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 1,
+          "b": 2
+        },
+        "prompt": "One plus two plus three?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 2,
+          "b": 4
+        },
+        "prompt": "Two plus four plus three?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 3,
+          "b": 5
+        },
+        "prompt": "Three plus five plus two?",
+        "answer": 10
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 4,
+          "b": 6
+        },
+        "prompt": "Four plus six plus two?",
+        "answer": 12
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 5,
+          "b": 3
+        },
+        "prompt": "Five plus three plus four?",
+        "answer": 12
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 6,
+          "b": 4
+        },
+        "prompt": "Six plus four plus four?",
+        "answer": 14
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 7,
+          "b": 3
+        },
+        "prompt": "Seven plus three plus five?",
+        "answer": 15
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 8,
+          "b": 2
+        },
+        "prompt": "Eight plus two plus six?",
+        "answer": 16
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 9,
+          "b": 1
+        },
+        "prompt": "Nine plus one plus seven?",
+        "answer": 17
+      }
+    ]
+  },
+  {
+    "id": "even-odd-pairs",
+    "title": "Even and Odd",
+    "emoji": "👯",
+    "category": "A",
+    "description": "Pair them up: even or one left over?",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "Pair Them Up",
+        "visual": {
+          "type": "add-groups",
+          "a": 2,
+          "b": 2,
+          "emoji": "🐝"
+        },
+        "text": "A number is EVEN if it makes pairs with no leftover.",
+        "caption": "Even = pairs"
+      },
+      {
+        "title": "4 is Even",
+        "visual": {
+          "type": "add-groups",
+          "a": 2,
+          "b": 2,
+          "emoji": "🐝"
+        },
+        "text": "4 bees can make 2 pairs. Even!",
+        "caption": "4 = 2 pairs"
+      },
+      {
+        "title": "5 is Odd",
+        "visual": {
+          "type": "objects",
+          "count": 5,
+          "emoji": "🐝"
+        },
+        "text": "5 bees: 2 pairs and ONE LEFT OVER. Odd!",
+        "caption": "5 = 2 pairs + 1"
+      },
+      {
+        "title": "Check 6",
+        "visual": {
+          "type": "add-groups",
+          "a": 3,
+          "b": 3,
+          "emoji": "🍎"
+        },
+        "text": "6 apples = 3 pairs. Even!",
+        "caption": "6 = 3 pairs"
+      },
+      {
+        "title": "Check 7",
+        "visual": {
+          "type": "objects",
+          "count": 7,
+          "emoji": "🍎"
+        },
+        "text": "7 apples: 3 pairs and ONE LEFT. Odd!",
+        "caption": "7 = 3 pairs + 1"
+      },
+      {
+        "title": "Quick Trick",
+        "visual": {
+          "type": "bignum",
+          "n": 8
+        },
+        "text": "Even numbers end in 0, 2, 4, 6, or 8. Odd end in 1, 3, 5, 7, 9.",
+        "caption": "Last digit tells you"
+      }
+    ],
+    "practice": [
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 4
+        },
+        "prompt": "Is 4 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0,
+        "hint": "Last digit: 4. Even."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 7
+        },
+        "prompt": "Is 7 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1,
+        "hint": "Last digit: 7. Odd."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 10
+        },
+        "prompt": "Is 10 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0,
+        "hint": "Last digit: 0. Even."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 13
+        },
+        "prompt": "Is 13 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1,
+        "hint": "Last digit: 3. Odd."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 16
+        },
+        "prompt": "Is 16 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0,
+        "hint": "Last digit: 6. Even."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 19
+        },
+        "prompt": "Is 19 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1,
+        "hint": "Last digit: 9. Odd."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 22
+        },
+        "prompt": "Is 22 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0,
+        "hint": "Last digit: 2. Even."
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 25
+        },
+        "prompt": "Is 25 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1,
+        "hint": "Last digit: 5. Odd."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 2
+        },
+        "prompt": "Is 2 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 5
+        },
+        "prompt": "Is 5 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 8
+        },
+        "prompt": "Is 8 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 11
+        },
+        "prompt": "Is 11 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 14
+        },
+        "prompt": "Is 14 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 17
+        },
+        "prompt": "Is 17 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 20
+        },
+        "prompt": "Is 20 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 23
+        },
+        "prompt": "Is 23 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 26
+        },
+        "prompt": "Is 26 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 0
+      },
+      {
+        "type": "choice",
+        "visual": {
+          "type": "bignum",
+          "n": 29
+        },
+        "prompt": "Is 29 even or odd?",
+        "choices": [
+          "Even",
+          "Odd"
+        ],
+        "answerIndex": 1
+      }
+    ]
+  },
+  {
+    "id": "pattern-ab",
+    "title": "AB Patterns",
+    "emoji": "🟥",
+    "category": "K",
+    "description": "Find the next item in an AB pattern.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "AB Pattern",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            1,
+            2,
+            1,
+            2
+          ],
+          "missingIndex": -1
+        },
+        "text": "AB means: alternate two things. 1, 2, 1, 2…",
+        "caption": "A B A B"
+      },
+      {
+        "title": "Find the Pattern",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            3,
+            7,
+            3,
+            7,
+            3,
+            7
+          ],
+          "missingIndex": -1
+        },
+        "text": "Same pattern with different numbers: 3, 7, 3, 7.",
+        "caption": "3 7 3 7"
+      },
+      {
+        "title": "What Comes Next?",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            1,
+            2,
+            1
+          ],
+          "missingIndex": 5
+        },
+        "text": "After 1, 2, 1, 2, 1 comes... 2!",
+        "caption": "Next: 2"
+      },
+      {
+        "title": "Try Another",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            5,
+            9,
+            5,
+            9,
+            5
+          ],
+          "missingIndex": 5
+        },
+        "text": "Spot it: 5, 9, 5, 9, 5… Next is 9.",
+        "caption": "Next: 9"
+      },
+      {
+        "title": "Patterns Repeat",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            2,
+            8,
+            2,
+            8,
+            2,
+            8
+          ],
+          "missingIndex": -1
+        },
+        "text": "AB patterns ALWAYS repeat the pair. Once you see two, you know the rest.",
+        "caption": "A B repeats"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            3,
+            1,
+            3,
+            1
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 3,
+        "hint": "AB pattern: after 1 comes 3."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            2,
+            5,
+            2,
+            5,
+            2
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 5,
+        "hint": "AB pattern: after 2 comes 5."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            4,
+            7,
+            4,
+            7,
+            4
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 7,
+        "hint": "AB pattern: after 4 comes 7."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            6,
+            9,
+            6,
+            9,
+            6
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 9,
+        "hint": "AB pattern: after 6 comes 9."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            2,
+            8,
+            2,
+            8,
+            2
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 8,
+        "hint": "AB pattern: after 2 comes 8."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            3,
+            6,
+            3,
+            6,
+            3
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 6,
+        "hint": "AB pattern: after 3 comes 6."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            5,
+            7,
+            5,
+            7,
+            5
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 7,
+        "hint": "AB pattern: after 5 comes 7."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            9,
+            1,
+            9,
+            1
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 9,
+        "hint": "AB pattern: after 1 comes 9."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            2,
+            4,
+            2,
+            4,
+            2,
+            4
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            5,
+            1,
+            5,
+            1,
+            5
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            3,
+            8,
+            3,
+            8,
+            3,
+            8
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            6,
+            2,
+            6,
+            2,
+            6,
+            2
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            7,
+            9,
+            7,
+            9,
+            7,
+            9
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            4,
+            1,
+            4,
+            1,
+            4,
+            1
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            8,
+            3,
+            8,
+            3,
+            8,
+            3
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            5,
+            6,
+            5,
+            6,
+            5,
+            6
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            9,
+            2,
+            9,
+            2,
+            9,
+            2
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            2,
+            7,
+            2,
+            7,
+            2,
+            7
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 2
+      }
+    ]
+  },
+  {
+    "id": "pattern-aabb",
+    "title": "AABB Patterns",
+    "emoji": "🟦",
+    "category": "K",
+    "description": "Two of A, then two of B.",
+    "kind": "generic",
+    "lesson": [
+      {
+        "title": "AABB Pattern",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            1,
+            2,
+            2,
+            1,
+            1
+          ],
+          "missingIndex": -1
+        },
+        "text": "AABB means: two of one, two of another. 1, 1, 2, 2…",
+        "caption": "A A B B"
+      },
+      {
+        "title": "Find Pairs",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            3,
+            3,
+            5,
+            5,
+            3,
+            3
+          ],
+          "missingIndex": -1
+        },
+        "text": "Two 3s, two 5s, repeat. Easy!",
+        "caption": "3 3 5 5"
+      },
+      {
+        "title": "What Comes Next?",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            1,
+            2,
+            2,
+            1
+          ],
+          "missingIndex": 5
+        },
+        "text": "After 1, 1, 2, 2, 1 comes another 1 (to complete the AA).",
+        "caption": "Next: 1"
+      },
+      {
+        "title": "Then the Switch",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            1,
+            2,
+            2,
+            1,
+            1,
+            2
+          ],
+          "missingIndex": -1
+        },
+        "text": "After AABB, we go AABB again!",
+        "caption": "Repeats!"
+      },
+      {
+        "title": "You Got It",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            7,
+            7,
+            9,
+            9,
+            7,
+            7
+          ],
+          "missingIndex": -1
+        },
+        "text": "Now you can spot AABB anywhere.",
+        "caption": "Look for pairs!"
+      }
+    ],
+    "practice": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            1,
+            3,
+            3,
+            1
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 1,
+        "hint": "AABB: just had one 1, need another to complete the AA."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            2,
+            2,
+            5,
+            5,
+            2
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 2,
+        "hint": "AABB: just had one 2, need another to complete the AA."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            4,
+            4,
+            6,
+            6,
+            4
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 4,
+        "hint": "AABB: just had one 4, need another to complete the AA."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            7,
+            7,
+            9,
+            9,
+            7
+          ],
+          "missingIndex": 5
+        },
+        "prompt": "What comes next?",
+        "answer": 7,
+        "hint": "AABB: just had one 7, need another to complete the AA."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            2,
+            2,
+            8,
+            8,
+            2,
+            2
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 8,
+        "hint": "AABB: AA done, now BB starts with 8."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            5,
+            5,
+            1,
+            1,
+            5,
+            5
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 1,
+        "hint": "AABB: AA done, now BB starts with 1."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            6,
+            6,
+            3,
+            3,
+            6,
+            6
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 3,
+        "hint": "AABB: AA done, now BB starts with 3."
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            8,
+            8,
+            4,
+            4,
+            8,
+            8
+          ],
+          "missingIndex": 6
+        },
+        "prompt": "What comes next?",
+        "answer": 4,
+        "hint": "AABB: AA done, now BB starts with 4."
+      }
+    ],
+    "quiz": [
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            1,
+            2,
+            2,
+            1,
+            1,
+            2
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 2
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            3,
+            3,
+            4,
+            4,
+            3,
+            3,
+            4
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 4
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            5,
+            5,
+            6,
+            6,
+            5,
+            5,
+            6
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 6
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            7,
+            7,
+            8,
+            8,
+            7,
+            7,
+            8
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 8
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            9,
+            9,
+            1,
+            1,
+            9,
+            9,
+            1
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 1
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            2,
+            2,
+            3,
+            3,
+            2,
+            2,
+            3
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 3
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            4,
+            4,
+            5,
+            5,
+            4,
+            4,
+            5
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 5
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            6,
+            6,
+            7,
+            7,
+            6,
+            6,
+            7
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 7
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            8,
+            8,
+            9,
+            9,
+            8,
+            8,
+            9
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 9
+      },
+      {
+        "type": "numeric",
+        "visual": {
+          "type": "sequence",
+          "nums": [
+            1,
+            1,
+            5,
+            5,
+            1,
+            1,
+            5
+          ],
+          "missingIndex": 7
+        },
+        "prompt": "What comes next?",
+        "answer": 5
+      }
+    ]
   }
 ];
 
