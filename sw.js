@@ -11,7 +11,7 @@
  * Bump CACHE_VERSION whenever the app shell changes so old caches purge.
  */
 
-const CACHE_VERSION = 'hakans-math-v18';
+const CACHE_VERSION = 'hakans-math-v34';
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const AUDIO_CACHE = `${CACHE_VERSION}-audio`;
 
@@ -69,7 +69,25 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // App shell: stale-while-revalidate
+    // For HTML / navigation requests: network-first so cache busters work
+    // (otherwise returning cached index.html locks Hakan onto whichever
+    // ?v=NN it was last cached with, even after we bump scripts).
+    const accept = req.headers.get('accept') || '';
+    const isHtml = req.mode === 'navigate' || accept.includes('text/html');
+    if (isHtml) {
+        event.respondWith(
+            fetch(req).then((res) => {
+                if (res && res.status === 200) {
+                    const clone = res.clone();
+                    caches.open(SHELL_CACHE).then((c) => c.put(req, clone));
+                }
+                return res;
+            }).catch(() => caches.match(req).then((cached) => cached || new Response('Offline', {status: 503})))
+        );
+        return;
+    }
+
+    // Other shell assets (CSS, JS, images, JSON): stale-while-revalidate
     event.respondWith(
         caches.open(SHELL_CACHE).then((cache) =>
             cache.match(req).then((cached) => {
