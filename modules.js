@@ -69097,6 +69097,8 @@ function renderHomeModules() {
         html += `<button class="trophy-btn" onclick="openTrophyRoom()">🏆 Trophies</button>`;
         html += `<button class="minigames-btn" onclick="openMiniGamesHub()">🎮 Games</button>`;
         html += `<button class="journey-btn" onclick="openProgressMap()">🗺️ Journey</button>`;
+        html += `<button class="scrapbook-btn" onclick="openScrapbook()">📖 Stickers</button>`;
+        html += `<button class="glossary-btn" onclick="openGlossary()">📚 Words</button>`;
         html += `</div>`;
         // Module search
         html += `<div class="module-search-wrap">
@@ -70321,6 +70323,7 @@ function handleWrong() {
 
     // Per-problem struggle tracking — record the first wrong attempt
     // (after that, additional retries don't change the stats).
+    const isFirstWrong = !moduleState._countedThisProblem;
     if (typeof currentUser !== 'undefined' && currentUser === 'hakan' &&
         typeof recordProblemAttempt === 'function' && !moduleState._countedThisProblem) {
         recordProblemAttempt(moduleState.moduleId, moduleState.activity,
@@ -70333,6 +70336,46 @@ function handleWrong() {
     if (typeof speak === 'function') speak(msg);
     moduleState.answer = '';
     document.getElementById('mg-answer').textContent = '';
+
+    // In quiz/review, after the first wrong attempt also show the correct
+    // answer gently so Hakan learns the right one. Auto-advances.
+    if (isFirstWrong && (moduleState.activity === 'quiz' || moduleState.activity === 'review')) {
+        const p = getCurrentProblems()[moduleState.problemIndex];
+        if (p) showCorrectAnswerReveal(p);
+    }
+}
+
+// Brief, kind reveal of the right answer after Hakan gets a quiz problem
+// wrong. Auto-advances after a short pause so the flow keeps moving.
+function showCorrectAnswerReveal(p) {
+    if (moduleState._answerRevealActive) return;
+    moduleState._answerRevealActive = true;
+    moduleState.locked = true;
+    const visualHost = document.getElementById('mg-visual');
+    if (!visualHost) return;
+    let answerText;
+    if (p.type === 'numeric') {
+        answerText = String(p.answer);
+    } else if (p.type === 'choice') {
+        answerText = (p.choices && p.choices[p.answerIndex]) || '';
+    } else {
+        answerText = ''; // ordering/matching/fill-blanks already auto-advance
+    }
+    if (!answerText) { moduleState._answerRevealActive = false; moduleState.locked = false; return; }
+    const overlay = document.createElement('div');
+    overlay.className = 'answer-reveal';
+    overlay.innerHTML = `
+        <div class="ar-label">The answer is</div>
+        <div class="ar-value">${answerText}</div>
+        <div class="ar-sub">Don't worry, Hakan — you'll get the next one! 💪</div>
+    `;
+    visualHost.appendChild(overlay);
+    setTimeout(() => {
+        try { overlay.remove(); } catch (e) {}
+        moduleState._answerRevealActive = false;
+        moduleState.locked = false;
+        advanceModuleProblem();
+    }, 2200);
 }
 
 function showMGFeedback(kind, msg) {

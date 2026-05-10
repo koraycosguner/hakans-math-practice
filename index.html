@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=36">
+    <link rel="manifest" href="manifest.json?v=37">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=36">
+    <link rel="stylesheet" href="style.css?v=37">
 </head>
 <body>
     <!-- User Selection Screen -->
@@ -426,6 +426,26 @@
         </div>
     </div>
 
+    <!-- Sticker Scrapbook -->
+    <div id="scrapbook-screen" class="screen">
+        <div class="scrapbook">
+            <button class="back-btn" onclick="goHome()">🏠 Home</button>
+            <h1 class="sb-title">📖 Sticker Scrapbook</h1>
+            <p class="sb-sub">A new sticker every day, Hakan!</p>
+            <div id="scrapbook-body"></div>
+        </div>
+    </div>
+
+    <!-- Math Glossary -->
+    <div id="glossary-screen" class="screen">
+        <div class="glossary">
+            <button class="back-btn" onclick="goHome()">🏠 Home</button>
+            <h1 class="glo-title">📚 Math Words</h1>
+            <p class="glo-sub">Words that math friends use!</p>
+            <div id="glossary-body" class="glo-grid"></div>
+        </div>
+    </div>
+
     <!-- Mini-games hub -->
     <div id="minigames-screen" class="screen">
         <div class="minigames-hub">
@@ -462,10 +482,10 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=36"></script>
-    <script src="modules.js?v=36"></script>
-    <script src="game.js?v=36"></script>
-    <script src="minigames.js?v=36"></script>
+    <script src="audio.js?v=37"></script>
+    <script src="modules.js?v=37"></script>
+    <script src="game.js?v=37"></script>
+    <script src="minigames.js?v=37"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->

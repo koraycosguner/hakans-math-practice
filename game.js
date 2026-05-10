@@ -580,6 +580,171 @@ function _todayKeyForBonus() {
     return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 }
 
+// ===== Sticker Scrapbook =====
+// Every daily visit awards a random sticker. Stickers stack up in
+// Hakan's scrapbook (no duplicates count toward unique-collection).
+const STICKER_POOL = [
+    '🦄','🐉','🐢','🐬','🦋','🐝','🐳','🦊','🐼','🐨','🦁','🐯',
+    '🍓','🍒','🍎','🍌','🥝','🍇','🍕','🍪','🧁','🍩','🍫','🍰',
+    '⚽','🏀','🚀','🛸','🎮','🎨','🎸','🎺','🎯','🎲','🎁','🎉',
+    '⭐','🌟','💎','🌈','🌸','🌺','🌻','🌷','🌙','☀️','⚡','🔥',
+    '🦖','🦕','🐙','🦑','🦀','🐠','🐢','🪼','🦩','🦚','🦜','🐧',
+];
+const STICKERS_KEY = 'hakans-math-stickers';
+const STICKER_DAILY_KEY = 'hakans-math-sticker-daily';
+
+function loadStickers() {
+    try { return JSON.parse(localStorage.getItem(STICKERS_KEY)) || []; } catch (e) { return []; }
+}
+function saveStickers(arr) {
+    try { localStorage.setItem(STICKERS_KEY, JSON.stringify(arr)); } catch (e) {}
+}
+
+function checkDailyStickerBonus() {
+    if (typeof currentUser === 'undefined' || currentUser !== 'hakan') return null;
+    let last = null;
+    try { last = localStorage.getItem(STICKER_DAILY_KEY); } catch (e) {}
+    const today = _todayKeyForBonus();
+    if (last === today) return null;
+    try { localStorage.setItem(STICKER_DAILY_KEY, today); } catch (e) {}
+    // Pick a random sticker; allow duplicates over time for collection count
+    const s = STICKER_POOL[Math.floor(Math.random() * STICKER_POOL.length)];
+    const arr = loadStickers();
+    arr.push({ sticker: s, when: Date.now() });
+    saveStickers(arr);
+    return s;
+}
+
+// ===== Math Glossary =====
+// Kid-friendly definitions in Grade-1 language. No jargon.
+const GLOSSARY = [
+    { word: 'Plus',       emoji: '➕', meaning: 'A word that means ADD.', example: '3 plus 2 means 3 + 2 = 5.' },
+    { word: 'Minus',      emoji: '➖', meaning: 'A word that means TAKE AWAY.', example: '5 minus 2 means 5 − 2 = 3.' },
+    { word: 'Equals',     emoji: '🟰', meaning: 'A word that means "is the same as".', example: '3 + 2 equals 5.' },
+    { word: 'Sum',        emoji: '🟢', meaning: 'The answer when you ADD.', example: 'The sum of 4 and 3 is 7.' },
+    { word: 'Add',        emoji: '🍎', meaning: 'To put things together to find how many in all.', example: 'If you add 2 apples and 1 apple, you have 3 apples.' },
+    { word: 'Subtract',   emoji: '🍪', meaning: 'To take some away from a group.', example: 'If you have 5 cookies and eat 2, you subtract 2.' },
+    { word: 'Greater than', emoji: '🔼', meaning: 'When one number is BIGGER than another.', example: '7 is greater than 4.' },
+    { word: 'Less than',  emoji: '🔽', meaning: 'When one number is SMALLER than another.', example: '3 is less than 8.' },
+    { word: 'Pair',       emoji: '🥿', meaning: 'A group of TWO things.', example: 'You have a pair of shoes!' },
+    { word: 'Double',     emoji: '🎯', meaning: 'When you add a number to itself.', example: 'Double 3 means 3 + 3 = 6.' },
+    { word: 'Half',       emoji: '🥧', meaning: 'One of two EQUAL parts.', example: 'Cut a pizza in half = 2 pieces the same size.' },
+    { word: 'Fourth',     emoji: '🍕', meaning: 'One of four EQUAL parts.', example: 'A pizza cut into 4 equal slices = each is a fourth.' },
+    { word: 'Tens',       emoji: '🔟', meaning: 'A group of 10 ones.', example: '20 is 2 tens.' },
+    { word: 'Ones',       emoji: '1️⃣', meaning: 'Single units.', example: '23 has 3 ones.' },
+    { word: 'Odd',        emoji: '🎲', meaning: 'A number that can\'t make pairs without a leftover.', example: '5 is odd: ●● ●● ● (one leftover).' },
+    { word: 'Even',       emoji: '🎯', meaning: 'A number that makes pairs with NO leftover.', example: '6 is even: ●● ●● ●●.' },
+    { word: 'Skip count', emoji: '🦘', meaning: 'Count by jumps, not one at a time.', example: 'Skip count by 5: 5, 10, 15, 20.' },
+    { word: 'Number bond', emoji: '🤝', meaning: 'Two numbers that make a target when added.', example: '6 and 4 are a bond of 10.' },
+    { word: 'Ten frame',  emoji: '🔲', meaning: 'A grid of 10 boxes to show numbers.', example: 'Fill 7 boxes to show 7.' },
+    { word: 'Half past',  emoji: '🕞', meaning: 'When the long hand is on 6 — half past the hour.', example: 'When it\'s 3:30, we say "half past 3".' },
+    { word: 'O\'clock',   emoji: '🕒', meaning: 'When the long hand is on 12 — exact hour.', example: 'When it\'s 3:00, we say "3 o\'clock".' },
+    { word: 'Penny',      emoji: '🟤', meaning: 'A coin worth 1 cent.', example: '5 pennies = 5 cents.' },
+    { word: 'Nickel',     emoji: '⚪', meaning: 'A coin worth 5 cents.', example: '2 nickels = 10 cents.' },
+    { word: 'Dime',       emoji: '🪙', meaning: 'A coin worth 10 cents.', example: '3 dimes = 30 cents.' },
+];
+
+// ===== First-time onboarding tour =====
+// 4 friendly tooltips on first visit pointing at key features.
+const ONBOARDING_KEY = 'hakans-math-onboarded';
+function maybeStartOnboarding() {
+    if (typeof currentUser === 'undefined' || currentUser !== 'hakan') return;
+    let seen = null;
+    try { seen = localStorage.getItem(ONBOARDING_KEY); } catch (e) {}
+    if (seen) return;
+    try { localStorage.setItem(ONBOARDING_KEY, '1'); } catch (e) {}
+    setTimeout(startOnboardingTour, 1200);
+}
+function startOnboardingTour() {
+    const steps = [
+        { text: "Hi Hakan! Tap a module below to start learning math! 📚", target: '#module-grid', position: 'top' },
+        { text: "Try the Mini-Games! 🎮 Fun ways to practice math.", target: '.minigames-btn', position: 'bottom' },
+        { text: "See your math journey on the Map! 🗺️", target: '.journey-btn', position: 'bottom' },
+        { text: "Earn stars, badges & stickers as you play! ⭐🏆📖", target: '.trophy-btn', position: 'bottom' },
+    ];
+    showOnboardingStep(steps, 0);
+}
+function showOnboardingStep(steps, idx) {
+    if (idx >= steps.length) return;
+    const s = steps[idx];
+    const target = document.querySelector(s.target);
+    if (!target) { showOnboardingStep(steps, idx + 1); return; }
+    const overlay = document.createElement('div');
+    overlay.className = 'ob-overlay';
+    const tip = document.createElement('div');
+    tip.className = 'ob-tip ob-tip-' + (s.position || 'top');
+    tip.innerHTML = `
+        <div class="ob-text">${s.text}</div>
+        <div class="ob-progress">${idx + 1} / ${steps.length}</div>
+        <button class="ob-next-btn">${idx === steps.length - 1 ? "Let's play!" : 'Next ➡'}</button>
+    `;
+    overlay.appendChild(tip);
+    document.body.appendChild(overlay);
+    // Position tip near the target
+    const rect = target.getBoundingClientRect();
+    requestAnimationFrame(() => {
+        const tRect = tip.getBoundingClientRect();
+        let top = rect.top - tRect.height - 16;
+        if (s.position === 'bottom') top = rect.bottom + 16;
+        if (top < 16) top = Math.min(window.innerHeight - tRect.height - 16, rect.bottom + 16);
+        let left = rect.left + (rect.width / 2) - (tRect.width / 2);
+        left = Math.max(12, Math.min(window.innerWidth - tRect.width - 12, left));
+        tip.style.top = top + 'px';
+        tip.style.left = left + 'px';
+        // Highlight the target
+        target.classList.add('ob-highlighted');
+    });
+    overlay.querySelector('.ob-next-btn').addEventListener('click', () => {
+        target.classList.remove('ob-highlighted');
+        overlay.remove();
+        showOnboardingStep(steps, idx + 1);
+    });
+}
+
+function openGlossary() {
+    if (typeof playSound === 'function') playSound('click');
+    const body = document.getElementById('glossary-body');
+    if (body) {
+        body.innerHTML = GLOSSARY.map((g) => `
+            <div class="glo-card">
+                <div class="glo-emoji">${g.emoji}</div>
+                <div class="glo-word">${g.word}</div>
+                <div class="glo-meaning">${g.meaning}</div>
+                <div class="glo-example">${g.example}</div>
+            </div>
+        `).join('');
+    }
+    showScreen('glossary-screen');
+}
+
+function openScrapbook() {
+    if (typeof playSound === 'function') playSound('click');
+    renderScrapbook();
+    showScreen('scrapbook-screen');
+}
+function renderScrapbook() {
+    const body = document.getElementById('scrapbook-body');
+    if (!body) return;
+    const arr = loadStickers();
+    if (arr.length === 0) {
+        body.innerHTML = '<div class="sb-empty">No stickers yet, Hakan! Come back tomorrow for your first sticker! 🎁</div>';
+        return;
+    }
+    const unique = new Set(arr.map((x) => x.sticker)).size;
+    let html = `<div class="sb-stats">
+        <div class="sb-stat-num">${arr.length}</div>
+        <div class="sb-stat-label">stickers · ${unique} unique</div>
+    </div>`;
+    html += '<div class="sb-grid">';
+    arr.slice().reverse().forEach((s, i) => {
+        // Random tilt for sticker-board feel
+        const tilt = ((i * 47) % 14) - 7;
+        html += `<div class="sb-sticker" style="transform: rotate(${tilt}deg)">${s.sticker}</div>`;
+    });
+    html += '</div>';
+    body.innerHTML = html;
+}
+
 function checkDailyBonus() {
     if (typeof currentUser === 'undefined' || currentUser !== 'hakan') return;
     let last = null;
@@ -592,14 +757,17 @@ function checkDailyBonus() {
 }
 
 function showDailyBonusPopup() {
+    // Also award a daily sticker
+    const sticker = (typeof checkDailyStickerBonus === 'function') ? checkDailyStickerBonus() : null;
     const overlay = document.createElement('div');
     overlay.className = 'daily-bonus-overlay';
     overlay.innerHTML = `
         <div class="daily-bonus-card">
-            <div class="db-emoji">🎁</div>
+            <div class="db-emoji">${sticker ? sticker : '🎁'}</div>
             <div class="db-title">Welcome back, Hakan!</div>
-            <div class="db-msg">Daily bonus unlocked!</div>
+            <div class="db-msg">${sticker ? "Today's sticker is yours!" : 'Daily bonus unlocked!'}</div>
             <div class="db-amount">+${DAILY_BONUS_AMOUNT} 💎</div>
+            ${sticker ? '<div class="db-sticker-note">Find it in your Scrapbook!</div>' : ''}
             <button class="db-btn">Awesome!</button>
         </div>
     `;
@@ -916,6 +1084,7 @@ function selectUser(name) {
     // Daily bonus check happens when Hakan selects himself.
     if (name === 'hakan') {
         setTimeout(() => { if (typeof checkDailyBonus === 'function') checkDailyBonus(); }, 400);
+        setTimeout(() => { if (typeof maybeStartOnboarding === 'function') maybeStartOnboarding(); }, 1600);
     }
     playSound('click');
 
