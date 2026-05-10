@@ -72,6 +72,11 @@
                         <span class="mode-label">Fact<br>Families</span>
                         <small>💎 2 each</small>
                     </button>
+                    <button class="mode-btn" onclick="setMode('placevalue', this)">
+                        <span class="mode-icon">🔢</span>
+                        <span class="mode-label">Place<br>Value</span>
+                        <small>📚 lesson + 💎 4 each</small>
+                    </button>
                 </div>
             </div>
 
@@ -255,6 +260,93 @@
         </div>
     </div>
 
+    <!-- Lesson Screen (Place Value, etc.) -->
+    <div id="lesson-screen" class="screen">
+        <div class="lesson-layout">
+            <div class="lesson-header">
+                <button class="back-btn" onclick="goHome()">🏠 Home</button>
+                <span id="lesson-progress" class="lesson-progress-text">Lesson 1 / 4</span>
+                <div id="lesson-dots" class="lesson-dots"></div>
+            </div>
+            <div class="lesson-card">
+                <h2 id="lesson-title" class="lesson-title">Title</h2>
+                <div id="lesson-visual" class="lesson-visual"></div>
+                <p id="lesson-text" class="lesson-text"></p>
+                <div id="lesson-caption" class="lesson-caption"></div>
+            </div>
+            <div class="lesson-nav">
+                <button class="lesson-back-btn" id="lesson-back-btn" onclick="prevLessonPage()">⬅️ Back</button>
+                <button class="lesson-next-btn" id="lesson-next-btn" onclick="nextLessonPage()">Next ➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Place Value Game Screen (guided practice + quiz) -->
+    <div id="pv-game-screen" class="screen">
+        <div class="game-layout">
+            <div class="game-header">
+                <button class="back-btn" onclick="goHome()">🏠 Home</button>
+                <span id="pv-phase" class="pv-phase-tag">🎯 Practice</span>
+                <div class="score-display">
+                    <span class="stars-label">⭐</span>
+                    <span id="pv-score">0</span>
+                </div>
+                <div class="streak-display">
+                    <span id="pv-streak">🔥 0</span>
+                </div>
+                <div id="pv-robux-display" class="robux-display" style="display:none;">
+                    <span>💎</span>
+                    <span id="pv-robux-game">0.0</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="pv-progress-fill" class="progress-fill"></div>
+                    <span id="pv-progress-text">1 / 5</span>
+                </div>
+            </div>
+
+            <div class="game-main">
+                <div class="game-left">
+                    <div class="problem-card pv-card">
+                        <div id="pv-question" class="pv-question">What number is this?</div>
+                        <div id="pv-visual" class="pv-visual"></div>
+                        <div class="pv-answer-row">
+                            <span class="pv-answer-label">Answer:</span>
+                            <span class="pv-answer-box"><span id="pv-answer" class="pv-answer">&nbsp;</span></span>
+                        </div>
+                    </div>
+
+                    <div class="hint-area">
+                        <div class="hint-buttons-row">
+                            <button id="pv-hint-btn" class="hint-btn" onclick="pvShowHint()">💡 Hint</button>
+                        </div>
+                        <div id="pv-hint-text" class="hint-steps"></div>
+                    </div>
+                </div>
+
+                <div class="game-right">
+                    <div class="number-pad">
+                        <button class="num-key" onclick="pvTypeNumber('1')">1</button>
+                        <button class="num-key" onclick="pvTypeNumber('2')">2</button>
+                        <button class="num-key" onclick="pvTypeNumber('3')">3</button>
+                        <button class="num-key" onclick="pvTypeNumber('4')">4</button>
+                        <button class="num-key" onclick="pvTypeNumber('5')">5</button>
+                        <button class="num-key" onclick="pvTypeNumber('6')">6</button>
+                        <button class="num-key" onclick="pvTypeNumber('7')">7</button>
+                        <button class="num-key" onclick="pvTypeNumber('8')">8</button>
+                        <button class="num-key" onclick="pvTypeNumber('9')">9</button>
+                        <button class="num-key delete-key" onclick="pvDeleteNumber()">⌫</button>
+                        <button class="num-key" onclick="pvTypeNumber('0')">0</button>
+                        <button class="num-key check-key" onclick="pvCheckAnswer()">✓</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pv-feedback-overlay" class="feedback-overlay hidden">
+            <div id="pv-feedback-content" class="feedback-content"></div>
+        </div>
+    </div>
+
     <!-- Results Screen -->
     <div id="results-screen" class="screen">
         <div class="results-container">
@@ -292,6 +384,7 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
+    <script src="lessons.js"></script>
     <script src="game.js"></script>
 </body>
 </html>

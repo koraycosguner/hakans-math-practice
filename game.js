@@ -259,11 +259,21 @@ function pickVoice() {
 
     let matchStep = 'none';
 
-    // 1. Best: Premium male English voice
+    // 0. Best on iOS/iPadOS: Siri voices (Siri Voice 1, Siri Voice 2, etc.)
+    //    These are the highest-quality voices Apple ships and are downloaded
+    //    via Settings → Accessibility → Spoken Content → Voices.
     cachedVoice = voices.find(v =>
-        isEnglish(v) && v.name.includes('(Premium)') && isMaleName(v)
+        isEnglish(v) && /siri/i.test(v.name)
     );
-    if (cachedVoice) matchStep = '1-premium-male';
+    if (cachedVoice) matchStep = '0-siri';
+
+    // 1. Best (desktop / older iOS): Premium male English voice
+    if (!cachedVoice) {
+        cachedVoice = voices.find(v =>
+            isEnglish(v) && v.name.includes('(Premium)') && isMaleName(v)
+        );
+        if (cachedVoice) matchStep = '1-premium-male';
+    }
 
     // 2. Good: Enhanced male English voice
     if (!cachedVoice) {
@@ -1365,8 +1375,10 @@ function setMode(mode, btn) {
 function startSelected() {
     if (selectedMode === 'addsub') {
         startGame('mixed');
-    } else {
+    } else if (selectedMode === 'factfamily') {
         startFactFamilyGame();
+    } else if (selectedMode === 'placevalue') {
+        startPlaceValueModule();
     }
 }
 
@@ -1758,6 +1770,12 @@ function goHome() {
 
 function playAgain() {
     playSound('click');
+    if (typeof window.__lastModuleStarter === 'function') {
+        const fn = window.__lastModuleStarter;
+        window.__lastModuleStarter = null;
+        fn();
+        return;
+    }
     if (activeGameMode === 'factfamily') {
         startFactFamilyGame();
     } else {
