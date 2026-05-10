@@ -2467,62 +2467,62 @@ const MODULES = [
         "caption": "Sides + corners = shape name."
       },
       {
-        "title": "Tap the Circle",
+        "title": "A Circle for Hakan",
         "visual": {
-        "type": "tap-shape",
-        "shapes": [
-          "circle",
-          "square",
-          "triangle"
-        ],
-        "target": "circle",
-        "instruction": "Hakan, tap the CIRCLE!"
-      },
-        "text": "A CIRCLE is round with 0 corners. Tap the circle!",
+          "type": "tap-shape",
+          "shapes": [
+            "circle",
+            "square",
+            "triangle"
+          ],
+          "target": "circle",
+          "instruction": "Hakan, tap the CIRCLE!"
+        },
+        "text": "Hakan, a CIRCLE is round with 0 corners. Tap the circle!",
         "caption": "Round, 0 corners = circle."
       },
       {
-        "title": "Tap the Triangle",
+        "title": "Hakan's Triangle",
         "visual": {
-        "type": "tap-shape",
-        "shapes": [
-          "circle",
-          "square",
-          "triangle"
-        ],
-        "target": "triangle",
-        "instruction": "Hakan, tap the TRIANGLE!"
-      },
-        "text": "A TRIANGLE has 3 sides and 3 corners. Tap the triangle!",
+          "type": "tap-shape",
+          "shapes": [
+            "circle",
+            "square",
+            "triangle"
+          ],
+          "target": "triangle",
+          "instruction": "Hakan, tap the TRIANGLE!"
+        },
+        "text": "Hakan, a TRIANGLE has 3 sides and 3 corners. Tap the triangle!",
         "caption": "3 sides, 3 corners = triangle."
       },
       {
-        "title": "Square = 4 Equal Sides",
+        "title": "Hakan's Square = 4 Equal Sides",
         "visual": {
           "type": "shape",
           "name": "square"
         },
-        "text": "A SQUARE has 4 sides — all the SAME length. And 4 corners.",
+        "text": "Hakan, a SQUARE has 4 sides — all the SAME length. And 4 corners.",
         "caption": "4 equal sides = square."
       },
       {
-        "title": "Rectangle = 2 Long + 2 Short",
+        "title": "Hakan's Rectangle = 2 Long + 2 Short",
         "visual": {
           "type": "shape",
           "name": "rectangle"
         },
-        "text": "A RECTANGLE has 4 sides too. Two are LONG and two are SHORT. Like a door!",
+        "text": "Hakan, a RECTANGLE has 4 sides too. Two are LONG and two are SHORT. Like a door!",
         "caption": "2 long + 2 short = rectangle."
       },
       {
-        "title": "Cutting Equal Parts",
+        "title": "Hakan Cuts Equal Parts",
         "visual": {
           "type": "fraction",
           "shape": "circle",
           "parts": 2,
           "filled": 1
         },
-        "text": "We can cut a shape into pieces. When pieces are the SAME size, they are EQUAL.",
+        "text": "Hakan can cut a shape into pieces. When pieces are the SAME size, they are EQUAL.",
         "caption": "Equal = same size."
       },
       {
@@ -2701,7 +2701,7 @@ const MODULES = [
           "type": "shape",
           "name": "circle"
         },
-        "prompt": "What shape is this?",
+        "prompt": "Hakan, name this shape!",
         "choices": [
           "Circle",
           "Square",
@@ -2731,7 +2731,7 @@ const MODULES = [
           "type": "shape",
           "name": "triangle"
         },
-        "prompt": "How many sides on this triangle?",
+        "prompt": "Hakan, how many sides on this triangle?",
         "answer": 3
       },
       {
@@ -2740,7 +2740,7 @@ const MODULES = [
           "type": "shape",
           "name": "square"
         },
-        "prompt": "How many corners on a square?",
+        "prompt": "Hakan, how many corners on a square?",
         "answer": 4
       },
       {
@@ -2767,7 +2767,7 @@ const MODULES = [
           "parts": 2,
           "filled": 1
         },
-        "prompt": "How many equal parts here?",
+        "prompt": "Hakan, how many equal parts here?",
         "choices": [
           "Two",
           "Three",
@@ -2795,7 +2795,7 @@ const MODULES = [
           "type": "shape",
           "name": "triangle"
         },
-        "prompt": "What shape has 3 sides?",
+        "prompt": "Hakan, what shape has 3 sides?",
         "choices": [
           "Circle",
           "Square",
@@ -17513,24 +17513,21 @@ const MODULES = [
       {
         "title": "Fill: 8",
         "visual": {
-        "type": "fill-ten-frame",
-        "target": 8,
-        "instruction": "Hakan, fill in 8 dots! That's the first number."
-      },
-        "text": "Start by filling in 8 on the ten-frame.",
+          "type": "two-ten-frames",
+          "filledA": 8,
+          "filledB": 0
+        },
+        "text": "Start by filling in 8 on the first ten-frame. Hakan, that frame needs 2 more to be full.",
         "caption": "8 needs 2 more"
       },
       {
         "title": "Step 2: Split the 3",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            2,
-            1
-          ],
-          "missingIndex": -1
+          "type": "two-ten-frames",
+          "filledA": 8,
+          "filledB": 3
         },
-        "text": "Hakan splits the 3 into 2 + 1. He uses the 2 to fill the ten-frame!",
+        "text": "Hakan splits the 3 into 2 + 1. He uses the 2 to fill the first ten-frame!",
         "caption": "3 = 2 + 1"
       },
       {
@@ -17556,15 +17553,15 @@ const MODULES = [
       {
         "title": "Tap the Sum",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "10",
-          "11",
-          "12"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, what is 8 + 3? Tap the answer!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "10",
+            "11",
+            "12"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, what is 8 + 3? Tap the answer!"
+        },
         "text": "Make 10 first, then add the rest. 8 + 3. Tap the answer!",
         "caption": "10 + 1 is easy"
       },
@@ -17620,7 +17617,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 8 + 3 with make-10.",
         "answer": 11,
-        "hint": "Split 3: 2 + 1. Make 10, leftover 1. So 11!"
+        "hint": "Split 3 into 2 + 1. Make 10 with the 2, leftover 1. So 11!"
       },
       {
         "type": "numeric",
@@ -17653,7 +17650,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 9 + 2 with make-10.",
         "answer": 11,
-        "hint": "Split 2: 1 + 1. Make 10, leftover 1. So 11!"
+        "hint": "Split 2 into 1 + 1. Make 10 with the 1, leftover 1. So 11!"
       },
       {
         "type": "numeric",
@@ -17681,7 +17678,7 @@ const MODULES = [
           "13"
         ],
         "answerIndex": 1,
-        "hint": "Split 4: 3 + 1. Make 10 with 3, leftover 1. Total 11!"
+        "hint": "Split 4 into 3 + 1. Make 10 with 3, leftover 1. Total 11!"
       }
     ],
     "quiz": [
@@ -19032,10 +19029,10 @@ const MODULES = [
       {
         "title": "Fill the Ten-Frame: 3",
         "visual": {
-        "type": "fill-ten-frame",
-        "target": 3,
-        "instruction": "Hakan, fill in 3 dots in the ten-frame!"
-      },
+          "type": "fill-ten-frame",
+          "target": 3,
+          "instruction": "Hakan, fill in 3 dots in the ten-frame!"
+        },
         "text": "Tap to fill in 3 dots. The ten-frame helps you see the number!",
         "caption": "2 dots = 2"
       },
@@ -19062,15 +19059,15 @@ const MODULES = [
       {
         "title": "Tap the Number",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "2",
-          "3",
-          "4"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, this ten-frame shows what number? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "2",
+            "3",
+            "4"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, this ten-frame shows what number? Tap it!"
+        },
         "text": "Look at the ten-frame. Count the dots. Tap the answer!",
         "caption": "3 + 7 = 10"
       },
@@ -19105,7 +19102,7 @@ const MODULES = [
         },
         "prompt": "Hakan, how many dots?",
         "answer": 1,
-        "hint": "Count carefully: 1. Just one! Hakan keeps thinking step by step."
+        "hint": "Hakan touches the one filled box on the top row. Count: 1. Just one dot!"
       },
       {
         "type": "numeric",
@@ -19116,7 +19113,7 @@ const MODULES = [
         },
         "prompt": "How many?",
         "answer": 2,
-        "hint": "Count: 1, 2. That's 2! Hakan keeps thinking step by step."
+        "hint": "Hakan touches each filled box on the top row: 1, 2. That's 2 dots!"
       },
       {
         "type": "numeric",
@@ -19127,7 +19124,7 @@ const MODULES = [
         },
         "prompt": "Hakan: how many dots?",
         "answer": 3,
-        "hint": "Touch each: 1, 2, 3. Three! Hakan keeps thinking step by step."
+        "hint": "Hakan touches each dot on the top row: 1, 2, 3. Three dots in the frame!"
       },
       {
         "type": "numeric",
@@ -19138,7 +19135,7 @@ const MODULES = [
         },
         "prompt": "Hakan counts the frame. How many?",
         "answer": 3,
-        "hint": "Today's number is 3. Hakan got it!"
+        "hint": "Hakan looks at the top row: 3 dots filled, top row half-full. That's 3!"
       },
       {
         "type": "numeric",
@@ -19149,7 +19146,7 @@ const MODULES = [
         },
         "prompt": "How many dots now?",
         "answer": 4,
-        "hint": "One more than 3. Count: 1, 2, 3, 4!"
+        "hint": "Hakan sees one more dot than 3. Count: 1, 2, 3, 4. Just one short of a full top row!"
       },
       {
         "type": "numeric",
@@ -19160,7 +19157,7 @@ const MODULES = [
         },
         "prompt": "Hakan, count please!",
         "answer": 2,
-        "hint": "Two dots. Hakan rocks! Hakan keeps thinking step by step."
+        "hint": "Hakan touches each dot: 1, 2. Two dots in the frame. Easy!"
       },
       {
         "type": "choice",
@@ -19186,7 +19183,7 @@ const MODULES = [
         },
         "prompt": "Hakan reads the frame.",
         "answer": 3,
-        "hint": "Three dots, three count. Amazing job!"
+        "hint": "Hakan sees 3 dots filling the start of the top row. Three dots = 3!"
       }
     ],
     "quiz": [
@@ -19327,10 +19324,10 @@ const MODULES = [
       {
         "title": "Fill the Ten-Frame: 5",
         "visual": {
-        "type": "fill-ten-frame",
-        "target": 5,
-        "instruction": "Hakan, fill in 5 dots in the ten-frame!"
-      },
+          "type": "fill-ten-frame",
+          "target": 5,
+          "instruction": "Hakan, fill in 5 dots in the ten-frame!"
+        },
         "text": "Tap to fill in 5 dots. The ten-frame helps you see the number!",
         "caption": "3 dots = 3"
       },
@@ -19357,15 +19354,15 @@ const MODULES = [
       {
         "title": "Tap the Number",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "4",
-          "5",
-          "6"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, this ten-frame shows what number? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "4",
+            "5",
+            "6"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, this ten-frame shows what number? Tap it!"
+        },
         "text": "Look at the ten-frame. Count the dots. Tap the answer!",
         "caption": "5 + 5 = 10"
       },
@@ -19400,7 +19397,7 @@ const MODULES = [
         },
         "prompt": "Hakan: how many?",
         "answer": 2,
-        "hint": "Count: 1, 2. Just 2! Hakan keeps thinking step by step."
+        "hint": "Hakan touches each dot on the top row: 1, 2. That's 2 — top row barely started!"
       },
       {
         "type": "numeric",
@@ -19411,7 +19408,7 @@ const MODULES = [
         },
         "prompt": "How many dots?",
         "answer": 4,
-        "hint": "Almost top row full. 4 dots! Hakan keeps thinking step by step."
+        "hint": "Hakan sees almost the full top row — just 1 empty box left. 4 dots in the top row!"
       },
       {
         "type": "numeric",
@@ -19422,7 +19419,7 @@ const MODULES = [
         },
         "prompt": "Hakan: top row full! How many?",
         "answer": 5,
-        "hint": "Top row full = 5. Hakan got it!"
+        "hint": "Top row full = 5. Hakan recognizes this shape — the whole top row filled!"
       },
       {
         "type": "numeric",
@@ -19433,7 +19430,7 @@ const MODULES = [
         },
         "prompt": "Hakan counts. How many?",
         "answer": 5,
-        "hint": "5 dots fills the top row. Easy!"
+        "hint": "Hakan sees 5 dots filling the entire top row of the ten-frame. That's our number 5!"
       },
       {
         "type": "numeric",
@@ -19444,7 +19441,7 @@ const MODULES = [
         },
         "prompt": "How many now?",
         "answer": 6,
-        "hint": "Top row 5 + 1 more = 6. Hakan rocks!"
+        "hint": "Hakan sees the full top row (5) plus 1 dot in the bottom row: 5 + 1 = 6!"
       },
       {
         "type": "numeric",
@@ -19455,7 +19452,7 @@ const MODULES = [
         },
         "prompt": "Hakan, how many?",
         "answer": 3,
-        "hint": "Count: 1, 2, 3. Three dots! Hakan keeps thinking step by step."
+        "hint": "Hakan touches each dot on the top row: 1, 2, 3. Three dots — top half-full!"
       },
       {
         "type": "choice",
@@ -19481,7 +19478,7 @@ const MODULES = [
         },
         "prompt": "Hakan: today's number is?",
         "answer": 5,
-        "hint": "5 = full top row. Amazing job!"
+        "hint": "5 = full top row of the ten-frame. Amazing job, Hakan!"
       }
     ],
     "quiz": [
@@ -20212,10 +20209,10 @@ const MODULES = [
       {
         "title": "Fill the Ten-Frame: 10",
         "visual": {
-        "type": "fill-ten-frame",
-        "target": 10,
-        "instruction": "Hakan, fill in 10 dots in the ten-frame!"
-      },
+          "type": "fill-ten-frame",
+          "target": 10,
+          "instruction": "Hakan, fill in 10 dots in the ten-frame!"
+        },
         "text": "Tap to fill in 10 dots. The ten-frame helps you see the number!",
         "caption": "5 + 3 = 8"
       },
@@ -20242,15 +20239,15 @@ const MODULES = [
       {
         "title": "Tap the Number",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "9",
-          "10",
-          "11"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, this ten-frame shows what number? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "9",
+            "10",
+            "11"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, this ten-frame shows what number? Tap it!"
+        },
         "text": "Look at the ten-frame. Count the dots. Tap the answer!",
         "caption": "5 + 5 = 10"
       },
@@ -20285,7 +20282,7 @@ const MODULES = [
         },
         "prompt": "Hakan: how many?",
         "answer": 8,
-        "hint": "Top 5 + bottom 3 = 8. Easy! Hakan keeps thinking step by step."
+        "hint": "Hakan sees the full top row (5) + 3 dots on the bottom row: 5 + 3 = 8!"
       },
       {
         "type": "numeric",
@@ -20296,7 +20293,7 @@ const MODULES = [
         },
         "prompt": "How many dots?",
         "answer": 9,
-        "hint": "Top 5 + bottom 4 = 9. Almost full!"
+        "hint": "Hakan sees full top row (5) + 4 on bottom: 5 + 4 = 9. Almost full!"
       },
       {
         "type": "numeric",
@@ -20307,7 +20304,7 @@ const MODULES = [
         },
         "prompt": "Hakan: full frame!",
         "answer": 10,
-        "hint": "All 10 filled! 5 + 5 = 10! Hakan keeps thinking step by step."
+        "hint": "All 10 boxes filled means 10! Two full rows of 5: 5 + 5 = 10. Hakan got it!"
       },
       {
         "type": "numeric",
@@ -20318,7 +20315,7 @@ const MODULES = [
         },
         "prompt": "How many dots in a full frame?",
         "answer": 10,
-        "hint": "Hakan knows: full = 10. Always!"
+        "hint": "Hakan knows: a fully filled ten-frame = 10. No empty boxes left!"
       },
       {
         "type": "numeric",
@@ -20329,7 +20326,7 @@ const MODULES = [
         },
         "prompt": "Hakan: how many?",
         "answer": 7,
-        "hint": "Top 5 + bottom 2 = 7! Hakan keeps thinking step by step."
+        "hint": "Hakan sees full top row (5) + 2 dots on the bottom row: 5 + 2 = 7!"
       },
       {
         "type": "numeric",
@@ -20340,7 +20337,7 @@ const MODULES = [
         },
         "prompt": "Full ten-frame =",
         "answer": 10,
-        "hint": "10! Hakan rocks! Hakan keeps thinking step by step."
+        "hint": "All 10 boxes filled means 10! Two full rows of 5. Hakan got it!"
       },
       {
         "type": "choice",
@@ -20354,7 +20351,7 @@ const MODULES = [
           "Yes",
           "No, it's 10"
         ],
-        "hint": "ALL boxes filled = 10! No empty box!",
+        "hint": "Hakan looks for empty boxes. ALL 10 boxes filled — no empty box! That's 10.",
         "answerIndex": 1
       },
       {
@@ -20366,7 +20363,7 @@ const MODULES = [
         },
         "prompt": "Hakan: today's number?",
         "answer": 10,
-        "hint": "Full = 10. Amazing job, Hakan!"
+        "hint": "Full frame = 10. Top 5 + bottom 5 = 10. Amazing job, Hakan!"
       }
     ],
     "quiz": [
@@ -26728,64 +26725,66 @@ const MODULES = [
     "emoji": "🎂",
     "category": "B",
     "kind": "generic",
-    "description": "Add up balloons, gifts, and friends at Sara's birthday party!",
+    "description": "Add up balloons, gifts, and friends at Hakan's birthday — count on from the bigger number!",
     "lesson": [
       {
         "title": "Tap & Count",
         "visual": {
-        "type": "tap-to-count",
-        "emoji": "🎂",
-        "count": 4,
-        "instruction": "Hakan blows 4 candles. Tap each one!"
-      },
+          "type": "tap-to-count",
+          "emoji": "🎂",
+          "count": 4,
+          "instruction": "Hakan blows 4 candles. Tap each one!"
+        },
         "text": "Hakan, the story uses 4 🎂. Tap each one to count!",
-        "caption": "6 balloons"
+        "caption": "Tap each candle 🎂"
       },
       {
-        "title": "Mom Adds More",
+        "title": "Count On From the Bigger",
         "visual": {
           "type": "add-groups",
           "a": 6,
+          "b": 3,
+          "emoji": "🎈"
+        },
+        "text": "Hakan has 6 balloons. Mom brings 3 more. Start at the BIGGER number 6. Count up: 7, 8, 9. Total 9!",
+        "caption": "6 + 3 = 9 (count on)"
+      },
+      {
+        "title": "More Balloons, Same Trick",
+        "visual": {
+          "type": "add-groups",
+          "a": 7,
           "b": 4,
           "emoji": "🎈"
         },
-        "text": "Mom brings 4 more balloons. Hakan: 6 + 4 = 10. A perfect ten of balloons!",
-        "caption": "6 + 4 = 10"
+        "text": "Hakan has 7 red balloons and 4 blue ones. Start at 7 (bigger). Count up 4: 8, 9, 10, 11. Total 11!",
+        "caption": "7 + 4 = 11 (count on)"
       },
       {
-        "title": "Bigger Numbers",
+        "title": "Cards and Gifts",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 8,
-          "filledB": 5
+          "type": "add-groups",
+          "a": 8,
+          "b": 5,
+          "emoji": "🎁"
         },
-        "text": "Hakan got 8 cards and 5 gifts. Two ten-frames help him count to 13!",
-        "caption": "8 + 5 = 13"
-      },
-      {
-        "title": "Make a Ten",
-        "visual": {
-          "type": "two-ten-frames",
-          "filledA": 9,
-          "filledB": 4
-        },
-        "text": "9 + 4: Hakan moves 1 from the 4 to make 10. Then 10 + 3 = 13!",
-        "caption": "Make 10 first"
+        "text": "Hakan got 8 cards and 5 gifts. Start at the BIGGER 8. Count up 5: 9, 10, 11, 12, 13. Total 13!",
+        "caption": "8 + 5 = 13 (count on)"
       },
       {
         "title": "Tap the Total",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "3",
-          "4",
-          "5"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, how many 🎂 did you count? Tap the answer!"
-      },
-        "text": "Hakan, you counted the 🎂. How many were there? Tap the right number!",
-        "caption": "7 + 6 = 13"
+          "type": "tap-the-answer",
+          "options": [
+            "10",
+            "11",
+            "12"
+          ],
+          "correctIndex": 2,
+          "instruction": "Hakan: 8 + 4. Count on from 8 — what's the total? Tap it!"
+        },
+        "text": "Hakan, start at 8 (bigger) and count up 4: 9, 10, 11, 12. Tap the answer!",
+        "caption": "8 + 4 = 12 (count on)"
       },
       {
         "title": "Cake and Candles",
@@ -26795,18 +26794,18 @@ const MODULES = [
           "b": 5,
           "emoji": "🕯️"
         },
-        "text": "Hakan's cake has 6 candles. He adds 5 more. 6 + 5 = 11 candles glow!",
-        "caption": "6 + 5 = 11"
+        "text": "Hakan's cake has 6 candles. Mom adds 5 more. Start at 6 (bigger). Count up 5: 7, 8, 9, 10, 11!",
+        "caption": "6 + 5 = 11 (count on)"
       },
       {
-        "title": "Estimate First",
+        "title": "Did You Know? Make a Ten",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 7
+          "type": "two-ten-frames",
+          "filledA": 9,
+          "filledB": 4
         },
-        "text": "Hakan, before solving 8 + 7 — is it more or less than 20? LESS! Around 15.",
-        "caption": "Estimate first"
+        "text": "Hakan, you can ALSO move 1 from the 4 to make 9 into 10. Then 10 + 3 = 13. Same answer as counting on!",
+        "caption": "Two ways to add 🌈"
       },
       {
         "title": "Try It, Hakan!",
@@ -26816,8 +26815,8 @@ const MODULES = [
           "b": 7,
           "emoji": "🎈"
         },
-        "text": "Hakan has 8 red balloons and 7 blue ones. You can do it!",
-        "caption": "Try: 8 + 7 = ?"
+        "text": "Hakan has 8 red balloons and 7 blue ones. Count on from 8 — you can do it!",
+        "caption": "Try: 8 + 7 = ? (count on)"
       }
     ],
     "practice": [
@@ -26831,7 +26830,7 @@ const MODULES = [
         },
         "prompt": "Hakan has 5 balloons. Dad gives him 4 more. Total balloons?",
         "answer": 9,
-        "hint": "Hakan: 5 + 4. Count up from 5: 6, 7, 8, 9!"
+        "hint": "Hakan starts at the bigger number 5. Count up 4: 6, 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -26843,7 +26842,7 @@ const MODULES = [
         },
         "prompt": "Hakan got 6 gifts. Then 4 more. How many gifts?",
         "answer": 10,
-        "hint": "Hakan: 6 + 4 = 10. A perfect 10!"
+        "hint": "Hakan starts at the bigger 6. Count up 4: 7, 8, 9, 10!"
       },
       {
         "type": "numeric",
@@ -26855,7 +26854,7 @@ const MODULES = [
         },
         "prompt": "Hakan blew up 7 balloons. Mom blew up 5. How many in all?",
         "answer": 12,
-        "hint": "Hakan makes 10: 7 + 3 = 10, then 10 + 2 = 12!"
+        "hint": "Hakan starts at the bigger 7. Count up 5: 8, 9, 10, 11, 12!"
       },
       {
         "type": "numeric",
@@ -26867,7 +26866,7 @@ const MODULES = [
         },
         "prompt": "Hakan has 8 small gifts and 4 big gifts. How many gifts?",
         "answer": 12,
-        "hint": "Hakan: 8 + 2 = 10, +2 more = 12. Twelve gifts!"
+        "hint": "Hakan starts at the bigger 8. Count up 4: 9, 10, 11, 12!"
       },
       {
         "type": "numeric",
@@ -26879,7 +26878,7 @@ const MODULES = [
         },
         "prompt": "Hakan tied 9 balloons. He added 5 more. How many?",
         "answer": 14,
-        "hint": "+9 trick: 10 + 5 = 15, minus 1 = 14!"
+        "hint": "Hakan starts at the bigger 9. Count up 5: 10, 11, 12, 13, 14!"
       },
       {
         "type": "numeric",
@@ -26891,7 +26890,7 @@ const MODULES = [
         },
         "prompt": "Hakan invited 7 kids. 6 more came. How many friends?",
         "answer": 13,
-        "hint": "Hakan: doubles + 1. 6 + 6 = 12, plus 1 = 13!"
+        "hint": "Hakan starts at the bigger 7. Count up 6: 8, 9, 10, 11, 12, 13!"
       },
       {
         "type": "numeric",
@@ -26903,7 +26902,7 @@ const MODULES = [
         },
         "prompt": "Hakan's cake has 8 candles. He adds 7. How many candles?",
         "answer": 15,
-        "hint": "Hakan: 8 + 2 = 10, +5 = 15! Hakan got it fast!"
+        "hint": "Hakan starts at the bigger 8. Count up 7: 9, 10, 11, 12, 13, 14, 15!"
       },
       {
         "type": "choice",
@@ -26921,7 +26920,7 @@ const MODULES = [
           "16"
         ],
         "answerIndex": 2,
-        "hint": "+9 trick for Hakan: 10 + 6 = 16, minus 1 = 15!"
+        "hint": "Hakan starts at the bigger 9. Count up 6: 10, 11, 12, 13, 14, 15!"
       }
     ],
     "quiz": [
@@ -34318,15 +34317,15 @@ const MODULES = [
       {
         "title": "Tap the Triangle",
         "visual": {
-        "type": "tap-shape",
-        "shapes": [
-          "circle",
-          "square",
-          "triangle"
-        ],
-        "target": "triangle",
-        "instruction": "Hakan, tap the TRIANGLE!"
-      },
+          "type": "tap-shape",
+          "shapes": [
+            "circle",
+            "square",
+            "triangle"
+          ],
+          "target": "triangle",
+          "instruction": "Hakan, tap the TRIANGLE!"
+        },
         "text": "A triangle has special features. Tap the triangle!",
         "caption": "Pizza slice = triangle."
       },
@@ -34353,15 +34352,15 @@ const MODULES = [
       {
         "title": "Find the Triangle",
         "visual": {
-        "type": "tap-shape",
-        "shapes": [
-          "circle",
-          "square",
-          "triangle"
-        ],
-        "target": "triangle",
-        "instruction": "Hakan, find the TRIANGLE again — tap it!"
-      },
+          "type": "tap-shape",
+          "shapes": [
+            "circle",
+            "square",
+            "triangle"
+          ],
+          "target": "triangle",
+          "instruction": "Hakan, find the TRIANGLE again — tap it!"
+        },
         "text": "Practice spotting the triangle. Tap it!",
         "caption": "Always 3 + 3."
       },
@@ -34506,7 +34505,7 @@ const MODULES = [
           "type": "shape",
           "name": "triangle"
         },
-        "prompt": "Sides on a triangle?",
+        "prompt": "Hakan, sides on a triangle?",
         "answer": 3
       },
       {
@@ -34553,7 +34552,7 @@ const MODULES = [
           "type": "shape",
           "name": "triangle"
         },
-        "prompt": "\"Tri\" means:",
+        "prompt": "Hakan, \"Tri\" means:",
         "choices": [
           "3",
           "4",
@@ -34602,7 +34601,7 @@ const MODULES = [
           "type": "shape",
           "name": "triangle"
         },
-        "prompt": "Which shape has 3 sides?",
+        "prompt": "Hakan, which shape has 3 sides?",
         "choices": [
           "Circle",
           "Square",
@@ -34616,7 +34615,7 @@ const MODULES = [
           "type": "shape",
           "name": "triangle"
         },
-        "prompt": "Sides + corners on one triangle = ?",
+        "prompt": "Hakan: sides + corners on one triangle = ?",
         "answer": 6
       }
     ]
@@ -39799,9 +39798,9 @@ const MODULES = [
       {
         "title": "Hakan's Trick",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 8
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 8
         },
         "text": "Hi Hakan! To compare lengths, line up one end. Then look at the other end!",
         "caption": "Line up one end! 🎯"
@@ -39809,75 +39808,75 @@ const MODULES = [
       {
         "title": "Pencil vs Crayon",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 3
+          "type": "objects",
+          "emoji": "✏️",
+          "count": 5
         },
-        "text": "Hakan lines up his pencil and crayon at the bottom. Pencil sticks out — pencil is LONGER!",
-        "caption": "5 is longer than 3 ⭐"
+        "text": "Hakan's pencil is 5 cubes long. His crayon is 3 cubes. Pencil sticks out — pencil is LONGER!",
+        "caption": "5 cubes > 3 cubes ⭐"
       },
       {
         "title": "Tap the Longer",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "pencil",
-          "marker"
-        ],
-        "correctIndex": 0,
-        "instruction": "Hakan, which is longer? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "pencil",
+            "marker"
+          ],
+          "correctIndex": 0,
+          "instruction": "Hakan, which is longer? Tap it!"
+        },
         "text": "Look at the two objects. Tap the LONGER one!",
-        "caption": "6 is longer than 4 🌟"
+        "caption": "6 cubes > 4 cubes 🌟"
       },
       {
-        "title": "Toy Car vs Toy Truck",
+        "title": "Toy Car Length",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 4
+          "type": "objects",
+          "emoji": "🚗",
+          "count": 7
         },
-        "text": "Hakan lines up the back of his car and truck. The car is LONGER!",
-        "caption": "7 is longer than 4 💯"
+        "text": "Hakan's car is 7 cubes long. His truck is 4. The car is LONGER!",
+        "caption": "7 cubes > 4 cubes 💯"
       },
       {
         "title": "Symbol Time",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 8
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 8
         },
-        "text": "Hakan, the bigger number means longer! 8 cubes is LONGER than 5 cubes.",
-        "caption": "Bigger = longer ✨"
+        "text": "Hakan, count the cubes! 8 cubes is LONGER than 5 cubes. More cubes = longer.",
+        "caption": "More cubes = longer ✨"
       },
       {
         "title": "Spoon vs Fork",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 6
+          "type": "objects",
+          "emoji": "🥄",
+          "count": 6
         },
-        "text": "Hakan lined up his spoon and fork. They end at the SAME spot — same length!",
+        "text": "Hakan lined up his spoon and fork — both 6 cubes. They end at the SAME spot — same length!",
         "caption": "Same length 🎯"
       },
       {
         "title": "What Do You Notice?",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 4
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 9
         },
-        "text": "Hakan, what do you notice? Bigger number = longer. Smaller = shorter!",
-        "caption": "Bigger / smaller ⭐"
+        "text": "Hakan, what do you notice? More cubes = longer. Fewer cubes = shorter!",
+        "caption": "More / fewer ⭐"
       },
       {
         "title": "You're a Compare Champ!",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 5
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 7
         },
-        "text": "Hakan, you are SO smart! Line up, look at the end. Try the practice!",
+        "text": "Hakan, you are SO smart! Line up, count cubes, more is longer. Try the practice!",
         "caption": "You got it! 🏆"
       }
     ],
@@ -39885,144 +39884,144 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 3,
-          "b": 6
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 6
         },
-        "prompt": "Hakan, which number means longer?",
+        "prompt": "Hakan's stick A is 3 cubes. Stick B is 6 cubes. Which is longer?",
         "choices": [
-          "3",
-          "6",
+          "3 cubes",
+          "6 cubes",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger number. 6 is bigger, so it is longer."
+        "hint": "Hakan picks the bigger count. 6 cubes is longer than 3 cubes."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 5
+          "type": "objects",
+          "emoji": "✏️",
+          "count": 8
         },
         "prompt": "Hakan's pencil is 8 cubes. His crayon is 5. Which is longer?",
         "choices": [
-          "8",
-          "5",
+          "pencil (8)",
+          "crayon (5)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan compares: 8 is more than 5, so 8 is longer."
+        "hint": "Hakan compares: 8 cubes > 5 cubes, so the pencil is longer."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 7
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 7
         },
-        "prompt": "Hakan, which is longer?",
+        "prompt": "Hakan: A=4 cubes, B=7 cubes. Which is longer?",
         "choices": [
-          "4",
-          "7",
+          "4 cubes",
+          "7 cubes",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger number. 7 cubes is longer than 4 cubes."
+        "hint": "Hakan picks the bigger count. 7 cubes is longer than 4 cubes."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 6
+          "type": "objects",
+          "emoji": "🚗",
+          "count": 9
         },
-        "prompt": "Hakan's truck is 9. His car is 6. Which is longer?",
+        "prompt": "Hakan's truck is 9 cubes. His car is 6. Which is longer?",
         "choices": [
-          "9",
-          "6",
+          "truck (9)",
+          "car (6)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan compares: 9 is bigger than 6, so the truck is longer."
+        "hint": "Hakan compares: 9 cubes > 6 cubes, so the truck is longer."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 5
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 5
         },
-        "prompt": "Hakan lined up two sticks. Which is longer?",
+        "prompt": "Hakan lined up two sticks — both 5 cubes. Which is longer?",
         "choices": [
           "first",
           "second",
           "same"
         ],
         "answerIndex": 2,
-        "hint": "Hakan sees both numbers are 5. They are the same length!"
+        "hint": "Hakan sees both are 5 cubes. Same count means same length!"
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 8
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 2
         },
-        "prompt": "Hakan, which is shorter?",
+        "prompt": "Hakan: A=2 cubes, B=8 cubes. Which is shorter?",
         "choices": [
-          "2",
-          "8",
+          "A (2)",
+          "B (8)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the smaller number. 2 is less than 8, so 2 is shorter."
+        "hint": "Hakan picks the smaller count. 2 cubes is shorter than 8 cubes."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 10,
-          "b": 3
+          "type": "objects",
+          "emoji": "✏️",
+          "count": 3
         },
-        "prompt": "Hakan's bat is 10. His pen is 3. Which is shorter?",
+        "prompt": "Hakan's bat is 10 cubes. His pen is 3. Which is shorter?",
         "choices": [
-          "10",
-          "3",
+          "bat (10)",
+          "pen (3)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the smaller. 3 is less than 10, so the pen is shorter."
+        "hint": "Hakan picks the smaller. 3 cubes is shorter than 10 cubes."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 9
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 9
         },
-        "prompt": "Hakan, which is longer?",
+        "prompt": "Hakan: A=7 cubes, B=9 cubes. Which is longer?",
         "choices": [
-          "7",
-          "9",
+          "7 cubes",
+          "9 cubes",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger number. 9 is more than 7, so 9 is longer."
+        "hint": "Hakan picks the bigger count. 9 cubes is longer than 7 cubes."
       }
     ],
     "quiz": [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 3,
-          "b": 6
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 6
         },
-        "prompt": "Hakan, which is longer?",
+        "prompt": "Hakan: A=3 cubes, B=6 cubes. Which is longer?",
         "choices": [
-          "3",
-          "6",
+          "3 cubes",
+          "6 cubes",
           "same"
         ],
         "answerIndex": 1
@@ -40030,14 +40029,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 5
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 8
         },
-        "prompt": "Hakan, which is longer?",
+        "prompt": "Hakan: A=8 cubes, B=5 cubes. Which is longer?",
         "choices": [
-          "8",
-          "5",
+          "8 cubes",
+          "5 cubes",
           "same"
         ],
         "answerIndex": 0
@@ -40045,14 +40044,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 7
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 7
         },
-        "prompt": "Hakan, which is longer?",
+        "prompt": "Hakan: A=4 cubes, B=7 cubes. Which is longer?",
         "choices": [
-          "4",
-          "7",
+          "4 cubes",
+          "7 cubes",
           "same"
         ],
         "answerIndex": 1
@@ -40060,14 +40059,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 6
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 9
         },
-        "prompt": "Which is longer?",
+        "prompt": "Which is longer: 9 cubes or 6 cubes?",
         "choices": [
-          "9",
-          "6",
+          "9 cubes",
+          "6 cubes",
           "same"
         ],
         "answerIndex": 0
@@ -40075,11 +40074,11 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 5
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 5
         },
-        "prompt": "Which is longer?",
+        "prompt": "Two sticks both 5 cubes. Which is longer?",
         "choices": [
           "first",
           "second",
@@ -40090,14 +40089,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 8
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 2
         },
-        "prompt": "Hakan, which is shorter?",
+        "prompt": "Hakan: A=2 cubes, B=8 cubes. Which is shorter?",
         "choices": [
-          "2",
-          "8",
+          "A (2)",
+          "B (8)",
           "same"
         ],
         "answerIndex": 0
@@ -40105,14 +40104,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 10,
-          "b": 3
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 3
         },
-        "prompt": "Which is shorter?",
+        "prompt": "Which is shorter: 10 cubes or 3 cubes?",
         "choices": [
-          "10",
-          "3",
+          "10 cubes",
+          "3 cubes",
           "same"
         ],
         "answerIndex": 1
@@ -40120,14 +40119,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 9
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 9
         },
-        "prompt": "Hakan, which is longer?",
+        "prompt": "Hakan: A=7 cubes, B=9 cubes. Which is longer?",
         "choices": [
-          "7",
-          "9",
+          "7 cubes",
+          "9 cubes",
           "same"
         ],
         "answerIndex": 1
@@ -40135,14 +40134,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 2
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 6
         },
-        "prompt": "Which is longer?",
+        "prompt": "Which is longer: 6 cubes or 2 cubes?",
         "choices": [
-          "6",
-          "2",
+          "6 cubes",
+          "2 cubes",
           "same"
         ],
         "answerIndex": 0
@@ -40150,11 +40149,11 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 4
+          "type": "objects",
+          "emoji": "⬛",
+          "count": 4
         },
-        "prompt": "Hakan compared two pencils. Which is longer?",
+        "prompt": "Hakan compared two pencils — both 4 cubes. Which is longer?",
         "choices": [
           "first",
           "second",
@@ -40179,9 +40178,9 @@ const MODULES = [
       {
         "title": "Hakan's Trick for Tall",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 9
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 9
         },
         "text": "Hi Hakan! For tall, line up the bottom on the floor. Then look up at the top!",
         "caption": "Floor up! 🎯"
@@ -40189,75 +40188,75 @@ const MODULES = [
       {
         "title": "Hakan vs Sister",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 7
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 7
         },
-        "text": "Hakan and his sister stand on the floor. Sister's head is higher — sister is TALLER!",
-        "caption": "7 is taller than 6 ⭐"
+        "text": "Hakan is 6 blocks tall. His sister is 7 blocks. Sister's head is higher — sister is TALLER!",
+        "caption": "7 blocks > 6 blocks ⭐"
       },
       {
         "title": "Tap the Taller",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "tree",
-          "flower"
-        ],
-        "correctIndex": 0,
-        "instruction": "Hakan, which is taller? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "tree",
+            "flower"
+          ],
+          "correctIndex": 0,
+          "instruction": "Hakan, which is taller? Tap it!"
+        },
         "text": "Look at the heights. Tap the TALLER one!",
-        "caption": "9 is taller than 3 🌟"
+        "caption": "9 blocks > 3 blocks 🌟"
       },
       {
         "title": "Lego Tower Time",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 8
+          "type": "objects",
+          "emoji": "🟦",
+          "count": 8
         },
-        "text": "Hakan built two Lego towers. The right one is TALLER — bigger number wins!",
-        "caption": "8 is taller than 5 💯"
+        "text": "Hakan built two Lego towers — 5 blocks and 8 blocks. The 8-block tower is TALLER!",
+        "caption": "8 blocks > 5 blocks 💯"
       },
       {
         "title": "Symbol Time",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 7
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 7
         },
-        "text": "Hakan, bigger number = taller. 7 cubes high is TALLER than 4!",
-        "caption": "Bigger = taller ✨"
+        "text": "Hakan, more blocks stacked = taller. 7 blocks is TALLER than 4!",
+        "caption": "More blocks = taller ✨"
       },
       {
-        "title": "Brother vs Brother",
+        "title": "Friend Same Height",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 6
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 6
         },
-        "text": "Hakan stands by his friend. Heads at the SAME spot — same height!",
+        "text": "Hakan stands by his friend — both 6 blocks tall. Heads at the SAME spot — same height!",
         "caption": "Same tall 🎯"
       },
       {
         "title": "What Do You Notice?",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 10
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 10
         },
-        "text": "Hakan, what do you notice? Tall is bigger, short is smaller. Same as long!",
-        "caption": "Bigger / smaller ⭐"
+        "text": "Hakan, what do you notice? Tall is more blocks, short is fewer. Same as long!",
+        "caption": "More / fewer ⭐"
       },
       {
         "title": "You're a Height Hero!",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 5
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 8
         },
-        "text": "Hakan, you are SO smart! Line up the bottom, check the top. Try the practice!",
+        "text": "Hakan, you are SO smart! Line up the bottom, count blocks, more is taller. Try the practice!",
         "caption": "You got it! 🏆"
       }
     ],
@@ -40265,144 +40264,144 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 7
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 7
         },
-        "prompt": "Hakan, which is taller?",
+        "prompt": "Hakan: tower A=4 blocks, tower B=7 blocks. Which is taller?",
         "choices": [
-          "4",
-          "7",
+          "A (4)",
+          "B (7)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger number. 7 is taller than 4."
+        "hint": "Hakan picks the bigger count. 7 blocks is taller than 4 blocks."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 5
+          "type": "objects",
+          "emoji": "🟦",
+          "count": 9
         },
-        "prompt": "Hakan's tower is 9. His sister's is 5. Which is taller?",
+        "prompt": "Hakan's tower is 9 blocks. His sister's is 5. Which is taller?",
         "choices": [
-          "9",
-          "5",
+          "Hakan (9)",
+          "sister (5)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan compares: 9 is more than 5, so his tower is taller."
+        "hint": "Hakan compares: 9 blocks > 5 blocks, so his tower is taller."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 3,
-          "b": 8
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 8
         },
-        "prompt": "Hakan, which is taller?",
+        "prompt": "Hakan: tower A=3 blocks, tower B=8 blocks. Which is taller?",
         "choices": [
-          "3",
-          "8",
+          "A (3)",
+          "B (8)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger. 8 is taller than 3."
+        "hint": "Hakan picks the bigger. 8 blocks is taller than 3 blocks."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 6
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 6
         },
-        "prompt": "Hakan compared two trees. Which is taller?",
+        "prompt": "Hakan compared two trees — both 6 blocks tall. Which is taller?",
         "choices": [
           "first",
           "second",
           "same"
         ],
         "answerIndex": 2,
-        "hint": "Hakan sees both are 6. Same height — same tall!"
+        "hint": "Hakan sees both are 6 blocks. Same blocks — same height!"
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 10,
-          "b": 4
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 10
         },
-        "prompt": "Hakan's dad is 10. Hakan is 4. Which is taller?",
+        "prompt": "Hakan's dad is 10 blocks. Hakan is 4. Which is taller?",
         "choices": [
-          "10",
-          "4",
+          "dad (10)",
+          "Hakan (4)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the bigger. 10 is taller than 4 — dad is taller."
+        "hint": "Hakan picks the bigger. 10 blocks is taller than 4 — dad is taller."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 9
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 2
         },
-        "prompt": "Hakan, which is shorter?",
+        "prompt": "Hakan: tower A=2 blocks, tower B=9 blocks. Which is shorter?",
         "choices": [
-          "2",
-          "9",
+          "A (2)",
+          "B (9)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the smaller. 2 is shorter than 9."
+        "hint": "Hakan picks the smaller. 2 blocks is shorter than 9 blocks."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 3
+          "type": "objects",
+          "emoji": "🟦",
+          "count": 3
         },
-        "prompt": "Hakan's bookshelf is 7. His chair is 3. Which is shorter?",
+        "prompt": "Hakan's bookshelf is 7 blocks. His chair is 3. Which is shorter?",
         "choices": [
-          "7",
-          "3",
+          "bookshelf (7)",
+          "chair (3)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the smaller. 3 is shorter than 7 — chair is shorter."
+        "hint": "Hakan picks the smaller. 3 blocks is shorter than 7 — chair is shorter."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 10
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 10
         },
-        "prompt": "Hakan, which is taller?",
+        "prompt": "Hakan: tower A=8, tower B=10. Which is taller?",
         "choices": [
-          "8",
-          "10",
+          "A (8)",
+          "B (10)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger number. 10 is taller than 8."
+        "hint": "Hakan picks the bigger count. 10 blocks is taller than 8 blocks."
       }
     ],
     "quiz": [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 7
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 7
         },
-        "prompt": "Hakan, which is taller?",
+        "prompt": "Hakan: A=4 blocks, B=7 blocks. Taller?",
         "choices": [
-          "4",
-          "7",
+          "A (4)",
+          "B (7)",
           "same"
         ],
         "answerIndex": 1
@@ -40410,14 +40409,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 5
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 9
         },
-        "prompt": "Hakan, which is taller?",
+        "prompt": "Hakan: A=9 blocks, B=5 blocks. Taller?",
         "choices": [
-          "9",
-          "5",
+          "A (9)",
+          "B (5)",
           "same"
         ],
         "answerIndex": 0
@@ -40425,14 +40424,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 3,
-          "b": 8
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 8
         },
-        "prompt": "Hakan, which is taller?",
+        "prompt": "Hakan: A=3 blocks, B=8 blocks. Taller?",
         "choices": [
-          "3",
-          "8",
+          "A (3)",
+          "B (8)",
           "same"
         ],
         "answerIndex": 1
@@ -40440,11 +40439,11 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 6
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 6
         },
-        "prompt": "Which is taller?",
+        "prompt": "Both 6 blocks tall. Which is taller?",
         "choices": [
           "first",
           "second",
@@ -40455,14 +40454,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 10,
-          "b": 4
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 10
         },
-        "prompt": "Hakan, which is taller?",
+        "prompt": "Hakan: A=10 blocks, B=4 blocks. Taller?",
         "choices": [
-          "10",
-          "4",
+          "A (10)",
+          "B (4)",
           "same"
         ],
         "answerIndex": 0
@@ -40470,14 +40469,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 9
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 2
         },
-        "prompt": "Which is shorter?",
+        "prompt": "Which is shorter: 2 blocks or 9 blocks?",
         "choices": [
-          "2",
-          "9",
+          "2 blocks",
+          "9 blocks",
           "same"
         ],
         "answerIndex": 0
@@ -40485,14 +40484,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 3
+          "type": "objects",
+          "emoji": "🟦",
+          "count": 3
         },
-        "prompt": "Hakan, which is shorter?",
+        "prompt": "Hakan: A=7 blocks, B=3 blocks. Shorter?",
         "choices": [
-          "7",
-          "3",
+          "A (7)",
+          "B (3)",
           "same"
         ],
         "answerIndex": 1
@@ -40500,14 +40499,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 10
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 10
         },
-        "prompt": "Which is taller?",
+        "prompt": "Which is taller: 8 blocks or 10 blocks?",
         "choices": [
-          "8",
-          "10",
+          "8 blocks",
+          "10 blocks",
           "same"
         ],
         "answerIndex": 1
@@ -40515,14 +40514,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 1
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 5
         },
-        "prompt": "Hakan, which is taller?",
+        "prompt": "Hakan: A=5 blocks, B=1 block. Taller?",
         "choices": [
-          "5",
-          "1",
+          "A (5)",
+          "B (1)",
           "same"
         ],
         "answerIndex": 0
@@ -40530,11 +40529,11 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 4
+          "type": "objects",
+          "emoji": "🟩",
+          "count": 4
         },
-        "prompt": "Which is taller?",
+        "prompt": "Both 4 blocks tall. Which is taller?",
         "choices": [
           "first",
           "second",
@@ -41868,9 +41867,9 @@ const MODULES = [
       {
         "title": "Hakan's Hand Weights",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 9
+          "type": "objects",
+          "emoji": "🪨",
+          "count": 9
         },
         "text": "Hi Hakan! Heavy is hard to lift. Light is easy. Use your hands!",
         "caption": "Hands tell the truth! 🎯"
@@ -41878,73 +41877,73 @@ const MODULES = [
       {
         "title": "Hakan vs His Cat",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 3
+          "type": "objects",
+          "emoji": "🐱",
+          "count": 3
         },
-        "text": "Hakan picks up his cat — easy! His mom picks up Hakan — but Hakan is heavier than the cat!",
-        "caption": "Hakan > cat ⭐"
+        "text": "Hakan picks up his cat — easy, only 3 weight blocks! Hakan weighs 5 blocks — heavier than the cat!",
+        "caption": "Hakan (5) > cat (3) ⭐"
       },
       {
         "title": "Tap the Heavier",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "feather",
-          "rock"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, which is HEAVIER? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "feather",
+            "rock"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, which is HEAVIER? Tap it!"
+        },
         "text": "Heavier means weighs more. Tap the heavier one!",
-        "caption": "Pumpkin heavy! 🌟"
+        "caption": "Rock heavy! 🌟"
       },
       {
         "title": "Backpack vs Pencil",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 1
+          "type": "objects",
+          "emoji": "🎒",
+          "count": 7
         },
-        "text": "Hakan's backpack is heavy with books. His pencil is light. Backpack is HEAVIER!",
-        "caption": "Backpack > pencil 💯"
+        "text": "Hakan's backpack weighs 7 blocks. His pencil weighs 1. Backpack is HEAVIER!",
+        "caption": "Backpack (7) > pencil (1) 💯"
       },
       {
         "title": "Compare with Numbers",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 8
+          "type": "objects",
+          "emoji": "🪨",
+          "count": 8
         },
-        "text": "Hakan, bigger weight number = heavier. 8 is heavier than 4!",
+        "text": "Hakan, bigger weight number = heavier. 8 blocks is heavier than 4 blocks!",
         "caption": "Bigger = heavier ✨"
       },
       {
         "title": "Hakan vs His Sister",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 5
+          "type": "objects",
+          "emoji": "🧒",
+          "count": 6
         },
-        "text": "Hakan vs his little sister. Hakan is bigger — Hakan is HEAVIER!",
-        "caption": "Hakan > sister 🎯"
+        "text": "Hakan weighs 6 blocks. His sister weighs 5. Hakan is HEAVIER!",
+        "caption": "Hakan (6) > sister (5) 🎯"
       },
       {
         "title": "What Do You Notice?",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 10
+          "type": "objects",
+          "emoji": "🪨",
+          "count": 10
         },
-        "text": "Hakan, what do you notice? Bigger things are usually heavier. Same compare trick!",
+        "text": "Hakan, what do you notice? Bigger things are usually heavier. Same compare trick — bigger number wins!",
         "caption": "Big = heavy ⭐"
       },
       {
         "title": "You're a Weight Pro!",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 3
+          "type": "objects",
+          "emoji": "🪨",
+          "count": 9
         },
         "text": "Hakan, you are SO smart! Bigger number = heavier. Try the practice!",
         "caption": "You got it! 🏆"
@@ -41954,73 +41953,73 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 1,
-          "b": 8
+          "type": "objects",
+          "emoji": "🎃",
+          "count": 8
         },
-        "prompt": "Hakan: apple is 1, pumpkin is 8. Which is heavier?",
+        "prompt": "Hakan: apple weighs 1, pumpkin weighs 8. Which is heavier?",
         "choices": [
-          "apple",
-          "pumpkin",
+          "apple (1)",
+          "pumpkin (8)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger weight. 8 is heavier than 1, so pumpkin is heavier."
+        "hint": "Hakan picks the bigger weight. 8 > 1, so pumpkin is heavier."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 3
+          "type": "objects",
+          "emoji": "🐕",
+          "count": 5
         },
-        "prompt": "Hakan: cat 3, dog 5. Which is heavier?",
+        "prompt": "Hakan: cat weighs 3, dog weighs 5. Which is heavier?",
         "choices": [
-          "cat",
-          "dog",
+          "cat (3)",
+          "dog (5)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger. 5 is heavier than 3, so dog is heavier."
+        "hint": "Hakan picks the bigger. 5 > 3, so dog is heavier."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 2
+          "type": "objects",
+          "emoji": "✏️",
+          "count": 2
         },
-        "prompt": "Hakan: backpack 7, pencil 2. Which is lighter?",
+        "prompt": "Hakan: backpack weighs 7, pencil weighs 2. Which is lighter?",
         "choices": [
-          "backpack",
-          "pencil",
+          "backpack (7)",
+          "pencil (2)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the smaller. 2 is lighter than 7, so pencil is lighter."
+        "hint": "Hakan picks the smaller. 2 < 7, so pencil is lighter."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 4
+          "type": "objects",
+          "emoji": "🍉",
+          "count": 9
         },
-        "prompt": "Hakan: melon 9, banana 4. Which is heavier?",
+        "prompt": "Hakan: melon weighs 9, banana weighs 4. Which is heavier?",
         "choices": [
-          "melon",
-          "banana",
+          "melon (9)",
+          "banana (4)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the bigger. 9 is heavier than 4, so melon is heavier."
+        "hint": "Hakan picks the bigger. 9 > 4, so melon is heavier."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 6
+          "type": "objects",
+          "emoji": "📦",
+          "count": 6
         },
         "prompt": "Hakan: two boxes weigh 6 each. Which is heavier?",
         "choices": [
@@ -42029,69 +42028,69 @@ const MODULES = [
           "same"
         ],
         "answerIndex": 2,
-        "hint": "Hakan sees both are 6. Same weight!"
+        "hint": "Hakan sees both are 6. Same weight — same!"
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 10,
-          "b": 2
+          "type": "objects",
+          "emoji": "🧔",
+          "count": 10
         },
-        "prompt": "Hakan, dad 10, baby 2. Heavier?",
+        "prompt": "Hakan: dad weighs 10, baby weighs 2. Which is heavier?",
         "choices": [
-          "dad",
-          "baby",
+          "dad (10)",
+          "baby (2)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the bigger. 10 is heavier than 2, so dad is heavier."
+        "hint": "Hakan picks the bigger. 10 > 2, so dad is heavier."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 3,
-          "b": 8
+          "type": "objects",
+          "emoji": "🪶",
+          "count": 3
         },
-        "prompt": "Hakan: feather 3, rock 8. Lighter?",
+        "prompt": "Hakan: feather weighs 3, rock weighs 8. Which is lighter?",
         "choices": [
-          "feather",
-          "rock",
+          "feather (3)",
+          "rock (8)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the smaller. 3 is lighter than 8, so feather is lighter."
+        "hint": "Hakan picks the smaller. 3 < 8, so feather is lighter."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 7
+          "type": "objects",
+          "emoji": "🧱",
+          "count": 7
         },
-        "prompt": "Hakan: book 4, brick 7. Heavier?",
+        "prompt": "Hakan: book weighs 4, brick weighs 7. Which is heavier?",
         "choices": [
-          "book",
-          "brick",
+          "book (4)",
+          "brick (7)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger. 7 is heavier than 4, so brick is heavier."
+        "hint": "Hakan picks the bigger. 7 > 4, so brick is heavier."
       }
     ],
     "quiz": [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 1,
-          "b": 8
+          "type": "objects",
+          "emoji": "🎃",
+          "count": 8
         },
         "prompt": "Hakan: apple 1, pumpkin 8. Heavier?",
         "choices": [
-          "apple",
-          "pumpkin",
+          "apple (1)",
+          "pumpkin (8)",
           "same"
         ],
         "answerIndex": 1
@@ -42099,14 +42098,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 3
+          "type": "objects",
+          "emoji": "🐕",
+          "count": 5
         },
-        "prompt": "Hakan, cat 3, dog 5. Heavier?",
+        "prompt": "Hakan: cat 3, dog 5. Heavier?",
         "choices": [
-          "cat",
-          "dog",
+          "cat (3)",
+          "dog (5)",
           "same"
         ],
         "answerIndex": 1
@@ -42114,14 +42113,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 2
+          "type": "objects",
+          "emoji": "✏️",
+          "count": 2
         },
         "prompt": "Hakan: backpack 7, pencil 2. Lighter?",
         "choices": [
-          "backpack",
-          "pencil",
+          "backpack (7)",
+          "pencil (2)",
           "same"
         ],
         "answerIndex": 1
@@ -42129,14 +42128,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 4
+          "type": "objects",
+          "emoji": "🍉",
+          "count": 9
         },
         "prompt": "Melon 9, banana 4. Heavier?",
         "choices": [
-          "melon",
-          "banana",
+          "melon (9)",
+          "banana (4)",
           "same"
         ],
         "answerIndex": 0
@@ -42144,9 +42143,9 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 6
+          "type": "objects",
+          "emoji": "📦",
+          "count": 6
         },
         "prompt": "Hakan: two boxes weigh 6. Heavier?",
         "choices": [
@@ -42159,14 +42158,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 10,
-          "b": 2
+          "type": "objects",
+          "emoji": "🧔",
+          "count": 10
         },
         "prompt": "Dad 10, baby 2. Heavier?",
         "choices": [
-          "dad",
-          "baby",
+          "dad (10)",
+          "baby (2)",
           "same"
         ],
         "answerIndex": 0
@@ -42174,14 +42173,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 3,
-          "b": 8
+          "type": "objects",
+          "emoji": "🪶",
+          "count": 3
         },
         "prompt": "Hakan: feather 3, rock 8. Lighter?",
         "choices": [
-          "feather",
-          "rock",
+          "feather (3)",
+          "rock (8)",
           "same"
         ],
         "answerIndex": 0
@@ -42189,14 +42188,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 7
+          "type": "objects",
+          "emoji": "🧱",
+          "count": 7
         },
         "prompt": "Book 4, brick 7. Heavier?",
         "choices": [
-          "book",
-          "brick",
+          "book (4)",
+          "brick (7)",
           "same"
         ],
         "answerIndex": 1
@@ -42204,14 +42203,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 9
+          "type": "objects",
+          "emoji": "🪵",
+          "count": 9
         },
         "prompt": "Hakan: leaf 2, log 9. Heavier?",
         "choices": [
-          "leaf",
-          "log",
+          "leaf (2)",
+          "log (9)",
           "same"
         ],
         "answerIndex": 1
@@ -42219,9 +42218,9 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 5
+          "type": "objects",
+          "emoji": "🛍️",
+          "count": 5
         },
         "prompt": "Two bags weigh 5. Heavier?",
         "choices": [
@@ -42248,53 +42247,53 @@ const MODULES = [
       {
         "title": "Hakan's Cups",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 8
+          "type": "objects",
+          "emoji": "🪣",
+          "count": 8
         },
-        "text": "Hi Hakan! Some things hold MORE. Some hold LESS. Look at the size!",
+        "text": "Hi Hakan! Some things hold MORE cups of water. Some hold LESS. Look at the size!",
         "caption": "Big = more! 🎯"
       },
       {
         "title": "Cup vs Bucket",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 8
+          "type": "objects",
+          "emoji": "🪣",
+          "count": 8
         },
-        "text": "Hakan: a cup holds a little. A bucket holds a LOT! The bucket holds more!",
-        "caption": "Bucket > cup ⭐"
+        "text": "Hakan: a cup holds 2 cups of water. A bucket holds 8! The bucket holds more!",
+        "caption": "Bucket (8) > cup (2) ⭐"
       },
       {
         "title": "Tap Holds More",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "small cup",
-          "big jug"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, which holds MORE? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "small cup",
+            "big jug"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, which holds MORE? Tap it!"
+        },
         "text": "Capacity is how much something holds. Tap the one that holds more!",
-        "caption": "Pool wins! 🌟"
+        "caption": "Big jug wins! 🌟"
       },
       {
         "title": "Spoon vs Bowl",
         "visual": {
-          "type": "compare-pair",
-          "a": 1,
-          "b": 6
+          "type": "objects",
+          "emoji": "🥣",
+          "count": 6
         },
-        "text": "Hakan: spoon holds little. Bowl holds more. The BOWL holds more!",
-        "caption": "Bowl > spoon 💯"
+        "text": "Hakan: spoon holds 1 cup. Bowl holds 6. The BOWL holds more!",
+        "caption": "Bowl (6) > spoon (1) 💯"
       },
       {
         "title": "Compare with Numbers",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 9
+          "type": "objects",
+          "emoji": "🥤",
+          "count": 9
         },
         "text": "Hakan, bigger number = holds more. 9 cups is more than 4 cups!",
         "caption": "Bigger = more ✨"
@@ -42302,31 +42301,31 @@ const MODULES = [
       {
         "title": "Tiny Bottle vs Big Bottle",
         "visual": {
-          "type": "compare-pair",
-          "a": 3,
-          "b": 7
+          "type": "objects",
+          "emoji": "🍼",
+          "count": 7
         },
-        "text": "Hakan: small bottle 3. Big bottle 7. Big bottle holds MORE!",
-        "caption": "Big bottle wins 🎯"
+        "text": "Hakan: small bottle holds 3. Big bottle holds 7. Big bottle holds MORE!",
+        "caption": "Big bottle (7) wins 🎯"
       },
       {
         "title": "What Do You Notice?",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 5
+          "type": "objects",
+          "emoji": "🥤",
+          "count": 5
         },
-        "text": "Hakan, what do you notice? Same size = same amount! Different sizes? Bigger holds more!",
-        "caption": "Same size, same amount ⭐"
+        "text": "Hakan, what do you notice? Same number of cups = same amount! Bigger number holds more!",
+        "caption": "Same number, same amount ⭐"
       },
       {
         "title": "You're a Pour Pro!",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 2
+          "type": "objects",
+          "emoji": "🥤",
+          "count": 6
         },
-        "text": "Hakan, you are SO smart! Bigger holds more. Try the practice!",
+        "text": "Hakan, you are SO smart! Bigger number holds more. Try the practice!",
         "caption": "You got it! 🏆"
       }
     ],
@@ -42334,75 +42333,75 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 8
+          "type": "objects",
+          "emoji": "🪣",
+          "count": 8
         },
-        "prompt": "Hakan: cup 2, bucket 8. Holds more?",
+        "prompt": "Hakan: cup holds 2, bucket holds 8. Which holds more?",
         "choices": [
-          "cup",
-          "bucket",
+          "cup (2)",
+          "bucket (8)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger number. 8 is more than 2, so bucket holds more."
+        "hint": "Hakan picks the bigger number. 8 > 2, so bucket holds more."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 1,
-          "b": 10
+          "type": "objects",
+          "emoji": "🏊",
+          "count": 10
         },
-        "prompt": "Glass 1, pool 10. Holds more?",
+        "prompt": "Hakan: glass holds 1, pool holds 10. Which holds more?",
         "choices": [
-          "glass",
-          "pool",
+          "glass (1)",
+          "pool (10)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger. 10 is way more than 1, so pool holds more."
+        "hint": "Hakan picks the bigger. 10 > 1, so pool holds more."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 1
+          "type": "objects",
+          "emoji": "🥣",
+          "count": 6
         },
-        "prompt": "Hakan: bowl 6, spoon 1. Holds more?",
+        "prompt": "Hakan: bowl holds 6, spoon holds 1. Which holds more?",
         "choices": [
-          "bowl",
-          "spoon",
+          "bowl (6)",
+          "spoon (1)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the bigger. 6 is more than 1, so bowl holds more."
+        "hint": "Hakan picks the bigger. 6 > 1, so bowl holds more."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 9
+          "type": "objects",
+          "emoji": "🧃",
+          "count": 4
         },
-        "prompt": "Hakan: small jug 4, big jug 9. Holds less?",
+        "prompt": "Hakan: small jug 4, big jug 9. Which holds less?",
         "choices": [
-          "small",
-          "big",
+          "small (4)",
+          "big (9)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the smaller. 4 is less than 9, so small jug holds less."
+        "hint": "Hakan picks the smaller. 4 < 9, so small jug holds less."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 5
+          "type": "objects",
+          "emoji": "🥤",
+          "count": 5
         },
-        "prompt": "Hakan: two cups, both hold 5. More?",
+        "prompt": "Hakan: two cups, both hold 5. Which holds more?",
         "choices": [
           "first",
           "second",
@@ -42414,64 +42413,64 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 3
+          "type": "objects",
+          "emoji": "🍼",
+          "count": 7
         },
-        "prompt": "Hakan, water bottle 7, juice box 3. Holds more?",
+        "prompt": "Hakan: bottle holds 7, juice box holds 3. Which holds more?",
         "choices": [
-          "bottle",
-          "juice box",
+          "bottle (7)",
+          "juice box (3)",
           "same"
         ],
         "answerIndex": 0,
-        "hint": "Hakan picks the bigger. 7 is more than 3, so bottle holds more."
+        "hint": "Hakan picks the bigger. 7 > 3, so bottle holds more."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 10
+          "type": "objects",
+          "emoji": "🫖",
+          "count": 10
         },
-        "prompt": "Hakan: tea cup 2, pitcher 10. Holds more?",
+        "prompt": "Hakan: tea cup holds 2, pitcher holds 10. Which holds more?",
         "choices": [
-          "tea cup",
-          "pitcher",
+          "tea cup (2)",
+          "pitcher (10)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the bigger. 10 is more than 2, so pitcher holds more."
+        "hint": "Hakan picks the bigger. 10 > 2, so pitcher holds more."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 4
+          "type": "objects",
+          "emoji": "🚰",
+          "count": 4
         },
-        "prompt": "Hakan: bath tub 8, sink 4. Holds less?",
+        "prompt": "Hakan: bath tub holds 8, sink holds 4. Which holds less?",
         "choices": [
-          "tub",
-          "sink",
+          "tub (8)",
+          "sink (4)",
           "same"
         ],
         "answerIndex": 1,
-        "hint": "Hakan picks the smaller. 4 is less than 8, so sink holds less."
+        "hint": "Hakan picks the smaller. 4 < 8, so sink holds less."
       }
     ],
     "quiz": [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 8
+          "type": "objects",
+          "emoji": "🪣",
+          "count": 8
         },
-        "prompt": "Hakan, cup 2, bucket 8. Holds more?",
+        "prompt": "Hakan: cup 2, bucket 8. Holds more?",
         "choices": [
-          "cup",
-          "bucket",
+          "cup (2)",
+          "bucket (8)",
           "same"
         ],
         "answerIndex": 1
@@ -42479,14 +42478,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 1,
-          "b": 10
+          "type": "objects",
+          "emoji": "🏊",
+          "count": 10
         },
         "prompt": "Hakan: glass 1, pool 10. Holds more?",
         "choices": [
-          "glass",
-          "pool",
+          "glass (1)",
+          "pool (10)",
           "same"
         ],
         "answerIndex": 1
@@ -42494,14 +42493,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 1
+          "type": "objects",
+          "emoji": "🥣",
+          "count": 6
         },
-        "prompt": "Hakan, bowl 6, spoon 1. Holds more?",
+        "prompt": "Hakan: bowl 6, spoon 1. Holds more?",
         "choices": [
-          "bowl",
-          "spoon",
+          "bowl (6)",
+          "spoon (1)",
           "same"
         ],
         "answerIndex": 0
@@ -42509,14 +42508,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 9
+          "type": "objects",
+          "emoji": "🧃",
+          "count": 4
         },
         "prompt": "Hakan: small jug 4, big jug 9. Holds less?",
         "choices": [
-          "small",
-          "big",
+          "small (4)",
+          "big (9)",
           "same"
         ],
         "answerIndex": 0
@@ -42524,11 +42523,11 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 5
+          "type": "objects",
+          "emoji": "🥤",
+          "count": 5
         },
-        "prompt": "Two cups, both 5. Holds more?",
+        "prompt": "Two cups both hold 5. Holds more?",
         "choices": [
           "first",
           "second",
@@ -42539,14 +42538,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 3
+          "type": "objects",
+          "emoji": "🍼",
+          "count": 7
         },
         "prompt": "Bottle 7, juice 3. Holds more?",
         "choices": [
-          "bottle",
-          "juice",
+          "bottle (7)",
+          "juice (3)",
           "same"
         ],
         "answerIndex": 0
@@ -42554,14 +42553,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 2,
-          "b": 10
+          "type": "objects",
+          "emoji": "🫖",
+          "count": 10
         },
         "prompt": "Hakan: cup 2, pitcher 10. Holds more?",
         "choices": [
-          "cup",
-          "pitcher",
+          "cup (2)",
+          "pitcher (10)",
           "same"
         ],
         "answerIndex": 1
@@ -42569,14 +42568,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 4
+          "type": "objects",
+          "emoji": "🚰",
+          "count": 4
         },
         "prompt": "Tub 8, sink 4. Holds less?",
         "choices": [
-          "tub",
-          "sink",
+          "tub (8)",
+          "sink (4)",
           "same"
         ],
         "answerIndex": 1
@@ -42584,14 +42583,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 2
+          "type": "objects",
+          "emoji": "🛢️",
+          "count": 9
         },
         "prompt": "Hakan: barrel 9, mug 2. Holds more?",
         "choices": [
-          "barrel",
-          "mug",
+          "barrel (9)",
+          "mug (2)",
           "same"
         ],
         "answerIndex": 0
@@ -42599,14 +42598,14 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "compare-pair",
-          "a": 3,
-          "b": 6
+          "type": "objects",
+          "emoji": "🥃",
+          "count": 3
         },
         "prompt": "Glass 3, jar 6. Holds less?",
         "choices": [
-          "glass",
-          "jar",
+          "glass (3)",
+          "jar (6)",
           "same"
         ],
         "answerIndex": 0
@@ -42632,75 +42631,82 @@ const MODULES = [
       {
         "title": "Tap & Count Tallies",
         "visual": {
-        "type": "tap-to-count",
-        "emoji": "✏️",
-        "count": 5,
-        "instruction": "Hakan, tap each tally mark to count to 5!"
-      },
+          "type": "tap-to-count",
+          "emoji": "▏",
+          "count": 5,
+          "instruction": "Hakan, tap each tally mark to count to 5!"
+        },
         "text": "Each line is one. Tap each tally mark!",
         "caption": "1 line = 1 ⭐"
       },
       {
         "title": "One Mark, One Apple",
         "visual": {
-          "type": "bignum",
-          "n": 1
+          "type": "objects",
+          "emoji": "▏",
+          "count": 1
         },
-        "text": "Hakan ate 1 apple. He drew 1 line. That's a tally for 1!",
-        "caption": "| = 1 🎯"
+        "text": "Hakan ate 1 apple. He drew 1 line: ▏. One vertical line means 1!",
+        "caption": "▏ = 1 🎯"
       },
       {
         "title": "Three Marks, Three Apples",
         "visual": {
-          "type": "bignum",
-          "n": 3
+          "type": "objects",
+          "emoji": "▏",
+          "count": 3
         },
-        "text": "Hakan ate 3 apples. He drew 3 lines: |||. That's tally for 3!",
-        "caption": "||| = 3 🌟"
+        "text": "Hakan ate 3 apples. He drew 3 vertical lines: ▏▏▏. Three lines means 3!",
+        "caption": "▏▏▏ = 3 🌟"
       },
       {
         "title": "Four Marks",
         "visual": {
-          "type": "bignum",
-          "n": 4
+          "type": "objects",
+          "emoji": "▏",
+          "count": 4
         },
-        "text": "Hakan saw 4 birds. Tally: ||||. Four lines means 4!",
-        "caption": "|||| = 4 ⭐"
+        "text": "Hakan saw 4 birds. Four lines side by side: ▏▏▏▏. Four lines means 4!",
+        "caption": "▏▏▏▏ = 4 ⭐"
       },
       {
-        "title": "Five! The Diagonal",
+        "title": "Five! Four Lines + Diagonal",
         "visual": {
-          "type": "bignum",
-          "n": 5
+          "type": "objects",
+          "emoji": "▏",
+          "count": 5
         },
-        "text": "Hakan, when you have 5, draw a DIAGONAL across 4. That's a group of 5!",
-        "caption": "|||| / = 5 💯"
+        "text": "Hakan, for 5, draw 4 vertical lines and 1 DIAGONAL across them. That's a group of 5: ▏▏▏▏ /.",
+        "caption": "▏▏▏▏ / = 5 💯"
       },
       {
         "title": "Counting Hakan's Toys",
         "visual": {
-          "type": "bignum",
-          "n": 2
+          "type": "objects",
+          "emoji": "▏",
+          "count": 2
         },
-        "text": "Hakan: 2 toys = || (two lines). Easy! Just count the lines.",
-        "caption": "|| = 2 🎯"
+        "text": "Hakan: 2 toys = ▏▏ (two vertical lines). Easy! Just count each line.",
+        "caption": "▏▏ = 2 🎯"
       },
       {
         "title": "Why a Group of 5?",
         "visual": {
-          "type": "bignum",
-          "n": 5
+          "type": "objects",
+          "emoji": "▏",
+          "count": 5
         },
-        "text": "Hakan, what do you notice? Five fingers on one hand! Tally groups match fingers!",
-        "caption": "5 fingers ✨"
+        "text": "Hakan, what do you notice? Five fingers on one hand! Tally groups match fingers — 4 verticals + 1 diagonal = 5.",
+        "caption": "5 fingers = ▏▏▏▏ / ✨"
       },
       {
         "title": "You're a Tally Star!",
         "visual": {
-          "type": "bignum",
-          "n": 5
+          "type": "objects",
+          "emoji": "▏",
+          "count": 5
         },
-        "text": "Hakan, you are SO smart! Lines = numbers. Try the practice!",
+        "text": "Hakan, you are SO smart! Each ▏ = 1. Diagonal across 4 = 5. Try the practice!",
         "caption": "You got it! 🏆"
       }
     ],
@@ -42709,89 +42715,89 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 1
         },
-        "prompt": "Hakan saw 1 line. How many?",
+        "prompt": "Hakan saw 1 tally line. How many?",
         "answer": 1,
-        "hint": "Hakan counts the tally lines. One line means 1."
+        "hint": "Hakan counts the tally lines. One vertical line ▏ means 1."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 2
         },
-        "prompt": "Hakan saw 2 lines. How many?",
+        "prompt": "Hakan saw 2 lines: ▏▏. How many?",
         "answer": 2,
-        "hint": "Hakan counts: 1, 2. Two lines means 2."
+        "hint": "Hakan counts each line: 1, 2. Two vertical lines means 2."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 3
         },
-        "prompt": "Hakan, how many tally marks?",
+        "prompt": "Hakan, how many tally marks: ▏▏▏?",
         "answer": 3,
-        "hint": "Hakan counts each line. Three lines means 3."
+        "hint": "Hakan counts each vertical line: 1, 2, 3. Three lines means 3."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 4
         },
-        "prompt": "Hakan saw 4 lines. How many?",
+        "prompt": "Hakan saw 4 lines: ▏▏▏▏. How many?",
         "answer": 4,
-        "hint": "Hakan counts the lines: 1, 2, 3, 4. The total is 4."
+        "hint": "Hakan counts the vertical lines: 1, 2, 3, 4. The total is 4."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 5
         },
-        "prompt": "Hakan saw 4 lines plus a diagonal. How many?",
+        "prompt": "Hakan saw 4 lines plus a diagonal: ▏▏▏▏ /. How many?",
         "answer": 5,
-        "hint": "Hakan knows: 4 lines + 1 diagonal = 5. Always!"
+        "hint": "Hakan knows the rule: 4 verticals + 1 diagonal = 5. Always!"
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 3
         },
-        "prompt": "Hakan, how many tally marks?",
+        "prompt": "Hakan, how many tally marks here?",
         "answer": 3,
-        "hint": "Hakan counts each line. The total is 3."
+        "hint": "Hakan counts each line one by one. Three vertical lines means 3."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 5
         },
-        "prompt": "Hakan ate apples. Tally: ||||/. How many?",
+        "prompt": "Hakan ate apples. Tally: ▏▏▏▏ /. How many?",
         "answer": 5,
-        "hint": "Hakan sees 4 lines + diagonal = 5. That's the rule."
+        "hint": "Hakan sees 4 verticals + 1 diagonal = 5. That's the group-of-5 rule."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 4
         },
-        "prompt": "Hakan, how many tally marks?",
+        "prompt": "Hakan, how many tally marks here?",
         "answer": 4,
-        "hint": "Hakan counts: 1, 2, 3, 4. The total is 4."
+        "hint": "Hakan counts the vertical lines: 1, 2, 3, 4. The total is 4."
       }
     ],
     "quiz": [
@@ -42799,7 +42805,7 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 1
         },
         "prompt": "How many tally marks?",
@@ -42809,7 +42815,7 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 2
         },
         "prompt": "Hakan, how many marks?",
@@ -42819,7 +42825,7 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 3
         },
         "prompt": "How many tally marks?",
@@ -42829,7 +42835,7 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 4
         },
         "prompt": "Hakan, how many marks?",
@@ -42839,17 +42845,17 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 5
         },
-        "prompt": "Hakan saw a group of 5. How many?",
+        "prompt": "Hakan saw a group of 5 (▏▏▏▏ /). How many?",
         "answer": 5
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 2
         },
         "prompt": "How many tally marks?",
@@ -42859,17 +42865,17 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 5
         },
-        "prompt": "Hakan, ||||/. How many?",
+        "prompt": "Hakan sees ▏▏▏▏ /. How many?",
         "answer": 5
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 3
         },
         "prompt": "How many marks?",
@@ -42879,7 +42885,7 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 4
         },
         "prompt": "Hakan, how many marks?",
@@ -42889,10 +42895,10 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 5
         },
-        "prompt": "Hakan's group: ||||/. How many?",
+        "prompt": "Hakan's tally group ▏▏▏▏ /. How many?",
         "answer": 5
       }
     ]
@@ -42912,75 +42918,82 @@ const MODULES = [
       {
         "title": "Tap & Count Tallies",
         "visual": {
-        "type": "tap-to-count",
-        "emoji": "✏️",
-        "count": 7,
-        "instruction": "Hakan, tap each tally mark to count!"
-      },
-        "text": "Five lines and 2 more. Tap each!",
+          "type": "tap-to-count",
+          "emoji": "▏",
+          "count": 7,
+          "instruction": "Hakan, tap each tally mark to count!"
+        },
+        "text": "A group of 5 (▏▏▏▏ /) and 2 more (▏▏). Tap each line!",
         "caption": "Group of 5 + more! 🎯"
       },
       {
         "title": "5 + 1 = 6",
         "visual": {
-          "type": "bignum",
-          "n": 6
+          "type": "objects",
+          "emoji": "▏",
+          "count": 6
         },
-        "text": "Hakan: a 5-group then 1 more line = 6! ||||/ | = 6.",
-        "caption": "5 + 1 = 6 ⭐"
+        "text": "Hakan: one 5-group then 1 more line = 6! ▏▏▏▏ / ▏ = 6.",
+        "caption": "▏▏▏▏ / ▏ = 6 ⭐"
       },
       {
         "title": "5 + 2 = 7",
         "visual": {
-          "type": "bignum",
-          "n": 7
+          "type": "objects",
+          "emoji": "▏",
+          "count": 7
         },
-        "text": "Hakan: 5-group then 2 lines = 7! ||||/ || = 7. Same trick!",
-        "caption": "5 + 2 = 7 🌟"
+        "text": "Hakan: a 5-group then 2 lines = 7! ▏▏▏▏ / ▏▏ = 7. Same trick!",
+        "caption": "▏▏▏▏ / ▏▏ = 7 🌟"
       },
       {
         "title": "5 + 3 = 8",
         "visual": {
-          "type": "bignum",
-          "n": 8
+          "type": "objects",
+          "emoji": "▏",
+          "count": 8
         },
-        "text": "Hakan: 5-group then 3 lines = 8! ||||/ ||| = 8.",
-        "caption": "5 + 3 = 8 ⭐"
+        "text": "Hakan: a 5-group then 3 lines = 8! ▏▏▏▏ / ▏▏▏ = 8.",
+        "caption": "▏▏▏▏ / ▏▏▏ = 8 ⭐"
       },
       {
         "title": "5 + 4 = 9",
         "visual": {
-          "type": "bignum",
-          "n": 9
+          "type": "objects",
+          "emoji": "▏",
+          "count": 9
         },
-        "text": "Hakan: 5-group then 4 lines = 9! Same rule, more lines.",
-        "caption": "5 + 4 = 9 💯"
+        "text": "Hakan: a 5-group then 4 lines = 9! Same rule — count 5, then count the extras.",
+        "caption": "▏▏▏▏ / ▏▏▏▏ = 9 💯"
       },
       {
         "title": "Two Groups = 10",
         "visual": {
-          "type": "bignum",
-          "n": 10
+          "type": "objects",
+          "emoji": "▏",
+          "count": 10
         },
-        "text": "Hakan: TWO 5-groups! ||||/ ||||/ = 10. Easy and quick!",
+        "text": "Hakan: TWO 5-groups side by side! ▏▏▏▏ / ▏▏▏▏ / = 10. Easy and quick!",
         "caption": "5 + 5 = 10 🎯"
       },
       {
         "title": "Why Groups Help",
         "visual": {
-          "type": "bignum",
-          "n": 5
+          "type": "objects",
+          "emoji": "▏",
+          "count": 5
         },
-        "text": "Hakan, what do you notice? Groups of 5 are easy to count fast! 5, 10, 15...",
+        "text": "Hakan, what do you notice? Groups of 5 are easy to count fast! 5, then 5 more = 10.",
         "caption": "Skip count by 5 ✨"
       },
       {
         "title": "You're a Tally Pro!",
         "visual": {
-          "type": "bignum",
-          "n": 10
+          "type": "objects",
+          "emoji": "▏",
+          "count": 10
         },
-        "text": "Hakan, you are SO smart! Count groups of 5, add the rest. Try the practice!",
+        "text": "Hakan, you are SO smart! Count groups of 5, add the extras. Try the practice!",
         "caption": "You got it! 🏆"
       }
     ],
@@ -42989,89 +43002,89 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 6
         },
-        "prompt": "Hakan: a 5-group plus 1. How many?",
+        "prompt": "Hakan: a 5-group plus 1 extra line. How many?",
         "answer": 6,
-        "hint": "Hakan adds: 5 + 1 = 6. The 5-group is fast!"
+        "hint": "Hakan adds: 5 + 1 = 6. Count the 5-group fast, then 1 more."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 7
         },
-        "prompt": "Hakan: 5-group plus 2 lines. How many?",
+        "prompt": "Hakan: 5-group plus 2 extra lines. How many?",
         "answer": 7,
-        "hint": "Hakan adds: 5 + 2 = 7. Use the rule from the lesson!"
+        "hint": "Hakan adds: 5 + 2 = 7. The 5-group skips you straight to 5."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 8
         },
-        "prompt": "Hakan, 5-group plus 3 lines = ?",
+        "prompt": "Hakan, 5-group plus 3 extra lines = ?",
         "answer": 8,
-        "hint": "Hakan adds: 5 + 3 = 8. Easy! Use the rule from the lesson!"
+        "hint": "Hakan adds: 5 + 3 = 8. The group-of-5 trick from the lesson."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 9
         },
-        "prompt": "Hakan: 5-group plus 4. How many?",
+        "prompt": "Hakan: 5-group plus 4 extra. How many?",
         "answer": 9,
-        "hint": "Hakan adds: 5 + 4 = 9. Use the rule from the lesson!"
+        "hint": "Hakan adds: 5 + 4 = 9. The 5-group jumps you to 5, then count 4 more."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 10
         },
-        "prompt": "Hakan: two 5-groups. How many?",
+        "prompt": "Hakan: two 5-groups (▏▏▏▏ / ▏▏▏▏ /). How many?",
         "answer": 10,
-        "hint": "Hakan adds: 5 + 5 = 10. Two full groups!"
+        "hint": "Hakan adds: 5 + 5 = 10. Two full tally groups make 10!"
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 7
         },
-        "prompt": "Hakan, how many tally marks?",
+        "prompt": "Hakan, how many tally marks total?",
         "answer": 7,
-        "hint": "Hakan counts the 5-group + 2 extras = 7."
+        "hint": "Hakan counts the 5-group as 5, plus 2 extras = 7."
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 8
         },
-        "prompt": "Hakan: how many marks?",
+        "prompt": "Hakan: how many tally marks?",
         "answer": 8,
-        "hint": "Hakan counts 5-group + 3 = 8. Use the rule from the lesson!"
+        "hint": "Hakan counts the 5-group as 5, plus 3 extras = 8."
       },
       {
         "type": "numeric",
         "visual": {
-          "type": "two-digit-add",
-          "a": 5,
-          "b": 5
+          "type": "objects",
+          "emoji": "▏",
+          "count": 10
         },
-        "prompt": "Hakan: 5 + 5 = ?",
+        "prompt": "Hakan sees two full tally groups. How many marks?",
         "answer": 10,
-        "hint": "Hakan adds two groups of 5 to get 10."
+        "hint": "Hakan adds two groups of 5: 5 + 5 = 10. Two full bundles!"
       }
     ],
     "quiz": [
@@ -43079,47 +43092,47 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 6
         },
-        "prompt": "Hakan: 5-group + 1. How many?",
+        "prompt": "Hakan: 5-group + 1 extra. How many?",
         "answer": 6
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 7
         },
-        "prompt": "Hakan, 5-group + 2. How many?",
+        "prompt": "Hakan, 5-group + 2 extras. How many?",
         "answer": 7
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 8
         },
-        "prompt": "Hakan: 5-group + 3 = ?",
+        "prompt": "Hakan: 5-group + 3 extras = ?",
         "answer": 8
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 9
         },
-        "prompt": "5-group + 4. How many?",
+        "prompt": "5-group + 4 extras. How many?",
         "answer": 9
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 10
         },
         "prompt": "Hakan: 2 groups of 5. How many?",
@@ -43129,7 +43142,7 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 7
         },
         "prompt": "How many tally marks?",
@@ -43139,17 +43152,17 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 6
         },
-        "prompt": "Hakan, how many marks?",
+        "prompt": "Hakan, how many tally marks?",
         "answer": 6
       },
       {
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 9
         },
         "prompt": "How many marks?",
@@ -43159,7 +43172,7 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 8
         },
         "prompt": "Hakan, how many marks?",
@@ -43169,10 +43182,10 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "objects",
-          "emoji": "✏️",
+          "emoji": "▏",
           "count": 10
         },
-        "prompt": "How many tally marks?",
+        "prompt": "How many tally marks in two groups of 5?",
         "answer": 10
       }
     ]
@@ -47764,9 +47777,9 @@ const MODULES = [
       {
         "title": "Hakan, Today We Learn the Days!",
         "visual": {
-          "type": "bignum",
-          "n": 7,
-          "color": "blue"
+          "type": "objects",
+          "emoji": "📅",
+          "count": 7
         },
         "text": "Hakan, today we learn 7 days of the week. School days and weekend!",
         "caption": "7 days ✨"
@@ -47784,7 +47797,7 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Hakan goes to school 5 days: Monday, Tuesday, Wednesday, Thursday, Friday!",
+        "text": "Hakan goes to school 5 days: Monday(1), Tuesday(2), Wednesday(3), Thursday(4), Friday(5)!",
         "caption": "5 school days 🏆"
       },
       {
@@ -47797,21 +47810,21 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Saturday and Sunday — weekend! Hakan plays soccer and eats pizza!",
+        "text": "Saturday(6) and Sunday(7) — weekend! Hakan plays soccer and eats pizza!",
         "caption": "Weekend! 🎯"
       },
       {
         "title": "Tap the Day",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "Monday",
-          "Wednesday",
-          "Friday"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, after Tuesday comes? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "Monday",
+            "Wednesday",
+            "Friday"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, after Tuesday comes? Tap it!"
+        },
         "text": "Days of the week in order. After Tuesday is Wednesday. Tap it!",
         "caption": "Mon → Tue → Wed ⭐"
       },
@@ -47826,7 +47839,7 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Hakan, Wednesday → Thursday → Friday. Friday is the LAST school day!",
+        "text": "Hakan: Wednesday(3) → Thursday(4) → Friday(5). Friday is the LAST school day!",
         "caption": "Wed → Thu → Fri 🌟"
       },
       {
@@ -47850,9 +47863,9 @@ const MODULES = [
       {
         "title": "Did You Know?",
         "visual": {
-          "type": "bignum",
-          "n": 7,
-          "color": "blue"
+          "type": "objects",
+          "emoji": "📅",
+          "count": 7
         },
         "text": "Did you know, Hakan? There are 7 days in 1 week. Always 7!",
         "caption": "7 days = 1 week ⭐"
@@ -47872,7 +47885,7 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Mon, Tue, Wed, Thu, Fri, Sat, Sun! Hakan, you are SO smart!",
+        "text": "Mon(1), Tue(2), Wed(3), Thu(4), Fri(5), Sat(6), Sun(7)! Hakan, you are SO smart!",
         "caption": "All 7 days 🏆"
       }
     ],
@@ -47880,11 +47893,15 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 1,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "missingIndex": -1
         },
-        "prompt": "Hakan, what day comes after Monday?",
+        "prompt": "Hakan, what day comes after Monday (day 1)?",
         "choices": [
           "Sunday",
           "Tuesday",
@@ -47892,16 +47909,20 @@ const MODULES = [
           "Friday"
         ],
         "answerIndex": 1,
-        "hint": "Days go in order! Mon → Tue → Wed. Hakan, after Monday is Tuesday!"
+        "hint": "Days go in order! Day 1 → Day 2. Mon → Tue. Hakan, after Monday is Tuesday!"
       },
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 2,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            2,
+            3,
+            4
+          ],
+          "missingIndex": -1
         },
-        "prompt": "What day comes after Tuesday?",
+        "prompt": "What day comes after Tuesday (day 2)?",
         "choices": [
           "Monday",
           "Wednesday",
@@ -47914,11 +47935,15 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 5,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            5,
+            6,
+            7
+          ],
+          "missingIndex": -1
         },
-        "prompt": "Hakan, what day comes after Friday?",
+        "prompt": "Hakan, what day comes after Friday (day 5)?",
         "choices": [
           "Thursday",
           "Saturday",
@@ -47926,16 +47951,20 @@ const MODULES = [
           "Monday"
         ],
         "answerIndex": 1,
-        "hint": "After Friday = weekend! Hakan, Saturday comes next!"
+        "hint": "After Friday = weekend! Hakan, Saturday (day 6) comes next!"
       },
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 6,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            6,
+            7,
+            1
+          ],
+          "missingIndex": -1
         },
-        "prompt": "What day comes after Saturday?",
+        "prompt": "What day comes after Saturday (day 6)?",
         "choices": [
           "Friday",
           "Sunday",
@@ -47943,16 +47972,20 @@ const MODULES = [
           "Tuesday"
         ],
         "answerIndex": 1,
-        "hint": "Weekend has 2 days: Sat then Sun. Hakan, after Saturday = Sunday!"
+        "hint": "Weekend has 2 days: Sat then Sun. Hakan, after Saturday = Sunday (day 7)!"
       },
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 7,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            7,
+            1,
+            2
+          ],
+          "missingIndex": -1
         },
-        "prompt": "Hakan, what day comes after Sunday?",
+        "prompt": "Hakan, what day comes after Sunday (day 7)?",
         "choices": [
           "Saturday",
           "Monday",
@@ -47960,14 +47993,18 @@ const MODULES = [
           "Friday"
         ],
         "answerIndex": 1,
-        "hint": "After Sunday, the week starts again with Monday! School day for Hakan."
+        "hint": "After Sunday, the week starts again with Monday (day 1)! School day for Hakan."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 5,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            5,
+            6,
+            7
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan plays soccer on the weekend. What day might that be?",
         "choices": [
@@ -47977,14 +48014,14 @@ const MODULES = [
           "Tuesday"
         ],
         "answerIndex": 2,
-        "hint": "Weekend = Saturday or Sunday! Hakan, Saturday is a weekend day."
+        "hint": "Weekend = Saturday or Sunday! Hakan, Saturday (day 6) is a weekend day."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 7,
-          "color": "blue"
+          "type": "objects",
+          "emoji": "📅",
+          "count": 7
         },
         "prompt": "Hakan, how many days are in 1 week?",
         "choices": [
@@ -47999,11 +48036,15 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 3,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "missingIndex": -1
         },
-        "prompt": "What day comes BEFORE Wednesday?",
+        "prompt": "What day comes BEFORE Wednesday (day 3)?",
         "choices": [
           "Monday",
           "Tuesday",
@@ -48011,16 +48052,20 @@ const MODULES = [
           "Friday"
         ],
         "answerIndex": 1,
-        "hint": "Hakan reverses: Wed → Tue → Mon. Before Wednesday = Tuesday!"
+        "hint": "Hakan reverses: Wed (3) → Tue (2) → Mon (1). Before Wednesday = Tuesday!"
       }
     ],
     "quiz": [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 1,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what day comes after Monday?",
         "choices": [
@@ -48034,9 +48079,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 4,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            4,
+            5,
+            6
+          ],
+          "missingIndex": -1
         },
         "prompt": "What day comes after Thursday?",
         "choices": [
@@ -48050,9 +48099,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 6,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            6,
+            7,
+            1
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what day comes after Saturday?",
         "choices": [
@@ -48066,9 +48119,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "bignum",
-          "n": 7,
-          "color": "blue"
+          "type": "objects",
+          "emoji": "📅",
+          "count": 7
         },
         "prompt": "Hakan, how many days in 1 week?",
         "answer": 7
@@ -48076,9 +48129,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 3,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            3,
+            4,
+            5
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what day comes after Wednesday?",
         "choices": [
@@ -48092,9 +48149,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 7,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            7,
+            1,
+            2
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what day comes after Sunday?",
         "choices": [
@@ -48108,9 +48169,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 5,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            4,
+            5,
+            6
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan goes to school on this day, then it's weekend. What day?",
         "choices": [
@@ -48124,9 +48189,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 2,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "missingIndex": 1
         },
         "prompt": "What day is between Monday and Wednesday?",
         "choices": [
@@ -48140,9 +48209,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 6,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            5,
+            6,
+            7
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, the weekend has TWO days. Which two?",
         "choices": [
@@ -48156,9 +48229,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 4,
-          "color": "blue"
+          "type": "sequence",
+          "nums": [
+            3,
+            4,
+            5
+          ],
+          "missingIndex": 1
         },
         "prompt": "What day is between Wednesday and Friday?",
         "choices": [
@@ -48186,9 +48263,22 @@ const MODULES = [
       {
         "title": "Hakan, Today We Learn Months!",
         "visual": {
-          "type": "bignum",
-          "n": 12,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "missingIndex": -1
         },
         "text": "Hakan, today we learn 12 months of the year. January is FIRST!",
         "caption": "12 months ✨"
@@ -48204,7 +48294,7 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "January, February, March! Hakan, January is month 1, March is month 3.",
+        "text": "January(1), February(2), March(3)! Hakan, January is month 1, March is month 3.",
         "caption": "Jan, Feb, Mar 🏆"
       },
       {
@@ -48218,23 +48308,23 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "April, May, June! Hakan, flowers bloom in spring!",
+        "text": "April(4), May(5), June(6)! Hakan, flowers bloom in spring!",
         "caption": "Apr, May, Jun 🎯"
       },
       {
         "title": "Tap the Month",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "February",
-          "March",
-          "April"
-        ],
-        "correctIndex": 0,
-        "instruction": "Hakan, after January comes? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "February",
+            "March",
+            "April"
+          ],
+          "correctIndex": 0,
+          "instruction": "Hakan, after January comes? Tap it!"
+        },
         "text": "Months in order. After January is February. Tap it!",
-        "caption": "Jul, Aug, Sep ⭐"
+        "caption": "Jan → Feb ⭐"
       },
       {
         "title": "Last 3 Months",
@@ -48247,25 +48337,38 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "October, November, December! December is LAST. Hakan, it's wintertime!",
+        "text": "October(10), November(11), December(12)! December is LAST. Hakan, it's wintertime!",
         "caption": "Oct, Nov, Dec 🌟"
       },
       {
         "title": "Hakan, What Do You Notice?",
         "visual": {
-          "type": "bignum",
-          "n": 12,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "missingIndex": -1
         },
-        "text": "Hakan, what do you notice? Months come in order. They repeat each year!",
+        "text": "Hakan, what do you notice? Months come in order 1-12. They repeat each year!",
         "caption": "Order matters 💯"
       },
       {
         "title": "Did You Know?",
         "visual": {
-          "type": "bignum",
-          "n": 1,
-          "color": "purple"
+          "type": "objects",
+          "emoji": "🗓️",
+          "count": 12
         },
         "text": "Did you know, Hakan? 1 year = 12 months = 365 days!",
         "caption": "1 year = 12 months ⭐"
@@ -48273,9 +48376,22 @@ const MODULES = [
       {
         "title": "Hakan, You're Awesome!",
         "visual": {
-          "type": "bignum",
-          "n": 12,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "missingIndex": -1
         },
         "text": "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec! Hakan, go earn stars!",
         "caption": "All 12 🏆"
@@ -48285,11 +48401,15 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 1,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "missingIndex": -1
         },
-        "prompt": "Hakan, what month comes after January?",
+        "prompt": "Hakan, what month comes after January (month 1)?",
         "choices": [
           "February",
           "March",
@@ -48297,16 +48417,20 @@ const MODULES = [
           "December"
         ],
         "answerIndex": 0,
-        "hint": "Months in order: Jan, Feb, Mar. Hakan, after January = February!"
+        "hint": "Months in order: Jan(1), Feb(2), Mar(3). Hakan, after January = February!"
       },
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 3,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            3,
+            4,
+            5
+          ],
+          "missingIndex": -1
         },
-        "prompt": "What month comes after March?",
+        "prompt": "What month comes after March (month 3)?",
         "choices": [
           "February",
           "April",
@@ -48314,16 +48438,20 @@ const MODULES = [
           "June"
         ],
         "answerIndex": 1,
-        "hint": "Hakan, March → April → May. After March is April!"
+        "hint": "Hakan: March(3) → April(4) → May(5). After March is April!"
       },
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 6,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            6,
+            7,
+            8
+          ],
+          "missingIndex": -1
         },
-        "prompt": "Hakan, what month comes after June?",
+        "prompt": "Hakan, what month comes after June (month 6)?",
         "choices": [
           "May",
           "July",
@@ -48331,16 +48459,20 @@ const MODULES = [
           "September"
         ],
         "answerIndex": 1,
-        "hint": "Hakan, June → July (summer!). July comes right after June."
+        "hint": "Hakan: June(6) → July(7) — summer! July comes right after June."
       },
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 12,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            11,
+            12,
+            1
+          ],
+          "missingIndex": -1
         },
-        "prompt": "What month comes after December?",
+        "prompt": "What month comes after December (month 12)?",
         "choices": [
           "November",
           "January",
@@ -48348,14 +48480,14 @@ const MODULES = [
           "March"
         ],
         "answerIndex": 1,
-        "hint": "After December, the year starts over with January! Hakan, that's New Year!"
+        "hint": "After December (12), the year starts over with January (1)! Hakan, that's New Year!"
       },
       {
         "type": "numeric",
         "visual": {
-          "type": "bignum",
-          "n": 12,
-          "color": "purple"
+          "type": "objects",
+          "emoji": "🗓️",
+          "count": 12
         },
         "prompt": "How many months in 1 year?",
         "answer": 12,
@@ -48364,9 +48496,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 9,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            8,
+            9,
+            10
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan starts school. What month is that usually?",
         "choices": [
@@ -48381,9 +48517,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 1,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what is the FIRST month of the year?",
         "choices": [
@@ -48398,9 +48538,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 12,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            10,
+            11,
+            12
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what is the LAST month of the year?",
         "choices": [
@@ -48417,9 +48561,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 1,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what is month 1?",
         "choices": [
@@ -48433,9 +48581,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 12,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            10,
+            11,
+            12
+          ],
+          "missingIndex": -1
         },
         "prompt": "What is the last month of the year?",
         "choices": [
@@ -48449,9 +48601,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 4,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            4,
+            5,
+            6
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what month comes after April?",
         "choices": [
@@ -48465,9 +48621,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 7,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            7,
+            8,
+            9
+          ],
+          "missingIndex": -1
         },
         "prompt": "What month comes after July?",
         "choices": [
@@ -48481,9 +48641,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "bignum",
-          "n": 12,
-          "color": "purple"
+          "type": "objects",
+          "emoji": "🗓️",
+          "count": 12
         },
         "prompt": "Hakan, how many months in 1 year?",
         "answer": 12
@@ -48491,9 +48651,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 10,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            10,
+            11,
+            12
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what month comes after October?",
         "choices": [
@@ -48507,9 +48671,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 2,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            1,
+            2,
+            3
+          ],
+          "missingIndex": 1
         },
         "prompt": "What month comes between January and March?",
         "choices": [
@@ -48523,9 +48691,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 6,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            5,
+            6,
+            7
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what month comes BEFORE July?",
         "choices": [
@@ -48539,9 +48711,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 11,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            11,
+            12,
+            1
+          ],
+          "missingIndex": -1
         },
         "prompt": "What month comes after November?",
         "choices": [
@@ -48555,9 +48731,13 @@ const MODULES = [
       {
         "type": "choice",
         "visual": {
-          "type": "bignum",
-          "n": 8,
-          "color": "purple"
+          "type": "sequence",
+          "nums": [
+            8,
+            9,
+            10
+          ],
+          "missingIndex": -1
         },
         "prompt": "Hakan, what month is right after August?",
         "choices": [
@@ -53737,17 +53917,17 @@ const MODULES = [
       {
         "title": "Tap the Sum",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "7",
-          "9",
-          "11"
-        ],
-        "correctIndex": 1,
-        "instruction": "Hakan, 2 + 3 + 4 = ? Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "7",
+            "9",
+            "11"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, 2 + 3 + 4 = ? Tap it!"
+        },
         "text": "Add three numbers: 2 + 3 = 5, then +4 = 9. Tap it!",
-        "caption": "1 + 4 + 2 = 7 ⭐"
+        "caption": "2 + 3 + 4 = 9 ⭐"
       },
       {
         "title": "Find a Friendly Pair",
@@ -53797,10 +53977,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 1,
-          "b": 1,
-          "emoji": "🍎"
+          "type": "objects",
+          "emoji": "🍎",
+          "count": 3
         },
         "prompt": "Hakan: 1 + 1 + 1 = ?",
         "answer": 3,
@@ -53809,10 +53988,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 2,
-          "b": 3,
-          "emoji": "⚽"
+          "type": "objects",
+          "emoji": "⚽",
+          "count": 9
         },
         "prompt": "Hakan: 2 + 3 + 4 = ?",
         "answer": 9,
@@ -53821,10 +53999,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 5,
-          "b": 5,
-          "emoji": "🍪"
+          "type": "objects",
+          "emoji": "🍪",
+          "count": 12
         },
         "prompt": "Hakan: 5 + 5 + 2 = ?",
         "answer": 12,
@@ -53833,10 +54010,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 4,
-          "b": 6,
-          "emoji": "🐟"
+          "type": "objects",
+          "emoji": "🐟",
+          "count": 13
         },
         "prompt": "Hakan: 4 + 6 + 3 = ?",
         "answer": 13,
@@ -53845,10 +54021,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 3,
-          "b": 2,
-          "emoji": "🐶"
+          "type": "objects",
+          "emoji": "🐶",
+          "count": 9
         },
         "prompt": "Hakan: 3 + 2 + 4 = ?",
         "answer": 9,
@@ -53857,22 +54032,20 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 7,
-          "b": 3,
-          "emoji": "🍕"
+          "type": "objects",
+          "emoji": "🍕",
+          "count": 15
         },
-        "prompt": "7 + 3 + 5 = ?",
+        "prompt": "Hakan: 7 + 3 + 5 = ?",
         "answer": 15,
         "hint": "Make 10 first: 7 + 3 = 10. Then 10 + 5 = 15."
       },
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 2,
-          "b": 8,
-          "emoji": "🍓"
+          "type": "objects",
+          "emoji": "🍓",
+          "count": 16
         },
         "prompt": "Hakan: 2 + 8 + 6 = ?",
         "answer": 16,
@@ -53881,10 +54054,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 6,
-          "b": 4,
-          "emoji": "🐱"
+          "type": "objects",
+          "emoji": "🐱",
+          "count": 17
         },
         "prompt": "Hakan added 6 + 4 + 7. Total?",
         "answer": 17,
@@ -53895,10 +54067,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 2,
-          "b": 1,
-          "emoji": "🍎"
+          "type": "objects",
+          "emoji": "🍎",
+          "count": 4
         },
         "prompt": "Hakan: 2 + 1 + 1 = ?",
         "answer": 4
@@ -53906,10 +54077,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 3,
-          "b": 3,
-          "emoji": "⚽"
+          "type": "objects",
+          "emoji": "⚽",
+          "count": 8
         },
         "prompt": "Hakan: 3 + 3 + 2 = ?",
         "answer": 8
@@ -53917,10 +54087,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 4,
-          "b": 4,
-          "emoji": "🍪"
+          "type": "objects",
+          "emoji": "🍪",
+          "count": 9
         },
         "prompt": "Hakan: 4 + 4 + 1 = ?",
         "answer": 9
@@ -53928,21 +54097,19 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 5,
-          "b": 5,
-          "emoji": "🐟"
+          "type": "objects",
+          "emoji": "🐟",
+          "count": 13
         },
-        "prompt": "5 + 5 + 3 = ?",
+        "prompt": "Hakan: 5 + 5 + 3 = ?",
         "answer": 13
       },
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 6,
-          "b": 4,
-          "emoji": "🍕"
+          "type": "objects",
+          "emoji": "🍕",
+          "count": 12
         },
         "prompt": "Hakan: 6 + 4 + 2 = ?",
         "answer": 12
@@ -53950,10 +54117,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 7,
-          "b": 3,
-          "emoji": "🍓"
+          "type": "objects",
+          "emoji": "🍓",
+          "count": 14
         },
         "prompt": "Hakan: 7 + 3 + 4 = ?",
         "answer": 14
@@ -53961,10 +54127,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 1,
-          "b": 9,
-          "emoji": "🐱"
+          "type": "objects",
+          "emoji": "🐱",
+          "count": 15
         },
         "prompt": "Hakan: 1 + 9 + 5 = ?",
         "answer": 15
@@ -53972,10 +54137,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 2,
-          "b": 4,
-          "emoji": "🐶"
+          "type": "objects",
+          "emoji": "🐶",
+          "count": 10
         },
         "prompt": "Hakan: 2 + 4 + 4 = ?",
         "answer": 10
@@ -53983,10 +54147,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 8,
-          "b": 2,
-          "emoji": "🍎"
+          "type": "objects",
+          "emoji": "🍎",
+          "count": 16
         },
         "prompt": "Hakan: 8 + 2 + 6 = ?",
         "answer": 16
@@ -53994,10 +54157,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "add-groups",
-          "a": 5,
-          "b": 1,
-          "emoji": "⚽"
+          "type": "objects",
+          "emoji": "⚽",
+          "count": 9
         },
         "prompt": "Hakan: 5 + 1 + 3 = ?",
         "answer": 9
@@ -57769,37 +57931,37 @@ const MODULES = [
       {
         "title": "Tap the Sum",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "10",
-          "11",
-          "12"
-        ],
-        "correctIndex": 0,
-        "instruction": "Hakan, 9 + 1 = 10. Tap it!"
-      },
+          "type": "tap-the-answer",
+          "options": [
+            "10",
+            "11",
+            "12"
+          ],
+          "correctIndex": 0,
+          "instruction": "Hakan, 9 + 1 = 10. Tap it!"
+        },
         "text": "Adjust to make easy numbers. Tap the answer!",
-        "caption": "9 + 7 = 16 🏆"
+        "caption": "9 + 1 = 10 🏆"
       },
       {
-        "title": "Symbols",
+        "title": "9 + 9 → 10 + 9 − 1",
         "visual": {
           "type": "two-digit-add",
-          "a": 19,
-          "b": 4
+          "a": 9,
+          "b": 9
         },
-        "text": "Hakan: 19 + 4. Round 19 up to 20 (1 extra). Now 20 + 4 = 24. Take 1 off: 23.",
-        "caption": "19 + 4 = 23 ⭐"
+        "text": "Hakan: 9 + 9. Round 9 up to 10 (1 extra). Now 10 + 9 = 19. Take 1 off: 18.",
+        "caption": "9 + 9 = 18 ⭐"
       },
       {
-        "title": "One More",
+        "title": "8 + 9 → 10 + 9 − 2",
         "visual": {
           "type": "two-digit-add",
-          "a": 18,
-          "b": 5
+          "a": 8,
+          "b": 9
         },
-        "text": "Hakan: 18 + 5. Round 18 up to 20 (2 extra). Now 20 + 5 = 25. Take 2 off: 23.",
-        "caption": "18 + 5 = 23 🌟"
+        "text": "Hakan: 8 + 9. Round 8 up to 10 (2 extra). Now 10 + 9 = 19. Take 2 off: 17.",
+        "caption": "8 + 9 = 17 🌟"
       },
       {
         "title": "You Can Also Make 10",
@@ -57899,23 +58061,23 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
-          "a": 19,
-          "b": 5
+          "a": 9,
+          "b": 9
         },
-        "prompt": "Hakan stretches: 19 + 5 = ?",
-        "answer": 24,
-        "hint": "Round 19 → 20 (1 extra). 20 + 5 = 25. Take 1 off: 24!"
+        "prompt": "Hakan stretches: 9 + 9 = ?",
+        "answer": 18,
+        "hint": "Round 9 → 10 (1 extra). 10 + 9 = 19. Take 1 off: 18!"
       },
       {
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
-          "a": 18,
-          "b": 4
+          "a": 8,
+          "b": 9
         },
-        "prompt": "Hakan: 18 + 4 = ?",
-        "answer": 22,
-        "hint": "Round 18 → 20 (2 extra). 20 + 4 = 24. Take 2 off: 22!"
+        "prompt": "Hakan: 8 + 9 = ?",
+        "answer": 17,
+        "hint": "Round 8 → 10 (2 extra). 10 + 9 = 19. Take 2 off: 17!"
       }
     ],
     "quiz": [
@@ -57983,11 +58145,11 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
-          "a": 19,
+          "a": 9,
           "b": 3
         },
-        "prompt": "Hakan: 19 + 3 = ?",
-        "answer": 22
+        "prompt": "Hakan: 9 + 3 = ?",
+        "answer": 12
       },
       {
         "type": "choice",
@@ -58008,21 +58170,21 @@ const MODULES = [
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
-          "a": 18,
+          "a": 8,
           "b": 3
         },
-        "prompt": "Hakan: 18 + 3 = ?",
-        "answer": 21
+        "prompt": "Hakan: 8 + 3 = ?",
+        "answer": 11
       },
       {
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
-          "a": 19,
+          "a": 9,
           "b": 6
         },
-        "prompt": "Hakan: 19 + 6 = ?",
-        "answer": 25
+        "prompt": "Hakan: 9 + 6 = ?",
+        "answer": 15
       }
     ]
   },
@@ -59245,7 +59407,7 @@ const MODULES = [
     "emoji": "🧠",
     "category": "B",
     "kind": "generic",
-    "description": "Hakan adds in his head — no fingers, no counting!",
+    "description": "Hakan adds in his head — count on from the bigger number!",
     "lesson": [
       {
         "title": "Use Your Brain!",
@@ -59263,8 +59425,8 @@ const MODULES = [
           "a": 3,
           "b": 4
         },
-        "text": "Hakan, 3 + 4. In your head: start at 4 (bigger). Count up: 5, 6, 7. Done in 2 seconds!",
-        "caption": "3 + 4 = 7 ✨"
+        "text": "Hakan, 3 + 4. Start at 4 (bigger). Count up 3: 5, 6, 7. Done in your head!",
+        "caption": "3 + 4 = 7 (count on) ✨"
       },
       {
         "title": "5 + 2 in Your Head",
@@ -59273,51 +59435,52 @@ const MODULES = [
           "a": 5,
           "b": 2
         },
-        "text": "Hakan: 5 + 2. Start at 5, count up two: 6, 7. Easy peasy. No fingers needed!",
-        "caption": "5 + 2 = 7 🎯"
+        "text": "Hakan: 5 + 2. Start at 5 (bigger), count up 2: 6, 7. Easy peasy. No fingers needed!",
+        "caption": "5 + 2 = 7 (count on) 🎯"
       },
       {
-        "title": "Tap Fast: Make 10",
+        "title": "Tap Fast: Count On",
         "visual": {
-        "type": "tap-the-answer",
-        "options": [
-          "10",
-          "11",
-          "12"
-        ],
-        "correctIndex": 0,
-        "instruction": "Hakan, 7 + 3 = ? Tap fast!"
-      },
-        "text": "Bonds of 10! 7 + 3 = 10. Tap it fast!",
-        "caption": "6 + 3 = 9 🏆"
-      },
-      {
-        "title": "Use Bonds of 10 Too",
-        "visual": {
-          "type": "ten-frame",
-          "filled": 10
+          "type": "tap-the-answer",
+          "options": [
+            "8",
+            "9",
+            "10"
+          ],
+          "correctIndex": 1,
+          "instruction": "Hakan, 6 + 3 = ? Tap fast!"
         },
-        "text": "Hakan, you JUST KNOW some pairs: 7 + 3 = 10. 6 + 4 = 10. These are memorized — instant answer!",
-        "caption": "7 + 3 = 10 ⭐"
+        "text": "Start at 6 (bigger), count up 3: 7, 8, 9. Tap it fast!",
+        "caption": "6 + 3 = 9 (count on) 🏆"
       },
       {
-        "title": "Estimate First",
+        "title": "4 + 5 in Your Head",
         "visual": {
           "type": "two-digit-add",
           "a": 4,
           "b": 5
         },
-        "text": "Hakan: 4 + 5. Will it be more or less than 10? Less! Now think: 5 (bigger) + 4 = 9.",
-        "caption": "4 + 5 = 9 🌟"
+        "text": "Hakan: 4 + 5. Start at 5 (bigger), count up 4: 6, 7, 8, 9. All brain!",
+        "caption": "4 + 5 = 9 (count on) 🌟"
       },
       {
-        "title": "You Can Also Picture a Ten-Frame",
+        "title": "7 + 2 in Your Head",
+        "visual": {
+          "type": "two-digit-add",
+          "a": 7,
+          "b": 2
+        },
+        "text": "Hakan: 7 + 2. Start at 7 (bigger), count up 2: 8, 9. Quick brain math!",
+        "caption": "7 + 2 = 9 (count on) ⭐"
+      },
+      {
+        "title": "Did You Know? Bonds of 10",
         "visual": {
           "type": "ten-frame",
-          "filled": 7
+          "filled": 10
         },
-        "text": "Did you know? Imagine a ten-frame in your head. 4 dots, then 3 more = 7. Pictures help too!",
-        "caption": "Picture in your mind 🌈"
+        "text": "Did you know, Hakan? Some pairs are MEMORIZED bonds of 10: 7 + 3, 6 + 4, 5 + 5. Instant answer!",
+        "caption": "7 + 3 = 10 (bond) 🌈"
       },
       {
         "title": "You Try, Hakan!",
@@ -59325,7 +59488,7 @@ const MODULES = [
           "type": "bignum",
           "n": 10
         },
-        "text": "Hakan, you are SO smart! Mental math = brain math. Practice now!",
+        "text": "Hakan, you are SO smart! Start at the bigger number, count up. Practice now!",
         "caption": "Brain it! 🚀"
       }
     ],
@@ -59339,7 +59502,7 @@ const MODULES = [
         },
         "prompt": "Hakan, do it in your head: 2 + 3 = ?",
         "answer": 5,
-        "hint": "Start at the bigger number 3, count up two: 4, 5. Just in your head!"
+        "hint": "Hakan starts at the bigger number 3, counts up 2: 4, 5. Just in your head!"
       },
       {
         "type": "numeric",
@@ -59350,7 +59513,7 @@ const MODULES = [
         },
         "prompt": "Hakan in his head: 4 + 2.",
         "answer": 6,
-        "hint": "Start at 4, count up two: 5, 6. Don't peek at fingers!"
+        "hint": "Hakan starts at the bigger 4, counts up 2: 5, 6. Don't peek at fingers!"
       },
       {
         "type": "numeric",
@@ -59361,7 +59524,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 3 + 5 (in your head).",
         "answer": 8,
-        "hint": "Start at the bigger number 5, count up: 6, 7, 8. All in your brain!"
+        "hint": "Hakan starts at the bigger number 5, counts up 3: 6, 7, 8. All brain!"
       },
       {
         "type": "numeric",
@@ -59372,23 +59535,18 @@ const MODULES = [
         },
         "prompt": "Hakan brain power: 6 + 2.",
         "answer": 8,
-        "hint": "Start at 6, two hops: 7, 8. Done."
+        "hint": "Hakan starts at the bigger 6, two count-on hops: 7, 8. Done."
       },
       {
-        "type": "choice",
+        "type": "numeric",
         "visual": {
           "type": "two-digit-add",
           "a": 4,
           "b": 5
         },
-        "prompt": "Hakan estimates: is 4 + 5 more or less than 10?",
-        "choices": [
-          "More than 10",
-          "Less than 10",
-          "Exactly 10"
-        ],
-        "answerIndex": 1,
-        "hint": "5 + 4 = 9 — that's less than 10. Estimating helps check answers!"
+        "prompt": "Hakan: 4 + 5 in his head.",
+        "answer": 9,
+        "hint": "Hakan starts at the bigger 5, counts up 4: 6, 7, 8, 9. Brain math!"
       },
       {
         "type": "numeric",
@@ -59399,7 +59557,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 7 + 2 in his head.",
         "answer": 9,
-        "hint": "Start at 7, two hops: 8, 9. Quick brain math!"
+        "hint": "Hakan starts at the bigger 7, two count-on hops: 8, 9. Quick brain math!"
       },
       {
         "type": "numeric",
@@ -59410,7 +59568,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 3 + 6.",
         "answer": 9,
-        "hint": "Start at the bigger number 6, three hops: 7, 8, 9!"
+        "hint": "Hakan starts at the bigger number 6, counts up 3: 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -59421,7 +59579,7 @@ const MODULES = [
         },
         "prompt": "Hakan tries: 4 + 6.",
         "answer": 10,
-        "hint": "4 and 6 are bonds of 10! Just say 10!"
+        "hint": "4 and 6 are a bond of 10! Or count on from 6: 7, 8, 9, 10."
       }
     ],
     "quiz": [
