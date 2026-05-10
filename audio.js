@@ -3,7 +3,7 @@
 // Composed phrases are concatenated into a single AudioBuffer (with
 // silence trimming) so playback flows smoothly without scheduling gaps.
 
-const AUDIO_VERSION = 7;
+const AUDIO_VERSION = 9;
 let CLIP_MANIFEST = {};
 let CLIP_MANIFEST_LOADED = false;
 
