@@ -69217,10 +69217,13 @@ function renderHomeModules() {
                         ? `<span class="m-card-count" title="Played ${visitCount} time${visitCount === 1 ? '' : 's'}">${visitCount}</span>`
                         : '';
                     const doneCls = stars > 0 ? ' m-card-done' : (visitCount > 0 ? ' m-card-visited' : '');
-                    return `<button class="m-card${doneCls}" onclick="selectModule('${m.id}')">
+                    const catCls = ` m-card-cat-${m.category || 'A'}`;
+                    return `<button class="m-card${doneCls}${catCls}" onclick="selectModule('${m.id}')">
                         ${countHtml}
                         ${starsHtml}
-                        <span class="m-card-icon">${m.emoji}</span>
+                        <span class="m-card-icon-wrap">
+                            <span class="m-card-icon">${m.emoji}</span>
+                        </span>
                         <span class="m-card-title">${m.title}</span>
                         <span class="m-card-desc">${m.description}</span>
                     </button>`;

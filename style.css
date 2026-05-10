@@ -1781,22 +1781,75 @@ body::after {
     border-radius: 999px;
     letter-spacing: 0.04em;
 }
+/* Icon wrap — a soft colored disc behind the emoji so it pops out
+   instead of floating on plain white. Each category gets its own tint
+   via the .m-card-cat-X classes below. */
+.m-card-icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f0eeff, #e0e7ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5),
+                0 4px 10px rgba(108, 99, 255, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+.m-card-icon-wrap::after {
+    /* Subtle highlight gloss */
+    content: '';
+    position: absolute;
+    top: 4px; left: 8px; right: 8px;
+    height: 16px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
+    border-radius: 50%;
+    pointer-events: none;
+}
+.m-card:hover .m-card-icon-wrap {
+    transform: scale(1.08) rotate(-3deg);
+}
 .m-card-icon {
-    font-size: clamp(2.2rem, 4.5vw, 3rem);
+    font-size: clamp(2rem, 4vw, 2.4rem);
     line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    position: relative;
+    z-index: 1;
 }
 .m-card-title {
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: clamp(1rem, 2vw, 1.15rem);
     font-weight: 800;
     color: var(--primary);
     line-height: 1.2;
     letter-spacing: -0.01em;
+    margin-top: 2px;
 }
 .m-card-desc {
-    font-size: clamp(0.8rem, 1.6vw, 0.92rem);
+    font-size: clamp(0.78rem, 1.6vw, 0.9rem);
     color: var(--text-light);
     line-height: 1.4;
 }
+
+/* Per-category color tints for the icon disc — based on each category's
+   theme (counting=blue, addition=green, subtraction=orange, etc.) */
+.m-card-cat-A .m-card-icon-wrap { background: linear-gradient(135deg, #dbeafe, #93c5fd); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(59, 130, 246, 0.25); }
+.m-card-cat-B .m-card-icon-wrap { background: linear-gradient(135deg, #d1fae5, #6ee7b7); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(67, 233, 123, 0.25); }
+.m-card-cat-C .m-card-icon-wrap { background: linear-gradient(135deg, #fed7aa, #fb923c); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(251, 146, 60, 0.25); }
+.m-card-cat-D .m-card-icon-wrap { background: linear-gradient(135deg, #e9d5ff, #c084fc); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(192, 132, 252, 0.25); }
+.m-card-cat-E .m-card-icon-wrap { background: linear-gradient(135deg, #fef3c7, #fbbf24); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(251, 191, 36, 0.25); }
+.m-card-cat-F .m-card-icon-wrap { background: linear-gradient(135deg, #cffafe, #67e8f9); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(103, 232, 249, 0.3); }
+.m-card-cat-G .m-card-icon-wrap { background: linear-gradient(135deg, #fef08a, #facc15); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(250, 204, 21, 0.3); }
+.m-card-cat-H .m-card-icon-wrap { background: linear-gradient(135deg, #fce7f3, #f472b6); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(244, 114, 182, 0.25); }
+.m-card-cat-I .m-card-icon-wrap { background: linear-gradient(135deg, #ffe4e6, #fb7185); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(251, 113, 133, 0.25); }
+.m-card-cat-J .m-card-icon-wrap { background: linear-gradient(135deg, #d9f99d, #84cc16); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(132, 204, 22, 0.25); }
+.m-card-cat-K .m-card-icon-wrap { background: linear-gradient(135deg, #ddd6fe, #a78bfa); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(167, 139, 250, 0.25); }
+.m-card-cat-L .m-card-icon-wrap { background: linear-gradient(135deg, #fbcfe8, #ec4899); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(236, 72, 153, 0.25); }
+.m-card-cat-M .m-card-icon-wrap { background: linear-gradient(135deg, #fde68a, #d97706); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(217, 119, 6, 0.25); }
+.m-card-cat-N .m-card-icon-wrap { background: linear-gradient(135deg, #99f6e4, #14b8a6); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(20, 184, 166, 0.25); }
 
 /* ===== Progress: stars on completed modules ===== */
 .m-card-done {
@@ -3173,9 +3226,10 @@ body::after {
     .m-category-grid { grid-template-columns: repeat(5, 1fr); }
 }
 
-/* Bigger module card icons */
+/* Module card icon sizing inside the new colored disc wrap (1787).
+   Smaller emoji to fit the 64px circle; keep the wrap as the visual anchor. */
 .m-card-icon {
-    font-size: clamp(2.8rem, 6vw, 3.8rem) !important;
+    font-size: clamp(2rem, 4vw, 2.4rem);
     line-height: 1;
 }
 
@@ -3272,7 +3326,8 @@ body::after {
     .m-category { margin-bottom: 22px; }
     .m-category-grid { gap: 10px; }
     .m-card { padding: 14px 11px 13px; }
-    .m-card-icon { font-size: 2.4rem !important; }
+    .m-card-icon-wrap { width: 56px; height: 56px; }
+    .m-card-icon { font-size: 1.9rem !important; }
     .m-card-title { font-size: 0.95rem; }
     .m-card-desc { font-size: 0.78rem; line-height: 1.35; }
 
@@ -3340,7 +3395,8 @@ body::after {
 
 /* Even smaller screens (iPhone SE, etc.) */
 @media (max-width: 380px) {
-    .m-card-icon { font-size: 2rem !important; }
+    .m-card-icon-wrap { width: 48px; height: 48px; }
+    .m-card-icon { font-size: 1.6rem !important; }
     .m-card-title { font-size: 0.88rem; }
     .m-card-desc { font-size: 0.72rem; }
     .lesson-title { font-size: 1.15rem !important; }
