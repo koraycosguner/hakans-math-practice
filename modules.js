@@ -759,14 +759,15 @@ function startActivity(activity) {
         return;
     }
 
+    const isPractice = (activity === 'practice');
     if (mod.kind === 'addsub') {
-        // Delegate to existing addsub game (game.js)
-        // gameMode: 'addition' | 'subtraction'
-        if (typeof startGame === 'function') startGame(mod.gameMode);
+        // Delegate to existing addsub game (game.js).
+        // gameMode is 'addition' | 'subtraction'. isPractice → 5 questions, no Robux.
+        if (typeof startGame === 'function') startGame(mod.gameMode, isPractice);
         return;
     }
     if (mod.kind === 'factfamily') {
-        if (typeof startFactFamilyGame === 'function') startFactFamilyGame();
+        if (typeof startFactFamilyGame === 'function') startFactFamilyGame(isPractice);
         return;
     }
     // Generic module: use the built-in problem flow

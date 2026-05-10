@@ -1398,13 +1398,15 @@ function initSpeechOnGesture() {
     }
 }
 
-function startGame(mode) {
+function startGame(mode, isPractice) {
     playSound('click');
     initSpeechOnGesture();
 
     activeGameMode = 'addsub';
     state.mode = mode;
     state.difficulty = 'easy'; // hardcoded — Level 2 removed
+    state.isPractice = !!isPractice;        // shorter session, no Robux
+    state.totalQuestions = state.isPractice ? 5 : 10;
     state.score = 0;
     state.streak = 0;
     state.bestStreak = 0;
@@ -1568,8 +1570,8 @@ function checkAnswer() {
             state.bestStreak = state.streak;
         }
 
-        // Robux reward for Hakan (no reward if hints or number line were used)
-        if (currentUser === 'hakan' && state.hintStep === 0 && !state.usedNumberLine && !state.usedTenFrames) {
+        // Robux reward for Hakan (no reward in practice, or if hints/number line were used)
+        if (currentUser === 'hakan' && !state.isPractice && state.hintStep === 0 && !state.usedNumberLine && !state.usedTenFrames) {
             const robuxEarned = ROBUX_BY_LEVEL[state.difficulty] || 0.50;
 
             const currentRobux = loadRobux();
@@ -1924,7 +1926,7 @@ const ffGameState = {
     waiting: false,          // prevent double-taps during transitions
 };
 
-function startFactFamilyGame() {
+function startFactFamilyGame(isPractice) {
     playSound('click');
     initSpeechOnGesture();
 
@@ -1942,6 +1944,7 @@ function startFactFamilyGame() {
     ffGameState.attempts = 0;
     ffGameState.sessionRobux = 0;
     ffGameState.waiting = false;
+    ffGameState.isPractice = !!isPractice;
 
     // Show Robux display for Hakan
     const ffRobux = document.getElementById('ff-robux-display');
@@ -2172,8 +2175,8 @@ function ffCheckAnswer() {
             ffGameState.bestStreak = ffGameState.streak;
         }
 
-        // Robux for Hakan (first attempt only, 2 per equation)
-        if (currentUser === 'hakan' && ffGameState.attempts === 1) {
+        // Robux for Hakan (first attempt only, 2 per equation; not in practice)
+        if (currentUser === 'hakan' && !ffGameState.isPractice && ffGameState.attempts === 1) {
             const robuxEarned = 2;
             const current = loadRobux();
             const newTotal = Math.round((current + robuxEarned) * 100) / 100;
