@@ -521,6 +521,24 @@ function openParentDashboard() {
     showScreen('parent-dashboard-screen');
 }
 
+// ===== Weekly goals (Koray-settable) =====
+const GOALS_KEY = 'hakans-math-goals';
+function loadGoals() {
+    try {
+        const raw = localStorage.getItem(GOALS_KEY);
+        return raw ? JSON.parse(raw) : { modulesPerWeek: 5, starsPerWeek: 12 };
+    } catch (e) { return { modulesPerWeek: 5, starsPerWeek: 12 }; }
+}
+function saveGoals(g) {
+    try { localStorage.setItem(GOALS_KEY, JSON.stringify(g)); } catch (e) {}
+}
+function adjustGoal(key, delta) {
+    const g = loadGoals();
+    g[key] = Math.max(1, (g[key] || 0) + delta);
+    saveGoals(g);
+    renderParentDashboard();
+}
+
 function renderParentDashboard() {
     const body = document.getElementById('parent-dashboard-body');
     if (!body) return;
@@ -604,6 +622,54 @@ function renderParentDashboard() {
         <div class="pd-tile"><div class="pd-tile-num">${totalStars}</div><div class="pd-tile-label">⭐ total stars</div><div class="pd-tile-sub">max ${totalMods * 3}</div></div>
         <div class="pd-tile"><div class="pd-tile-num">💎 ${robux.toFixed(1)}</div><div class="pd-tile-label">Robux earned</div></div>
     </div>`;
+
+    // === This week's snapshot ===
+    const wkAgo = Date.now() - 7 * 86400000;
+    let wkVisits = 0, wkStars = 0, wkCorrect = 0;
+    for (const id of Object.keys(visits)) {
+        if ((visits[id].lastVisited || 0) >= wkAgo) wkVisits += (visits[id].count || 1);
+    }
+    for (const id of Object.keys(progress)) {
+        if ((progress[id].lastCompleted || 0) >= wkAgo) wkStars += progress[id].stars || 0;
+    }
+    for (const key of Object.keys(stats)) {
+        const s = stats[key];
+        if ((s.last || 0) >= wkAgo) wkCorrect += (s.correct || 0);
+    }
+    html += `<h2 class="pd-section">This Week</h2>`;
+    html += `<div class="pd-stats-row">
+        <div class="pd-tile"><div class="pd-tile-num">${wkVisits}</div><div class="pd-tile-label">module plays</div></div>
+        <div class="pd-tile"><div class="pd-tile-num">${wkStars}</div><div class="pd-tile-label">⭐ earned</div></div>
+        <div class="pd-tile"><div class="pd-tile-num">${wkCorrect}</div><div class="pd-tile-label">correct answers</div></div>
+    </div>`;
+
+    // === Goals (Koray-settable) ===
+    const goal = loadGoals();
+    const moduleGoal = goal.modulesPerWeek || 5;
+    const starGoal = goal.starsPerWeek || 12;
+    const modPct = Math.min(100, Math.round((wkVisits / moduleGoal) * 100));
+    const starPct = Math.min(100, Math.round((wkStars / starGoal) * 100));
+    html += `<h2 class="pd-section">Weekly Goals</h2>
+        <div class="pd-goals">
+            <div class="pd-goal">
+                <div class="pd-goal-label">Modules played: ${wkVisits} / ${moduleGoal}</div>
+                <div class="pd-goal-bar"><div class="pd-goal-fill" style="width:${modPct}%"></div></div>
+                <div class="pd-goal-edit">
+                    <button onclick="adjustGoal('modulesPerWeek',-1)">−</button>
+                    <span>Goal: ${moduleGoal}</span>
+                    <button onclick="adjustGoal('modulesPerWeek',1)">+</button>
+                </div>
+            </div>
+            <div class="pd-goal">
+                <div class="pd-goal-label">Stars earned: ${wkStars} / ${starGoal}</div>
+                <div class="pd-goal-bar"><div class="pd-goal-fill" style="width:${starPct}%"></div></div>
+                <div class="pd-goal-edit">
+                    <button onclick="adjustGoal('starsPerWeek',-1)">−</button>
+                    <span>Goal: ${starGoal}</span>
+                    <button onclick="adjustGoal('starsPerWeek',1)">+</button>
+                </div>
+            </div>
+        </div>`;
 
     // Per-category breakdown
     html += `<h2 class="pd-section">Categories</h2>`;
