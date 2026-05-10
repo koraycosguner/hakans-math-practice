@@ -69095,6 +69095,7 @@ function renderHomeModules() {
             </button>`;
         }
         html += `<button class="trophy-btn" onclick="openTrophyRoom()">🏆 Trophies</button>`;
+        html += `<button class="minigames-btn" onclick="openMiniGamesHub()">🎮 Games</button>`;
         html += `</div>`;
         // Module search
         html += `<div class="module-search-wrap">

@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=27">
+    <link rel="manifest" href="manifest.json?v=28">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=27">
+    <link rel="stylesheet" href="style.css?v=28">
 </head>
 <body>
     <!-- User Selection Screen -->
@@ -416,12 +416,45 @@
         </div>
     </div>
 
+    <!-- Mini-games hub -->
+    <div id="minigames-screen" class="screen">
+        <div class="minigames-hub">
+            <button class="back-btn" onclick="goHome()">🏠 Home</button>
+            <h1 class="mgs-title">🎮 Mini-Games</h1>
+            <p class="mgs-sub">Quick fun rounds — earn 💎 for each win!</p>
+            <div id="minigames-grid"></div>
+        </div>
+    </div>
+
+    <!-- Mini-game play screen -->
+    <div id="minigame-play-screen" class="screen">
+        <div class="mg-play">
+            <div class="mg-play-header">
+                <button class="back-btn" onclick="exitMiniGame()">⬅ Back</button>
+                <div class="mg-play-timer" id="mg-play-timer">30</div>
+                <div class="mg-play-score" id="mg-play-score">Score: 0</div>
+            </div>
+            <div class="mg-play-instr" id="mg-play-instr"></div>
+            <div class="mg-play-area" id="mg-play-area"></div>
+            <div class="mg-play-over" id="mg-play-over" style="display:none;">
+                <h2 id="mg-over-title">Time's Up!</h2>
+                <div class="mg-over-score" id="mg-over-score-text"></div>
+                <div class="mg-over-robux" id="mg-over-robux"></div>
+                <div class="mg-over-buttons">
+                    <button class="mg-over-btn" onclick="playMiniGameAgain()">🔄 Play Again</button>
+                    <button class="mg-over-btn mg-over-btn-home" onclick="exitMiniGame()">🎮 More Games</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=27"></script>
-    <script src="modules.js?v=27"></script>
-    <script src="game.js?v=27"></script>
+    <script src="audio.js?v=28"></script>
+    <script src="modules.js?v=28"></script>
+    <script src="game.js?v=28"></script>
+    <script src="minigames.js?v=28"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->
