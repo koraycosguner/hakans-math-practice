@@ -174,12 +174,39 @@ function __composeClips(text) {
     return out.length ? out : null;
 }
 
+// Track phrases we couldn't match so missing ones can be added later.
+// Inspect with `audioReport()` in the browser console.
+const __missingPhrases = new Set();
+window.audioReport = function () {
+    if (__missingPhrases.size === 0) {
+        console.log('[audio] no missing phrases — full coverage');
+        return [];
+    }
+    const list = Array.from(__missingPhrases);
+    console.log('[audio] phrases without clips (' + list.length + '):');
+    list.forEach((p) => console.log('  ' + JSON.stringify(p)));
+    return list;
+};
+
 /**
- * Public entry: returns true if a clip (or sequence) was started.
- * Caller should skip its TTS fallback when true is returned.
+ * Public entry: returns true if the request was consumed (clip played
+ * OR intentionally silenced because no clip was available).
+ *
+ * Once the manifest has loaded, this function NEVER returns false. The
+ * caller (speak() in game.js) treats that as "consumed" and skips its
+ * Web Speech API fallback. That guarantees the audio is either the
+ * GuyNeural voice or silent — never a jarring switch to a system voice
+ * for the few phrases that aren't in the library yet.
+ *
+ * Phrases that miss are recorded to __missingPhrases so we can add
+ * clips for the high-value ones in the next pass.
  */
 function tryPlayClip(text) {
+    // Manifest still loading — let the caller decide. In practice this
+    // only happens for utterances fired before the first user gesture,
+    // which is rare in this app.
     if (!CLIP_MANIFEST_LOADED) return false;
+
     if (typeof speechEnabled !== 'undefined' && !speechEnabled) return true; // muted
 
     // Stop anything already playing
@@ -202,7 +229,12 @@ function tryPlayClip(text) {
         return true;
     }
 
-    return false;
+    // 3) No match — silence rather than fall back to a different voice.
+    if (!__missingPhrases.has(text)) {
+        __missingPhrases.add(text);
+        console.warn('[audio] no clip for:', JSON.stringify(text));
+    }
+    return true;
 }
 
 // Allow other modules to silence playback
