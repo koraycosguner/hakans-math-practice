@@ -2008,3 +2008,170 @@ body::after {
     font-size: clamp(3.5rem, 8vw, 6rem) !important;
     margin-bottom: 14px !important;
 }
+
+/* ===== Take-away visual (subtraction with X marks) ===== */
+.m-take-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    max-width: 100%;
+}
+.m-take-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex: 0 0 auto;
+}
+.m-take-emoji {
+    font-size: clamp(2.4rem, 8vw, 3.6rem);
+    display: inline-block;
+}
+.m-take-removed .m-take-emoji {
+    opacity: 0.45;
+    filter: grayscale(0.4);
+}
+.m-take-x {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FF1744;
+    font-size: clamp(2.6rem, 9vw, 4rem);
+    font-weight: 900;
+    text-shadow: -2px -2px 0 white, 2px -2px 0 white, -2px 2px 0 white, 2px 2px 0 white;
+    pointer-events: none;
+}
+
+/* ===== Add-groups visual (two groups joining) ===== */
+.m-addgroups-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 3vw, 20px);
+    flex-wrap: wrap;
+    padding: 8px;
+    max-width: 100%;
+}
+.m-addgroups-side {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    background: rgba(108, 99, 255, 0.07);
+    border: 2px solid rgba(108, 99, 255, 0.2);
+    border-radius: 18px;
+    padding: 10px 14px;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+}
+.m-addgroups-plus {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: #FF6B6B;
+    font-weight: 900;
+}
+
+/* ===== Mobile compatibility — comprehensive ===== */
+@media (max-width: 600px) {
+    /* Home page modules — tighter on mobile */
+    .module-grid { padding-bottom: 24px; }
+    .m-category { margin-bottom: 22px; }
+    .m-category-grid { gap: 10px; }
+    .m-card { padding: 14px 11px 13px; }
+    .m-card-icon { font-size: 2.4rem !important; }
+    .m-card-title { font-size: 0.95rem; }
+    .m-card-desc { font-size: 0.78rem; line-height: 1.35; }
+
+    /* Module detail */
+    .module-detail-card { padding: 24px 18px !important; }
+    .module-detail-icon { font-size: 3rem !important; margin-bottom: 8px !important; }
+    .module-detail-title { font-size: 1.5rem !important; }
+    .module-detail-desc { font-size: 0.95rem !important; margin-bottom: 18px !important; }
+    .activity-buttons { gap: 10px; }
+    .activity-btn { padding: 16px 12px; }
+    .act-icon { font-size: 2.2rem !important; }
+    .act-name { font-size: 1.05rem !important; }
+    .act-sub { font-size: 0.75rem !important; }
+
+    /* Lesson screen on mobile */
+    .lesson-card { padding: 16px 14px !important; }
+    .lesson-title { font-size: 1.3rem !important; }
+    .lesson-text { font-size: 1rem !important; line-height: 1.55; }
+    .lesson-caption { font-size: 1rem !important; padding: 8px 16px !important; }
+    .lesson-visual { min-height: 100px !important; }
+    .lesson-back-btn,
+    .lesson-next-btn { padding: 12px 18px !important; font-size: 0.95rem !important; }
+
+    /* Module game screen on mobile — stack the layout */
+    #module-game-screen .game-main {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #module-game-screen .game-left,
+    #module-game-screen .game-right {
+        width: 100%;
+        max-width: 100%;
+    }
+    .pv-card { padding: 14px !important; }
+    .pv-question { font-size: 1.05rem !important; }
+    .pv-answer-box { min-width: 80px; height: 56px; }
+    .pv-answer { font-size: 1.8rem !important; }
+    .number-pad {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    /* Choice pad on mobile */
+    .choice-pad { gap: 8px; max-width: 360px; margin: 0 auto; }
+    .m-choice { min-height: 56px; padding: 14px 10px; font-size: 1rem; }
+
+    /* Visuals scaled for small screens */
+    .pv-blocks,
+    .lesson-visual .pv-blocks { height: 130px !important; }
+    .m-svg { max-width: 95vw; }
+    .m-objects { font-size: 1.8rem !important; }
+
+    /* Compare pair on mobile */
+    .m-compare-num { font-size: 2.4rem !important; }
+    .m-compare-row { padding: 10px 16px !important; gap: 12px !important; }
+
+    /* Two-digit add display on mobile */
+    .m-add-2d { padding: 10px 16px !important; gap: 10px !important; }
+    .m-add-2d .m-add-num,
+    .m-add-2d .m-add-op { font-size: 2rem !important; }
+
+    /* Sequence visual */
+    .m-sequence { font-size: 1.3rem !important; padding: 10px 14px !important; }
+}
+
+/* Even smaller screens (iPhone SE, etc.) */
+@media (max-width: 380px) {
+    .m-card-icon { font-size: 2rem !important; }
+    .m-card-title { font-size: 0.88rem; }
+    .m-card-desc { font-size: 0.72rem; }
+    .lesson-title { font-size: 1.15rem !important; }
+    .lesson-text { font-size: 0.95rem !important; }
+    .pv-question { font-size: 0.95rem !important; }
+}
+
+/* Landscape-mode iPad / phone — keep things visible */
+@media (max-height: 500px) and (orientation: landscape) {
+    .lesson-card { padding: 12px !important; gap: 8px !important; }
+    .lesson-title { font-size: 1.1rem !important; }
+    .lesson-text { font-size: 0.92rem !important; }
+    .lesson-visual { min-height: 70px !important; }
+    .lesson-visual .pv-blocks { height: 90px !important; }
+    .m-svg { max-height: 110px; }
+}
+
+/* Touch-target accessibility (Apple HIG: minimum 44x44) */
+@media (pointer: coarse) {
+    .num-key { min-height: 56px; }
+    .m-choice { min-height: 56px; }
+    .activity-btn { min-height: 88px; }
+    .m-card { min-height: 110px; }
+}

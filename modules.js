@@ -163,6 +163,84 @@ function renderObjects(count, emoji) {
     return `<div class="m-objects">${(emoji + ' ').repeat(count).trim()}</div>`;
 }
 
+// Subtraction visual: N objects total, first K marked with a strike-through ❌
+// to illustrate "taking away". Example: renderTakeAway(5, 2, '🍪') shows
+// 5 cookies, the first 2 with a red X over them.
+function renderTakeAway(total, taken, emoji) {
+    const items = [];
+    for (let i = 0; i < total; i++) {
+        if (i < taken) {
+            items.push(`<span class="m-take-item m-take-removed">
+                <span class="m-take-emoji">${emoji}</span>
+                <span class="m-take-x">✖</span>
+            </span>`);
+        } else {
+            items.push(`<span class="m-take-item">
+                <span class="m-take-emoji">${emoji}</span>
+            </span>`);
+        }
+    }
+    return `<div class="m-take-row">${items.join('')}</div>`;
+}
+
+// Two-group "joining" visual for addition: shows group A + group B.
+// renderAddGroups(3, 2, '🍎') -> 🍎🍎🍎  ➕  🍎🍎
+function renderAddGroups(a, b, emoji) {
+    const left = [];
+    for (let i = 0; i < a; i++) left.push(`<span class="m-take-emoji">${emoji}</span>`);
+    const right = [];
+    for (let i = 0; i < b; i++) right.push(`<span class="m-take-emoji">${emoji}</span>`);
+    return `<div class="m-addgroups-row">
+        <div class="m-addgroups-side">${left.join('')}</div>
+        <div class="m-addgroups-plus">➕</div>
+        <div class="m-addgroups-side">${right.join('')}</div>
+    </div>`;
+}
+
+// Ten-frame: 10 cells in a 2x5 grid, the first N filled.
+// Crucial visual for first-grade composing/decomposing tens.
+function renderTenFrame(filled, color) {
+    const cell = 38, gap = 4, w = 5 * cell + 4 * gap, h = 2 * cell + gap;
+    const fill = color || '#FF6B6B';
+    const parts = [];
+    parts.push(`<rect x="0" y="0" width="${w}" height="${h}" fill="white" stroke="#2D3436" stroke-width="3" rx="4"/>`);
+    for (let r = 0; r < 2; r++) {
+        for (let c = 0; c < 5; c++) {
+            const idx = r * 5 + c;
+            const x = c * (cell + gap), y = r * (cell + gap);
+            parts.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="white" stroke="#2D3436" stroke-width="1.5"/>`);
+            if (idx < filled) {
+                parts.push(`<circle cx="${x + cell/2}" cy="${y + cell/2}" r="${cell/2 - 5}" fill="${fill}" stroke="#9B2C2C" stroke-width="2"/>`);
+            }
+        }
+    }
+    return `<svg viewBox="-2 -2 ${w + 4} ${h + 4}" width="${w + 4}" height="${h + 4}" xmlns="http://www.w3.org/2000/svg" class="m-svg">${parts.join('')}</svg>`;
+}
+
+// Two ten-frames side by side: useful for sums >10 or for showing "make 10" strategy.
+function renderTwoTenFrames(filledA, filledB, colorA, colorB) {
+    const cell = 32, gap = 3, oneW = 5 * cell + 4 * gap, h = 2 * cell + gap, sep = 16;
+    const w = 2 * oneW + sep;
+    const fillA = colorA || '#FF6B6B', fillB = colorB || '#43E97B';
+    const parts = [];
+    function frame(offsetX, filled, fill) {
+        parts.push(`<rect x="${offsetX}" y="0" width="${oneW}" height="${h}" fill="white" stroke="#2D3436" stroke-width="2.5" rx="3"/>`);
+        for (let r = 0; r < 2; r++) {
+            for (let c = 0; c < 5; c++) {
+                const idx = r * 5 + c;
+                const x = offsetX + c * (cell + gap), y = r * (cell + gap);
+                parts.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="white" stroke="#2D3436" stroke-width="1"/>`);
+                if (idx < filled) {
+                    parts.push(`<circle cx="${x + cell/2}" cy="${y + cell/2}" r="${cell/2 - 4}" fill="${fill}" stroke="#1a1a1a" stroke-width="1.5"/>`);
+                }
+            }
+        }
+    }
+    frame(0, filledA, fillA);
+    frame(oneW + sep, filledB, fillB);
+    return `<svg viewBox="-2 -2 ${w + 4} ${h + 4}" width="${w + 4}" height="${h + 4}" xmlns="http://www.w3.org/2000/svg" class="m-svg">${parts.join('')}</svg>`;
+}
+
 // 2-digit add visual: "23 + 5" with the ones boxed.
 function renderTwoDigitAdd(a, b) {
     return `<div class="m-add-2d">
@@ -185,6 +263,10 @@ function renderVisual(visual) {
         case 'shape':        return renderShape(visual.name);
         case 'fraction':     return renderFraction(visual.shape || 'circle', visual.parts, visual.filled || 0);
         case 'objects':      return renderObjects(visual.count, visual.emoji);
+        case 'take-away':    return renderTakeAway(visual.total, visual.taken, visual.emoji);
+        case 'add-groups':   return renderAddGroups(visual.a, visual.b, visual.emoji);
+        case 'ten-frame':    return renderTenFrame(visual.filled || 0, visual.color);
+        case 'two-ten-frames': return renderTwoTenFrames(visual.filledA || 0, visual.filledB || 0, visual.colorA, visual.colorB);
         case 'two-digit-add': return renderTwoDigitAdd(visual.a, visual.b);
         case 'two-digit-num': return renderTwoDigitNumber(visual.n, visual.highlight);
     }
@@ -265,29 +347,68 @@ const MODULES = [
         gameMode: 'addition',
         description: 'Put numbers together. Plus, count on, doubles!',
         lesson: [
+            // CONCRETE — joining two groups
             {
-                title: 'Adding Things Together',
-                visual: { type: 'objects', count: 5, emoji: '🍎' },
-                text: 'When we add, we put two groups together. Three apples and two more apples make five apples.',
+                title: 'Putting Together',
+                visual: { type: 'add-groups', a: 3, b: 2, emoji: '🍎' },
+                text: 'Hakan has 3 apples. He gets 2 more. Now he has 5 apples in all! When we put two groups together, we ADD.',
                 caption: '3 + 2 = 5',
             },
+            // CONCRETE — another example
+            {
+                title: 'More Joining',
+                visual: { type: 'add-groups', a: 4, b: 3, emoji: '🐶' },
+                text: 'Four dogs in the park. Three more come to play. Now there are 7 dogs total!',
+                caption: '4 + 3 = 7',
+            },
+            // PICTORIAL — ten-frame
+            {
+                title: 'Use a Ten-Frame!',
+                visual: { type: 'ten-frame', filled: 6 },
+                text: 'A ten-frame holds 10 dots in two rows. Six dots fill it part way. We can see the number quickly!',
+                caption: '6 dots',
+            },
+            // PICTORIAL — adding with ten-frame
+            {
+                title: 'Add with the Ten-Frame',
+                visual: { type: 'two-ten-frames', filledA: 5, filledB: 3 },
+                text: 'Red has 5. Green has 3. Together: 5 + 3 = 8. The ten-frames help us count.',
+                caption: '5 + 3 = 8',
+            },
+            // ABSTRACT — the plus sign
             {
                 title: 'The Plus Sign',
                 visual: { type: 'two-digit-add', a: 3, b: 2 },
-                text: 'The plus sign means and. Three plus two is five.',
+                text: 'The plus sign + means "and". When you see 3 + 2, it means three AND two together. The answer is 5!',
                 caption: 'Plus means and!',
             },
+            // STRATEGY — count on
             {
-                title: 'Count On',
+                title: 'Count On Strategy',
                 visual: { type: 'numberline', from: 1, to: 10, mark: 8 },
-                text: 'When we add, we can start with the bigger number and count up. Five plus three. Five, six, seven, eight!',
+                text: 'Start at the bigger number. Then count UP for the smaller. For 5 + 3: say 5, then 6, 7, 8. The answer is 8!',
                 caption: 'Start big, count on!',
             },
+            // STRATEGY — doubles
             {
-                title: 'Doubles!',
-                visual: { type: 'objects', count: 10, emoji: '⭐' },
-                text: 'Doubles are easy to remember. Five plus five is ten. Six plus six is twelve.',
-                caption: 'Doubles are powers!',
+                title: 'Doubles are Magic',
+                visual: { type: 'add-groups', a: 5, b: 5, emoji: '⭐' },
+                text: 'Doubles are when both numbers are the same. 5 + 5 = 10. 6 + 6 = 12. 7 + 7 = 14. Memorize them!',
+                caption: 'Same + same = double!',
+            },
+            // STRATEGY — make 10
+            {
+                title: 'Make 10 First!',
+                visual: { type: 'two-ten-frames', filledA: 9, filledB: 4 },
+                text: 'For 9 + 4, take 1 from the 4 to make 10 in the first frame. Now you have 10 + 3 = 13. Easy!',
+                caption: '9 + 4 = 10 + 3 = 13',
+            },
+            // APPLY — final encouragement
+            {
+                title: 'You Can Add!',
+                visual: { type: 'add-groups', a: 6, b: 4, emoji: '🌟' },
+                text: 'Six stars and four more stars make ten stars in all. You are an addition master!',
+                caption: '6 + 4 = 10',
             },
         ],
     },
@@ -303,29 +424,61 @@ const MODULES = [
         gameMode: 'subtraction',
         description: 'Take some away. Minus, count back!',
         lesson: [
+            // CONCRETE — visual take-away with X marks (the user's specific request)
             {
                 title: 'Taking Away',
-                visual: { type: 'objects', count: 3, emoji: '🍪' },
-                text: 'When we take some away, we subtract. Five cookies. Two are eaten. Three are left.',
+                visual: { type: 'take-away', total: 5, taken: 2, emoji: '🍪' },
+                text: 'Hakan has 5 cookies. He eats 2 of them. The 2 with the X are gone! How many cookies are left? Three!',
                 caption: '5 − 2 = 3',
             },
+            // CONCRETE — another example with different objects to reinforce
+            {
+                title: 'Another Take-Away',
+                visual: { type: 'take-away', total: 6, taken: 4, emoji: '🐟' },
+                text: 'Six fish in the pond. Four swim away. Two fish are still here.',
+                caption: '6 − 4 = 2',
+            },
+            // PICTORIAL — bigger numbers
+            {
+                title: 'More Take-Away',
+                visual: { type: 'take-away', total: 8, taken: 3, emoji: '🎈' },
+                text: 'Eight balloons. Three pop. Five balloons are still floating!',
+                caption: '8 − 3 = 5',
+            },
+            // ABSTRACT — the minus symbol
             {
                 title: 'The Minus Sign',
                 visual: { type: 'two-digit-add', a: 5, b: 2 },
-                text: 'The minus sign means take away. Five minus two is three.',
+                text: 'The minus sign − means "take away". When you see 5 − 2, it means start with 5 and take away 2.',
                 caption: 'Minus means take away!',
             },
+            // STRATEGY — count back on number line
             {
-                title: 'Count Back',
+                title: 'Count Back to Subtract',
                 visual: { type: 'numberline', from: 1, to: 10, mark: 5 },
-                text: 'Start at the big number and count back. Eight minus three. Eight, seven, six, five!',
-                caption: 'Count backwards!',
+                text: 'Another way: start at the big number and count BACK. For 8 − 3: say 8, then back to 7, 6, 5. The answer is 5!',
+                caption: 'Hop backwards!',
             },
+            // STRATEGY — using fingers
             {
-                title: 'Add and Subtract are Buddies',
-                visual: { type: 'objects', count: 8, emoji: '🌟' },
-                text: 'Adding and subtracting are opposites. If three plus five is eight, then eight minus five is three.',
+                title: 'Use Your Fingers!',
+                visual: { type: 'take-away', total: 7, taken: 3, emoji: '✋' },
+                text: 'Hold up 7 fingers. Fold down 3. The fingers still up tell you the answer. 7 − 3 = 4.',
+                caption: 'Fingers are math tools!',
+            },
+            // CONNECTION — fact families
+            {
+                title: 'Adding and Subtracting are Buddies',
+                visual: { type: 'add-groups', a: 3, b: 5, emoji: '🌟' },
+                text: 'If 3 + 5 = 8, then 8 − 5 = 3 and 8 − 3 = 5. They all use the same three numbers!',
                 caption: 'Opposites attract!',
+            },
+            // APPLY — try one
+            {
+                title: 'You Can Do It!',
+                visual: { type: 'take-away', total: 9, taken: 4, emoji: '🍎' },
+                text: 'Nine apples. Four are eaten. How many left? Count the apples without the X. Five!',
+                caption: '9 − 4 = 5',
             },
         ],
     },
