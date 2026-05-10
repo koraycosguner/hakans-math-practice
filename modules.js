@@ -312,8 +312,8 @@ const MODULES = [
           "type": "objects",
           "count": 5
         },
-        "text": "Counting tells us HOW MANY. Touch each apple and say a number: one, two, three, four, five!",
-        "caption": "Touch and count!"
+        "text": "Hey Hakan! Counting tells us HOW MANY. Touch each apple and say a number: one, two, three, four, five!",
+        "caption": "Touch and count! ⭐"
       },
       {
         "title": "Use Your Fingers",
@@ -323,7 +323,7 @@ const MODULES = [
           "count": 5
         },
         "text": "You have 5 fingers on each hand. That makes counting easy! 1, 2, 3, 4, 5.",
-        "caption": "Five fingers!"
+        "caption": "Five fingers! 🌟"
       },
       {
         "title": "The Number Line",
@@ -334,7 +334,7 @@ const MODULES = [
           "mark": 5
         },
         "text": "Numbers live in order on a line. Each step on the number line is ONE MORE.",
-        "caption": "One more = +1"
+        "caption": "One more = +1 💯"
       },
       {
         "title": "Ten in a Frame",
@@ -343,7 +343,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "A ten-frame holds 10 dots. When all cells are full, we have ten!",
-        "caption": "10 dots = a full frame"
+        "caption": "10 dots = a full frame ✨"
       },
       {
         "title": "Counting by Tens",
@@ -353,7 +353,7 @@ const MODULES = [
           "to": 100
         },
         "text": "For big numbers, count by tens. 10, 20, 30, 40, 50, 60, 70, 80, 90, 100. Fast!",
-        "caption": "+10 each step"
+        "caption": "+10 each step 🏆"
       },
       {
         "title": "Counting by Fives",
@@ -364,7 +364,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Hakan, look! Skip count by fives like fingers on hands: 5, 10, 15, 20, 25.",
-        "caption": "+5 each step"
+        "caption": "+5 each step 🎯"
       },
       {
         "title": "What is Missing?",
@@ -380,7 +380,7 @@ const MODULES = [
           "missingIndex": 2
         },
         "text": "When a number is missing, look at the numbers around it. After 5 comes 6, then 7. The missing number is 6! Hakan, you can do this too!",
-        "caption": "Use neighbors!"
+        "caption": "Use neighbors! ⭐"
       },
       {
         "title": "Counting Backwards",
@@ -391,7 +391,7 @@ const MODULES = [
           "mark": 5
         },
         "text": "Watch with Hakan: we can also count DOWN. Each step is ONE LESS. Try: 10, 9, 8, 7, 6, 5...",
-        "caption": "One less = −1"
+        "caption": "One less = −1 🌟"
       },
       {
         "title": "All the Way to 120",
@@ -399,8 +399,8 @@ const MODULES = [
           "type": "bignum",
           "n": 120
         },
-        "text": "You can count up to 120 by ones. After 99 comes 100. After 109 comes 110. After 119 comes 120!",
-        "caption": "99 → 100 → 110 → 120"
+        "text": "You can count up to 120 by ones. After 99 comes 100. After 109 comes 110. After 119 comes 120! Hakan, you are SO smart!",
+        "caption": "99 → 100 → 110 → 120 💯"
       }
     ],
     "practice": [
@@ -426,7 +426,7 @@ const MODULES = [
         },
         "prompt": "What number comes after nine? Hakan, what do you think?",
         "answer": 10,
-        "hint": "Nine plus one more is ten."
+        "hint": "Hakan, you're so smart — think it through. Nine plus one more is ten."
       },
       {
         "type": "numeric",
@@ -454,7 +454,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? What is your answer, Hakan?",
         "answer": 8,
-        "hint": "Between seven and nine is eight."
+        "hint": "Hakan, take a breath and look again. Between seven and nine is eight."
       },
       {
         "type": "numeric",
@@ -471,7 +471,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 11,
-        "hint": "After ten and before twelve."
+        "hint": "You can do this, Hakan! After ten and before twelve."
       }
     ],
     "quiz": [
@@ -617,7 +617,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Hakan has 3 apples. He gets 2 more. Now he has 5 apples in all! When we put two groups together, we ADD.",
-        "caption": "3 + 2 = 5"
+        "caption": "3 + 2 = 5 ✨"
       },
       {
         "title": "More Joining",
@@ -628,7 +628,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Four dogs in the park. Three more come to play. Now there are 7 dogs total!",
-        "caption": "4 + 3 = 7"
+        "caption": "4 + 3 = 7 🏆"
       },
       {
         "title": "Use a Ten-Frame!",
@@ -637,7 +637,7 @@ const MODULES = [
           "filled": 6
         },
         "text": "A ten-frame holds 10 dots in two rows. Six dots fill it part way. We can see the number quickly!",
-        "caption": "6 dots"
+        "caption": "6 dots 🎯"
       },
       {
         "title": "Add with the Ten-Frame",
@@ -647,7 +647,7 @@ const MODULES = [
           "filledB": 3
         },
         "text": "Red has 5. Green has 3. Together: 5 + 3 = 8. The ten-frames help us count.",
-        "caption": "5 + 3 = 8"
+        "caption": "5 + 3 = 8 ⭐"
       },
       {
         "title": "The Plus Sign",
@@ -657,7 +657,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Hakan, look! The plus sign + means \"and\". When you see 3 + 2, it means three AND two together. The answer is 5!",
-        "caption": "Plus means and!"
+        "caption": "Plus means and! 🌟"
       },
       {
         "title": "Count On Strategy",
@@ -668,7 +668,7 @@ const MODULES = [
           "mark": 8
         },
         "text": "Start at the bigger number. Then count UP for the smaller. For 5 + 3: say 5, then 6, 7, 8. The answer is 8!",
-        "caption": "Start big, count on!"
+        "caption": "Start big, count on! 💯"
       },
       {
         "title": "Doubles are Magic",
@@ -679,7 +679,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Doubles are when both numbers are the same. 5 + 5 = 10. 6 + 6 = 12. 7 + 7 = 14. Memorize them!",
-        "caption": "Same + same = double!"
+        "caption": "Same + same = double! ✨"
       },
       {
         "title": "Make 10 First!",
@@ -689,7 +689,7 @@ const MODULES = [
           "filledB": 4
         },
         "text": "For 9 + 4, take 1 from the 4 to make 10 in the first frame. Now you have 10 + 3 = 13. Easy!",
-        "caption": "9 + 4 = 10 + 3 = 13"
+        "caption": "9 + 4 = 10 + 3 = 13 🏆"
       },
       {
         "title": "You Can Add!",
@@ -699,8 +699,8 @@ const MODULES = [
           "a": 6,
           "b": 4
         },
-        "text": "Six stars and four more stars make ten stars in all. You are an addition master! Hakan, you can do this too!",
-        "caption": "6 + 4 = 10"
+        "text": "Six stars and four more stars make ten stars in all. You are an addition master! Hakan, you can do this too! Amazing job, Hakan! Keep going!",
+        "caption": "6 + 4 = 10 🎯"
       }
     ]
   },
@@ -723,7 +723,7 @@ const MODULES = [
           "taken": 2
         },
         "text": "Hakan has 5 cookies. He eats 2 of them. The 2 with the X are gone! How many cookies are left? Three!",
-        "caption": "5 − 2 = 3"
+        "caption": "5 − 2 = 3 ⭐"
       },
       {
         "title": "Another Take-Away",
@@ -734,7 +734,7 @@ const MODULES = [
           "taken": 4
         },
         "text": "Six fish in the pond. Four swim away. Two fish are still here.",
-        "caption": "6 − 4 = 2"
+        "caption": "6 − 4 = 2 🌟"
       },
       {
         "title": "More Take-Away",
@@ -745,7 +745,7 @@ const MODULES = [
           "taken": 3
         },
         "text": "Hakan, look! Eight balloons. Three pop. Five balloons are still floating!",
-        "caption": "8 − 3 = 5"
+        "caption": "8 − 3 = 5 💯"
       },
       {
         "title": "The Minus Sign",
@@ -755,7 +755,7 @@ const MODULES = [
           "b": 2
         },
         "text": "The minus sign − means \"take away\". When you see 5 − 2, it means start with 5 and take away 2. Hakan, you can do this too!",
-        "caption": "Minus means take away!"
+        "caption": "Minus means take away! ✨"
       },
       {
         "title": "Count Back to Subtract",
@@ -766,7 +766,7 @@ const MODULES = [
           "mark": 5
         },
         "text": "Another way: start at the big number and count BACK. For 8 − 3: say 8, then back to 7, 6, 5. The answer is 5!",
-        "caption": "Hop backwards!"
+        "caption": "Hop backwards! 🏆"
       },
       {
         "title": "Use Your Fingers!",
@@ -777,7 +777,7 @@ const MODULES = [
           "taken": 3
         },
         "text": "Hold up 7 fingers. Fold down 3. The fingers still up tell you the answer. 7 − 3 = 4.",
-        "caption": "Fingers are math tools!"
+        "caption": "Fingers are math tools! 🎯"
       },
       {
         "title": "Adding and Subtracting are Buddies",
@@ -788,7 +788,7 @@ const MODULES = [
           "b": 5
         },
         "text": "If 3 + 5 = 8, then 8 − 5 = 3 and 8 − 3 = 5. They all use the same three numbers!",
-        "caption": "Opposites attract!"
+        "caption": "Opposites attract! ⭐"
       },
       {
         "title": "You Can Do It!",
@@ -798,8 +798,8 @@ const MODULES = [
           "total": 9,
           "taken": 4
         },
-        "text": "Nine apples. Four are eaten. How many left? Count the apples without the X. Five!",
-        "caption": "9 − 4 = 5"
+        "text": "Nine apples. Four are eaten. How many left? Count the apples without the X. Five! Hakan, you are number 1!",
+        "caption": "9 − 4 = 5 🌟"
       }
     ]
   },
@@ -823,8 +823,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Three numbers can be a fact family. Three, five, and eight all belong together.",
-        "caption": "Family: 3, 5, 8"
+        "text": "Watch this, Hakan! Three numbers can be a fact family. Three, five, and eight all belong together.",
+        "caption": "Family: 3, 5, 8 💯"
       },
       {
         "title": "Two Parts Make a Whole",
@@ -835,7 +835,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Three stars and five stars make eight stars. The two SMALL numbers make the BIG number.",
-        "caption": "3 + 5 = 8"
+        "caption": "3 + 5 = 8 ✨"
       },
       {
         "title": "The Other Way",
@@ -846,7 +846,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Order does not matter for adding! Five plus three is also eight.",
-        "caption": "5 + 3 = 8"
+        "caption": "5 + 3 = 8 🏆"
       },
       {
         "title": "Take Some Away",
@@ -857,7 +857,7 @@ const MODULES = [
           "taken": 3
         },
         "text": "Hakan, look! Eight stars take away three: five left. The big number minus one small gives the other small.",
-        "caption": "8 − 3 = 5"
+        "caption": "8 − 3 = 5 🎯"
       },
       {
         "title": "Take the Other Away",
@@ -868,7 +868,7 @@ const MODULES = [
           "taken": 5
         },
         "text": "Eight stars take away five: three left. Hakan, you can do this too!",
-        "caption": "8 − 5 = 3"
+        "caption": "8 − 5 = 3 ⭐"
       },
       {
         "title": "Four Facts!",
@@ -877,7 +877,7 @@ const MODULES = [
           "n": 4
         },
         "text": "Each fact family makes 4 math facts: 3+5=8, 5+3=8, 8−3=5, 8−5=3. Same three numbers!",
-        "caption": "4 facts from 3 numbers"
+        "caption": "4 facts from 3 numbers 🌟"
       },
       {
         "title": "The Triangle Picture",
@@ -886,7 +886,7 @@ const MODULES = [
           "name": "triangle"
         },
         "text": "Watch with Hakan: we draw fact families as triangles. The big number sits on top. The two small ones sit at the bottom corners.",
-        "caption": "Big on top!"
+        "caption": "Big on top! 💯"
       },
       {
         "title": "Another Family: 4, 6, 10",
@@ -897,7 +897,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Try this family! 4 + 6 = 10, 6 + 4 = 10, 10 − 4 = 6, 10 − 6 = 4.",
-        "caption": "4, 6, 10"
+        "caption": "4, 6, 10 ✨"
       },
       {
         "title": "A Math Superpower",
@@ -905,8 +905,8 @@ const MODULES = [
           "type": "bignum",
           "n": 8
         },
-        "text": "If you KNOW ONE fact in a family, you know all four! That is your math superpower.",
-        "caption": "Know 1, know 4!"
+        "text": "If you KNOW ONE fact in a family, you know all four! That is your math superpower. You are doing great, Hakan!",
+        "caption": "Know 1, know 4! 🏆"
       }
     ]
   },
@@ -927,7 +927,7 @@ const MODULES = [
           "ones": 7
         },
         "text": "Hakan, look! When we have a few things, we count them as ONES. Each orange square is one.",
-        "caption": "7 ones = 7"
+        "caption": "7 ones = 7 🎯"
       },
       {
         "title": "Bundle Up to a Ten!",
@@ -936,7 +936,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "When you have 10 ones, you can put them together to make ONE TEN. Ten ones = 1 ten.",
-        "caption": "10 ones = 1 ten"
+        "caption": "10 ones = 1 ten ⭐"
       },
       {
         "title": "Meet the Ten-Bar",
@@ -946,7 +946,7 @@ const MODULES = [
           "ones": 0
         },
         "text": "The tall blue bar is one TEN. It has 10 little squares stacked. Use bars instead of counting 10 ones one by one! Hakan, you can do this too!",
-        "caption": "1 ten-bar = 10"
+        "caption": "1 ten-bar = 10 🌟"
       },
       {
         "title": "Two Tens",
@@ -956,7 +956,7 @@ const MODULES = [
           "ones": 0
         },
         "text": "Two ten-bars together make TWENTY. 10 + 10 = 20.",
-        "caption": "2 tens = 20"
+        "caption": "2 tens = 20 💯"
       },
       {
         "title": "Tens AND Ones",
@@ -966,7 +966,7 @@ const MODULES = [
           "ones": 3
         },
         "text": "Mix tens and ones. Two ten-bars and three ones make 23.",
-        "caption": "20 + 3 = 23"
+        "caption": "20 + 3 = 23 ✨"
       },
       {
         "title": "Read 47",
@@ -976,7 +976,7 @@ const MODULES = [
           "ones": 7
         },
         "text": "Watch with Hakan: count the tens first, then add the ones. 4 tens = 40. Plus 7 ones = 47.",
-        "caption": "40 + 7 = 47"
+        "caption": "40 + 7 = 47 🏆"
       },
       {
         "title": "Tens Place vs Ones Place",
@@ -986,7 +986,7 @@ const MODULES = [
           "highlight": "tens"
         },
         "text": "In 47, the FIRST digit is the tens digit. Four tens! The LAST digit is the ones digit. Seven ones!",
-        "caption": "First = tens, last = ones"
+        "caption": "First = tens, last = ones 🎯"
       },
       {
         "title": "No Ones?",
@@ -996,7 +996,7 @@ const MODULES = [
           "ones": 0
         },
         "text": "If there are no orange ones, the number ends in 0. Six tens with zero ones is 60.",
-        "caption": "60 = 6 tens, 0 ones"
+        "caption": "60 = 6 tens, 0 ones ⭐"
       },
       {
         "title": "Big Number: 99",
@@ -1005,8 +1005,8 @@ const MODULES = [
           "tens": 9,
           "ones": 9
         },
-        "text": "9 tens and 9 ones is 99 — almost a hundred! Just one more makes 100.",
-        "caption": "99 = 9 tens, 9 ones"
+        "text": "9 tens and 9 ones is 99 — almost a hundred! Just one more makes 100. Look at you, Hakan — a math hero!",
+        "caption": "99 = 9 tens, 9 ones 🌟"
       }
     ],
     "practice": [
@@ -1019,7 +1019,7 @@ const MODULES = [
         },
         "prompt": "What number is this? Hakan, what do you think?",
         "answer": 35,
-        "hint": "Three tens makes thirty. Add five more ones."
+        "hint": "Hakan, slow down and count carefully. Three tens makes thirty. Add five more ones."
       },
       {
         "type": "numeric",
@@ -1030,7 +1030,7 @@ const MODULES = [
         },
         "prompt": "What number is this? What is your answer, Hakan?",
         "answer": 28,
-        "hint": "Two tens equals twenty. Plus eight ones."
+        "hint": "Stay focused, Hakan — you're amazing. Two tens equals twenty. Plus eight ones."
       },
       {
         "type": "numeric",
@@ -1041,7 +1041,7 @@ const MODULES = [
         },
         "prompt": "How many tens?",
         "answer": 4,
-        "hint": "The tens digit is the first digit."
+        "hint": "Try this, Hakan — you're on it! The tens digit is the first digit."
       },
       {
         "type": "numeric",
@@ -1052,7 +1052,7 @@ const MODULES = [
         },
         "prompt": "How many ones?",
         "answer": 2,
-        "hint": "The ones digit is the last digit."
+        "hint": "Hakan, use your strategy! The ones digit is the last digit."
       },
       {
         "type": "numeric",
@@ -1063,7 +1063,7 @@ const MODULES = [
         },
         "prompt": "What number is this?",
         "answer": 60,
-        "hint": "Six tens with zero ones is just sixty."
+        "hint": "Almost, Hakan — keep your eyes sharp! Six tens with zero ones is just sixty."
       }
     ],
     "quiz": [
@@ -1187,7 +1187,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Hakan, look! When we compare, we find which group has MORE or FEWER. Five apples is more than three apples.",
-        "caption": "Compare groups"
+        "caption": "Compare groups 💯"
       },
       {
         "title": "Bigger or Smaller",
@@ -1197,7 +1197,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Numbers can be compared too. Seven is BIGGER than three.",
-        "caption": "7 is bigger than 3"
+        "caption": "7 is bigger than 3 ✨"
       },
       {
         "title": "The Hungry Alligator",
@@ -1207,7 +1207,7 @@ const MODULES = [
           "b": 3
         },
         "text": "The > sign is like an alligator mouth. The mouth always wants to EAT the bigger number! Hakan, you can do this too!",
-        "caption": "7 > 3"
+        "caption": "7 > 3 🏆"
       },
       {
         "title": "Greater Than",
@@ -1217,7 +1217,7 @@ const MODULES = [
           "b": 4
         },
         "text": "When the bigger number is on the LEFT, use >. Nine is greater than four.",
-        "caption": "9 > 4"
+        "caption": "9 > 4 🎯"
       },
       {
         "title": "Less Than",
@@ -1227,7 +1227,7 @@ const MODULES = [
           "b": 7
         },
         "text": "Same alligator, but pointing the OTHER way. < means LESS THAN. Three is less than seven.",
-        "caption": "3 < 7"
+        "caption": "3 < 7 ⭐"
       },
       {
         "title": "Less Than Again",
@@ -1237,7 +1237,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Watch with Hakan: two is less than eight. The mouth still eats the bigger one!",
-        "caption": "2 < 8"
+        "caption": "2 < 8 🌟"
       },
       {
         "title": "Equal",
@@ -1247,7 +1247,7 @@ const MODULES = [
           "b": 5
         },
         "text": "When both numbers are the SAME, we use =. Five equals five.",
-        "caption": "5 = 5"
+        "caption": "5 = 5 💯"
       },
       {
         "title": "Compare Bigger Numbers",
@@ -1257,7 +1257,7 @@ const MODULES = [
           "b": 18
         },
         "text": "For two-digit numbers, check the TENS first. 2 tens is bigger than 1 ten, so 23 > 18.",
-        "caption": "23 > 18 (check tens)"
+        "caption": "23 > 18 (check tens) ✨"
       },
       {
         "title": "Same Tens? Check Ones",
@@ -1266,8 +1266,8 @@ const MODULES = [
           "a": 47,
           "b": 43
         },
-        "text": "If the tens are the SAME, look at the ones. 47 has 7 ones. 43 has 3 ones. So 47 > 43.",
-        "caption": "47 > 43 (same tens)"
+        "text": "If the tens are the SAME, look at the ones. 47 has 7 ones. 43 has 3 ones. So 47 > 43. Hakan, you are a star!",
+        "caption": "47 > 43 (same tens) 🏆"
       }
     ],
     "practice": [
@@ -1285,7 +1285,7 @@ const MODULES = [
           "="
         ],
         "answerIndex": 1,
-        "hint": "Five is smaller than eight, so it is less than."
+        "hint": "You got this, Hakan! Five is smaller than eight, so it is less than."
       },
       {
         "type": "choice",
@@ -1301,7 +1301,7 @@ const MODULES = [
           "="
         ],
         "answerIndex": 0,
-        "hint": "Twelve is bigger than seven, so it is greater than."
+        "hint": "Hakan, you're so smart — think it through. Twelve is bigger than seven, so it is greater than."
       },
       {
         "type": "choice",
@@ -1317,7 +1317,7 @@ const MODULES = [
           "="
         ],
         "answerIndex": 2,
-        "hint": "Same numbers means equal."
+        "hint": "Easy for a smart kid like you, Hakan. Same numbers means equal."
       },
       {
         "type": "choice",
@@ -1333,7 +1333,7 @@ const MODULES = [
           "="
         ],
         "answerIndex": 1,
-        "hint": "Nine is less than eleven."
+        "hint": "Hakan, take a breath and look again. Nine is less than eleven."
       },
       {
         "type": "choice",
@@ -1349,7 +1349,7 @@ const MODULES = [
           "="
         ],
         "answerIndex": 0,
-        "hint": "Fifteen is much bigger than five."
+        "hint": "You can do this, Hakan! Fifteen is much bigger than five."
       }
     ],
     "quiz": [
@@ -1522,7 +1522,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Hakan, look! Today we will add a small number to a BIG number. Like 23 + 5. Sounds hard? It is easy!",
-        "caption": "Big + small"
+        "caption": "Big + small 🎯"
       },
       {
         "title": "See 23 with Blocks",
@@ -1532,7 +1532,7 @@ const MODULES = [
           "ones": 3
         },
         "text": "First, picture 23. Two ten-bars and three little ones. That is 23!",
-        "caption": "23 = 2 tens + 3 ones"
+        "caption": "23 = 2 tens + 3 ones ⭐"
       },
       {
         "title": "Now Add 5 More Ones",
@@ -1542,7 +1542,7 @@ const MODULES = [
           "ones": 8
         },
         "text": "Adding 5 means adding 5 more orange ones. Now we have 8 ones in total. Hakan, you can do this too!",
-        "caption": "3 + 5 = 8"
+        "caption": "3 + 5 = 8 🌟"
       },
       {
         "title": "Tens Stay the Same!",
@@ -1552,7 +1552,7 @@ const MODULES = [
           "highlight": "tens"
         },
         "text": "The TENS digit does not change. Two tens stay as two tens. Only the ONES change.",
-        "caption": "Tens never change"
+        "caption": "Tens never change 💯"
       },
       {
         "title": "The Trick",
@@ -1562,7 +1562,7 @@ const MODULES = [
           "highlight": "ones"
         },
         "text": "Just add the ones. Three plus five is eight. Put the 8 in the ones place. 23 + 5 = 28!",
-        "caption": "23 + 5 = 28"
+        "caption": "23 + 5 = 28 ✨"
       },
       {
         "title": "Try Another: 41 + 6",
@@ -1572,7 +1572,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Forty-one plus six. Add the ones: 1 + 6 = 7. Tens stay at 4. Answer: 47.",
-        "caption": "41 + 6 = 47"
+        "caption": "41 + 6 = 47 🏆"
       },
       {
         "title": "And Another: 35 + 4",
@@ -1582,7 +1582,7 @@ const MODULES = [
           "b": 4
         },
         "text": "Thirty-five plus four. Ones: 5 + 4 = 9. Tens: still 3. Answer: 39.",
-        "caption": "35 + 4 = 39"
+        "caption": "35 + 4 = 39 🎯"
       },
       {
         "title": "Watch Out: Ones Plus Ones",
@@ -1592,7 +1592,7 @@ const MODULES = [
           "b": 3
         },
         "text": "For 56 + 3: ones 6 + 3 = 9. Tens stay at 5. Answer: 59. Easy!",
-        "caption": "56 + 3 = 59"
+        "caption": "56 + 3 = 59 ⭐"
       },
       {
         "title": "You are a Big-Number Adder",
@@ -1601,8 +1601,8 @@ const MODULES = [
           "tens": 7,
           "ones": 8
         },
-        "text": "Watch with Hakan: just add the ones, keep the tens. You can now add to 70, 80, even 99! Great job.",
-        "caption": "Just add the ones!"
+        "text": "Watch with Hakan: just add the ones, keep the tens. You can now add to 70, 80, even 99! Great job. You got this, Hakan! Time to practice!",
+        "caption": "Just add the ones! 🌟"
       }
     ],
     "practice": [
@@ -1615,7 +1615,7 @@ const MODULES = [
         },
         "prompt": "Twenty-three plus five?",
         "answer": 28,
-        "hint": "Three plus five is eight. Tens stay at twenty."
+        "hint": "Hakan, slow down and count carefully. Three plus five is eight. Tens stay at twenty."
       },
       {
         "type": "numeric",
@@ -1626,7 +1626,7 @@ const MODULES = [
         },
         "prompt": "Hakan has forty-one apple and gets six more. How many in all?",
         "answer": 47,
-        "hint": "One plus six is seven. Plus forty."
+        "hint": "Stay focused, Hakan — you're amazing. One plus six is seven. Plus forty."
       },
       {
         "type": "numeric",
@@ -1637,7 +1637,7 @@ const MODULES = [
         },
         "prompt": "Thirty-five plus four?",
         "answer": 39,
-        "hint": "Five plus four is nine. Plus thirty."
+        "hint": "Try this, Hakan — you're on it! Five plus four is nine. Plus thirty."
       },
       {
         "type": "numeric",
@@ -1648,7 +1648,7 @@ const MODULES = [
         },
         "prompt": "Twelve plus seven?",
         "answer": 19,
-        "hint": "Two plus seven is nine. Plus ten."
+        "hint": "Hakan, use your strategy! Two plus seven is nine. Plus ten."
       },
       {
         "type": "numeric",
@@ -1659,7 +1659,7 @@ const MODULES = [
         },
         "prompt": "Hakan has fifty-six cookies and gets three more. How many in all?",
         "answer": 59,
-        "hint": "Six plus three is nine. Plus fifty."
+        "hint": "Almost, Hakan — keep your eyes sharp! Six plus three is nine. Plus fifty."
       }
     ],
     "quiz": [
@@ -1781,8 +1781,8 @@ const MODULES = [
           "hour": 3,
           "minute": 0
         },
-        "text": "A clock tells time. It has two hands and the numbers 1 through 12 around the edge.",
-        "caption": "1 to 12"
+        "text": "Look here, Hakan! A clock tells time. It has two hands and the numbers 1 through 12 around the edge.",
+        "caption": "1 to 12 💯"
       },
       {
         "title": "Two Hands",
@@ -1792,7 +1792,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "The SHORT hand shows the HOUR. The LONG hand shows the MINUTES. Always read the short hand first!",
-        "caption": "Short = hour"
+        "caption": "Short = hour ✨"
       },
       {
         "title": "O'Clock!",
@@ -1802,7 +1802,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Hakan, look! When the long hand points to 12, we say \"o'clock\". This is THREE O'CLOCK.",
-        "caption": "Long on 12 = o'clock"
+        "caption": "Long on 12 = o'clock 🏆"
       },
       {
         "title": "More O'Clock",
@@ -1812,7 +1812,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Long hand on 12, short hand on 7. Seven o'clock! Hakan, you can do this too!",
-        "caption": "7 o'clock"
+        "caption": "7 o'clock 🎯"
       },
       {
         "title": "12 O'Clock",
@@ -1822,7 +1822,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Both hands on 12 means 12 o'clock. That is noon (lunch!) or midnight.",
-        "caption": "12 o'clock"
+        "caption": "12 o'clock ⭐"
       },
       {
         "title": "Half Past",
@@ -1832,7 +1832,7 @@ const MODULES = [
           "minute": 30
         },
         "text": "Watch with Hakan: when the long hand points to 6, we say \"half past\". The clock has gone HALFWAY around.",
-        "caption": "Long on 6 = half past"
+        "caption": "Long on 6 = half past 🌟"
       },
       {
         "title": "Half Past 7",
@@ -1842,7 +1842,7 @@ const MODULES = [
           "minute": 30
         },
         "text": "Long hand on 6, short hand BETWEEN 7 and 8. Always pick the SMALLER number: half past 7.",
-        "caption": "Half past 7"
+        "caption": "Half past 7 💯"
       },
       {
         "title": "Half Past 12",
@@ -1852,7 +1852,7 @@ const MODULES = [
           "minute": 30
         },
         "text": "Long hand on 6. Short hand between 12 and 1. We say \"half past 12\".",
-        "caption": "Half past 12"
+        "caption": "Half past 12 ✨"
       },
       {
         "title": "Reading Time",
@@ -1862,7 +1862,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Steps: 1) Find the long hand. On 12 = o'clock. On 6 = half past. 2) Find the short hand for the hour.",
-        "caption": "Long first, then short"
+        "caption": "Long first, then short 🏆"
       },
       {
         "title": "You Can Tell Time!",
@@ -1871,8 +1871,8 @@ const MODULES = [
           "hour": 9,
           "minute": 30
         },
-        "text": "Long hand on 6, short hand between 9 and 10. Half past 9!",
-        "caption": "Half past 9"
+        "text": "Long hand on 6, short hand between 9 and 10. Half past 9! Hakan the brilliant — try the practice!",
+        "caption": "Half past 9 🎯"
       }
     ],
     "practice": [
@@ -1891,7 +1891,7 @@ const MODULES = [
           "Half past 4"
         ],
         "answerIndex": 1,
-        "hint": "Long hand on twelve, short hand on four."
+        "hint": "You got this, Hakan! Long hand on twelve, short hand on four."
       },
       {
         "type": "choice",
@@ -1908,7 +1908,7 @@ const MODULES = [
           "7 o'clock"
         ],
         "answerIndex": 1,
-        "hint": "Long hand on six means half past."
+        "hint": "Hakan, you're so smart — think it through. Long hand on six means half past."
       },
       {
         "type": "choice",
@@ -1925,7 +1925,7 @@ const MODULES = [
           "Half past 9"
         ],
         "answerIndex": 1,
-        "hint": "Long hand on twelve, short hand on nine."
+        "hint": "Easy for a smart kid like you, Hakan. Long hand on twelve, short hand on nine."
       },
       {
         "type": "choice",
@@ -2140,8 +2140,8 @@ const MODULES = [
           "type": "shape",
           "name": "circle"
         },
-        "text": "A CIRCLE is round. No corners, no straight sides. Like a wheel or the moon!",
-        "caption": "Round = circle"
+        "text": "Ready, Hakan? A CIRCLE is round. No corners, no straight sides. Like a wheel or the moon!",
+        "caption": "Round = circle ⭐"
       },
       {
         "title": "Square",
@@ -2150,7 +2150,7 @@ const MODULES = [
           "name": "square"
         },
         "text": "A SQUARE has 4 sides — and they are all the SAME LENGTH. It also has 4 corners.",
-        "caption": "4 equal sides"
+        "caption": "4 equal sides 🌟"
       },
       {
         "title": "Triangle",
@@ -2159,7 +2159,7 @@ const MODULES = [
           "name": "triangle"
         },
         "text": "A TRIANGLE has 3 sides and 3 corners. \"Tri\" means three!",
-        "caption": "3 sides, 3 corners"
+        "caption": "3 sides, 3 corners 💯"
       },
       {
         "title": "Rectangle",
@@ -2168,7 +2168,7 @@ const MODULES = [
           "name": "rectangle"
         },
         "text": "A RECTANGLE has 4 sides too. But two are LONG and two are SHORT. Like a door.",
-        "caption": "2 long + 2 short"
+        "caption": "2 long + 2 short ✨"
       },
       {
         "title": "Shapes Around Us",
@@ -2177,7 +2177,7 @@ const MODULES = [
           "name": "circle"
         },
         "text": "Hakan, look! Find shapes! A clock is a circle. A book is a rectangle. A pizza slice is a triangle. Look around!",
-        "caption": "Shapes everywhere"
+        "caption": "Shapes everywhere 🏆"
       },
       {
         "title": "Cutting Equal Parts",
@@ -2188,7 +2188,7 @@ const MODULES = [
           "filled": 1
         },
         "text": "We can cut shapes into PIECES. When all pieces are the SAME size, they are equal.",
-        "caption": "Equal = same size"
+        "caption": "Equal = same size 🎯"
       },
       {
         "title": "Halves",
@@ -2199,7 +2199,7 @@ const MODULES = [
           "filled": 1
         },
         "text": "Two equal parts are called HALVES. One of them is \"one half\". Like cutting a pizza in two.",
-        "caption": "2 equal = halves"
+        "caption": "2 equal = halves ⭐"
       },
       {
         "title": "Halves of a Square",
@@ -2210,7 +2210,7 @@ const MODULES = [
           "filled": 1
         },
         "text": "You can also cut a square into halves. Two equal pieces! Hakan, you can do this too!",
-        "caption": "Square halves"
+        "caption": "Square halves 🌟"
       },
       {
         "title": "Fourths",
@@ -2221,7 +2221,7 @@ const MODULES = [
           "filled": 1
         },
         "text": "Watch with Hakan: four equal parts are called FOURTHS or QUARTERS. Like cutting a pizza into 4 slices.",
-        "caption": "4 equal = fourths"
+        "caption": "4 equal = fourths 💯"
       },
       {
         "title": "Must Be Equal!",
@@ -2231,8 +2231,8 @@ const MODULES = [
           "parts": 4,
           "filled": 4
         },
-        "text": "Halves and fourths must always be the SAME size. If pieces are different sizes, they are NOT halves or fourths.",
-        "caption": "Same size only!"
+        "text": "Halves and fourths must always be the SAME size. If pieces are different sizes, they are NOT halves or fourths. I knew you'd nail it, Hakan!",
+        "caption": "Same size only! ✨"
       }
     ],
     "practice": [
@@ -2499,7 +2499,7 @@ const MODULES = [
           "count": 3
         },
         "text": "Hakan has 3 apples. He gets 2 more. How many in all? That is a math story — also called a word problem.",
-        "caption": "A word problem"
+        "caption": "A word problem 🏆"
       },
       {
         "title": "Step 1: Read Carefully",
@@ -2509,7 +2509,7 @@ const MODULES = [
           "count": 3
         },
         "text": "Read the whole story slowly. Picture it in your head. Hakan starts with 3 apples.",
-        "caption": "Read & picture"
+        "caption": "Read & picture 🎯"
       },
       {
         "title": "Step 2: Find the Numbers",
@@ -2522,7 +2522,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "Look for numbers in the story: 3 and 2. Underline them!",
-        "caption": "Find: 3 and 2"
+        "caption": "Find: 3 and 2 ⭐"
       },
       {
         "title": "Step 3: Add or Subtract?",
@@ -2533,7 +2533,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Did Hakan get MORE or LOSE some? \"Gets more\" = ADD. Hakan ADDED 2 to his 3.",
-        "caption": "Got more = add"
+        "caption": "Got more = add 🌟"
       },
       {
         "title": "Step 4: Solve!",
@@ -2543,7 +2543,7 @@ const MODULES = [
           "b": 2
         },
         "text": "3 + 2 = 5. Hakan has 5 apples in all!",
-        "caption": "3 + 2 = 5"
+        "caption": "3 + 2 = 5 💯"
       },
       {
         "title": "Take-Away Story",
@@ -2554,7 +2554,7 @@ const MODULES = [
           "taken": 2
         },
         "text": "Now a different story: 7 cookies. Hakan eats 2. How many left? Eating means TAKING AWAY → subtract!",
-        "caption": "7 − 2 = 5 left"
+        "caption": "7 − 2 = 5 left ✨"
       },
       {
         "title": "Key Words for ADD",
@@ -2565,7 +2565,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Words that mean ADD: \"in all\", \"altogether\", \"more\", \"joined\". When you see these, plus!",
-        "caption": "in all = +"
+        "caption": "in all = + 🏆"
       },
       {
         "title": "Key Words for SUBTRACT",
@@ -2576,7 +2576,7 @@ const MODULES = [
           "taken": 3
         },
         "text": "Words that mean SUBTRACT: \"left\", \"ate\", \"gave away\", \"fewer\", \"how many more\". When you see these, minus!",
-        "caption": "left = −"
+        "caption": "left = − 🎯"
       },
       {
         "title": "Compare Stories",
@@ -2586,7 +2586,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Some stories ask \"how many MORE?\" That means subtract. Hakan has 8, Sara has 5. Hakan has 8 − 5 = 3 more.",
-        "caption": "how many more = −"
+        "caption": "how many more = − ⭐"
       },
       {
         "title": "You Can Solve Stories!",
@@ -2595,8 +2595,8 @@ const MODULES = [
           "type": "objects",
           "count": 6
         },
-        "text": "Read carefully, find the numbers, decide add or subtract, then solve. Easy!",
-        "caption": "4 simple steps"
+        "text": "Read carefully, find the numbers, decide add or subtract, then solve. Easy! Hakan, you are unstoppable!",
+        "caption": "4 simple steps 🌟"
       }
     ],
     "practice": [
@@ -2775,7 +2775,7 @@ const MODULES = [
           "b": 0
         },
         "text": "Hakan, look! Adding 0 means NOTHING is added. The number stays the same!",
-        "caption": "5 + 0 = 5"
+        "caption": "5 + 0 = 5 💯"
       },
       {
         "title": "Try It",
@@ -2785,7 +2785,7 @@ const MODULES = [
           "b": 0
         },
         "text": "3 plus 0? Still 3. Easy! Hakan, you can do this too!",
-        "caption": "3 + 0 = 3"
+        "caption": "3 + 0 = 3 ✨"
       },
       {
         "title": "Big Numbers Too",
@@ -2795,7 +2795,7 @@ const MODULES = [
           "b": 0
         },
         "text": "17 + 0 = 17. The zero changes nothing.",
-        "caption": "17 + 0 = 17"
+        "caption": "17 + 0 = 17 🏆"
       },
       {
         "title": "Plus Zero on Either Side",
@@ -2805,7 +2805,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Watch with Hakan: 0 + 8 also equals 8. Order does not matter for adding!",
-        "caption": "0 + 8 = 8"
+        "caption": "0 + 8 = 8 🎯"
       },
       {
         "title": "You Got This!",
@@ -2814,8 +2814,8 @@ const MODULES = [
           "a": 12,
           "b": 0
         },
-        "text": "Adding zero is the easiest math trick! The answer is the other number.",
-        "caption": "Plus 0 = same!"
+        "text": "Adding zero is the easiest math trick! The answer is the other number. Brilliant work, Hakan! On to practice!",
+        "caption": "Plus 0 = same! ⭐"
       }
     ],
     "practice": [
@@ -2828,7 +2828,7 @@ const MODULES = [
         },
         "prompt": "Zero plus zero?",
         "answer": 0,
-        "hint": "0 plus 0: plus zero stays the same!"
+        "hint": "Hakan, slow down and count carefully. 0 plus 0: plus zero stays the same!"
       },
       {
         "type": "numeric",
@@ -2839,7 +2839,7 @@ const MODULES = [
         },
         "prompt": "One plus zero?",
         "answer": 1,
-        "hint": "1 plus 0: plus zero stays the same!"
+        "hint": "Stay focused, Hakan — you're amazing. 1 plus 0: plus zero stays the same!"
       },
       {
         "type": "numeric",
@@ -2850,7 +2850,7 @@ const MODULES = [
         },
         "prompt": "Hakan has two apples and gets zero more. How many in all?",
         "answer": 2,
-        "hint": "2 plus 0: plus zero stays the same!"
+        "hint": "Try this, Hakan — you're on it! 2 plus 0: plus zero stays the same!"
       },
       {
         "type": "numeric",
@@ -2861,7 +2861,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three cookies and gets zero more. How many in all?",
         "answer": 3,
-        "hint": "3 plus 0: plus zero stays the same!"
+        "hint": "Hakan, use your strategy! 3 plus 0: plus zero stays the same!"
       },
       {
         "type": "numeric",
@@ -2872,7 +2872,7 @@ const MODULES = [
         },
         "prompt": "Four plus zero?",
         "answer": 4,
-        "hint": "4 plus 0: plus zero stays the same!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 4 plus 0: plus zero stays the same!"
       },
       {
         "type": "numeric",
@@ -2883,7 +2883,7 @@ const MODULES = [
         },
         "prompt": "Hakan has five stars and gets zero more. How many in all?",
         "answer": 5,
-        "hint": "5 plus 0: plus zero stays the same!"
+        "hint": "You got this, Hakan! 5 plus 0: plus zero stays the same!"
       },
       {
         "type": "numeric",
@@ -2894,7 +2894,7 @@ const MODULES = [
         },
         "prompt": "Six plus zero?",
         "answer": 6,
-        "hint": "6 plus 0: plus zero stays the same!"
+        "hint": "Hakan, you're so smart — think it through. 6 plus 0: plus zero stays the same!"
       },
       {
         "type": "numeric",
@@ -2905,7 +2905,7 @@ const MODULES = [
         },
         "prompt": "Hakan has seven puppies and gets zero more. How many in all?",
         "answer": 7,
-        "hint": "7 plus 0: plus zero stays the same!"
+        "hint": "Easy for a smart kid like you, Hakan. 7 plus 0: plus zero stays the same!"
       }
     ],
     "quiz": [
@@ -3028,7 +3028,7 @@ const MODULES = [
           "mark": 5
         },
         "text": "Hakan, look! Adding 1 means going to the NEXT number. After 5 comes 6!",
-        "caption": "After = +1"
+        "caption": "After = +1 🌟"
       },
       {
         "title": "Count Up by One",
@@ -3039,7 +3039,7 @@ const MODULES = [
           "b": 1
         },
         "text": "4 plus 1: just say the next number. 5! Hakan, you can do this too!",
-        "caption": "4 + 1 = 5"
+        "caption": "4 + 1 = 5 💯"
       },
       {
         "title": "Bigger Numbers",
@@ -3049,7 +3049,7 @@ const MODULES = [
           "b": 1
         },
         "text": "8 + 1 = 9. After 8 comes 9.",
-        "caption": "8 + 1 = 9"
+        "caption": "8 + 1 = 9 ✨"
       },
       {
         "title": "Even Bigger",
@@ -3059,7 +3059,7 @@ const MODULES = [
           "b": 1
         },
         "text": "Watch with Hakan: 19 + 1 = 20. After 19 comes 20!",
-        "caption": "19 + 1 = 20"
+        "caption": "19 + 1 = 20 🏆"
       },
       {
         "title": "You Just Add 1",
@@ -3069,8 +3069,8 @@ const MODULES = [
           "to": 20,
           "mark": 15
         },
-        "text": "Plus one = one hop on the number line. Easy!",
-        "caption": "+1 = next number"
+        "text": "Plus one = one hop on the number line. Easy! Hakan, you make this look easy!",
+        "caption": "+1 = next number 🎯"
       }
     ],
     "practice": [
@@ -3083,7 +3083,7 @@ const MODULES = [
         },
         "prompt": "Zero plus one?",
         "answer": 1,
-        "hint": "0 plus 1: just say the next number!"
+        "hint": "Hakan, take a breath and look again. 0 plus 1: just say the next number!"
       },
       {
         "type": "numeric",
@@ -3094,7 +3094,7 @@ const MODULES = [
         },
         "prompt": "One plus one?",
         "answer": 2,
-        "hint": "1 plus 1: just say the next number!"
+        "hint": "You can do this, Hakan! 1 plus 1: just say the next number!"
       },
       {
         "type": "numeric",
@@ -3105,7 +3105,7 @@ const MODULES = [
         },
         "prompt": "Hakan has two apples and gets one more. How many in all?",
         "answer": 3,
-        "hint": "2 plus 1: just say the next number!"
+        "hint": "Hakan, slow down and count carefully. 2 plus 1: just say the next number!"
       },
       {
         "type": "numeric",
@@ -3116,7 +3116,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three cookies and gets one more. How many in all?",
         "answer": 4,
-        "hint": "3 plus 1: just say the next number!"
+        "hint": "Stay focused, Hakan — you're amazing. 3 plus 1: just say the next number!"
       },
       {
         "type": "numeric",
@@ -3127,7 +3127,7 @@ const MODULES = [
         },
         "prompt": "Four plus one?",
         "answer": 5,
-        "hint": "4 plus 1: just say the next number!"
+        "hint": "Try this, Hakan — you're on it! 4 plus 1: just say the next number!"
       },
       {
         "type": "numeric",
@@ -3138,7 +3138,7 @@ const MODULES = [
         },
         "prompt": "Five plus one?",
         "answer": 6,
-        "hint": "5 plus 1: just say the next number!"
+        "hint": "Hakan, use your strategy! 5 plus 1: just say the next number!"
       },
       {
         "type": "numeric",
@@ -3149,7 +3149,7 @@ const MODULES = [
         },
         "prompt": "Hakan has six stars and gets one more. How many in all?",
         "answer": 7,
-        "hint": "6 plus 1: just say the next number!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 6 plus 1: just say the next number!"
       },
       {
         "type": "numeric",
@@ -3160,7 +3160,7 @@ const MODULES = [
         },
         "prompt": "Hakan has seven puppies and gets one more. How many in all?",
         "answer": 8,
-        "hint": "7 plus 1: just say the next number!"
+        "hint": "You got this, Hakan! 7 plus 1: just say the next number!"
       }
     ],
     "quiz": [
@@ -3282,8 +3282,8 @@ const MODULES = [
           "to": 10,
           "mark": 5
         },
-        "text": "Adding 2 means TWO hops on the number line.",
-        "caption": "+2 = 2 hops"
+        "text": "Hey Hakan! Adding 2 means TWO hops on the number line.",
+        "caption": "+2 = 2 hops ⭐"
       },
       {
         "title": "Skip One",
@@ -3294,7 +3294,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Hakan, look! 3 plus 2: count up two: 4, 5. Answer is 5!",
-        "caption": "3 + 2 = 5"
+        "caption": "3 + 2 = 5 🌟"
       },
       {
         "title": "Try 6 + 2",
@@ -3304,7 +3304,7 @@ const MODULES = [
           "b": 2
         },
         "text": "6, then 7, then 8. So 6 + 2 = 8. Hakan, you can do this too!",
-        "caption": "6 + 2 = 8"
+        "caption": "6 + 2 = 8 💯"
       },
       {
         "title": "Try 14 + 2",
@@ -3314,7 +3314,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Watch with Hakan: 14, 15, 16. 14 + 2 = 16!",
-        "caption": "14 + 2 = 16"
+        "caption": "14 + 2 = 16 ✨"
       },
       {
         "title": "Doubles Hint",
@@ -3323,8 +3323,8 @@ const MODULES = [
           "a": 2,
           "b": 2
         },
-        "text": "2 + 2 is a double — easy! Answer: 4.",
-        "caption": "2 + 2 = 4"
+        "text": "2 + 2 is a double — easy! Answer: 4. Way to go, Hakan!",
+        "caption": "2 + 2 = 4 🏆"
       }
     ],
     "practice": [
@@ -3337,7 +3337,7 @@ const MODULES = [
         },
         "prompt": "Hakan has zero apples and gets two more. How many in all?",
         "answer": 2,
-        "hint": "0 plus 2: count up 2: 1, 2!"
+        "hint": "Hakan, you're so smart — think it through. 0 plus 2: count up 2: 1, 2!"
       },
       {
         "type": "numeric",
@@ -3348,7 +3348,7 @@ const MODULES = [
         },
         "prompt": "Hakan has one cookie and gets two more. How many in all?",
         "answer": 3,
-        "hint": "1 plus 2: count up 2: 2, 3!"
+        "hint": "Easy for a smart kid like you, Hakan. 1 plus 2: count up 2: 2, 3!"
       },
       {
         "type": "numeric",
@@ -3359,7 +3359,7 @@ const MODULES = [
         },
         "prompt": "Two plus two?",
         "answer": 4,
-        "hint": "2 plus 2: count up 2: 3, 4!"
+        "hint": "Hakan, take a breath and look again. 2 plus 2: count up 2: 3, 4!"
       },
       {
         "type": "numeric",
@@ -3370,7 +3370,7 @@ const MODULES = [
         },
         "prompt": "Three plus two?",
         "answer": 5,
-        "hint": "3 plus 2: count up 2: 4, 5!"
+        "hint": "You can do this, Hakan! 3 plus 2: count up 2: 4, 5!"
       },
       {
         "type": "numeric",
@@ -3381,7 +3381,7 @@ const MODULES = [
         },
         "prompt": "Four plus two?",
         "answer": 6,
-        "hint": "4 plus 2: count up 2: 5, 6!"
+        "hint": "Hakan, slow down and count carefully. 4 plus 2: count up 2: 5, 6!"
       },
       {
         "type": "numeric",
@@ -3392,7 +3392,7 @@ const MODULES = [
         },
         "prompt": "Hakan has five stars and gets two more. How many in all?",
         "answer": 7,
-        "hint": "5 plus 2: count up 2: 6, 7!"
+        "hint": "Stay focused, Hakan — you're amazing. 5 plus 2: count up 2: 6, 7!"
       },
       {
         "type": "numeric",
@@ -3403,7 +3403,7 @@ const MODULES = [
         },
         "prompt": "Hakan has six puppies and gets two more. How many in all?",
         "answer": 8,
-        "hint": "6 plus 2: count up 2: 7, 8!"
+        "hint": "Try this, Hakan — you're on it! 6 plus 2: count up 2: 7, 8!"
       },
       {
         "type": "numeric",
@@ -3414,7 +3414,7 @@ const MODULES = [
         },
         "prompt": "Seven plus two?",
         "answer": 9,
-        "hint": "7 plus 2: count up 2: 8, 9!"
+        "hint": "Hakan, use your strategy! 7 plus 2: count up 2: 8, 9!"
       }
     ],
     "quiz": [
@@ -3537,7 +3537,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Hakan, look! Today we add 3. Add 3 to a number means COUNT UP by 3.",
-        "caption": "+3 = count up 3"
+        "caption": "+3 = count up 3 🎯"
       },
       {
         "title": "Count On",
@@ -3548,7 +3548,7 @@ const MODULES = [
           "mark": 6
         },
         "text": "Start at 3. Count up 3. Where do you land? Hakan, you can do this too!",
-        "caption": "3 + 3 = 6"
+        "caption": "3 + 3 = 6 ⭐"
       },
       {
         "title": "Try a Bigger Number",
@@ -3558,7 +3558,7 @@ const MODULES = [
           "b": 3
         },
         "text": "5 plus 3? Count up: 6, 7… Total: 8.",
-        "caption": "5 + 3 = 8"
+        "caption": "5 + 3 = 8 🌟"
       },
       {
         "title": "Doubles Hint",
@@ -3568,7 +3568,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Watch with Hakan: bonus: 3 + 3 is a double. 3+3=6.",
-        "caption": "3 + 3 = 6"
+        "caption": "3 + 3 = 6 💯"
       },
       {
         "title": "You Are Adding!",
@@ -3578,8 +3578,8 @@ const MODULES = [
           "a": 3,
           "b": 3
         },
-        "text": "Adding 3 to anything: just count up 3 times. Practice makes perfect!",
-        "caption": "+3 = up 3"
+        "text": "Adding 3 to anything: just count up 3 times. Practice makes perfect! You are amazing, Hakan — keep shining!",
+        "caption": "+3 = up 3 ✨"
       }
     ],
     "practice": [
@@ -3592,7 +3592,7 @@ const MODULES = [
         },
         "prompt": "Hakan has zero apples and gets three more. How many in all?",
         "answer": 3,
-        "hint": "0 plus 3: count up 3: 1, 2, 3!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 0 plus 3: count up 3: 1, 2, 3!"
       },
       {
         "type": "numeric",
@@ -3603,7 +3603,7 @@ const MODULES = [
         },
         "prompt": "Hakan has one cookie and gets three more. How many in all?",
         "answer": 4,
-        "hint": "1 plus 3: count up 3: 2, 3, 4!"
+        "hint": "You got this, Hakan! 1 plus 3: count up 3: 2, 3, 4!"
       },
       {
         "type": "numeric",
@@ -3614,7 +3614,7 @@ const MODULES = [
         },
         "prompt": "Two plus three?",
         "answer": 5,
-        "hint": "2 plus 3: count up 3: 3, 4, 5!"
+        "hint": "Hakan, you're so smart — think it through. 2 plus 3: count up 3: 3, 4, 5!"
       },
       {
         "type": "numeric",
@@ -3625,7 +3625,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three stars and gets three more. How many in all?",
         "answer": 6,
-        "hint": "3 plus 3: count up 3: 4, 5, 6!"
+        "hint": "Easy for a smart kid like you, Hakan. 3 plus 3: count up 3: 4, 5, 6!"
       },
       {
         "type": "numeric",
@@ -3636,7 +3636,7 @@ const MODULES = [
         },
         "prompt": "Four plus three?",
         "answer": 7,
-        "hint": "4 plus 3: count up 3: 5, 6, 7!"
+        "hint": "Hakan, take a breath and look again. 4 plus 3: count up 3: 5, 6, 7!"
       },
       {
         "type": "numeric",
@@ -3647,7 +3647,7 @@ const MODULES = [
         },
         "prompt": "Five plus three?",
         "answer": 8,
-        "hint": "5 plus 3: count up 3: 6, 7, 8!"
+        "hint": "You can do this, Hakan! 5 plus 3: count up 3: 6, 7, 8!"
       },
       {
         "type": "numeric",
@@ -3658,7 +3658,7 @@ const MODULES = [
         },
         "prompt": "Six plus three?",
         "answer": 9,
-        "hint": "6 plus 3: count up 3: 7, 8, 9!"
+        "hint": "Hakan, slow down and count carefully. 6 plus 3: count up 3: 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -3669,7 +3669,7 @@ const MODULES = [
         },
         "prompt": "Hakan has seven puppies and gets three more. How many in all?",
         "answer": 10,
-        "hint": "7 plus 3: count up 3: 8, 9, 10!"
+        "hint": "Stay focused, Hakan — you're amazing. 7 plus 3: count up 3: 8, 9, 10!"
       }
     ],
     "quiz": [
@@ -3792,7 +3792,7 @@ const MODULES = [
           "b": 4
         },
         "text": "Hakan, look! Today we add 4. Add 4 to a number means COUNT UP by 4.",
-        "caption": "+4 = count up 4"
+        "caption": "+4 = count up 4 🏆"
       },
       {
         "title": "Count On",
@@ -3803,7 +3803,7 @@ const MODULES = [
           "mark": 7
         },
         "text": "Start at 3. Count up 4. Where do you land?",
-        "caption": "3 + 4 = 7"
+        "caption": "3 + 4 = 7 🎯"
       },
       {
         "title": "Try a Bigger Number",
@@ -3813,7 +3813,7 @@ const MODULES = [
           "b": 4
         },
         "text": "5 plus 4? Count up: 6, 7… Total: 9.",
-        "caption": "5 + 4 = 9"
+        "caption": "5 + 4 = 9 ⭐"
       },
       {
         "title": "Doubles Hint",
@@ -3823,7 +3823,7 @@ const MODULES = [
           "b": 4
         },
         "text": "Bonus: 4 + 4 is a double. 4+4=8. Hakan, you can do this too!",
-        "caption": "4 + 4 = 8"
+        "caption": "4 + 4 = 8 🌟"
       },
       {
         "title": "You Are Adding!",
@@ -3833,8 +3833,8 @@ const MODULES = [
           "a": 4,
           "b": 4
         },
-        "text": "Watch with Hakan: adding 4 to anything: just count up 4 times. Practice makes perfect!",
-        "caption": "+4 = up 4"
+        "text": "Watch with Hakan: adding 4 to anything: just count up 4 times. Practice makes perfect! Hakan, you're a champion!",
+        "caption": "+4 = up 4 💯"
       }
     ],
     "practice": [
@@ -3847,7 +3847,7 @@ const MODULES = [
         },
         "prompt": "Zero plus four?",
         "answer": 4,
-        "hint": "0 plus 4: count up 4: 1, 2, 3, 4!"
+        "hint": "Try this, Hakan — you're on it! 0 plus 4: count up 4: 1, 2, 3, 4!"
       },
       {
         "type": "numeric",
@@ -3858,7 +3858,7 @@ const MODULES = [
         },
         "prompt": "One plus four?",
         "answer": 5,
-        "hint": "1 plus 4: count up 4: 2, 3, 4, 5!"
+        "hint": "Hakan, use your strategy! 1 plus 4: count up 4: 2, 3, 4, 5!"
       },
       {
         "type": "numeric",
@@ -3869,7 +3869,7 @@ const MODULES = [
         },
         "prompt": "Hakan has two apples and gets four more. How many in all?",
         "answer": 6,
-        "hint": "2 plus 4: count up 4: 3, 4, 5, 6!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 2 plus 4: count up 4: 3, 4, 5, 6!"
       },
       {
         "type": "numeric",
@@ -3880,7 +3880,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three cookies and gets four more. How many in all?",
         "answer": 7,
-        "hint": "3 plus 4: count up 4: 4, 5, 6, 7!"
+        "hint": "You got this, Hakan! 3 plus 4: count up 4: 4, 5, 6, 7!"
       },
       {
         "type": "numeric",
@@ -3891,7 +3891,7 @@ const MODULES = [
         },
         "prompt": "Hakan has four stars and gets four more. How many in all?",
         "answer": 8,
-        "hint": "4 plus 4: count up 4: 5, 6, 7, 8!"
+        "hint": "Hakan, you're so smart — think it through. 4 plus 4: count up 4: 5, 6, 7, 8!"
       },
       {
         "type": "numeric",
@@ -3902,7 +3902,7 @@ const MODULES = [
         },
         "prompt": "Five plus four?",
         "answer": 9,
-        "hint": "5 plus 4: count up 4: 6, 7, 8, 9!"
+        "hint": "Easy for a smart kid like you, Hakan. 5 plus 4: count up 4: 6, 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -3913,7 +3913,7 @@ const MODULES = [
         },
         "prompt": "Six plus four?",
         "answer": 10,
-        "hint": "6 plus 4: count up 4: 7, 8, 9, 10!"
+        "hint": "Hakan, take a breath and look again. 6 plus 4: count up 4: 7, 8, 9, 10!"
       },
       {
         "type": "numeric",
@@ -3924,7 +3924,7 @@ const MODULES = [
         },
         "prompt": "Hakan has seven puppies and gets four more. How many in all?",
         "answer": 11,
-        "hint": "7 plus 4: count up 4: 8, 9, 10, 11!"
+        "hint": "You can do this, Hakan! 7 plus 4: count up 4: 8, 9, 10, 11!"
       }
     ],
     "quiz": [
@@ -4047,7 +4047,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Hakan, look! Today we add 5. Add 5 to a number means COUNT UP by 5.",
-        "caption": "+5 = count up 5"
+        "caption": "+5 = count up 5 ✨"
       },
       {
         "title": "Count On",
@@ -4058,7 +4058,7 @@ const MODULES = [
           "mark": 8
         },
         "text": "Start at 3. Count up 5. Where do you land?",
-        "caption": "3 + 5 = 8"
+        "caption": "3 + 5 = 8 🏆"
       },
       {
         "title": "Try a Bigger Number",
@@ -4068,7 +4068,7 @@ const MODULES = [
           "b": 5
         },
         "text": "5 plus 5? Count up: 6, 7… Total: 10.",
-        "caption": "5 + 5 = 10"
+        "caption": "5 + 5 = 10 🎯"
       },
       {
         "title": "Doubles Hint",
@@ -4078,7 +4078,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Bonus: 5 + 5 is a double. 5+5=10. Hakan, you can do this too!",
-        "caption": "5 + 5 = 10"
+        "caption": "5 + 5 = 10 ⭐"
       },
       {
         "title": "You Are Adding!",
@@ -4088,8 +4088,8 @@ const MODULES = [
           "a": 5,
           "b": 5
         },
-        "text": "Watch with Hakan: adding 5 to anything: just count up 5 times. Practice makes perfect!",
-        "caption": "+5 = up 5"
+        "text": "Watch with Hakan: adding 5 to anything: just count up 5 times. Practice makes perfect! Hakan, you are SO smart!",
+        "caption": "+5 = up 5 🌟"
       }
     ],
     "practice": [
@@ -4102,7 +4102,7 @@ const MODULES = [
         },
         "prompt": "Hakan has zero apples and gets five more. How many in all?",
         "answer": 5,
-        "hint": "0 plus 5: count up 5: 1, 2, 3, 4, 5!"
+        "hint": "Hakan, slow down and count carefully. 0 plus 5: count up 5: 1, 2, 3, 4, 5!"
       },
       {
         "type": "numeric",
@@ -4113,7 +4113,7 @@ const MODULES = [
         },
         "prompt": "One plus five?",
         "answer": 6,
-        "hint": "1 plus 5: count up 5: 2, 3, 4, 5, 6!"
+        "hint": "Stay focused, Hakan — you're amazing. 1 plus 5: count up 5: 2, 3, 4, 5, 6!"
       },
       {
         "type": "numeric",
@@ -4124,7 +4124,7 @@ const MODULES = [
         },
         "prompt": "Hakan has two cookies and gets five more. How many in all?",
         "answer": 7,
-        "hint": "2 plus 5: count up 5: 3, 4, 5, 6, 7!"
+        "hint": "Try this, Hakan — you're on it! 2 plus 5: count up 5: 3, 4, 5, 6, 7!"
       },
       {
         "type": "numeric",
@@ -4135,7 +4135,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three stars and gets five more. How many in all?",
         "answer": 8,
-        "hint": "3 plus 5: count up 5: 4, 5, 6, 7, 8!"
+        "hint": "Hakan, use your strategy! 3 plus 5: count up 5: 4, 5, 6, 7, 8!"
       },
       {
         "type": "numeric",
@@ -4146,7 +4146,7 @@ const MODULES = [
         },
         "prompt": "Hakan has four puppies and gets five more. How many in all?",
         "answer": 9,
-        "hint": "4 plus 5: count up 5: 5, 6, 7, 8, 9!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 4 plus 5: count up 5: 5, 6, 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -4157,7 +4157,7 @@ const MODULES = [
         },
         "prompt": "Five plus five?",
         "answer": 10,
-        "hint": "5 plus 5: count up 5: 6, 7, 8, 9, 10!"
+        "hint": "You got this, Hakan! 5 plus 5: count up 5: 6, 7, 8, 9, 10!"
       },
       {
         "type": "numeric",
@@ -4168,7 +4168,7 @@ const MODULES = [
         },
         "prompt": "Six plus five?",
         "answer": 11,
-        "hint": "6 plus 5: count up 5: 7, 8, 9, 10, 11!"
+        "hint": "Hakan, you're so smart — think it through. 6 plus 5: count up 5: 7, 8, 9, 10, 11!"
       },
       {
         "type": "numeric",
@@ -4179,7 +4179,7 @@ const MODULES = [
         },
         "prompt": "Seven plus five?",
         "answer": 12,
-        "hint": "7 plus 5: count up 5: 8, 9, 10, 11, 12!"
+        "hint": "Easy for a smart kid like you, Hakan. 7 plus 5: count up 5: 8, 9, 10, 11, 12!"
       }
     ],
     "quiz": [
@@ -4301,8 +4301,8 @@ const MODULES = [
           "a": 3,
           "b": 6
         },
-        "text": "Today we add 6. Add 6 to a number means COUNT UP by 6.",
-        "caption": "+6 = count up 6"
+        "text": "Hakan, this is fun! Today we add 6. Add 6 to a number means COUNT UP by 6.",
+        "caption": "+6 = count up 6 💯"
       },
       {
         "title": "Count On",
@@ -4313,7 +4313,7 @@ const MODULES = [
           "mark": 9
         },
         "text": "Start at 3. Count up 6. Where do you land?",
-        "caption": "3 + 6 = 9"
+        "caption": "3 + 6 = 9 ✨"
       },
       {
         "title": "Try a Bigger Number",
@@ -4323,7 +4323,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Hakan, look! 5 plus 6? Count up: 6, 7… Total: 11.",
-        "caption": "5 + 6 = 11"
+        "caption": "5 + 6 = 11 🏆"
       },
       {
         "title": "Doubles Hint",
@@ -4333,7 +4333,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Bonus: 6 + 6 is a double. 6+6=12. Hakan, you can do this too!",
-        "caption": "6 + 6 = 12"
+        "caption": "6 + 6 = 12 🎯"
       },
       {
         "title": "You Are Adding!",
@@ -4343,8 +4343,8 @@ const MODULES = [
           "a": 6,
           "b": 6
         },
-        "text": "Watch with Hakan: adding 6 to anything: just count up 6 times. Practice makes perfect!",
-        "caption": "+6 = up 6"
+        "text": "Watch with Hakan: adding 6 to anything: just count up 6 times. Practice makes perfect! Amazing job, Hakan! Keep going!",
+        "caption": "+6 = up 6 ⭐"
       }
     ],
     "practice": [
@@ -4357,7 +4357,7 @@ const MODULES = [
         },
         "prompt": "Zero plus six?",
         "answer": 6,
-        "hint": "0 plus 6: count up 6: 1, 2, 3, 4, 5, 6!"
+        "hint": "Hakan, take a breath and look again. 0 plus 6: count up 6: 1, 2, 3, 4, 5, 6!"
       },
       {
         "type": "numeric",
@@ -4368,7 +4368,7 @@ const MODULES = [
         },
         "prompt": "One plus six?",
         "answer": 7,
-        "hint": "1 plus 6: count up 6: 2, 3, 4, 5, 6, 7!"
+        "hint": "You can do this, Hakan! 1 plus 6: count up 6: 2, 3, 4, 5, 6, 7!"
       },
       {
         "type": "numeric",
@@ -4379,7 +4379,7 @@ const MODULES = [
         },
         "prompt": "Two plus six?",
         "answer": 8,
-        "hint": "2 plus 6: count up 6: 3, 4, 5, 6, 7, 8!"
+        "hint": "Hakan, slow down and count carefully. 2 plus 6: count up 6: 3, 4, 5, 6, 7, 8!"
       },
       {
         "type": "numeric",
@@ -4390,7 +4390,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three apples and gets six more. How many in all?",
         "answer": 9,
-        "hint": "3 plus 6: count up 6: 4, 5, 6, 7, 8, 9!"
+        "hint": "Stay focused, Hakan — you're amazing. 3 plus 6: count up 6: 4, 5, 6, 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -4401,7 +4401,7 @@ const MODULES = [
         },
         "prompt": "Hakan has four cookies and gets six more. How many in all?",
         "answer": 10,
-        "hint": "4 plus 6: count up 6: 5, 6, 7, 8, 9, 10!"
+        "hint": "Try this, Hakan — you're on it! 4 plus 6: count up 6: 5, 6, 7, 8, 9, 10!"
       },
       {
         "type": "numeric",
@@ -4412,7 +4412,7 @@ const MODULES = [
         },
         "prompt": "Hakan has five stars and gets six more. How many in all?",
         "answer": 11,
-        "hint": "5 plus 6: count up 6: 6, 7, 8, 9, 10, 11!"
+        "hint": "Hakan, use your strategy! 5 plus 6: count up 6: 6, 7, 8, 9, 10, 11!"
       },
       {
         "type": "numeric",
@@ -4423,7 +4423,7 @@ const MODULES = [
         },
         "prompt": "Six plus six?",
         "answer": 12,
-        "hint": "6 plus 6: count up 6: 7, 8, 9, 10, 11, 12!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 6 plus 6: count up 6: 7, 8, 9, 10, 11, 12!"
       },
       {
         "type": "numeric",
@@ -4434,7 +4434,7 @@ const MODULES = [
         },
         "prompt": "Hakan has seven puppies and gets six more. How many in all?",
         "answer": 13,
-        "hint": "7 plus 6: count up 6: 8, 9, 10, 11, 12, 13!"
+        "hint": "You got this, Hakan! 7 plus 6: count up 6: 8, 9, 10, 11, 12, 13!"
       }
     ],
     "quiz": [
@@ -4556,8 +4556,8 @@ const MODULES = [
           "a": 3,
           "b": 7
         },
-        "text": "Today we add 7. Add 7 to a number means COUNT UP by 7.",
-        "caption": "+7 = count up 7"
+        "text": "Pay attention, Hakan! Today we add 7. Add 7 to a number means COUNT UP by 7.",
+        "caption": "+7 = count up 7 🌟"
       },
       {
         "title": "Count On",
@@ -4568,7 +4568,7 @@ const MODULES = [
           "mark": 10
         },
         "text": "Hakan, look! Start at 3. Count up 7. Where do you land?",
-        "caption": "3 + 7 = 10"
+        "caption": "3 + 7 = 10 💯"
       },
       {
         "title": "Try a Bigger Number",
@@ -4578,7 +4578,7 @@ const MODULES = [
           "b": 7
         },
         "text": "5 plus 7? Count up: 6, 7… Total: 12.",
-        "caption": "5 + 7 = 12"
+        "caption": "5 + 7 = 12 ✨"
       },
       {
         "title": "Doubles Hint",
@@ -4588,7 +4588,7 @@ const MODULES = [
           "b": 7
         },
         "text": "Bonus: 7 + 7 is a double. 7+7=14. Hakan, you can do this too!",
-        "caption": "7 + 7 = 14"
+        "caption": "7 + 7 = 14 🏆"
       },
       {
         "title": "You Are Adding!",
@@ -4598,8 +4598,8 @@ const MODULES = [
           "a": 7,
           "b": 7
         },
-        "text": "Watch with Hakan: adding 7 to anything: just count up 7 times. Practice makes perfect!",
-        "caption": "+7 = up 7"
+        "text": "Watch with Hakan: adding 7 to anything: just count up 7 times. Practice makes perfect! Hakan, you are number 1!",
+        "caption": "+7 = up 7 🎯"
       }
     ],
     "practice": [
@@ -4612,7 +4612,7 @@ const MODULES = [
         },
         "prompt": "Zero plus seven?",
         "answer": 7,
-        "hint": "0 plus 7: count up 7: 1, 2, 3, 4, 5, 6, 7!"
+        "hint": "Hakan, you're so smart — think it through. 0 plus 7: count up 7: 1, 2, 3, 4, 5, 6, 7!"
       },
       {
         "type": "numeric",
@@ -4623,7 +4623,7 @@ const MODULES = [
         },
         "prompt": "Hakan has one apple and gets seven more. How many in all?",
         "answer": 8,
-        "hint": "1 plus 7: count up 7: 2, 3, 4, 5, 6, 7, 8!"
+        "hint": "Easy for a smart kid like you, Hakan. 1 plus 7: count up 7: 2, 3, 4, 5, 6, 7, 8!"
       },
       {
         "type": "numeric",
@@ -4634,7 +4634,7 @@ const MODULES = [
         },
         "prompt": "Two plus seven?",
         "answer": 9,
-        "hint": "2 plus 7: count up 7: 3, 4, 5, 6, 7, 8, 9!"
+        "hint": "Hakan, take a breath and look again. 2 plus 7: count up 7: 3, 4, 5, 6, 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -4645,7 +4645,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three cookies and gets seven more. How many in all?",
         "answer": 10,
-        "hint": "3 plus 7: count up 7: 4, 5, 6, 7, 8, 9, 10!"
+        "hint": "You can do this, Hakan! 3 plus 7: count up 7: 4, 5, 6, 7, 8, 9, 10!"
       },
       {
         "type": "numeric",
@@ -4656,7 +4656,7 @@ const MODULES = [
         },
         "prompt": "Four plus seven?",
         "answer": 11,
-        "hint": "4 plus 7: count up 7: 5, 6, 7, 8, 9, 10, 11!"
+        "hint": "Hakan, slow down and count carefully. 4 plus 7: count up 7: 5, 6, 7, 8, 9, 10, 11!"
       },
       {
         "type": "numeric",
@@ -4667,7 +4667,7 @@ const MODULES = [
         },
         "prompt": "Hakan has five stars and gets seven more. How many in all?",
         "answer": 12,
-        "hint": "5 plus 7: count up 7: 6, 7, 8, 9, 10, 11, 12!"
+        "hint": "Stay focused, Hakan — you're amazing. 5 plus 7: count up 7: 6, 7, 8, 9, 10, 11, 12!"
       },
       {
         "type": "numeric",
@@ -4678,7 +4678,7 @@ const MODULES = [
         },
         "prompt": "Six plus seven?",
         "answer": 13,
-        "hint": "6 plus 7: count up 7: 7, 8, 9, 10, 11, 12, 13!"
+        "hint": "Try this, Hakan — you're on it! 6 plus 7: count up 7: 7, 8, 9, 10, 11, 12, 13!"
       },
       {
         "type": "numeric",
@@ -4689,7 +4689,7 @@ const MODULES = [
         },
         "prompt": "Hakan has seven puppies and gets seven more. How many in all?",
         "answer": 14,
-        "hint": "7 plus 7: count up 7: 8, 9, 10, 11, 12, 13, 14!"
+        "hint": "Hakan, use your strategy! 7 plus 7: count up 7: 8, 9, 10, 11, 12, 13, 14!"
       }
     ],
     "quiz": [
@@ -4812,7 +4812,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Hakan, look! Today we add 8. Add 8 to a number means COUNT UP by 8.",
-        "caption": "+8 = count up 8"
+        "caption": "+8 = count up 8 ⭐"
       },
       {
         "title": "Count On",
@@ -4823,7 +4823,7 @@ const MODULES = [
           "mark": 10
         },
         "text": "Start at 3. Count up 8. Where do you land?",
-        "caption": "3 + 8 = 11"
+        "caption": "3 + 8 = 11 🌟"
       },
       {
         "title": "Try a Bigger Number",
@@ -4833,7 +4833,7 @@ const MODULES = [
           "b": 8
         },
         "text": "5 plus 8? Count up: 6, 7… Total: 13.",
-        "caption": "5 + 8 = 13"
+        "caption": "5 + 8 = 13 💯"
       },
       {
         "title": "Doubles Hint",
@@ -4843,7 +4843,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Bonus: 8 + 8 is a double. 8+8=16. Hakan, you can do this too!",
-        "caption": "8 + 8 = 16"
+        "caption": "8 + 8 = 16 ✨"
       },
       {
         "title": "You Are Adding!",
@@ -4853,8 +4853,8 @@ const MODULES = [
           "a": 8,
           "b": 8
         },
-        "text": "Watch with Hakan: adding 8 to anything: just count up 8 times. Practice makes perfect!",
-        "caption": "+8 = up 8"
+        "text": "Watch with Hakan: adding 8 to anything: just count up 8 times. Practice makes perfect! You are doing great, Hakan!",
+        "caption": "+8 = up 8 🏆"
       }
     ],
     "practice": [
@@ -4867,7 +4867,7 @@ const MODULES = [
         },
         "prompt": "Hakan has zero apples and gets eight more. How many in all?",
         "answer": 8,
-        "hint": "0 plus 8: count up 8: 1, 2, 3, 4, 5, 6, 7, 8!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 0 plus 8: count up 8: 1, 2, 3, 4, 5, 6, 7, 8!"
       },
       {
         "type": "numeric",
@@ -4878,7 +4878,7 @@ const MODULES = [
         },
         "prompt": "Hakan has one cookie and gets eight more. How many in all?",
         "answer": 9,
-        "hint": "1 plus 8: count up 8: 2, 3, 4, 5, 6, 7, 8, 9!"
+        "hint": "You got this, Hakan! 1 plus 8: count up 8: 2, 3, 4, 5, 6, 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -4889,7 +4889,7 @@ const MODULES = [
         },
         "prompt": "Two plus eight?",
         "answer": 10,
-        "hint": "2 plus 8: count up 8: 3, 4, 5, 6, 7, 8, 9, 10!"
+        "hint": "Hakan, you're so smart — think it through. 2 plus 8: count up 8: 3, 4, 5, 6, 7, 8, 9, 10!"
       },
       {
         "type": "numeric",
@@ -4900,7 +4900,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three stars and gets eight more. How many in all?",
         "answer": 11,
-        "hint": "3 plus 8: count up 8: 4, 5, 6, 7, 8, 9, 10, 11!"
+        "hint": "Easy for a smart kid like you, Hakan. 3 plus 8: count up 8: 4, 5, 6, 7, 8, 9, 10, 11!"
       },
       {
         "type": "numeric",
@@ -4911,7 +4911,7 @@ const MODULES = [
         },
         "prompt": "Four plus eight?",
         "answer": 12,
-        "hint": "4 plus 8: count up 8: 5, 6, 7, 8, 9, 10, 11, 12!"
+        "hint": "Hakan, take a breath and look again. 4 plus 8: count up 8: 5, 6, 7, 8, 9, 10, 11, 12!"
       },
       {
         "type": "numeric",
@@ -4922,7 +4922,7 @@ const MODULES = [
         },
         "prompt": "Hakan has five puppies and gets eight more. How many in all?",
         "answer": 13,
-        "hint": "5 plus 8: count up 8: 6, 7, 8, 9, 10, 11, 12, 13!"
+        "hint": "You can do this, Hakan! 5 plus 8: count up 8: 6, 7, 8, 9, 10, 11, 12, 13!"
       },
       {
         "type": "numeric",
@@ -4933,7 +4933,7 @@ const MODULES = [
         },
         "prompt": "Six plus eight?",
         "answer": 14,
-        "hint": "6 plus 8: count up 8: 7, 8, 9, 10, 11, 12, 13, 14!"
+        "hint": "Hakan, slow down and count carefully. 6 plus 8: count up 8: 7, 8, 9, 10, 11, 12, 13, 14!"
       },
       {
         "type": "numeric",
@@ -4944,7 +4944,7 @@ const MODULES = [
         },
         "prompt": "Seven plus eight?",
         "answer": 15,
-        "hint": "7 plus 8: count up 8: 8, 9, 10, 11, 12, 13, 14, 15!"
+        "hint": "Stay focused, Hakan — you're amazing. 7 plus 8: count up 8: 8, 9, 10, 11, 12, 13, 14, 15!"
       }
     ],
     "quiz": [
@@ -5067,7 +5067,7 @@ const MODULES = [
           "b": 9
         },
         "text": "Hakan, look! Today we add 9. Add 9 to a number means COUNT UP by 9.",
-        "caption": "+9 = count up 9"
+        "caption": "+9 = count up 9 🎯"
       },
       {
         "title": "Count On",
@@ -5078,7 +5078,7 @@ const MODULES = [
           "mark": 10
         },
         "text": "Start at 3. Count up 9. Where do you land?",
-        "caption": "3 + 9 = 12"
+        "caption": "3 + 9 = 12 ⭐"
       },
       {
         "title": "Try a Bigger Number",
@@ -5088,7 +5088,7 @@ const MODULES = [
           "b": 9
         },
         "text": "5 plus 9? Count up: 6, 7… Total: 14.",
-        "caption": "5 + 9 = 14"
+        "caption": "5 + 9 = 14 🌟"
       },
       {
         "title": "Doubles Hint",
@@ -5098,7 +5098,7 @@ const MODULES = [
           "b": 9
         },
         "text": "Bonus: 9 + 9 is a double. 9+9=18. Hakan, you can do this too!",
-        "caption": "9 + 9 = 18"
+        "caption": "9 + 9 = 18 💯"
       },
       {
         "title": "You Are Adding!",
@@ -5108,8 +5108,8 @@ const MODULES = [
           "a": 9,
           "b": 9
         },
-        "text": "Watch with Hakan: adding 9 to anything: just count up 9 times. Practice makes perfect!",
-        "caption": "+9 = up 9"
+        "text": "Watch with Hakan: adding 9 to anything: just count up 9 times. Practice makes perfect! Look at you, Hakan — a math hero!",
+        "caption": "+9 = up 9 ✨"
       }
     ],
     "practice": [
@@ -5122,7 +5122,7 @@ const MODULES = [
         },
         "prompt": "Hakan has zero apples and gets nine more. How many in all?",
         "answer": 9,
-        "hint": "0 plus 9: count up 9: 1, 2, 3, 4, 5, 6, 7, 8, 9!"
+        "hint": "Try this, Hakan — you're on it! 0 plus 9: count up 9: 1, 2, 3, 4, 5, 6, 7, 8, 9!"
       },
       {
         "type": "numeric",
@@ -5133,7 +5133,7 @@ const MODULES = [
         },
         "prompt": "Hakan has one cookie and gets nine more. How many in all?",
         "answer": 10,
-        "hint": "1 plus 9: count up 9: 2, 3, 4, 5, 6, 7, 8, 9, 10!"
+        "hint": "Hakan, use your strategy! 1 plus 9: count up 9: 2, 3, 4, 5, 6, 7, 8, 9, 10!"
       },
       {
         "type": "numeric",
@@ -5144,7 +5144,7 @@ const MODULES = [
         },
         "prompt": "Two plus nine?",
         "answer": 11,
-        "hint": "2 plus 9: count up 9: 3, 4, 5, 6, 7, 8, 9, 10, 11!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 2 plus 9: count up 9: 3, 4, 5, 6, 7, 8, 9, 10, 11!"
       },
       {
         "type": "numeric",
@@ -5155,7 +5155,7 @@ const MODULES = [
         },
         "prompt": "Hakan has three stars and gets nine more. How many in all?",
         "answer": 12,
-        "hint": "3 plus 9: count up 9: 4, 5, 6, 7, 8, 9, 10, 11, 12!"
+        "hint": "You got this, Hakan! 3 plus 9: count up 9: 4, 5, 6, 7, 8, 9, 10, 11, 12!"
       },
       {
         "type": "numeric",
@@ -5166,7 +5166,7 @@ const MODULES = [
         },
         "prompt": "Four plus nine?",
         "answer": 13,
-        "hint": "4 plus 9: count up 9: 5, 6, 7, 8, 9, 10, 11, 12, 13!"
+        "hint": "Hakan, you're so smart — think it through. 4 plus 9: count up 9: 5, 6, 7, 8, 9, 10, 11, 12, 13!"
       },
       {
         "type": "numeric",
@@ -5177,7 +5177,7 @@ const MODULES = [
         },
         "prompt": "Hakan has five puppies and gets nine more. How many in all?",
         "answer": 14,
-        "hint": "5 plus 9: count up 9: 6, 7, 8, 9, 10, 11, 12, 13, 14!"
+        "hint": "Easy for a smart kid like you, Hakan. 5 plus 9: count up 9: 6, 7, 8, 9, 10, 11, 12, 13, 14!"
       },
       {
         "type": "numeric",
@@ -5188,7 +5188,7 @@ const MODULES = [
         },
         "prompt": "Six plus nine?",
         "answer": 15,
-        "hint": "6 plus 9: count up 9: 7, 8, 9, 10, 11, 12, 13, 14, 15!"
+        "hint": "Hakan, take a breath and look again. 6 plus 9: count up 9: 7, 8, 9, 10, 11, 12, 13, 14, 15!"
       },
       {
         "type": "numeric",
@@ -5199,7 +5199,7 @@ const MODULES = [
         },
         "prompt": "Seven plus nine?",
         "answer": 16,
-        "hint": "7 plus 9: count up 9: 8, 9, 10, 11, 12, 13, 14, 15, 16!"
+        "hint": "You can do this, Hakan! 7 plus 9: count up 9: 8, 9, 10, 11, 12, 13, 14, 15, 16!"
       }
     ],
     "quiz": [
@@ -5321,7 +5321,7 @@ const MODULES = [
           "filledB": 3
         },
         "text": "Hakan, look! Adding 10 to a small number makes a TEEN. 10 + 3 = 13!",
-        "caption": "10 + small = teen"
+        "caption": "10 + small = teen 🏆"
       },
       {
         "title": "10 + 5 = 15",
@@ -5331,7 +5331,7 @@ const MODULES = [
           "filledB": 5
         },
         "text": "Add 10 to 5: a full ten-frame plus 5 more in the next frame. Fifteen! Hakan, you can do this too!",
-        "caption": "10 + 5 = 15"
+        "caption": "10 + 5 = 15 🎯"
       },
       {
         "title": "Plus 10 to 2-Digit",
@@ -5341,7 +5341,7 @@ const MODULES = [
           "ones": 4
         },
         "text": "For 24 + 10: just add ONE TEN-BAR. 2 tens become 3 tens. Answer: 34.",
-        "caption": "24 + 10 = 34"
+        "caption": "24 + 10 = 34 ⭐"
       },
       {
         "title": "Tens Digit Goes Up",
@@ -5351,7 +5351,7 @@ const MODULES = [
           "highlight": "tens"
         },
         "text": "When you +10, only the TENS digit changes. Ones stay the same!",
-        "caption": "Tens +1, ones same"
+        "caption": "Tens +1, ones same 🌟"
       },
       {
         "title": "Try 50 + 10",
@@ -5360,8 +5360,8 @@ const MODULES = [
           "a": 50,
           "b": 10
         },
-        "text": "Watch with Hakan: 50 + 10 = 60. Five tens become six tens.",
-        "caption": "50 + 10 = 60"
+        "text": "Watch with Hakan: 50 + 10 = 60. Five tens become six tens. Hakan, you are a star!",
+        "caption": "50 + 10 = 60 💯"
       }
     ],
     "practice": [
@@ -5374,7 +5374,7 @@ const MODULES = [
         },
         "prompt": "Hakan has zero apples and gets ten more. How many in all?",
         "answer": 10,
-        "hint": "0 plus 10: count up 10: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10!"
+        "hint": "Hakan, slow down and count carefully. 0 plus 10: count up 10: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10!"
       },
       {
         "type": "numeric",
@@ -5385,7 +5385,7 @@ const MODULES = [
         },
         "prompt": "Hakan has one cookie and gets ten more. How many in all?",
         "answer": 11,
-        "hint": "1 plus 10: count up 10: 2, 3, 4, 5, 6, 7, 8, 9, 10, 11!"
+        "hint": "Stay focused, Hakan — you're amazing. 1 plus 10: count up 10: 2, 3, 4, 5, 6, 7, 8, 9, 10, 11!"
       },
       {
         "type": "numeric",
@@ -5396,7 +5396,7 @@ const MODULES = [
         },
         "prompt": "Hakan has two stars and gets ten more. How many in all?",
         "answer": 12,
-        "hint": "2 plus 10: count up 10: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12!"
+        "hint": "Try this, Hakan — you're on it! 2 plus 10: count up 10: 3, 4, 5, 6, 7, 8, 9, 10, 11, 12!"
       },
       {
         "type": "numeric",
@@ -5407,7 +5407,7 @@ const MODULES = [
         },
         "prompt": "Three plus ten?",
         "answer": 13,
-        "hint": "3 plus 10: count up 10: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13!"
+        "hint": "Hakan, use your strategy! 3 plus 10: count up 10: 4, 5, 6, 7, 8, 9, 10, 11, 12, 13!"
       },
       {
         "type": "numeric",
@@ -5418,7 +5418,7 @@ const MODULES = [
         },
         "prompt": "Four plus ten?",
         "answer": 14,
-        "hint": "4 plus 10: count up 10: 5, 6, 7, 8, 9, 10, 11, 12, 13, 14!"
+        "hint": "Almost, Hakan — keep your eyes sharp! 4 plus 10: count up 10: 5, 6, 7, 8, 9, 10, 11, 12, 13, 14!"
       },
       {
         "type": "numeric",
@@ -5429,7 +5429,7 @@ const MODULES = [
         },
         "prompt": "Five plus ten?",
         "answer": 15,
-        "hint": "5 plus 10: count up 10: 6, 7, 8, 9, 10, 11, 12, 13, 14, 15!"
+        "hint": "You got this, Hakan! 5 plus 10: count up 10: 6, 7, 8, 9, 10, 11, 12, 13, 14, 15!"
       },
       {
         "type": "numeric",
@@ -5573,8 +5573,8 @@ const MODULES = [
           "total": 5,
           "taken": 0
         },
-        "text": "Take away 0 means NOTHING is taken. The number stays!",
-        "caption": "5 − 0 = 5"
+        "text": "Watch this, Hakan! Take away 0 means NOTHING is taken. The number stays!",
+        "caption": "5 − 0 = 5 ✨"
       },
       {
         "title": "Try 8 − 0",
@@ -5585,7 +5585,7 @@ const MODULES = [
           "taken": 0
         },
         "text": "Hakan, look! 8 minus 0 is still 8. Nothing left.",
-        "caption": "8 − 0 = 8"
+        "caption": "8 − 0 = 8 🏆"
       },
       {
         "title": "Bigger Numbers",
@@ -5595,7 +5595,7 @@ const MODULES = [
           "b": 0
         },
         "text": "17 − 0 = 17.",
-        "caption": "17 − 0 = 17"
+        "caption": "17 − 0 = 17 🎯"
       },
       {
         "title": "Easy!",
@@ -5605,7 +5605,7 @@ const MODULES = [
           "b": 0
         },
         "text": "Minus zero leaves the number alone. The easiest math! Hakan, you can do this too!",
-        "caption": "Minus 0 = same"
+        "caption": "Minus 0 = same ⭐"
       },
       {
         "title": "You Got It",
@@ -5615,8 +5615,8 @@ const MODULES = [
           "total": 9,
           "taken": 0
         },
-        "text": "Watch with Hakan: when you subtract zero, the answer is just the first number. Done!",
-        "caption": "−0 means no change"
+        "text": "Watch with Hakan: when you subtract zero, the answer is just the first number. Done! You got this, Hakan! Time to practice!",
+        "caption": "−0 means no change 🌟"
       }
     ],
     "practice": [
@@ -5629,7 +5629,7 @@ const MODULES = [
         },
         "prompt": "Hakan has zero apples. He gives away zero. How many are left?",
         "answer": 0,
-        "hint": "Take away nothing — stays 0."
+        "hint": "Hakan, take a breath and look again. Take away nothing — stays 0."
       },
       {
         "type": "numeric",
@@ -5640,7 +5640,7 @@ const MODULES = [
         },
         "prompt": "Hakan has one cookie. He gives away zero. How many are left?",
         "answer": 1,
-        "hint": "Take away nothing — stays 1."
+        "hint": "You can do this, Hakan! Take away nothing — stays 1."
       },
       {
         "type": "numeric",
@@ -5651,7 +5651,7 @@ const MODULES = [
         },
         "prompt": "Two minus zero?",
         "answer": 2,
-        "hint": "Take away nothing — stays 2."
+        "hint": "Hakan, slow down and count carefully. Take away nothing — stays 2."
       },
       {
         "type": "numeric",
@@ -5662,7 +5662,7 @@ const MODULES = [
         },
         "prompt": "Three minus zero?",
         "answer": 3,
-        "hint": "Take away nothing — stays 3."
+        "hint": "Stay focused, Hakan — you're amazing. Take away nothing — stays 3."
       },
       {
         "type": "numeric",
@@ -5673,7 +5673,7 @@ const MODULES = [
         },
         "prompt": "Hakan has four stars. He gives away zero. How many are left?",
         "answer": 4,
-        "hint": "Take away nothing — stays 4."
+        "hint": "Try this, Hakan — you're on it! Take away nothing — stays 4."
       },
       {
         "type": "numeric",
@@ -5684,7 +5684,7 @@ const MODULES = [
         },
         "prompt": "Five minus zero?",
         "answer": 5,
-        "hint": "Take away nothing — stays 5."
+        "hint": "Hakan, use your strategy! Take away nothing — stays 5."
       },
       {
         "type": "numeric",
@@ -5695,7 +5695,7 @@ const MODULES = [
         },
         "prompt": "Six minus zero?",
         "answer": 6,
-        "hint": "Take away nothing — stays 6."
+        "hint": "Almost, Hakan — keep your eyes sharp! Take away nothing — stays 6."
       },
       {
         "type": "numeric",
@@ -5706,7 +5706,7 @@ const MODULES = [
         },
         "prompt": "Hakan has seven puppies. He gives away zero. How many are left?",
         "answer": 7,
-        "hint": "Take away nothing — stays 7."
+        "hint": "You got this, Hakan! Take away nothing — stays 7."
       }
     ],
     "quiz": [
@@ -5829,7 +5829,7 @@ const MODULES = [
           "taken": 1
         },
         "text": "Hakan, look! Take away 1 means ONE LESS. Hop back one step.",
-        "caption": "5 − 1 = 4"
+        "caption": "5 − 1 = 4 💯"
       },
       {
         "title": "8 minus 1",
@@ -5840,7 +5840,7 @@ const MODULES = [
           "taken": 1
         },
         "text": "Before 8 comes 7. So 8 − 1 = 7. Hakan, you can do this too!",
-        "caption": "8 − 1 = 7"
+        "caption": "8 − 1 = 7 ✨"
       },
       {
         "title": "Number Line",
@@ -5851,7 +5851,7 @@ const MODULES = [
           "mark": 6
         },
         "text": "Watch with Hakan: hop one step LEFT on the number line. From 7 you land on 6.",
-        "caption": "Hop left = −1"
+        "caption": "Hop left = −1 🏆"
       },
       {
         "title": "Big Numbers",
@@ -5861,7 +5861,7 @@ const MODULES = [
           "b": 1
         },
         "text": "20 − 1 = 19. The number BEFORE 20.",
-        "caption": "20 − 1 = 19"
+        "caption": "20 − 1 = 19 🎯"
       },
       {
         "title": "You Got It",
@@ -5871,8 +5871,8 @@ const MODULES = [
           "total": 10,
           "taken": 1
         },
-        "text": "Minus one means: say the number that comes BEFORE. Easy!",
-        "caption": "−1 = before"
+        "text": "Minus one means: say the number that comes BEFORE. Easy! Hakan the brilliant — try the practice!",
+        "caption": "−1 = before ⭐"
       }
     ],
     "practice": [
@@ -6085,7 +6085,7 @@ const MODULES = [
           "taken": 2
         },
         "text": "Hakan, look! Take away 2 means COUNT BACK by 2.",
-        "caption": "−2 = back 2"
+        "caption": "−2 = back 2 🌟"
       },
       {
         "title": "Count Back",
@@ -6096,7 +6096,7 @@ const MODULES = [
           "mark": 8
         },
         "text": "Start at 10. Hop back 2. Where do you land? 8!",
-        "caption": "10 − 2 = 8"
+        "caption": "10 − 2 = 8 💯"
       },
       {
         "title": "Use Fingers",
@@ -6107,7 +6107,7 @@ const MODULES = [
           "taken": 2
         },
         "text": "Hold up 9 fingers. Fold 2 down. The fingers up are your answer. Hakan, you can do this too!",
-        "caption": "9 − 2 = 7"
+        "caption": "9 − 2 = 7 ✨"
       },
       {
         "title": "Try 7 − 2",
@@ -6117,7 +6117,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Watch with Hakan: count back: 6, 5!",
-        "caption": "7 − 2 = 5"
+        "caption": "7 − 2 = 5 🏆"
       },
       {
         "title": "You are Subtracting",
@@ -6127,8 +6127,8 @@ const MODULES = [
           "total": 10,
           "taken": 2
         },
-        "text": "Subtracting 2 = counting back 2 times. Practice and you will fly!",
-        "caption": "−2 = back 2"
+        "text": "Subtracting 2 = counting back 2 times. Practice and you will fly! I knew you'd nail it, Hakan!",
+        "caption": "−2 = back 2 🎯"
       }
     ],
     "practice": [
@@ -6341,7 +6341,7 @@ const MODULES = [
           "taken": 3
         },
         "text": "Hakan, look! Take away 3 means COUNT BACK by 3.",
-        "caption": "−3 = back 3"
+        "caption": "−3 = back 3 ⭐"
       },
       {
         "title": "Count Back",
@@ -6352,7 +6352,7 @@ const MODULES = [
           "mark": 7
         },
         "text": "Start at 10. Hop back 3. Where do you land? 7! Hakan, you can do this too!",
-        "caption": "10 − 3 = 7"
+        "caption": "10 − 3 = 7 🌟"
       },
       {
         "title": "Use Fingers",
@@ -6363,7 +6363,7 @@ const MODULES = [
           "taken": 3
         },
         "text": "Hold up 9 fingers. Fold 3 down. The fingers up are your answer.",
-        "caption": "9 − 3 = 6"
+        "caption": "9 − 3 = 6 💯"
       },
       {
         "title": "Try 7 − 3",
@@ -6373,7 +6373,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Count back: 6, 5, 4!",
-        "caption": "7 − 3 = 4"
+        "caption": "7 − 3 = 4 ✨"
       },
       {
         "title": "You are Subtracting",
@@ -6383,8 +6383,8 @@ const MODULES = [
           "total": 10,
           "taken": 3
         },
-        "text": "Watch with Hakan: subtracting 3 = counting back 3 times. Practice and you will fly!",
-        "caption": "−3 = back 3"
+        "text": "Watch with Hakan: subtracting 3 = counting back 3 times. Practice and you will fly! Hakan, you are unstoppable!",
+        "caption": "−3 = back 3 🏆"
       }
     ],
     "practice": [
@@ -6597,7 +6597,7 @@ const MODULES = [
           "taken": 4
         },
         "text": "Hakan, look! Take away 4 means COUNT BACK by 4.",
-        "caption": "−4 = back 4"
+        "caption": "−4 = back 4 🎯"
       },
       {
         "title": "Count Back",
@@ -6608,7 +6608,7 @@ const MODULES = [
           "mark": 6
         },
         "text": "Start at 10. Hop back 4. Where do you land? 6! Hakan, you can do this too!",
-        "caption": "10 − 4 = 6"
+        "caption": "10 − 4 = 6 ⭐"
       },
       {
         "title": "Use Fingers",
@@ -6619,7 +6619,7 @@ const MODULES = [
           "taken": 4
         },
         "text": "Watch with Hakan: hold up 9 fingers. Fold 4 down. The fingers up are your answer.",
-        "caption": "9 − 4 = 5"
+        "caption": "9 − 4 = 5 🌟"
       },
       {
         "title": "Try 7 − 4",
@@ -6629,7 +6629,7 @@ const MODULES = [
           "b": 4
         },
         "text": "Count back: 6, 5, 4, 3!",
-        "caption": "7 − 4 = 3"
+        "caption": "7 − 4 = 3 💯"
       },
       {
         "title": "You are Subtracting",
@@ -6639,8 +6639,8 @@ const MODULES = [
           "total": 10,
           "taken": 4
         },
-        "text": "Subtracting 4 = counting back 4 times. Practice and you will fly!",
-        "caption": "−4 = back 4"
+        "text": "Subtracting 4 = counting back 4 times. Practice and you will fly! Brilliant work, Hakan! On to practice!",
+        "caption": "−4 = back 4 ✨"
       }
     ],
     "practice": [
@@ -6653,7 +6653,7 @@ const MODULES = [
         },
         "prompt": "Hakan has four apples. He gives away four. How many are left?",
         "answer": 0,
-        "hint": "Count back 4: 3, 2, 1, 0."
+        "hint": "Hakan, slow down and count carefully. Count back 4: 3, 2, 1, 0."
       },
       {
         "type": "numeric",
@@ -6664,7 +6664,7 @@ const MODULES = [
         },
         "prompt": "Five minus four?",
         "answer": 1,
-        "hint": "Count back 4: 4, 3, 2, 1."
+        "hint": "Stay focused, Hakan — you're amazing. Count back 4: 4, 3, 2, 1."
       },
       {
         "type": "numeric",
@@ -6675,7 +6675,7 @@ const MODULES = [
         },
         "prompt": "Six minus four?",
         "answer": 2,
-        "hint": "Count back 4: 5, 4, 3, 2."
+        "hint": "Try this, Hakan — you're on it! Count back 4: 5, 4, 3, 2."
       },
       {
         "type": "numeric",
@@ -6686,7 +6686,7 @@ const MODULES = [
         },
         "prompt": "Seven minus four?",
         "answer": 3,
-        "hint": "Count back 4: 6, 5, 4, 3."
+        "hint": "Hakan, use your strategy! Count back 4: 6, 5, 4, 3."
       },
       {
         "type": "numeric",
@@ -6697,7 +6697,7 @@ const MODULES = [
         },
         "prompt": "Eight minus four?",
         "answer": 4,
-        "hint": "Count back 4: 7, 6, 5, 4."
+        "hint": "Almost, Hakan — keep your eyes sharp! Count back 4: 7, 6, 5, 4."
       },
       {
         "type": "numeric",
@@ -6708,7 +6708,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine cookies. He gives away four. How many are left?",
         "answer": 5,
-        "hint": "Count back 4: 8, 7, 6, 5."
+        "hint": "You got this, Hakan! Count back 4: 8, 7, 6, 5."
       },
       {
         "type": "numeric",
@@ -6719,7 +6719,7 @@ const MODULES = [
         },
         "prompt": "Hakan has ten stars. He gives away four. How many are left?",
         "answer": 6,
-        "hint": "Count back 4: 9, 8, 7, 6."
+        "hint": "Hakan, you're so smart — think it through. Count back 4: 9, 8, 7, 6."
       },
       {
         "type": "numeric",
@@ -6730,7 +6730,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eleven puppies. He gives away four. How many are left?",
         "answer": 7,
-        "hint": "Count back 4: 10, 9, 8, 7."
+        "hint": "Easy for a smart kid like you, Hakan. Count back 4: 10, 9, 8, 7."
       }
     ],
     "quiz": [
@@ -6853,7 +6853,7 @@ const MODULES = [
           "taken": 5
         },
         "text": "Hakan, look! Take away 5 means COUNT BACK by 5.",
-        "caption": "−5 = back 5"
+        "caption": "−5 = back 5 🏆"
       },
       {
         "title": "Count Back",
@@ -6864,7 +6864,7 @@ const MODULES = [
           "mark": 5
         },
         "text": "Start at 10. Hop back 5. Where do you land? 5!",
-        "caption": "10 − 5 = 5"
+        "caption": "10 − 5 = 5 🎯"
       },
       {
         "title": "Use Fingers",
@@ -6875,7 +6875,7 @@ const MODULES = [
           "taken": 5
         },
         "text": "Hold up 9 fingers. Fold 5 down. The fingers up are your answer. Hakan, you can do this too!",
-        "caption": "9 − 5 = 4"
+        "caption": "9 − 5 = 4 ⭐"
       },
       {
         "title": "Try 7 − 5",
@@ -6885,7 +6885,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Watch with Hakan: count back: 6, 5, 4, 3, 2!",
-        "caption": "7 − 5 = 2"
+        "caption": "7 − 5 = 2 🌟"
       },
       {
         "title": "You are Subtracting",
@@ -6895,8 +6895,8 @@ const MODULES = [
           "total": 10,
           "taken": 5
         },
-        "text": "Subtracting 5 = counting back 5 times. Practice and you will fly!",
-        "caption": "−5 = back 5"
+        "text": "Subtracting 5 = counting back 5 times. Practice and you will fly! Hakan, you make this look easy!",
+        "caption": "−5 = back 5 💯"
       }
     ],
     "practice": [
@@ -6909,7 +6909,7 @@ const MODULES = [
         },
         "prompt": "Hakan has five apples. He gives away five. How many are left?",
         "answer": 0,
-        "hint": "Count back 5: 4, 3, 2, 1, 0."
+        "hint": "Hakan, take a breath and look again. Count back 5: 4, 3, 2, 1, 0."
       },
       {
         "type": "numeric",
@@ -6920,7 +6920,7 @@ const MODULES = [
         },
         "prompt": "Six minus five?",
         "answer": 1,
-        "hint": "Count back 5: 5, 4, 3, 2, 1."
+        "hint": "You can do this, Hakan! Count back 5: 5, 4, 3, 2, 1."
       },
       {
         "type": "numeric",
@@ -6931,7 +6931,7 @@ const MODULES = [
         },
         "prompt": "Seven minus five?",
         "answer": 2,
-        "hint": "Count back 5: 6, 5, 4, 3, 2."
+        "hint": "Hakan, slow down and count carefully. Count back 5: 6, 5, 4, 3, 2."
       },
       {
         "type": "numeric",
@@ -6942,7 +6942,7 @@ const MODULES = [
         },
         "prompt": "Eight minus five?",
         "answer": 3,
-        "hint": "Count back 5: 7, 6, 5, 4, 3."
+        "hint": "Stay focused, Hakan — you're amazing. Count back 5: 7, 6, 5, 4, 3."
       },
       {
         "type": "numeric",
@@ -6953,7 +6953,7 @@ const MODULES = [
         },
         "prompt": "Nine minus five?",
         "answer": 4,
-        "hint": "Count back 5: 8, 7, 6, 5, 4."
+        "hint": "Try this, Hakan — you're on it! Count back 5: 8, 7, 6, 5, 4."
       },
       {
         "type": "numeric",
@@ -6964,7 +6964,7 @@ const MODULES = [
         },
         "prompt": "Hakan has ten cookies. He gives away five. How many are left?",
         "answer": 5,
-        "hint": "Count back 5: 9, 8, 7, 6, 5."
+        "hint": "Hakan, use your strategy! Count back 5: 9, 8, 7, 6, 5."
       },
       {
         "type": "numeric",
@@ -6975,7 +6975,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eleven stars. He gives away five. How many are left?",
         "answer": 6,
-        "hint": "Count back 5: 10, 9, 8, 7, 6."
+        "hint": "Almost, Hakan — keep your eyes sharp! Count back 5: 10, 9, 8, 7, 6."
       },
       {
         "type": "numeric",
@@ -6986,7 +6986,7 @@ const MODULES = [
         },
         "prompt": "Hakan has twelve puppies. He gives away five. How many are left?",
         "answer": 7,
-        "hint": "Count back 5: 11, 10, 9, 8, 7."
+        "hint": "You got this, Hakan! Count back 5: 11, 10, 9, 8, 7."
       }
     ],
     "quiz": [
@@ -7109,7 +7109,7 @@ const MODULES = [
           "taken": 6
         },
         "text": "Hakan, look! Take away 6 means COUNT BACK by 6.",
-        "caption": "−6 = back 6"
+        "caption": "−6 = back 6 ✨"
       },
       {
         "title": "Count Back",
@@ -7120,7 +7120,7 @@ const MODULES = [
           "mark": 4
         },
         "text": "Start at 10. Hop back 6. Where do you land? 4! Hakan, you can do this too!",
-        "caption": "10 − 6 = 4"
+        "caption": "10 − 6 = 4 🏆"
       },
       {
         "title": "Use Fingers",
@@ -7131,7 +7131,7 @@ const MODULES = [
           "taken": 6
         },
         "text": "Hold up 9 fingers. Fold 6 down. The fingers up are your answer.",
-        "caption": "9 − 6 = 3"
+        "caption": "9 − 6 = 3 🎯"
       },
       {
         "title": "Try 7 − 6",
@@ -7141,7 +7141,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Watch with Hakan: count back: 6, 5, 4, 3, 2, 1!",
-        "caption": "7 − 6 = 1"
+        "caption": "7 − 6 = 1 ⭐"
       },
       {
         "title": "You are Subtracting",
@@ -7151,8 +7151,8 @@ const MODULES = [
           "total": 10,
           "taken": 6
         },
-        "text": "Subtracting 6 = counting back 6 times. Practice and you will fly!",
-        "caption": "−6 = back 6"
+        "text": "Subtracting 6 = counting back 6 times. Practice and you will fly! Way to go, Hakan!",
+        "caption": "−6 = back 6 🌟"
       }
     ],
     "practice": [
@@ -7165,7 +7165,7 @@ const MODULES = [
         },
         "prompt": "Six minus six?",
         "answer": 0,
-        "hint": "Count back 6: 5, 4, 3, 2, 1, 0."
+        "hint": "Hakan, you're so smart — think it through. Count back 6: 5, 4, 3, 2, 1, 0."
       },
       {
         "type": "numeric",
@@ -7176,7 +7176,7 @@ const MODULES = [
         },
         "prompt": "Hakan has seven apples. He gives away six. How many are left?",
         "answer": 1,
-        "hint": "Count back 6: 6, 5, 4, 3, 2, 1."
+        "hint": "Easy for a smart kid like you, Hakan. Count back 6: 6, 5, 4, 3, 2, 1."
       },
       {
         "type": "numeric",
@@ -7187,7 +7187,7 @@ const MODULES = [
         },
         "prompt": "Eight minus six?",
         "answer": 2,
-        "hint": "Count back 6: 7, 6, 5, 4, 3, 2."
+        "hint": "Hakan, take a breath and look again. Count back 6: 7, 6, 5, 4, 3, 2."
       },
       {
         "type": "numeric",
@@ -7198,7 +7198,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine cookies. He gives away six. How many are left?",
         "answer": 3,
-        "hint": "Count back 6: 8, 7, 6, 5, 4, 3."
+        "hint": "You can do this, Hakan! Count back 6: 8, 7, 6, 5, 4, 3."
       },
       {
         "type": "numeric",
@@ -7209,7 +7209,7 @@ const MODULES = [
         },
         "prompt": "Ten minus six?",
         "answer": 4,
-        "hint": "Count back 6: 9, 8, 7, 6, 5, 4."
+        "hint": "Hakan, slow down and count carefully. Count back 6: 9, 8, 7, 6, 5, 4."
       },
       {
         "type": "numeric",
@@ -7220,7 +7220,7 @@ const MODULES = [
         },
         "prompt": "Eleven minus six?",
         "answer": 5,
-        "hint": "Count back 6: 10, 9, 8, 7, 6, 5."
+        "hint": "Stay focused, Hakan — you're amazing. Count back 6: 10, 9, 8, 7, 6, 5."
       },
       {
         "type": "numeric",
@@ -7231,7 +7231,7 @@ const MODULES = [
         },
         "prompt": "Hakan has twelve stars. He gives away six. How many are left?",
         "answer": 6,
-        "hint": "Count back 6: 11, 10, 9, 8, 7, 6."
+        "hint": "Try this, Hakan — you're on it! Count back 6: 11, 10, 9, 8, 7, 6."
       },
       {
         "type": "numeric",
@@ -7242,7 +7242,7 @@ const MODULES = [
         },
         "prompt": "Hakan has thirteen puppies. He gives away six. How many are left?",
         "answer": 7,
-        "hint": "Count back 6: 12, 11, 10, 9, 8, 7."
+        "hint": "Hakan, use your strategy! Count back 6: 12, 11, 10, 9, 8, 7."
       }
     ],
     "quiz": [
@@ -7364,8 +7364,8 @@ const MODULES = [
           "total": 10,
           "taken": 7
         },
-        "text": "Take away 7 means COUNT BACK by 7.",
-        "caption": "−7 = back 7"
+        "text": "Hakan, this is fun! Take away 7 means COUNT BACK by 7.",
+        "caption": "−7 = back 7 💯"
       },
       {
         "title": "Count Back",
@@ -7376,7 +7376,7 @@ const MODULES = [
           "mark": 3
         },
         "text": "Hakan, look! Start at 10. Hop back 7. Where do you land? 3!",
-        "caption": "10 − 7 = 3"
+        "caption": "10 − 7 = 3 ✨"
       },
       {
         "title": "Use Fingers",
@@ -7387,7 +7387,7 @@ const MODULES = [
           "taken": 7
         },
         "text": "Hold up 9 fingers. Fold 7 down. The fingers up are your answer. Hakan, you can do this too!",
-        "caption": "9 − 7 = 2"
+        "caption": "9 − 7 = 2 🏆"
       },
       {
         "title": "Try 7 − 7",
@@ -7397,7 +7397,7 @@ const MODULES = [
           "b": 7
         },
         "text": "Watch with Hakan: count back: 6, 5, 4, 3, 2, 1, 0!",
-        "caption": "7 − 7 = 0"
+        "caption": "7 − 7 = 0 🎯"
       },
       {
         "title": "You are Subtracting",
@@ -7407,8 +7407,8 @@ const MODULES = [
           "total": 10,
           "taken": 7
         },
-        "text": "Subtracting 7 = counting back 7 times. Practice and you will fly!",
-        "caption": "−7 = back 7"
+        "text": "Subtracting 7 = counting back 7 times. Practice and you will fly! You are amazing, Hakan — keep shining!",
+        "caption": "−7 = back 7 ⭐"
       }
     ],
     "practice": [
@@ -7421,7 +7421,7 @@ const MODULES = [
         },
         "prompt": "Seven minus seven?",
         "answer": 0,
-        "hint": "Count back 7: 6, 5, 4, 3, 2, 1, 0."
+        "hint": "Almost, Hakan — keep your eyes sharp! Count back 7: 6, 5, 4, 3, 2, 1, 0."
       },
       {
         "type": "numeric",
@@ -7432,7 +7432,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples. He gives away seven. How many are left?",
         "answer": 1,
-        "hint": "Count back 7: 7, 6, 5, 4, 3, 2, 1."
+        "hint": "You got this, Hakan! Count back 7: 7, 6, 5, 4, 3, 2, 1."
       },
       {
         "type": "numeric",
@@ -7443,7 +7443,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine cookies. He gives away seven. How many are left?",
         "answer": 2,
-        "hint": "Count back 7: 8, 7, 6, 5, 4, 3, 2."
+        "hint": "Hakan, you're so smart — think it through. Count back 7: 8, 7, 6, 5, 4, 3, 2."
       },
       {
         "type": "numeric",
@@ -7454,7 +7454,7 @@ const MODULES = [
         },
         "prompt": "Hakan has ten stars. He gives away seven. How many are left?",
         "answer": 3,
-        "hint": "Count back 7: 9, 8, 7, 6, 5, 4, 3."
+        "hint": "Easy for a smart kid like you, Hakan. Count back 7: 9, 8, 7, 6, 5, 4, 3."
       },
       {
         "type": "numeric",
@@ -7465,7 +7465,7 @@ const MODULES = [
         },
         "prompt": "Eleven minus seven?",
         "answer": 4,
-        "hint": "Count back 7: 10, 9, 8, 7, 6, 5, 4."
+        "hint": "Hakan, take a breath and look again. Count back 7: 10, 9, 8, 7, 6, 5, 4."
       },
       {
         "type": "numeric",
@@ -7476,7 +7476,7 @@ const MODULES = [
         },
         "prompt": "Twelve minus seven?",
         "answer": 5,
-        "hint": "Count back 7: 11, 10, 9, 8, 7, 6, 5."
+        "hint": "You can do this, Hakan! Count back 7: 11, 10, 9, 8, 7, 6, 5."
       },
       {
         "type": "numeric",
@@ -7487,7 +7487,7 @@ const MODULES = [
         },
         "prompt": "Thirteen minus seven?",
         "answer": 6,
-        "hint": "Count back 7: 12, 11, 10, 9, 8, 7, 6."
+        "hint": "Hakan, slow down and count carefully. Count back 7: 12, 11, 10, 9, 8, 7, 6."
       },
       {
         "type": "numeric",
@@ -7498,7 +7498,7 @@ const MODULES = [
         },
         "prompt": "Hakan has fourteen puppies. He gives away seven. How many are left?",
         "answer": 7,
-        "hint": "Count back 7: 13, 12, 11, 10, 9, 8, 7."
+        "hint": "Stay focused, Hakan — you're amazing. Count back 7: 13, 12, 11, 10, 9, 8, 7."
       }
     ],
     "quiz": [
@@ -7620,8 +7620,8 @@ const MODULES = [
           "total": 10,
           "taken": 8
         },
-        "text": "Take away 8 means COUNT BACK by 8.",
-        "caption": "−8 = back 8"
+        "text": "Pay attention, Hakan! Take away 8 means COUNT BACK by 8.",
+        "caption": "−8 = back 8 🌟"
       },
       {
         "title": "Count Back",
@@ -7632,7 +7632,7 @@ const MODULES = [
           "mark": 2
         },
         "text": "Start at 10. Hop back 8. Where do you land? 2!",
-        "caption": "10 − 8 = 2"
+        "caption": "10 − 8 = 2 💯"
       },
       {
         "title": "Use Fingers",
@@ -7643,7 +7643,7 @@ const MODULES = [
           "taken": 8
         },
         "text": "Hakan, look! Hold up 9 fingers. Fold 8 down. The fingers up are your answer.",
-        "caption": "9 − 8 = 1"
+        "caption": "9 − 8 = 1 ✨"
       },
       {
         "title": "Try 8 − 8",
@@ -7653,7 +7653,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Count back: 7, 6, 5, 4, 3, 2, 1, 0! Hakan, you can do this too!",
-        "caption": "8 − 8 = 0"
+        "caption": "8 − 8 = 0 🏆"
       },
       {
         "title": "You are Subtracting",
@@ -7663,8 +7663,8 @@ const MODULES = [
           "total": 10,
           "taken": 8
         },
-        "text": "Watch with Hakan: subtracting 8 = counting back 8 times. Practice and you will fly!",
-        "caption": "−8 = back 8"
+        "text": "Watch with Hakan: subtracting 8 = counting back 8 times. Practice and you will fly! Hakan, you're a champion!",
+        "caption": "−8 = back 8 🎯"
       }
     ],
     "practice": [
@@ -7677,7 +7677,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples. He gives away eight. How many are left?",
         "answer": 0,
-        "hint": "Count back 8: 7, 6, 5, 4, 3, 2, 1, 0."
+        "hint": "Try this, Hakan — you're on it! Count back 8: 7, 6, 5, 4, 3, 2, 1, 0."
       },
       {
         "type": "numeric",
@@ -7688,7 +7688,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine cookies. He gives away eight. How many are left?",
         "answer": 1,
-        "hint": "Count back 8: 8, 7, 6, 5, 4, 3, 2, 1."
+        "hint": "Hakan, use your strategy! Count back 8: 8, 7, 6, 5, 4, 3, 2, 1."
       },
       {
         "type": "numeric",
@@ -7699,7 +7699,7 @@ const MODULES = [
         },
         "prompt": "Ten minus eight?",
         "answer": 2,
-        "hint": "Count back 8: 9, 8, 7, 6, 5, 4, 3, 2."
+        "hint": "Almost, Hakan — keep your eyes sharp! Count back 8: 9, 8, 7, 6, 5, 4, 3, 2."
       },
       {
         "type": "numeric",
@@ -7710,7 +7710,7 @@ const MODULES = [
         },
         "prompt": "Eleven minus eight?",
         "answer": 3,
-        "hint": "Count back 8: 10, 9, 8, 7, 6, 5, 4, 3."
+        "hint": "You got this, Hakan! Count back 8: 10, 9, 8, 7, 6, 5, 4, 3."
       },
       {
         "type": "numeric",
@@ -7721,7 +7721,7 @@ const MODULES = [
         },
         "prompt": "Hakan has twelve stars. He gives away eight. How many are left?",
         "answer": 4,
-        "hint": "Count back 8: 11, 10, 9, 8, 7, 6, 5, 4."
+        "hint": "Hakan, you're so smart — think it through. Count back 8: 11, 10, 9, 8, 7, 6, 5, 4."
       },
       {
         "type": "numeric",
@@ -7732,7 +7732,7 @@ const MODULES = [
         },
         "prompt": "Thirteen minus eight?",
         "answer": 5,
-        "hint": "Count back 8: 12, 11, 10, 9, 8, 7, 6, 5."
+        "hint": "Easy for a smart kid like you, Hakan. Count back 8: 12, 11, 10, 9, 8, 7, 6, 5."
       },
       {
         "type": "numeric",
@@ -7743,7 +7743,7 @@ const MODULES = [
         },
         "prompt": "Hakan has fourteen puppies. He gives away eight. How many are left?",
         "answer": 6,
-        "hint": "Count back 8: 13, 12, 11, 10, 9, 8, 7, 6."
+        "hint": "Hakan, take a breath and look again. Count back 8: 13, 12, 11, 10, 9, 8, 7, 6."
       },
       {
         "type": "numeric",
@@ -7754,7 +7754,7 @@ const MODULES = [
         },
         "prompt": "Fifteen minus eight?",
         "answer": 7,
-        "hint": "Count back 8: 14, 13, 12, 11, 10, 9, 8, 7."
+        "hint": "You can do this, Hakan! Count back 8: 14, 13, 12, 11, 10, 9, 8, 7."
       }
     ],
     "quiz": [
@@ -7877,7 +7877,7 @@ const MODULES = [
           "taken": 9
         },
         "text": "Hakan, look! Take away 9 means COUNT BACK by 9.",
-        "caption": "−9 = back 9"
+        "caption": "−9 = back 9 ⭐"
       },
       {
         "title": "Count Back",
@@ -7888,7 +7888,7 @@ const MODULES = [
           "mark": 1
         },
         "text": "Start at 10. Hop back 9. Where do you land? 1!",
-        "caption": "10 − 9 = 1"
+        "caption": "10 − 9 = 1 🌟"
       },
       {
         "title": "Use Fingers",
@@ -7899,7 +7899,7 @@ const MODULES = [
           "taken": 9
         },
         "text": "Hold up 9 fingers. Fold 9 down. The fingers up are your answer. Hakan, you can do this too!",
-        "caption": "9 − 9 = 0"
+        "caption": "9 − 9 = 0 💯"
       },
       {
         "title": "Try 9 − 9",
@@ -7909,7 +7909,7 @@ const MODULES = [
           "b": 9
         },
         "text": "Count back: 8, 7, 6, 5, 4, 3, 2, 1, 0!",
-        "caption": "9 − 9 = 0"
+        "caption": "9 − 9 = 0 ✨"
       },
       {
         "title": "You are Subtracting",
@@ -7919,8 +7919,8 @@ const MODULES = [
           "total": 10,
           "taken": 9
         },
-        "text": "Watch with Hakan: subtracting 9 = counting back 9 times. Practice and you will fly!",
-        "caption": "−9 = back 9"
+        "text": "Watch with Hakan: subtracting 9 = counting back 9 times. Practice and you will fly! Hakan, you are SO smart!",
+        "caption": "−9 = back 9 🏆"
       }
     ],
     "practice": [
@@ -7933,7 +7933,7 @@ const MODULES = [
         },
         "prompt": "Nine minus nine?",
         "answer": 0,
-        "hint": "Count back 9: 8, 7, 6, 5, 4, 3, 2, 1, 0."
+        "hint": "Hakan, slow down and count carefully. Count back 9: 8, 7, 6, 5, 4, 3, 2, 1, 0."
       },
       {
         "type": "numeric",
@@ -7944,7 +7944,7 @@ const MODULES = [
         },
         "prompt": "Hakan has ten apples. He gives away nine. How many are left?",
         "answer": 1,
-        "hint": "Count back 9: 9, 8, 7, 6, 5, 4, 3, 2, 1."
+        "hint": "Stay focused, Hakan — you're amazing. Count back 9: 9, 8, 7, 6, 5, 4, 3, 2, 1."
       },
       {
         "type": "numeric",
@@ -7955,7 +7955,7 @@ const MODULES = [
         },
         "prompt": "Eleven minus nine?",
         "answer": 2,
-        "hint": "Count back 9: 10, 9, 8, 7, 6, 5, 4, 3, 2."
+        "hint": "Try this, Hakan — you're on it! Count back 9: 10, 9, 8, 7, 6, 5, 4, 3, 2."
       },
       {
         "type": "numeric",
@@ -7966,7 +7966,7 @@ const MODULES = [
         },
         "prompt": "Twelve minus nine?",
         "answer": 3,
-        "hint": "Count back 9: 11, 10, 9, 8, 7, 6, 5, 4, 3."
+        "hint": "Hakan, use your strategy! Count back 9: 11, 10, 9, 8, 7, 6, 5, 4, 3."
       },
       {
         "type": "numeric",
@@ -7977,7 +7977,7 @@ const MODULES = [
         },
         "prompt": "Hakan has thirteen cookies. He gives away nine. How many are left?",
         "answer": 4,
-        "hint": "Count back 9: 12, 11, 10, 9, 8, 7, 6, 5, 4."
+        "hint": "Almost, Hakan — keep your eyes sharp! Count back 9: 12, 11, 10, 9, 8, 7, 6, 5, 4."
       },
       {
         "type": "numeric",
@@ -7988,7 +7988,7 @@ const MODULES = [
         },
         "prompt": "Hakan has fourteen stars. He gives away nine. How many are left?",
         "answer": 5,
-        "hint": "Count back 9: 13, 12, 11, 10, 9, 8, 7, 6, 5."
+        "hint": "You got this, Hakan! Count back 9: 13, 12, 11, 10, 9, 8, 7, 6, 5."
       },
       {
         "type": "numeric",
@@ -7999,7 +7999,7 @@ const MODULES = [
         },
         "prompt": "Hakan has fifteen puppies. He gives away nine. How many are left?",
         "answer": 6,
-        "hint": "Count back 9: 14, 13, 12, 11, 10, 9, 8, 7, 6."
+        "hint": "Hakan, you're so smart — think it through. Count back 9: 14, 13, 12, 11, 10, 9, 8, 7, 6."
       },
       {
         "type": "numeric",
@@ -8010,7 +8010,7 @@ const MODULES = [
         },
         "prompt": "Sixteen minus nine?",
         "answer": 7,
-        "hint": "Count back 9: 15, 14, 13, 12, 11, 10, 9, 8, 7."
+        "hint": "Easy for a smart kid like you, Hakan. Count back 9: 15, 14, 13, 12, 11, 10, 9, 8, 7."
       }
     ],
     "quiz": [
@@ -8132,7 +8132,7 @@ const MODULES = [
           "ones": 4
         },
         "text": "Hakan, look! Take away 10 means TAKE AWAY ONE TEN-BAR. 34 − 10: one less ten = 24.",
-        "caption": "34 − 10 = 24"
+        "caption": "34 − 10 = 24 🎯"
       },
       {
         "title": "Tens Drop by 1",
@@ -8142,7 +8142,7 @@ const MODULES = [
           "highlight": "tens"
         },
         "text": "Just the TENS digit changes. Ones stay the same. 47 − 10 = 37. Hakan, you can do this too!",
-        "caption": "Tens −1, ones same"
+        "caption": "Tens −1, ones same ⭐"
       },
       {
         "title": "Try 60 − 10",
@@ -8152,7 +8152,7 @@ const MODULES = [
           "b": 10
         },
         "text": "Watch with Hakan: 60 − 10 = 50. Six tens become five tens.",
-        "caption": "60 − 10 = 50"
+        "caption": "60 − 10 = 50 🌟"
       },
       {
         "title": "Try 18 − 10",
@@ -8162,7 +8162,7 @@ const MODULES = [
           "filledB": 8
         },
         "text": "18 has one ten-frame full and 8 in the second. Take away the full one. 8 left!",
-        "caption": "18 − 10 = 8"
+        "caption": "18 − 10 = 8 💯"
       },
       {
         "title": "Master Move",
@@ -8171,8 +8171,8 @@ const MODULES = [
           "tens": 5,
           "ones": 6
         },
-        "text": "For any 2-digit number, minus 10 just drops the tens digit by 1. Master move!",
-        "caption": "−10 = drop tens"
+        "text": "For any 2-digit number, minus 10 just drops the tens digit by 1. Master move! Amazing job, Hakan! Keep going!",
+        "caption": "−10 = drop tens ✨"
       }
     ],
     "practice": [
@@ -8185,7 +8185,7 @@ const MODULES = [
         },
         "prompt": "Hakan has ten apples. He gives away ten. How many are left?",
         "answer": 0,
-        "hint": "Count back 10: 9, 8, 7, 6, 5, 4, 3, 2, 1, 0."
+        "hint": "Hakan, take a breath and look again. Count back 10: 9, 8, 7, 6, 5, 4, 3, 2, 1, 0."
       },
       {
         "type": "numeric",
@@ -8196,7 +8196,7 @@ const MODULES = [
         },
         "prompt": "Eleven minus ten?",
         "answer": 1,
-        "hint": "Count back 10: 10, 9, 8, 7, 6, 5, 4, 3, 2, 1."
+        "hint": "You can do this, Hakan! Count back 10: 10, 9, 8, 7, 6, 5, 4, 3, 2, 1."
       },
       {
         "type": "numeric",
@@ -8207,7 +8207,7 @@ const MODULES = [
         },
         "prompt": "Hakan has twelve cookies. He gives away ten. How many are left?",
         "answer": 2,
-        "hint": "Count back 10: 11, 10, 9, 8, 7, 6, 5, 4, 3, 2."
+        "hint": "Hakan, slow down and count carefully. Count back 10: 11, 10, 9, 8, 7, 6, 5, 4, 3, 2."
       },
       {
         "type": "numeric",
@@ -8218,7 +8218,7 @@ const MODULES = [
         },
         "prompt": "Thirteen minus ten?",
         "answer": 3,
-        "hint": "Count back 10: 12, 11, 10, 9, 8, 7, 6, 5, 4, 3."
+        "hint": "Stay focused, Hakan — you're amazing. Count back 10: 12, 11, 10, 9, 8, 7, 6, 5, 4, 3."
       },
       {
         "type": "numeric",
@@ -8229,7 +8229,7 @@ const MODULES = [
         },
         "prompt": "Fourteen minus ten?",
         "answer": 4,
-        "hint": "Count back 10: 13, 12, 11, 10, 9, 8, 7, 6, 5, 4."
+        "hint": "Try this, Hakan — you're on it! Count back 10: 13, 12, 11, 10, 9, 8, 7, 6, 5, 4."
       },
       {
         "type": "numeric",
@@ -8240,7 +8240,7 @@ const MODULES = [
         },
         "prompt": "Hakan has fifteen stars. He gives away ten. How many are left?",
         "answer": 5,
-        "hint": "Count back 10: 14, 13, 12, 11, 10, 9, 8, 7, 6, 5."
+        "hint": "Hakan, use your strategy! Count back 10: 14, 13, 12, 11, 10, 9, 8, 7, 6, 5."
       },
       {
         "type": "numeric",
@@ -8251,7 +8251,7 @@ const MODULES = [
         },
         "prompt": "Hakan has sixteen puppies. He gives away ten. How many are left?",
         "answer": 6,
-        "hint": "Count back 10: 15, 14, 13, 12, 11, 10, 9, 8, 7, 6."
+        "hint": "Almost, Hakan — keep your eyes sharp! Count back 10: 15, 14, 13, 12, 11, 10, 9, 8, 7, 6."
       },
       {
         "type": "numeric",
@@ -8262,7 +8262,7 @@ const MODULES = [
         },
         "prompt": "Seventeen minus ten?",
         "answer": 7,
-        "hint": "Count back 10: 16, 15, 14, 13, 12, 11, 10, 9, 8, 7."
+        "hint": "You got this, Hakan! Count back 10: 16, 15, 14, 13, 12, 11, 10, 9, 8, 7."
       }
     ],
     "quiz": [
@@ -8383,7 +8383,7 @@ const MODULES = [
           "filled": 5
         },
         "text": "Every number is built from two friends. Hakan looks at 5: who are its friend-pairs?",
-        "caption": "What pairs make 5?"
+        "caption": "What pairs make 5? 🏆"
       },
       {
         "title": "Pairs That Make 5",
@@ -8393,7 +8393,7 @@ const MODULES = [
           "b": 3
         },
         "text": "5 has friends: 0+5, 1+4, 2+3. Hakan can flip them too: 3+2, 4+1, 5+0.",
-        "caption": "5 = 0+5, 1+4, 2+3"
+        "caption": "5 = 0+5, 1+4, 2+3 🎯"
       },
       {
         "title": "Pairs That Make 7",
@@ -8402,7 +8402,7 @@ const MODULES = [
           "filled": 7
         },
         "text": "Hakan tries 7: 0+7, 1+6, 2+5, 3+4. The number-bond friends always work!",
-        "caption": "7 = 0+7, 1+6, 2+5, 3+4"
+        "caption": "7 = 0+7, 1+6, 2+5, 3+4 ⭐"
       },
       {
         "title": "Pairs That Make 8",
@@ -8412,7 +8412,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Hakan tries 8: 0+8, 1+7, 2+6, 3+5, 4+4. Notice 4+4 is a DOUBLE!",
-        "caption": "8 = 0+8, 1+7, 2+6, 3+5, 4+4"
+        "caption": "8 = 0+8, 1+7, 2+6, 3+5, 4+4 🌟"
       },
       {
         "title": "Pairs That Make 10",
@@ -8421,7 +8421,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "10 is special! Hakan loves it. 10 = 0+10, 1+9, 2+8, 3+7, 4+6, 5+5. Memorize these!",
-        "caption": "10 has 6 special pairs"
+        "caption": "10 has 6 special pairs 💯"
       },
       {
         "title": "Why Bonds Matter",
@@ -8431,7 +8431,7 @@ const MODULES = [
           "b": 4
         },
         "text": "When Hakan knows 6+4=10, he also knows 4+6=10, 10\u22126=4, and 10\u22124=6. Four facts in one!",
-        "caption": "1 bond = 4 facts"
+        "caption": "1 bond = 4 facts ✨"
       },
       {
         "title": "Find a Missing Friend",
@@ -8440,7 +8440,7 @@ const MODULES = [
           "filled": 7
         },
         "text": "Hakan sees 7+?=10. The missing friend is 3, because 7 and 3 are partners that make 10.",
-        "caption": "7+?=10 \u2192 ?=3"
+        "caption": "7+?=10 \u2192 ?=3 🏆"
       },
       {
         "title": "You're a Bond Master!",
@@ -8448,8 +8448,8 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "text": "Hakan, when you know your number bonds, math gets EASY. Try the practice!",
-        "caption": "Bonds = math superpower!"
+        "text": "Hakan, when you know your number bonds, math gets EASY. Try the practice! Hakan, you are number 1!",
+        "caption": "Bonds = math superpower! 🎯"
       }
     ],
     "practice": [
@@ -8511,7 +8511,7 @@ const MODULES = [
         },
         "prompt": "Hakan's favorite number bond: 6 + ? = 10!",
         "answer": 4,
-        "hint": "Friends of 10: 6 and 4 are partners. Memorize this!"
+        "hint": "Stay focused, Hakan — you're amazing. Friends of 10: 6 and 4 are partners. Memorize this!"
       },
       {
         "type": "numeric",
@@ -8531,7 +8531,7 @@ const MODULES = [
         },
         "prompt": "Tricky! 8 + ? = 10. Hakan, you've got this!",
         "answer": 2,
-        "hint": "10 minus 8 equals 2. So 8's friend in 10 is 2."
+        "hint": "Hakan, use your strategy! 10 minus 8 equals 2. So 8's friend in 10 is 2."
       }
     ],
     "quiz": [
@@ -8643,7 +8643,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Hakan is in the Math Tournament! Today's challenge: sums up to 20. Time to win some medals!",
-        "caption": "Tournament time!"
+        "caption": "Tournament time! ⭐"
       },
       {
         "title": "Round 1: Sums to 11",
@@ -8653,7 +8653,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Hakan starts: 6 + 5 = 11. He used the doubles trick (5+5=10, plus 1 more!).",
-        "caption": "6 + 5 = 11"
+        "caption": "6 + 5 = 11 🌟"
       },
       {
         "title": "Round 2: Make-10 Magic",
@@ -8663,7 +8663,7 @@ const MODULES = [
           "b": 5
         },
         "text": "8 + 5? Hakan splits the 5 into 2+3. First 8+2=10. Then 10+3=13!",
-        "caption": "8 + 5 = 13"
+        "caption": "8 + 5 = 13 💯"
       },
       {
         "title": "Round 3: Doubles + 1",
@@ -8673,7 +8673,7 @@ const MODULES = [
           "b": 8
         },
         "text": "7 + 8: Hakan thinks 7 + 7 = 14, plus 1 more = 15. Near-doubles trick wins!",
-        "caption": "7 + 8 = 15"
+        "caption": "7 + 8 = 15 ✨"
       },
       {
         "title": "Round 4: Bigger Sums",
@@ -8683,7 +8683,7 @@ const MODULES = [
           "b": 9
         },
         "text": "9 + 9 = 18. Hakan uses doubles: nine and nine. Memorize this \u2014 you'll see it everywhere!",
-        "caption": "9 + 9 = 18"
+        "caption": "9 + 9 = 18 🏆"
       },
       {
         "title": "Round 5: To 20",
@@ -8693,7 +8693,7 @@ const MODULES = [
           "b": 7
         },
         "text": "13 + 7? Hakan thinks: 7 needs 3 more to reach 10. So 13 + 7 = 20.",
-        "caption": "13 + 7 = 20"
+        "caption": "13 + 7 = 20 🎯"
       },
       {
         "title": "Tournament Strategies",
@@ -8702,7 +8702,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "Hakan's three winning tricks: 1) Doubles. 2) Near-doubles (doubles \u00b11). 3) Make-10 (split to fill ten-frame).",
-        "caption": "3 secret tricks!"
+        "caption": "3 secret tricks! ⭐"
       },
       {
         "title": "Champion Hakan!",
@@ -8712,7 +8712,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Hakan wins gold! Try the practice and beat your record. Sums to 20 are your superpower!",
-        "caption": "\ud83c\udfc6 Champion!"
+        "caption": "\ud83c\udfc6 Champion! 🌟"
       }
     ],
     "practice": [
@@ -8725,7 +8725,7 @@ const MODULES = [
         },
         "prompt": "Hakan's first match: 6 + 5?",
         "answer": 11,
-        "hint": "Use doubles: 5 + 5 = 10, plus 1 more = 11!"
+        "hint": "Almost, Hakan — keep your eyes sharp! Use doubles: 5 + 5 = 10, plus 1 more = 11!"
       },
       {
         "type": "numeric",
@@ -8736,7 +8736,7 @@ const MODULES = [
         },
         "prompt": "Round 2: 7 + 5?",
         "answer": 12,
-        "hint": "Split 5 into 3+2. 7+3=10, then +2=12. Make-10 trick!"
+        "hint": "You got this, Hakan! Split 5 into 3+2. 7+3=10, then +2=12. Make-10 trick!"
       },
       {
         "type": "numeric",
@@ -8747,7 +8747,7 @@ const MODULES = [
         },
         "prompt": "Hakan vs Sara: 8 + 6 = ?",
         "answer": 14,
-        "hint": "Doubles: 7+7=14. Or: 8+2=10, then +4 more = 14."
+        "hint": "Hakan, you're so smart — think it through. Doubles: 7+7=14. Or: 8+2=10, then +4 more = 14."
       },
       {
         "type": "numeric",
@@ -8758,7 +8758,7 @@ const MODULES = [
         },
         "prompt": "Round 4: 9 + 7?",
         "answer": 16,
-        "hint": "9 needs 1 to make 10. Split 7 into 1+6. 9+1=10, +6 = 16."
+        "hint": "Easy for a smart kid like you, Hakan. 9 needs 1 to make 10. Split 7 into 1+6. 9+1=10, +6 = 16."
       },
       {
         "type": "numeric",
@@ -8769,7 +8769,7 @@ const MODULES = [
         },
         "prompt": "Hakan's doubles round: 8 + 8?",
         "answer": 16,
-        "hint": "Memorize doubles: 8+8 always equals 16!"
+        "hint": "Hakan, take a breath and look again. Memorize doubles: 8+8 always equals 16!"
       },
       {
         "type": "numeric",
@@ -8780,7 +8780,7 @@ const MODULES = [
         },
         "prompt": "Big doubles: 9 + 9?",
         "answer": 18,
-        "hint": "Doubles trick: 9+9=18. One less than 10+10!"
+        "hint": "You can do this, Hakan! Doubles trick: 9+9=18. One less than 10+10!"
       },
       {
         "type": "numeric",
@@ -8791,7 +8791,7 @@ const MODULES = [
         },
         "prompt": "Hakan's tournament finale: 12 + 8?",
         "answer": 20,
-        "hint": "8 needs 2 to make 10. Take 2 from 12 \u2192 10+10=20."
+        "hint": "Hakan, slow down and count carefully. 8 needs 2 to make 10. Take 2 from 12 \u2192 10+10=20."
       },
       {
         "type": "numeric",
@@ -8924,7 +8924,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Welcome, Hakan! Doubles are your secret superpowers. Adding the same number twice = a hero move!",
-        "caption": "Doubles = power!"
+        "caption": "Doubles = power! 💯"
       },
       {
         "title": "Power 1: 1+1=2",
@@ -8934,7 +8934,7 @@ const MODULES = [
           "b": 1
         },
         "text": "Hakan's first power: 1 + 1 = 2. Two of anything = double!",
-        "caption": "1 + 1 = 2"
+        "caption": "1 + 1 = 2 ✨"
       },
       {
         "title": "Power 2: 2+2=4",
@@ -8944,7 +8944,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Hakan unlocks 2 + 2 = 4. Two pairs make four. Like Hakan's two hands \u00d7 2 fingers each!",
-        "caption": "2 + 2 = 4"
+        "caption": "2 + 2 = 4 🏆"
       },
       {
         "title": "Power 3: 3+3=6",
@@ -8954,7 +8954,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Hakan learns 3 + 3 = 6. Half a dozen! Like 3 cookies + 3 cookies.",
-        "caption": "3 + 3 = 6"
+        "caption": "3 + 3 = 6 🎯"
       },
       {
         "title": "Power 4: 4+4=8",
@@ -8964,7 +8964,7 @@ const MODULES = [
           "b": 4
         },
         "text": "Hakan masters 4 + 4 = 8. Like a spider's 8 legs (4 on each side).",
-        "caption": "4 + 4 = 8"
+        "caption": "4 + 4 = 8 ⭐"
       },
       {
         "title": "Power 5: 5+5=10",
@@ -8974,7 +8974,7 @@ const MODULES = [
           "b": 5
         },
         "text": "BIG power: 5 + 5 = 10! Hakan's two hands have 5 fingers each. Together: 10!",
-        "caption": "5 + 5 = 10"
+        "caption": "5 + 5 = 10 🌟"
       },
       {
         "title": "All Five Powers",
@@ -8983,7 +8983,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "Hakan, memorize: 1+1=2, 2+2=4, 3+3=6, 4+4=8, 5+5=10. All EVEN numbers!",
-        "caption": "Doubles = even!"
+        "caption": "Doubles = even! 💯"
       },
       {
         "title": "Use Your Powers",
@@ -8992,8 +8992,8 @@ const MODULES = [
           "a": 4,
           "b": 5
         },
-        "text": "Doubles help with NEAR-doubles too. 4+5 = 4+4+1 = 9. Hakan's powers grow!",
-        "caption": "Doubles unlock more!"
+        "text": "Doubles help with NEAR-doubles too. 4+5 = 4+4+1 = 9. Hakan's powers grow! Look at you, Hakan — a math hero!",
+        "caption": "Doubles unlock more! ✨"
       }
     ],
     "practice": [
@@ -9006,7 +9006,7 @@ const MODULES = [
         },
         "prompt": "Hakan's smallest power: 1 + 1?",
         "answer": 2,
-        "hint": "Double of 1: just 1 plus 1 more makes 2."
+        "hint": "Try this, Hakan — you're on it! Double of 1: just 1 plus 1 more makes 2."
       },
       {
         "type": "numeric",
@@ -9028,7 +9028,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 3 + 3?",
         "answer": 6,
-        "hint": "Double 3: half a dozen. Memorize this one!"
+        "hint": "Almost, Hakan — keep your eyes sharp! Double 3: half a dozen. Memorize this one!"
       },
       {
         "type": "numeric",
@@ -9039,7 +9039,7 @@ const MODULES = [
         },
         "prompt": "Hakan's mid-power: 4 + 4?",
         "answer": 8,
-        "hint": "Double 4: think of an octopus arm split. 4+4=8."
+        "hint": "You got this, Hakan! Double 4: think of an octopus arm split. 4+4=8."
       },
       {
         "type": "numeric",
@@ -9050,7 +9050,7 @@ const MODULES = [
         },
         "prompt": "Hakan's biggest small-power: 5 + 5?",
         "answer": 10,
-        "hint": "Double 5: two hands of fingers = 10! Most important double!"
+        "hint": "Hakan, you're so smart — think it through. Double 5: two hands of fingers = 10! Most important double!"
       },
       {
         "type": "numeric",
@@ -9061,7 +9061,7 @@ const MODULES = [
         },
         "prompt": "Near-doubles: 3 + 4?",
         "answer": 7,
-        "hint": "3 + 3 = 6, plus 1 more = 7. Use the double!"
+        "hint": "Easy for a smart kid like you, Hakan. 3 + 3 = 6, plus 1 more = 7. Use the double!"
       },
       {
         "type": "numeric",
@@ -9072,7 +9072,7 @@ const MODULES = [
         },
         "prompt": "Hakan tries near-doubles: 4 + 5?",
         "answer": 9,
-        "hint": "4 + 4 = 8, plus 1 more = 9."
+        "hint": "Hakan, take a breath and look again. 4 + 4 = 8, plus 1 more = 9."
       },
       {
         "type": "numeric",
@@ -9083,7 +9083,7 @@ const MODULES = [
         },
         "prompt": "Tricky near-double: 2 + 3?",
         "answer": 5,
-        "hint": "2 + 2 = 4, plus 1 more = 5. Use 2's double!"
+        "hint": "You can do this, Hakan! 2 + 2 = 4, plus 1 more = 5. Use 2's double!"
       }
     ],
     "quiz": [
@@ -9205,7 +9205,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Hakan, you mastered small doubles. Time for the big ones! These are the most useful in math.",
-        "caption": "Big powers ahead!"
+        "caption": "Big powers ahead! 🏆"
       },
       {
         "title": "Power 6: 6+6=12",
@@ -9215,7 +9215,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Hakan: 6 + 6 = 12. Like a clock's two halves with 6 hours each!",
-        "caption": "6 + 6 = 12"
+        "caption": "6 + 6 = 12 🎯"
       },
       {
         "title": "Power 7: 7+7=14",
@@ -9225,7 +9225,7 @@ const MODULES = [
           "b": 7
         },
         "text": "Hakan: 7 + 7 = 14. Two weeks = 14 days. (One week = 7 days \u00d7 2!)",
-        "caption": "7 + 7 = 14"
+        "caption": "7 + 7 = 14 ⭐"
       },
       {
         "title": "Power 8: 8+8=16",
@@ -9235,7 +9235,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Hakan: 8 + 8 = 16. Two octopi together have 16 arms!",
-        "caption": "8 + 8 = 16"
+        "caption": "8 + 8 = 16 🌟"
       },
       {
         "title": "Power 9: 9+9=18",
@@ -9245,7 +9245,7 @@ const MODULES = [
           "b": 9
         },
         "text": "Hakan: 9 + 9 = 18. Almost 20! Trick: 10+10=20, then take away 2 \u2192 18.",
-        "caption": "9 + 9 = 18"
+        "caption": "9 + 9 = 18 💯"
       },
       {
         "title": "Power 10: 10+10=20",
@@ -9255,7 +9255,7 @@ const MODULES = [
           "b": 10
         },
         "text": "BIGGEST single-digit double: 10 + 10 = 20. Two ten-frames full!",
-        "caption": "10 + 10 = 20"
+        "caption": "10 + 10 = 20 ✨"
       },
       {
         "title": "All Big Powers",
@@ -9265,7 +9265,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Memorize: 6+6=12, 7+7=14, 8+8=16, 9+9=18, 10+10=20. All EVEN!",
-        "caption": "Even numbers!"
+        "caption": "Even numbers! 🏆"
       },
       {
         "title": "Master Doubler!",
@@ -9274,8 +9274,8 @@ const MODULES = [
           "a": 9,
           "b": 9
         },
-        "text": "Hakan, when you know all 10 doubles, near-doubles are easy too. You're a math hero!",
-        "caption": "\ud83e\uddb8 Master!"
+        "text": "Hakan, when you know all 10 doubles, near-doubles are easy too. You're a math hero! Hakan, you are a star!",
+        "caption": "\ud83e\uddb8 Master! 🎯"
       }
     ],
     "practice": [
@@ -9288,7 +9288,7 @@ const MODULES = [
         },
         "prompt": "Hakan's first big double: 6 + 6?",
         "answer": 12,
-        "hint": "Like an egg carton's two rows of 6. Total 12."
+        "hint": "Hakan, slow down and count carefully. Like an egg carton's two rows of 6. Total 12."
       },
       {
         "type": "numeric",
@@ -9299,7 +9299,7 @@ const MODULES = [
         },
         "prompt": "Two weeks: 7 + 7?",
         "answer": 14,
-        "hint": "Memorize: double 7 is 14. Two weeks of days."
+        "hint": "Stay focused, Hakan — you're amazing. Memorize: double 7 is 14. Two weeks of days."
       },
       {
         "type": "numeric",
@@ -9310,7 +9310,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 8 + 8?",
         "answer": 16,
-        "hint": "Double 8 is 16. Two octopuses' arms total."
+        "hint": "Try this, Hakan — you're on it! Double 8 is 16. Two octopuses' arms total."
       },
       {
         "type": "numeric",
@@ -9321,7 +9321,7 @@ const MODULES = [
         },
         "prompt": "Big double: 9 + 9?",
         "answer": 18,
-        "hint": "10+10=20, minus 2 = 18. Or memorize: 9+9=18."
+        "hint": "Hakan, use your strategy! 10+10=20, minus 2 = 18. Or memorize: 9+9=18."
       },
       {
         "type": "numeric",
@@ -9332,7 +9332,7 @@ const MODULES = [
         },
         "prompt": "BIGGEST: 10 + 10?",
         "answer": 20,
-        "hint": "Two full ten-frames = 20. Easy!"
+        "hint": "Almost, Hakan — keep your eyes sharp! Two full ten-frames = 20. Easy!"
       },
       {
         "type": "numeric",
@@ -9343,7 +9343,7 @@ const MODULES = [
         },
         "prompt": "Near-doubles: 6 + 7?",
         "answer": 13,
-        "hint": "6 + 6 = 12, plus 1 more = 13. Use the double!"
+        "hint": "You got this, Hakan! 6 + 6 = 12, plus 1 more = 13. Use the double!"
       },
       {
         "type": "numeric",
@@ -9354,7 +9354,7 @@ const MODULES = [
         },
         "prompt": "Hakan tries: 7 + 8?",
         "answer": 15,
-        "hint": "7 + 7 = 14, plus 1 = 15."
+        "hint": "Hakan, you're so smart — think it through. 7 + 7 = 14, plus 1 = 15."
       },
       {
         "type": "numeric",
@@ -9365,7 +9365,7 @@ const MODULES = [
         },
         "prompt": "Tricky near-double: 8 + 9?",
         "answer": 17,
-        "hint": "8 + 8 = 16, plus 1 more = 17. Doubles + 1 trick!"
+        "hint": "Easy for a smart kid like you, Hakan. 8 + 8 = 16, plus 1 more = 17. Doubles + 1 trick!"
       }
     ],
     "quiz": [
@@ -9487,7 +9487,7 @@ const MODULES = [
           "b": 7
         },
         "text": "Hakan learned doubles. Now: a SECRET WEAPON! Use doubles to solve near-doubles like 6+7.",
-        "caption": "Doubles + 1!"
+        "caption": "Doubles + 1! ⭐"
       },
       {
         "title": "How It Works",
@@ -9497,7 +9497,7 @@ const MODULES = [
           "b": 7
         },
         "text": "6 + 7 looks hard. But 6 + 6 = 12 is easy. Then add 1 more: 6 + 7 = 13!",
-        "caption": "6+7 = 6+6+1 = 13"
+        "caption": "6+7 = 6+6+1 = 13 🌟"
       },
       {
         "title": "Try 4 + 5",
@@ -9507,7 +9507,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Hakan tries 4 + 5. Use 4+4=8, then +1 = 9. Easy!",
-        "caption": "4+5 = 4+4+1 = 9"
+        "caption": "4+5 = 4+4+1 = 9 💯"
       },
       {
         "title": "Try 7 + 8",
@@ -9517,7 +9517,7 @@ const MODULES = [
           "b": 8
         },
         "text": "7 + 8: Hakan thinks 7+7=14, then +1 = 15.",
-        "caption": "7+8 = 7+7+1 = 15"
+        "caption": "7+8 = 7+7+1 = 15 ✨"
       },
       {
         "title": "Doubles Minus 1",
@@ -9527,7 +9527,7 @@ const MODULES = [
           "b": 7
         },
         "text": "Same answer, different trick: 7+7=14, minus 1 = 13. So 6+7=13. Use either way!",
-        "caption": "Doubles \u2212 1 also works"
+        "caption": "Doubles \u2212 1 also works 🏆"
       },
       {
         "title": "Try 8 + 9",
@@ -9537,7 +9537,7 @@ const MODULES = [
           "b": 9
         },
         "text": "Hakan: 8+9 = double of 8 plus 1 = 16+1 = 17. Or double of 9 minus 1 = 18\u22121 = 17.",
-        "caption": "8+9 = 17 (two ways!)"
+        "caption": "8+9 = 17 (two ways!) 🎯"
       },
       {
         "title": "Why This Wins",
@@ -9547,7 +9547,7 @@ const MODULES = [
           "b": 10
         },
         "text": "Hakan knows doubles fast. So near-doubles get fast too! No counting needed.",
-        "caption": "No counting!"
+        "caption": "No counting! ⭐"
       },
       {
         "title": "You're Lethal!",
@@ -9556,8 +9556,8 @@ const MODULES = [
           "a": 5,
           "b": 6
         },
-        "text": "With doubles + near-doubles, Hakan can solve almost any small sum INSTANTLY.",
-        "caption": "Math ninja!"
+        "text": "With doubles + near-doubles, Hakan can solve almost any small sum INSTANTLY. You got this, Hakan! Time to practice!",
+        "caption": "Math ninja! 🌟"
       }
     ],
     "practice": [
@@ -9570,7 +9570,7 @@ const MODULES = [
         },
         "prompt": "Hakan tries: 2 + 3 (use 2+2)?",
         "answer": 5,
-        "hint": "2 + 2 = 4, plus 1 = 5. Near-doubles!"
+        "hint": "Hakan, take a breath and look again. 2 + 2 = 4, plus 1 = 5. Near-doubles!"
       },
       {
         "type": "numeric",
@@ -9581,7 +9581,7 @@ const MODULES = [
         },
         "prompt": "3 + 4 \u2014 use a double!",
         "answer": 7,
-        "hint": "Double 3 = 6, plus 1 = 7. Or double 4 = 8, minus 1 = 7."
+        "hint": "You can do this, Hakan! Double 3 = 6, plus 1 = 7. Or double 4 = 8, minus 1 = 7."
       },
       {
         "type": "numeric",
@@ -9592,7 +9592,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 4 + 5?",
         "answer": 9,
-        "hint": "4+4=8, then +1 = 9. Near-doubles trick!"
+        "hint": "Hakan, slow down and count carefully. 4+4=8, then +1 = 9. Near-doubles trick!"
       },
       {
         "type": "numeric",
@@ -9603,7 +9603,7 @@ const MODULES = [
         },
         "prompt": "Big-kid sum: 5 + 6?",
         "answer": 11,
-        "hint": "5+5=10, plus 1 = 11. Use the doubles you know!"
+        "hint": "Stay focused, Hakan — you're amazing. 5+5=10, plus 1 = 11. Use the doubles you know!"
       },
       {
         "type": "numeric",
@@ -9614,7 +9614,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 6 + 7?",
         "answer": 13,
-        "hint": "6+6=12, plus 1 = 13."
+        "hint": "Try this, Hakan — you're on it! 6+6=12, plus 1 = 13."
       },
       {
         "type": "numeric",
@@ -9625,7 +9625,7 @@ const MODULES = [
         },
         "prompt": "Tricky: 7 + 8?",
         "answer": 15,
-        "hint": "7+7=14, plus 1 = 15. Doubles +1 wins!"
+        "hint": "Hakan, use your strategy! 7+7=14, plus 1 = 15. Doubles +1 wins!"
       },
       {
         "type": "numeric",
@@ -9636,7 +9636,7 @@ const MODULES = [
         },
         "prompt": "Hakan: 8 + 9?",
         "answer": 17,
-        "hint": "8+8=16, plus 1 = 17."
+        "hint": "Almost, Hakan — keep your eyes sharp! 8+8=16, plus 1 = 17."
       },
       {
         "type": "numeric",
@@ -9647,7 +9647,7 @@ const MODULES = [
         },
         "prompt": "Last: 9 + 10?",
         "answer": 19,
-        "hint": "9+9=18, plus 1 = 19. Or just: 10+9 think 10+10\u22121=19."
+        "hint": "You got this, Hakan! 9+9=18, plus 1 = 19. Or just: 10+9 think 10+10\u22121=19."
       }
     ],
     "quiz": [
@@ -9768,7 +9768,7 @@ const MODULES = [
           "n": 5
         },
         "text": "Hakan, look! Two parts always make 5. We call these \"bonds\" or \"partners\".",
-        "caption": "Find pairs to 5"
+        "caption": "Find pairs to 5 💯"
       },
       {
         "title": "See It with Dots",
@@ -9777,7 +9777,7 @@ const MODULES = [
           "filled": 5
         },
         "text": "Imagine 5 dots. Split them into two groups: how many ways? Hakan, you can do this too!",
-        "caption": "5 dots, many splits"
+        "caption": "5 dots, many splits ✨"
       },
       {
         "title": "First Pair",
@@ -9788,7 +9788,7 @@ const MODULES = [
           "b": 4
         },
         "text": "1 and 4 are partners. 1 + 4 = 5.",
-        "caption": "1 + 4 = 5"
+        "caption": "1 + 4 = 5 🏆"
       },
       {
         "title": "Middle Pair",
@@ -9799,7 +9799,7 @@ const MODULES = [
           "b": 3
         },
         "text": "2 and 3 are partners. Near doubles.",
-        "caption": "2 + 3 = 5"
+        "caption": "2 + 3 = 5 🎯"
       },
       {
         "title": "Knowing Bonds Helps Math",
@@ -9808,8 +9808,8 @@ const MODULES = [
           "a": 2,
           "b": 3
         },
-        "text": "Watch with Hakan: when you KNOW the bonds for 5, adding and subtracting up to 5 becomes super fast!",
-        "caption": "Bonds are the secret"
+        "text": "Watch with Hakan: when you KNOW the bonds for 5, adding and subtracting up to 5 becomes super fast! Hakan the brilliant — try the practice!",
+        "caption": "Bonds are the secret ⭐"
       }
     ],
     "practice": [
@@ -9822,7 +9822,7 @@ const MODULES = [
         },
         "prompt": "Hakan has zero apples and gets five more. How many in all?",
         "answer": 5,
-        "hint": "0 and 5 are partners for 5."
+        "hint": "Hakan, you're so smart — think it through. 0 and 5 are partners for 5."
       },
       {
         "type": "numeric",
@@ -9833,7 +9833,7 @@ const MODULES = [
         },
         "prompt": "One plus what equals five?",
         "answer": 4,
-        "hint": "1 and 4 are partners for 5."
+        "hint": "Easy for a smart kid like you, Hakan. 1 and 4 are partners for 5."
       },
       {
         "type": "numeric",
@@ -9844,7 +9844,7 @@ const MODULES = [
         },
         "prompt": "Two plus what equals five?",
         "answer": 3,
-        "hint": "2 and 3 are partners for 5."
+        "hint": "Hakan, take a breath and look again. 2 and 3 are partners for 5."
       },
       {
         "type": "numeric",
@@ -9855,7 +9855,7 @@ const MODULES = [
         },
         "prompt": "Three plus what equals five?",
         "answer": 2,
-        "hint": "3 and 2 are partners for 5."
+        "hint": "You can do this, Hakan! 3 and 2 are partners for 5."
       },
       {
         "type": "numeric",
@@ -9866,7 +9866,7 @@ const MODULES = [
         },
         "prompt": "Four plus what equals five?",
         "answer": 1,
-        "hint": "4 and 1 are partners for 5."
+        "hint": "Hakan, slow down and count carefully. 4 and 1 are partners for 5."
       },
       {
         "type": "numeric",
@@ -9877,7 +9877,7 @@ const MODULES = [
         },
         "prompt": "Five plus what equals five?",
         "answer": 0,
-        "hint": "5 and 0 are partners for 5."
+        "hint": "Stay focused, Hakan — you're amazing. 5 and 0 are partners for 5."
       }
     ],
     "quiz": [
@@ -9997,8 +9997,8 @@ const MODULES = [
           "type": "bignum",
           "n": 6
         },
-        "text": "Two parts always make 6. We call these \"bonds\" or \"partners\".",
-        "caption": "Find pairs to 6"
+        "text": "Ready, Hakan? Two parts always make 6. We call these \"bonds\" or \"partners\".",
+        "caption": "Find pairs to 6 🌟"
       },
       {
         "title": "See It with Dots",
@@ -10007,7 +10007,7 @@ const MODULES = [
           "filled": 6
         },
         "text": "Hakan, look! Imagine 6 dots. Split them into two groups: how many ways?",
-        "caption": "6 dots, many splits"
+        "caption": "6 dots, many splits 💯"
       },
       {
         "title": "First Pair",
@@ -10018,7 +10018,7 @@ const MODULES = [
           "b": 5
         },
         "text": "1 and 5 are partners. 1 + 5 = 6.",
-        "caption": "1 + 5 = 6"
+        "caption": "1 + 5 = 6 ✨"
       },
       {
         "title": "Middle Pair",
@@ -10029,7 +10029,7 @@ const MODULES = [
           "b": 3
         },
         "text": "3 and 3 are partners. A double! Hakan, you can do this too!",
-        "caption": "3 + 3 = 6"
+        "caption": "3 + 3 = 6 🏆"
       },
       {
         "title": "Knowing Bonds Helps Math",
@@ -10038,8 +10038,8 @@ const MODULES = [
           "a": 3,
           "b": 3
         },
-        "text": "Watch with Hakan: when you KNOW the bonds for 6, adding and subtracting up to 6 becomes super fast!",
-        "caption": "Bonds are the secret"
+        "text": "Watch with Hakan: when you KNOW the bonds for 6, adding and subtracting up to 6 becomes super fast! I knew you'd nail it, Hakan!",
+        "caption": "Bonds are the secret 🎯"
       }
     ],
     "practice": [
@@ -10052,7 +10052,7 @@ const MODULES = [
         },
         "prompt": "Zero plus what equals six?",
         "answer": 6,
-        "hint": "0 and 6 are partners for 6."
+        "hint": "Try this, Hakan — you're on it! 0 and 6 are partners for 6."
       },
       {
         "type": "numeric",
@@ -10063,7 +10063,7 @@ const MODULES = [
         },
         "prompt": "One plus what equals six?",
         "answer": 5,
-        "hint": "1 and 5 are partners for 6."
+        "hint": "Hakan, use your strategy! 1 and 5 are partners for 6."
       },
       {
         "type": "numeric",
@@ -10074,7 +10074,7 @@ const MODULES = [
         },
         "prompt": "Two plus what equals six?",
         "answer": 4,
-        "hint": "2 and 4 are partners for 6."
+        "hint": "Almost, Hakan — keep your eyes sharp! 2 and 4 are partners for 6."
       },
       {
         "type": "numeric",
@@ -10085,7 +10085,7 @@ const MODULES = [
         },
         "prompt": "Three plus what equals six?",
         "answer": 3,
-        "hint": "3 and 3 are partners for 6."
+        "hint": "You got this, Hakan! 3 and 3 are partners for 6."
       },
       {
         "type": "numeric",
@@ -10096,7 +10096,7 @@ const MODULES = [
         },
         "prompt": "Four plus what equals six?",
         "answer": 2,
-        "hint": "4 and 2 are partners for 6."
+        "hint": "Hakan, you're so smart — think it through. 4 and 2 are partners for 6."
       },
       {
         "type": "numeric",
@@ -10107,7 +10107,7 @@ const MODULES = [
         },
         "prompt": "Five plus what equals six?",
         "answer": 1,
-        "hint": "5 and 1 are partners for 6."
+        "hint": "Easy for a smart kid like you, Hakan. 5 and 1 are partners for 6."
       },
       {
         "type": "numeric",
@@ -10118,7 +10118,7 @@ const MODULES = [
         },
         "prompt": "Six plus what equals six?",
         "answer": 0,
-        "hint": "6 and 0 are partners for 6."
+        "hint": "Hakan, take a breath and look again. 6 and 0 are partners for 6."
       }
     ],
     "quiz": [
@@ -10239,7 +10239,7 @@ const MODULES = [
           "n": 7
         },
         "text": "Hakan, look! Two parts always make 7. We call these \"bonds\" or \"partners\".",
-        "caption": "Find pairs to 7"
+        "caption": "Find pairs to 7 ⭐"
       },
       {
         "title": "See It with Dots",
@@ -10248,7 +10248,7 @@ const MODULES = [
           "filled": 7
         },
         "text": "Imagine 7 dots. Split them into two groups: how many ways? Hakan, you can do this too!",
-        "caption": "7 dots, many splits"
+        "caption": "7 dots, many splits 🌟"
       },
       {
         "title": "First Pair",
@@ -10259,7 +10259,7 @@ const MODULES = [
           "b": 6
         },
         "text": "1 and 6 are partners. 1 + 6 = 7.",
-        "caption": "1 + 6 = 7"
+        "caption": "1 + 6 = 7 💯"
       },
       {
         "title": "Middle Pair",
@@ -10270,7 +10270,7 @@ const MODULES = [
           "b": 4
         },
         "text": "Watch with Hakan: 3 and 4 are partners. Near doubles.",
-        "caption": "3 + 4 = 7"
+        "caption": "3 + 4 = 7 ✨"
       },
       {
         "title": "Knowing Bonds Helps Math",
@@ -10279,8 +10279,8 @@ const MODULES = [
           "a": 3,
           "b": 4
         },
-        "text": "When you KNOW the bonds for 7, adding and subtracting up to 7 becomes super fast!",
-        "caption": "Bonds are the secret"
+        "text": "When you KNOW the bonds for 7, adding and subtracting up to 7 becomes super fast! Hakan, you are unstoppable!",
+        "caption": "Bonds are the secret 🏆"
       }
     ],
     "practice": [
@@ -10293,7 +10293,7 @@ const MODULES = [
         },
         "prompt": "Zero plus what equals seven?",
         "answer": 7,
-        "hint": "0 and 7 are partners for 7."
+        "hint": "You can do this, Hakan! 0 and 7 are partners for 7."
       },
       {
         "type": "numeric",
@@ -10304,7 +10304,7 @@ const MODULES = [
         },
         "prompt": "One plus what equals seven?",
         "answer": 6,
-        "hint": "1 and 6 are partners for 7."
+        "hint": "Hakan, slow down and count carefully. 1 and 6 are partners for 7."
       },
       {
         "type": "numeric",
@@ -10315,7 +10315,7 @@ const MODULES = [
         },
         "prompt": "Two plus what equals seven?",
         "answer": 5,
-        "hint": "2 and 5 are partners for 7."
+        "hint": "Stay focused, Hakan — you're amazing. 2 and 5 are partners for 7."
       },
       {
         "type": "numeric",
@@ -10326,7 +10326,7 @@ const MODULES = [
         },
         "prompt": "Three plus what equals seven?",
         "answer": 4,
-        "hint": "3 and 4 are partners for 7."
+        "hint": "Try this, Hakan — you're on it! 3 and 4 are partners for 7."
       },
       {
         "type": "numeric",
@@ -10337,7 +10337,7 @@ const MODULES = [
         },
         "prompt": "Four plus what equals seven?",
         "answer": 3,
-        "hint": "4 and 3 are partners for 7."
+        "hint": "Hakan, use your strategy! 4 and 3 are partners for 7."
       },
       {
         "type": "numeric",
@@ -10348,7 +10348,7 @@ const MODULES = [
         },
         "prompt": "Five plus what equals seven?",
         "answer": 2,
-        "hint": "5 and 2 are partners for 7."
+        "hint": "Almost, Hakan — keep your eyes sharp! 5 and 2 are partners for 7."
       },
       {
         "type": "numeric",
@@ -10359,7 +10359,7 @@ const MODULES = [
         },
         "prompt": "Six plus what equals seven?",
         "answer": 1,
-        "hint": "6 and 1 are partners for 7."
+        "hint": "You got this, Hakan! 6 and 1 are partners for 7."
       },
       {
         "type": "numeric",
@@ -10370,7 +10370,7 @@ const MODULES = [
         },
         "prompt": "Seven plus what equals seven?",
         "answer": 0,
-        "hint": "7 and 0 are partners for 7."
+        "hint": "Hakan, you're so smart — think it through. 7 and 0 are partners for 7."
       }
     ],
     "quiz": [
@@ -10490,8 +10490,8 @@ const MODULES = [
           "type": "bignum",
           "n": 8
         },
-        "text": "Two parts always make 8. We call these \"bonds\" or \"partners\".",
-        "caption": "Find pairs to 8"
+        "text": "Hakan, this is fun! Two parts always make 8. We call these \"bonds\" or \"partners\".",
+        "caption": "Find pairs to 8 🎯"
       },
       {
         "title": "See It with Dots",
@@ -10500,7 +10500,7 @@ const MODULES = [
           "filled": 8
         },
         "text": "Hakan, look! Imagine 8 dots. Split them into two groups: how many ways?",
-        "caption": "8 dots, many splits"
+        "caption": "8 dots, many splits ⭐"
       },
       {
         "title": "First Pair",
@@ -10511,7 +10511,7 @@ const MODULES = [
           "b": 7
         },
         "text": "1 and 7 are partners. 1 + 7 = 8. Hakan, you can do this too!",
-        "caption": "1 + 7 = 8"
+        "caption": "1 + 7 = 8 🌟"
       },
       {
         "title": "Middle Pair",
@@ -10522,7 +10522,7 @@ const MODULES = [
           "b": 4
         },
         "text": "4 and 4 are partners. A double!",
-        "caption": "4 + 4 = 8"
+        "caption": "4 + 4 = 8 💯"
       },
       {
         "title": "Knowing Bonds Helps Math",
@@ -10531,8 +10531,8 @@ const MODULES = [
           "a": 4,
           "b": 4
         },
-        "text": "Watch with Hakan: when you KNOW the bonds for 8, adding and subtracting up to 8 becomes super fast!",
-        "caption": "Bonds are the secret"
+        "text": "Watch with Hakan: when you KNOW the bonds for 8, adding and subtracting up to 8 becomes super fast! Brilliant work, Hakan! On to practice!",
+        "caption": "Bonds are the secret ✨"
       }
     ],
     "practice": [
@@ -10545,7 +10545,7 @@ const MODULES = [
         },
         "prompt": "Zero plus what equals eight?",
         "answer": 8,
-        "hint": "0 and 8 are partners for 8."
+        "hint": "Easy for a smart kid like you, Hakan. 0 and 8 are partners for 8."
       },
       {
         "type": "numeric",
@@ -10556,7 +10556,7 @@ const MODULES = [
         },
         "prompt": "One plus what equals eight?",
         "answer": 7,
-        "hint": "1 and 7 are partners for 8."
+        "hint": "Hakan, take a breath and look again. 1 and 7 are partners for 8."
       },
       {
         "type": "numeric",
@@ -10567,7 +10567,7 @@ const MODULES = [
         },
         "prompt": "Two plus what equals eight?",
         "answer": 6,
-        "hint": "2 and 6 are partners for 8."
+        "hint": "You can do this, Hakan! 2 and 6 are partners for 8."
       },
       {
         "type": "numeric",
@@ -10578,7 +10578,7 @@ const MODULES = [
         },
         "prompt": "Three plus what equals eight?",
         "answer": 5,
-        "hint": "3 and 5 are partners for 8."
+        "hint": "Hakan, slow down and count carefully. 3 and 5 are partners for 8."
       },
       {
         "type": "numeric",
@@ -10589,7 +10589,7 @@ const MODULES = [
         },
         "prompt": "Four plus what equals eight?",
         "answer": 4,
-        "hint": "4 and 4 are partners for 8."
+        "hint": "Stay focused, Hakan — you're amazing. 4 and 4 are partners for 8."
       },
       {
         "type": "numeric",
@@ -10600,7 +10600,7 @@ const MODULES = [
         },
         "prompt": "Five plus what equals eight?",
         "answer": 3,
-        "hint": "5 and 3 are partners for 8."
+        "hint": "Try this, Hakan — you're on it! 5 and 3 are partners for 8."
       },
       {
         "type": "numeric",
@@ -10611,7 +10611,7 @@ const MODULES = [
         },
         "prompt": "Six plus what equals eight?",
         "answer": 2,
-        "hint": "6 and 2 are partners for 8."
+        "hint": "Hakan, use your strategy! 6 and 2 are partners for 8."
       },
       {
         "type": "numeric",
@@ -10622,7 +10622,7 @@ const MODULES = [
         },
         "prompt": "Seven plus what equals eight?",
         "answer": 1,
-        "hint": "7 and 1 are partners for 8."
+        "hint": "Almost, Hakan — keep your eyes sharp! 7 and 1 are partners for 8."
       }
     ],
     "quiz": [
@@ -10743,7 +10743,7 @@ const MODULES = [
           "n": 9
         },
         "text": "Hakan, look! Two parts always make 9. We call these \"bonds\" or \"partners\".",
-        "caption": "Find pairs to 9"
+        "caption": "Find pairs to 9 🏆"
       },
       {
         "title": "See It with Dots",
@@ -10752,7 +10752,7 @@ const MODULES = [
           "filled": 9
         },
         "text": "Imagine 9 dots. Split them into two groups: how many ways? Hakan, you can do this too!",
-        "caption": "9 dots, many splits"
+        "caption": "9 dots, many splits 🎯"
       },
       {
         "title": "First Pair",
@@ -10763,7 +10763,7 @@ const MODULES = [
           "b": 8
         },
         "text": "1 and 8 are partners. 1 + 8 = 9.",
-        "caption": "1 + 8 = 9"
+        "caption": "1 + 8 = 9 ⭐"
       },
       {
         "title": "Middle Pair",
@@ -10774,7 +10774,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Watch with Hakan: 4 and 5 are partners. Near doubles.",
-        "caption": "4 + 5 = 9"
+        "caption": "4 + 5 = 9 🌟"
       },
       {
         "title": "Knowing Bonds Helps Math",
@@ -10783,8 +10783,8 @@ const MODULES = [
           "a": 4,
           "b": 5
         },
-        "text": "When you KNOW the bonds for 9, adding and subtracting up to 9 becomes super fast!",
-        "caption": "Bonds are the secret"
+        "text": "When you KNOW the bonds for 9, adding and subtracting up to 9 becomes super fast! Hakan, you make this look easy!",
+        "caption": "Bonds are the secret 💯"
       }
     ],
     "practice": [
@@ -10797,7 +10797,7 @@ const MODULES = [
         },
         "prompt": "Zero plus what equals nine?",
         "answer": 9,
-        "hint": "0 and 9 are partners for 9."
+        "hint": "You got this, Hakan! 0 and 9 are partners for 9."
       },
       {
         "type": "numeric",
@@ -10808,7 +10808,7 @@ const MODULES = [
         },
         "prompt": "One plus what equals nine?",
         "answer": 8,
-        "hint": "1 and 8 are partners for 9."
+        "hint": "Hakan, you're so smart — think it through. 1 and 8 are partners for 9."
       },
       {
         "type": "numeric",
@@ -10819,7 +10819,7 @@ const MODULES = [
         },
         "prompt": "Two plus what equals nine?",
         "answer": 7,
-        "hint": "2 and 7 are partners for 9."
+        "hint": "Easy for a smart kid like you, Hakan. 2 and 7 are partners for 9."
       },
       {
         "type": "numeric",
@@ -10830,7 +10830,7 @@ const MODULES = [
         },
         "prompt": "Three plus what equals nine?",
         "answer": 6,
-        "hint": "3 and 6 are partners for 9."
+        "hint": "Hakan, take a breath and look again. 3 and 6 are partners for 9."
       },
       {
         "type": "numeric",
@@ -10841,7 +10841,7 @@ const MODULES = [
         },
         "prompt": "Four plus what equals nine?",
         "answer": 5,
-        "hint": "4 and 5 are partners for 9."
+        "hint": "You can do this, Hakan! 4 and 5 are partners for 9."
       },
       {
         "type": "numeric",
@@ -10852,7 +10852,7 @@ const MODULES = [
         },
         "prompt": "Five plus what equals nine?",
         "answer": 4,
-        "hint": "5 and 4 are partners for 9."
+        "hint": "Hakan, slow down and count carefully. 5 and 4 are partners for 9."
       },
       {
         "type": "numeric",
@@ -10863,7 +10863,7 @@ const MODULES = [
         },
         "prompt": "Six plus what equals nine?",
         "answer": 3,
-        "hint": "6 and 3 are partners for 9."
+        "hint": "Stay focused, Hakan — you're amazing. 6 and 3 are partners for 9."
       },
       {
         "type": "numeric",
@@ -10874,7 +10874,7 @@ const MODULES = [
         },
         "prompt": "Seven plus what equals nine?",
         "answer": 2,
-        "hint": "7 and 2 are partners for 9."
+        "hint": "Try this, Hakan — you're on it! 7 and 2 are partners for 9."
       }
     ],
     "quiz": [
@@ -10995,7 +10995,7 @@ const MODULES = [
           "n": 10
         },
         "text": "Hakan, look! Two parts always make 10. We call these \"bonds\" or \"partners\".",
-        "caption": "Find pairs to 10"
+        "caption": "Find pairs to 10 ✨"
       },
       {
         "title": "See It with Dots",
@@ -11004,7 +11004,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "Imagine 10 dots. Split them into two groups: how many ways?",
-        "caption": "10 dots, many splits"
+        "caption": "10 dots, many splits 🏆"
       },
       {
         "title": "First Pair",
@@ -11015,7 +11015,7 @@ const MODULES = [
           "b": 9
         },
         "text": "1 and 9 are partners. 1 + 9 = 10. Hakan, you can do this too!",
-        "caption": "1 + 9 = 10"
+        "caption": "1 + 9 = 10 🎯"
       },
       {
         "title": "Middle Pair",
@@ -11026,7 +11026,7 @@ const MODULES = [
           "b": 5
         },
         "text": "5 and 5 are partners. A double!",
-        "caption": "5 + 5 = 10"
+        "caption": "5 + 5 = 10 ⭐"
       },
       {
         "title": "Knowing Bonds Helps Math",
@@ -11035,8 +11035,8 @@ const MODULES = [
           "a": 5,
           "b": 5
         },
-        "text": "Watch with Hakan: when you KNOW the bonds for 10, adding and subtracting up to 10 becomes super fast!",
-        "caption": "Bonds are the secret"
+        "text": "Watch with Hakan: when you KNOW the bonds for 10, adding and subtracting up to 10 becomes super fast! Way to go, Hakan!",
+        "caption": "Bonds are the secret 🌟"
       }
     ],
     "practice": [
@@ -11049,7 +11049,7 @@ const MODULES = [
         },
         "prompt": "Zero plus what equals ten?",
         "answer": 10,
-        "hint": "0 and 10 are partners for 10."
+        "hint": "Hakan, use your strategy! 0 and 10 are partners for 10."
       },
       {
         "type": "numeric",
@@ -11060,7 +11060,7 @@ const MODULES = [
         },
         "prompt": "One plus what equals ten?",
         "answer": 9,
-        "hint": "1 and 9 are partners for 10."
+        "hint": "Almost, Hakan — keep your eyes sharp! 1 and 9 are partners for 10."
       },
       {
         "type": "numeric",
@@ -11071,7 +11071,7 @@ const MODULES = [
         },
         "prompt": "Two plus what equals ten?",
         "answer": 8,
-        "hint": "2 and 8 are partners for 10."
+        "hint": "You got this, Hakan! 2 and 8 are partners for 10."
       },
       {
         "type": "numeric",
@@ -11082,7 +11082,7 @@ const MODULES = [
         },
         "prompt": "Three plus what equals ten?",
         "answer": 7,
-        "hint": "3 and 7 are partners for 10."
+        "hint": "Hakan, you're so smart — think it through. 3 and 7 are partners for 10."
       },
       {
         "type": "numeric",
@@ -11093,7 +11093,7 @@ const MODULES = [
         },
         "prompt": "Four plus what equals ten?",
         "answer": 6,
-        "hint": "4 and 6 are partners for 10."
+        "hint": "Easy for a smart kid like you, Hakan. 4 and 6 are partners for 10."
       },
       {
         "type": "numeric",
@@ -11104,7 +11104,7 @@ const MODULES = [
         },
         "prompt": "Five plus what equals ten?",
         "answer": 5,
-        "hint": "5 and 5 are partners for 10."
+        "hint": "Hakan, take a breath and look again. 5 and 5 are partners for 10."
       },
       {
         "type": "numeric",
@@ -11115,7 +11115,7 @@ const MODULES = [
         },
         "prompt": "Six plus what equals ten?",
         "answer": 4,
-        "hint": "6 and 4 are partners for 10."
+        "hint": "You can do this, Hakan! 6 and 4 are partners for 10."
       },
       {
         "type": "numeric",
@@ -11126,7 +11126,7 @@ const MODULES = [
         },
         "prompt": "Seven plus what equals ten?",
         "answer": 3,
-        "hint": "7 and 3 are partners for 10."
+        "hint": "Hakan, slow down and count carefully. 7 and 3 are partners for 10."
       }
     ],
     "quiz": [
@@ -11247,8 +11247,8 @@ const MODULES = [
           "a": 3,
           "b": 5
         },
-        "text": "When we compare two numbers, we say which is BIGGER, SMALLER, or EQUAL.",
-        "caption": "3 vs 5"
+        "text": "Look here, Hakan! When we compare two numbers, we say which is BIGGER, SMALLER, or EQUAL.",
+        "caption": "3 vs 5 💯"
       },
       {
         "title": "The Alligator",
@@ -11258,7 +11258,7 @@ const MODULES = [
           "b": 3
         },
         "text": "The > sign is the alligator mouth — it always wants to eat the BIGGER number!",
-        "caption": "7 > 3"
+        "caption": "7 > 3 ✨"
       },
       {
         "title": "Less Than",
@@ -11268,7 +11268,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Hakan, look! The < sign points to the SMALLER number. 2 < 8.",
-        "caption": "2 < 8"
+        "caption": "2 < 8 🏆"
       },
       {
         "title": "Equal",
@@ -11278,7 +11278,7 @@ const MODULES = [
           "b": 5
         },
         "text": "When two numbers are the SAME, use =. 5 = 5. Hakan, you can do this too!",
-        "caption": "5 = 5"
+        "caption": "5 = 5 🎯"
       },
       {
         "title": "Practice on Bigger Numbers",
@@ -11287,8 +11287,8 @@ const MODULES = [
           "a": 10,
           "b": 8
         },
-        "text": "Watch with Hakan: even with bigger numbers, the alligator eats the bigger one!",
-        "caption": "Same rule!"
+        "text": "Watch with Hakan: even with bigger numbers, the alligator eats the bigger one! You are amazing, Hakan — keep shining!",
+        "caption": "Same rule! ⭐"
       }
     ],
     "practice": [
@@ -11590,7 +11590,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Hakan, look! When we compare two numbers, we say which is BIGGER, SMALLER, or EQUAL.",
-        "caption": "3 vs 5"
+        "caption": "3 vs 5 🌟"
       },
       {
         "title": "The Alligator",
@@ -11600,7 +11600,7 @@ const MODULES = [
           "b": 3
         },
         "text": "The > sign is the alligator mouth — it always wants to eat the BIGGER number!",
-        "caption": "7 > 3"
+        "caption": "7 > 3 💯"
       },
       {
         "title": "Less Than",
@@ -11610,7 +11610,7 @@ const MODULES = [
           "b": 8
         },
         "text": "The < sign points to the SMALLER number. 2 < 8.",
-        "caption": "2 < 8"
+        "caption": "2 < 8 ✨"
       },
       {
         "title": "Equal",
@@ -11620,7 +11620,7 @@ const MODULES = [
           "b": 5
         },
         "text": "When two numbers are the SAME, use =. 5 = 5. Hakan, you can do this too!",
-        "caption": "5 = 5"
+        "caption": "5 = 5 🏆"
       },
       {
         "title": "Practice on Bigger Numbers",
@@ -11629,8 +11629,8 @@ const MODULES = [
           "a": 15,
           "b": 8
         },
-        "text": "Watch with Hakan: even with bigger numbers, the alligator eats the bigger one!",
-        "caption": "Same rule!"
+        "text": "Watch with Hakan: even with bigger numbers, the alligator eats the bigger one! Hakan, you're a champion!",
+        "caption": "Same rule! 🎯"
       }
     ],
     "practice": [
@@ -11931,8 +11931,8 @@ const MODULES = [
           "a": 3,
           "b": 5
         },
-        "text": "When we compare two numbers, we say which is BIGGER, SMALLER, or EQUAL.",
-        "caption": "3 vs 5"
+        "text": "Watch this, Hakan! When we compare two numbers, we say which is BIGGER, SMALLER, or EQUAL.",
+        "caption": "3 vs 5 ⭐"
       },
       {
         "title": "The Alligator",
@@ -11942,7 +11942,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Hakan, look! The > sign is the alligator mouth — it always wants to eat the BIGGER number!",
-        "caption": "7 > 3"
+        "caption": "7 > 3 🌟"
       },
       {
         "title": "Less Than",
@@ -11952,7 +11952,7 @@ const MODULES = [
           "b": 8
         },
         "text": "The < sign points to the SMALLER number. 2 < 8. Hakan, you can do this too!",
-        "caption": "2 < 8"
+        "caption": "2 < 8 💯"
       },
       {
         "title": "Equal",
@@ -11962,7 +11962,7 @@ const MODULES = [
           "b": 5
         },
         "text": "When two numbers are the SAME, use =. 5 = 5.",
-        "caption": "5 = 5"
+        "caption": "5 = 5 ✨"
       },
       {
         "title": "Practice on Bigger Numbers",
@@ -11972,7 +11972,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Even with bigger numbers, the alligator eats the bigger one!",
-        "caption": "Same rule!"
+        "caption": "Same rule! 🏆"
       },
       {
         "title": "Use Place Value",
@@ -11981,8 +11981,8 @@ const MODULES = [
           "a": 47,
           "b": 52
         },
-        "text": "Watch with Hakan: for two-digit numbers, check the TENS digit first. 4 tens vs 5 tens — five wins!",
-        "caption": "Check tens first"
+        "text": "Watch with Hakan: for two-digit numbers, check the TENS digit first. 4 tens vs 5 tens — five wins! Hakan, you are SO smart!",
+        "caption": "Check tens first 🎯"
       }
     ],
     "practice": [
@@ -12284,7 +12284,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Hakan, look! When we compare two numbers, we say which is BIGGER, SMALLER, or EQUAL.",
-        "caption": "3 vs 5"
+        "caption": "3 vs 5 ⭐"
       },
       {
         "title": "The Alligator",
@@ -12294,7 +12294,7 @@ const MODULES = [
           "b": 3
         },
         "text": "The > sign is the alligator mouth — it always wants to eat the BIGGER number! Hakan, you can do this too!",
-        "caption": "7 > 3"
+        "caption": "7 > 3 🌟"
       },
       {
         "title": "Less Than",
@@ -12304,7 +12304,7 @@ const MODULES = [
           "b": 8
         },
         "text": "The < sign points to the SMALLER number. 2 < 8.",
-        "caption": "2 < 8"
+        "caption": "2 < 8 💯"
       },
       {
         "title": "Equal",
@@ -12314,7 +12314,7 @@ const MODULES = [
           "b": 5
         },
         "text": "When two numbers are the SAME, use =. 5 = 5.",
-        "caption": "5 = 5"
+        "caption": "5 = 5 ✨"
       },
       {
         "title": "Practice on Bigger Numbers",
@@ -12324,7 +12324,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Even with bigger numbers, the alligator eats the bigger one!",
-        "caption": "Same rule!"
+        "caption": "Same rule! 🏆"
       },
       {
         "title": "Use Place Value",
@@ -12333,8 +12333,8 @@ const MODULES = [
           "a": 47,
           "b": 52
         },
-        "text": "Watch with Hakan: for two-digit numbers, check the TENS digit first. 4 tens vs 5 tens — five wins!",
-        "caption": "Check tens first"
+        "text": "Watch with Hakan: for two-digit numbers, check the TENS digit first. 4 tens vs 5 tens — five wins! Amazing job, Hakan! Keep going!",
+        "caption": "Check tens first 🎯"
       }
     ],
     "practice": [
@@ -12642,7 +12642,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "Hakan, look! Skip counting by 2 means jumping 2 numbers each time.",
-        "caption": "+2 each step"
+        "caption": "+2 each step ⭐"
       },
       {
         "title": "Picture the Hops",
@@ -12653,7 +12653,7 @@ const MODULES = [
           "mark": 4
         },
         "text": "On the number line, each hop is 2 steps. Hakan, you can do this too!",
-        "caption": "Hop by 2"
+        "caption": "Hop by 2 🌟"
       },
       {
         "title": "Practice the Pattern",
@@ -12670,7 +12670,7 @@ const MODULES = [
           "missingIndex": 3
         },
         "text": "Find the missing number. Add 2 to the one before.",
-        "caption": "Add 2"
+        "caption": "Add 2 💯"
       },
       {
         "title": "Real World",
@@ -12681,7 +12681,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Skip counting by 2s is like counting pairs of socks.",
-        "caption": "Counting in groups of 2"
+        "caption": "Counting in groups of 2 ✨"
       },
       {
         "title": "Master It",
@@ -12698,8 +12698,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Watch with Hakan: memorize the 2s up to 30. You can use this to count fast!",
-        "caption": "Memorize 2s"
+        "text": "Watch with Hakan: memorize the 2s up to 30. You can use this to count fast! Hakan, you are number 1!",
+        "caption": "Memorize 2s 🏆"
       }
     ],
     "practice": [
@@ -12717,7 +12717,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 6,
-        "hint": "Add 2 to the one before, or subtract 2 from the one after."
+        "hint": "Hakan, use your strategy! Add 2 to the one before, or subtract 2 from the one after."
       },
       {
         "type": "numeric",
@@ -12734,7 +12734,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 6,
-        "hint": "Add 2 to the one before, or subtract 2 from the one after."
+        "hint": "Almost, Hakan — keep your eyes sharp! Add 2 to the one before, or subtract 2 from the one after."
       },
       {
         "type": "numeric",
@@ -12751,7 +12751,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 8,
-        "hint": "Add 2 to the one before, or subtract 2 from the one after."
+        "hint": "You got this, Hakan! Add 2 to the one before, or subtract 2 from the one after."
       },
       {
         "type": "numeric",
@@ -12768,7 +12768,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? Hakan, what do you think?",
         "answer": 10,
-        "hint": "Add 2 to the one before, or subtract 2 from the one after."
+        "hint": "Hakan, you're so smart — think it through. Add 2 to the one before, or subtract 2 from the one after."
       },
       {
         "type": "numeric",
@@ -12785,7 +12785,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? What is your answer, Hakan?",
         "answer": 12,
-        "hint": "Add 2 to the one before, or subtract 2 from the one after."
+        "hint": "Easy for a smart kid like you, Hakan. Add 2 to the one before, or subtract 2 from the one after."
       },
       {
         "type": "numeric",
@@ -12802,7 +12802,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 14,
-        "hint": "Add 2 to the one before, or subtract 2 from the one after."
+        "hint": "Hakan, take a breath and look again. Add 2 to the one before, or subtract 2 from the one after."
       },
       {
         "type": "numeric",
@@ -12819,7 +12819,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 16,
-        "hint": "Add 2 to the one before, or subtract 2 from the one after."
+        "hint": "You can do this, Hakan! Add 2 to the one before, or subtract 2 from the one after."
       },
       {
         "type": "numeric",
@@ -12836,7 +12836,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? Help Hakan find the answer!",
         "answer": 18,
-        "hint": "Add 2 to the one before, or subtract 2 from the one after."
+        "hint": "Hakan, slow down and count carefully. Add 2 to the one before, or subtract 2 from the one after."
       }
     ],
     "quiz": [
@@ -13020,8 +13020,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Skip counting by 3 means jumping 3 numbers each time.",
-        "caption": "+3 each step"
+        "text": "Hey Hakan! Skip counting by 3 means jumping 3 numbers each time.",
+        "caption": "+3 each step 🎯"
       },
       {
         "title": "Picture the Hops",
@@ -13032,7 +13032,7 @@ const MODULES = [
           "mark": 6
         },
         "text": "Hakan, look! On the number line, each hop is 3 steps.",
-        "caption": "Hop by 3"
+        "caption": "Hop by 3 ⭐"
       },
       {
         "title": "Practice the Pattern",
@@ -13049,7 +13049,7 @@ const MODULES = [
           "missingIndex": 3
         },
         "text": "Find the missing number. Add 3 to the one before. Hakan, you can do this too!",
-        "caption": "Add 3"
+        "caption": "Add 3 🌟"
       },
       {
         "title": "Real World",
@@ -13060,7 +13060,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Skip counting helps us count groups quickly.",
-        "caption": "Counting in groups of 3"
+        "caption": "Counting in groups of 3 💯"
       },
       {
         "title": "Master It",
@@ -13077,8 +13077,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Watch with Hakan: memorize the 3s up to 30. You can use this to count fast!",
-        "caption": "Memorize 3s"
+        "text": "Watch with Hakan: memorize the 3s up to 30. You can use this to count fast! You are doing great, Hakan!",
+        "caption": "Memorize 3s ✨"
       }
     ],
     "practice": [
@@ -13096,7 +13096,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 9,
-        "hint": "Add 3 to the one before, or subtract 3 from the one after."
+        "hint": "Stay focused, Hakan — you're amazing. Add 3 to the one before, or subtract 3 from the one after."
       },
       {
         "type": "numeric",
@@ -13113,7 +13113,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 9,
-        "hint": "Add 3 to the one before, or subtract 3 from the one after."
+        "hint": "Try this, Hakan — you're on it! Add 3 to the one before, or subtract 3 from the one after."
       },
       {
         "type": "numeric",
@@ -13130,7 +13130,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? Hakan, what do you think?",
         "answer": 12,
-        "hint": "Add 3 to the one before, or subtract 3 from the one after."
+        "hint": "Hakan, use your strategy! Add 3 to the one before, or subtract 3 from the one after."
       },
       {
         "type": "numeric",
@@ -13147,7 +13147,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 15,
-        "hint": "Add 3 to the one before, or subtract 3 from the one after."
+        "hint": "Almost, Hakan — keep your eyes sharp! Add 3 to the one before, or subtract 3 from the one after."
       },
       {
         "type": "numeric",
@@ -13164,7 +13164,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 18,
-        "hint": "Add 3 to the one before, or subtract 3 from the one after."
+        "hint": "You got this, Hakan! Add 3 to the one before, or subtract 3 from the one after."
       },
       {
         "type": "numeric",
@@ -13181,7 +13181,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? What is your answer, Hakan?",
         "answer": 21,
-        "hint": "Add 3 to the one before, or subtract 3 from the one after."
+        "hint": "Hakan, you're so smart — think it through. Add 3 to the one before, or subtract 3 from the one after."
       },
       {
         "type": "numeric",
@@ -13198,7 +13198,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 24,
-        "hint": "Add 3 to the one before, or subtract 3 from the one after."
+        "hint": "Easy for a smart kid like you, Hakan. Add 3 to the one before, or subtract 3 from the one after."
       },
       {
         "type": "numeric",
@@ -13214,7 +13214,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? Help Hakan find the answer!",
         "answer": 27,
-        "hint": "Add 3 to the one before, or subtract 3 from the one after."
+        "hint": "Hakan, take a breath and look again. Add 3 to the one before, or subtract 3 from the one after."
       }
     ],
     "quiz": [
@@ -13401,7 +13401,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "Hakan, look! Skip counting by 5 means jumping 5 numbers each time.",
-        "caption": "+5 each step"
+        "caption": "+5 each step 🏆"
       },
       {
         "title": "Picture the Hops",
@@ -13412,7 +13412,7 @@ const MODULES = [
           "mark": 10
         },
         "text": "On the number line, each hop is 5 steps.",
-        "caption": "Hop by 5"
+        "caption": "Hop by 5 🎯"
       },
       {
         "title": "Practice the Pattern",
@@ -13429,7 +13429,7 @@ const MODULES = [
           "missingIndex": 3
         },
         "text": "Find the missing number. Add 5 to the one before. Hakan, you can do this too!",
-        "caption": "Add 5"
+        "caption": "Add 5 ⭐"
       },
       {
         "title": "Real World",
@@ -13440,7 +13440,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Watch with Hakan: skip counting by 5s is like counting nickels.",
-        "caption": "Counting in groups of 5"
+        "caption": "Counting in groups of 5 🌟"
       },
       {
         "title": "Master It",
@@ -13457,8 +13457,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Memorize the 5s up to 50. You can use this to count fast!",
-        "caption": "Memorize 5s"
+        "text": "Memorize the 5s up to 50. You can use this to count fast! Look at you, Hakan — a math hero!",
+        "caption": "Memorize 5s 💯"
       }
     ],
     "practice": [
@@ -13476,7 +13476,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? Hakan, what do you think?",
         "answer": 15,
-        "hint": "Add 5 to the one before, or subtract 5 from the one after."
+        "hint": "You can do this, Hakan! Add 5 to the one before, or subtract 5 from the one after."
       },
       {
         "type": "numeric",
@@ -13493,7 +13493,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 15,
-        "hint": "Add 5 to the one before, or subtract 5 from the one after."
+        "hint": "Hakan, slow down and count carefully. Add 5 to the one before, or subtract 5 from the one after."
       },
       {
         "type": "numeric",
@@ -13510,7 +13510,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 20,
-        "hint": "Add 5 to the one before, or subtract 5 from the one after."
+        "hint": "Stay focused, Hakan — you're amazing. Add 5 to the one before, or subtract 5 from the one after."
       },
       {
         "type": "numeric",
@@ -13527,7 +13527,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 25,
-        "hint": "Add 5 to the one before, or subtract 5 from the one after."
+        "hint": "Try this, Hakan — you're on it! Add 5 to the one before, or subtract 5 from the one after."
       },
       {
         "type": "numeric",
@@ -13544,7 +13544,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? What is your answer, Hakan?",
         "answer": 30,
-        "hint": "Add 5 to the one before, or subtract 5 from the one after."
+        "hint": "Hakan, use your strategy! Add 5 to the one before, or subtract 5 from the one after."
       },
       {
         "type": "numeric",
@@ -13561,7 +13561,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number? Help Hakan find the answer!",
         "answer": 35,
-        "hint": "Add 5 to the one before, or subtract 5 from the one after."
+        "hint": "Almost, Hakan — keep your eyes sharp! Add 5 to the one before, or subtract 5 from the one after."
       },
       {
         "type": "numeric",
@@ -13578,7 +13578,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 40,
-        "hint": "Add 5 to the one before, or subtract 5 from the one after."
+        "hint": "You got this, Hakan! Add 5 to the one before, or subtract 5 from the one after."
       },
       {
         "type": "numeric",
@@ -13594,7 +13594,7 @@ const MODULES = [
         },
         "prompt": "What is the missing number?",
         "answer": 45,
-        "hint": "Add 5 to the one before, or subtract 5 from the one after."
+        "hint": "Hakan, you're so smart — think it through. Add 5 to the one before, or subtract 5 from the one after."
       }
     ],
     "quiz": [
@@ -13778,7 +13778,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "Hakan, look! Skip counting by 10 means jumping 10 numbers each time.",
-        "caption": "+10 each step"
+        "caption": "+10 each step ✨"
       },
       {
         "title": "Picture the Hops",
@@ -13789,7 +13789,7 @@ const MODULES = [
           "mark": 20
         },
         "text": "On the number line, each hop is 10 steps. Hakan, you can do this too!",
-        "caption": "Hop by 10"
+        "caption": "Hop by 10 🏆"
       },
       {
         "title": "Practice the Pattern",
@@ -13806,7 +13806,7 @@ const MODULES = [
           "missingIndex": 3
         },
         "text": "Find the missing number. Add 10 to the one before.",
-        "caption": "Add 10"
+        "caption": "Add 10 🎯"
       },
       {
         "title": "Real World",
@@ -13817,7 +13817,7 @@ const MODULES = [
           "b": 10
         },
         "text": "Watch with Hakan: skip counting by 10s is like counting dimes — or fingers across both hands!",
-        "caption": "Counting in groups of 10"
+        "caption": "Counting in groups of 10 ⭐"
       },
       {
         "title": "Master It",
@@ -13834,8 +13834,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Memorize the 10s up to 120. You can use this to count fast!",
-        "caption": "Memorize 10s"
+        "text": "Memorize the 10s up to 120. You can use this to count fast! Hakan, you are a star!",
+        "caption": "Memorize 10s 🌟"
       }
     ],
     "practice": [
@@ -14150,8 +14150,8 @@ const MODULES = [
           "type": "bignum",
           "n": 10
         },
-        "text": "Today we count from 1 to 10!",
-        "caption": "1 → 10"
+        "text": "Watch this, Hakan! Today we count from 1 to 10!",
+        "caption": "1 → 10 💯"
       },
       {
         "title": "Start at the Start",
@@ -14162,7 +14162,7 @@ const MODULES = [
           "mark": 1
         },
         "text": "We begin at 1.",
-        "caption": "Start = 1"
+        "caption": "Start = 1 ✨"
       },
       {
         "title": "Each Step is +1",
@@ -14178,7 +14178,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "After 1 comes 2, then 3…",
-        "caption": "+1 each step"
+        "caption": "+1 each step 🏆"
       },
       {
         "title": "Big Numbers Count Too",
@@ -14187,7 +14187,7 @@ const MODULES = [
           "n": 5
         },
         "text": "Hakan, look! In the middle: 5!",
-        "caption": "Middle = 5"
+        "caption": "Middle = 5 🎯"
       },
       {
         "title": "Reach 10",
@@ -14196,7 +14196,7 @@ const MODULES = [
           "n": 10
         },
         "text": "Keep counting until you reach 10. Hakan, you can do this too!",
-        "caption": "Goal: 10"
+        "caption": "Goal: 10 ⭐"
       },
       {
         "title": "Use Tens for Big Numbers",
@@ -14205,8 +14205,8 @@ const MODULES = [
           "tens": 1,
           "ones": 0
         },
-        "text": "Watch with Hakan: big numbers like 10 are made of tens and ones. Count tens first!",
-        "caption": "10 = tens + ones"
+        "text": "Watch with Hakan: big numbers like 10 are made of tens and ones. Count tens first! You got this, Hakan! Time to practice!",
+        "caption": "10 = tens + ones 🌟"
       }
     ],
     "practice": [
@@ -14399,7 +14399,7 @@ const MODULES = [
           "n": 20
         },
         "text": "Hakan, look! Today we count from 11 to 20!",
-        "caption": "11 → 20"
+        "caption": "11 → 20 💯"
       },
       {
         "title": "Start at the Start",
@@ -14410,7 +14410,7 @@ const MODULES = [
           "mark": 11
         },
         "text": "We begin at 11. Hakan, you can do this too!",
-        "caption": "Start = 11"
+        "caption": "Start = 11 ✨"
       },
       {
         "title": "Each Step is +1",
@@ -14426,7 +14426,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "After 11 comes 12, then 13…",
-        "caption": "+1 each step"
+        "caption": "+1 each step 🏆"
       },
       {
         "title": "Big Numbers Count Too",
@@ -14435,7 +14435,7 @@ const MODULES = [
           "n": 15
         },
         "text": "In the middle: 15!",
-        "caption": "Middle = 15"
+        "caption": "Middle = 15 🎯"
       },
       {
         "title": "Reach 20",
@@ -14444,7 +14444,7 @@ const MODULES = [
           "n": 20
         },
         "text": "Watch with Hakan: keep counting until you reach 20.",
-        "caption": "Goal: 20"
+        "caption": "Goal: 20 ⭐"
       },
       {
         "title": "Use Tens for Big Numbers",
@@ -14453,8 +14453,8 @@ const MODULES = [
           "tens": 2,
           "ones": 0
         },
-        "text": "Big numbers like 20 are made of tens and ones. Count tens first!",
-        "caption": "20 = tens + ones"
+        "text": "Big numbers like 20 are made of tens and ones. Count tens first! Hakan the brilliant — try the practice!",
+        "caption": "20 = tens + ones 🌟"
       }
     ],
     "practice": [
@@ -14647,7 +14647,7 @@ const MODULES = [
           "n": 50
         },
         "text": "Hakan, look! Today we count from 21 to 50!",
-        "caption": "21 → 50"
+        "caption": "21 → 50 💯"
       },
       {
         "title": "Start at the Start",
@@ -14658,7 +14658,7 @@ const MODULES = [
           "mark": 21
         },
         "text": "We begin at 21. Hakan, you can do this too!",
-        "caption": "Start = 21"
+        "caption": "Start = 21 ✨"
       },
       {
         "title": "Each Step is +1",
@@ -14674,7 +14674,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "After 21 comes 22, then 23…",
-        "caption": "+1 each step"
+        "caption": "+1 each step 🏆"
       },
       {
         "title": "Big Numbers Count Too",
@@ -14683,7 +14683,7 @@ const MODULES = [
           "n": 35
         },
         "text": "In the middle: 35!",
-        "caption": "Middle = 35"
+        "caption": "Middle = 35 🎯"
       },
       {
         "title": "Reach 50",
@@ -14692,7 +14692,7 @@ const MODULES = [
           "n": 50
         },
         "text": "Keep counting until you reach 50.",
-        "caption": "Goal: 50"
+        "caption": "Goal: 50 ⭐"
       },
       {
         "title": "Use Tens for Big Numbers",
@@ -14701,8 +14701,8 @@ const MODULES = [
           "tens": 5,
           "ones": 0
         },
-        "text": "Watch with Hakan: big numbers like 50 are made of tens and ones. Count tens first!",
-        "caption": "50 = tens + ones"
+        "text": "Watch with Hakan: big numbers like 50 are made of tens and ones. Count tens first! I knew you'd nail it, Hakan!",
+        "caption": "50 = tens + ones 🌟"
       }
     ],
     "practice": [
@@ -14894,8 +14894,8 @@ const MODULES = [
           "type": "bignum",
           "n": 100
         },
-        "text": "Today we count from 51 to 100!",
-        "caption": "51 → 100"
+        "text": "Hey Hakan! Today we count from 51 to 100!",
+        "caption": "51 → 100 💯"
       },
       {
         "title": "Start at the Start",
@@ -14906,7 +14906,7 @@ const MODULES = [
           "mark": 51
         },
         "text": "We begin at 51.",
-        "caption": "Start = 51"
+        "caption": "Start = 51 ✨"
       },
       {
         "title": "Each Step is +1",
@@ -14922,7 +14922,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "Hakan, look! After 51 comes 52, then 53…",
-        "caption": "+1 each step"
+        "caption": "+1 each step 🏆"
       },
       {
         "title": "Big Numbers Count Too",
@@ -14931,7 +14931,7 @@ const MODULES = [
           "n": 75
         },
         "text": "In the middle: 75!",
-        "caption": "Middle = 75"
+        "caption": "Middle = 75 🎯"
       },
       {
         "title": "Reach 100",
@@ -14940,7 +14940,7 @@ const MODULES = [
           "n": 100
         },
         "text": "Keep counting until you reach 100. Hakan, you can do this too!",
-        "caption": "Goal: 100"
+        "caption": "Goal: 100 ⭐"
       },
       {
         "title": "Use Tens for Big Numbers",
@@ -14949,8 +14949,8 @@ const MODULES = [
           "tens": 10,
           "ones": 0
         },
-        "text": "Watch with Hakan: big numbers like 100 are made of tens and ones. Count tens first!",
-        "caption": "100 = tens + ones"
+        "text": "Watch with Hakan: big numbers like 100 are made of tens and ones. Count tens first! Hakan, you are unstoppable!",
+        "caption": "100 = tens + ones 🌟"
       }
     ],
     "practice": [
@@ -15144,7 +15144,7 @@ const MODULES = [
           "filledB": 3
         },
         "text": "Hakan, look! For 8 + 3, the trick is to MAKE 10 first.",
-        "caption": "8 + 3 = ?"
+        "caption": "8 + 3 = ? 💯"
       },
       {
         "title": "Move 1 or 2 Over",
@@ -15154,7 +15154,7 @@ const MODULES = [
           "filledB": 1
         },
         "text": "Take 2 from the 3 and add it to the 8. Now you have 10 + 1.",
-        "caption": "10 + 1"
+        "caption": "10 + 1 ✨"
       },
       {
         "title": "Add the Leftover",
@@ -15164,7 +15164,7 @@ const MODULES = [
           "b": 1
         },
         "text": "10 + 1 is easy: just put the leftover after the 10. Answer: 11!",
-        "caption": "10 + 1 = 11"
+        "caption": "10 + 1 = 11 🏆"
       },
       {
         "title": "So 8+3=11",
@@ -15174,7 +15174,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Make 10 from 8, add the 1 left = 11. Hakan, you can do this too!",
-        "caption": "8 + 3 = 11"
+        "caption": "8 + 3 = 11 🎯"
       },
       {
         "title": "Try Another",
@@ -15183,8 +15183,8 @@ const MODULES = [
           "filledA": 10,
           "filledB": 2
         },
-        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12.",
-        "caption": "9 + 3 = 12"
+        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12. Brilliant work, Hakan! On to practice!",
+        "caption": "9 + 3 = 12 ⭐"
       }
     ],
     "practice": [
@@ -15197,7 +15197,7 @@ const MODULES = [
         },
         "prompt": "Eight plus three?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15208,7 +15208,7 @@ const MODULES = [
         },
         "prompt": "Eight plus three?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "Hakan, take a breath and look again. Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15219,7 +15219,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples and gets three more. How many in all?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "You can do this, Hakan! Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15230,7 +15230,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight cookies and gets three more. How many in all?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "Hakan, slow down and count carefully. Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15241,7 +15241,7 @@ const MODULES = [
         },
         "prompt": "Nine plus four?",
         "answer": 13,
-        "hint": "Make 10: 9+1=10, then 10+3=13."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 9+1=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15252,7 +15252,7 @@ const MODULES = [
         },
         "prompt": "Nine plus four?",
         "answer": 13,
-        "hint": "Make 10: 9+1=10, then 10+3=13."
+        "hint": "Try this, Hakan — you're on it! Make 10: 9+1=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15263,7 +15263,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine stars and gets four more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 9+1=10, then 10+3=13."
+        "hint": "Hakan, use your strategy! Make 10: 9+1=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15274,7 +15274,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets four more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 9+1=10, then 10+3=13."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 9+1=10, then 10+3=13."
       }
     ],
     "quiz": [
@@ -15287,7 +15287,7 @@ const MODULES = [
         },
         "prompt": "Eight plus three?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "You got this, Hakan! Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15298,7 +15298,7 @@ const MODULES = [
         },
         "prompt": "Eight plus three?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15309,7 +15309,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples and gets three more. How many in all?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15320,7 +15320,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight cookies and gets three more. How many in all?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "Hakan, take a breath and look again. Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15331,7 +15331,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine stars and gets four more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 9+1=10, then 10+3=13."
+        "hint": "You can do this, Hakan! Make 10: 9+1=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15342,7 +15342,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets four more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 9+1=10, then 10+3=13."
+        "hint": "Hakan, slow down and count carefully. Make 10: 9+1=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15353,7 +15353,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine balloons and gets four more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 9+1=10, then 10+3=13."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 9+1=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15364,7 +15364,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine strawberries and gets four more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 9+1=10, then 10+3=13."
+        "hint": "Try this, Hakan — you're on it! Make 10: 9+1=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15375,7 +15375,7 @@ const MODULES = [
         },
         "prompt": "Eight plus three?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "Hakan, use your strategy! Make 10: 8+2=10, then 10+1=11."
       },
       {
         "type": "numeric",
@@ -15386,7 +15386,7 @@ const MODULES = [
         },
         "prompt": "Eight plus three?",
         "answer": 11,
-        "hint": "Make 10: 8+2=10, then 10+1=11."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 8+2=10, then 10+1=11."
       }
     ]
   },
@@ -15406,7 +15406,7 @@ const MODULES = [
           "filledB": 4
         },
         "text": "Hakan, look! For 8 + 4, the trick is to MAKE 10 first.",
-        "caption": "8 + 4 = ?"
+        "caption": "8 + 4 = ? 🌟"
       },
       {
         "title": "Move 1 or 2 Over",
@@ -15416,7 +15416,7 @@ const MODULES = [
           "filledB": 2
         },
         "text": "Take 2 from the 4 and add it to the 8. Now you have 10 + 2.",
-        "caption": "10 + 2"
+        "caption": "10 + 2 💯"
       },
       {
         "title": "Add the Leftover",
@@ -15426,7 +15426,7 @@ const MODULES = [
           "b": 2
         },
         "text": "10 + 2 is easy: just put the leftover after the 10. Answer: 12!",
-        "caption": "10 + 2 = 12"
+        "caption": "10 + 2 = 12 ✨"
       },
       {
         "title": "So 8+4=12",
@@ -15436,7 +15436,7 @@ const MODULES = [
           "b": 4
         },
         "text": "Make 10 from 8, add the 2 left = 12. Hakan, you can do this too!",
-        "caption": "8 + 4 = 12"
+        "caption": "8 + 4 = 12 🏆"
       },
       {
         "title": "Try Another",
@@ -15445,8 +15445,8 @@ const MODULES = [
           "filledA": 10,
           "filledB": 2
         },
-        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12.",
-        "caption": "9 + 3 = 12"
+        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12. Hakan, you make this look easy!",
+        "caption": "9 + 3 = 12 🎯"
       }
     ],
     "practice": [
@@ -15459,7 +15459,7 @@ const MODULES = [
         },
         "prompt": "Eight plus four?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "You got this, Hakan! Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15470,7 +15470,7 @@ const MODULES = [
         },
         "prompt": "Eight plus four?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15481,7 +15481,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples and gets four more. How many in all?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15492,7 +15492,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight cookies and gets four more. How many in all?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "Hakan, take a breath and look again. Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15503,7 +15503,7 @@ const MODULES = [
         },
         "prompt": "Nine plus five?",
         "answer": 14,
-        "hint": "Make 10: 9+1=10, then 10+4=14."
+        "hint": "You can do this, Hakan! Make 10: 9+1=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -15514,7 +15514,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine stars and gets five more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 9+1=10, then 10+4=14."
+        "hint": "Hakan, slow down and count carefully. Make 10: 9+1=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -15525,7 +15525,7 @@ const MODULES = [
         },
         "prompt": "Nine plus five?",
         "answer": 14,
-        "hint": "Make 10: 9+1=10, then 10+4=14."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 9+1=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -15536,7 +15536,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets five more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 9+1=10, then 10+4=14."
+        "hint": "Try this, Hakan — you're on it! Make 10: 9+1=10, then 10+4=14."
       }
     ],
     "quiz": [
@@ -15549,7 +15549,7 @@ const MODULES = [
         },
         "prompt": "Eight plus four?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "Hakan, use your strategy! Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15560,7 +15560,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples and gets four more. How many in all?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15571,7 +15571,7 @@ const MODULES = [
         },
         "prompt": "Eight plus four?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "You got this, Hakan! Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15582,7 +15582,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight cookies and gets four more. How many in all?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15593,7 +15593,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine stars and gets five more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 9+1=10, then 10+4=14."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 9+1=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -15604,7 +15604,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets five more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 9+1=10, then 10+4=14."
+        "hint": "Hakan, take a breath and look again. Make 10: 9+1=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -15615,7 +15615,7 @@ const MODULES = [
         },
         "prompt": "Nine plus five?",
         "answer": 14,
-        "hint": "Make 10: 9+1=10, then 10+4=14."
+        "hint": "You can do this, Hakan! Make 10: 9+1=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -15626,7 +15626,7 @@ const MODULES = [
         },
         "prompt": "Nine plus five?",
         "answer": 14,
-        "hint": "Make 10: 9+1=10, then 10+4=14."
+        "hint": "Hakan, slow down and count carefully. Make 10: 9+1=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -15637,7 +15637,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight balloons and gets four more. How many in all?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 8+2=10, then 10+2=12."
       },
       {
         "type": "numeric",
@@ -15648,7 +15648,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight strawberries and gets four more. How many in all?",
         "answer": 12,
-        "hint": "Make 10: 8+2=10, then 10+2=12."
+        "hint": "Try this, Hakan — you're on it! Make 10: 8+2=10, then 10+2=12."
       }
     ]
   },
@@ -15668,7 +15668,7 @@ const MODULES = [
           "filledB": 5
         },
         "text": "Hakan, look! For 8 + 5, the trick is to MAKE 10 first.",
-        "caption": "8 + 5 = ?"
+        "caption": "8 + 5 = ? ⭐"
       },
       {
         "title": "Move 1 or 2 Over",
@@ -15678,7 +15678,7 @@ const MODULES = [
           "filledB": 3
         },
         "text": "Take 2 from the 5 and add it to the 8. Now you have 10 + 3.",
-        "caption": "10 + 3"
+        "caption": "10 + 3 🌟"
       },
       {
         "title": "Add the Leftover",
@@ -15688,7 +15688,7 @@ const MODULES = [
           "b": 3
         },
         "text": "10 + 3 is easy: just put the leftover after the 10. Answer: 13! Hakan, you can do this too!",
-        "caption": "10 + 3 = 13"
+        "caption": "10 + 3 = 13 💯"
       },
       {
         "title": "So 8+5=13",
@@ -15698,7 +15698,7 @@ const MODULES = [
           "b": 5
         },
         "text": "Make 10 from 8, add the 3 left = 13.",
-        "caption": "8 + 5 = 13"
+        "caption": "8 + 5 = 13 ✨"
       },
       {
         "title": "Try Another",
@@ -15707,8 +15707,8 @@ const MODULES = [
           "filledA": 10,
           "filledB": 2
         },
-        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12.",
-        "caption": "9 + 3 = 12"
+        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12. Way to go, Hakan!",
+        "caption": "9 + 3 = 12 🏆"
       }
     ],
     "practice": [
@@ -15721,7 +15721,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples and gets five more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "Hakan, use your strategy! Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15732,7 +15732,7 @@ const MODULES = [
         },
         "prompt": "Eight plus five?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15743,7 +15743,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight cookies and gets five more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "You got this, Hakan! Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15754,7 +15754,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight stars and gets five more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15765,7 +15765,7 @@ const MODULES = [
         },
         "prompt": "Nine plus six?",
         "answer": 15,
-        "hint": "Make 10: 9+1=10, then 10+5=15."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 9+1=10, then 10+5=15."
       },
       {
         "type": "numeric",
@@ -15776,7 +15776,7 @@ const MODULES = [
         },
         "prompt": "Nine plus six?",
         "answer": 15,
-        "hint": "Make 10: 9+1=10, then 10+5=15."
+        "hint": "Hakan, take a breath and look again. Make 10: 9+1=10, then 10+5=15."
       },
       {
         "type": "numeric",
@@ -15787,7 +15787,7 @@ const MODULES = [
         },
         "prompt": "Nine plus six?",
         "answer": 15,
-        "hint": "Make 10: 9+1=10, then 10+5=15."
+        "hint": "You can do this, Hakan! Make 10: 9+1=10, then 10+5=15."
       },
       {
         "type": "numeric",
@@ -15798,7 +15798,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets six more. How many in all?",
         "answer": 15,
-        "hint": "Make 10: 9+1=10, then 10+5=15."
+        "hint": "Hakan, slow down and count carefully. Make 10: 9+1=10, then 10+5=15."
       }
     ],
     "quiz": [
@@ -15811,7 +15811,7 @@ const MODULES = [
         },
         "prompt": "Eight plus five?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15822,7 +15822,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples and gets five more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "Try this, Hakan — you're on it! Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15833,7 +15833,7 @@ const MODULES = [
         },
         "prompt": "Eight plus five?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "Hakan, use your strategy! Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15844,7 +15844,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight cookies and gets five more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15855,7 +15855,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine stars and gets six more. How many in all?",
         "answer": 15,
-        "hint": "Make 10: 9+1=10, then 10+5=15."
+        "hint": "You got this, Hakan! Make 10: 9+1=10, then 10+5=15."
       },
       {
         "type": "numeric",
@@ -15866,7 +15866,7 @@ const MODULES = [
         },
         "prompt": "Nine plus six?",
         "answer": 15,
-        "hint": "Make 10: 9+1=10, then 10+5=15."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 9+1=10, then 10+5=15."
       },
       {
         "type": "numeric",
@@ -15877,7 +15877,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets six more. How many in all?",
         "answer": 15,
-        "hint": "Make 10: 9+1=10, then 10+5=15."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 9+1=10, then 10+5=15."
       },
       {
         "type": "numeric",
@@ -15888,7 +15888,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine balloons and gets six more. How many in all?",
         "answer": 15,
-        "hint": "Make 10: 9+1=10, then 10+5=15."
+        "hint": "Hakan, take a breath and look again. Make 10: 9+1=10, then 10+5=15."
       },
       {
         "type": "numeric",
@@ -15899,7 +15899,7 @@ const MODULES = [
         },
         "prompt": "Eight plus five?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "You can do this, Hakan! Make 10: 8+2=10, then 10+3=13."
       },
       {
         "type": "numeric",
@@ -15910,7 +15910,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight strawberries and gets five more. How many in all?",
         "answer": 13,
-        "hint": "Make 10: 8+2=10, then 10+3=13."
+        "hint": "Hakan, slow down and count carefully. Make 10: 8+2=10, then 10+3=13."
       }
     ]
   },
@@ -15930,7 +15930,7 @@ const MODULES = [
           "filledB": 6
         },
         "text": "Hakan, look! For 8 + 6, the trick is to MAKE 10 first.",
-        "caption": "8 + 6 = ?"
+        "caption": "8 + 6 = ? 🎯"
       },
       {
         "title": "Move 1 or 2 Over",
@@ -15940,7 +15940,7 @@ const MODULES = [
           "filledB": 4
         },
         "text": "Take 2 from the 6 and add it to the 8. Now you have 10 + 4.",
-        "caption": "10 + 4"
+        "caption": "10 + 4 ⭐"
       },
       {
         "title": "Add the Leftover",
@@ -15950,7 +15950,7 @@ const MODULES = [
           "b": 4
         },
         "text": "10 + 4 is easy: just put the leftover after the 10. Answer: 14! Hakan, you can do this too!",
-        "caption": "10 + 4 = 14"
+        "caption": "10 + 4 = 14 🌟"
       },
       {
         "title": "So 8+6=14",
@@ -15960,7 +15960,7 @@ const MODULES = [
           "b": 6
         },
         "text": "Make 10 from 8, add the 4 left = 14.",
-        "caption": "8 + 6 = 14"
+        "caption": "8 + 6 = 14 💯"
       },
       {
         "title": "Try Another",
@@ -15969,8 +15969,8 @@ const MODULES = [
           "filledA": 10,
           "filledB": 2
         },
-        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12.",
-        "caption": "9 + 3 = 12"
+        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12. You are amazing, Hakan — keep shining!",
+        "caption": "9 + 3 = 12 ✨"
       }
     ],
     "practice": [
@@ -15983,7 +15983,7 @@ const MODULES = [
         },
         "prompt": "Eight plus six?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -15994,7 +15994,7 @@ const MODULES = [
         },
         "prompt": "Eight plus six?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Try this, Hakan — you're on it! Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -16005,7 +16005,7 @@ const MODULES = [
         },
         "prompt": "Eight plus six?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Hakan, use your strategy! Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -16016,7 +16016,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples and gets six more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -16027,7 +16027,7 @@ const MODULES = [
         },
         "prompt": "Nine plus seven?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "You got this, Hakan! Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16038,7 +16038,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine cookies and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16049,7 +16049,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine stars and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16060,7 +16060,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Hakan, take a breath and look again. Make 10: 9+1=10, then 10+6=16."
       }
     ],
     "quiz": [
@@ -16073,7 +16073,7 @@ const MODULES = [
         },
         "prompt": "Eight plus six?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "You can do this, Hakan! Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -16084,7 +16084,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight apples and gets six more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Hakan, slow down and count carefully. Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -16095,7 +16095,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight cookies and gets six more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -16106,7 +16106,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight stars and gets six more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Try this, Hakan — you're on it! Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -16117,7 +16117,7 @@ const MODULES = [
         },
         "prompt": "Nine plus seven?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Hakan, use your strategy! Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16128,7 +16128,7 @@ const MODULES = [
         },
         "prompt": "Nine plus seven?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16139,7 +16139,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "You got this, Hakan! Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16150,7 +16150,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine balloons and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16161,7 +16161,7 @@ const MODULES = [
         },
         "prompt": "Hakan has eight strawberries and gets six more. How many in all?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 8+2=10, then 10+4=14."
       },
       {
         "type": "numeric",
@@ -16172,7 +16172,7 @@ const MODULES = [
         },
         "prompt": "Eight plus six?",
         "answer": 14,
-        "hint": "Make 10: 8+2=10, then 10+4=14."
+        "hint": "Hakan, take a breath and look again. Make 10: 8+2=10, then 10+4=14."
       }
     ]
   },
@@ -16192,7 +16192,7 @@ const MODULES = [
           "filledB": 7
         },
         "text": "Hakan, look! For 9 + 7, the trick is to MAKE 10 first.",
-        "caption": "9 + 7 = ?"
+        "caption": "9 + 7 = ? 🏆"
       },
       {
         "title": "Move 1 or 2 Over",
@@ -16202,7 +16202,7 @@ const MODULES = [
           "filledB": 6
         },
         "text": "Take 1 from the 7 and add it to the 9. Now you have 10 + 6.",
-        "caption": "10 + 6"
+        "caption": "10 + 6 🎯"
       },
       {
         "title": "Add the Leftover",
@@ -16212,7 +16212,7 @@ const MODULES = [
           "b": 6
         },
         "text": "10 + 6 is easy: just put the leftover after the 10. Answer: 16!",
-        "caption": "10 + 6 = 16"
+        "caption": "10 + 6 = 16 ⭐"
       },
       {
         "title": "So 9+7=16",
@@ -16222,7 +16222,7 @@ const MODULES = [
           "b": 7
         },
         "text": "Make 10 from 9, add the 6 left = 16. Hakan, you can do this too!",
-        "caption": "9 + 7 = 16"
+        "caption": "9 + 7 = 16 🌟"
       },
       {
         "title": "Try Another",
@@ -16231,8 +16231,8 @@ const MODULES = [
           "filledA": 10,
           "filledB": 2
         },
-        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12.",
-        "caption": "9 + 3 = 12"
+        "text": "Watch with Hakan: for 9 + 3: take 1 from 3 to make 10. Now 10 + 2 = 12. Hakan, you're a champion!",
+        "caption": "9 + 3 = 12 💯"
       }
     ],
     "practice": [
@@ -16245,7 +16245,7 @@ const MODULES = [
         },
         "prompt": "Nine plus seven?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "You can do this, Hakan! Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16256,7 +16256,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine apples and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Hakan, slow down and count carefully. Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16267,7 +16267,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine cookies and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16278,7 +16278,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine stars and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Try this, Hakan — you're on it! Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16289,7 +16289,7 @@ const MODULES = [
         },
         "prompt": "Nine plus eight?",
         "answer": 17,
-        "hint": "Make 10: 9+1=10, then 10+7=17."
+        "hint": "Hakan, use your strategy! Make 10: 9+1=10, then 10+7=17."
       },
       {
         "type": "numeric",
@@ -16300,7 +16300,7 @@ const MODULES = [
         },
         "prompt": "Nine plus eight?",
         "answer": 17,
-        "hint": "Make 10: 9+1=10, then 10+7=17."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 9+1=10, then 10+7=17."
       },
       {
         "type": "numeric",
@@ -16311,7 +16311,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets eight more. How many in all?",
         "answer": 17,
-        "hint": "Make 10: 9+1=10, then 10+7=17."
+        "hint": "You got this, Hakan! Make 10: 9+1=10, then 10+7=17."
       },
       {
         "type": "numeric",
@@ -16322,7 +16322,7 @@ const MODULES = [
         },
         "prompt": "Nine plus eight?",
         "answer": 17,
-        "hint": "Make 10: 9+1=10, then 10+7=17."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 9+1=10, then 10+7=17."
       }
     ],
     "quiz": [
@@ -16335,7 +16335,7 @@ const MODULES = [
         },
         "prompt": "Nine plus seven?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Easy for a smart kid like you, Hakan. Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16346,7 +16346,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine apples and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Hakan, take a breath and look again. Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16357,7 +16357,7 @@ const MODULES = [
         },
         "prompt": "Nine plus seven?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "You can do this, Hakan! Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16368,7 +16368,7 @@ const MODULES = [
         },
         "prompt": "Nine plus seven?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Hakan, slow down and count carefully. Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16379,7 +16379,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine cookies and gets eight more. How many in all?",
         "answer": 17,
-        "hint": "Make 10: 9+1=10, then 10+7=17."
+        "hint": "Stay focused, Hakan — you're amazing. Make 10: 9+1=10, then 10+7=17."
       },
       {
         "type": "numeric",
@@ -16390,7 +16390,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine stars and gets eight more. How many in all?",
         "answer": 17,
-        "hint": "Make 10: 9+1=10, then 10+7=17."
+        "hint": "Try this, Hakan — you're on it! Make 10: 9+1=10, then 10+7=17."
       },
       {
         "type": "numeric",
@@ -16401,7 +16401,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine puppies and gets eight more. How many in all?",
         "answer": 17,
-        "hint": "Make 10: 9+1=10, then 10+7=17."
+        "hint": "Hakan, use your strategy! Make 10: 9+1=10, then 10+7=17."
       },
       {
         "type": "numeric",
@@ -16412,7 +16412,7 @@ const MODULES = [
         },
         "prompt": "Nine plus eight?",
         "answer": 17,
-        "hint": "Make 10: 9+1=10, then 10+7=17."
+        "hint": "Almost, Hakan — keep your eyes sharp! Make 10: 9+1=10, then 10+7=17."
       },
       {
         "type": "numeric",
@@ -16423,7 +16423,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine balloons and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "You got this, Hakan! Make 10: 9+1=10, then 10+6=16."
       },
       {
         "type": "numeric",
@@ -16434,7 +16434,7 @@ const MODULES = [
         },
         "prompt": "Hakan has nine strawberries and gets seven more. How many in all?",
         "answer": 16,
-        "hint": "Make 10: 9+1=10, then 10+6=16."
+        "hint": "Hakan, you're so smart — think it through. Make 10: 9+1=10, then 10+6=16."
       }
     ]
   },
@@ -16453,7 +16453,7 @@ const MODULES = [
           "filled": 3
         },
         "text": "Hakan, look! A ten-frame holds 10 dots. This frame has 3 red dots.",
-        "caption": "3 dots"
+        "caption": "3 dots ✨"
       },
       {
         "title": "Count the Dots",
@@ -16462,7 +16462,7 @@ const MODULES = [
           "filled": 3
         },
         "text": "Touch each dot and count: 1, 2, 3! Hakan, you can do this too!",
-        "caption": "Total: 3"
+        "caption": "Total: 3 🏆"
       },
       {
         "title": "Empty Cells Tell You Too",
@@ -16471,7 +16471,7 @@ const MODULES = [
           "filled": 3
         },
         "text": "There are 7 EMPTY cells. 3 + 7 = 10!",
-        "caption": "3 + 7 = 10"
+        "caption": "3 + 7 = 10 🎯"
       },
       {
         "title": "Compare Frames",
@@ -16480,7 +16480,7 @@ const MODULES = [
           "filled": 4
         },
         "text": "Watch with Hakan: one more dot makes 4. Ten-frames make counting fast!",
-        "caption": "3+1 = 4"
+        "caption": "3+1 = 4 ⭐"
       },
       {
         "title": "You Can Read It!",
@@ -16488,8 +16488,8 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 3
         },
-        "text": "Read it instantly: 3 dots. The ten-frame is your friend!",
-        "caption": "3 ✓"
+        "text": "Read it instantly: 3 dots. The ten-frame is your friend! Hakan, you are SO smart!",
+        "caption": "3 ✓ 🌟"
       }
     ],
     "practice": [
@@ -16682,7 +16682,7 @@ const MODULES = [
           "filled": 5
         },
         "text": "Hakan, look! A ten-frame holds 10 dots. This frame has 5 red dots.",
-        "caption": "5 dots"
+        "caption": "5 dots 💯"
       },
       {
         "title": "Count the Dots",
@@ -16691,7 +16691,7 @@ const MODULES = [
           "filled": 5
         },
         "text": "Touch each dot and count: 1, 2, 3, 4, 5!",
-        "caption": "Total: 5"
+        "caption": "Total: 5 ✨"
       },
       {
         "title": "Empty Cells Tell You Too",
@@ -16700,7 +16700,7 @@ const MODULES = [
           "filled": 5
         },
         "text": "There are 5 EMPTY cells. 5 + 5 = 10! Hakan, you can do this too!",
-        "caption": "5 + 5 = 10"
+        "caption": "5 + 5 = 10 🏆"
       },
       {
         "title": "Compare Frames",
@@ -16709,7 +16709,7 @@ const MODULES = [
           "filled": 6
         },
         "text": "One more dot makes 6. Ten-frames make counting fast!",
-        "caption": "5+1 = 6"
+        "caption": "5+1 = 6 🎯"
       },
       {
         "title": "You Can Read It!",
@@ -16717,8 +16717,8 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 5
         },
-        "text": "Watch with Hakan: read it instantly: 5 dots. The ten-frame is your friend!",
-        "caption": "5 ✓"
+        "text": "Watch with Hakan: read it instantly: 5 dots. The ten-frame is your friend! Amazing job, Hakan! Keep going!",
+        "caption": "5 ✓ ⭐"
       }
     ],
     "practice": [
@@ -16911,7 +16911,7 @@ const MODULES = [
           "filled": 7
         },
         "text": "Hakan, look! A ten-frame holds 10 dots. This frame has 7 red dots.",
-        "caption": "7 dots"
+        "caption": "7 dots 🌟"
       },
       {
         "title": "Count the Dots",
@@ -16920,7 +16920,7 @@ const MODULES = [
           "filled": 7
         },
         "text": "Touch each dot and count: 1, 2, 3, 4, 5, 6, 7! Hakan, you can do this too!",
-        "caption": "Total: 7"
+        "caption": "Total: 7 💯"
       },
       {
         "title": "Empty Cells Tell You Too",
@@ -16929,7 +16929,7 @@ const MODULES = [
           "filled": 7
         },
         "text": "There are 3 EMPTY cells. 7 + 3 = 10!",
-        "caption": "7 + 3 = 10"
+        "caption": "7 + 3 = 10 ✨"
       },
       {
         "title": "Compare Frames",
@@ -16938,7 +16938,7 @@ const MODULES = [
           "filled": 8
         },
         "text": "Watch with Hakan: one more dot makes 8. Ten-frames make counting fast!",
-        "caption": "7+1 = 8"
+        "caption": "7+1 = 8 🏆"
       },
       {
         "title": "You Can Read It!",
@@ -16946,8 +16946,8 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 7
         },
-        "text": "Read it instantly: 7 dots. The ten-frame is your friend!",
-        "caption": "7 ✓"
+        "text": "Read it instantly: 7 dots. The ten-frame is your friend! Hakan, you are number 1!",
+        "caption": "7 ✓ 🎯"
       }
     ],
     "practice": [
@@ -17129,8 +17129,8 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 9
         },
-        "text": "A ten-frame holds 10 dots. This frame has 9 red dots.",
-        "caption": "9 dots"
+        "text": "Watch this, Hakan! A ten-frame holds 10 dots. This frame has 9 red dots.",
+        "caption": "9 dots ⭐"
       },
       {
         "title": "Count the Dots",
@@ -17139,7 +17139,7 @@ const MODULES = [
           "filled": 9
         },
         "text": "Touch each dot and count: 1, 2, 3, 4, 5, 6, 7, 8, 9!",
-        "caption": "Total: 9"
+        "caption": "Total: 9 🌟"
       },
       {
         "title": "Empty Cells Tell You Too",
@@ -17148,7 +17148,7 @@ const MODULES = [
           "filled": 9
         },
         "text": "Hakan, look! There are 1 EMPTY cells. 9 + 1 = 10!",
-        "caption": "9 + 1 = 10"
+        "caption": "9 + 1 = 10 💯"
       },
       {
         "title": "Compare Frames",
@@ -17157,7 +17157,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "One more dot makes 10. Ten-frames make counting fast! Hakan, you can do this too!",
-        "caption": "9+1 = 10"
+        "caption": "9+1 = 10 ✨"
       },
       {
         "title": "You Can Read It!",
@@ -17165,8 +17165,8 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 9
         },
-        "text": "Watch with Hakan: read it instantly: 9 dots. The ten-frame is your friend!",
-        "caption": "9 ✓"
+        "text": "Watch with Hakan: read it instantly: 9 dots. The ten-frame is your friend! You are doing great, Hakan!",
+        "caption": "9 ✓ 🏆"
       }
     ],
     "practice": [
@@ -17329,7 +17329,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "Hakan, look! A ten-frame holds 10 dots. This frame has 10 red dots.",
-        "caption": "10 dots"
+        "caption": "10 dots 🎯"
       },
       {
         "title": "Count the Dots",
@@ -17338,7 +17338,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "Touch each dot and count: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10!",
-        "caption": "Total: 10"
+        "caption": "Total: 10 ⭐"
       },
       {
         "title": "Empty Cells Tell You Too",
@@ -17347,7 +17347,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "There are 0 EMPTY cells. 10 + 0 = 10!",
-        "caption": "10 + 0 = 10"
+        "caption": "10 + 0 = 10 🌟"
       },
       {
         "title": "Compare Frames",
@@ -17356,7 +17356,7 @@ const MODULES = [
           "filled": 10
         },
         "text": "One more dot makes 11. Ten-frames make counting fast! Hakan, you can do this too!",
-        "caption": "10+1 = 11"
+        "caption": "10+1 = 11 💯"
       },
       {
         "title": "You Can Read It!",
@@ -17364,8 +17364,8 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "text": "Watch with Hakan: read it instantly: 10 dots. The ten-frame is your friend!",
-        "caption": "10 ✓"
+        "text": "Watch with Hakan: read it instantly: 10 dots. The ten-frame is your friend! Look at you, Hakan — a math hero!",
+        "caption": "10 ✓ ✨"
       }
     ],
     "practice": [
@@ -17518,8 +17518,8 @@ const MODULES = [
           "filledA": 4,
           "filledB": 7
         },
-        "text": "Look at both frames. Which has MORE dots?",
-        "caption": "4 vs 7"
+        "text": "Pay attention, Hakan! Look at both frames. Which has MORE dots?",
+        "caption": "4 vs 7 🏆"
       },
       {
         "title": "Count Each",
@@ -17529,7 +17529,7 @@ const MODULES = [
           "filledB": 7
         },
         "text": "Left has 4. Right has 7.",
-        "caption": "7 > 4"
+        "caption": "7 > 4 🎯"
       },
       {
         "title": "Bigger is More",
@@ -17539,7 +17539,7 @@ const MODULES = [
           "b": 7
         },
         "text": "Hakan, look! 7 is bigger than 4. So the right frame has more.",
-        "caption": "7 wins!"
+        "caption": "7 wins! ⭐"
       },
       {
         "title": "Try Another",
@@ -17549,7 +17549,7 @@ const MODULES = [
           "filledB": 3
         },
         "text": "9 vs 3. Which has more dots? Nine! Hakan, you can do this too!",
-        "caption": "9 > 3"
+        "caption": "9 > 3 🌟"
       },
       {
         "title": "Equal Frames",
@@ -17558,8 +17558,8 @@ const MODULES = [
           "filledA": 5,
           "filledB": 5
         },
-        "text": "Watch with Hakan: when frames look the same, they are EQUAL.",
-        "caption": "5 = 5"
+        "text": "Watch with Hakan: when frames look the same, they are EQUAL. Hakan, you are a star!",
+        "caption": "5 = 5 💯"
       }
     ],
     "practice": [
@@ -17854,24 +17854,24 @@ const MODULES = [
     "kind": "generic",
     "description": "Hakan builds two-digit numbers with tens-bars and ones-blocks.",
     "lesson": [
-      { "title": "Hakan the Builder", "visual": { "type": "blocks", "tens": 2, "ones": 5 }, "text": "Hakan loves building. Today he builds numbers! 2 ten-bars + 5 ones = 25.", "caption": "25 = 2 tens + 5 ones" },
-      { "title": "Tens are Sticks of 10", "visual": { "type": "blocks", "tens": 4, "ones": 0 }, "text": "Each tens-bar is a stick of 10 ones glued together. Hakan grabs 4 sticks: that's 40!", "caption": "4 tens = 40" },
-      { "title": "Ones are Singles", "visual": { "type": "blocks", "tens": 0, "ones": 7 }, "text": "Ones are single blocks. Hakan picks 7 single blocks. That's 7.", "caption": "7 ones = 7" },
-      { "title": "Tens + Ones Together", "visual": { "type": "blocks", "tens": 4, "ones": 7 }, "text": "Now Hakan puts 4 tens-bars AND 7 ones together: 40 + 7 = 47!", "caption": "47" },
-      { "title": "Reading the Number", "visual": { "type": "two-digit-num", "n": 47, "highlight": "tens" }, "text": "Hakan reads the number 47. The 4 means 4 tens. The 7 means 7 ones.", "caption": "4 tens, 7 ones = 47" },
-      { "title": "Try a Bigger Number", "visual": { "type": "blocks", "tens": 8, "ones": 3 }, "text": "Hakan builds 83: eight ten-bars and three ones. Counting: 10, 20, 30, 40, 50, 60, 70, 80, 81, 82, 83.", "caption": "83 = 8 tens + 3 ones" },
-      { "title": "Decade Numbers", "visual": { "type": "blocks", "tens": 5, "ones": 0 }, "text": "When Hakan has only ten-bars and no ones, the ones digit is 0. 5 tens = 50.", "caption": "Ones digit = 0" },
-      { "title": "You Build It Now!", "visual": { "type": "blocks", "tens": 6, "ones": 4 }, "text": "Your turn, Hakan! 6 tens + 4 ones = ? Count by tens, then add the ones.", "caption": "Build it!" }
+      { "title": "Hakan the Builder", "visual": { "type": "blocks", "tens": 2, "ones": 5 }, "text": "Hakan loves building. Today he builds numbers! 2 ten-bars + 5 ones = 25.", "caption": "25 = 2 tens + 5 ones ✨" },
+      { "title": "Tens are Sticks of 10", "visual": { "type": "blocks", "tens": 4, "ones": 0 }, "text": "Each tens-bar is a stick of 10 ones glued together. Hakan grabs 4 sticks: that's 40!", "caption": "4 tens = 40 🏆" },
+      { "title": "Ones are Singles", "visual": { "type": "blocks", "tens": 0, "ones": 7 }, "text": "Ones are single blocks. Hakan picks 7 single blocks. That's 7.", "caption": "7 ones = 7 🎯" },
+      { "title": "Tens + Ones Together", "visual": { "type": "blocks", "tens": 4, "ones": 7 }, "text": "Now Hakan puts 4 tens-bars AND 7 ones together: 40 + 7 = 47!", "caption": "47 ⭐" },
+      { "title": "Reading the Number", "visual": { "type": "two-digit-num", "n": 47, "highlight": "tens" }, "text": "Hakan reads the number 47. The 4 means 4 tens. The 7 means 7 ones.", "caption": "4 tens, 7 ones = 47 🌟" },
+      { "title": "Try a Bigger Number", "visual": { "type": "blocks", "tens": 8, "ones": 3 }, "text": "Hakan builds 83: eight ten-bars and three ones. Counting: 10, 20, 30, 40, 50, 60, 70, 80, 81, 82, 83.", "caption": "83 = 8 tens + 3 ones 💯" },
+      { "title": "Decade Numbers", "visual": { "type": "blocks", "tens": 5, "ones": 0 }, "text": "When Hakan has only ten-bars and no ones, the ones digit is 0. 5 tens = 50.", "caption": "Ones digit = 0 ✨" },
+      { "title": "You Build It Now!", "visual": { "type": "blocks", "tens": 6, "ones": 4 }, "text": "Your turn, Hakan! 6 tens + 4 ones = ? Count by tens, then add the ones. You got this, Hakan! Time to practice!", "caption": "Build it! 🏆" }
     ],
     "practice": [
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 1, "ones": 3 }, "prompt": "Hakan built this. What number is it?", "answer": 13, "hint": "Count: 1 ten-bar = 10, then 3 more ones. 10 + 3 = 13." },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 2, "ones": 5 }, "prompt": "Hakan built 2 tens and 5 ones. What number?", "answer": 25, "hint": "20 + 5 = 25. Just say the tens, then the ones!" },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 3, "ones": 8 }, "prompt": "What number did Hakan build?", "answer": 38, "hint": "3 tens = 30, then 8 ones. 30 + 8 = 38." },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 4, "ones": 7 }, "prompt": "Count Hakan's blocks: 4 tens-bars and 7 singles.", "answer": 47, "hint": "Skip-count by 10s: 10, 20, 30, 40. Then add 7: 47." },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 5, "ones": 6 }, "prompt": "Hakan made this tower. How many blocks total?", "answer": 56, "hint": "5 tens = 50. Plus 6 ones. 50 + 6 = 56." },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 1, "ones": 3 }, "prompt": "Hakan built this. What number is it?", "answer": 13, "hint": "Easy for a smart kid like you, Hakan. Count: 1 ten-bar = 10, then 3 more ones. 10 + 3 = 13." },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 2, "ones": 5 }, "prompt": "Hakan built 2 tens and 5 ones. What number?", "answer": 25, "hint": "Hakan, take a breath and look again. 20 + 5 = 25. Just say the tens, then the ones!" },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 3, "ones": 8 }, "prompt": "What number did Hakan build?", "answer": 38, "hint": "You can do this, Hakan! 3 tens = 30, then 8 ones. 30 + 8 = 38." },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 4, "ones": 7 }, "prompt": "Count Hakan's blocks: 4 tens-bars and 7 singles.", "answer": 47, "hint": "Hakan, slow down and count carefully. Skip-count by 10s: 10, 20, 30, 40. Then add 7: 47." },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 5, "ones": 6 }, "prompt": "Hakan made this tower. How many blocks total?", "answer": 56, "hint": "Stay focused, Hakan — you're amazing. 5 tens = 50. Plus 6 ones. 50 + 6 = 56." },
       { "type": "numeric", "visual": { "type": "blocks", "tens": 6, "ones": 4 }, "prompt": "What number is this?", "answer": 64, "hint": "Six tens-bars give Hakan 60. Four ones add up: 64." },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 7, "ones": 9 }, "prompt": "Hakan has 7 tens and 9 ones. Total?", "answer": 79, "hint": "70 + 9 = 79. Almost 80!" },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 9, "ones": 5 }, "prompt": "How many blocks did Hakan use?", "answer": 95, "hint": "9 tens = 90. 5 ones more. 90 + 5 = 95." }
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 7, "ones": 9 }, "prompt": "Hakan has 7 tens and 9 ones. Total?", "answer": 79, "hint": "Hakan, use your strategy! 70 + 9 = 79. Almost 80!" },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 9, "ones": 5 }, "prompt": "How many blocks did Hakan use?", "answer": 95, "hint": "Almost, Hakan — keep your eyes sharp! 9 tens = 90. 5 ones more. 90 + 5 = 95." }
     ],
     "quiz": [
       { "type": "numeric", "visual": { "type": "blocks", "tens": 1, "ones": 7 }, "prompt": "What number did Hakan build?", "answer": 17 },
@@ -17894,24 +17894,24 @@ const MODULES = [
     "kind": "generic",
     "description": "Hakan plays detective: tens and ones clues lead to a secret number.",
     "lesson": [
-      { "title": "Detective Hakan", "visual": { "type": "bignum", "n": 47 }, "text": "Today Hakan is a detective! Numbers have secret clues. The clues tell us how many tens and ones.", "caption": "Find the number!" },
-      { "title": "Clue: 4 Tens", "visual": { "type": "blocks", "tens": 4, "ones": 0 }, "text": "Hakan reads the first clue: '4 tens'. That means 40.", "caption": "4 tens = 40" },
-      { "title": "Clue: 7 Ones", "visual": { "type": "blocks", "tens": 0, "ones": 7 }, "text": "Second clue: '7 ones'. That means 7 single blocks.", "caption": "7 ones = 7" },
-      { "title": "Combine the Clues", "visual": { "type": "blocks", "tens": 4, "ones": 7 }, "text": "Hakan puts the clues together: 40 + 7 = 47. Mystery solved!", "caption": "Mystery: 47" },
-      { "title": "Another Mystery", "visual": { "type": "blocks", "tens": 6, "ones": 2 }, "text": "Hakan tries again: 6 tens and 2 ones. 60 + 2 = 62.", "caption": "62" },
-      { "title": "Tricky Mystery", "visual": { "type": "blocks", "tens": 3, "ones": 0 }, "text": "What if there are 3 tens and 0 ones? Hakan thinks: 30 + 0 = 30!", "caption": "30" },
-      { "title": "Reading Backward", "visual": { "type": "two-digit-num", "n": 58, "highlight": "tens" }, "text": "Hakan can also break a number INTO clues: 58 = 5 tens + 8 ones.", "caption": "58 → 5 tens + 8 ones" },
-      { "title": "You Solve It!", "visual": { "type": "bignum", "n": 71 }, "text": "Your turn, Hakan! What number has 7 tens and 1 one?", "caption": "Solve the mystery!" }
+      { "title": "Detective Hakan", "visual": { "type": "bignum", "n": 47 }, "text": "Today Hakan is a detective! Numbers have secret clues. The clues tell us how many tens and ones.", "caption": "Find the number! 🎯" },
+      { "title": "Clue: 4 Tens", "visual": { "type": "blocks", "tens": 4, "ones": 0 }, "text": "Hakan reads the first clue: '4 tens'. That means 40.", "caption": "4 tens = 40 ⭐" },
+      { "title": "Clue: 7 Ones", "visual": { "type": "blocks", "tens": 0, "ones": 7 }, "text": "Second clue: '7 ones'. That means 7 single blocks.", "caption": "7 ones = 7 🌟" },
+      { "title": "Combine the Clues", "visual": { "type": "blocks", "tens": 4, "ones": 7 }, "text": "Hakan puts the clues together: 40 + 7 = 47. Mystery solved!", "caption": "Mystery: 47 💯" },
+      { "title": "Another Mystery", "visual": { "type": "blocks", "tens": 6, "ones": 2 }, "text": "Hakan tries again: 6 tens and 2 ones. 60 + 2 = 62.", "caption": "62 ✨" },
+      { "title": "Tricky Mystery", "visual": { "type": "blocks", "tens": 3, "ones": 0 }, "text": "What if there are 3 tens and 0 ones? Hakan thinks: 30 + 0 = 30!", "caption": "30 🏆" },
+      { "title": "Reading Backward", "visual": { "type": "two-digit-num", "n": 58, "highlight": "tens" }, "text": "Hakan can also break a number INTO clues: 58 = 5 tens + 8 ones.", "caption": "58 → 5 tens + 8 ones 🎯" },
+      { "title": "You Solve It!", "visual": { "type": "bignum", "n": 71 }, "text": "Your turn, Hakan! What number has 7 tens and 1 one? Hakan the brilliant — try the practice!", "caption": "Solve the mystery! ⭐" }
     ],
     "practice": [
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 2, "ones": 3 }, "prompt": "Clue: 2 tens and 3 ones. What number, Hakan?", "answer": 23, "hint": "2 tens = 20. Plus 3 ones. 20 + 3 = 23." },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 5, "ones": 0 }, "prompt": "Hakan finds 5 tens and 0 ones. The number is?", "answer": 50, "hint": "5 tens = 50. Zero ones means no extras: just 50." },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 2, "ones": 3 }, "prompt": "Clue: 2 tens and 3 ones. What number, Hakan?", "answer": 23, "hint": "You got this, Hakan! 2 tens = 20. Plus 3 ones. 20 + 3 = 23." },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 5, "ones": 0 }, "prompt": "Hakan finds 5 tens and 0 ones. The number is?", "answer": 50, "hint": "Hakan, you're so smart — think it through. 5 tens = 50. Zero ones means no extras: just 50." },
       { "type": "numeric", "visual": { "type": "blocks", "tens": 8, "ones": 4 }, "prompt": "8 tens, 4 ones. What is the mystery?", "answer": 84, "hint": "80 + 4 = 84. Detective Hakan strikes again!" },
-      { "type": "numeric", "visual": { "type": "two-digit-num", "n": 36, "highlight": "tens" }, "prompt": "How many tens does 36 have?", "answer": 3, "hint": "The first digit is the tens. 36 has a 3 in the tens place." },
-      { "type": "numeric", "visual": { "type": "two-digit-num", "n": 36, "highlight": "ones" }, "prompt": "How many ones does 36 have?", "answer": 6, "hint": "The last digit is the ones. 36 has 6 ones." },
-      { "type": "numeric", "visual": { "type": "two-digit-num", "n": 90, "highlight": "ones" }, "prompt": "Tricky! How many ones does 90 have?", "answer": 0, "hint": "The ones digit of 90 is 0. Zero ones — only tens here." },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 7, "ones": 8 }, "prompt": "Hakan finds 7 tens, 8 ones. Total?", "answer": 78, "hint": "70 + 8 = 78. Almost 80!" },
-      { "type": "numeric", "visual": { "type": "blocks", "tens": 9, "ones": 9 }, "prompt": "Last mystery: 9 tens, 9 ones!", "answer": 99, "hint": "90 + 9 = 99. The biggest two-digit number!" }
+      { "type": "numeric", "visual": { "type": "two-digit-num", "n": 36, "highlight": "tens" }, "prompt": "How many tens does 36 have?", "answer": 3, "hint": "Hakan, take a breath and look again. The first digit is the tens. 36 has a 3 in the tens place." },
+      { "type": "numeric", "visual": { "type": "two-digit-num", "n": 36, "highlight": "ones" }, "prompt": "How many ones does 36 have?", "answer": 6, "hint": "You can do this, Hakan! The last digit is the ones. 36 has 6 ones." },
+      { "type": "numeric", "visual": { "type": "two-digit-num", "n": 90, "highlight": "ones" }, "prompt": "Tricky! How many ones does 90 have?", "answer": 0, "hint": "Hakan, slow down and count carefully. The ones digit of 90 is 0. Zero ones — only tens here." },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 7, "ones": 8 }, "prompt": "Hakan finds 7 tens, 8 ones. Total?", "answer": 78, "hint": "Stay focused, Hakan — you're amazing. 70 + 8 = 78. Almost 80!" },
+      { "type": "numeric", "visual": { "type": "blocks", "tens": 9, "ones": 9 }, "prompt": "Last mystery: 9 tens, 9 ones!", "answer": 99, "hint": "Try this, Hakan — you're on it! 90 + 9 = 99. The biggest two-digit number!" }
     ],
     "quiz": [
       { "type": "numeric", "visual": { "type": "blocks", "tens": 1, "ones": 5 }, "prompt": "1 ten and 5 ones makes what?", "answer": 15 },
@@ -17934,24 +17934,24 @@ const MODULES = [
     "kind": "generic",
     "description": "Hakan jumps by tens — the tens digit changes, the ones stay still.",
     "lesson": [
-      { "title": "The Big Jump", "visual": { "type": "numberline", "from": 0, "to": 100, "mark": 30 }, "text": "When Hakan adds 10, he takes a BIG jump. The ones digit stays. Only the tens digit changes!", "caption": "+10 = jump by tens" },
-      { "title": "10 More than 23", "visual": { "type": "two-digit-add", "a": 23, "b": 10 }, "text": "Hakan starts at 23. He adds 10. 23 → 33. The ones (3) stayed. The tens went from 2 to 3.", "caption": "23 + 10 = 33" },
-      { "title": "10 More than 47", "visual": { "type": "two-digit-add", "a": 47, "b": 10 }, "text": "Hakan tries another: 47 + 10 = 57. The 7 stayed. The 4 became 5.", "caption": "47 + 10 = 57" },
-      { "title": "Jumping Backward", "visual": { "type": "numberline", "from": 0, "to": 100, "mark": 50 }, "text": "Hakan can jump BACK by 10 too. That's 10 LESS. The ones stay, the tens go down by 1.", "caption": "−10 = jump back" },
-      { "title": "10 Less than 56", "visual": { "type": "two-digit-add", "a": 56, "b": 10 }, "text": "56 take away 10? 46! The 6 stays. The 5 became 4.", "caption": "56 − 10 = 46" },
-      { "title": "Adding 10 in Your Head", "visual": { "type": "two-digit-num", "n": 38, "highlight": "tens" }, "text": "Hakan does it without blocks now! 10 more than 38? Just bump the tens: 48!", "caption": "Mental math!" },
-      { "title": "Subtracting 10 in Your Head", "visual": { "type": "two-digit-num", "n": 72, "highlight": "tens" }, "text": "10 less than 72? Bump the tens DOWN: 62. Hakan does it in his head!", "caption": "72 − 10 = 62" },
-      { "title": "Hakan the Hundred Hopper", "visual": { "type": "numberline", "from": 0, "to": 100, "mark": 70 }, "text": "Hakan can hop by 10s along any number. Ones digit stays, tens digit moves. Try it!", "caption": "Big jumps!" }
+      { "title": "The Big Jump", "visual": { "type": "numberline", "from": 0, "to": 100, "mark": 30 }, "text": "When Hakan adds 10, he takes a BIG jump. The ones digit stays. Only the tens digit changes!", "caption": "+10 = jump by tens 🌟" },
+      { "title": "10 More than 23", "visual": { "type": "two-digit-add", "a": 23, "b": 10 }, "text": "Hakan starts at 23. He adds 10. 23 → 33. The ones (3) stayed. The tens went from 2 to 3.", "caption": "23 + 10 = 33 💯" },
+      { "title": "10 More than 47", "visual": { "type": "two-digit-add", "a": 47, "b": 10 }, "text": "Hakan tries another: 47 + 10 = 57. The 7 stayed. The 4 became 5.", "caption": "47 + 10 = 57 ✨" },
+      { "title": "Jumping Backward", "visual": { "type": "numberline", "from": 0, "to": 100, "mark": 50 }, "text": "Hakan can jump BACK by 10 too. That's 10 LESS. The ones stay, the tens go down by 1.", "caption": "−10 = jump back 🏆" },
+      { "title": "10 Less than 56", "visual": { "type": "two-digit-add", "a": 56, "b": 10 }, "text": "56 take away 10? 46! The 6 stays. The 5 became 4.", "caption": "56 − 10 = 46 🎯" },
+      { "title": "Adding 10 in Your Head", "visual": { "type": "two-digit-num", "n": 38, "highlight": "tens" }, "text": "Hakan does it without blocks now! 10 more than 38? Just bump the tens: 48!", "caption": "Mental math! ⭐" },
+      { "title": "Subtracting 10 in Your Head", "visual": { "type": "two-digit-num", "n": 72, "highlight": "tens" }, "text": "10 less than 72? Bump the tens DOWN: 62. Hakan does it in his head!", "caption": "72 − 10 = 62 🌟" },
+      { "title": "Hakan the Hundred Hopper", "visual": { "type": "numberline", "from": 0, "to": 100, "mark": 70 }, "text": "Hakan can hop by 10s along any number. Ones digit stays, tens digit moves. Try it!", "caption": "Big jumps! 💯" }
     ],
     "practice": [
-      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 14, "b": 10 }, "prompt": "10 more than 14? Hakan's turn!", "answer": 24, "hint": "Add 1 to the tens digit: 1 → 2. Keep the 4. Answer: 24." },
-      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 27, "b": 10 }, "prompt": "What is 10 more than 27?", "answer": 37, "hint": "27 → 37. The ones (7) stay. The tens go up by 1." },
-      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 35, "b": 10 }, "prompt": "Hakan adds 10 to 35.", "answer": 45, "hint": "Bump the tens: 3 → 4. Keep the 5. 45!" },
-      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 48, "b": 10 }, "prompt": "10 more than 48?", "answer": 58, "hint": "48 + 10 = 58. The 8 stays. The 4 became 5." },
-      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 60, "b": 10 }, "prompt": "Hakan starts at 60 and jumps 10 more.", "answer": 70, "hint": "60 + 10 = 70. The 0 stays. The 6 became 7." },
-      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 32, "b": 10 }, "prompt": "What is 10 LESS than 32? (Subtract 10)", "answer": 22, "hint": "32 − 10 = 22. The 2 stays. Tens go DOWN by 1: 3 → 2." },
-      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 56, "b": 10 }, "prompt": "10 less than 56?", "answer": 46, "hint": "56 − 10 = 46. The 6 stays. Tens go from 5 to 4." },
-      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 80, "b": 10 }, "prompt": "Hakan jumps back 10 from 80.", "answer": 70, "hint": "80 − 10 = 70. Bump tens down by 1: 8 → 7." }
+      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 14, "b": 10 }, "prompt": "10 more than 14? Hakan's turn!", "answer": 24, "hint": "Hakan, use your strategy! Add 1 to the tens digit: 1 → 2. Keep the 4. Answer: 24." },
+      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 27, "b": 10 }, "prompt": "What is 10 more than 27?", "answer": 37, "hint": "Almost, Hakan — keep your eyes sharp! 27 → 37. The ones (7) stay. The tens go up by 1." },
+      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 35, "b": 10 }, "prompt": "Hakan adds 10 to 35.", "answer": 45, "hint": "You got this, Hakan! Bump the tens: 3 → 4. Keep the 5. 45!" },
+      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 48, "b": 10 }, "prompt": "10 more than 48?", "answer": 58, "hint": "Hakan, you're so smart — think it through. 48 + 10 = 58. The 8 stays. The 4 became 5." },
+      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 60, "b": 10 }, "prompt": "Hakan starts at 60 and jumps 10 more.", "answer": 70, "hint": "Easy for a smart kid like you, Hakan. 60 + 10 = 70. The 0 stays. The 6 became 7." },
+      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 32, "b": 10 }, "prompt": "What is 10 LESS than 32? (Subtract 10)", "answer": 22, "hint": "Hakan, take a breath and look again. 32 − 10 = 22. The 2 stays. Tens go DOWN by 1: 3 → 2." },
+      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 56, "b": 10 }, "prompt": "10 less than 56?", "answer": 46, "hint": "You can do this, Hakan! 56 − 10 = 46. The 6 stays. Tens go from 5 to 4." },
+      { "type": "numeric", "visual": { "type": "two-digit-add", "a": 80, "b": 10 }, "prompt": "Hakan jumps back 10 from 80.", "answer": 70, "hint": "Hakan, slow down and count carefully. 80 − 10 = 70. Bump tens down by 1: 8 → 7." }
     ],
     "quiz": [
       { "type": "numeric", "visual": { "type": "two-digit-add", "a": 12, "b": 10 }, "prompt": "10 more than 12?", "answer": 22 },
@@ -17982,7 +17982,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Hakan, look! When the long hand is on 12, it is exactly o'clock.",
-        "caption": "O'Clock"
+        "caption": "O'Clock ✨"
       },
       {
         "title": "1 O'Clock",
@@ -17992,7 +17992,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Short hand on 1.",
-        "caption": "1:00"
+        "caption": "1:00 🏆"
       },
       {
         "title": "3 O'Clock",
@@ -18002,7 +18002,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Short hand on 3. Hakan, you can do this too!",
-        "caption": "3:00"
+        "caption": "3:00 🎯"
       },
       {
         "title": "6 O'Clock",
@@ -18012,7 +18012,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Short hand on 6.",
-        "caption": "6:00"
+        "caption": "6:00 ⭐"
       },
       {
         "title": "9 O'Clock",
@@ -18022,7 +18022,7 @@ const MODULES = [
           "minute": 0
         },
         "text": "Watch with Hakan: short hand on 9.",
-        "caption": "9:00"
+        "caption": "9:00 🌟"
       },
       {
         "title": "12 O'Clock",
@@ -18031,8 +18031,8 @@ const MODULES = [
           "hour": 12,
           "minute": 0
         },
-        "text": "Both hands on 12. That is noon or midnight!",
-        "caption": "12:00"
+        "text": "Both hands on 12. That is noon or midnight! Hakan, you are unstoppable!",
+        "caption": "12:00 💯"
       }
     ],
     "practice": [
@@ -18243,8 +18243,8 @@ const MODULES = [
           "hour": 3,
           "minute": 30
         },
-        "text": "When the long hand is on 6, it is half past the hour.",
-        "caption": "Half past"
+        "text": "Hakan, this is fun! When the long hand is on 6, it is half past the hour.",
+        "caption": "Half past ✨"
       },
       {
         "title": "Half Past 1",
@@ -18254,7 +18254,7 @@ const MODULES = [
           "minute": 30
         },
         "text": "Hakan, look! Short hand between 1 and 2.",
-        "caption": "1:30"
+        "caption": "1:30 🏆"
       },
       {
         "title": "Half Past 4",
@@ -18264,7 +18264,7 @@ const MODULES = [
           "minute": 30
         },
         "text": "Short hand between 4 and 5. Hakan, you can do this too!",
-        "caption": "4:30"
+        "caption": "4:30 🎯"
       },
       {
         "title": "Half Past 7",
@@ -18274,7 +18274,7 @@ const MODULES = [
           "minute": 30
         },
         "text": "Watch with Hakan: short hand between 7 and 8.",
-        "caption": "7:30"
+        "caption": "7:30 ⭐"
       },
       {
         "title": "Half Past 10",
@@ -18283,8 +18283,8 @@ const MODULES = [
           "hour": 10,
           "minute": 30
         },
-        "text": "Short hand between 10 and 11.",
-        "caption": "10:30"
+        "text": "Short hand between 10 and 11. Brilliant work, Hakan! On to practice!",
+        "caption": "10:30 🌟"
       }
     ],
     "practice": [
@@ -18297,7 +18297,7 @@ const MODULES = [
         },
         "prompt": "It is half past which hour? Hakan, what do you think?",
         "answer": 2,
-        "hint": "Pick the SMALLER number near the short hand."
+        "hint": "You can do this, Hakan! Pick the SMALLER number near the short hand."
       },
       {
         "type": "numeric",
@@ -18308,7 +18308,7 @@ const MODULES = [
         },
         "prompt": "It is half past which hour?",
         "answer": 3,
-        "hint": "Pick the SMALLER number near the short hand."
+        "hint": "Hakan, slow down and count carefully. Pick the SMALLER number near the short hand."
       },
       {
         "type": "numeric",
@@ -18319,7 +18319,7 @@ const MODULES = [
         },
         "prompt": "It is half past which hour?",
         "answer": 5,
-        "hint": "Pick the SMALLER number near the short hand."
+        "hint": "Stay focused, Hakan — you're amazing. Pick the SMALLER number near the short hand."
       },
       {
         "type": "numeric",
@@ -18330,7 +18330,7 @@ const MODULES = [
         },
         "prompt": "It is half past which hour?",
         "answer": 6,
-        "hint": "Pick the SMALLER number near the short hand."
+        "hint": "Try this, Hakan — you're on it! Pick the SMALLER number near the short hand."
       },
       {
         "type": "numeric",
@@ -18341,7 +18341,7 @@ const MODULES = [
         },
         "prompt": "It is half past which hour? What is your answer, Hakan?",
         "answer": 8,
-        "hint": "Pick the SMALLER number near the short hand."
+        "hint": "Hakan, use your strategy! Pick the SMALLER number near the short hand."
       },
       {
         "type": "numeric",
@@ -18352,7 +18352,7 @@ const MODULES = [
         },
         "prompt": "It is half past which hour? Help Hakan find the answer!",
         "answer": 9,
-        "hint": "Pick the SMALLER number near the short hand."
+        "hint": "Almost, Hakan — keep your eyes sharp! Pick the SMALLER number near the short hand."
       },
       {
         "type": "numeric",
@@ -18363,7 +18363,7 @@ const MODULES = [
         },
         "prompt": "It is half past which hour?",
         "answer": 11,
-        "hint": "Pick the SMALLER number near the short hand."
+        "hint": "You got this, Hakan! Pick the SMALLER number near the short hand."
       },
       {
         "type": "numeric",
@@ -18374,7 +18374,7 @@ const MODULES = [
         },
         "prompt": "It is half past which hour?",
         "answer": 12,
-        "hint": "Pick the SMALLER number near the short hand."
+        "hint": "Hakan, you're so smart — think it through. Pick the SMALLER number near the short hand."
       }
     ],
     "quiz": [
@@ -18495,8 +18495,8 @@ const MODULES = [
           "type": "objects",
           "count": 1
         },
-        "text": "A penny is worth 1 cents.",
-        "caption": "penny = 1¢"
+        "text": "Pay attention, Hakan! A penny is worth 1 cents.",
+        "caption": "penny = 1¢ 💯"
       },
       {
         "title": "Two pennys",
@@ -18506,7 +18506,7 @@ const MODULES = [
           "count": 2
         },
         "text": "Hakan, look! Two pennys = 2 cents.",
-        "caption": "2¢"
+        "caption": "2¢ ✨"
       },
       {
         "title": "Skip Count",
@@ -18516,7 +18516,7 @@ const MODULES = [
           "count": 3
         },
         "text": "Count by 1: 1, 2, 3, 4, 5! Hakan, you can do this too!",
-        "caption": "+1 each"
+        "caption": "+1 each 🏆"
       },
       {
         "title": "Five pennys",
@@ -18526,7 +18526,7 @@ const MODULES = [
           "count": 5
         },
         "text": "Five pennys = 5 cents.",
-        "caption": "5×1=5¢"
+        "caption": "5×1=5¢ 🎯"
       },
       {
         "title": "Practice Counting",
@@ -18535,8 +18535,8 @@ const MODULES = [
           "type": "objects",
           "count": 4
         },
-        "text": "Watch with Hakan: touch each coin and skip count. Easy!",
-        "caption": "Skip count"
+        "text": "Watch with Hakan: touch each coin and skip count. Easy! Hakan, you make this look easy!",
+        "caption": "Skip count ⭐"
       }
     ],
     "practice": [
@@ -18571,7 +18571,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 3 pennys?",
         "answer": 3,
-        "hint": "Skip count by 1: 1, 2, 3."
+        "hint": "You can do this, Hakan! Skip count by 1: 1, 2, 3."
       },
       {
         "type": "numeric",
@@ -18582,7 +18582,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 4 pennys?",
         "answer": 4,
-        "hint": "Skip count by 1: 1, 2, 3, 4."
+        "hint": "Hakan, slow down and count carefully. Skip count by 1: 1, 2, 3, 4."
       },
       {
         "type": "numeric",
@@ -18593,7 +18593,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 5 pennys? What is your answer, Hakan?",
         "answer": 5,
-        "hint": "Skip count by 1: 1, 2, 3, 4, 5."
+        "hint": "Stay focused, Hakan — you're amazing. Skip count by 1: 1, 2, 3, 4, 5."
       },
       {
         "type": "numeric",
@@ -18604,7 +18604,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 6 pennys? Help Hakan find the answer!",
         "answer": 6,
-        "hint": "Skip count by 1: 1, 2, 3, 4, 5, 6."
+        "hint": "Try this, Hakan — you're on it! Skip count by 1: 1, 2, 3, 4, 5, 6."
       },
       {
         "type": "numeric",
@@ -18615,7 +18615,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 7 pennys?",
         "answer": 7,
-        "hint": "Skip count by 1: 1, 2, 3, 4, 5, 6, 7."
+        "hint": "Hakan, use your strategy! Skip count by 1: 1, 2, 3, 4, 5, 6, 7."
       },
       {
         "type": "numeric",
@@ -18626,7 +18626,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 8 pennys?",
         "answer": 8,
-        "hint": "Skip count by 1: 1, 2, 3, 4, 5, 6, 7, 8."
+        "hint": "Almost, Hakan — keep your eyes sharp! Skip count by 1: 1, 2, 3, 4, 5, 6, 7, 8."
       }
     ],
     "quiz": [
@@ -18748,7 +18748,7 @@ const MODULES = [
           "count": 1
         },
         "text": "Hakan, look! A nickel is worth 5 cents.",
-        "caption": "nickel = 5¢"
+        "caption": "nickel = 5¢ 🌟"
       },
       {
         "title": "Two nickels",
@@ -18758,7 +18758,7 @@ const MODULES = [
           "count": 2
         },
         "text": "Two nickels = 10 cents. Hakan, you can do this too!",
-        "caption": "10¢"
+        "caption": "10¢ 💯"
       },
       {
         "title": "Skip Count",
@@ -18768,7 +18768,7 @@ const MODULES = [
           "count": 3
         },
         "text": "Watch with Hakan: count by 5: 5, 10, 15, 20, 25!",
-        "caption": "+5 each"
+        "caption": "+5 each ✨"
       },
       {
         "title": "Five nickels",
@@ -18778,7 +18778,7 @@ const MODULES = [
           "count": 5
         },
         "text": "Five nickels = 25 cents.",
-        "caption": "5×5=25¢"
+        "caption": "5×5=25¢ 🏆"
       },
       {
         "title": "Practice Counting",
@@ -18787,8 +18787,8 @@ const MODULES = [
           "type": "objects",
           "count": 4
         },
-        "text": "Touch each coin and skip count. Easy!",
-        "caption": "Skip count"
+        "text": "Touch each coin and skip count. Easy! Way to go, Hakan!",
+        "caption": "Skip count 🎯"
       }
     ],
     "practice": [
@@ -18823,7 +18823,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 3 nickels?",
         "answer": 15,
-        "hint": "Skip count by 5: 5, 10, 15."
+        "hint": "Easy for a smart kid like you, Hakan. Skip count by 5: 5, 10, 15."
       },
       {
         "type": "numeric",
@@ -18834,7 +18834,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 4 nickels? Hakan, what do you think?",
         "answer": 20,
-        "hint": "Skip count by 5: 5, 10, 15, 20."
+        "hint": "Hakan, take a breath and look again. Skip count by 5: 5, 10, 15, 20."
       },
       {
         "type": "numeric",
@@ -18845,7 +18845,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 5 nickels? What is your answer, Hakan?",
         "answer": 25,
-        "hint": "Skip count by 5: 5, 10, 15, 20, 25."
+        "hint": "You can do this, Hakan! Skip count by 5: 5, 10, 15, 20, 25."
       },
       {
         "type": "numeric",
@@ -18856,7 +18856,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 6 nickels?",
         "answer": 30,
-        "hint": "Skip count by 5: 5, 10, 15, 20, 25, 30."
+        "hint": "Hakan, slow down and count carefully. Skip count by 5: 5, 10, 15, 20, 25, 30."
       },
       {
         "type": "numeric",
@@ -18867,7 +18867,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 7 nickels? Help Hakan find the answer!",
         "answer": 35,
-        "hint": "Skip count by 5: 5, 10, 15, 20, 25, 30, 35."
+        "hint": "Stay focused, Hakan — you're amazing. Skip count by 5: 5, 10, 15, 20, 25, 30, 35."
       },
       {
         "type": "numeric",
@@ -18878,7 +18878,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 8 nickels?",
         "answer": 40,
-        "hint": "Skip count by 5: 5, 10, 15, 20, 25, 30, 35, 40."
+        "hint": "Try this, Hakan — you're on it! Skip count by 5: 5, 10, 15, 20, 25, 30, 35, 40."
       }
     ],
     "quiz": [
@@ -19000,7 +19000,7 @@ const MODULES = [
           "count": 1
         },
         "text": "Hakan, look! A dime is worth 10 cents.",
-        "caption": "dime = 10¢"
+        "caption": "dime = 10¢ ⭐"
       },
       {
         "title": "Two dimes",
@@ -19010,7 +19010,7 @@ const MODULES = [
           "count": 2
         },
         "text": "Two dimes = 20 cents.",
-        "caption": "20¢"
+        "caption": "20¢ 🌟"
       },
       {
         "title": "Skip Count",
@@ -19020,7 +19020,7 @@ const MODULES = [
           "count": 3
         },
         "text": "Count by 10: 10, 20, 30, 40, 50! Hakan, you can do this too!",
-        "caption": "+10 each"
+        "caption": "+10 each 💯"
       },
       {
         "title": "Five dimes",
@@ -19030,7 +19030,7 @@ const MODULES = [
           "count": 5
         },
         "text": "Five dimes = 50 cents.",
-        "caption": "5×10=50¢"
+        "caption": "5×10=50¢ ✨"
       },
       {
         "title": "Practice Counting",
@@ -19039,8 +19039,8 @@ const MODULES = [
           "type": "objects",
           "count": 4
         },
-        "text": "Watch with Hakan: touch each coin and skip count. Easy!",
-        "caption": "Skip count"
+        "text": "Watch with Hakan: touch each coin and skip count. Easy! You are amazing, Hakan — keep shining!",
+        "caption": "Skip count 🏆"
       }
     ],
     "practice": [
@@ -19064,7 +19064,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 2 dimes?",
         "answer": 20,
-        "hint": "Skip count by 10: 10, 20."
+        "hint": "Almost, Hakan — keep your eyes sharp! Skip count by 10: 10, 20."
       },
       {
         "type": "numeric",
@@ -19075,7 +19075,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 3 dimes? Hakan, what do you think?",
         "answer": 30,
-        "hint": "Skip count by 10: 10, 20, 30."
+        "hint": "You got this, Hakan! Skip count by 10: 10, 20, 30."
       },
       {
         "type": "numeric",
@@ -19086,7 +19086,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 4 dimes?",
         "answer": 40,
-        "hint": "Skip count by 10: 10, 20, 30, 40."
+        "hint": "Hakan, you're so smart — think it through. Skip count by 10: 10, 20, 30, 40."
       },
       {
         "type": "numeric",
@@ -19097,7 +19097,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 5 dimes?",
         "answer": 50,
-        "hint": "Skip count by 10: 10, 20, 30, 40, 50."
+        "hint": "Easy for a smart kid like you, Hakan. Skip count by 10: 10, 20, 30, 40, 50."
       },
       {
         "type": "numeric",
@@ -19108,7 +19108,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 6 dimes? What is your answer, Hakan?",
         "answer": 60,
-        "hint": "Skip count by 10: 10, 20, 30, 40, 50, 60."
+        "hint": "Hakan, take a breath and look again. Skip count by 10: 10, 20, 30, 40, 50, 60."
       },
       {
         "type": "numeric",
@@ -19119,7 +19119,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 7 dimes?",
         "answer": 70,
-        "hint": "Skip count by 10: 10, 20, 30, 40, 50, 60, 70."
+        "hint": "You can do this, Hakan! Skip count by 10: 10, 20, 30, 40, 50, 60, 70."
       },
       {
         "type": "numeric",
@@ -19130,7 +19130,7 @@ const MODULES = [
         },
         "prompt": "How many cents in 8 dimes? Help Hakan find the answer!",
         "answer": 80,
-        "hint": "Skip count by 10: 10, 20, 30, 40, 50, 60, 70, 80."
+        "hint": "Hakan, slow down and count carefully. Skip count by 10: 10, 20, 30, 40, 50, 60, 70, 80."
       }
     ],
     "quiz": [
@@ -19251,8 +19251,8 @@ const MODULES = [
           "type": "objects",
           "count": 4
         },
-        "text": "To measure length, line up cubes end to end.",
-        "caption": "No gaps!"
+        "text": "Ready, Hakan? To measure length, line up cubes end to end.",
+        "caption": "No gaps! 🎯"
       },
       {
         "title": "Count Them",
@@ -19262,7 +19262,7 @@ const MODULES = [
           "count": 5
         },
         "text": "Hakan, look! Touch each one and count.",
-        "caption": "1, 2, 3, 4, 5"
+        "caption": "1, 2, 3, 4, 5 ⭐"
       },
       {
         "title": "Try a Bigger One",
@@ -19272,7 +19272,7 @@ const MODULES = [
           "count": 8
         },
         "text": "A bigger object needs more cubes.",
-        "caption": "8 long"
+        "caption": "8 long 🌟"
       },
       {
         "title": "Compare",
@@ -19282,7 +19282,7 @@ const MODULES = [
           "b": 8
         },
         "text": "8 cubes is LONGER than 5 cubes. Hakan, you can do this too!",
-        "caption": "More = longer"
+        "caption": "More = longer 💯"
       },
       {
         "title": "You Can Measure!",
@@ -19291,8 +19291,8 @@ const MODULES = [
           "type": "objects",
           "count": 6
         },
-        "text": "Watch with Hakan: just count and you have a measurement.",
-        "caption": "6 cubes long"
+        "text": "Watch with Hakan: just count and you have a measurement. Hakan, you're a champion!",
+        "caption": "6 cubes long ✨"
       }
     ],
     "practice": [
@@ -19504,7 +19504,7 @@ const MODULES = [
           "count": 4
         },
         "text": "Hakan, look! To measure length, line up paperclips end to end.",
-        "caption": "No gaps!"
+        "caption": "No gaps! 🏆"
       },
       {
         "title": "Count Them",
@@ -19514,7 +19514,7 @@ const MODULES = [
           "count": 5
         },
         "text": "Touch each one and count. Hakan, you can do this too!",
-        "caption": "1, 2, 3, 4, 5"
+        "caption": "1, 2, 3, 4, 5 🎯"
       },
       {
         "title": "Try a Bigger One",
@@ -19524,7 +19524,7 @@ const MODULES = [
           "count": 8
         },
         "text": "A bigger object needs more paperclips.",
-        "caption": "8 long"
+        "caption": "8 long ⭐"
       },
       {
         "title": "Compare",
@@ -19534,7 +19534,7 @@ const MODULES = [
           "b": 8
         },
         "text": "Watch with Hakan: 8 paperclips is LONGER than 5 paperclips.",
-        "caption": "More = longer"
+        "caption": "More = longer 🌟"
       },
       {
         "title": "You Can Measure!",
@@ -19543,8 +19543,8 @@ const MODULES = [
           "type": "objects",
           "count": 6
         },
-        "text": "Just count and you have a measurement.",
-        "caption": "6 paperclips long"
+        "text": "Just count and you have a measurement. Hakan, you are SO smart!",
+        "caption": "6 paperclips long 💯"
       }
     ],
     "practice": [
@@ -19756,7 +19756,7 @@ const MODULES = [
           "b": 3
         },
         "text": "Hakan, look! When we have three numbers to add, we add them in any order!",
-        "caption": "a + b + c"
+        "caption": "a + b + c ✨"
       },
       {
         "title": "Add Two First",
@@ -19766,7 +19766,7 @@ const MODULES = [
           "b": 3
         },
         "text": "For 2 + 3 + 4: add 2 + 3 first to get 5.",
-        "caption": "Step 1"
+        "caption": "Step 1 🏆"
       },
       {
         "title": "Then Add the Third",
@@ -19776,7 +19776,7 @@ const MODULES = [
           "b": 4
         },
         "text": "5 + 4 = 9. So 2 + 3 + 4 = 9! Hakan, you can do this too!",
-        "caption": "Step 2"
+        "caption": "Step 2 🎯"
       },
       {
         "title": "Look for Pairs to 10",
@@ -19786,7 +19786,7 @@ const MODULES = [
           "b": 7
         },
         "text": "For 3 + 7 + 4: 3 + 7 = 10. Then 10 + 4 = 14. Pairs to 10 make it FAST.",
-        "caption": "Make 10 first!"
+        "caption": "Make 10 first! ⭐"
       },
       {
         "title": "Use Doubles Too",
@@ -19795,8 +19795,8 @@ const MODULES = [
           "a": 5,
           "b": 5
         },
-        "text": "Watch with Hakan: for 5 + 5 + 2: 5 + 5 = 10 (double!), then + 2 = 12.",
-        "caption": "Doubles + 1 more"
+        "text": "Watch with Hakan: for 5 + 5 + 2: 5 + 5 = 10 (double!), then + 2 = 12. Amazing job, Hakan! Keep going!",
+        "caption": "Doubles + 1 more 🌟"
       }
     ],
     "practice": [
@@ -19831,7 +19831,7 @@ const MODULES = [
         },
         "prompt": "Three plus seven plus two?",
         "answer": 12,
-        "hint": "Make 10 first: 3+7=10, then +2=12."
+        "hint": "You can do this, Hakan! Make 10 first: 3+7=10, then +2=12."
       },
       {
         "type": "numeric",
@@ -20008,8 +20008,8 @@ const MODULES = [
           "a": 2,
           "b": 2
         },
-        "text": "A number is EVEN if it makes pairs with no leftover.",
-        "caption": "Even = pairs"
+        "text": "Pay attention, Hakan! A number is EVEN if it makes pairs with no leftover.",
+        "caption": "Even = pairs 💯"
       },
       {
         "title": "4 is Even",
@@ -20020,7 +20020,7 @@ const MODULES = [
           "b": 2
         },
         "text": "Hakan, look! 4 bees can make 2 pairs. Even!",
-        "caption": "4 = 2 pairs"
+        "caption": "4 = 2 pairs ✨"
       },
       {
         "title": "5 is Odd",
@@ -20030,7 +20030,7 @@ const MODULES = [
           "count": 5
         },
         "text": "5 bees: 2 pairs and ONE LEFT OVER. Odd!",
-        "caption": "5 = 2 pairs + 1"
+        "caption": "5 = 2 pairs + 1 🏆"
       },
       {
         "title": "Check 6",
@@ -20041,7 +20041,7 @@ const MODULES = [
           "b": 3
         },
         "text": "6 apples = 3 pairs. Even! Hakan, you can do this too!",
-        "caption": "6 = 3 pairs"
+        "caption": "6 = 3 pairs 🎯"
       },
       {
         "title": "Check 7",
@@ -20051,7 +20051,7 @@ const MODULES = [
           "count": 7
         },
         "text": "7 apples: 3 pairs and ONE LEFT. Odd!",
-        "caption": "7 = 3 pairs + 1"
+        "caption": "7 = 3 pairs + 1 ⭐"
       },
       {
         "title": "Quick Trick",
@@ -20059,8 +20059,8 @@ const MODULES = [
           "type": "bignum",
           "n": 8
         },
-        "text": "Watch with Hakan: even numbers end in 0, 2, 4, 6, or 8. Odd end in 1, 3, 5, 7, 9.",
-        "caption": "Last digit tells you"
+        "text": "Watch with Hakan: even numbers end in 0, 2, 4, 6, or 8. Odd end in 1, 3, 5, 7, 9. Hakan, you are number 1!",
+        "caption": "Last digit tells you 🌟"
       }
     ],
     "practice": [
@@ -20332,8 +20332,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "AB means: alternate two things. 1, 2, 1, 2…",
-        "caption": "A B A B"
+        "text": "Hey Hakan! AB means: alternate two things. 1, 2, 1, 2…",
+        "caption": "A B A B 💯"
       },
       {
         "title": "Find the Pattern",
@@ -20350,7 +20350,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "Hakan, look! Same pattern with different numbers: 3, 7, 3, 7.",
-        "caption": "3 7 3 7"
+        "caption": "3 7 3 7 ✨"
       },
       {
         "title": "What Comes Next?",
@@ -20366,7 +20366,7 @@ const MODULES = [
           "missingIndex": 5
         },
         "text": "After 1, 2, 1, 2, 1 comes... 2! Hakan, you can do this too!",
-        "caption": "Next: 2"
+        "caption": "Next: 2 🏆"
       },
       {
         "title": "Try Another",
@@ -20382,7 +20382,7 @@ const MODULES = [
           "missingIndex": 5
         },
         "text": "Watch with Hakan: spot it: 5, 9, 5, 9, 5… Next is 9.",
-        "caption": "Next: 9"
+        "caption": "Next: 9 🎯"
       },
       {
         "title": "Patterns Repeat",
@@ -20398,8 +20398,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "AB patterns ALWAYS repeat the pair. Once you see two, you know the rest.",
-        "caption": "A B repeats"
+        "text": "AB patterns ALWAYS repeat the pair. Once you see two, you know the rest. You are doing great, Hakan!",
+        "caption": "A B repeats ⭐"
       }
     ],
     "practice": [
@@ -20418,7 +20418,7 @@ const MODULES = [
         },
         "prompt": "What comes next? Hakan, what do you think?",
         "answer": 3,
-        "hint": "AB pattern: after 1 comes 3."
+        "hint": "Hakan, use your strategy! AB pattern: after 1 comes 3."
       },
       {
         "type": "numeric",
@@ -20435,7 +20435,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 5,
-        "hint": "AB pattern: after 2 comes 5."
+        "hint": "Almost, Hakan — keep your eyes sharp! AB pattern: after 2 comes 5."
       },
       {
         "type": "numeric",
@@ -20452,7 +20452,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 7,
-        "hint": "AB pattern: after 4 comes 7."
+        "hint": "You got this, Hakan! AB pattern: after 4 comes 7."
       },
       {
         "type": "numeric",
@@ -20469,7 +20469,7 @@ const MODULES = [
         },
         "prompt": "What comes next? What is your answer, Hakan?",
         "answer": 9,
-        "hint": "AB pattern: after 6 comes 9."
+        "hint": "Hakan, you're so smart — think it through. AB pattern: after 6 comes 9."
       },
       {
         "type": "numeric",
@@ -20486,7 +20486,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 8,
-        "hint": "AB pattern: after 2 comes 8."
+        "hint": "Easy for a smart kid like you, Hakan. AB pattern: after 2 comes 8."
       },
       {
         "type": "numeric",
@@ -20503,7 +20503,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 6,
-        "hint": "AB pattern: after 3 comes 6."
+        "hint": "Hakan, take a breath and look again. AB pattern: after 3 comes 6."
       },
       {
         "type": "numeric",
@@ -20520,7 +20520,7 @@ const MODULES = [
         },
         "prompt": "What comes next? Help Hakan find the answer!",
         "answer": 7,
-        "hint": "AB pattern: after 5 comes 7."
+        "hint": "You can do this, Hakan! AB pattern: after 5 comes 7."
       },
       {
         "type": "numeric",
@@ -20537,7 +20537,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 9,
-        "hint": "AB pattern: after 1 comes 9."
+        "hint": "Hakan, slow down and count carefully. AB pattern: after 1 comes 9."
       }
     ],
     "quiz": [
@@ -20736,7 +20736,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "Hakan, look! AABB means: two of one, two of another. 1, 1, 2, 2…",
-        "caption": "A A B B"
+        "caption": "A A B B 🌟"
       },
       {
         "title": "Find Pairs",
@@ -20753,7 +20753,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "Two 3s, two 5s, repeat. Easy! Hakan, you can do this too!",
-        "caption": "3 3 5 5"
+        "caption": "3 3 5 5 💯"
       },
       {
         "title": "What Comes Next?",
@@ -20769,7 +20769,7 @@ const MODULES = [
           "missingIndex": 5
         },
         "text": "Watch with Hakan: after 1, 1, 2, 2, 1 comes another 1 (to complete the AA).",
-        "caption": "Next: 1"
+        "caption": "Next: 1 ✨"
       },
       {
         "title": "Then the Switch",
@@ -20787,7 +20787,7 @@ const MODULES = [
           "missingIndex": -1
         },
         "text": "After AABB, we go AABB again!",
-        "caption": "Repeats!"
+        "caption": "Repeats! 🏆"
       },
       {
         "title": "You Got It",
@@ -20803,8 +20803,8 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "text": "Now you can spot AABB anywhere.",
-        "caption": "Look for pairs!"
+        "text": "Now you can spot AABB anywhere. Look at you, Hakan — a math hero!",
+        "caption": "Look for pairs! 🎯"
       }
     ],
     "practice": [
@@ -20823,7 +20823,7 @@ const MODULES = [
         },
         "prompt": "What comes next? Hakan, what do you think?",
         "answer": 1,
-        "hint": "AABB: just had one 1, need another to complete the AA."
+        "hint": "Stay focused, Hakan — you're amazing. AABB: just had one 1, need another to complete the AA."
       },
       {
         "type": "numeric",
@@ -20840,7 +20840,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 2,
-        "hint": "AABB: just had one 2, need another to complete the AA."
+        "hint": "Try this, Hakan — you're on it! AABB: just had one 2, need another to complete the AA."
       },
       {
         "type": "numeric",
@@ -20857,7 +20857,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 4,
-        "hint": "AABB: just had one 4, need another to complete the AA."
+        "hint": "Hakan, use your strategy! AABB: just had one 4, need another to complete the AA."
       },
       {
         "type": "numeric",
@@ -20874,7 +20874,7 @@ const MODULES = [
         },
         "prompt": "What comes next? What is your answer, Hakan?",
         "answer": 7,
-        "hint": "AABB: just had one 7, need another to complete the AA."
+        "hint": "Almost, Hakan — keep your eyes sharp! AABB: just had one 7, need another to complete the AA."
       },
       {
         "type": "numeric",
@@ -20892,7 +20892,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 8,
-        "hint": "AABB: AA done, now BB starts with 8."
+        "hint": "You got this, Hakan! AABB: AA done, now BB starts with 8."
       },
       {
         "type": "numeric",
@@ -20910,7 +20910,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 1,
-        "hint": "AABB: AA done, now BB starts with 1."
+        "hint": "Hakan, you're so smart — think it through. AABB: AA done, now BB starts with 1."
       },
       {
         "type": "numeric",
@@ -20928,7 +20928,7 @@ const MODULES = [
         },
         "prompt": "What comes next?",
         "answer": 3,
-        "hint": "AABB: AA done, now BB starts with 3."
+        "hint": "Easy for a smart kid like you, Hakan. AABB: AA done, now BB starts with 3."
       },
       {
         "type": "numeric",
@@ -20946,7 +20946,7 @@ const MODULES = [
         },
         "prompt": "What comes next? Help Hakan find the answer!",
         "answer": 4,
-        "hint": "AABB: AA done, now BB starts with 4."
+        "hint": "Hakan, take a breath and look again. AABB: AA done, now BB starts with 4."
       }
     ],
     "quiz": [
@@ -27257,7 +27257,7 @@ const MODULES = [
             "b": 5
           },
           "text": "Hakan is on the case! Today's mystery: which number is BIGGER, 8 or 5?",
-          "caption": "Bigger number?"
+          "caption": "Bigger number? ⭐"
         },
         {
           "title": "Clue: Tens First",
@@ -27267,7 +27267,7 @@ const MODULES = [
             "b": 18
           },
           "text": "For two-digit numbers, Hakan checks the TENS digit first. 23 has 2 tens, 18 has 1 ten. So 23 > 18.",
-          "caption": "Tens win!"
+          "caption": "Tens win! 🌟"
         },
         {
           "title": "Same Tens? Check Ones",
@@ -27277,7 +27277,7 @@ const MODULES = [
             "b": 43
           },
           "text": "If tens tie, Hakan checks the ones. 47 and 43 both have 4 tens. But 7 ones beats 3 ones. 47 wins!",
-          "caption": "Ones break ties"
+          "caption": "Ones break ties 💯"
         },
         {
           "title": "Order from Least",
@@ -27291,7 +27291,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Hakan can sort numbers SMALL \u2192 BIG. 3, 7, 9 is in order from least to greatest.",
-          "caption": "Least to greatest"
+          "caption": "Least to greatest ✨"
         },
         {
           "title": "Sort from Greatest",
@@ -27305,7 +27305,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Or the other way: BIG \u2192 SMALL. 9, 7, 3 is greatest to least.",
-          "caption": "Greatest to least"
+          "caption": "Greatest to least 🏆"
         },
         {
           "title": "Three-Way Mystery",
@@ -27319,7 +27319,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Three suspects: 12, 8, 15. Hakan finds: 8 is smallest, 15 is biggest, 12 is in the middle.",
-          "caption": "8 < 12 < 15"
+          "caption": "8 < 12 < 15 🎯"
         },
         {
           "title": "Detective Tools",
@@ -27329,7 +27329,7 @@ const MODULES = [
             "b": 3
           },
           "text": "The alligator mouth eats the bigger number: 7 > 3. Hakan loves this trick!",
-          "caption": "> eats bigger"
+          "caption": "> eats bigger ⭐"
         },
         {
           "title": "Case Closed!",
@@ -27338,7 +27338,7 @@ const MODULES = [
             "a": 9,
             "b": 9
           },
-          "text": "Same number = use =. Hakan's tools: <, >, =. Now go solve mysteries!",
+          "text": "Same number = use =. Hakan's tools: <, >, =. Now go solve mysteries! Hakan, you are number 1!",
           "caption": "\ud83d\udd75\ufe0f Case closed!"
         }
       ],
@@ -27357,7 +27357,7 @@ const MODULES = [
             "Equal"
           ],
           "answerIndex": 1,
-          "hint": "7 comes after 4 when counting. So 7 is bigger."
+          "hint": "You can do this, Hakan! 7 comes after 4 when counting. So 7 is bigger."
         },
         {
           "type": "choice",
@@ -27389,7 +27389,7 @@ const MODULES = [
             "Equal"
           ],
           "answerIndex": 2,
-          "hint": "Same numbers means equal. Use the = sign!"
+          "hint": "Stay focused, Hakan — you're amazing. Same numbers means equal. Use the = sign!"
         },
         {
           "type": "numeric",
@@ -27419,7 +27419,7 @@ const MODULES = [
           },
           "prompt": "From 5, 2, 8 \u2014 what's the BIGGEST?",
           "answer": 8,
-          "hint": "8 beats both 5 and 2. Biggest!"
+          "hint": "Hakan, use your strategy! 8 beats both 5 and 2. Biggest!"
         },
         {
           "type": "choice",
@@ -27435,7 +27435,7 @@ const MODULES = [
             "Equal"
           ],
           "answerIndex": 1,
-          "hint": "Check the tens: 23 has 2 tens, 32 has 3 tens. 32 > 23."
+          "hint": "Almost, Hakan — keep your eyes sharp! Check the tens: 23 has 2 tens, 32 has 3 tens. 32 > 23."
         },
         {
           "type": "choice",
@@ -27451,7 +27451,7 @@ const MODULES = [
             "Equal"
           ],
           "answerIndex": 0,
-          "hint": "Both have 6 tens. Compare ones: 7 > 4. So 67 wins."
+          "hint": "You got this, Hakan! Both have 6 tens. Compare ones: 7 > 4. So 67 wins."
         },
         {
           "type": "numeric",
@@ -27641,7 +27641,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "A pattern is a rule that repeats. Hakan sees: 2, 4, 6, 8 \u2014 adding 2 each time!",
-          "caption": "Rule: +2"
+          "caption": "Rule: +2 💯"
         },
         {
           "title": "Find the Rule",
@@ -27656,7 +27656,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Hakan looks for what changes. 5 \u2192 10 \u2192 15 \u2192 20. Each is 5 more. Rule: +5!",
-          "caption": "Rule: +5"
+          "caption": "Rule: +5 ✨"
         },
         {
           "title": "Patterns Going Down",
@@ -27671,7 +27671,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Patterns can shrink too. Hakan sees: 10, 8, 6, 4. Each is 2 LESS. Rule: \u22122!",
-          "caption": "Rule: \u22122"
+          "caption": "Rule: \u22122 🏆"
         },
         {
           "title": "What Comes Next?",
@@ -27686,7 +27686,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Hakan finds the rule (+3), then continues: 3, 6, 9, 12 \u2014 next is 15!",
-          "caption": "Next: 15"
+          "caption": "Next: 15 🎯"
         },
         {
           "title": "Missing Middle",
@@ -27701,7 +27701,7 @@ const MODULES = [
             "missingIndex": 2
           },
           "text": "Sometimes the missing number is IN the middle. Rule is +4, so the missing one is 12!",
-          "caption": "Missing: 12"
+          "caption": "Missing: 12 ⭐"
         },
         {
           "title": "Big Skip Patterns",
@@ -27716,7 +27716,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Hakan can skip-count by tens too! 10, 20, 30, 40 \u2014 adding 10 each time.",
-          "caption": "+10 patterns"
+          "caption": "+10 patterns 🌟"
         },
         {
           "title": "Tricky Patterns",
@@ -27731,7 +27731,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Some patterns grow! 1, 3, 6, 10 \u2192 +2, +3, +4. Hakan, look at the gaps!",
-          "caption": "Growing pattern"
+          "caption": "Growing pattern 💯"
         },
         {
           "title": "You're a Master!",
@@ -27745,7 +27745,7 @@ const MODULES = [
             ],
             "missingIndex": -1
           },
-          "text": "Hakan, when you find the RULE, patterns are easy. Try the practice!",
+          "text": "Hakan, when you find the RULE, patterns are easy. Try the practice! You are doing great, Hakan!",
           "caption": "\ud83c\udf00 Pattern Master!"
         }
       ],
@@ -27765,7 +27765,7 @@ const MODULES = [
           },
           "prompt": "Hakan's pattern: 1, 2, 3, 4, 5. What's NEXT?",
           "answer": 6,
-          "hint": "Rule is +1. Next after 5 is 6."
+          "hint": "Easy for a smart kid like you, Hakan. Rule is +1. Next after 5 is 6."
         },
         {
           "type": "numeric",
@@ -27781,7 +27781,7 @@ const MODULES = [
           },
           "prompt": "Pattern: 2, 4, 6, 8. Next?",
           "answer": 10,
-          "hint": "Rule: +2. After 8 comes 10."
+          "hint": "Hakan, take a breath and look again. Rule: +2. After 8 comes 10."
         },
         {
           "type": "numeric",
@@ -27797,7 +27797,7 @@ const MODULES = [
           },
           "prompt": "Hakan's pattern: 5, 10, 15, 20. Next?",
           "answer": 25,
-          "hint": "Skip-count by 5s: after 20 is 25."
+          "hint": "You can do this, Hakan! Skip-count by 5s: after 20 is 25."
         },
         {
           "type": "numeric",
@@ -27813,7 +27813,7 @@ const MODULES = [
           },
           "prompt": "Pattern going DOWN: 10, 9, 8, 7. Next?",
           "answer": 6,
-          "hint": "Rule: \u22121. After 7 comes 6."
+          "hint": "Hakan, slow down and count carefully. Rule: \u22121. After 7 comes 6."
         },
         {
           "type": "numeric",
@@ -27830,7 +27830,7 @@ const MODULES = [
           },
           "prompt": "Hakan: 3, 6, 9, 12, 15. Next?",
           "answer": 18,
-          "hint": "Rule: +3. After 15 is 18."
+          "hint": "Stay focused, Hakan — you're amazing. Rule: +3. After 15 is 18."
         },
         {
           "type": "numeric",
@@ -27845,7 +27845,7 @@ const MODULES = [
           },
           "prompt": "Hakan's tens: 10, 20, 30. Next?",
           "answer": 40,
-          "hint": "Skip-count by 10s. After 30 is 40."
+          "hint": "Try this, Hakan — you're on it! Skip-count by 10s. After 30 is 40."
         },
         {
           "type": "numeric",
@@ -27861,7 +27861,7 @@ const MODULES = [
           },
           "prompt": "Down by 2: 20, 18, 16, 14. Next?",
           "answer": 12,
-          "hint": "Rule: \u22122. After 14 is 12."
+          "hint": "Hakan, use your strategy! Rule: \u22122. After 14 is 12."
         },
         {
           "type": "numeric",
@@ -27876,7 +27876,7 @@ const MODULES = [
           },
           "prompt": "Hakan: 4, 8, 12. Next?",
           "answer": 16,
-          "hint": "Rule: +4. After 12 is 16."
+          "hint": "Almost, Hakan — keep your eyes sharp! Rule: +4. After 12 is 16."
         }
       ],
       "quiz": [
@@ -28043,7 +28043,7 @@ const MODULES = [
             "n": 10
           },
           "text": "Hakan, you've learned SO much. Today: a math marathon \u2014 one of every kind of question!",
-          "caption": "Mix of skills!"
+          "caption": "Mix of skills! 🏆"
         },
         {
           "title": "Round 1: Add",
@@ -28053,7 +28053,7 @@ const MODULES = [
             "b": 8
           },
           "text": "First up: 7 + 8 = 15. Hakan uses near-doubles: 7+7=14, plus 1 more = 15.",
-          "caption": "Round 1: +"
+          "caption": "Round 1: + 🎯"
         },
         {
           "title": "Round 2: Subtract",
@@ -28063,7 +28063,7 @@ const MODULES = [
             "b": 6
           },
           "text": "Next: 14 \u2212 6 = 8. Hakan thinks: how far from 6 to 14? Count up: 7, 8 \u2014 six jumps!",
-          "caption": "Round 2: \u2212"
+          "caption": "Round 2: \u2212 ⭐"
         },
         {
           "title": "Round 3: Place Value",
@@ -28073,7 +28073,7 @@ const MODULES = [
             "ones": 7
           },
           "text": "Round 3: How many is 4 tens + 7 ones? Hakan answers 47!",
-          "caption": "Round 3: place value"
+          "caption": "Round 3: place value 🌟"
         },
         {
           "title": "Round 4: Compare",
@@ -28083,7 +28083,7 @@ const MODULES = [
             "b": 32
           },
           "text": "Hakan compares 23 vs 32. Tens digit: 2 < 3. So 23 is less than 32.",
-          "caption": "Round 4: compare"
+          "caption": "Round 4: compare 💯"
         },
         {
           "title": "Round 5: Shapes",
@@ -28092,7 +28092,7 @@ const MODULES = [
             "name": "triangle"
           },
           "text": "What shape has 3 sides? Hakan knows: a triangle!",
-          "caption": "Round 5: shapes"
+          "caption": "Round 5: shapes ✨"
         },
         {
           "title": "Round 6: Patterns",
@@ -28106,7 +28106,7 @@ const MODULES = [
             "missingIndex": -1
           },
           "text": "Hakan's pattern: 10, 20, 30, then 40. Skip-count by tens!",
-          "caption": "Round 6: patterns"
+          "caption": "Round 6: patterns 🏆"
         },
         {
           "title": "Marathon Champion!",
@@ -28114,8 +28114,8 @@ const MODULES = [
             "type": "bignum",
             "n": 100
           },
-          "text": "Hakan, you covered everything in one marathon. You're a math athlete!",
-          "caption": "\ud83c\udfc3 Champion!"
+          "text": "Hakan, you covered everything in one marathon. You're a math athlete! Look at you, Hakan — a math hero!",
+          "caption": "\ud83c\udfc3 Champion! 🎯"
         }
       ],
       "practice": [
@@ -28128,7 +28128,7 @@ const MODULES = [
           },
           "prompt": "Round 1: 6 + 7?",
           "answer": 13,
-          "hint": "Near-doubles: 6+6=12, plus 1 more = 13."
+          "hint": "You got this, Hakan! Near-doubles: 6+6=12, plus 1 more = 13."
         },
         {
           "type": "numeric",
@@ -28139,7 +28139,7 @@ const MODULES = [
           },
           "prompt": "Hakan: 12 \u2212 4?",
           "answer": 8,
-          "hint": "Count back from 12: 11, 10, 9, 8. Four jumps."
+          "hint": "Hakan, you're so smart — think it through. Count back from 12: 11, 10, 9, 8. Four jumps."
         },
         {
           "type": "numeric",
@@ -28150,7 +28150,7 @@ const MODULES = [
           },
           "prompt": "Hakan: how many is 3 tens + 5 ones?",
           "answer": 35,
-          "hint": "30 + 5 = 35."
+          "hint": "Easy for a smart kid like you, Hakan. 30 + 5 = 35."
         },
         {
           "type": "choice",
@@ -28166,7 +28166,7 @@ const MODULES = [
             "Equal"
           ],
           "answerIndex": 1,
-          "hint": "21 has 2 tens; 18 has 1 ten. So 21 is bigger."
+          "hint": "Hakan, take a breath and look again. 21 has 2 tens; 18 has 1 ten. So 21 is bigger."
         },
         {
           "type": "choice",
@@ -28181,7 +28181,7 @@ const MODULES = [
             "5"
           ],
           "answerIndex": 1,
-          "hint": "Squares have 4 equal sides \u2014 count them!"
+          "hint": "You can do this, Hakan! Squares have 4 equal sides \u2014 count them!"
         },
         {
           "type": "numeric",
@@ -28197,7 +28197,7 @@ const MODULES = [
           },
           "prompt": "Hakan's pattern: 2, 4, 6, 8. Next?",
           "answer": 10,
-          "hint": "Add 2 each time. After 8 is 10."
+          "hint": "Hakan, slow down and count carefully. Add 2 each time. After 8 is 10."
         },
         {
           "type": "numeric",
@@ -28208,7 +28208,7 @@ const MODULES = [
           },
           "prompt": "Hakan: 9 + 8?",
           "answer": 17,
-          "hint": "9+8: doubles 8+8=16, plus 1 = 17."
+          "hint": "Stay focused, Hakan — you're amazing. 9+8: doubles 8+8=16, plus 1 = 17."
         },
         {
           "type": "numeric",
@@ -28219,7 +28219,7 @@ const MODULES = [
           },
           "prompt": "Hakan's tough one: 15 \u2212 7?",
           "answer": 8,
-          "hint": "15 \u2212 5 = 10, then \u2212 2 more = 8."
+          "hint": "Try this, Hakan — you're on it! 15 \u2212 5 = 10, then \u2212 2 more = 8."
         }
       ],
       "quiz": [
@@ -28354,7 +28354,7 @@ const MODULES = [
             "n": 5
           },
           "text": "Graphs show data with pictures. Hakan can READ a graph to find answers without counting one-by-one!",
-          "caption": "Graphs = quick info!"
+          "caption": "Graphs = quick info! ⭐"
         },
         {
           "title": "Tally Marks",
@@ -28364,7 +28364,7 @@ const MODULES = [
             "emoji": "\ud83d\udccb"
           },
           "text": "Hakan uses tallies for counting: ||||| means 5. The diagonal stroke groups them in 5s.",
-          "caption": "||||| = 5"
+          "caption": "||||| = 5 🌟"
         },
         {
           "title": "Tallies Past 5",
@@ -28373,7 +28373,7 @@ const MODULES = [
             "n": 7
           },
           "text": "For 7, Hakan draws ||||| ||. One full group of 5, plus 2 more.",
-          "caption": "||||| || = 7"
+          "caption": "||||| || = 7 💯"
         },
         {
           "title": "Picture Graphs",
@@ -28383,7 +28383,7 @@ const MODULES = [
             "emoji": "\ud83c\udf4e"
           },
           "text": "A picture graph uses small pictures. Each apple = 1. If Hakan sees 4 apples, that's 4 apples!",
-          "caption": "1 picture = 1"
+          "caption": "1 picture = 1 ✨"
         },
         {
           "title": "Bar Graphs",
@@ -28393,7 +28393,7 @@ const MODULES = [
             "b": 3
           },
           "text": "Bar graphs use TALL bars. Hakan: the taller bar shows MORE. 6 cookies > 3 cookies.",
-          "caption": "Tall = more"
+          "caption": "Tall = more 🏆"
         },
         {
           "title": "Comparing Bars",
@@ -28403,7 +28403,7 @@ const MODULES = [
             "b": 5
           },
           "text": "Hakan can find: 'How many MORE?' Subtract bars: 8 \u2212 5 = 3 more. Easy!",
-          "caption": "Difference = subtract"
+          "caption": "Difference = subtract 🎯"
         },
         {
           "title": "Sort and Count",
@@ -28413,7 +28413,7 @@ const MODULES = [
             "emoji": "\ud83d\udd35"
           },
           "text": "Hakan can also SORT first. Group blue blocks. Group red. Count each group.",
-          "caption": "Sort, then count"
+          "caption": "Sort, then count ⭐"
         },
         {
           "title": "Graph Master",
@@ -28421,8 +28421,8 @@ const MODULES = [
             "type": "bignum",
             "n": 10
           },
-          "text": "Hakan, graphs make data easy to see. Try the practice and become a graph reader!",
-          "caption": "\ud83d\udcca Reader!"
+          "text": "Hakan, graphs make data easy to see. Try the practice and become a graph reader! Hakan, you are a star!",
+          "caption": "\ud83d\udcca Reader! 🌟"
         }
       ],
       "practice": [
@@ -28435,7 +28435,7 @@ const MODULES = [
           },
           "prompt": "Hakan sees ||||| tallies. How many?",
           "answer": 5,
-          "hint": "One full tally group is 5."
+          "hint": "Hakan, use your strategy! One full tally group is 5."
         },
         {
           "type": "numeric",
@@ -28446,7 +28446,7 @@ const MODULES = [
           },
           "prompt": "Hakan: ||||| |||. How many tallies?",
           "answer": 8,
-          "hint": "5 in the first group, 3 more = 8."
+          "hint": "Almost, Hakan — keep your eyes sharp! 5 in the first group, 3 more = 8."
         },
         {
           "type": "numeric",
@@ -28457,7 +28457,7 @@ const MODULES = [
           },
           "prompt": "Picture graph: 6 apples shown. How many?",
           "answer": 6,
-          "hint": "Just count the apples: 1, 2, 3, 4, 5, 6."
+          "hint": "You got this, Hakan! Just count the apples: 1, 2, 3, 4, 5, 6."
         },
         {
           "type": "numeric",
@@ -28468,7 +28468,7 @@ const MODULES = [
           },
           "prompt": "Hakan: 4 fish in the graph. How many?",
           "answer": 4,
-          "hint": "Count the fish pictures."
+          "hint": "Hakan, you're so smart — think it through. Count the fish pictures."
         },
         {
           "type": "numeric",
@@ -28479,7 +28479,7 @@ const MODULES = [
           },
           "prompt": "Hakan's bar graph: 7 cats, 4 dogs. How many MORE cats?",
           "answer": 3,
-          "hint": "7 \u2212 4 = 3 more cats."
+          "hint": "Easy for a smart kid like you, Hakan. 7 \u2212 4 = 3 more cats."
         },
         {
           "type": "numeric",
@@ -28490,7 +28490,7 @@ const MODULES = [
           },
           "prompt": "Hakan: blue bar = 9, red bar = 6. How many more blue?",
           "answer": 3,
-          "hint": "9 \u2212 6 = 3."
+          "hint": "Hakan, take a breath and look again. 9 \u2212 6 = 3."
         },
         {
           "type": "numeric",
@@ -28501,7 +28501,7 @@ const MODULES = [
           },
           "prompt": "Hakan: 5 stars, 8 hearts. How many in total?",
           "answer": 13,
-          "hint": "Add both bars: 5 + 8 = 13."
+          "hint": "You can do this, Hakan! Add both bars: 5 + 8 = 13."
         },
         {
           "type": "numeric",
@@ -28512,7 +28512,7 @@ const MODULES = [
           },
           "prompt": "Big bar: 10. Small bar: 4. Difference?",
           "answer": 6,
-          "hint": "10 \u2212 4 = 6 more."
+          "hint": "Hakan, slow down and count carefully. 10 \u2212 4 = 6 more."
         }
       ],
       "quiz": [
