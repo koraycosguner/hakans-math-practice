@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hakan pronunciation test</title>
+<style>
+  body {
+    margin: 0;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    font-family: system-ui, -apple-system, sans-serif;
+    color: white;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  h1 { text-align: center; margin-bottom: 36px; }
+  .card {
+    background: white;
+    color: #2D3436;
+    border-radius: 24px;
+    padding: 24px;
+    margin: 16px auto;
+    max-width: 540px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .label {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #6c63ff;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: #636E72;
+    margin: 0 0 14px 0;
+    font-size: 0.9rem;
+  }
+  audio { width: 100%; }
+</style>
+</head>
+<body>
+  <h1>🔊 "Hakan" pronunciation test</h1>
+
+  <div class="card">
+    <div class="label">❌ Before (English voice — "HAY-kuhn")</div>
+    <p class="subtitle">Plain text, en-US-GuyNeural just guesses how to say it.</p>
+    <audio controls preload="auto" src="old.mp3"></audio>
+  </div>
+
+  <div class="card">
+    <div class="label">✅ After (Turkish IPA — /haˈkan/)</div>
+    <p class="subtitle">Same voice but wrapped in <code>&lt;phoneme alphabet="ipa" ph="haˈkan"&gt;</code>.</p>
+    <audio controls preload="auto" src="new.mp3"></audio>
+  </div>
+</body>
+</html>
