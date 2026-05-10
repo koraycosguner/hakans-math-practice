@@ -53,7 +53,7 @@ def normalize(text: str) -> str:
     # Strip emoji ranges (Python re uses \uXXXX, not \u{XXXX})
     s = re.sub(r"[\U0001F000-\U0001FFFF]|[☀-➿]", "", s)
     s = re.sub(r"[−–—]", "minus", s)
-    s = re.sub(r"[^\w\s]", "", s)
+    s = re.sub(r"[^\w\s]", " ", s)        # space, not empty (matches JS)
     s = re.sub(r"\s+", " ", s).strip()
     return s
 
@@ -81,9 +81,14 @@ def number_to_words(n: int) -> str:
 PHRASES: list[tuple[str, str, str]] = []
 
 
-# Numbers 0-99 (lookup keys are bare digits so "5" matches; spoken is words)
+# Numbers 0-99 — register both digit form ("5") AND word form ("five") as
+# manifest keys for the same MP3, so digit-source text and word-source text
+# both find the right clip.
 for n in range(0, 100):
-    PHRASES.append((str(n), number_to_words(n), f"num-{n:02d}"))
+    word = number_to_words(n)
+    PHRASES.append((str(n), word, f"num-{n:02d}"))   # digit key
+    if word != str(n):
+        PHRASES.append((word, word, f"num-{n:02d}")) # word-form key (alias)
 
 
 # Operator and structural words
