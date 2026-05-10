@@ -69096,12 +69096,36 @@ function renderHomeModules() {
         }
         html += `<button class="trophy-btn" onclick="openTrophyRoom()">🏆 Trophies</button>`;
         html += `<button class="minigames-btn" onclick="openMiniGamesHub()">🎮 Games</button>`;
+        html += `<button class="journey-btn" onclick="openProgressMap()">🗺️ Journey</button>`;
         html += `</div>`;
         // Module search
         html += `<div class="module-search-wrap">
             <input id="module-search" class="module-search" type="search"
                    placeholder="🔎 Search modules..." oninput="filterModules(this.value)" />
         </div>`;
+    }
+
+    // Daily quests panel
+    if (isHakan && typeof loadDailyQuests === 'function') {
+        const qs = loadDailyQuests();
+        if (qs && qs.quests && qs.quests.length) {
+            html += `<section class="quests-panel">
+                <div class="qp-label">📋 Today's Quests</div>
+                <div class="qp-list">`;
+            for (const q of qs.quests) {
+                const pct = Math.min(100, Math.round(((q.progress || 0) / q.target) * 100));
+                const done = q.claimed;
+                html += `<div class="qp-item ${done ? 'qp-done' : ''}">
+                    <div class="qp-row1">
+                        <span class="qp-text">${q.text}</span>
+                        <span class="qp-robux">${done ? '✓' : '+' + q.robux + ' 💎'}</span>
+                    </div>
+                    <div class="qp-bar"><div class="qp-fill" style="width:${pct}%"></div></div>
+                    <div class="qp-progress">${q.progress || 0} / ${q.target}</div>
+                </div>`;
+            }
+            html += `</div></section>`;
+        }
     }
 
     // "Practice This Again" — modules Hakan got 1 star on (struggled). Lower
@@ -69250,6 +69274,65 @@ function renderHomeModules() {
 // Module detail — three buttons: Lesson · Practice · Quiz
 // ----------------------------------------------------------------------
 
+// Open the visual progress map (Hakan's journey through the 14 categories)
+function openProgressMap() {
+    if (typeof playSound === 'function') playSound('click');
+    const body = document.getElementById('progress-map-body');
+    if (!body) return;
+    const progress = (typeof loadAllProgress === 'function') ? loadAllProgress() : {};
+    const stats = (typeof loadProblemStats === 'function') ? loadProblemStats() : {};
+    const byCat = {};
+    for (const cat of CATEGORIES) byCat[cat.id] = { cat, total: 0, started: 0, mastered: 0, stars: 0 };
+    for (const m of MODULES) {
+        const slot = byCat[m.category];
+        if (!slot) continue;
+        slot.total++;
+        const p = progress[m.id];
+        if (p) {
+            slot.started++;
+            slot.stars += p.stars || 0;
+            if (p.stars === 3) slot.mastered++;
+        }
+    }
+    // Total stars + total Robux for the page header
+    const totalStars = Object.values(byCat).reduce((s, c) => s + c.stars, 0);
+    const allTotal = Object.values(byCat).reduce((s, c) => s + c.total, 0);
+    const allStarted = Object.values(byCat).reduce((s, c) => s + c.started, 0);
+
+    let html = `<div class="pm-summary">
+        <div class="pm-summary-stat"><div class="pm-summary-num">${allStarted}/${allTotal}</div><div class="pm-summary-label">modules</div></div>
+        <div class="pm-summary-stat"><div class="pm-summary-num">${totalStars}</div><div class="pm-summary-label">⭐ stars</div></div>
+    </div>`;
+    html += `<div class="pm-islands">`;
+    let prevDone = true;  // first category always unlocked
+    for (const cat of CATEGORIES) {
+        const c = byCat[cat.id];
+        if (c.total === 0) continue;
+        const startedPct = Math.round((c.started / c.total) * 100);
+        const masteredPct = Math.round((c.mastered / c.total) * 100);
+        // Status: locked (no prereq done), available, in-progress, mastered
+        const isMastered = c.mastered === c.total && c.total > 0;
+        const isInProgress = c.started > 0;
+        const stateCls = isMastered ? 'pm-island-mastered' :
+                         isInProgress ? 'pm-island-progress' :
+                         'pm-island-new';
+        html += `<div class="pm-island ${stateCls}">
+            <div class="pm-island-emoji">${cat.emoji}</div>
+            <div class="pm-island-name">${cat.title}</div>
+            <div class="pm-island-progress">${c.started}/${c.total} · ${c.stars}⭐</div>
+            <div class="pm-island-bar">
+                <div class="pm-island-bar-fill" style="width:${startedPct}%"></div>
+                <div class="pm-island-bar-mastered" style="width:${masteredPct}%"></div>
+            </div>
+            ${isMastered ? '<div class="pm-island-badge">🏆 Mastered!</div>' : ''}
+        </div>`;
+        prevDone = isInProgress;
+    }
+    html += `</div>`;
+    body.innerHTML = html;
+    showScreen('progress-map-screen');
+}
+
 // Filter visible module cards by a search query — matches title and description
 // (case-insensitive substring). Hides empty categories.
 function filterModules(query) {
@@ -69318,6 +69401,14 @@ function startActivity(activity) {
     if (typeof currentUser !== 'undefined' && currentUser === 'hakan' &&
         typeof recordModuleVisit === 'function') {
         recordModuleVisit(moduleState.moduleId);
+        if (typeof bumpQuests === 'function') {
+            const claimed = bumpQuests('plays', 1);
+            if (claimed.length && typeof showQuestClaimedToasts === 'function') showQuestClaimedToasts(claimed);
+            if (activity === 'lesson') {
+                const c2 = bumpQuests('lessons', 1);
+                if (c2.length && typeof showQuestClaimedToasts === 'function') showQuestClaimedToasts(c2);
+            }
+        }
     }
 
     if (activity === 'lesson') {
@@ -70211,6 +70302,10 @@ function handleCorrect() {
         recordProblemAttempt(moduleState.moduleId, moduleState.activity,
                              moduleState.problemIndex, true);
         moduleState._countedThisProblem = true;
+        if (typeof bumpQuests === 'function') {
+            const claimed = bumpQuests('correct', 1);
+            if (claimed.length && typeof showQuestClaimedToasts === 'function') showQuestClaimedToasts(claimed);
+        }
     }
 
     const msg = (typeof MESSAGES !== 'undefined') ? randomChoice(MESSAGES.correct) : 'Great!';
@@ -70274,6 +70369,13 @@ function showModuleResults() {
         if (typeof saveModuleProgress === 'function') {
             saveModuleProgress(moduleState.moduleId, stars);
         }
+        // Bump quests: stars, perfects
+        if (typeof bumpQuests === 'function') {
+            const a = bumpQuests('stars', stars);
+            const b = stars === 3 ? bumpQuests('perfect', 1) : [];
+            const all = [].concat(a, b);
+            if (all.length && typeof showQuestClaimedToasts === 'function') showQuestClaimedToasts(all);
+        }
         // Check for newly-earned badges and show toasts
         if (typeof checkAndAwardBadges === 'function') {
             const earned = checkAndAwardBadges();
@@ -70295,6 +70397,15 @@ function showModuleResults() {
         isQuiz   ? `🎉 Quiz Complete! 🎉` :
         isReview ? `🔁 Review Complete! 🎉` :
                    `🎯 Practice Complete!`;
+
+    // Mascot dialogue — encouraging message tailored to score
+    const mascotMsg =
+        stars === 3 ? "WOW Hakan, you're a math champion! 🏆" :
+        stars === 2 ? "Great job, Hakan! Almost a perfect score! ⭐" :
+        accuracy >= 0.5 ? "Nice try, Hakan! Practice makes progress! 💪" :
+        "Don't worry, Hakan — every try makes you smarter! 🌱";
+    const dialogueEl = document.getElementById('results-mascot-dialogue');
+    if (dialogueEl) dialogueEl.textContent = mascotMsg;
     document.getElementById('final-score').textContent = moduleState.score;
     document.getElementById('final-correct').textContent = `${moduleState.correct} / ${total}`;
     document.getElementById('final-streak').textContent = moduleState.bestStreak;

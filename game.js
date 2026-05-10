@@ -570,6 +570,123 @@ function adjustGoal(key, delta) {
     renderParentDashboard();
 }
 
+// ===== Daily login bonus =====
+// First visit each calendar day awards a flat Robux bonus.
+const DAILY_BONUS_KEY = 'hakans-math-daily-bonus';
+const DAILY_BONUS_AMOUNT = 3;
+
+function _todayKeyForBonus() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function checkDailyBonus() {
+    if (typeof currentUser === 'undefined' || currentUser !== 'hakan') return;
+    let last = null;
+    try { last = localStorage.getItem(DAILY_BONUS_KEY); } catch (e) {}
+    const today = _todayKeyForBonus();
+    if (last === today) return;
+    try { localStorage.setItem(DAILY_BONUS_KEY, today); } catch (e) {}
+    saveRobux(loadRobux() + DAILY_BONUS_AMOUNT);
+    showDailyBonusPopup();
+}
+
+function showDailyBonusPopup() {
+    const overlay = document.createElement('div');
+    overlay.className = 'daily-bonus-overlay';
+    overlay.innerHTML = `
+        <div class="daily-bonus-card">
+            <div class="db-emoji">🎁</div>
+            <div class="db-title">Welcome back, Hakan!</div>
+            <div class="db-msg">Daily bonus unlocked!</div>
+            <div class="db-amount">+${DAILY_BONUS_AMOUNT} 💎</div>
+            <button class="db-btn">Awesome!</button>
+        </div>
+    `;
+    const close = () => {
+        overlay.classList.remove('db-show');
+        setTimeout(() => overlay.remove(), 400);
+        if (typeof updateRobuxDisplay === 'function') updateRobuxDisplay();
+    };
+    overlay.querySelector('.db-btn').addEventListener('click', close);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+    document.body.appendChild(overlay);
+    setTimeout(() => overlay.classList.add('db-show'), 50);
+}
+
+// ===== Daily Quests =====
+// Three daily goals. Reroll each day. Completing = Robux reward.
+const QUESTS_KEY = 'hakans-math-quests';
+
+function _generateDailyQuests() {
+    const all = [
+        { id: 'play-2',  text: 'Play 2 modules',      target: 2,  type: 'plays',   robux: 5 },
+        { id: 'play-3',  text: 'Play 3 modules',      target: 3,  type: 'plays',   robux: 7 },
+        { id: 'star-3',  text: 'Earn 3 stars',        target: 3,  type: 'stars',   robux: 6 },
+        { id: 'star-5',  text: 'Earn 5 stars',        target: 5,  type: 'stars',   robux: 9 },
+        { id: 'star-1-three',  text: 'Get a 3-star quiz!', target: 1, type: 'perfect', robux: 8 },
+        { id: 'mini-2',  text: 'Win 2 mini-games',     target: 2,  type: 'minigames', robux: 6 },
+        { id: 'correct-15', text: 'Answer 15 questions correctly', target: 15, type: 'correct', robux: 8 },
+        { id: 'correct-25', text: 'Answer 25 questions correctly', target: 25, type: 'correct', robux: 12 },
+        { id: 'lesson-1', text: 'Read 1 lesson',       target: 1,  type: 'lessons', robux: 4 },
+        { id: 'daily-game', text: "Win today's Daily Challenge", target: 1, type: 'daily-game', robux: 10 },
+    ];
+    // Pick 3 distinct, seeded by today's date so quests are stable
+    const dayKey = _todayKeyForBonus();
+    const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    const shuffled = all.slice().sort((a, b) => {
+        return (((a.id.charCodeAt(0) + seed) % 13) - ((b.id.charCodeAt(0) + seed) % 13));
+    });
+    return shuffled.slice(0, 3).map((q) => ({ ...q, progress: 0, claimed: false }));
+}
+
+function loadDailyQuests() {
+    let data = null;
+    try { data = JSON.parse(localStorage.getItem(QUESTS_KEY)); } catch (e) {}
+    const today = _todayKeyForBonus();
+    if (!data || data.day !== today) {
+        data = { day: today, quests: _generateDailyQuests() };
+        try { localStorage.setItem(QUESTS_KEY, JSON.stringify(data)); } catch (e) {}
+    }
+    return data;
+}
+function saveDailyQuests(data) {
+    try { localStorage.setItem(QUESTS_KEY, JSON.stringify(data)); } catch (e) {}
+}
+
+// Bump quest progress when relevant events occur.
+function bumpQuests(type, delta) {
+    if (typeof currentUser === 'undefined' || currentUser !== 'hakan') return [];
+    const data = loadDailyQuests();
+    const claimed = [];
+    let anyChanged = false;
+    for (const q of data.quests) {
+        if (q.claimed || q.type !== type) continue;
+        q.progress = Math.min(q.target, (q.progress || 0) + (delta || 1));
+        anyChanged = true;
+        if (q.progress >= q.target && !q.claimed) {
+            q.claimed = true;
+            claimed.push(q);
+            saveRobux(loadRobux() + q.robux);
+        }
+    }
+    if (anyChanged) saveDailyQuests(data);
+    return claimed;
+}
+function showQuestClaimedToasts(quests) {
+    if (!quests || !quests.length) return;
+    quests.forEach((q, i) => {
+        setTimeout(() => {
+            const t = document.createElement('div');
+            t.className = 'quest-toast';
+            t.innerHTML = `<div class="qt-emoji">✅</div><div class="qt-body"><div class="qt-name">Quest done!</div><div class="qt-desc">${q.text}</div><div class="qt-robux">+${q.robux} 💎</div></div>`;
+            document.body.appendChild(t);
+            setTimeout(() => t.classList.add('qt-show'), 50);
+            setTimeout(() => { t.classList.remove('qt-show'); setTimeout(() => t.remove(), 400); }, 3500);
+        }, i * 600);
+    });
+}
+
 function renderParentDashboard() {
     const body = document.getElementById('parent-dashboard-body');
     if (!body) return;
@@ -796,6 +913,10 @@ function renderParentDashboard() {
 
 function selectUser(name) {
     currentUser = name;
+    // Daily bonus check happens when Hakan selects himself.
+    if (name === 'hakan') {
+        setTimeout(() => { if (typeof checkDailyBonus === 'function') checkDailyBonus(); }, 400);
+    }
     playSound('click');
 
     // Update start screen for this user

@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=33">
+    <link rel="manifest" href="manifest.json?v=34">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=33">
+    <link rel="stylesheet" href="style.css?v=34">
 </head>
 <body>
     <!-- User Selection Screen -->
@@ -369,6 +369,7 @@
         <div class="results-container">
             <h1 id="results-title" class="results-title">🎉 Great Job! 🎉</h1>
             <div id="results-mascot" class="results-mascot"><img src="hakan.jpg" alt="Hakan" class="mascot-photo"></div>
+            <div id="results-mascot-dialogue" class="results-mascot-dialogue"></div>
             <div class="results-stats">
                 <div class="stat-item">
                     <span class="stat-icon">⭐</span>
@@ -416,6 +417,15 @@
         </div>
     </div>
 
+    <!-- Progress Map (Hakan's journey) -->
+    <div id="progress-map-screen" class="screen">
+        <div class="progress-map">
+            <button class="back-btn" onclick="goHome()">🏠 Home</button>
+            <h1 class="pm-title">🗺️ Your Math Journey</h1>
+            <div id="progress-map-body"></div>
+        </div>
+    </div>
+
     <!-- Mini-games hub -->
     <div id="minigames-screen" class="screen">
         <div class="minigames-hub">
@@ -452,10 +462,10 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=33"></script>
-    <script src="modules.js?v=33"></script>
-    <script src="game.js?v=33"></script>
-    <script src="minigames.js?v=33"></script>
+    <script src="audio.js?v=34"></script>
+    <script src="modules.js?v=34"></script>
+    <script src="game.js?v=34"></script>
+    <script src="minigames.js?v=34"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->

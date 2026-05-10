@@ -396,6 +396,18 @@ function _endMiniGame(isWin) {
         : '';
     document.getElementById('mg-play-over').style.display = '';
 
+    // Quest bumps: any positive score = mini-game win toward quest
+    if (_gameScore > 0 && typeof bumpQuests === 'function') {
+        const claimed = bumpQuests('minigames', 1);
+        if (isDaily) {
+            const dc = bumpQuests('daily-game', 1);
+            claimed.push.apply(claimed, dc);
+        }
+        if (claimed.length && typeof showQuestClaimedToasts === 'function') {
+            showQuestClaimedToasts(claimed);
+        }
+    }
+
     // Check badge progression after a game
     if (typeof checkAndAwardBadges === 'function') {
         const earned = checkAndAwardBadges();
