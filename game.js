@@ -1,8 +1,8 @@
 // ===== User & Robux =====
 let currentUser = null; // 'hakan' or 'koray'
 const ROBUX_BY_LEVEL = {
-    easy: 4,
-    medium: 4,
+    easy: 2,
+    medium: 2,
 };
 const ROBUX_STORAGE_KEY = 'hakans-math-robux';
 

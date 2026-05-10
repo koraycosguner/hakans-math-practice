@@ -28641,7 +28641,7 @@ const moduleState = {
     locked: false,
 };
 
-const ROBUX_PER_QUIZ_CORRECT = 4;
+const ROBUX_PER_QUIZ_CORRECT = 2;
 
 // ----------------------------------------------------------------------
 // Home — module grid
