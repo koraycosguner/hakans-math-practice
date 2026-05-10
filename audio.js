@@ -215,7 +215,9 @@ function __composeClips(text) {
 const __missingPhrases = new Set();
 
 function tryPlayClip(text) {
-    if (!CLIP_MANIFEST_LOADED) return false;
+    // If manifest hasn't loaded yet, silence rather than risk the old TTS
+    // voice playing for the very first utterance on a slow connection.
+    if (!CLIP_MANIFEST_LOADED) return true;
     if (typeof speechEnabled !== 'undefined' && !speechEnabled) return true;
 
     if (typeof window.speechSynthesis !== 'undefined') {
