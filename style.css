@@ -3504,6 +3504,364 @@ body::after {
 }
 .mg-snake-btn:active { background: rgba(255,255,255,0.3); transform: scale(0.95); }
 
+/* ===== Game 12: Math Battle ===== */
+.mg-theme-math-battle { background: linear-gradient(135deg, #1e1b4b, #4c1d95 60%, #831843); }
+.mg-battle-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+    color: white;
+    padding: 8px;
+}
+.mg-battle-arena {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 14px;
+    align-items: center;
+}
+.mg-battle-side {
+    background: rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 12px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+}
+.mg-battle-hero { border: 2px solid #6366f1; box-shadow: 0 4px 12px rgba(99,102,241,0.35); }
+.mg-battle-monster { border: 2px solid #ef4444; box-shadow: 0 4px 12px rgba(239,68,68,0.35); }
+.mg-battle-avatar {
+    font-size: 3rem;
+    line-height: 1;
+    animation: mgBattleBob 2s ease-in-out infinite;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+}
+@keyframes mgBattleBob {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+.mg-battle-name {
+    font-weight: 800;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.mg-battle-hp {
+    height: 10px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+.mg-battle-hp-fill { height: 100%; transition: width 0.4s ease; }
+.mg-battle-hp-hero { background: linear-gradient(90deg, #43E97B, #22c55e); width: 100%; }
+.mg-battle-hp-monster { background: linear-gradient(90deg, #ef4444, #dc2626); width: 100%; }
+.mg-battle-hp-text { font-size: 0.78rem; font-weight: 800; opacity: 0.9; }
+.mg-battle-vs {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #fbbf24;
+    text-shadow: 0 0 12px rgba(251,191,36,0.6);
+}
+.mg-battle-prob {
+    background: white;
+    color: var(--text-dark);
+    padding: 12px 18px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: var(--shadow-small);
+}
+.mg-battle-eq { font-size: 2rem; font-weight: 900; color: var(--primary); }
+.mg-battle-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.mg-battle-opt {
+    padding: 18px;
+    font-size: 1.6rem;
+    font-weight: 900;
+    background: white;
+    color: var(--primary);
+    border: 3px solid #6366f1;
+    border-radius: 14px;
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: transform 0.15s ease;
+}
+.mg-battle-opt:hover { transform: translateY(-2px); }
+.mg-battle-opt.mg-battle-correct { animation: mgBattleHit 0.4s ease; background: linear-gradient(135deg, #d1fae5, #6ee7b7); border-color: #43E97B; }
+.mg-battle-opt.mg-battle-wrong { animation: icShake 0.4s ease; background: linear-gradient(135deg, #fee2e2, #fca5a5); border-color: #ef4444; }
+@keyframes mgBattleHit {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.18) rotate(-3deg); box-shadow: 0 0 16px rgba(67,233,123,0.6); }
+    100% { transform: scale(1); }
+}
+.mg-battle-log {
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 700;
+    min-height: 1.3em;
+}
+
+/* ===== Game 13: Clock Quiz ===== */
+.mg-theme-clock-quiz { background: radial-gradient(ellipse at top, #ecfeff, #67e8f9 60%, #06b6d4); }
+.mg-clock-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+.mg-clock-prompt {
+    background: white;
+    color: var(--text-dark);
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-small);
+}
+.mg-clock-face { max-width: 220px; }
+.mg-clock-face svg { display: block; width: 100%; }
+.mg-clock-opts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    width: 100%;
+    max-width: 320px;
+}
+.mg-clock-opt {
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    background: white;
+    color: var(--primary);
+    border: 3px solid #06b6d4;
+    border-radius: 14px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.mg-clock-opt:hover { transform: translateY(-2px); }
+.mg-clock-opt.mg-clock-right { animation: mgSACorrect 0.4s ease; }
+.mg-clock-opt.mg-clock-wrong { animation: icShake 0.4s ease; border-color: #ef4444; }
+
+/* ===== Game 14: Coin Counter ===== */
+.mg-theme-coin-counter { background: radial-gradient(ellipse at top, #fef9c3, #fbbf24 60%, #d97706); }
+.mg-coin-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+.mg-coin-prompt {
+    background: white;
+    color: #92400e;
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-weight: 900;
+    font-size: 1.15rem;
+    box-shadow: var(--shadow-small);
+}
+.mg-coin-coins {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    background: rgba(255,255,255,0.7);
+    padding: 16px;
+    border-radius: 16px;
+    min-width: 260px;
+}
+.mg-coin {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15), inset 0 0 0 3px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    animation: mgCoinPop 0.4s ease backwards;
+}
+@keyframes mgCoinPop {
+    from { transform: scale(0.4) rotate(-15deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.mg-coin-penny { background: linear-gradient(135deg, #fdba74, #d97706); }
+.mg-coin-nickel { background: linear-gradient(135deg, #e5e7eb, #9ca3af); }
+.mg-coin-dime { background: linear-gradient(135deg, #d1d5db, #6b7280); }
+.mg-coin-quarter { background: linear-gradient(135deg, #fcd34d, #ca8a04); }
+.mg-coin-val {
+    position: absolute;
+    bottom: -8px;
+    background: #2D3436;
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 1px 6px;
+    border-radius: 999px;
+}
+.mg-coin-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 360px;
+}
+.mg-coin-opt {
+    padding: 16px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    background: white;
+    color: #92400e;
+    border: 3px solid #d97706;
+    border-radius: 14px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.mg-coin-opt.mg-coin-right { animation: mgSACorrect 0.4s ease; }
+.mg-coin-opt.mg-coin-wrong { animation: icShake 0.4s ease; border-color: #ef4444; }
+
+/* ===== Game 15: Place Value Builder ===== */
+.mg-theme-place-value-builder { background: radial-gradient(ellipse at top, #ede9fe, #c4b5fd 60%, #7c3aed); }
+.mg-pv-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.mg-pv-prompt {
+    background: white;
+    padding: 12px 22px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    box-shadow: var(--shadow-small);
+}
+.mg-pv-target {
+    display: inline-block;
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    color: #92400e;
+    padding: 2px 14px;
+    border-radius: 10px;
+    font-size: 1.6rem;
+    margin: 0 4px;
+}
+.mg-pv-built {
+    background: white;
+    border-radius: 14px;
+    padding: 14px;
+    min-width: 280px;
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-small);
+}
+.mg-pv-stack { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+.mg-pv-stack-tens .mg-pv-bar {
+    width: 18px; height: 70px;
+    background: linear-gradient(180deg, #a78bfa, #6c63ff);
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+}
+.mg-pv-stack-ones .mg-pv-dot {
+    width: 18px; height: 18px;
+    background: linear-gradient(135deg, #fb923c, #ea580c);
+    border-radius: 4px;
+}
+.mg-pv-current {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin-top: 4px;
+}
+.mg-pv-pad {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    max-width: 320px;
+}
+.mg-pv-btn {
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    color: white;
+    touch-action: manipulation;
+    transition: transform 0.15s ease;
+}
+.mg-pv-btn:hover { transform: translateY(-2px); }
+.mg-pv-tens { background: linear-gradient(135deg, #a78bfa, #6c63ff); display: flex; align-items: center; justify-content: center; gap: 10px; }
+.mg-pv-ones { background: linear-gradient(135deg, #fb923c, #ea580c); display: flex; align-items: center; justify-content: center; gap: 10px; }
+.mg-pv-clear { background: linear-gradient(135deg, #e5e7eb, #9ca3af); color: #1f2937; }
+.mg-pv-check { background: linear-gradient(135deg, #43E97B, #22c55e); }
+.mg-pv-block-bar { display: inline-block; width: 8px; height: 24px; background: rgba(255,255,255,0.7); border-radius: 2px; }
+.mg-pv-block-dot { display: inline-block; width: 16px; height: 16px; background: rgba(255,255,255,0.7); border-radius: 3px; }
+
+/* ===== Game 16: Pattern Catcher ===== */
+.mg-theme-pattern-catcher { background: radial-gradient(ellipse at top, #fdf4ff, #f0abfc 60%, #c026d3); }
+.mg-pat-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.mg-pat-prompt {
+    background: white;
+    color: var(--text-dark);
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    box-shadow: var(--shadow-small);
+}
+.mg-pat-seq {
+    background: white;
+    padding: 16px 22px;
+    border-radius: 18px;
+    box-shadow: var(--shadow-small);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 900;
+}
+.mg-pat-num {
+    font-size: 1.6rem;
+    color: var(--primary);
+    background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+    padding: 2px 14px;
+    border-radius: 10px;
+}
+.mg-pat-slot {
+    font-size: 2rem;
+    color: #c026d3;
+    background: linear-gradient(135deg, #fae8ff, #f0abfc);
+    border: 3px dashed #c026d3;
+    padding: 0 12px;
+    border-radius: 10px;
+}
+.mg-pat-comma { color: var(--text-light); font-weight: 700; }
+.mg-pat-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 360px;
+}
+.mg-pat-opt {
+    padding: 18px;
+    font-size: 1.6rem;
+    font-weight: 900;
+    background: white;
+    color: #c026d3;
+    border: 3px solid #c026d3;
+    border-radius: 14px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.mg-pat-opt.mg-pat-right { animation: mgSACorrect 0.4s ease; background: linear-gradient(135deg, #d1fae5, #6ee7b7); color: #065f46; border-color: #43E97B; }
+.mg-pat-opt.mg-pat-wrong { animation: icShake 0.4s ease; }
+
 /* ===== Game 9: Tic Tac Toe ===== */
 .mg-theme-tic-tac-toe { background: radial-gradient(ellipse at top, #fef3c7, #fde68a 50%, #f5c518); }
 .mg-ttt-wrap {

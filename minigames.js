@@ -1321,6 +1321,383 @@ GAME_IMPLS['math-snake'] = {
     }
 };
 
+// 12. Math Battle — turn-based duel against a monster. Solve math = attack.
+// Wrong = monster hits you back. First to 0 HP loses; if Hakan defeats it,
+// a stronger monster spawns. Each defeat = +1 score.
+GAME_IMPLS['math-battle'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const range = _diffVal(diff, 6, 10, 15);
+        const MONSTERS = ['👹','👺','🦂','🐲','👽','🧌','🦖','🐉'];
+        let monsterIdx = 0;
+        let playerHP = 5, playerMaxHP = 5;
+        let monsterHP = 4, monsterMaxHP = 4;
+        let currentAns = 0;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-battle-wrap';
+        const arena = document.createElement('div');
+        arena.className = 'mg-battle-arena';
+        arena.innerHTML = `
+            <div class="mg-battle-side mg-battle-hero">
+                <div class="mg-battle-avatar">🧑‍🎓</div>
+                <div class="mg-battle-name">Hakan</div>
+                <div class="mg-battle-hp"><div class="mg-battle-hp-fill mg-battle-hp-hero" id="mg-battle-hp-hero"></div></div>
+                <div class="mg-battle-hp-text" id="mg-battle-hp-hero-text">5/5</div>
+            </div>
+            <div class="mg-battle-vs">VS</div>
+            <div class="mg-battle-side mg-battle-monster">
+                <div class="mg-battle-avatar" id="mg-battle-monster-emoji">${MONSTERS[0]}</div>
+                <div class="mg-battle-name" id="mg-battle-monster-name">Math Goblin</div>
+                <div class="mg-battle-hp"><div class="mg-battle-hp-fill mg-battle-hp-monster" id="mg-battle-hp-mon"></div></div>
+                <div class="mg-battle-hp-text" id="mg-battle-hp-mon-text">4/4</div>
+            </div>
+        `;
+        const prob = document.createElement('div');
+        prob.className = 'mg-battle-prob';
+        const opts = document.createElement('div');
+        opts.className = 'mg-battle-opts';
+        const log = document.createElement('div');
+        log.className = 'mg-battle-log';
+        wrap.appendChild(arena);
+        wrap.appendChild(prob);
+        wrap.appendChild(opts);
+        wrap.appendChild(log);
+        ctx.area.appendChild(wrap);
+
+        function setHP() {
+            document.getElementById('mg-battle-hp-hero').style.width = (playerHP/playerMaxHP*100) + '%';
+            document.getElementById('mg-battle-hp-mon').style.width = (monsterHP/monsterMaxHP*100) + '%';
+            document.getElementById('mg-battle-hp-hero-text').textContent = playerHP + '/' + playerMaxHP;
+            document.getElementById('mg-battle-hp-mon-text').textContent = monsterHP + '/' + monsterMaxHP;
+        }
+
+        function spawnMonster() {
+            monsterIdx = (monsterIdx + 1) % MONSTERS.length;
+            monsterMaxHP = 4 + Math.floor(monsterIdx / 2);
+            monsterHP = monsterMaxHP;
+            playerHP = playerMaxHP;
+            document.getElementById('mg-battle-monster-emoji').textContent = MONSTERS[monsterIdx];
+            document.getElementById('mg-battle-monster-name').textContent = 'Monster Lv ' + (monsterIdx + 1);
+            setHP();
+            log.textContent = "A new monster appears! Solve math to attack!";
+        }
+
+        function nextProblem() {
+            const isAdd = Math.random() < 0.7;
+            let a, b, ans;
+            if (isAdd) {
+                a = Math.floor(Math.random() * range) + 1;
+                b = Math.floor(Math.random() * range) + 1;
+                ans = a + b;
+                prob.innerHTML = `<span class="mg-battle-eq">${a} + ${b} = ?</span>`;
+            } else {
+                a = Math.floor(Math.random() * range) + 5;
+                b = Math.floor(Math.random() * Math.min(a, range)) + 1;
+                ans = a - b;
+                prob.innerHTML = `<span class="mg-battle-eq">${a} − ${b} = ?</span>`;
+            }
+            currentAns = ans;
+            const set = new Set([ans]);
+            while (set.size < 3) set.add(Math.max(0, ans + Math.floor(Math.random() * 5) - 2));
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((o) => `<button class="mg-battle-opt">${o}</button>`).join('');
+            opts.querySelectorAll('.mg-battle-opt').forEach((b, i) => {
+                b.addEventListener('click', (ev) => onAnswer(parseInt(b.textContent, 10), b, ev));
+            });
+        }
+
+        function onAnswer(val, btnEl, ev) {
+            if (val === currentAns) {
+                monsterHP -= 1;
+                btnEl.classList.add('mg-battle-correct');
+                if (monsterHP <= 0) {
+                    ctx.onScore(1, { x: ev.clientX, y: ev.clientY });
+                    log.textContent = "🎉 Monster defeated! Next one...";
+                    setHP();
+                    setTimeout(() => { spawnMonster(); nextProblem(); }, 900);
+                    return;
+                }
+                log.textContent = "💥 Hakan attacks! Monster HP: " + monsterHP;
+                setHP();
+                setTimeout(nextProblem, 600);
+            } else {
+                playerHP -= 1;
+                btnEl.classList.add('mg-battle-wrong');
+                if (playerHP <= 0) {
+                    ctx.onPenalty(3, { x: ev.clientX, y: ev.clientY });
+                    log.textContent = "Oof! Reset...";
+                    playerHP = playerMaxHP;
+                    setHP();
+                    setTimeout(nextProblem, 800);
+                    return;
+                }
+                ctx.onPenalty(1, { x: ev.clientX, y: ev.clientY });
+                log.textContent = "Ouch! Monster hits back. HP: " + playerHP;
+                setHP();
+                setTimeout(nextProblem, 600);
+            }
+        }
+
+        setHP();
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// 13. Clock Quiz — analog clock face, pick the right time string.
+GAME_IMPLS['clock-quiz'] = {
+    start(ctx) {
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-clock-wrap';
+        const prompt = document.createElement('div');
+        prompt.className = 'mg-clock-prompt';
+        prompt.textContent = 'What time is it?';
+        const face = document.createElement('div');
+        face.className = 'mg-clock-face';
+        const opts = document.createElement('div');
+        opts.className = 'mg-clock-opts';
+        wrap.appendChild(prompt);
+        wrap.appendChild(face);
+        wrap.appendChild(opts);
+        ctx.area.appendChild(wrap);
+
+        function timeLabel(h, m) {
+            if (m === 0) return h + " o'clock";
+            return "half past " + h;
+        }
+
+        function nextProblem() {
+            const h = Math.floor(Math.random() * 12) + 1;
+            const m = Math.random() < 0.5 ? 0 : 30;
+            const correct = timeLabel(h, m);
+            // Wrong options
+            const wrongs = new Set();
+            while (wrongs.size < 2) {
+                const wh = Math.floor(Math.random() * 12) + 1;
+                const wm = Math.random() < 0.5 ? 0 : 30;
+                const wlabel = timeLabel(wh, wm);
+                if (wlabel !== correct) wrongs.add(wlabel);
+            }
+            // Render clock using shared renderClock if available
+            if (typeof renderClock === 'function') {
+                face.innerHTML = renderClock(h, m);
+            } else {
+                face.innerHTML = '<div>' + correct + '</div>';
+            }
+            const arr = [correct, ...Array.from(wrongs)].sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((o, i) =>
+                `<button class="mg-clock-opt" data-correct="${o === correct ? '1' : '0'}">${o}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-clock-opt').forEach((b) => {
+                b.addEventListener('click', (e) => {
+                    if (b.getAttribute('data-correct') === '1') {
+                        b.classList.add('mg-clock-right');
+                        ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                        setTimeout(nextProblem, 350);
+                    } else {
+                        b.classList.add('mg-clock-wrong');
+                        ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                        setTimeout(() => b.classList.remove('mg-clock-wrong'), 400);
+                    }
+                });
+            });
+        }
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// 14. Coin Counter — coins shown, pick the total cents from options.
+GAME_IMPLS['coin-counter'] = {
+    start(ctx) {
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-coin-wrap';
+        const prompt = document.createElement('div');
+        prompt.className = 'mg-coin-prompt';
+        prompt.textContent = 'How many cents?';
+        const coins = document.createElement('div');
+        coins.className = 'mg-coin-coins';
+        const opts = document.createElement('div');
+        opts.className = 'mg-coin-opts';
+        wrap.appendChild(prompt);
+        wrap.appendChild(coins);
+        wrap.appendChild(opts);
+        ctx.area.appendChild(wrap);
+
+        const COIN_TYPES = [
+            { name: 'penny',   value: 1,  emoji: '🟤', cls: 'mg-coin-penny' },
+            { name: 'nickel',  value: 5,  emoji: '⚪', cls: 'mg-coin-nickel' },
+            { name: 'dime',    value: 10, emoji: '🪙', cls: 'mg-coin-dime' },
+            { name: 'quarter', value: 25, emoji: '🟡', cls: 'mg-coin-quarter' },
+        ];
+
+        function nextProblem() {
+            // Generate 2-5 coins, total <= ~50
+            const n = Math.floor(Math.random() * 4) + 2;
+            const used = [];
+            let total = 0;
+            for (let i = 0; i < n; i++) {
+                // bias toward lower-value coins for kid-friendly totals
+                const idx = Math.random() < 0.5 ? 0 : Math.random() < 0.5 ? 1 : Math.random() < 0.7 ? 2 : 3;
+                const c = COIN_TYPES[idx];
+                if (total + c.value > 60) continue;
+                used.push(c);
+                total += c.value;
+            }
+            if (total === 0) { used.push(COIN_TYPES[0]); total = 1; }
+            coins.innerHTML = used.map((c) =>
+                `<span class="mg-coin ${c.cls}" title="${c.name}">${c.emoji}<span class="mg-coin-val">${c.value}¢</span></span>`
+            ).join('');
+            // Options
+            const set = new Set([total]);
+            while (set.size < 3) {
+                const delta = (Math.floor(Math.random() * 4) + 1) * (Math.random() < 0.5 ? 1 : -1) * 5;
+                set.add(Math.max(1, total + delta));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-coin-opt" data-correct="${v === total ? '1' : '0'}">${v}¢</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-coin-opt').forEach((b) => {
+                b.addEventListener('click', (e) => {
+                    if (b.getAttribute('data-correct') === '1') {
+                        b.classList.add('mg-coin-right');
+                        ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                        setTimeout(nextProblem, 350);
+                    } else {
+                        b.classList.add('mg-coin-wrong');
+                        ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                        setTimeout(() => b.classList.remove('mg-coin-wrong'), 400);
+                    }
+                });
+            });
+        }
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// 15. Place Value Builder — target number, tap tens-bars and ones-blocks.
+GAME_IMPLS['place-value-builder'] = {
+    start(ctx) {
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-pv-wrap';
+        const prompt = document.createElement('div');
+        prompt.className = 'mg-pv-prompt';
+        const built = document.createElement('div');
+        built.className = 'mg-pv-built';
+        const pad = document.createElement('div');
+        pad.className = 'mg-pv-pad';
+        pad.innerHTML = `
+            <button class="mg-pv-btn mg-pv-tens" data-add="10"><span>+10</span><span class="mg-pv-block-bar"></span></button>
+            <button class="mg-pv-btn mg-pv-ones" data-add="1"><span>+1</span><span class="mg-pv-block-dot"></span></button>
+            <button class="mg-pv-btn mg-pv-clear">Clear</button>
+            <button class="mg-pv-btn mg-pv-check">Check ✓</button>
+        `;
+        wrap.appendChild(prompt);
+        wrap.appendChild(built);
+        wrap.appendChild(pad);
+        ctx.area.appendChild(wrap);
+
+        let target = 0;
+        let current = 0;
+        let tens = 0, ones = 0;
+
+        function render() {
+            built.innerHTML = `
+                <div class="mg-pv-stack mg-pv-stack-tens">${'<span class="mg-pv-bar"></span>'.repeat(tens)}</div>
+                <div class="mg-pv-stack mg-pv-stack-ones">${'<span class="mg-pv-dot"></span>'.repeat(ones)}</div>
+                <div class="mg-pv-current">Current: ${current}</div>
+            `;
+        }
+
+        function nextProblem() {
+            target = Math.floor(Math.random() * 89) + 11;  // 11-99
+            tens = 0; ones = 0;
+            current = 0;
+            prompt.innerHTML = `Build <span class="mg-pv-target">${target}</span> with tens & ones!`;
+            render();
+        }
+
+        pad.querySelector('.mg-pv-tens').addEventListener('click', (e) => {
+            if (tens < 9) { tens += 1; current = tens * 10 + ones; render(); ctx.onScore(0); }
+        });
+        pad.querySelector('.mg-pv-ones').addEventListener('click', (e) => {
+            if (ones < 9) { ones += 1; current = tens * 10 + ones; render(); ctx.onScore(0); }
+        });
+        pad.querySelector('.mg-pv-clear').addEventListener('click', () => {
+            tens = 0; ones = 0; current = 0; render();
+        });
+        pad.querySelector('.mg-pv-check').addEventListener('click', (e) => {
+            if (current === target) {
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                setTimeout(nextProblem, 400);
+            } else {
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+            }
+        });
+
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// 16. Pattern Catcher — sequence with a missing slot, pick the answer.
+GAME_IMPLS['pattern-catcher'] = {
+    start(ctx) {
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-pat-wrap';
+        const prompt = document.createElement('div');
+        prompt.className = 'mg-pat-prompt';
+        prompt.textContent = 'What number is missing?';
+        const seq = document.createElement('div');
+        seq.className = 'mg-pat-seq';
+        const opts = document.createElement('div');
+        opts.className = 'mg-pat-opts';
+        wrap.appendChild(prompt);
+        wrap.appendChild(seq);
+        wrap.appendChild(opts);
+        ctx.area.appendChild(wrap);
+
+        function nextProblem() {
+            // Pick step: 1, 2, 5, or 10
+            const step = [1, 2, 2, 5, 5, 10][Math.floor(Math.random() * 6)];
+            const start = Math.floor(Math.random() * 8) + 1;
+            const nums = [start, start + step, start + step * 2, start + step * 3, start + step * 4];
+            const missingIdx = 1 + Math.floor(Math.random() * 3);  // not first or last
+            const correct = nums[missingIdx];
+            seq.innerHTML = nums.map((n, i) =>
+                i === missingIdx ? `<span class="mg-pat-slot">?</span>` : `<span class="mg-pat-num">${n}</span>`
+            ).join('<span class="mg-pat-comma">,</span>');
+            // Options
+            const set = new Set([correct]);
+            while (set.size < 3) {
+                set.add(Math.max(0, correct + Math.floor(Math.random() * 5) - 2));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-pat-opt" data-correct="${v === correct ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-pat-opt').forEach((b) => {
+                b.addEventListener('click', (e) => {
+                    if (b.getAttribute('data-correct') === '1') {
+                        b.classList.add('mg-pat-right');
+                        ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                        setTimeout(nextProblem, 350);
+                    } else {
+                        b.classList.add('mg-pat-wrong');
+                        ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                        setTimeout(() => b.classList.remove('mg-pat-wrong'), 400);
+                    }
+                });
+            });
+        }
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
 GAME_IMPLS['tic-tac-toe'] = {
     start(ctx) {
         const wrap = document.createElement('div');

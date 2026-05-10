@@ -493,5 +493,111 @@
       "bonusForRecord": 10
     },
     "config": {}
+  },
+  {
+    "id": "math-battle",
+    "title": "Math Battle",
+    "emoji": "⚔️",
+    "description": "Defeat the monster with math!",
+    "category": "strategy",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Solve math problems to attack the monster!",
+    "rules": [
+      "You and the monster each have HP.",
+      "Solve math correctly = attack the monster.",
+      "Wrong answer = monster attacks you.",
+      "Defeat the monster before time runs out!"
+    ],
+    "rewards": {
+      "robuxPerWin": 6,
+      "bonusForRecord": 10
+    },
+    "config": {}
+  },
+  {
+    "id": "clock-quiz",
+    "title": "Clock Quiz",
+    "emoji": "🕐",
+    "description": "Read the clock — what time is it?",
+    "category": "fluency",
+    "skill": "time",
+    "duration": 60,
+    "difficulty": "easy",
+    "objective": "Pick the right time as fast as you can!",
+    "rules": [
+      "A clock face shows the time.",
+      "Tap the right time from 3 options.",
+      "Wrong = 1s penalty."
+    ],
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 6
+    },
+    "config": {}
+  },
+  {
+    "id": "coin-counter",
+    "title": "Coin Counter",
+    "emoji": "🪙",
+    "description": "Count the coins — how much money?",
+    "category": "fluency",
+    "skill": "money",
+    "duration": 60,
+    "difficulty": "easy",
+    "objective": "How many cents do you see?",
+    "rules": [
+      "Coins appear: penny, nickel, dime, quarter.",
+      "Tap the total cents value.",
+      "Wrong = 1s penalty."
+    ],
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 6
+    },
+    "config": {}
+  },
+  {
+    "id": "place-value-builder",
+    "title": "Place Value Builder",
+    "emoji": "🔟",
+    "description": "Build the number with tens & ones!",
+    "category": "puzzle",
+    "skill": "place-value",
+    "duration": 75,
+    "difficulty": "medium",
+    "objective": "Tap blocks to match the target number.",
+    "rules": [
+      "A target number appears (like 47).",
+      "Tap ten-bars and one-blocks to build it.",
+      "First correct build scores!"
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
+    "id": "pattern-catcher",
+    "title": "Pattern Catcher",
+    "emoji": "🌀",
+    "description": "What number is missing in the pattern?",
+    "category": "puzzle",
+    "skill": "patterns",
+    "duration": 60,
+    "difficulty": "medium",
+    "objective": "Find the missing number fast!",
+    "rules": [
+      "A sequence appears with one ? hole.",
+      "Tap the right number from 3 choices.",
+      "Wrong = 1s penalty."
+    ],
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 6
+    },
+    "config": {}
   }
 ]
