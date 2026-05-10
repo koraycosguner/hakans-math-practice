@@ -25901,6 +25901,2707 @@ const MODULES = [
             { type: 'numeric', visual: { type: 'two-digit-num', n: 47, highlight: 'tens' }, prompt: 'Hakan, how many tens in 47?', answer: 4 }
         ]
     }
+,
+    // ===== AGENT-AUTHORED MODULES =====
+    // ----- from AGENT_STRATEGY_MODULES (30 modules) -----
+// ========================================================================
+    // 1. COUNTING ON FROM BIGGER
+    // ========================================================================
+    {
+        id: 'counting-on-bigger',
+        title: 'Counting On from the Bigger Number',
+        emoji: '🔢',
+        category: 'B',
+        kind: 'generic',
+        description: 'Smart kids start with the bigger number and count up.',
+        lesson: [
+            { title: "Hakan's Smart Trick", visual: { type: 'add-groups', a: 2, b: 7, emoji: '🍎' }, text: 'For 2 + 7, Hakan does NOT count from 2. He starts with the BIGGER number 7 and counts up 2!', caption: 'Start big, count up' },
+            { title: 'Why It Works', visual: { type: 'two-digit-add', a: 7, b: 2 }, text: '2 + 7 and 7 + 2 give the SAME answer. Hakan picks whichever is faster — start with 7!', caption: '2+7 = 7+2' },
+            { title: 'Count On 1', visual: { type: 'numberline', from: 1, to: 12, mark: 9 }, text: 'Hakan tries 8 + 1. Start at 8, hop up 1: nine!', caption: '8 + 1 = 9' },
+            { title: 'Count On 2', visual: { type: 'numberline', from: 1, to: 12, mark: 8 }, text: 'For 6 + 2, Hakan starts at 6 and hops 7, 8. Answer: 8!', caption: '6 + 2 = 8' },
+            { title: 'Count On 3', visual: { type: 'numberline', from: 1, to: 15, mark: 12 }, text: 'For 9 + 3, Hakan starts at 9. Hops: 10, 11, 12. Answer: 12!', caption: '9 + 3 = 12' },
+            { title: 'Pick the Bigger One', visual: { type: 'two-digit-add', a: 9, b: 3 }, text: 'For 3 + 9, Hakan flips it to 9 + 3 in his head. Way faster than counting from 3!', caption: 'Always start big' },
+            { title: 'Use Your Fingers', visual: { type: 'add-groups', a: 7, b: 3, emoji: '✋' }, text: 'Hakan says "seven" out loud, then puts up 3 fingers as he counts: 8, 9, 10!', caption: '7 + 3 = 10' },
+            { title: 'Master the Move', visual: { type: 'two-digit-add', a: 4, b: 8 }, text: 'When Hakan sees 4 + 8, he says "eight" first, then counts on 4 more: 9, 10, 11, 12!', caption: '4 + 8 = 12' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 2 }, prompt: 'Hakan starts with seven and counts on two. What does he get?', answer: 9, hint: 'Start at 7. Say: 8, 9. Hakan lands on 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 8 }, prompt: 'Hakan flips two plus eight. He starts with eight and counts on two. Answer?', answer: 10, hint: 'Bigger first: 8. Then count: 9, 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 3 }, prompt: 'Hakan picks the bigger number. Nine plus three?', answer: 12, hint: 'Start at 9: 10, 11, 12. Hakan got 12!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 9 }, prompt: 'Hakan flips one plus nine to start big. What is the answer?', answer: 10, hint: 'Start at 9. Hop one: 10. Easy for Hakan!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 4 }, prompt: 'Hakan starts with six and counts up four. Answer?', answer: 10, hint: 'From 6: 7, 8, 9, 10. Hakan landed on 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 8 }, prompt: 'Hakan flips three plus eight. Start with bigger! Answer?', answer: 11, hint: 'Bigger is 8. Count up 3: 9, 10, 11!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 11 }, prompt: 'Hakan starts with eleven and adds two. Answer?', answer: 13, hint: 'From 11: 12, 13. Hakan got 13!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 9 }, prompt: 'Hakan does four plus nine the smart way. Answer?', answer: 13, hint: 'Start at 9, count 4: 10, 11, 12, 13!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 2 }, prompt: 'Hakan counts on from five. Five plus two?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 9 }, prompt: 'Hakan flips two plus nine. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 3 }, prompt: 'Hakan starts at eight and counts up three. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 7 }, prompt: 'Hakan flips one plus seven. Answer?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 3 }, prompt: 'Hakan does ten plus three. Answer?', answer: 13 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 2 }, prompt: 'Hakan counts on from six. Six plus two?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 9 }, prompt: 'Hakan flips three plus nine. Answer?', answer: 12 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 4 }, prompt: 'Hakan starts with seven and adds four. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 12 }, prompt: 'Hakan starts at twelve and adds two. Answer?', answer: 14 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 8 }, prompt: 'Hakan flips five plus eight. Answer?', answer: 13 },
+        ],
+    },
+
+    // ========================================================================
+    // 2. COUNTING BACK FROM BIGGER
+    // ========================================================================
+    {
+        id: 'counting-back-bigger',
+        title: 'Counting Back to Subtract',
+        emoji: '⬇️',
+        category: 'C',
+        kind: 'generic',
+        description: 'Start with the big number and hop backwards.',
+        lesson: [
+            { title: "Hakan's Hop-Back Trick", visual: { type: 'numberline', from: 1, to: 12, mark: 7 }, text: 'For 9 − 2, Hakan starts at 9 and hops BACK two: 8, 7. Answer: 7!', caption: 'Big number, hop back' },
+            { title: 'Why Backwards', visual: { type: 'take-away', total: 8, taken: 3, emoji: '🍪' }, text: 'Subtract means take away. Hakan starts at 8 cookies and takes 3 away: 7, 6, 5!', caption: '8 − 3 = 5' },
+            { title: 'Hop 1', visual: { type: 'numberline', from: 1, to: 10, mark: 6 }, text: 'For 7 − 1, Hakan hops back once from 7. He lands on 6.', caption: '7 − 1 = 6' },
+            { title: 'Hop 2', visual: { type: 'numberline', from: 1, to: 12, mark: 8 }, text: 'For 10 − 2, Hakan starts at 10 and hops back twice: 9, 8!', caption: '10 − 2 = 8' },
+            { title: 'Hop 3', visual: { type: 'numberline', from: 1, to: 15, mark: 9 }, text: 'For 12 − 3, Hakan hops back: 11, 10, 9. Answer: 9!', caption: '12 − 3 = 9' },
+            { title: 'Use Fingers', visual: { type: 'take-away', total: 9, taken: 3, emoji: '✋' }, text: 'Hakan says "nine" then puts up fingers and counts back as he folds: 8, 7, 6!', caption: '9 − 3 = 6' },
+            { title: 'Bigger Numbers', visual: { type: 'numberline', from: 10, to: 20, mark: 13 }, text: 'For 16 − 3, Hakan starts at 16 and hops back: 15, 14, 13!', caption: '16 − 3 = 13' },
+            { title: "Hakan's Rule", visual: { type: 'take-away', total: 11, taken: 2, emoji: '🐶' }, text: 'Hakan always counts BACKWARDS for subtraction. Start at the big number, hop back!', caption: 'Back, not forward' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 1 }, prompt: 'Hakan hops back one from eight. What does he get?', answer: 7, hint: 'One less than 8 is 7. Hakan got 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 2 }, prompt: 'Hakan starts at nine and hops back two. Answer?', answer: 7, hint: 'From 9: 8, 7. Hakan landed on 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 3 }, prompt: 'Hakan hops back three from ten. Answer?', answer: 7, hint: 'From 10: 9, 8, 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 11, b: 2 }, prompt: 'Hakan does eleven minus two. Answer?', answer: 9, hint: 'Hop back: 10, 9. Got 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 3 }, prompt: 'Seven minus three. Hakan hops back three. Answer?', answer: 4, hint: 'From 7: 6, 5, 4!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 13, b: 3 }, prompt: 'Hakan starts at thirteen and hops back three. Answer?', answer: 10, hint: 'From 13: 12, 11, 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 15, b: 2 }, prompt: 'Hakan hops back two from fifteen. Answer?', answer: 13, hint: 'From 15: 14, 13!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 18, b: 4 }, prompt: 'Hakan does eighteen minus four. Answer?', answer: 14, hint: 'From 18: 17, 16, 15, 14!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 2 }, prompt: 'Hakan hops back two from six. Answer?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 3 }, prompt: 'Hakan does nine minus three. Answer?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 2 }, prompt: 'Hakan hops back two from eight. Answer?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 1 }, prompt: 'Ten minus one?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 12, b: 3 }, prompt: 'Hakan starts at twelve and hops back three. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 14, b: 2 }, prompt: 'Hakan does fourteen minus two. Answer?', answer: 12 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 16, b: 3 }, prompt: 'Hakan hops back three from sixteen. Answer?', answer: 13 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 11, b: 4 }, prompt: 'Eleven minus four?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 17, b: 2 }, prompt: 'Hakan does seventeen minus two. Answer?', answer: 15 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 20, b: 3 }, prompt: 'Hakan hops back three from twenty. Answer?', answer: 17 },
+        ],
+    },
+
+    // ========================================================================
+    // 3. DOUBLES PLUS 1
+    // ========================================================================
+    {
+        id: 'doubles-plus-1',
+        title: 'Doubles Plus One',
+        emoji: '➕',
+        category: 'B',
+        kind: 'generic',
+        description: 'Use a double you know to find one more.',
+        lesson: [
+            { title: "Hakan's Doubles Trick", visual: { type: 'two-ten-frames', filledA: 5, filledB: 6 }, text: 'Hakan knows 5 + 5 = 10. So 5 + 6 is just ONE MORE — eleven!', caption: '5 + 6 = 11' },
+            { title: 'Near Doubles', visual: { type: 'add-groups', a: 4, b: 5, emoji: '⭐' }, text: 'When numbers are right next to each other (like 4 and 5), Hakan thinks: double the smaller, plus 1.', caption: '4 + 5 = (4+4) + 1 = 9' },
+            { title: 'Try 3 + 4', visual: { type: 'two-digit-add', a: 3, b: 4 }, text: 'Hakan thinks: 3 + 3 = 6. Add 1 more = 7. So 3 + 4 = 7!', caption: '3 + 4 = 7' },
+            { title: 'Try 6 + 7', visual: { type: 'two-digit-add', a: 6, b: 7 }, text: 'Hakan knows 6 + 6 = 12. One more is 13. So 6 + 7 = 13!', caption: '6 + 7 = 13' },
+            { title: 'Try 7 + 8', visual: { type: 'two-digit-add', a: 7, b: 8 }, text: '7 + 7 = 14. Plus one = 15. Hakan got 7 + 8 = 15!', caption: '7 + 8 = 15' },
+            { title: 'Try 8 + 9', visual: { type: 'two-digit-add', a: 8, b: 9 }, text: 'Hakan thinks: 8 + 8 = 16. One more is 17. So 8 + 9 = 17!', caption: '8 + 9 = 17' },
+            { title: 'Step by Step', visual: { type: 'sequence', nums: [4, 4, 1], missingIndex: -1 }, text: 'Hakan splits 4 + 5 into 4 + 4 + 1. Doubles are easy, then plus one!', caption: '4 + 5 = 4 + 4 + 1' },
+            { title: 'Why It Works', visual: { type: 'two-ten-frames', filledA: 5, filledB: 6 }, text: 'Two numbers next to each other are like a double with one extra. Hakan uses doubles to be FAST!', caption: 'Doubles + 1 = fast' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 3 }, prompt: 'Hakan knows 2 + 2 = 4. So what is 2 + 3?', answer: 5, hint: 'Double 2 is 4. One more is 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 4 }, prompt: 'Hakan uses doubles: 3 + 3 = 6. So 3 + 4?', answer: 7, hint: 'Double 3 is 6. Plus one is 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 5 }, prompt: 'Hakan thinks: 4 + 4 = 8. So 4 + 5?', answer: 9, hint: '4 + 4 = 8, plus 1 = 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 6 }, prompt: 'Hakan knows 5 + 5 = 10. What about 5 + 6?', answer: 11, hint: '5 + 5 is 10. One more is 11!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 7 }, prompt: 'Hakan uses 6 + 6 = 12 to find 6 + 7. Answer?', answer: 13, hint: '12 + 1 = 13. Hakan got it!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 8 }, prompt: 'Hakan knows 7 + 7 = 14. So 7 + 8?', answer: 15, hint: '14 plus 1 = 15!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 9 }, prompt: 'Hakan thinks: 8 + 8 = 16. What is 8 + 9?', answer: 17, hint: '16 + 1 = 17!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 10 }, prompt: 'Hakan uses 9 + 9 = 18. So 9 + 10?', answer: 19, hint: '18 + 1 = 19!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 2 }, prompt: 'Hakan thinks 1 + 1 = 2. So 1 + 2?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 4 }, prompt: 'Hakan uses doubles for 3 + 4. Answer?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 6 }, prompt: 'Hakan does 5 + 6 the smart way. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 7 }, prompt: 'Six plus seven, doubles + 1. Answer?', answer: 13 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 5 }, prompt: 'Hakan uses 4 + 4 to find 4 + 5. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 8 }, prompt: 'Hakan does 7 + 8 fast. Answer?', answer: 15 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 3 }, prompt: 'Two plus three with doubles + 1. Answer?', answer: 5 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 9 }, prompt: 'Hakan does 8 + 9. Answer?', answer: 17 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 10 }, prompt: 'Hakan does 9 + 10. Answer?', answer: 19 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 4 }, prompt: 'Hakan uses 4 + 4 = 8 to find 5 + 4. Answer?', answer: 9 },
+        ],
+    },
+
+    // ========================================================================
+    // 4. DOUBLES MINUS 1
+    // ========================================================================
+    {
+        id: 'doubles-minus-1',
+        title: 'Doubles Minus One',
+        emoji: '➖',
+        category: 'B',
+        kind: 'generic',
+        description: 'Use the bigger double minus one to add near doubles.',
+        lesson: [
+            { title: "Hakan's Other Trick", visual: { type: 'two-ten-frames', filledA: 6, filledB: 5 }, text: 'For 5 + 6, Hakan can ALSO think: 6 + 6 = 12, then take ONE AWAY. Twelve minus one is 11!', caption: '5 + 6 = 12 − 1 = 11' },
+            { title: 'Two Ways!', visual: { type: 'add-groups', a: 4, b: 5, emoji: '🌟' }, text: 'Hakan can use doubles + 1 OR doubles − 1. Both give the same answer for 4 + 5: nine!', caption: '4 + 5 = 9' },
+            { title: 'Try 4 + 5', visual: { type: 'two-digit-add', a: 4, b: 5 }, text: 'Hakan thinks: 5 + 5 = 10. Take 1 off = 9. So 4 + 5 = 9!', caption: '5 + 5 − 1 = 9' },
+            { title: 'Try 6 + 7', visual: { type: 'two-digit-add', a: 6, b: 7 }, text: '7 + 7 = 14. Minus one = 13. Hakan got 6 + 7 = 13!', caption: '7 + 7 − 1 = 13' },
+            { title: 'Try 7 + 8', visual: { type: 'two-digit-add', a: 7, b: 8 }, text: 'Hakan knows 8 + 8 = 16. Minus one = 15. So 7 + 8 = 15!', caption: '8 + 8 − 1 = 15' },
+            { title: 'Try 8 + 9', visual: { type: 'two-digit-add', a: 8, b: 9 }, text: 'Hakan thinks: 9 + 9 = 18. Minus one = 17. So 8 + 9 = 17!', caption: '9 + 9 − 1 = 17' },
+            { title: 'Pick Your Favorite', visual: { type: 'two-ten-frames', filledA: 8, filledB: 7 }, text: 'For 7 + 8, Hakan can do 7 + 7 + 1 OR 8 + 8 − 1. Both equal 15!', caption: 'Both ways work' },
+            { title: "Hakan's Power Move", visual: { type: 'two-digit-add', a: 8, b: 9 }, text: 'Doubles − 1 helps when you remember the BIGGER double. Hakan picks whichever double he knows best!', caption: 'Use what you know' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 3 }, prompt: 'Hakan knows 3 + 3 = 6. So 2 + 3 (one less) is?', answer: 5, hint: '6 minus 1 = 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 4 }, prompt: 'Hakan uses 4 + 4 = 8 minus 1. Answer for 3 + 4?', answer: 7, hint: '8 minus 1 = 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 5 }, prompt: 'Hakan thinks 5 + 5 = 10. So 4 + 5?', answer: 9, hint: '10 − 1 = 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 6 }, prompt: 'Hakan knows 6 + 6 = 12. So 5 + 6?', answer: 11, hint: '12 minus 1 = 11!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 7 }, prompt: 'Hakan uses 7 + 7 = 14. What is 6 + 7?', answer: 13, hint: '14 − 1 = 13!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 8 }, prompt: 'Hakan thinks 8 + 8 = 16. So 7 + 8?', answer: 15, hint: '16 − 1 = 15!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 9 }, prompt: 'Hakan uses 9 + 9 = 18. What is 8 + 9?', answer: 17, hint: '18 − 1 = 17!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 10 }, prompt: 'Hakan thinks 10 + 10 = 20. So 9 + 10?', answer: 19, hint: '20 − 1 = 19!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 2 }, prompt: 'Hakan does 2 + 2 − 1. Answer?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 5 }, prompt: 'Hakan uses 5 + 5 − 1. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 6 }, prompt: 'Hakan thinks 6 + 6 − 1. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 8 }, prompt: 'Hakan uses 8 + 8 − 1. Answer?', answer: 15 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 7 }, prompt: 'Hakan does 7 + 7 − 1. Answer?', answer: 13 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 9 }, prompt: 'Hakan thinks 9 + 9 − 1. Answer?', answer: 17 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 4 }, prompt: 'Three plus four (doubles − 1). Answer?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 10 }, prompt: 'Hakan does 10 + 10 − 1. Answer?', answer: 19 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 3 }, prompt: 'Hakan does 3 + 3 − 1. Answer?', answer: 5 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 5 }, prompt: 'Hakan uses 6 + 6 − 1 to do 5 + 6. Answer?', answer: 11 },
+        ],
+    },
+
+    // ========================================================================
+    // 5. MAKE 10 TO ADD
+    // ========================================================================
+    {
+        id: 'make-10-to-add',
+        title: 'Make 10 to Add',
+        emoji: '🔟',
+        category: 'B',
+        kind: 'generic',
+        description: 'Break a number to make 10 first, then add the rest.',
+        lesson: [
+            { title: "Hakan's Power Strategy", visual: { type: 'two-ten-frames', filledA: 8, filledB: 5 }, text: 'For 8 + 5, Hakan FILLS THE TEN-FRAME first. He moves 2 from the 5 to the 8 to make 10. Then adds the leftover 3.', caption: '8 + 5 = 10 + 3 = 13' },
+            { title: 'Step 1: How Many to 10?', visual: { type: 'ten-frame', count: 8 }, text: 'Hakan looks at 8. He asks: "How many more to make 10?" The answer is 2!', caption: '8 needs 2 more' },
+            { title: 'Step 2: Split the Other', visual: { type: 'sequence', nums: [2, 3], missingIndex: -1 }, text: 'Hakan splits the 5 into 2 and 3. He uses the 2 to fill the ten-frame.', caption: '5 = 2 + 3' },
+            { title: 'Step 3: Add the Leftover', visual: { type: 'two-ten-frames', filledA: 10, filledB: 3 }, text: 'Now Hakan has 10 + 3. That equals 13!', caption: '10 + 3 = 13' },
+            { title: 'Try 9 + 4', visual: { type: 'two-ten-frames', filledA: 9, filledB: 4 }, text: 'Hakan asks: 9 needs 1 more to make 10. Split 4 into 1 + 3. Now 10 + 3 = 13!', caption: '9 + 4 = 13' },
+            { title: 'Try 7 + 6', visual: { type: 'two-ten-frames', filledA: 7, filledB: 6 }, text: 'Hakan needs 3 to fill the ten. Split 6 = 3 + 3. Then 10 + 3 = 13!', caption: '7 + 6 = 13' },
+            { title: 'Try 8 + 6', visual: { type: 'two-ten-frames', filledA: 8, filledB: 6 }, text: '8 needs 2. Split 6 = 2 + 4. Now Hakan has 10 + 4 = 14!', caption: '8 + 6 = 14' },
+            { title: 'Why It Works', visual: { type: 'two-ten-frames', filledA: 10, filledB: 4 }, text: 'Tens are EASY to add. Hakan always tries to make a ten first. Then it is just 10 + something!', caption: 'Tens are easy' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 2 }, prompt: 'Hakan does 9 + 2. He fills the 9 to make 10. Answer?', answer: 11, hint: '9 + 1 = 10. Then 10 + 1 more = 11!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 3 }, prompt: 'Hakan makes a 10 from 8 + 3. Answer?', answer: 11, hint: '8 needs 2. Split 3 = 2 + 1. Then 10 + 1 = 11!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 4 }, prompt: 'Hakan makes 10 to find 9 + 4. Answer?', answer: 13, hint: '9 + 1 = 10. Leftover 3. Total 13!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Hakan makes 10. What is 8 + 5?', answer: 13, hint: '8 + 2 = 10. Leftover 3. Total 13!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 5 }, prompt: 'Hakan splits 5 to make a ten with 7. Answer?', answer: 12, hint: '7 + 3 = 10. Leftover 2. 12!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 6 }, prompt: 'Hakan makes 10 from 9 + 6. Answer?', answer: 15, hint: '9 + 1 = 10. Leftover 5. 15!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 7 }, prompt: 'Hakan makes 10 to do 8 + 7. Answer?', answer: 15, hint: '8 + 2 = 10. Leftover 5. 15!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 6 }, prompt: 'Hakan does 7 + 6 the make-10 way. Answer?', answer: 13, hint: '7 + 3 = 10. Leftover 3. 13!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 2 }, prompt: 'Hakan makes 10 from 9 + 2. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 4 }, prompt: 'Hakan makes 10 from 8 + 4. Answer?', answer: 12 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 5 }, prompt: 'Hakan does 9 + 5 by making 10. Answer?', answer: 14 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 4 }, prompt: 'Hakan makes 10 from 7 + 4. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 6 }, prompt: 'Hakan makes 10 from 8 + 6. Answer?', answer: 14 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 7 }, prompt: 'Six plus seven, the make-10 way. Answer?', answer: 13 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 7 }, prompt: 'Hakan does 9 + 7 by making 10. Answer?', answer: 16 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 8 }, prompt: 'Hakan makes 10 from 8 + 8. Answer?', answer: 16 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 8 }, prompt: 'Hakan does 9 + 8 by making 10. Answer?', answer: 17 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 7 }, prompt: 'Hakan does 7 + 7 with make-10. Answer?', answer: 14 },
+        ],
+    },
+
+    // ========================================================================
+    // 6. MAKE 10 TO SUBTRACT
+    // ========================================================================
+    {
+        id: 'make-10-to-subtract',
+        title: 'Make 10 to Subtract',
+        emoji: '🔻',
+        category: 'C',
+        kind: 'generic',
+        description: 'Hop to 10 first, then take away the rest.',
+        lesson: [
+            { title: "Hakan's Subtract Trick", visual: { type: 'numberline', from: 0, to: 15, mark: 7 }, text: 'For 12 − 5, Hakan first hops back to 10 (that is 2 hops). Then he hops 3 more back. That is 5 hops total!', caption: '12 − 2 − 3 = 7' },
+            { title: 'Why Stop at 10?', visual: { type: 'two-ten-frames', filledA: 10, filledB: 2 }, text: 'Ten is a friendly number. Hakan goes there first because subtracting from 10 is super easy.', caption: '10 = friendly stop' },
+            { title: 'Step 1: Get to 10', visual: { type: 'numberline', from: 0, to: 15, mark: 10 }, text: 'For 13 − 5, Hakan hops back from 13 to 10. That uses 3 of his 5 hops.', caption: '13 − 3 = 10' },
+            { title: 'Step 2: Hop the Rest', visual: { type: 'numberline', from: 0, to: 15, mark: 8 }, text: 'Hakan has 2 hops left. From 10 hop 2 more: 9, 8. Final answer: 8!', caption: '10 − 2 = 8' },
+            { title: 'Try 14 − 6', visual: { type: 'two-digit-add', a: 14, b: 6 }, text: 'Hakan hops back 4 (to 10), then 2 more. Answer: 8!', caption: '14 − 4 − 2 = 8' },
+            { title: 'Try 11 − 4', visual: { type: 'two-digit-add', a: 11, b: 4 }, text: 'Hakan hops 1 to get to 10, then 3 more. Answer: 7!', caption: '11 − 1 − 3 = 7' },
+            { title: 'Try 15 − 7', visual: { type: 'two-digit-add', a: 15, b: 7 }, text: 'Hakan hops 5 to get to 10, then 2 more. Answer: 8!', caption: '15 − 5 − 2 = 8' },
+            { title: "Hakan's Two-Step", visual: { type: 'numberline', from: 0, to: 20, mark: 10 }, text: 'Step 1: hop to 10. Step 2: hop the leftover. Hakan calls it the two-step subtract!', caption: 'Two-step subtract' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 11, b: 3 }, prompt: 'Hakan does 11 − 3. Stop at 10 first! Answer?', answer: 8, hint: '11 − 1 = 10. Then 10 − 2 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 12, b: 4 }, prompt: 'Hakan does 12 − 4 by stopping at 10. Answer?', answer: 8, hint: '12 − 2 = 10. Then 10 − 2 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 13, b: 5 }, prompt: 'Hakan does 13 − 5. Stop at 10. Answer?', answer: 8, hint: '13 − 3 = 10. Then 10 − 2 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 14, b: 6 }, prompt: 'Hakan does 14 − 6 by making 10. Answer?', answer: 8, hint: '14 − 4 = 10. Then 10 − 2 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 15, b: 7 }, prompt: 'Hakan does 15 − 7. Stop at 10! Answer?', answer: 8, hint: '15 − 5 = 10. Then 10 − 2 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 12, b: 5 }, prompt: 'Hakan does 12 − 5 the make-10 way. Answer?', answer: 7, hint: '12 − 2 = 10. Then 10 − 3 = 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 16, b: 8 }, prompt: 'Hakan does 16 − 8 by stopping at 10. Answer?', answer: 8, hint: '16 − 6 = 10. Then 10 − 2 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 17, b: 9 }, prompt: 'Hakan does 17 − 9. Make 10 first. Answer?', answer: 8, hint: '17 − 7 = 10. Then 10 − 2 = 8!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 11, b: 2 }, prompt: 'Hakan does 11 − 2 (stop at 10). Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 12, b: 3 }, prompt: 'Twelve minus three. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 13, b: 4 }, prompt: 'Hakan does 13 − 4 by making 10. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 14, b: 5 }, prompt: 'Hakan does 14 − 5. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 11, b: 4 }, prompt: 'Hakan stops at 10 to do 11 − 4. Answer?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 13, b: 6 }, prompt: 'Hakan does 13 − 6. Answer?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 15, b: 8 }, prompt: 'Hakan does 15 − 8. Answer?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 16, b: 7 }, prompt: 'Hakan makes 10 to do 16 − 7. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 18, b: 9 }, prompt: 'Hakan does 18 − 9. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 12, b: 7 }, prompt: 'Hakan makes 10 to do 12 − 7. Answer?', answer: 5 },
+        ],
+    },
+
+    // ========================================================================
+    // 7. ADD 9
+    // ========================================================================
+    {
+        id: 'add-9-trick',
+        title: 'Add 9: Think 10 Then Take 1',
+        emoji: '9️⃣',
+        category: 'B',
+        kind: 'generic',
+        description: 'Adding 9 is easy: add 10, then take 1 away.',
+        lesson: [
+            { title: "Hakan's +9 Trick", visual: { type: 'two-ten-frames', filledA: 9, filledB: 5 }, text: '9 is ALMOST 10. So Hakan adds 10 (easy!), then takes 1 away. Smart move!', caption: '+9 = +10 then −1' },
+            { title: 'Try 9 + 5', visual: { type: 'two-digit-add', a: 9, b: 5 }, text: 'Hakan thinks: 10 + 5 = 15. Take 1 away = 14. So 9 + 5 = 14!', caption: '10 + 5 − 1 = 14' },
+            { title: 'Try 9 + 3', visual: { type: 'two-digit-add', a: 9, b: 3 }, text: '10 + 3 = 13. Hakan takes 1 off = 12. So 9 + 3 = 12!', caption: '10 + 3 − 1 = 12' },
+            { title: 'Try 9 + 7', visual: { type: 'two-digit-add', a: 9, b: 7 }, text: 'Hakan adds 10 + 7 = 17. Minus 1 = 16. So 9 + 7 = 16!', caption: '10 + 7 − 1 = 16' },
+            { title: 'See the Pattern', visual: { type: 'sequence', nums: [10, 11, 12, 13], missingIndex: -1 }, text: 'When Hakan adds 9, the answer is always 1 LESS than adding 10. Easy pattern!', caption: '+9 always one less' },
+            { title: 'Try 9 + 8', visual: { type: 'two-digit-add', a: 9, b: 8 }, text: '10 + 8 = 18. Take away 1. Hakan gets 17!', caption: '9 + 8 = 17' },
+            { title: 'Try 9 + 9', visual: { type: 'two-digit-add', a: 9, b: 9 }, text: '10 + 9 = 19. Hakan takes 1 off: 18!', caption: '9 + 9 = 18' },
+            { title: 'Master the Move', visual: { type: 'two-ten-frames', filledA: 10, filledB: 6 }, text: 'Hakan loves +9 because it is just +10 in disguise. Add 10, take 1, done!', caption: '+9 = +10 − 1' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 1 }, prompt: 'Hakan does 9 + 1. Answer?', answer: 10, hint: '10 + 1 = 11. Minus 1 = 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 2 }, prompt: 'Hakan thinks 10 + 2 − 1. What is 9 + 2?', answer: 11, hint: '10 + 2 = 12. Take 1 off = 11!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 3 }, prompt: 'Hakan does 9 + 3. Answer?', answer: 12, hint: '10 + 3 = 13. Minus 1 = 12!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 4 }, prompt: 'Hakan uses the +10 trick on 9 + 4. Answer?', answer: 13, hint: '10 + 4 = 14. Take 1 off = 13!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 5 }, prompt: 'Hakan does 9 + 5. Answer?', answer: 14, hint: '10 + 5 = 15. Minus 1 = 14!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 6 }, prompt: 'Hakan thinks 10 + 6 − 1. Answer for 9 + 6?', answer: 15, hint: '10 + 6 = 16. Minus 1 = 15!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 7 }, prompt: 'Hakan does 9 + 7. Answer?', answer: 16, hint: '10 + 7 = 17. Take 1 off = 16!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 8 }, prompt: 'Hakan uses the trick on 9 + 8. Answer?', answer: 17, hint: '10 + 8 = 18. Minus 1 = 17!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 2 }, prompt: 'Hakan does 9 + 2. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 4 }, prompt: 'Hakan thinks 10 + 4 − 1. Answer?', answer: 13 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 6 }, prompt: 'Hakan does 9 + 6. Answer?', answer: 15 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 8 }, prompt: 'Hakan uses the +9 trick. Answer?', answer: 17 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 3 }, prompt: 'Nine plus three?', answer: 12 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 5 }, prompt: 'Hakan does 9 + 5. Answer?', answer: 14 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 7 }, prompt: 'Nine plus seven?', answer: 16 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 9 }, prompt: 'Hakan does 9 + 9 with the trick. Answer?', answer: 18 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 1 }, prompt: 'Nine plus one?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 10 }, prompt: 'Hakan does 9 + 10. Answer?', answer: 19 },
+        ],
+    },
+
+    // ========================================================================
+    // 8. ADD 8
+    // ========================================================================
+    {
+        id: 'add-8-trick',
+        title: 'Add 8: Think 10 Then Take 2',
+        emoji: '8️⃣',
+        category: 'B',
+        kind: 'generic',
+        description: 'Adding 8 is easy: add 10, then take 2 away.',
+        lesson: [
+            { title: "Hakan's +8 Trick", visual: { type: 'two-ten-frames', filledA: 8, filledB: 5 }, text: '8 is 2 less than 10. So Hakan adds 10 (easy!), then takes 2 away.', caption: '+8 = +10 then −2' },
+            { title: 'Try 8 + 5', visual: { type: 'two-digit-add', a: 8, b: 5 }, text: 'Hakan thinks: 10 + 5 = 15. Take 2 away = 13. So 8 + 5 = 13!', caption: '10 + 5 − 2 = 13' },
+            { title: 'Try 8 + 3', visual: { type: 'two-digit-add', a: 8, b: 3 }, text: 'Hakan does 10 + 3 = 13. Minus 2 = 11. So 8 + 3 = 11!', caption: '10 + 3 − 2 = 11' },
+            { title: 'Try 8 + 7', visual: { type: 'two-digit-add', a: 8, b: 7 }, text: '10 + 7 = 17. Hakan takes 2 off = 15. So 8 + 7 = 15!', caption: '10 + 7 − 2 = 15' },
+            { title: 'Pattern Time', visual: { type: 'sequence', nums: [9, 10, 11], missingIndex: -1 }, text: 'When Hakan adds 8, the answer is always 2 LESS than adding 10!', caption: '+8 always two less' },
+            { title: 'Try 8 + 6', visual: { type: 'two-digit-add', a: 8, b: 6 }, text: 'Hakan does 10 + 6 = 16. Take 2 away. He gets 14!', caption: '8 + 6 = 14' },
+            { title: 'Try 8 + 9', visual: { type: 'two-digit-add', a: 8, b: 9 }, text: '10 + 9 = 19. Hakan takes 2 off: 17!', caption: '8 + 9 = 17' },
+            { title: "Hakan's Power Move", visual: { type: 'two-ten-frames', filledA: 10, filledB: 5 }, text: 'Add 10, take 2 — Hakan zooms through +8 problems!', caption: '+8 = +10 − 2' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 2 }, prompt: 'Hakan does 8 + 2. Answer?', answer: 10, hint: '10 + 2 = 12. Take 2 off = 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 3 }, prompt: 'Hakan thinks 10 + 3 − 2. What is 8 + 3?', answer: 11, hint: '13 − 2 = 11!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 4 }, prompt: 'Hakan uses +10 − 2 to do 8 + 4. Answer?', answer: 12, hint: '14 − 2 = 12!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Hakan does 8 + 5. Answer?', answer: 13, hint: '10 + 5 = 15. Minus 2 = 13!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 6 }, prompt: 'Hakan thinks 10 + 6 − 2. Answer for 8 + 6?', answer: 14, hint: '16 − 2 = 14!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 7 }, prompt: 'Hakan does 8 + 7. Answer?', answer: 15, hint: '10 + 7 = 17. Take 2 off = 15!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 8 }, prompt: 'Hakan uses the trick for 8 + 8. Answer?', answer: 16, hint: '10 + 8 = 18. Minus 2 = 16!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 9 }, prompt: 'Hakan does 8 + 9. Answer?', answer: 17, hint: '10 + 9 = 19. Take 2 off = 17!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 3 }, prompt: 'Hakan does 8 + 3. Answer?', answer: 11 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Hakan thinks 10 + 5 − 2. Answer?', answer: 13 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 7 }, prompt: 'Eight plus seven?', answer: 15 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 9 }, prompt: 'Hakan uses the +8 trick. Answer?', answer: 17 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 4 }, prompt: 'Hakan does 8 + 4. Answer?', answer: 12 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 6 }, prompt: 'Eight plus six?', answer: 14 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 8 }, prompt: 'Hakan does 8 + 8 with +10 − 2. Answer?', answer: 16 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 2 }, prompt: 'Eight plus two?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 10 }, prompt: 'Hakan does 8 + 10. Answer?', answer: 18 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 1 }, prompt: 'Eight plus one?', answer: 9 },
+        ],
+    },
+
+    // ========================================================================
+    // 9. SUBTRACT 9
+    // ========================================================================
+    {
+        id: 'subtract-9-trick',
+        title: 'Subtract 9: Take 10 Then Add 1',
+        emoji: '⚡',
+        category: 'C',
+        kind: 'generic',
+        description: 'Subtracting 9: take 10 away, then put 1 back.',
+        lesson: [
+            { title: "Hakan's −9 Trick", visual: { type: 'two-ten-frames', filledA: 10, filledB: 5 }, text: 'For 15 − 9, Hakan takes away 10 (easy!) and PUTS BACK 1 because 9 is one less than 10.', caption: '−9 = −10 then +1' },
+            { title: 'Try 15 − 9', visual: { type: 'two-digit-add', a: 15, b: 9 }, text: 'Hakan thinks: 15 − 10 = 5. Add 1 back = 6. So 15 − 9 = 6!', caption: '15 − 10 + 1 = 6' },
+            { title: 'Try 13 − 9', visual: { type: 'two-digit-add', a: 13, b: 9 }, text: 'Hakan does 13 − 10 = 3. Plus 1 = 4. So 13 − 9 = 4!', caption: '13 − 10 + 1 = 4' },
+            { title: 'Try 17 − 9', visual: { type: 'two-digit-add', a: 17, b: 9 }, text: '17 − 10 = 7. Hakan adds 1 = 8. So 17 − 9 = 8!', caption: '17 − 10 + 1 = 8' },
+            { title: 'See the Pattern', visual: { type: 'sequence', nums: [2, 3, 4, 5], missingIndex: -1 }, text: 'When Hakan subtracts 9 from a teen, the answer is the ONES digit + 1!', caption: 'ones + 1 = answer' },
+            { title: 'Try 12 − 9', visual: { type: 'two-digit-add', a: 12, b: 9 }, text: '12 has a 2 in the ones. 2 + 1 = 3! So 12 − 9 = 3.', caption: '12 − 9 = 3' },
+            { title: 'Try 18 − 9', visual: { type: 'two-digit-add', a: 18, b: 9 }, text: '18 has 8 ones. 8 + 1 = 9. Hakan checks: 18 − 9 = 9. Yes!', caption: '18 − 9 = 9' },
+            { title: 'Master the Move', visual: { type: 'two-ten-frames', filledA: 10, filledB: 0 }, text: 'Subtract 10 (super easy), then PUT ONE BACK. Hakan loves the −9 trick!', caption: '−9 = −10 + 1' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 9 }, prompt: 'Hakan does 10 − 9. Answer?', answer: 1, hint: '10 − 10 = 0. Plus 1 back = 1!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 11, b: 9 }, prompt: 'Hakan does 11 − 9. Answer?', answer: 2, hint: '11 − 10 = 1. Plus 1 = 2!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 12, b: 9 }, prompt: 'Hakan thinks 12 − 10 + 1. Answer?', answer: 3, hint: '12 − 10 = 2. Add 1 back = 3!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 13, b: 9 }, prompt: 'Hakan does 13 − 9. Answer?', answer: 4, hint: '13 − 10 = 3. Plus 1 = 4!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 14, b: 9 }, prompt: 'Hakan uses the −9 trick on 14 − 9. Answer?', answer: 5, hint: '14 − 10 = 4. Add 1 = 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 15, b: 9 }, prompt: 'Hakan does 15 − 9. Answer?', answer: 6, hint: '15 − 10 = 5. Plus 1 = 6!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 16, b: 9 }, prompt: 'Hakan thinks 16 − 10 + 1. Answer?', answer: 7, hint: '6 + 1 = 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 18, b: 9 }, prompt: 'Hakan does 18 − 9. Answer?', answer: 9, hint: '18 − 10 = 8. Plus 1 = 9!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 11, b: 9 }, prompt: 'Hakan does 11 − 9. Answer?', answer: 2 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 13, b: 9 }, prompt: 'Hakan thinks 13 − 10 + 1. Answer?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 15, b: 9 }, prompt: 'Fifteen minus nine?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 17, b: 9 }, prompt: 'Hakan uses the trick for 17 − 9. Answer?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 12, b: 9 }, prompt: 'Hakan does 12 − 9. Answer?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 14, b: 9 }, prompt: 'Fourteen minus nine?', answer: 5 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 16, b: 9 }, prompt: 'Hakan does 16 − 9 with −10 + 1. Answer?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 19, b: 9 }, prompt: 'Hakan does 19 − 9. Answer?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 18, b: 9 }, prompt: 'Eighteen minus nine?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 20, b: 9 }, prompt: 'Hakan does 20 − 9. Answer?', answer: 11 },
+        ],
+    },
+
+    // ========================================================================
+    // 10. COMPENSATION
+    // ========================================================================
+    {
+        id: 'compensation',
+        title: 'Compensation: Round and Adjust',
+        emoji: '⚖️',
+        category: 'B',
+        kind: 'generic',
+        description: 'Round to an easy number, then adjust the answer.',
+        lesson: [
+            { title: "Hakan's Round-Up Trick", visual: { type: 'two-digit-add', a: 47, b: 5 }, text: 'For 47 + 5, Hakan adds 3 to make it 50. Now 50 + 5 = 55. Then he takes the extra 3 off: 52!', caption: '47 + 5 = 50 + 5 − 3 = 52' },
+            { title: 'Why It Helps', visual: { type: 'two-digit-num', n: 50 }, text: 'Round numbers like 50 are EASY to add. Hakan moves to a friendly number first.', caption: '50 is friendly' },
+            { title: 'Try 18 + 4', visual: { type: 'two-digit-add', a: 18, b: 4 }, text: 'Hakan adds 2 to make 18 → 20. Now 20 + 4 = 24. Take off the 2: 22!', caption: '18 + 4 = 20 + 4 − 2 = 22' },
+            { title: 'Try 29 + 5', visual: { type: 'two-digit-add', a: 29, b: 5 }, text: 'Hakan adds 1 to make 29 → 30. Now 30 + 5 = 35. Take off 1: 34!', caption: '29 + 5 = 30 + 5 − 1 = 34' },
+            { title: 'Try 39 + 4', visual: { type: 'two-digit-add', a: 39, b: 4 }, text: '39 needs 1 to be 40. Hakan does 40 + 4 = 44. Minus 1 = 43!', caption: '39 + 4 = 43' },
+            { title: 'Try 48 + 6', visual: { type: 'two-digit-add', a: 48, b: 6 }, text: '48 + 2 = 50. Then 50 + 6 = 56. But Hakan added 2 extra so he takes 2 off: 54!', caption: '48 + 6 = 54' },
+            { title: 'The Two Steps', visual: { type: 'sequence', nums: [50, 55, 52], missingIndex: -1 }, text: 'Step 1: round up to a friendly number. Step 2: subtract what you added.', caption: 'Round up, take back' },
+            { title: "Hakan's Smart Math", visual: { type: 'two-digit-add', a: 19, b: 5 }, text: 'Hakan rounds, adds, then adjusts. He turns hard problems into easy ones!', caption: 'Easy = round + adjust' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 19, b: 4 }, prompt: 'Hakan rounds 19 to 20. What is 19 + 4?', answer: 23, hint: '20 + 4 = 24. Minus 1 = 23!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 18, b: 5 }, prompt: 'Hakan adds 2 to round up. What is 18 + 5?', answer: 23, hint: '20 + 5 = 25. Take 2 off = 23!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 29, b: 4 }, prompt: 'Hakan rounds 29 to 30. Answer for 29 + 4?', answer: 33, hint: '30 + 4 = 34. Minus 1 = 33!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 38, b: 5 }, prompt: 'Hakan rounds 38 to 40. What is 38 + 5?', answer: 43, hint: '40 + 5 = 45. Take 2 off = 43!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 47, b: 4 }, prompt: 'Hakan rounds 47 to 50. What is 47 + 4?', answer: 51, hint: '50 + 4 = 54. Minus 3 = 51!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 49, b: 5 }, prompt: 'Hakan rounds 49 up. Answer for 49 + 5?', answer: 54, hint: '50 + 5 = 55. Minus 1 = 54!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 28, b: 6 }, prompt: 'Hakan rounds 28 to 30. Answer?', answer: 34, hint: '30 + 6 = 36. Minus 2 = 34!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 39, b: 5 }, prompt: 'Hakan rounds 39 to 40. Answer for 39 + 5?', answer: 44, hint: '40 + 5 = 45. Minus 1 = 44!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 19, b: 3 }, prompt: 'Hakan rounds 19 to 20. Answer for 19 + 3?', answer: 22 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 29, b: 5 }, prompt: 'Hakan rounds and adjusts. 29 + 5?', answer: 34 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 18, b: 4 }, prompt: 'Eighteen plus four?', answer: 22 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 39, b: 4 }, prompt: 'Thirty-nine plus four?', answer: 43 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 48, b: 5 }, prompt: 'Hakan rounds 48 to 50. Answer for 48 + 5?', answer: 53 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 28, b: 4 }, prompt: 'Hakan rounds 28 up. 28 + 4?', answer: 32 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 47, b: 6 }, prompt: 'Forty-seven plus six?', answer: 53 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 59, b: 4 }, prompt: 'Hakan rounds 59. 59 + 4?', answer: 63 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 38, b: 6 }, prompt: 'Thirty-eight plus six?', answer: 44 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 49, b: 6 }, prompt: 'Hakan rounds 49 to 50. 49 + 6?', answer: 55 },
+        ],
+    },
+
+    // ========================================================================
+    // 11. NUMBER BOND MASTERY (within 10)
+    // ========================================================================
+    {
+        id: 'number-bond-10',
+        title: 'Number Bonds Within 10',
+        emoji: '🔗',
+        category: 'B',
+        kind: 'generic',
+        description: 'Two parts that join to make 10.',
+        lesson: [
+            { title: "Hakan's Number Bonds", visual: { type: 'ten-frame', count: 10 }, text: 'A number bond is TWO PARTS that make a whole. For 10, the bonds are: 0&10, 1&9, 2&8, 3&7, 4&6, 5&5.', caption: '10 = part + part' },
+            { title: '5 + 5 Bond', visual: { type: 'two-ten-frames', filledA: 5, filledB: 5 }, text: 'Hakan starts with the easiest bond: 5 + 5 = 10. He says it twice and remembers!', caption: '5 + 5 = 10' },
+            { title: '6 + 4 Bond', visual: { type: 'ten-frame', count: 6 }, text: 'Hakan sees 6 dots. He needs 4 more to fill the ten-frame. So 6 + 4 = 10!', caption: '6 + 4 = 10' },
+            { title: '7 + 3 Bond', visual: { type: 'ten-frame', count: 7 }, text: '7 dots fill most of the frame. Hakan counts 3 empty spaces. So 7 + 3 = 10!', caption: '7 + 3 = 10' },
+            { title: '8 + 2 Bond', visual: { type: 'ten-frame', count: 8 }, text: '8 dots, 2 empty boxes. Hakan knows 8 + 2 = 10!', caption: '8 + 2 = 10' },
+            { title: '9 + 1 Bond', visual: { type: 'ten-frame', count: 9 }, text: 'Almost full! Just 1 empty. So 9 + 1 = 10!', caption: '9 + 1 = 10' },
+            { title: 'Bonds Help Subtract', visual: { type: 'two-ten-frames', filledA: 7, filledB: 3 }, text: 'If Hakan knows 7 + 3 = 10, he also knows 10 − 7 = 3 and 10 − 3 = 7. Bonds work both ways!', caption: 'Bonds = +/− pairs' },
+            { title: 'Memorize These!', visual: { type: 'sequence', nums: [1, 2, 3, 4, 5, 6, 7, 8, 9], missingIndex: -1 }, text: 'Hakan practices number bonds every day. They are SUPER POWERS for math!', caption: 'Bonds = math power' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'ten-frame', count: 1 }, prompt: 'One and how many makes ten? Hakan needs?', answer: 9, hint: '1 + 9 = 10. Hakan counted the empty squares!' },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 2 }, prompt: 'Two plus what equals ten? Hakan thinks...', answer: 8, hint: '2 + 8 = 10!' },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 3 }, prompt: 'Hakan has 3. How many more for 10?', answer: 7, hint: '3 + 7 = 10!' },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 4 }, prompt: 'Four plus what makes ten?', answer: 6, hint: '4 + 6 = 10!' },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 5 }, prompt: 'Hakan has 5. How many to fill the ten-frame?', answer: 5, hint: '5 + 5 = 10!' },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 6 }, prompt: 'Six plus what equals ten?', answer: 4, hint: '6 + 4 = 10!' },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 7 }, prompt: 'Hakan needs to make 10 from 7. Plus what?', answer: 3, hint: '7 + 3 = 10!' },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 8 }, prompt: 'Eight plus what makes ten?', answer: 2, hint: '8 + 2 = 10!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'ten-frame', count: 9 }, prompt: 'Hakan has 9. How many more for 10?', answer: 1 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 6 }, prompt: 'Six plus what makes ten?', answer: 4 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 3 }, prompt: 'Hakan has 3. Bond partner?', answer: 7 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 5 }, prompt: 'Five plus five equals?', answer: 10 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 2 }, prompt: 'Hakan needs to fill 2 to 10. How many more?', answer: 8 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 7 }, prompt: 'Seven plus what is ten?', answer: 3 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 4 }, prompt: 'Hakan has 4. Plus what makes 10?', answer: 6 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 8 }, prompt: 'Eight plus two?', answer: 10 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 1 }, prompt: 'Hakan has 1. Bond partner to make 10?', answer: 9 },
+            { type: 'numeric', visual: { type: 'ten-frame', count: 0 }, prompt: 'Zero plus what makes ten?', answer: 10 },
+        ],
+    },
+
+    // ========================================================================
+    // 12. NUMBER BOND MASTERY (within 20)
+    // ========================================================================
+    {
+        id: 'number-bond-20',
+        title: 'Number Bonds Within 20',
+        emoji: '🔗',
+        category: 'B',
+        kind: 'generic',
+        description: 'Two parts that make 20.',
+        lesson: [
+            { title: "Hakan's Bigger Bonds", visual: { type: 'two-ten-frames', filledA: 10, filledB: 10 }, text: 'For 20, Hakan needs TWO ten-frames. The bonds: 10+10, 11+9, 12+8, 13+7... and more!', caption: '20 = part + part' },
+            { title: '10 + 10 = 20', visual: { type: 'two-ten-frames', filledA: 10, filledB: 10 }, text: 'The simplest bond for 20: ten plus ten. Hakan locks this in his memory!', caption: '10 + 10 = 20' },
+            { title: '11 + 9 = 20', visual: { type: 'two-ten-frames', filledA: 11, filledB: 9 }, text: 'Hakan thinks: 11 needs 9 more to make 20. Just like the 10-bond, but +1 +(-1).', caption: '11 + 9 = 20' },
+            { title: '15 + 5 = 20', visual: { type: 'two-ten-frames', filledA: 15, filledB: 5 }, text: '15 needs 5 to make 20. Just like 5 + 15 = 20!', caption: '15 + 5 = 20' },
+            { title: 'Use 10-Bonds', visual: { type: 'two-ten-frames', filledA: 13, filledB: 7 }, text: 'Hakan remembers: 3 + 7 = 10. So 13 + 7 = 20! He just adds 10 to one side.', caption: '13 + 7 = 20' },
+            { title: '12 + 8 = 20', visual: { type: 'two-ten-frames', filledA: 12, filledB: 8 }, text: 'Hakan knows 2 + 8 = 10. So 12 + 8 = 20! Same bond, +10!', caption: '12 + 8 = 20' },
+            { title: 'Bonds Both Ways', visual: { type: 'two-ten-frames', filledA: 14, filledB: 6 }, text: '14 + 6 = 20. So 20 − 14 = 6 too. Hakan uses bonds for adding AND subtracting!', caption: 'Works both ways' },
+            { title: 'Power Bonds', visual: { type: 'two-ten-frames', filledA: 18, filledB: 2 }, text: '18 + 2 = 20. Hakan loves bonds — they make every problem fast!', caption: 'Bonds = fast math' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 10, filledB: 0 }, prompt: 'Ten plus what makes twenty? Hakan thinks...', answer: 10, hint: '10 + 10 = 20!' },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 11, filledB: 0 }, prompt: 'Hakan has 11. How many more for 20?', answer: 9, hint: '1 + 9 = 10, so 11 + 9 = 20!' },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 12, filledB: 0 }, prompt: 'Twelve plus what equals twenty?', answer: 8, hint: '2 + 8 = 10, so 12 + 8 = 20!' },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 13, filledB: 0 }, prompt: 'Hakan has 13. Bond partner to make 20?', answer: 7, hint: '13 + 7 = 20!' },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 14, filledB: 0 }, prompt: 'Fourteen plus what is twenty?', answer: 6, hint: '14 + 6 = 20!' },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 15, filledB: 0 }, prompt: 'Hakan has 15. How many to make 20?', answer: 5, hint: '15 + 5 = 20!' },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 17, filledB: 0 }, prompt: 'Seventeen plus what equals twenty?', answer: 3, hint: '17 + 3 = 20!' },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 18, filledB: 0 }, prompt: 'Hakan has 18. Bond partner?', answer: 2, hint: '18 + 2 = 20!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 16, filledB: 0 }, prompt: 'Hakan has 16. How many more for 20?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 11, filledB: 0 }, prompt: 'Eleven plus what makes twenty?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 14, filledB: 0 }, prompt: 'Hakan has 14. Bond to 20?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 13, filledB: 0 }, prompt: 'Thirteen plus what equals twenty?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 19, filledB: 0 }, prompt: 'Hakan has 19. How many for 20?', answer: 1 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 12, filledB: 0 }, prompt: 'Twelve plus what makes twenty?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 15, filledB: 0 }, prompt: 'Hakan has 15. Bond partner?', answer: 5 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 17, filledB: 0 }, prompt: 'Seventeen plus what is twenty?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 10, filledB: 0 }, prompt: 'Hakan has 10. Bond to 20?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-ten-frames', filledA: 18, filledB: 0 }, prompt: 'Eighteen plus what makes twenty?', answer: 2 },
+        ],
+    },
+
+    // ========================================================================
+    // 13. FACT FAMILY 3-5-8
+    // ========================================================================
+    {
+        id: 'fact-family-3-5-8',
+        title: 'Fact Family: 3, 5, 8',
+        emoji: '🔺',
+        category: 'B',
+        kind: 'generic',
+        description: 'Four facts from one triangle: 3, 5, and 8.',
+        lesson: [
+            { title: "Hakan's Number Triangle", visual: { type: 'shape', name: 'triangle' }, text: 'Hakan draws a triangle. 8 sits on top (the BIG number). 3 and 5 sit at the bottom corners.', caption: '8 on top, 3 & 5 below' },
+            { title: 'Fact 1: 3 + 5 = 8', visual: { type: 'two-digit-add', a: 3, b: 5 }, text: 'Hakan adds the two small ones to get the big one. 3 + 5 = 8.', caption: '3 + 5 = 8' },
+            { title: 'Fact 2: 5 + 3 = 8', visual: { type: 'two-digit-add', a: 5, b: 3 }, text: 'Hakan flips it: 5 + 3 also equals 8. Order does not matter for adding!', caption: '5 + 3 = 8' },
+            { title: 'Fact 3: 8 − 3 = 5', visual: { type: 'two-digit-add', a: 8, b: 3 }, text: 'Big minus one small = the other small. Hakan does 8 − 3 = 5.', caption: '8 − 3 = 5' },
+            { title: 'Fact 4: 8 − 5 = 3', visual: { type: 'two-digit-add', a: 8, b: 5 }, text: 'Big minus the OTHER small = first small. Hakan does 8 − 5 = 3.', caption: '8 − 5 = 3' },
+            { title: 'All Four Facts', visual: { type: 'sequence', nums: [3, 5, 8], missingIndex: -1 }, text: 'From one triangle, Hakan gets FOUR facts: 3+5, 5+3, 8−3, 8−5. Power!', caption: '4 facts, one triangle' },
+            { title: 'Find the Missing', visual: { type: 'two-digit-add', a: 3, b: 5 }, text: 'If Hakan sees 3 + ? = 8, he knows the family! The answer is 5.', caption: '3 + ? = 8 → 5' },
+            { title: 'Hakan Knows', visual: { type: 'shape', name: 'triangle' }, text: 'Memorize the family 3-5-8. Hakan instantly knows all 4 facts!', caption: 'Family: 3, 5, 8' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 5 }, prompt: 'Hakan adds three plus five. Answer?', answer: 8, hint: '3 + 5 = 8. Family: 3-5-8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 3 }, prompt: 'Five plus three?', answer: 8, hint: 'Same as 3 + 5. It is 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 3 }, prompt: 'Hakan does eight minus three. Answer?', answer: 5, hint: 'Family 3-5-8: 8 − 3 = 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Eight minus five?', answer: 3, hint: 'Family 3-5-8: 8 − 5 = 3!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 5 }, prompt: 'Hakan thinks: 3 + ? = 8. What goes in the box?', answer: 5, hint: 'Family 3-5-8! The missing is 5.' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 3 }, prompt: 'Hakan thinks: 5 + ? = 8. Missing?', answer: 3, hint: 'Family 3-5-8! Missing is 3.' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 0 }, prompt: 'Hakan knows 8 = 3 + ?. What is the partner?', answer: 5, hint: '3 + 5 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 0 }, prompt: '8 minus what equals 3? Hakan thinks...', answer: 5, hint: '8 − 5 = 3!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 5 }, prompt: 'Hakan adds 3 + 5. Answer?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 3 }, prompt: 'Five plus three?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 3 }, prompt: 'Hakan does 8 − 3. Answer?', answer: 5 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Eight minus five?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 5 }, prompt: 'Hakan: 3 plus 5 makes the family number?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Hakan does 8 − 5. Answer?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 3 }, prompt: 'Family 3-5-8: 5 + 3 = ?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 3 }, prompt: 'Hakan: 8 − 3 = ?', answer: 5 },
+            { type: 'choice', visual: { type: 'shape', name: 'triangle' }, prompt: 'Hakan sees 3, 5, ?. Which makes a fact family?', choices: ['7', '8', '9'], answerIndex: 1, hint: '3 + 5 = 8. So family is 3-5-8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 5 }, prompt: 'Hakan: 3 + ? = 8. Missing?', answer: 5 },
+        ],
+    },
+
+    // ========================================================================
+    // 14. FACT FAMILY 4-6-10
+    // ========================================================================
+    {
+        id: 'fact-family-4-6-10',
+        title: 'Fact Family: 4, 6, 10',
+        emoji: '🔺',
+        category: 'B',
+        kind: 'generic',
+        description: 'Four facts from one triangle: 4, 6, and 10.',
+        lesson: [
+            { title: "Hakan's Triangle", visual: { type: 'shape', name: 'triangle' }, text: 'Hakan draws a triangle. 10 on top (the BIG one). 4 and 6 in the corners.', caption: '10 on top, 4 & 6 below' },
+            { title: 'Fact 1: 4 + 6 = 10', visual: { type: 'two-ten-frames', filledA: 4, filledB: 6 }, text: 'Hakan adds the two small ones: 4 + 6 = 10. The number bond for 10!', caption: '4 + 6 = 10' },
+            { title: 'Fact 2: 6 + 4 = 10', visual: { type: 'two-ten-frames', filledA: 6, filledB: 4 }, text: 'Hakan flips: 6 + 4 = 10 too!', caption: '6 + 4 = 10' },
+            { title: 'Fact 3: 10 − 4 = 6', visual: { type: 'two-digit-add', a: 10, b: 4 }, text: 'Big minus small = other small. 10 − 4 = 6.', caption: '10 − 4 = 6' },
+            { title: 'Fact 4: 10 − 6 = 4', visual: { type: 'two-digit-add', a: 10, b: 6 }, text: 'Hakan does 10 − 6 = 4.', caption: '10 − 6 = 4' },
+            { title: 'All 4 Facts', visual: { type: 'sequence', nums: [4, 6, 10], missingIndex: -1 }, text: 'From the family 4-6-10, Hakan gets: 4+6, 6+4, 10−4, 10−6. Four facts!', caption: '4 facts!' },
+            { title: 'Power of Bonds', visual: { type: 'ten-frame', count: 4 }, text: 'Hakan loves this family because 4 + 6 = 10 is a number bond. Bonds are super powers!', caption: '4 + 6 = bond of 10' },
+            { title: 'Memorize It', visual: { type: 'shape', name: 'triangle' }, text: 'Family 4-6-10. Hakan rolls it on his tongue: four-six-ten, four-six-ten!', caption: 'Family: 4, 6, 10' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 6 }, prompt: 'Hakan adds 4 + 6. Answer?', answer: 10, hint: 'Family 4-6-10: 4 + 6 = 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 4 }, prompt: 'Six plus four?', answer: 10, hint: '6 + 4 = 10. Same family!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 4 }, prompt: 'Hakan does 10 − 4. Answer?', answer: 6, hint: 'Family 4-6-10: 10 − 4 = 6!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 6 }, prompt: 'Ten minus six?', answer: 4, hint: 'Family 4-6-10: 10 − 6 = 4!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 6 }, prompt: 'Hakan: 4 + ? = 10. Missing?', answer: 6, hint: 'Family 4-6-10. Missing is 6!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 4 }, prompt: 'Hakan: 6 + ? = 10. Missing?', answer: 4, hint: 'Family 4-6-10. Missing is 4!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 4 }, prompt: '10 − ? = 6. Hakan thinks...', answer: 4, hint: 'From family 4-6-10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 6 }, prompt: '10 − ? = 4. Answer?', answer: 6, hint: 'Family 4-6-10!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 6 }, prompt: 'Hakan does 4 + 6. Answer?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 4 }, prompt: '6 + 4?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 4 }, prompt: 'Hakan: 10 − 4. Answer?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 6 }, prompt: '10 − 6?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 6 }, prompt: 'Hakan: 4 plus 6 makes?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 4 }, prompt: 'Hakan: ten minus four?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 4 }, prompt: 'Family 4-6-10: 6 + 4 = ?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 6 }, prompt: 'Hakan: 10 − 6 = ?', answer: 4 },
+            { type: 'choice', visual: { type: 'shape', name: 'triangle' }, prompt: 'Hakan sees 4, 6, ?. Family number?', choices: ['9', '10', '11'], answerIndex: 1, hint: '4 + 6 = 10. Family is 4-6-10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 6 }, prompt: 'Hakan: 4 + ? = 10. Missing?', answer: 6 },
+        ],
+    },
+
+    // ========================================================================
+    // 15. MENTAL MATH WITHIN 10
+    // ========================================================================
+    {
+        id: 'mental-math-10',
+        title: 'Mental Math Within 10',
+        emoji: '🧠',
+        category: 'B',
+        kind: 'generic',
+        description: 'Solve in your head — no fingers needed!',
+        lesson: [
+            { title: "Hakan's Brain Power", visual: { type: 'bignum', n: 10 }, text: 'Mental math means math IN YOUR HEAD. No fingers, no paper. Hakan trains his brain to be FAST!', caption: 'Brain only!' },
+            { title: 'Tip 1: Use Doubles', visual: { type: 'two-digit-add', a: 4, b: 4 }, text: 'Hakan memorizes doubles: 1+1, 2+2, 3+3, 4+4, 5+5. Then he uses doubles to figure out other facts.', caption: 'Doubles in memory' },
+            { title: 'Tip 2: Use Bonds of 10', visual: { type: 'ten-frame', count: 10 }, text: 'Hakan knows: 1+9, 2+8, 3+7, 4+6, 5+5. These are FAST and easy.', caption: '10-bonds = fast' },
+            { title: 'Tip 3: Plus 0 or 1', visual: { type: 'two-digit-add', a: 7, b: 1 }, text: 'Plus 0 = same number. Plus 1 = next number. Hakan answers in a flash!', caption: '+0 same, +1 next' },
+            { title: 'See It in Your Head', visual: { type: 'two-digit-add', a: 6, b: 3 }, text: 'For 6 + 3, Hakan PICTURES a ten-frame in his mind. Six dots... add three more... 9!', caption: 'Picture it' },
+            { title: 'Practice Daily', visual: { type: 'two-digit-add', a: 5, b: 4 }, text: 'Hakan does 5 problems every morning in his head. Soon he is super fast!', caption: '5 a day' },
+            { title: 'Speed = Accuracy', visual: { type: 'sequence', nums: [3, 5, 7, 9], missingIndex: -1 }, text: 'Hakan goes for ACCURACY first, speed second. Right answer slow > fast wrong!', caption: 'Right first, fast next' },
+            { title: 'You Can Do It!', visual: { type: 'bignum', n: 10 }, text: 'Hakan is becoming a mental math master. Every problem makes his brain stronger!', caption: 'Brain workout' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 3 }, prompt: 'Hakan in his head: 2 + 3?', answer: 5, hint: '2 + 2 = 4. One more = 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 4 }, prompt: 'Hakan does 4 + 4 fast. Answer?', answer: 8, hint: 'Double 4 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 3 }, prompt: 'Hakan thinks: 6 + 3?', answer: 9, hint: 'Count up 3 from 6: 7, 8, 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 4 }, prompt: '5 + 4 in your head?', answer: 9, hint: 'Doubles − 1: 5+5=10, minus 1 = 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 2 }, prompt: 'Hakan does 7 + 2 fast. Answer?', answer: 9, hint: 'From 7: 8, 9. Hakan got 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 1 }, prompt: '8 + 1 in your head?', answer: 9, hint: 'Plus 1 = next number = 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 6 }, prompt: 'Hakan thinks: 3 + 6?', answer: 9, hint: 'Bond: 3 + 7 = 10, so 3 + 6 = 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 5 }, prompt: 'Hakan does 5 + 5 fast. Answer?', answer: 10, hint: 'Doubles: 5 + 5 = 10!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 4 }, prompt: 'Hakan in his head: 3 + 4?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 4 }, prompt: '6 + 4?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 3 }, prompt: 'Hakan does 7 + 3 fast. Answer?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 5 }, prompt: '4 + 5 in your head?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 7 }, prompt: 'Hakan thinks: 2 + 7?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 2 }, prompt: '8 + 2?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 8 }, prompt: 'Hakan does 1 + 8 fast. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 1 }, prompt: '9 + 1?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 3 }, prompt: 'Hakan does 3 + 3. Answer?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 2 }, prompt: '6 + 2 in your head?', answer: 8 },
+        ],
+    },
+
+    // ========================================================================
+    // 16. SPEED DRILL: PLUS FACTS TO 5
+    // ========================================================================
+    {
+        id: 'speed-plus-5',
+        title: 'Speed Drill: Plus Facts to 5',
+        emoji: '⚡',
+        category: 'B',
+        kind: 'generic',
+        description: 'Race through every plus fact up to 5.',
+        lesson: [
+            { title: "Hakan's Speed Drill", visual: { type: 'bignum', n: 5 }, text: 'Today Hakan trains plus facts up to 5. He learns to ANSWER WITHOUT THINKING!', caption: 'Fast facts!' },
+            { title: '0 + Anything', visual: { type: 'two-digit-add', a: 0, b: 4 }, text: 'Plus zero is FREE. The other number stays. 0 + 4 = 4!', caption: '+0 = same' },
+            { title: '1 + Anything', visual: { type: 'two-digit-add', a: 1, b: 4 }, text: 'Plus 1 is the NEXT NUMBER. 1 + 4 = 5!', caption: '+1 = next' },
+            { title: '2 + Anything', visual: { type: 'two-digit-add', a: 2, b: 3 }, text: 'Plus 2 is two hops. Hakan knows: 2 + 1 = 3, 2 + 2 = 4, 2 + 3 = 5.', caption: '+2 = 2 hops' },
+            { title: 'The Doubles', visual: { type: 'two-digit-add', a: 2, b: 2 }, text: 'Hakan memorizes: 1+1=2, 2+2=4. Doubles are easy and fast!', caption: 'Doubles' },
+            { title: 'Bond Pairs', visual: { type: 'two-digit-add', a: 2, b: 3 }, text: 'Hakan knows pairs that make 5: 0+5, 1+4, 2+3. These he says FAST!', caption: 'Bonds of 5' },
+            { title: 'Drill Mode', visual: { type: 'sequence', nums: [1, 2, 3, 4, 5], missingIndex: -1 }, text: 'Hakan answers as fast as he can. If unsure, he counts on his fingers ONE TIME, then memorizes.', caption: 'Speed up' },
+            { title: 'You Are Fast!', visual: { type: 'bignum', n: 5 }, text: 'Hakan is becoming a plus-facts champion! Every drill makes him faster.', caption: 'Champion!' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 0, b: 5 }, prompt: 'Hakan: 0 + 5?', answer: 5, hint: 'Plus zero stays the same!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 4 }, prompt: 'Hakan: 1 + 4 fast. Answer?', answer: 5, hint: 'Plus 1 = next number!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 3 }, prompt: 'Hakan: 2 + 3?', answer: 5, hint: 'Bond of 5: 2 + 3 = 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 2 }, prompt: 'Hakan: 3 + 2?', answer: 5, hint: 'Same as 2 + 3. It is 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 1 }, prompt: 'Hakan: 1 + 1 fast. Answer?', answer: 2, hint: 'Double 1 = 2!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 2 }, prompt: 'Hakan: 2 + 2?', answer: 4, hint: 'Double 2 = 4!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 1 }, prompt: 'Hakan: 3 + 1?', answer: 4, hint: 'Plus 1 = next number = 4!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 1 }, prompt: 'Hakan: 4 + 1 fast. Answer?', answer: 5, hint: 'Next after 4 = 5!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 2 }, prompt: 'Hakan: 1 + 2?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 0 }, prompt: 'Hakan: 2 + 0?', answer: 2 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 2 }, prompt: '3 + 2?', answer: 5 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 0 }, prompt: 'Hakan: 4 + 0?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 0, b: 3 }, prompt: '0 + 3?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 3 }, prompt: 'Hakan: 1 + 3 fast. Answer?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 2 }, prompt: '2 + 2?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 1, b: 4 }, prompt: 'Hakan: 1 + 4?', answer: 5 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 0, b: 5 }, prompt: 'Hakan: 0 + 5?', answer: 5 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 0 }, prompt: '3 + 0?', answer: 3 },
+        ],
+    },
+
+    // ========================================================================
+    // 17. SPEED DRILL: PLUS FACTS TO 10
+    // ========================================================================
+    {
+        id: 'speed-plus-10',
+        title: 'Speed Drill: Plus Facts to 10',
+        emoji: '⚡',
+        category: 'B',
+        kind: 'generic',
+        description: 'Race through every plus fact up to 10.',
+        lesson: [
+            { title: "Hakan's Big Speed Drill", visual: { type: 'bignum', n: 10 }, text: 'Now Hakan tackles bigger plus facts — up to 10! Lots of facts to memorize.', caption: 'Up to 10' },
+            { title: 'The 5 Bonds', visual: { type: 'two-digit-add', a: 4, b: 6 }, text: 'Hakan knows the 10-bonds: 0+10, 1+9, 2+8, 3+7, 4+6, 5+5. Six pairs!', caption: 'Bonds of 10' },
+            { title: 'Doubles to 10', visual: { type: 'two-digit-add', a: 5, b: 5 }, text: 'Doubles up to 10: 1+1=2, 2+2=4, 3+3=6, 4+4=8, 5+5=10. Hakan knows them cold.', caption: 'Doubles' },
+            { title: 'Doubles + 1', visual: { type: 'two-digit-add', a: 4, b: 5 }, text: 'For 4 + 5, Hakan thinks 4 + 4 = 8, plus 1 = 9. Faster than counting!', caption: 'Doubles + 1' },
+            { title: 'Counting On', visual: { type: 'two-digit-add', a: 7, b: 2 }, text: 'For 7 + 2, Hakan starts at 7, counts up: 8, 9. Always start with the bigger!', caption: 'Count from bigger' },
+            { title: '+0, +1 Tricks', visual: { type: 'two-digit-add', a: 6, b: 1 }, text: 'Plus zero stays same. Plus one is the next number. Two free tricks!', caption: '+0, +1 = free' },
+            { title: 'Drill It', visual: { type: 'sequence', nums: [3, 4, 5, 6, 7, 8, 9, 10], missingIndex: -1 }, text: 'Hakan does 10 facts in a row, fast as he can. Then again. And again!', caption: 'Repeat = speed' },
+            { title: 'Champion Mode', visual: { type: 'bignum', n: 10 }, text: 'Soon Hakan will know every fact to 10 instantly. He is unstoppable!', caption: 'Champion!' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 3 }, prompt: 'Hakan: 6 + 3 fast. Answer?', answer: 9, hint: 'Count up from 6: 7, 8, 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 5 }, prompt: 'Hakan: 4 + 5?', answer: 9, hint: '4 + 4 = 8, plus 1 = 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 3 }, prompt: 'Hakan: 7 + 3 fast. Answer?', answer: 10, hint: 'Bond of 10: 7 + 3 = 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 5 }, prompt: 'Hakan: 5 + 5?', answer: 10, hint: 'Doubles: 5 + 5 = 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 2 }, prompt: 'Hakan: 8 + 2?', answer: 10, hint: 'Bond: 8 + 2 = 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 4 }, prompt: 'Hakan: 6 + 4 fast. Answer?', answer: 10, hint: 'Bond: 6 + 4 = 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 1 }, prompt: 'Hakan: 9 + 1?', answer: 10, hint: 'Bond: 9 + 1 = 10!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 4 }, prompt: 'Hakan: 3 + 4 fast. Answer?', answer: 7, hint: 'Doubles + 1: 3+3=6, plus 1 = 7!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 3 }, prompt: 'Hakan: 5 + 3?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 6 }, prompt: '4 + 6?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 2 }, prompt: 'Hakan: 7 + 2 fast. Answer?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 3 }, prompt: '6 + 3?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 4 }, prompt: 'Hakan: 5 + 4?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 1 }, prompt: '8 + 1?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 4 }, prompt: 'Hakan: 4 + 4?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 7 }, prompt: '3 + 7?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 6 }, prompt: 'Hakan: 2 + 6 fast. Answer?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 2 }, prompt: '6 + 2?', answer: 8 },
+        ],
+    },
+
+    // ========================================================================
+    // 18. SPEED DRILL: MINUS FACTS TO 10
+    // ========================================================================
+    {
+        id: 'speed-minus-10',
+        title: 'Speed Drill: Minus Facts to 10',
+        emoji: '⚡',
+        category: 'C',
+        kind: 'generic',
+        description: 'Race through every minus fact up to 10.',
+        lesson: [
+            { title: "Hakan's Minus Drill", visual: { type: 'bignum', n: 10 }, text: 'Now subtraction speed drill. Hakan trains minus facts up to 10!', caption: 'Minus drill' },
+            { title: 'Minus 0 = Same', visual: { type: 'two-digit-add', a: 7, b: 0 }, text: 'Minus zero changes nothing. 7 − 0 = 7. Free trick!', caption: '−0 = same' },
+            { title: 'Minus 1 = Before', visual: { type: 'two-digit-add', a: 8, b: 1 }, text: 'Minus 1 = the number BEFORE. 8 − 1 = 7. Easy!', caption: '−1 = before' },
+            { title: 'Use Bonds', visual: { type: 'two-ten-frames', filledA: 7, filledB: 3 }, text: 'Hakan knows 7 + 3 = 10. So 10 − 7 = 3 and 10 − 3 = 7. Bonds work BOTH ways!', caption: 'Bonds = subtract too' },
+            { title: 'Use Doubles', visual: { type: 'two-digit-add', a: 8, b: 4 }, text: 'Hakan knows 4 + 4 = 8. So 8 − 4 = 4. Doubles help here too!', caption: 'Doubles backwards' },
+            { title: 'Count Back', visual: { type: 'numberline', from: 0, to: 10, mark: 4 }, text: 'For 9 − 5, Hakan starts at 9 and hops back 5: 8, 7, 6, 5, 4. Answer 4!', caption: 'Hop back' },
+            { title: 'Drill Time', visual: { type: 'sequence', nums: [10, 8, 6, 4, 2], missingIndex: -1 }, text: 'Hakan blasts through 10 minus facts. Then again. He gets faster each time!', caption: 'Repeat to speed' },
+            { title: 'You Got Speed!', visual: { type: 'bignum', n: 10 }, text: 'Hakan is becoming a minus master. Subtract is just as fast as adding!', caption: 'Minus master' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 3 }, prompt: 'Hakan: 10 − 3 fast. Answer?', answer: 7, hint: 'Bond: 3 + 7 = 10. So 10 − 3 = 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 5 }, prompt: 'Hakan: 10 − 5?', answer: 5, hint: 'Doubles: 5 + 5 = 10. Half is 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 4 }, prompt: 'Hakan: 9 − 4?', answer: 5, hint: 'Hop back 4 from 9: 8, 7, 6, 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 3 }, prompt: 'Hakan: 8 − 3 fast. Answer?', answer: 5, hint: 'From 8: 7, 6, 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 2 }, prompt: 'Hakan: 7 − 2?', answer: 5, hint: 'From 7 hop back 2: 6, 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 7 }, prompt: 'Hakan: 10 − 7?', answer: 3, hint: 'Bond: 7 + 3 = 10. So 10 − 7 = 3!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 3 }, prompt: 'Hakan: 6 − 3?', answer: 3, hint: 'Doubles: 3 + 3 = 6. Half is 3!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 1 }, prompt: 'Hakan: 9 − 1 fast. Answer?', answer: 8, hint: 'Minus 1 = before. 8!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 4 }, prompt: 'Hakan: 8 − 4?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 2 }, prompt: '10 − 2?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 3 }, prompt: 'Hakan: 7 − 3 fast. Answer?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 5 }, prompt: '9 − 5?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 6 }, prompt: 'Hakan: 10 − 6?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 2 }, prompt: '6 − 2?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Hakan: 8 − 5?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 2 }, prompt: '5 − 2?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 3 }, prompt: 'Hakan: 9 − 3 fast. Answer?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 4 }, prompt: '10 − 4?', answer: 6 },
+        ],
+    },
+
+    // ========================================================================
+    // 19. MIXED ADD/SUBTRACT WITHIN 10
+    // ========================================================================
+    {
+        id: 'mixed-add-sub-10',
+        title: 'Mixed Add and Subtract to 10',
+        emoji: '🔀',
+        category: 'B',
+        kind: 'generic',
+        description: 'Switch between plus and minus problems quickly.',
+        lesson: [
+            { title: "Hakan's Mixed Drill", visual: { type: 'bignum', n: 10 }, text: 'Now Hakan switches between PLUS and MINUS problems. He must read the sign carefully!', caption: 'Mixed problems' },
+            { title: 'Read the Sign', visual: { type: 'two-digit-add', a: 5, b: 3 }, text: 'Hakan ALWAYS looks at the sign first. + means add. − means subtract. Different jobs!', caption: 'Sign first!' },
+            { title: 'Plus Job', visual: { type: 'add-groups', a: 4, b: 3, emoji: '🐶' }, text: 'For 4 + 3, Hakan combines: 4 dogs and 3 dogs. 7 dogs total!', caption: '+ = combine' },
+            { title: 'Minus Job', visual: { type: 'take-away', total: 7, taken: 3, emoji: '🐶' }, text: 'For 7 − 3, Hakan takes away 3 from 7. 4 dogs left!', caption: '− = take away' },
+            { title: 'Switch Practice', visual: { type: 'two-digit-add', a: 6, b: 2 }, text: 'Hakan tries 6 + 2 = 8. Then 8 − 2 = 6. Same numbers, different jobs!', caption: 'Same nums, diff signs' },
+            { title: 'Use Fact Families', visual: { type: 'shape', name: 'triangle' }, text: 'If Hakan knows 3 + 4 = 7, he also knows 7 − 3 = 4 and 7 − 4 = 3. Fact families!', caption: 'Family power' },
+            { title: 'Slow Down', visual: { type: 'sequence', nums: [10, 5, 7, 2], missingIndex: -1 }, text: 'When mixed, Hakan slows down to READ each sign. Then he goes fast on the answer.', caption: 'Read, then go!' },
+            { title: 'Mixed Master', visual: { type: 'bignum', n: 10 }, text: 'Hakan handles plus AND minus like a champ. The sign tells him what to do!', caption: 'Mixed champ' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 3 }, prompt: 'Hakan: 4 + 3?', answer: 7, hint: 'Plus: combine. 4 + 3 = 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 3 }, prompt: 'Hakan: 7 − 3?', answer: 4, hint: 'Minus: take away. 7 − 3 = 4!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 2 }, prompt: 'Hakan: 5 + 2?', answer: 7, hint: 'Plus 2 = 2 hops up. 5, 6, 7!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 4 }, prompt: 'Hakan: 9 − 4?', answer: 5, hint: 'Hop back 4 from 9: 8, 7, 6, 5!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 3 }, prompt: 'Hakan: 6 + 3?', answer: 9, hint: 'Count up 3 from 6: 7, 8, 9!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 6 }, prompt: 'Hakan: 10 − 6?', answer: 4, hint: 'Bond: 6 + 4 = 10. So 10 − 6 = 4!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 5 }, prompt: 'Hakan: 3 + 5?', answer: 8, hint: 'Bigger first: 5 + 3. Count: 6, 7, 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Hakan: 8 − 5?', answer: 3, hint: 'Hop back 5: 7, 6, 5, 4, 3!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 4, b: 4 }, prompt: 'Hakan: 4 + 4?', answer: 8 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 2 }, prompt: 'Hakan: 8 − 2?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 4 }, prompt: '6 + 4?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 7 }, prompt: 'Hakan: 10 − 7?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 3, b: 4 }, prompt: 'Hakan: 3 + 4?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 5 }, prompt: '9 − 5?', answer: 4 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 5, b: 5 }, prompt: 'Hakan: 5 + 5?', answer: 10 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 4 }, prompt: '7 − 4?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 2, b: 7 }, prompt: 'Hakan: 2 + 7?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 10, b: 3 }, prompt: 'Hakan: 10 − 3?', answer: 7 },
+        ],
+    },
+
+    // ========================================================================
+    // 20. MIXED ADD/SUBTRACT WITHIN 20
+    // ========================================================================
+    {
+        id: 'mixed-add-sub-20',
+        title: 'Mixed Add and Subtract to 20',
+        emoji: '🔀',
+        category: 'B',
+        kind: 'generic',
+        description: 'Mix plus and minus with bigger numbers.',
+        lesson: [
+            { title: "Hakan's Big Mix", visual: { type: 'bignum', n: 20 }, text: 'Now Hakan handles mixed problems UP TO 20. He uses all his strategies!', caption: 'Up to 20!' },
+            { title: 'Make 10 Helps', visual: { type: 'two-ten-frames', filledA: 8, filledB: 5 }, text: 'For 8 + 5, Hakan makes a 10: 8 + 2 + 3 = 10 + 3 = 13. Make-10 still works!', caption: 'Make 10 trick' },
+            { title: 'Plus 9 Trick', visual: { type: 'two-digit-add', a: 9, b: 7 }, text: 'For 9 + 7, Hakan adds 10 (gets 17), then takes 1 off: 16!', caption: '+9 = +10 −1' },
+            { title: 'Minus 9 Trick', visual: { type: 'two-digit-add', a: 16, b: 9 }, text: 'For 16 − 9, Hakan subtracts 10 (gets 6), then puts 1 back: 7!', caption: '−9 = −10 +1' },
+            { title: 'Doubles to 18', visual: { type: 'two-digit-add', a: 9, b: 9 }, text: 'Hakan knows 9 + 9 = 18, 8 + 8 = 16, 7 + 7 = 14. Big doubles!', caption: 'Big doubles' },
+            { title: 'Stop at 10', visual: { type: 'numberline', from: 0, to: 20, mark: 10 }, text: 'For 14 − 6, Hakan stops at 10: 14 − 4 = 10, then 10 − 2 = 8!', caption: 'Stop at 10' },
+            { title: 'Read the Sign!', visual: { type: 'two-digit-add', a: 13, b: 5 }, text: 'With bigger numbers, Hakan READS THE SIGN carefully. + or −? Then go!', caption: 'Read sign first' },
+            { title: 'Big Number Champ', visual: { type: 'bignum', n: 20 }, text: 'Hakan crushes mixed problems within 20. He has all the tools he needs!', caption: 'Big champ!' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 5 }, prompt: 'Hakan: 8 + 5?', answer: 13, hint: 'Make 10: 8 + 2 + 3 = 13!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 13, b: 5 }, prompt: 'Hakan: 13 − 5?', answer: 8, hint: 'Stop at 10: 13 − 3 = 10, 10 − 2 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 6 }, prompt: 'Hakan: 9 + 6?', answer: 15, hint: '+9 trick: 10 + 6 = 16, minus 1 = 15!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 15, b: 9 }, prompt: 'Hakan: 15 − 9?', answer: 6, hint: '−9 trick: 15 − 10 = 5, plus 1 = 6!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 7 }, prompt: 'Hakan: 7 + 7?', answer: 14, hint: 'Doubles! 7 + 7 = 14!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 14, b: 6 }, prompt: 'Hakan: 14 − 6?', answer: 8, hint: 'Stop at 10: 14 − 4 = 10, 10 − 2 = 8!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 8, b: 8 }, prompt: 'Hakan: 8 + 8?', answer: 16, hint: 'Doubles: 8 + 8 = 16!' },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 17, b: 8 }, prompt: 'Hakan: 17 − 8?', answer: 9, hint: 'Stop at 10: 17 − 7 = 10, 10 − 1 = 9!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 6, b: 7 }, prompt: 'Hakan: 6 + 7?', answer: 13 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 12, b: 5 }, prompt: 'Hakan: 12 − 5?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 8 }, prompt: '9 + 8?', answer: 17 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 16, b: 9 }, prompt: 'Hakan: 16 − 9?', answer: 7 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 9, b: 9 }, prompt: 'Hakan: 9 + 9?', answer: 18 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 18, b: 9 }, prompt: '18 − 9?', answer: 9 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 7, b: 8 }, prompt: 'Hakan: 7 + 8?', answer: 15 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 14, b: 8 }, prompt: '14 − 8?', answer: 6 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 11, b: 8 }, prompt: 'Hakan: 11 − 8?', answer: 3 },
+            { type: 'numeric', visual: { type: 'two-digit-add', a: 13, b: 7 }, prompt: 'Hakan: 13 + 7?', answer: 20 },
+        ],
+    },
+
+    // ========================================================================
+    // 21. HAKAN'S SCHOOL DAY
+    // ========================================================================
+    {
+        id: 'hakans-school-day',
+        title: "Hakan's School Day",
+        emoji: '🎒',
+        category: 'M',
+        kind: 'generic',
+        description: "Math from Hakan's school day, hour by hour.",
+        lesson: [
+            { title: 'Morning Bell', visual: { type: 'clock', hour: 8, minute: 0 }, text: 'School starts at 8 o\'clock. Hakan zips into class with his backpack!', caption: '8:00 — start' },
+            { title: 'Roll Call', visual: { type: 'objects', count: 12, emoji: '🧒' }, text: 'There are 12 kids in Hakan\'s class. The teacher counts them all!', caption: '12 students' },
+            { title: 'Snack Time Math', visual: { type: 'add-groups', a: 3, b: 2, emoji: '🍎' }, text: 'Hakan brought 3 apple slices. His friend gave him 2 more. Now he has 5!', caption: '3 + 2 = 5' },
+            { title: 'Recess Friends', visual: { type: 'objects', count: 6, emoji: '🧒' }, text: 'At recess, Hakan plays with 5 friends. With Hakan that makes 6 kids!', caption: '5 + 1 = 6' },
+            { title: 'Lunch Count', visual: { type: 'take-away', total: 10, taken: 4, emoji: '🥪' }, text: 'The lunchbox had 10 grapes. Hakan ate 4. Six grapes left!', caption: '10 − 4 = 6' },
+            { title: 'Library Books', visual: { type: 'objects', count: 4, emoji: '📚' }, text: 'Hakan picked 4 books at the library. Heavy backpack!', caption: '4 books' },
+            { title: 'Bell Time', visual: { type: 'clock', hour: 3, minute: 0 }, text: 'School ends at 3 o\'clock. Hakan packs up to go home.', caption: '3:00 — done' },
+            { title: 'Day Done!', visual: { type: 'bignum', n: 7 }, text: 'School lasted 7 hours, from 8 to 3. Hakan had a great day!', caption: '7-hour day' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'objects', count: 12, emoji: '🧒' }, prompt: 'Hakan\'s class has 12 kids. 3 are absent today. How many are at school?', answer: 9, hint: '12 − 3 = 9. Hakan counts 9 friends!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 2, emoji: '🍎' }, prompt: 'Hakan packed 4 apple slices. Mom added 2 more. Total slices?', answer: 6, hint: '4 + 2 = 6 slices for Hakan!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 8, taken: 3, emoji: '✏️' }, prompt: 'Hakan has 8 pencils. He gives 3 to his friends. How many left?', answer: 5, hint: '8 − 3 = 5 pencils!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 5, b: 4, emoji: '📚' }, prompt: 'Hakan reads 5 pages, then 4 more. How many pages total?', answer: 9, hint: '5 + 4 = 9 pages!' },
+            { type: 'choice', visual: { type: 'clock', hour: 12, minute: 0 }, prompt: 'Hakan\'s lunch is at 12 o\'clock. What time?', choices: ['11:00', '12:00', '1:00'], answerIndex: 1, hint: 'Both hands on 12 = 12:00!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 10, taken: 6, emoji: '🥕' }, prompt: 'Hakan has 10 carrot sticks. He eats 6. How many left?', answer: 4, hint: '10 − 6 = 4 carrots!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 3, emoji: '🧒' }, prompt: 'Hakan plays tag with 6 kids. 3 more join. How many kids playing?', answer: 9, hint: '6 + 3 = 9 kids!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 5, emoji: '🖍️' }, prompt: 'Hakan has 7 crayons. The teacher gives 5 more. Total?', answer: 12, hint: '7 + 5 = 12 crayons!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'objects', count: 5, emoji: '📚' }, prompt: 'Hakan reads 5 books this week. Next week 4 more. Total?', answer: 9 },
+            { type: 'numeric', visual: { type: 'objects', count: 8, emoji: '🍪' }, prompt: 'Hakan brings 8 cookies. Eats 3 at lunch. How many left?', answer: 5 },
+            { type: 'numeric', visual: { type: 'objects', count: 14, emoji: '🧒' }, prompt: 'Hakan\'s class: 8 boys, 6 girls. Total kids?', answer: 14 },
+            { type: 'numeric', visual: { type: 'objects', count: 7, emoji: '📐' }, prompt: 'Hakan has 10 erasers. Loses 3. How many left?', answer: 7 },
+            { type: 'numeric', visual: { type: 'objects', count: 11, emoji: '🎨' }, prompt: 'Hakan paints 5 pictures. Then 6 more. Total?', answer: 11 },
+            { type: 'numeric', visual: { type: 'objects', count: 4, emoji: '🥪' }, prompt: 'Hakan packs 9 grapes. Eats 5. How many left?', answer: 4 },
+            { type: 'numeric', visual: { type: 'objects', count: 13, emoji: '✏️' }, prompt: 'Hakan has 7 pencils. Gets 6 new. Total?', answer: 13 },
+            { type: 'numeric', visual: { type: 'objects', count: 6, emoji: '🧒' }, prompt: 'Hakan plays with 9 kids. 3 leave. How many still playing?', answer: 6 },
+            { type: 'choice', visual: { type: 'clock', hour: 8, minute: 0 }, prompt: 'Hakan\'s school starts at 8 o\'clock. Time?', choices: ['7:00', '8:00', '9:00'], answerIndex: 1 },
+            { type: 'numeric', visual: { type: 'objects', count: 15, emoji: '📓' }, prompt: 'Hakan does 8 math problems. Then 7 more. Total?', answer: 15 },
+        ],
+    },
+
+    // ========================================================================
+    // 22. HAKAN'S FAMILY
+    // ========================================================================
+    {
+        id: 'hakans-family',
+        title: "Hakan's Family",
+        emoji: '👨‍👩‍👦',
+        category: 'M',
+        kind: 'generic',
+        description: 'Counting people in Hakan\'s family.',
+        lesson: [
+            { title: 'Hakan\'s Family', visual: { type: 'objects', count: 4, emoji: '🧑' }, text: 'Hakan has a mom, a dad, and a sister. Plus Hakan! That is 4 people.', caption: '4 family members' },
+            { title: 'Mom and Dad', visual: { type: 'objects', count: 2, emoji: '🧑' }, text: 'Two parents take care of Hakan. Mom + Dad = 2.', caption: '2 parents' },
+            { title: 'Hakan + Sister', visual: { type: 'add-groups', a: 1, b: 1, emoji: '🧒' }, text: 'Hakan plus his sister Sara = 2 kids in the family!', caption: '1 + 1 = 2 kids' },
+            { title: 'Whole Family', visual: { type: 'add-groups', a: 2, b: 2, emoji: '🧑' }, text: '2 parents + 2 kids = 4 family members. That is Hakan\'s family!', caption: '2 + 2 = 4' },
+            { title: 'Add the Pet', visual: { type: 'add-groups', a: 4, b: 1, emoji: '🐶' }, text: 'Don\'t forget the dog! Hakan\'s family + 1 dog = 5!', caption: '4 + 1 = 5' },
+            { title: 'Grandparents', visual: { type: 'add-groups', a: 5, b: 4, emoji: '🧓' }, text: 'When Hakan visits grandma and grandpa from BOTH sides, that is 4 more grown-ups. 5 + 4 = 9!', caption: '5 + 4 = 9' },
+            { title: 'Cousins', visual: { type: 'objects', count: 3, emoji: '🧒' }, text: 'Hakan has 3 cousins. They love to play together!', caption: '3 cousins' },
+            { title: 'Big Family Day', visual: { type: 'add-groups', a: 9, b: 3, emoji: '👨‍👩‍👧‍👦' }, text: 'When everyone gathers: 9 + 3 cousins = 12. Big family day!', caption: '9 + 3 = 12' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'add-groups', a: 1, b: 1, emoji: '🧒' }, prompt: 'Hakan has 1 sister. With Hakan, how many kids?', answer: 2, hint: 'Hakan + sister = 1 + 1 = 2!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 2, b: 2, emoji: '👨‍👩‍👧‍👦' }, prompt: '2 parents and 2 kids in Hakan\'s family. How many people?', answer: 4, hint: '2 + 2 = 4 family members!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 1, emoji: '🐱' }, prompt: 'Hakan\'s family has 4 people. They get a cat. Now how many in the house?', answer: 5, hint: '4 + 1 cat = 5 in the house!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 2, emoji: '🧓' }, prompt: 'Hakan\'s 4-person family invites 2 grandparents. How many at dinner?', answer: 6, hint: '4 + 2 = 6 at dinner!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 3, emoji: '🧒' }, prompt: 'Hakan and 6 family members add 3 cousins. How many?', answer: 9, hint: '6 + 3 = 9 people!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 8, taken: 3, emoji: '🧑' }, prompt: 'Hakan has 8 family members at the park. 3 leave. How many stay?', answer: 5, hint: '8 − 3 = 5 left!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 5, b: 4, emoji: '🧒' }, prompt: 'Hakan and his sister have 4 cousins. Plus mom, dad, both moms\' parents = 5 grown-ups. 4 + 5?', answer: 9, hint: '4 + 5 = 9!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 4, b: 2 }, prompt: 'Hakan\'s family has 4 people. His friend\'s has 2. How many MORE in Hakan\'s family?', answer: 2, hint: '4 − 2 = 2 more!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'add-groups', a: 2, b: 2, emoji: '👨‍👩‍👧‍👦' }, prompt: 'Hakan\'s mom, dad, sister and Hakan. How many?', answer: 4 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 4, emoji: '🧒' }, prompt: 'Hakan\'s family of 4 visits 4 cousins. Total?', answer: 8 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 1, emoji: '🐶' }, prompt: 'Hakan\'s 4 family members + 1 dog = ?', answer: 5 },
+            { type: 'numeric', visual: { type: 'take-away', total: 6, taken: 2, emoji: '🧑' }, prompt: 'Hakan invites 6. 2 cancel. How many come?', answer: 4 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 4, emoji: '🧓' }, prompt: 'Hakan has 4 grandparents. He visits 4 aunts. Total?', answer: 8 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 3, emoji: '👨‍👩‍👧‍👦' }, prompt: '7 family members + 3 friends visit Hakan. How many?', answer: 10 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 5, b: 3 }, prompt: 'Hakan has 5 cousins. His sister has 3 friends over. How many MORE cousins?', answer: 2 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 6, emoji: '🧑' }, prompt: 'Hakan\'s 4-person family meets 6 relatives. Total?', answer: 10 },
+            { type: 'numeric', visual: { type: 'take-away', total: 12, taken: 4, emoji: '🧑' }, prompt: 'Hakan\'s reunion has 12 people. 4 go home. How many left?', answer: 8 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 1, b: 1, emoji: '🧒' }, prompt: 'Hakan + 1 sister = ?', answer: 2 },
+        ],
+    },
+
+    // ========================================================================
+    // 23. HAKAN'S SNACK BOX
+    // ========================================================================
+    {
+        id: 'hakans-snack-box',
+        title: "Hakan's Snack Box",
+        emoji: '🍎',
+        category: 'M',
+        kind: 'generic',
+        description: 'Counting snacks in Hakan\'s box.',
+        lesson: [
+            { title: 'Open the Box', visual: { type: 'objects', count: 6, emoji: '🍪' }, text: 'Hakan opens his snack box. He counts 6 cookies inside!', caption: '6 cookies' },
+            { title: 'Add Some Fruit', visual: { type: 'add-groups', a: 6, b: 3, emoji: '🍎' }, text: 'Hakan also has 3 apple slices. 6 cookies + 3 slices = 9 snacks!', caption: '6 + 3 = 9' },
+            { title: 'Eat Some', visual: { type: 'take-away', total: 9, taken: 4, emoji: '🍪' }, text: 'Hakan eats 4 snacks. 9 − 4 = 5 snacks left.', caption: '9 − 4 = 5' },
+            { title: 'Share With Sister', visual: { type: 'take-away', total: 5, taken: 2, emoji: '🍎' }, text: 'Hakan shares 2 with Sara. 5 − 2 = 3 left for Hakan.', caption: '5 − 2 = 3' },
+            { title: 'Mom Adds More', visual: { type: 'add-groups', a: 3, b: 4, emoji: '🥨' }, text: 'Mom adds 4 pretzels. 3 + 4 = 7 snacks!', caption: '3 + 4 = 7' },
+            { title: 'Count by Type', visual: { type: 'objects', count: 7, emoji: '🍇' }, text: 'Hakan has 4 different snacks. He counts 7 pieces total.', caption: '7 total' },
+            { title: 'Empty Box', visual: { type: 'take-away', total: 7, taken: 7, emoji: '🍪' }, text: 'After lunch, the box is empty! Hakan ate everything: 7 − 7 = 0.', caption: '7 − 7 = 0' },
+            { title: 'Tomorrow Again', visual: { type: 'objects', count: 8, emoji: '🍓' }, text: 'Tomorrow Hakan will pack 8 strawberries. Yum!', caption: 'Yum tomorrow!' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'objects', count: 5, emoji: '🍪' }, prompt: 'Hakan packs 5 cookies. How many cookies?', answer: 5, hint: 'Just count: 1, 2, 3, 4, 5!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 3, emoji: '🍎' }, prompt: 'Hakan has 4 apple slices and 3 grapes. How many fruits?', answer: 7, hint: '4 + 3 = 7 fruits!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 8, taken: 2, emoji: '🍓' }, prompt: 'Hakan packs 8 berries. He eats 2 fast. How many left?', answer: 6, hint: '8 − 2 = 6 berries!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 5, b: 5, emoji: '🥨' }, prompt: 'Hakan has 5 pretzels. Mom adds 5 more. Total?', answer: 10, hint: '5 + 5 = 10. Doubles!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 9, taken: 3, emoji: '🍪' }, prompt: 'Hakan has 9 cookies. He shares 3. How many left for Hakan?', answer: 6, hint: '9 − 3 = 6 cookies!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 4, emoji: '🍇' }, prompt: 'Hakan packed 6 grapes. Sister gives 4 more. Total?', answer: 10, hint: '6 + 4 = 10!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 12, taken: 5, emoji: '🥕' }, prompt: 'Hakan has 12 carrot sticks. He eats 5. How many left?', answer: 7, hint: '12 − 5 = 7!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 6, emoji: '🍪' }, prompt: 'Hakan has 7 cookies. Buys 6 more. Total?', answer: 13, hint: '7 + 6 = 13!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'objects', count: 7, emoji: '🍎' }, prompt: 'Hakan counts 7 apple slices in his box. How many?', answer: 7 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 3, b: 4, emoji: '🍇' }, prompt: 'Hakan has 3 grapes. Adds 4 more. Total?', answer: 7 },
+            { type: 'numeric', visual: { type: 'take-away', total: 10, taken: 4, emoji: '🍪' }, prompt: 'Hakan packs 10 cookies. He eats 4. How many left?', answer: 6 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 5, b: 3, emoji: '🥨' }, prompt: 'Hakan has 5 pretzels and 3 crackers. Total snacks?', answer: 8 },
+            { type: 'numeric', visual: { type: 'take-away', total: 8, taken: 3, emoji: '🍓' }, prompt: 'Hakan: 8 berries, eats 3. How many left?', answer: 5 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 6, emoji: '🍪' }, prompt: 'Hakan has 6 cookies. Mom adds 6. Total?', answer: 12 },
+            { type: 'numeric', visual: { type: 'take-away', total: 14, taken: 8, emoji: '🥕' }, prompt: 'Hakan: 14 carrots, eats 8. How many left?', answer: 6 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 9, b: 4, emoji: '🍇' }, prompt: 'Hakan: 9 grapes + 4 more. Total?', answer: 13 },
+            { type: 'numeric', visual: { type: 'take-away', total: 15, taken: 7, emoji: '🍪' }, prompt: 'Hakan packs 15. Eats 7. How many left?', answer: 8 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 8, b: 5, emoji: '🥨' }, prompt: 'Hakan has 8 pretzels. Adds 5. Total?', answer: 13 },
+        ],
+    },
+
+    // ========================================================================
+    // 24. HAKAN'S CALENDAR
+    // ========================================================================
+    {
+        id: 'hakans-calendar',
+        title: "Hakan's Calendar",
+        emoji: '📅',
+        category: 'M',
+        kind: 'generic',
+        description: 'Days of the week and months in Hakan\'s life.',
+        lesson: [
+            { title: 'Days of the Week', visual: { type: 'sequence', nums: [1, 2, 3, 4, 5, 6, 7], missingIndex: -1 }, text: 'There are 7 days in a week. Hakan counts: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday!', caption: '7 days' },
+            { title: 'School Days', visual: { type: 'objects', count: 5, emoji: '📚' }, text: 'Hakan goes to school 5 days: Monday-Friday. Then 2 weekend days off!', caption: '5 school + 2 weekend = 7' },
+            { title: 'Weekend!', visual: { type: 'add-groups', a: 1, b: 1, emoji: '🎉' }, text: 'Saturday and Sunday are weekend days. Hakan has 2 days to play!', caption: '2 weekend days' },
+            { title: 'Months in a Year', visual: { type: 'sequence', nums: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], missingIndex: -1 }, text: 'A year has 12 months. Hakan counts: Jan, Feb, Mar... December is the last!', caption: '12 months' },
+            { title: 'Birthday Month', visual: { type: 'bignum', n: 1 }, text: 'If Hakan\'s birthday is in March, he has to wait a few months. March is month 3!', caption: 'March = month 3' },
+            { title: 'Days Until', visual: { type: 'numberline', from: 0, to: 7, mark: 4 }, text: 'Hakan\'s playdate is in 4 days. Today + 4 sleeps!', caption: '4 days to wait' },
+            { title: 'Two Weeks', visual: { type: 'add-groups', a: 7, b: 7, emoji: '📅' }, text: '2 weeks = 7 + 7 = 14 days. Hakan can wait that long for vacation!', caption: '7 + 7 = 14 days' },
+            { title: 'A Month', visual: { type: 'bignum', n: 30 }, text: 'Most months have about 30 days. Hakan colors a square each day on his calendar!', caption: '~30 days/month' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'objects', count: 7, emoji: '📅' }, prompt: 'How many days in a week? Hakan counts...', answer: 7, hint: 'Sunday, Monday, ... Saturday = 7!' },
+            { type: 'numeric', visual: { type: 'objects', count: 5, emoji: '📚' }, prompt: 'Hakan goes to school how many days a week?', answer: 5, hint: 'Monday to Friday = 5 school days!' },
+            { type: 'numeric', visual: { type: 'objects', count: 2, emoji: '🎉' }, prompt: 'How many weekend days does Hakan have?', answer: 2, hint: 'Saturday + Sunday = 2!' },
+            { type: 'numeric', visual: { type: 'objects', count: 12, emoji: '📅' }, prompt: 'How many months in a year? Hakan counts...', answer: 12, hint: 'Jan through Dec = 12 months!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 7, emoji: '📅' }, prompt: 'Hakan waits 2 weeks. How many days is that?', answer: 14, hint: '7 + 7 = 14 days!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 5, b: 2, emoji: '📅' }, prompt: 'Hakan: 5 school days + 2 weekend = total?', answer: 7, hint: '5 + 2 = 7 days a week!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 7, taken: 3, emoji: '📅' }, prompt: 'Hakan\'s trip is in a week. 3 days passed. How many days left?', answer: 4, hint: '7 − 3 = 4 days!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 5, emoji: '📅' }, prompt: 'Hakan waits 7 days, then 5 more. Total days?', answer: 12, hint: '7 + 5 = 12!' },
+        ],
+        quiz: [
+            { type: 'choice', visual: { type: 'objects', count: 7, emoji: '📅' }, prompt: 'How many days in a week?', choices: ['5', '7', '10'], answerIndex: 1 },
+            { type: 'numeric', visual: { type: 'objects', count: 5, emoji: '📚' }, prompt: 'School days in Hakan\'s week?', answer: 5 },
+            { type: 'numeric', visual: { type: 'objects', count: 12, emoji: '📅' }, prompt: 'Months in a year?', answer: 12 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 7, emoji: '📅' }, prompt: 'Hakan: 2 weeks = how many days?', answer: 14 },
+            { type: 'numeric', visual: { type: 'take-away', total: 12, taken: 3, emoji: '📅' }, prompt: 'A year has 12 months. After March (3 done), how many left?', answer: 9 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 5, b: 5, emoji: '📅' }, prompt: 'Hakan: 5 weekdays + 5 weekdays = ?', answer: 10 },
+            { type: 'numeric', visual: { type: 'take-away', total: 7, taken: 2, emoji: '📅' }, prompt: 'Hakan: 7 days in a week. 2 weekend. School days?', answer: 5 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 3, emoji: '📅' }, prompt: 'Hakan waits 1 week + 3 days. Total days?', answer: 10 },
+            { type: 'numeric', visual: { type: 'take-away', total: 12, taken: 6, emoji: '📅' }, prompt: 'Hakan\'s year: 6 months done. How many left?', answer: 6 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 6, emoji: '📅' }, prompt: 'Hakan: half + half year = how many months?', answer: 12 },
+        ],
+    },
+
+    // ========================================================================
+    // 25. HAKAN'S PIZZA PARTY (halves, fourths)
+    // ========================================================================
+    {
+        id: 'hakans-pizza-party',
+        title: "Hakan's Pizza Party",
+        emoji: '🍕',
+        category: 'I',
+        kind: 'generic',
+        description: 'Halves and fourths at Hakan\'s pizza party.',
+        lesson: [
+            { title: 'Whole Pizza', visual: { type: 'fraction', whole: 1, parts: 1 }, text: 'Hakan orders a whole pizza. ONE pizza, not cut yet.', caption: '1 whole pizza' },
+            { title: 'Cut in Half', visual: { type: 'fraction', whole: 2, parts: 1 }, text: 'Hakan cuts the pizza in 2 EQUAL pieces. Each piece is HALF.', caption: 'Half = 1 of 2' },
+            { title: 'Two Halves Make a Whole', visual: { type: 'fraction', whole: 2, parts: 2 }, text: '1 half + 1 half = 1 whole pizza. Hakan can put it back together!', caption: '½ + ½ = 1' },
+            { title: 'Cut in Fourths', visual: { type: 'fraction', whole: 4, parts: 1 }, text: 'Now Hakan cuts each half AGAIN. 4 equal pieces! Each piece is a FOURTH (or quarter).', caption: 'Fourth = 1 of 4' },
+            { title: 'Share with 4 Friends', visual: { type: 'fraction', whole: 4, parts: 4 }, text: 'Hakan shares with 3 friends. 4 fourths for 4 people. Everyone gets the SAME!', caption: 'Equal shares' },
+            { title: 'Two Fourths = Half', visual: { type: 'fraction', whole: 4, parts: 2 }, text: '2 of 4 pieces = HALF the pizza. Hakan eats 2 fourths and that\'s a half!', caption: '2/4 = 1/2' },
+            { title: 'Three Fourths', visual: { type: 'fraction', whole: 4, parts: 3 }, text: 'When Hakan eats 3 of the 4 pieces, he ate three-fourths!', caption: '3/4 of pizza' },
+            { title: 'Equal Means Fair', visual: { type: 'fraction', whole: 4, parts: 1 }, text: 'Hakan only counts EQUAL pieces. Same size = fair share!', caption: 'Equal = fair' },
+        ],
+        practice: [
+            { type: 'choice', visual: { type: 'fraction', whole: 2, parts: 1 }, prompt: 'Hakan cuts pizza in 2 equal parts. Each piece is...', choices: ['a half', 'a fourth', 'a whole'], answerIndex: 0, hint: '2 equal parts = halves. One piece = 1 half!' },
+            { type: 'choice', visual: { type: 'fraction', whole: 4, parts: 1 }, prompt: 'Hakan cuts pizza in 4 equal parts. Each piece is...', choices: ['a half', 'a fourth', 'a whole'], answerIndex: 1, hint: '4 equal parts = fourths!' },
+            { type: 'numeric', visual: { type: 'fraction', whole: 2, parts: 2 }, prompt: 'Hakan eats 2 halves of pizza. How many WHOLE pizzas?', answer: 1, hint: '½ + ½ = 1 whole!' },
+            { type: 'numeric', visual: { type: 'fraction', whole: 4, parts: 4 }, prompt: 'Hakan cuts pizza in 4 pieces. Eats all 4. How many wholes?', answer: 1, hint: '4 fourths = 1 whole!' },
+            { type: 'numeric', visual: { type: 'fraction', whole: 4, parts: 1 }, prompt: 'Hakan invites 4 friends. Pizza in 4 pieces. How many pieces each?', answer: 1, hint: 'One piece each. 4 ÷ 4 = 1!' },
+            { type: 'choice', visual: { type: 'fraction', whole: 4, parts: 2 }, prompt: 'Hakan eats 2 of 4 pieces. That is...', choices: ['a fourth', 'a half', 'a whole'], answerIndex: 1, hint: '2/4 = 1/2 = half!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 4, taken: 1, emoji: '🍕' }, prompt: 'Hakan has 4 pizza slices. Eats 1. How many left?', answer: 3, hint: '4 − 1 = 3 slices!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 2, b: 2, emoji: '🍕' }, prompt: 'Hakan and Sara each have 2 slices. Total slices?', answer: 4, hint: '2 + 2 = 4 slices!' },
+        ],
+        quiz: [
+            { type: 'choice', visual: { type: 'fraction', whole: 2, parts: 1 }, prompt: 'Hakan: pizza cut in 2 equal pieces. Each is a...', choices: ['fourth', 'half', 'whole'], answerIndex: 1 },
+            { type: 'choice', visual: { type: 'fraction', whole: 4, parts: 1 }, prompt: 'Hakan: pizza cut in 4 equal. Each is a...', choices: ['third', 'fourth', 'half'], answerIndex: 1 },
+            { type: 'numeric', visual: { type: 'fraction', whole: 2, parts: 2 }, prompt: 'Two halves equal how many wholes?', answer: 1 },
+            { type: 'numeric', visual: { type: 'fraction', whole: 4, parts: 4 }, prompt: 'Hakan: four fourths = how many wholes?', answer: 1 },
+            { type: 'numeric', visual: { type: 'objects', count: 8, emoji: '🍕' }, prompt: 'Hakan has 2 pizzas, each cut in 4. How many slices?', answer: 8 },
+            { type: 'numeric', visual: { type: 'take-away', total: 8, taken: 3, emoji: '🍕' }, prompt: 'Hakan: 8 slices, eats 3. How many left?', answer: 5 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 4, emoji: '🍕' }, prompt: 'Hakan: 4 friends, 4 slices each. Total slices?', answer: 8 },
+            { type: 'choice', visual: { type: 'fraction', whole: 4, parts: 2 }, prompt: 'Hakan ate 2 of 4 pieces. He ate...', choices: ['a fourth', 'half', 'whole'], answerIndex: 1 },
+            { type: 'numeric', visual: { type: 'take-away', total: 4, taken: 2, emoji: '🍕' }, prompt: 'Hakan: pizza in 4. Eats 2. How many left?', answer: 2 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 4, emoji: '🍕' }, prompt: 'Hakan and Sara each get 4 slices. Total?', answer: 8 },
+        ],
+    },
+
+    // ========================================================================
+    // 26. HAKAN'S TOY CARS (skip count by 2)
+    // ========================================================================
+    {
+        id: 'hakans-toy-cars',
+        title: "Hakan's Toy Cars",
+        emoji: '🚗',
+        category: 'M',
+        kind: 'generic',
+        description: 'Skip count by 2 with Hakan\'s toy cars.',
+        lesson: [
+            { title: 'Hakan\'s Cars', visual: { type: 'objects', count: 2, emoji: '🚗' }, text: 'Hakan parks his cars in pairs! Each row has 2 cars.', caption: 'Pairs of 2' },
+            { title: 'Two Pairs', visual: { type: 'add-groups', a: 2, b: 2, emoji: '🚗' }, text: '2 pairs = 2 + 2 = 4 cars. Hakan counts: 2, 4!', caption: '2, 4' },
+            { title: 'Skip Counting', visual: { type: 'sequence', nums: [2, 4, 6, 8, 10], missingIndex: -1 }, text: 'Skip counting by 2: 2, 4, 6, 8, 10! Hakan jumps over odd numbers.', caption: 'Skip by 2' },
+            { title: '3 Pairs of Cars', visual: { type: 'objects', count: 6, emoji: '🚗' }, text: '3 pairs = 6 cars. Hakan says: 2, 4, 6!', caption: '3 pairs = 6' },
+            { title: '5 Pairs', visual: { type: 'objects', count: 10, emoji: '🚗' }, text: '5 pairs = 10 cars. Hakan counts: 2, 4, 6, 8, 10!', caption: '5 pairs = 10' },
+            { title: 'Why Skip?', visual: { type: 'sequence', nums: [2, 4, 6, 8, 10, 12], missingIndex: -1 }, text: 'Skip counting is FASTER than counting one by one. Hakan loves shortcuts!', caption: 'Faster!' },
+            { title: 'Even Numbers', visual: { type: 'sequence', nums: [2, 4, 6, 8, 10], missingIndex: -1 }, text: 'When Hakan skip counts by 2, he hits the EVEN numbers. Cool pattern!', caption: 'Even numbers' },
+            { title: 'Past 10!', visual: { type: 'sequence', nums: [12, 14, 16, 18, 20], missingIndex: -1 }, text: 'Hakan keeps going: 12, 14, 16, 18, 20. He can skip count to 20!', caption: 'Up to 20' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'add-groups', a: 2, b: 2, emoji: '🚗' }, prompt: 'Hakan has 2 pairs of cars. How many cars?', answer: 4, hint: '2 + 2 = 4. Skip count: 2, 4!' },
+            { type: 'numeric', visual: { type: 'objects', count: 6, emoji: '🚗' }, prompt: 'Hakan has 3 pairs. Skip count: 2, 4, 6. Total cars?', answer: 6, hint: '3 pairs = 6. Got it!' },
+            { type: 'numeric', visual: { type: 'objects', count: 8, emoji: '🚗' }, prompt: 'Hakan parks 4 pairs. Skip count: 2, 4, 6, 8. Cars?', answer: 8, hint: '4 pairs = 8 cars!' },
+            { type: 'numeric', visual: { type: 'objects', count: 10, emoji: '🚗' }, prompt: 'Hakan has 5 pairs of cars. Skip count to find total!', answer: 10, hint: '2, 4, 6, 8, 10!' },
+            { type: 'numeric', visual: { type: 'sequence', nums: [2, 4, 6, 8], missingIndex: 2 }, prompt: 'Hakan skip counts: 2, 4, ?, 8. Missing?', answer: 6, hint: 'After 4 comes 6!' },
+            { type: 'numeric', visual: { type: 'sequence', nums: [4, 6, 8, 10], missingIndex: 1 }, prompt: 'Hakan: 4, ?, 8, 10. Missing?', answer: 6, hint: 'Skip by 2: 4, 6, 8!' },
+            { type: 'numeric', visual: { type: 'sequence', nums: [10, 12, 14, 16], missingIndex: 2 }, prompt: 'Hakan: 10, 12, ?, 16. Missing?', answer: 14, hint: '12 + 2 = 14!' },
+            { type: 'numeric', visual: { type: 'objects', count: 12, emoji: '🚗' }, prompt: 'Hakan has 6 pairs of cars. Total?', answer: 12, hint: 'Skip: 2, 4, 6, 8, 10, 12!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'objects', count: 4, emoji: '🚗' }, prompt: 'Hakan: 2 pairs. How many cars?', answer: 4 },
+            { type: 'numeric', visual: { type: 'objects', count: 6, emoji: '🚗' }, prompt: 'Hakan: 3 pairs. Cars?', answer: 6 },
+            { type: 'numeric', visual: { type: 'sequence', nums: [2, 4, 6], missingIndex: 1 }, prompt: 'Hakan skip counts: 2, ?, 6. Missing?', answer: 4 },
+            { type: 'numeric', visual: { type: 'sequence', nums: [6, 8, 10], missingIndex: 1 }, prompt: 'Hakan: 6, ?, 10. Missing?', answer: 8 },
+            { type: 'numeric', visual: { type: 'objects', count: 10, emoji: '🚗' }, prompt: 'Hakan: 5 pairs of cars?', answer: 10 },
+            { type: 'numeric', visual: { type: 'sequence', nums: [10, 12, 14], missingIndex: 1 }, prompt: 'Hakan: 10, ?, 14. Missing?', answer: 12 },
+            { type: 'numeric', visual: { type: 'objects', count: 14, emoji: '🚗' }, prompt: 'Hakan: 7 pairs. Total cars?', answer: 14 },
+            { type: 'numeric', visual: { type: 'sequence', nums: [14, 16, 18], missingIndex: 1 }, prompt: 'Hakan: 14, ?, 18. Missing?', answer: 16 },
+            { type: 'numeric', visual: { type: 'objects', count: 18, emoji: '🚗' }, prompt: 'Hakan: 9 pairs of cars. Total?', answer: 18 },
+            { type: 'numeric', visual: { type: 'objects', count: 20, emoji: '🚗' }, prompt: 'Hakan: 10 pairs. Total cars?', answer: 20 },
+        ],
+    },
+
+    // ========================================================================
+    // 27. HAKAN AND SARA AT SCHOOL
+    // ========================================================================
+    {
+        id: 'hakan-and-sara',
+        title: 'Hakan and Sara at School',
+        emoji: '🧒',
+        category: 'M',
+        kind: 'generic',
+        description: 'Compare problems with Hakan and his sister Sara.',
+        lesson: [
+            { title: 'Two Lunches', visual: { type: 'compare-pair', a: 8, b: 5 }, text: 'Hakan has 8 grapes. Sara has 5 grapes. Who has MORE?', caption: 'Hakan more' },
+            { title: 'How Many More?', visual: { type: 'compare-pair', a: 8, b: 5 }, text: 'Hakan has 8, Sara has 5. To find HOW MANY MORE, Hakan does 8 − 5 = 3.', caption: '8 − 5 = 3 more' },
+            { title: 'Subtract to Compare', visual: { type: 'two-digit-add', a: 8, b: 5 }, text: 'Compare problems use SUBTRACTION. The big minus the small = the difference!', caption: 'Compare = subtract' },
+            { title: 'How Many Fewer', visual: { type: 'compare-pair', a: 4, b: 7 }, text: 'Sara has 7 stickers, Hakan has 4. Hakan has 7 − 4 = 3 FEWER stickers.', caption: '3 fewer' },
+            { title: 'Same Math', visual: { type: 'compare-pair', a: 9, b: 6 }, text: 'Whether the question says MORE or FEWER, Hakan does the same math: big − small.', caption: 'Big − small' },
+            { title: 'Try It', visual: { type: 'compare-pair', a: 10, b: 7 }, text: 'Hakan has 10 books, Sara has 7. Hakan has 10 − 7 = 3 more books!', caption: '3 more books' },
+            { title: 'Same Number', visual: { type: 'compare-pair', a: 5, b: 5 }, text: 'When Hakan and Sara have the SAME, the difference is 0. Equal!', caption: 'Same = 0 diff' },
+            { title: 'Compare Master', visual: { type: 'compare-pair', a: 12, b: 8 }, text: 'Hakan reads compare problems carefully. Then he subtracts the small from the big!', caption: 'Read, then subtract' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'compare-pair', a: 7, b: 4 }, prompt: 'Hakan has 7 cookies. Sara has 4. How many MORE does Hakan have?', answer: 3, hint: '7 − 4 = 3 more!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 9, b: 6 }, prompt: 'Hakan: 9 stickers. Sara: 6. Difference?', answer: 3, hint: '9 − 6 = 3!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 5, b: 8 }, prompt: 'Sara has 8 books. Hakan has 5. How many FEWER does Hakan have?', answer: 3, hint: '8 − 5 = 3 fewer!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 10, b: 6 }, prompt: 'Hakan has 10 cars, Sara has 6. How many MORE for Hakan?', answer: 4, hint: '10 − 6 = 4 more!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 4, b: 7 }, prompt: 'Sara has 7 candies. Hakan has 4. Difference?', answer: 3, hint: '7 − 4 = 3!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 12, b: 8 }, prompt: 'Hakan: 12 marbles. Sara: 8. How many more for Hakan?', answer: 4, hint: '12 − 8 = 4 more!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 6, b: 6 }, prompt: 'Hakan and Sara each have 6 toys. Difference?', answer: 0, hint: 'Same! 6 − 6 = 0!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 14, b: 9 }, prompt: 'Hakan: 14 stamps. Sara: 9. Difference?', answer: 5, hint: '14 − 9 = 5!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'compare-pair', a: 8, b: 3 }, prompt: 'Hakan: 8 toys. Sara: 3. How many MORE?', answer: 5 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 5, b: 9 }, prompt: 'Sara: 9 books. Hakan: 5. Difference?', answer: 4 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 10, b: 4 }, prompt: 'Hakan: 10 stickers. Sara: 4. More for Hakan?', answer: 6 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 7, b: 7 }, prompt: 'Hakan and Sara each have 7 marbles. Difference?', answer: 0 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 11, b: 6 }, prompt: 'Hakan: 11 cards. Sara: 6. Difference?', answer: 5 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 4, b: 10 }, prompt: 'Sara: 10 cookies. Hakan: 4. How many fewer for Hakan?', answer: 6 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 13, b: 8 }, prompt: 'Hakan: 13 crayons. Sara: 8. Difference?', answer: 5 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 9, b: 2 }, prompt: 'Hakan: 9 cars. Sara: 2. More for Hakan?', answer: 7 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 6, b: 11 }, prompt: 'Sara: 11 stamps. Hakan: 6. Fewer?', answer: 5 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 15, b: 9 }, prompt: 'Hakan: 15 dolls. Sara: 9. Difference?', answer: 6 },
+        ],
+    },
+
+    // ========================================================================
+    // 28. HAKAN'S TRIP TO THE LIBRARY
+    // ========================================================================
+    {
+        id: 'hakans-library',
+        title: "Hakan's Trip to the Library",
+        emoji: '📚',
+        category: 'M',
+        kind: 'generic',
+        description: 'Counting books at the library with Hakan.',
+        lesson: [
+            { title: 'Library Day', visual: { type: 'objects', count: 5, emoji: '📚' }, text: 'Hakan goes to the library! He picks 5 books for the week.', caption: '5 books' },
+            { title: 'Story Books', visual: { type: 'objects', count: 3, emoji: '📖' }, text: 'Hakan loves stories. He chose 3 story books.', caption: '3 stories' },
+            { title: 'Plus Picture Books', visual: { type: 'add-groups', a: 3, b: 2, emoji: '📚' }, text: '3 stories + 2 picture books = 5 books total!', caption: '3 + 2 = 5' },
+            { title: 'Books on a Shelf', visual: { type: 'objects', count: 10, emoji: '📚' }, text: 'A shelf has 10 books. Hakan takes 3. 7 are left on the shelf!', caption: '10 − 3 = 7' },
+            { title: 'Big Library', visual: { type: 'bignum', n: 100 }, text: 'The library has 100 kids\' books! Hakan can read a different book every week!', caption: '100 books!' },
+            { title: 'Read at Home', visual: { type: 'take-away', total: 5, taken: 2, emoji: '📚' }, text: 'Hakan reads 2 books at home. 5 − 2 = 3 books still to read!', caption: '5 − 2 = 3' },
+            { title: 'Return Day', visual: { type: 'add-groups', a: 5, b: 5, emoji: '📚' }, text: 'Hakan returns 5 books and gets 5 new ones. 5 + 5 = 10 books today!', caption: '5 + 5 = 10' },
+            { title: 'Reading Star', visual: { type: 'objects', count: 20, emoji: '📚' }, text: 'In a month, Hakan read 20 books. He is a reading star!', caption: '20 books!' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 3, emoji: '📚' }, prompt: 'Hakan picks 4 storybooks and 3 picture books. Total?', answer: 7, hint: '4 + 3 = 7 books!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 8, taken: 3, emoji: '📚' }, prompt: 'A shelf has 8 books. Hakan takes 3. How many left?', answer: 5, hint: '8 − 3 = 5 left!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 5, b: 5, emoji: '📚' }, prompt: 'Hakan returns 5 books, gets 5 new. Total handled?', answer: 10, hint: '5 + 5 = 10!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 10, taken: 4, emoji: '📚' }, prompt: 'Hakan has 10 books. He read 4. How many left to read?', answer: 6, hint: '10 − 4 = 6!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 4, emoji: '📚' }, prompt: 'Hakan reads 6 books in week 1, 4 in week 2. Total?', answer: 10, hint: '6 + 4 = 10!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 12, taken: 7, emoji: '📚' }, prompt: 'Hakan has 12 library books. Returns 7. How many left?', answer: 5, hint: '12 − 7 = 5!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 6, emoji: '📚' }, prompt: 'Hakan: 7 books last month, 6 this month. Total?', answer: 13, hint: '7 + 6 = 13!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 15, taken: 8, emoji: '📚' }, prompt: 'Hakan needs to read 15 books. He read 8. How many left?', answer: 7, hint: '15 − 8 = 7!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'add-groups', a: 3, b: 5, emoji: '📚' }, prompt: 'Hakan: 3 books + 5 books. Total?', answer: 8 },
+            { type: 'numeric', visual: { type: 'take-away', total: 9, taken: 4, emoji: '📚' }, prompt: 'Hakan: 9 books. Returns 4. How many left?', answer: 5 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 6, emoji: '📚' }, prompt: 'Hakan reads 6 + 6 books. Total?', answer: 12 },
+            { type: 'numeric', visual: { type: 'take-away', total: 14, taken: 7, emoji: '📚' }, prompt: 'Hakan: 14 books, reads 7. How many left?', answer: 7 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 8, b: 5, emoji: '📚' }, prompt: 'Hakan: 8 + 5 books. Total?', answer: 13 },
+            { type: 'numeric', visual: { type: 'take-away', total: 11, taken: 5, emoji: '📚' }, prompt: 'Hakan: 11 library books, returns 5. How many keep?', answer: 6 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 9, emoji: '📚' }, prompt: 'Hakan: 4 fiction + 9 nonfiction. Total?', answer: 13 },
+            { type: 'numeric', visual: { type: 'take-away', total: 20, taken: 10, emoji: '📚' }, prompt: 'Hakan: 20 books. Reads 10. How many left?', answer: 10 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 7, emoji: '📚' }, prompt: 'Hakan: 7 + 7 books. Total?', answer: 14 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 9, b: 8, emoji: '📚' }, prompt: 'Hakan: 9 + 8 books. Total?', answer: 17 },
+        ],
+    },
+
+    // ========================================================================
+    // 29. HAKAN'S SOCCER GAME
+    // ========================================================================
+    {
+        id: 'hakans-soccer',
+        title: "Hakan's Soccer Game",
+        emoji: '⚽',
+        category: 'M',
+        kind: 'generic',
+        description: 'Goals, scores, and adding at Hakan\'s soccer game.',
+        lesson: [
+            { title: 'Hakan\'s Team', visual: { type: 'objects', count: 11, emoji: '⚽' }, text: 'Hakan\'s soccer team has 11 players. He wears number 7!', caption: '11 players' },
+            { title: 'First Goal', visual: { type: 'bignum', n: 1 }, text: 'Hakan scores the first goal! Score: 1-0.', caption: '1 goal' },
+            { title: 'Other Team Scores', visual: { type: 'compare-pair', a: 1, b: 1 }, text: 'Other team scores too. Tied: 1-1!', caption: '1 - 1 tied' },
+            { title: 'Hakan Scores Again', visual: { type: 'add-groups', a: 1, b: 2, emoji: '⚽' }, text: 'Hakan adds 2 more goals. He has 1 + 2 = 3 goals!', caption: '1 + 2 = 3' },
+            { title: 'Halftime Score', visual: { type: 'compare-pair', a: 3, b: 1 }, text: 'Hakan\'s team: 3. Other team: 1. Hakan\'s team is winning by 2!', caption: '3 − 1 = 2 ahead' },
+            { title: 'Second Half', visual: { type: 'add-groups', a: 3, b: 2, emoji: '⚽' }, text: 'Hakan\'s team scores 2 more. 3 + 2 = 5 goals!', caption: '3 + 2 = 5' },
+            { title: 'Final Score', visual: { type: 'compare-pair', a: 5, b: 3 }, text: 'Hakan\'s team: 5. Other: 3. Hakan\'s team WON by 2 goals!', caption: '5 − 3 = 2 win' },
+            { title: 'Big Smile', visual: { type: 'objects', count: 5, emoji: '⚽' }, text: 'Hakan scored 5 goals total. The team carries him on their shoulders!', caption: '5 goals!' },
+        ],
+        practice: [
+            { type: 'numeric', visual: { type: 'add-groups', a: 2, b: 1, emoji: '⚽' }, prompt: 'Hakan scored 2 goals, then 1 more. Total goals?', answer: 3, hint: '2 + 1 = 3 goals!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 3, b: 2, emoji: '⚽' }, prompt: 'Hakan\'s team: 3 goals first half, 2 second half. Total?', answer: 5, hint: '3 + 2 = 5!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 5, b: 2 }, prompt: 'Hakan\'s team: 5. Other: 2. By how much did Hakan win?', answer: 3, hint: '5 − 2 = 3 goals!' },
+            { type: 'numeric', visual: { type: 'objects', count: 11, emoji: '⚽' }, prompt: 'How many players on Hakan\'s soccer team?', answer: 11, hint: '11 soccer players!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 3, emoji: '⚽' }, prompt: 'Hakan kicks 4 goals, his teammate kicks 3. Total?', answer: 7, hint: '4 + 3 = 7!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 11, taken: 3, emoji: '⚽' }, prompt: 'Hakan\'s team has 11 players. 3 are tired. How many still playing?', answer: 8, hint: '11 − 3 = 8!' },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 7, b: 4 }, prompt: 'Hakan: 7 goals. Other team: 4. Difference?', answer: 3, hint: '7 − 4 = 3!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 5, emoji: '⚽' }, prompt: 'Hakan\'s team scores 6 + 5 in 2 games. Total goals?', answer: 11, hint: '6 + 5 = 11!' },
+        ],
+        quiz: [
+            { type: 'numeric', visual: { type: 'add-groups', a: 2, b: 3, emoji: '⚽' }, prompt: 'Hakan: 2 + 3 goals. Total?', answer: 5 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 6, b: 2 }, prompt: 'Hakan: 6 goals. Other: 2. Diff?', answer: 4 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 4, emoji: '⚽' }, prompt: 'Hakan: 4 + 4 goals. Total?', answer: 8 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 8, b: 5 }, prompt: 'Hakan: 8 goals. Other: 5. Difference?', answer: 3 },
+            { type: 'numeric', visual: { type: 'objects', count: 11, emoji: '⚽' }, prompt: 'How many players on Hakan\'s team?', answer: 11 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 5, b: 6, emoji: '⚽' }, prompt: 'Hakan: 5 + 6 goals over 2 games. Total?', answer: 11 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 9, b: 4 }, prompt: 'Hakan: 9 goals. Other: 4. Win by?', answer: 5 },
+            { type: 'numeric', visual: { type: 'take-away', total: 11, taken: 5, emoji: '⚽' }, prompt: 'Hakan\'s 11 players. 5 sub out. How many on field?', answer: 6 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 8, emoji: '⚽' }, prompt: 'Hakan: 7 + 8 goals all season. Total?', answer: 15 },
+            { type: 'numeric', visual: { type: 'compare-pair', a: 12, b: 7 }, prompt: 'Hakan: 12 goals. Other: 7. Win by?', answer: 5 },
+        ],
+    },
+
+    // ========================================================================
+    // 30. HAKAN'S BIRTHDAY CAKE (fractions intro)
+    // ========================================================================
+    {
+        id: 'hakans-birthday-cake',
+        title: "Hakan's Birthday Cake",
+        emoji: '🎂',
+        category: 'I',
+        kind: 'generic',
+        description: 'Sharing Hakan\'s birthday cake with friends.',
+        lesson: [
+            { title: 'Birthday!', visual: { type: 'fraction', whole: 1, parts: 1 }, text: 'It is Hakan\'s birthday! He has 1 whole cake to share.', caption: '1 whole cake' },
+            { title: 'Cut for 2', visual: { type: 'fraction', whole: 2, parts: 1 }, text: 'For Hakan and Sara, cut the cake in 2 EQUAL pieces. Each = a half!', caption: '2 halves' },
+            { title: 'Cut for 4', visual: { type: 'fraction', whole: 4, parts: 1 }, text: '4 friends? Cut into 4 equal pieces. Each = a fourth!', caption: '4 fourths' },
+            { title: 'Half a Cake', visual: { type: 'fraction', whole: 2, parts: 1 }, text: 'Hakan eats HALF the cake. Sara eats the other half!', caption: 'Equal halves' },
+            { title: 'Equal Slices', visual: { type: 'fraction', whole: 4, parts: 1 }, text: 'For a fair share, slices must be the SAME SIZE. Equal = fair!', caption: 'Equal = fair' },
+            { title: 'Two Slices', visual: { type: 'fraction', whole: 4, parts: 2 }, text: 'If Hakan eats 2 of 4 slices, that\'s HALF the cake!', caption: '2/4 = 1/2' },
+            { title: 'Candles', visual: { type: 'objects', count: 6, emoji: '🕯️' }, text: 'Hakan turns 6! He has 6 candles on top.', caption: '6 candles' },
+            { title: 'Big Party', visual: { type: 'add-groups', a: 4, b: 4, emoji: '🍰' }, text: 'Two cakes, each cut in 4! 4 + 4 = 8 slices for 8 kids at the party!', caption: '4 + 4 = 8 slices' },
+        ],
+        practice: [
+            { type: 'choice', visual: { type: 'fraction', whole: 2, parts: 1 }, prompt: 'Hakan cuts cake in 2 equal pieces. Each is a...', choices: ['fourth', 'half', 'whole'], answerIndex: 1, hint: '2 equal pieces = halves!' },
+            { type: 'choice', visual: { type: 'fraction', whole: 4, parts: 1 }, prompt: 'Hakan cuts cake for 4 friends. Each piece is a...', choices: ['fourth', 'half', 'third'], answerIndex: 0, hint: '4 equal pieces = fourths!' },
+            { type: 'numeric', visual: { type: 'fraction', whole: 2, parts: 2 }, prompt: 'Hakan: how many halves make a whole cake?', answer: 2, hint: '2 halves = 1 whole!' },
+            { type: 'numeric', visual: { type: 'fraction', whole: 4, parts: 4 }, prompt: 'Hakan: how many fourths make a whole?', answer: 4, hint: '4 fourths = 1 whole!' },
+            { type: 'numeric', visual: { type: 'objects', count: 6, emoji: '🕯️' }, prompt: 'Hakan turns 6. How many candles?', answer: 6, hint: '6 candles for age 6!' },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 4, emoji: '🍰' }, prompt: 'Hakan cuts 2 cakes in 4 each. Total slices?', answer: 8, hint: '4 + 4 = 8 slices!' },
+            { type: 'numeric', visual: { type: 'take-away', total: 8, taken: 5, emoji: '🍰' }, prompt: 'Hakan has 8 slices. 5 friends each take 1. How many left?', answer: 3, hint: '8 − 5 = 3!' },
+            { type: 'choice', visual: { type: 'fraction', whole: 4, parts: 2 }, prompt: 'Hakan eats 2 of 4 slices. He ate...', choices: ['a fourth', 'half', 'whole'], answerIndex: 1, hint: '2/4 = 1/2!' },
+        ],
+        quiz: [
+            { type: 'choice', visual: { type: 'fraction', whole: 2, parts: 1 }, prompt: 'Hakan: cake in 2 equal parts. Each is a...', choices: ['fourth', 'half', 'whole'], answerIndex: 1 },
+            { type: 'numeric', visual: { type: 'fraction', whole: 4, parts: 4 }, prompt: 'Hakan: 4 fourths = how many wholes?', answer: 1 },
+            { type: 'numeric', visual: { type: 'objects', count: 6, emoji: '🕯️' }, prompt: 'Hakan: 6 candles for age?', answer: 6 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 4, emoji: '🍰' }, prompt: 'Hakan: 2 cakes, 4 slices each. Total?', answer: 8 },
+            { type: 'numeric', visual: { type: 'take-away', total: 8, taken: 3, emoji: '🍰' }, prompt: 'Hakan: 8 slices. 3 eaten. Left?', answer: 5 },
+            { type: 'choice', visual: { type: 'fraction', whole: 4, parts: 1 }, prompt: 'Hakan cuts cake in 4. Each piece is a...', choices: ['half', 'fourth', 'whole'], answerIndex: 1 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 6, b: 4, emoji: '🍰' }, prompt: 'Hakan: 6 slices + 4 more. Total?', answer: 10 },
+            { type: 'numeric', visual: { type: 'take-away', total: 12, taken: 7, emoji: '🍰' }, prompt: 'Hakan: 12 slices. 7 eaten. Left?', answer: 5 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 7, b: 1, emoji: '🕯️' }, prompt: 'Hakan turns 7. He adds 1 candle for good luck. How many candles?', answer: 8 },
+            { type: 'numeric', visual: { type: 'add-groups', a: 4, b: 4, emoji: '🎂' }, prompt: 'Hakan: 4 friends + Hakan + 3 family = how many at party?', answer: 8 },
+        ],
+    }
+,
+    // ===== EXTRA CREATIVE MODULES (push past 200) =====
+    {
+      "id": "hakan-number-detective",
+      "title": "Number Detective",
+      "emoji": "\ud83d\udd75\ufe0f",
+      "category": "E",
+      "kind": "generic",
+      "description": "Hakan solves number-clue mysteries to find which number is biggest.",
+      "lesson": [
+        {
+          "title": "Detective Hakan",
+          "visual": {
+            "type": "compare-pair",
+            "a": 8,
+            "b": 5
+          },
+          "text": "Hakan is on the case! Today's mystery: which number is BIGGER, 8 or 5?",
+          "caption": "Bigger number?"
+        },
+        {
+          "title": "Clue: Tens First",
+          "visual": {
+            "type": "compare-pair",
+            "a": 23,
+            "b": 18
+          },
+          "text": "For two-digit numbers, Hakan checks the TENS digit first. 23 has 2 tens, 18 has 1 ten. So 23 > 18.",
+          "caption": "Tens win!"
+        },
+        {
+          "title": "Same Tens? Check Ones",
+          "visual": {
+            "type": "compare-pair",
+            "a": 47,
+            "b": 43
+          },
+          "text": "If tens tie, Hakan checks the ones. 47 and 43 both have 4 tens. But 7 ones beats 3 ones. 47 wins!",
+          "caption": "Ones break ties"
+        },
+        {
+          "title": "Order from Least",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              3,
+              7,
+              9
+            ],
+            "missingIndex": -1
+          },
+          "text": "Hakan can sort numbers SMALL \u2192 BIG. 3, 7, 9 is in order from least to greatest.",
+          "caption": "Least to greatest"
+        },
+        {
+          "title": "Sort from Greatest",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              9,
+              7,
+              3
+            ],
+            "missingIndex": -1
+          },
+          "text": "Or the other way: BIG \u2192 SMALL. 9, 7, 3 is greatest to least.",
+          "caption": "Greatest to least"
+        },
+        {
+          "title": "Three-Way Mystery",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              12,
+              8,
+              15
+            ],
+            "missingIndex": -1
+          },
+          "text": "Three suspects: 12, 8, 15. Hakan finds: 8 is smallest, 15 is biggest, 12 is in the middle.",
+          "caption": "8 < 12 < 15"
+        },
+        {
+          "title": "Detective Tools",
+          "visual": {
+            "type": "compare-pair",
+            "a": 7,
+            "b": 3
+          },
+          "text": "The alligator mouth eats the bigger number: 7 > 3. Hakan loves this trick!",
+          "caption": "> eats bigger"
+        },
+        {
+          "title": "Case Closed!",
+          "visual": {
+            "type": "compare-pair",
+            "a": 9,
+            "b": 9
+          },
+          "text": "Same number = use =. Hakan's tools: <, >, =. Now go solve mysteries!",
+          "caption": "\ud83d\udd75\ufe0f Case closed!"
+        }
+      ],
+      "practice": [
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 4,
+            "b": 7
+          },
+          "prompt": "Hakan's first case: 4 vs 7. Bigger?",
+          "choices": [
+            "4",
+            "7",
+            "Equal"
+          ],
+          "answerIndex": 1,
+          "hint": "7 comes after 4 when counting. So 7 is bigger."
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 12,
+            "b": 9
+          },
+          "prompt": "Detective Hakan: 12 vs 9?",
+          "choices": [
+            "12",
+            "9",
+            "Equal"
+          ],
+          "answerIndex": 0,
+          "hint": "12 is in the teens \u2014 past 10. 9 is single-digit. 12 wins!"
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 15,
+            "b": 15
+          },
+          "prompt": "Mystery: 15 vs 15?",
+          "choices": [
+            "15 (left)",
+            "15 (right)",
+            "Equal"
+          ],
+          "answerIndex": 2,
+          "hint": "Same numbers means equal. Use the = sign!"
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              5,
+              2,
+              8
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Sort 5, 2, 8 \u2014 what's the SMALLEST?",
+          "answer": 2,
+          "hint": "Hakan checks all three: 2 is smaller than 5 and 8. So 2 wins!"
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              5,
+              2,
+              8
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "From 5, 2, 8 \u2014 what's the BIGGEST?",
+          "answer": 8,
+          "hint": "8 beats both 5 and 2. Biggest!"
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 23,
+            "b": 32
+          },
+          "prompt": "Hakan's tricky case: 23 vs 32?",
+          "choices": [
+            "23",
+            "32",
+            "Equal"
+          ],
+          "answerIndex": 1,
+          "hint": "Check the tens: 23 has 2 tens, 32 has 3 tens. 32 > 23."
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 67,
+            "b": 64
+          },
+          "prompt": "Same tens! 67 vs 64?",
+          "choices": [
+            "67",
+            "64",
+            "Equal"
+          ],
+          "answerIndex": 0,
+          "hint": "Both have 6 tens. Compare ones: 7 > 4. So 67 wins."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              11,
+              9,
+              14,
+              7
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Of 11, 9, 14, 7 \u2014 biggest?",
+          "answer": 14,
+          "hint": "Hakan checks: 7 < 9 < 11 < 14. The biggest is 14."
+        }
+      ],
+      "quiz": [
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 6,
+            "b": 9
+          },
+          "prompt": "Hakan: 6 vs 9?",
+          "choices": [
+            "6",
+            "9",
+            "Equal"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 11,
+            "b": 8
+          },
+          "prompt": "Hakan: 11 vs 8?",
+          "choices": [
+            "11",
+            "8",
+            "Equal"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 17,
+            "b": 17
+          },
+          "prompt": "17 vs 17?",
+          "choices": [
+            "17 (left)",
+            "17 (right)",
+            "Equal"
+          ],
+          "answerIndex": 2
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              4,
+              1,
+              6
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Smallest of 4, 1, 6?",
+          "answer": 1
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              10,
+              14,
+              12
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan: biggest of 10, 14, 12?",
+          "answer": 14
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 38,
+            "b": 41
+          },
+          "prompt": "38 vs 41?",
+          "choices": [
+            "38",
+            "41",
+            "Equal"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 56,
+            "b": 53
+          },
+          "prompt": "Hakan: 56 vs 53?",
+          "choices": [
+            "56",
+            "53",
+            "Equal"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              2,
+              7,
+              5,
+              9
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Smallest of 2, 7, 5, 9?",
+          "answer": 2
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              13,
+              16,
+              19
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan: biggest of 13, 16, 19?",
+          "answer": 19
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 80,
+            "b": 79
+          },
+          "prompt": "Hakan's last case: 80 vs 79?",
+          "choices": [
+            "80",
+            "79",
+            "Equal"
+          ],
+          "answerIndex": 0
+        }
+      ]
+    },
+    {
+      "id": "hakan-pattern-master",
+      "title": "Pattern Master",
+      "emoji": "\ud83c\udf00",
+      "category": "K",
+      "kind": "generic",
+      "description": "Hakan finds the rule and predicts what comes next!",
+      "lesson": [
+        {
+          "title": "What's a Pattern?",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              2,
+              4,
+              6,
+              8
+            ],
+            "missingIndex": -1
+          },
+          "text": "A pattern is a rule that repeats. Hakan sees: 2, 4, 6, 8 \u2014 adding 2 each time!",
+          "caption": "Rule: +2"
+        },
+        {
+          "title": "Find the Rule",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              5,
+              10,
+              15,
+              20
+            ],
+            "missingIndex": -1
+          },
+          "text": "Hakan looks for what changes. 5 \u2192 10 \u2192 15 \u2192 20. Each is 5 more. Rule: +5!",
+          "caption": "Rule: +5"
+        },
+        {
+          "title": "Patterns Going Down",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              10,
+              8,
+              6,
+              4
+            ],
+            "missingIndex": -1
+          },
+          "text": "Patterns can shrink too. Hakan sees: 10, 8, 6, 4. Each is 2 LESS. Rule: \u22122!",
+          "caption": "Rule: \u22122"
+        },
+        {
+          "title": "What Comes Next?",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              3,
+              6,
+              9,
+              12
+            ],
+            "missingIndex": -1
+          },
+          "text": "Hakan finds the rule (+3), then continues: 3, 6, 9, 12 \u2014 next is 15!",
+          "caption": "Next: 15"
+        },
+        {
+          "title": "Missing Middle",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              4,
+              8,
+              16,
+              20
+            ],
+            "missingIndex": 2
+          },
+          "text": "Sometimes the missing number is IN the middle. Rule is +4, so the missing one is 12!",
+          "caption": "Missing: 12"
+        },
+        {
+          "title": "Big Skip Patterns",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              10,
+              20,
+              30,
+              40
+            ],
+            "missingIndex": -1
+          },
+          "text": "Hakan can skip-count by tens too! 10, 20, 30, 40 \u2014 adding 10 each time.",
+          "caption": "+10 patterns"
+        },
+        {
+          "title": "Tricky Patterns",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              1,
+              3,
+              6,
+              10
+            ],
+            "missingIndex": -1
+          },
+          "text": "Some patterns grow! 1, 3, 6, 10 \u2192 +2, +3, +4. Hakan, look at the gaps!",
+          "caption": "Growing pattern"
+        },
+        {
+          "title": "You're a Master!",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              7,
+              14,
+              21,
+              28
+            ],
+            "missingIndex": -1
+          },
+          "text": "Hakan, when you find the RULE, patterns are easy. Try the practice!",
+          "caption": "\ud83c\udf00 Pattern Master!"
+        }
+      ],
+      "practice": [
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan's pattern: 1, 2, 3, 4, 5. What's NEXT?",
+          "answer": 6,
+          "hint": "Rule is +1. Next after 5 is 6."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              2,
+              4,
+              6,
+              8
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Pattern: 2, 4, 6, 8. Next?",
+          "answer": 10,
+          "hint": "Rule: +2. After 8 comes 10."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              5,
+              10,
+              15,
+              20
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan's pattern: 5, 10, 15, 20. Next?",
+          "answer": 25,
+          "hint": "Skip-count by 5s: after 20 is 25."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              10,
+              9,
+              8,
+              7
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Pattern going DOWN: 10, 9, 8, 7. Next?",
+          "answer": 6,
+          "hint": "Rule: \u22121. After 7 comes 6."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              3,
+              6,
+              9,
+              12,
+              15
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan: 3, 6, 9, 12, 15. Next?",
+          "answer": 18,
+          "hint": "Rule: +3. After 15 is 18."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              10,
+              20,
+              30
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan's tens: 10, 20, 30. Next?",
+          "answer": 40,
+          "hint": "Skip-count by 10s. After 30 is 40."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              20,
+              18,
+              16,
+              14
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Down by 2: 20, 18, 16, 14. Next?",
+          "answer": 12,
+          "hint": "Rule: \u22122. After 14 is 12."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              4,
+              8,
+              12
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan: 4, 8, 12. Next?",
+          "answer": 16,
+          "hint": "Rule: +4. After 12 is 16."
+        }
+      ],
+      "quiz": [
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              6,
+              7,
+              8,
+              9
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Next: 6, 7, 8, 9, ?",
+          "answer": 10
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              2,
+              4,
+              6,
+              8,
+              10
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan: 2, 4, 6, 8, 10, ?",
+          "answer": 12
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              15,
+              20,
+              25
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Pattern: 15, 20, 25, ?",
+          "answer": 30
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              12,
+              11,
+              10,
+              9
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan: 12, 11, 10, 9, ?",
+          "answer": 8
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              50,
+              60,
+              70
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Pattern: 50, 60, 70, ?",
+          "answer": 80
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              25,
+              20,
+              15
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan: 25, 20, 15, ?",
+          "answer": 10
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              3,
+              5,
+              7,
+              9
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Pattern: 3, 5, 7, 9, ?",
+          "answer": 11
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              100,
+              90,
+              80
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan's countdown: 100, 90, 80, ?",
+          "answer": 70
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              4,
+              7,
+              10,
+              13
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Pattern: 4, 7, 10, 13, ?",
+          "answer": 16
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              11,
+              22,
+              33
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan's last pattern: 11, 22, 33, ?",
+          "answer": 44
+        }
+      ]
+    },
+    {
+      "id": "hakan-math-marathon",
+      "title": "Math Marathon",
+      "emoji": "\ud83c\udfc3",
+      "category": "N",
+      "kind": "generic",
+      "description": "Hakan tests EVERY skill in one big challenge \u2014 addition, subtraction, place value, shapes!",
+      "lesson": [
+        {
+          "title": "The Marathon",
+          "visual": {
+            "type": "bignum",
+            "n": 10
+          },
+          "text": "Hakan, you've learned SO much. Today: a math marathon \u2014 one of every kind of question!",
+          "caption": "Mix of skills!"
+        },
+        {
+          "title": "Round 1: Add",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 7,
+            "b": 8
+          },
+          "text": "First up: 7 + 8 = 15. Hakan uses near-doubles: 7+7=14, plus 1 more = 15.",
+          "caption": "Round 1: +"
+        },
+        {
+          "title": "Round 2: Subtract",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 14,
+            "b": 6
+          },
+          "text": "Next: 14 \u2212 6 = 8. Hakan thinks: how far from 6 to 14? Count up: 7, 8 \u2014 six jumps!",
+          "caption": "Round 2: \u2212"
+        },
+        {
+          "title": "Round 3: Place Value",
+          "visual": {
+            "type": "blocks",
+            "tens": 4,
+            "ones": 7
+          },
+          "text": "Round 3: How many is 4 tens + 7 ones? Hakan answers 47!",
+          "caption": "Round 3: place value"
+        },
+        {
+          "title": "Round 4: Compare",
+          "visual": {
+            "type": "compare-pair",
+            "a": 23,
+            "b": 32
+          },
+          "text": "Hakan compares 23 vs 32. Tens digit: 2 < 3. So 23 is less than 32.",
+          "caption": "Round 4: compare"
+        },
+        {
+          "title": "Round 5: Shapes",
+          "visual": {
+            "type": "shape",
+            "name": "triangle"
+          },
+          "text": "What shape has 3 sides? Hakan knows: a triangle!",
+          "caption": "Round 5: shapes"
+        },
+        {
+          "title": "Round 6: Patterns",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              10,
+              20,
+              30
+            ],
+            "missingIndex": -1
+          },
+          "text": "Hakan's pattern: 10, 20, 30, then 40. Skip-count by tens!",
+          "caption": "Round 6: patterns"
+        },
+        {
+          "title": "Marathon Champion!",
+          "visual": {
+            "type": "bignum",
+            "n": 100
+          },
+          "text": "Hakan, you covered everything in one marathon. You're a math athlete!",
+          "caption": "\ud83c\udfc3 Champion!"
+        }
+      ],
+      "practice": [
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 6,
+            "b": 7
+          },
+          "prompt": "Round 1: 6 + 7?",
+          "answer": 13,
+          "hint": "Near-doubles: 6+6=12, plus 1 more = 13."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 12,
+            "b": 4
+          },
+          "prompt": "Hakan: 12 \u2212 4?",
+          "answer": 8,
+          "hint": "Count back from 12: 11, 10, 9, 8. Four jumps."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "blocks",
+            "tens": 3,
+            "ones": 5
+          },
+          "prompt": "Hakan: how many is 3 tens + 5 ones?",
+          "answer": 35,
+          "hint": "30 + 5 = 35."
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 18,
+            "b": 21
+          },
+          "prompt": "Hakan: 18 vs 21?",
+          "choices": [
+            "18",
+            "21",
+            "Equal"
+          ],
+          "answerIndex": 1,
+          "hint": "21 has 2 tens; 18 has 1 ten. So 21 is bigger."
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "shape",
+            "name": "square"
+          },
+          "prompt": "How many sides does a square have?",
+          "choices": [
+            "3",
+            "4",
+            "5"
+          ],
+          "answerIndex": 1,
+          "hint": "Squares have 4 equal sides \u2014 count them!"
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              2,
+              4,
+              6,
+              8
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan's pattern: 2, 4, 6, 8. Next?",
+          "answer": 10,
+          "hint": "Add 2 each time. After 8 is 10."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 9,
+            "b": 8
+          },
+          "prompt": "Hakan: 9 + 8?",
+          "answer": 17,
+          "hint": "9+8: doubles 8+8=16, plus 1 = 17."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 15,
+            "b": 7
+          },
+          "prompt": "Hakan's tough one: 15 \u2212 7?",
+          "answer": 8,
+          "hint": "15 \u2212 5 = 10, then \u2212 2 more = 8."
+        }
+      ],
+      "quiz": [
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 5,
+            "b": 6
+          },
+          "prompt": "Hakan: 5 + 6?",
+          "answer": 11
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 11,
+            "b": 3
+          },
+          "prompt": "Hakan: 11 \u2212 3?",
+          "answer": 8
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "blocks",
+            "tens": 6,
+            "ones": 2
+          },
+          "prompt": "How many is 6 tens + 2 ones?",
+          "answer": 62
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "compare-pair",
+            "a": 45,
+            "b": 54
+          },
+          "prompt": "45 vs 54?",
+          "choices": [
+            "45",
+            "54",
+            "Equal"
+          ],
+          "answerIndex": 1
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "sequence",
+            "nums": [
+              5,
+              10,
+              15,
+              20
+            ],
+            "missingIndex": -1
+          },
+          "prompt": "Hakan: 5, 10, 15, 20, ?",
+          "answer": 25
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 8,
+            "b": 7
+          },
+          "prompt": "Hakan: 8 + 7?",
+          "answer": 15
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 14,
+            "b": 5
+          },
+          "prompt": "14 \u2212 5?",
+          "answer": 9
+        },
+        {
+          "type": "choice",
+          "visual": {
+            "type": "shape",
+            "name": "circle"
+          },
+          "prompt": "How many corners does a circle have?",
+          "choices": [
+            "0",
+            "1",
+            "2"
+          ],
+          "answerIndex": 0
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "two-digit-add",
+            "a": 9,
+            "b": 9
+          },
+          "prompt": "Hakan: 9 + 9?",
+          "answer": 18
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "blocks",
+            "tens": 9,
+            "ones": 9
+          },
+          "prompt": "Hakan's biggest: 9 tens + 9 ones?",
+          "answer": 99
+        }
+      ]
+    },
+    {
+      "id": "hakan-graph-explorer",
+      "title": "Graph Explorer",
+      "emoji": "\ud83d\udcca",
+      "category": "L",
+      "kind": "generic",
+      "description": "Hakan reads graphs and discovers what they tell him.",
+      "lesson": [
+        {
+          "title": "Graphs Tell Stories",
+          "visual": {
+            "type": "bignum",
+            "n": 5
+          },
+          "text": "Graphs show data with pictures. Hakan can READ a graph to find answers without counting one-by-one!",
+          "caption": "Graphs = quick info!"
+        },
+        {
+          "title": "Tally Marks",
+          "visual": {
+            "type": "objects",
+            "count": 5,
+            "emoji": "\ud83d\udccb"
+          },
+          "text": "Hakan uses tallies for counting: ||||| means 5. The diagonal stroke groups them in 5s.",
+          "caption": "||||| = 5"
+        },
+        {
+          "title": "Tallies Past 5",
+          "visual": {
+            "type": "bignum",
+            "n": 7
+          },
+          "text": "For 7, Hakan draws ||||| ||. One full group of 5, plus 2 more.",
+          "caption": "||||| || = 7"
+        },
+        {
+          "title": "Picture Graphs",
+          "visual": {
+            "type": "objects",
+            "count": 4,
+            "emoji": "\ud83c\udf4e"
+          },
+          "text": "A picture graph uses small pictures. Each apple = 1. If Hakan sees 4 apples, that's 4 apples!",
+          "caption": "1 picture = 1"
+        },
+        {
+          "title": "Bar Graphs",
+          "visual": {
+            "type": "compare-pair",
+            "a": 6,
+            "b": 3
+          },
+          "text": "Bar graphs use TALL bars. Hakan: the taller bar shows MORE. 6 cookies > 3 cookies.",
+          "caption": "Tall = more"
+        },
+        {
+          "title": "Comparing Bars",
+          "visual": {
+            "type": "compare-pair",
+            "a": 8,
+            "b": 5
+          },
+          "text": "Hakan can find: 'How many MORE?' Subtract bars: 8 \u2212 5 = 3 more. Easy!",
+          "caption": "Difference = subtract"
+        },
+        {
+          "title": "Sort and Count",
+          "visual": {
+            "type": "objects",
+            "count": 6,
+            "emoji": "\ud83d\udd35"
+          },
+          "text": "Hakan can also SORT first. Group blue blocks. Group red. Count each group.",
+          "caption": "Sort, then count"
+        },
+        {
+          "title": "Graph Master",
+          "visual": {
+            "type": "bignum",
+            "n": 10
+          },
+          "text": "Hakan, graphs make data easy to see. Try the practice and become a graph reader!",
+          "caption": "\ud83d\udcca Reader!"
+        }
+      ],
+      "practice": [
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 5,
+            "emoji": "\ud83d\udccb"
+          },
+          "prompt": "Hakan sees ||||| tallies. How many?",
+          "answer": 5,
+          "hint": "One full tally group is 5."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 8,
+            "emoji": "\ud83d\udccb"
+          },
+          "prompt": "Hakan: ||||| |||. How many tallies?",
+          "answer": 8,
+          "hint": "5 in the first group, 3 more = 8."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 6,
+            "emoji": "\ud83c\udf4e"
+          },
+          "prompt": "Picture graph: 6 apples shown. How many?",
+          "answer": 6,
+          "hint": "Just count the apples: 1, 2, 3, 4, 5, 6."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 4,
+            "emoji": "\ud83d\udc20"
+          },
+          "prompt": "Hakan: 4 fish in the graph. How many?",
+          "answer": 4,
+          "hint": "Count the fish pictures."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 7,
+            "b": 4
+          },
+          "prompt": "Hakan's bar graph: 7 cats, 4 dogs. How many MORE cats?",
+          "answer": 3,
+          "hint": "7 \u2212 4 = 3 more cats."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 9,
+            "b": 6
+          },
+          "prompt": "Hakan: blue bar = 9, red bar = 6. How many more blue?",
+          "answer": 3,
+          "hint": "9 \u2212 6 = 3."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 5,
+            "b": 8
+          },
+          "prompt": "Hakan: 5 stars, 8 hearts. How many in total?",
+          "answer": 13,
+          "hint": "Add both bars: 5 + 8 = 13."
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 10,
+            "b": 4
+          },
+          "prompt": "Big bar: 10. Small bar: 4. Difference?",
+          "answer": 6,
+          "hint": "10 \u2212 4 = 6 more."
+        }
+      ],
+      "quiz": [
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 3,
+            "emoji": "\ud83d\udccb"
+          },
+          "prompt": "Hakan: ||| tallies?",
+          "answer": 3
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 7,
+            "emoji": "\ud83d\udccb"
+          },
+          "prompt": "Hakan: ||||| ||?",
+          "answer": 7
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 9,
+            "emoji": "\ud83c\udf1f"
+          },
+          "prompt": "9 stars on the graph. How many?",
+          "answer": 9
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 6,
+            "b": 2
+          },
+          "prompt": "Hakan: tall bar 6, short bar 2. Difference?",
+          "answer": 4
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 8,
+            "b": 5
+          },
+          "prompt": "Hakan: 8 cookies, 5 muffins. How many more cookies?",
+          "answer": 3
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 7,
+            "b": 7
+          },
+          "prompt": "Both bars are 7. Total?",
+          "answer": 14
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 10,
+            "emoji": "\ud83d\udc36"
+          },
+          "prompt": "Hakan: 10 dogs in graph?",
+          "answer": 10
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 4,
+            "b": 6
+          },
+          "prompt": "Hakan: 4 apples, 6 oranges. Total fruits?",
+          "answer": 10
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "compare-pair",
+            "a": 12,
+            "b": 8
+          },
+          "prompt": "Bar 1: 12. Bar 2: 8. Difference?",
+          "answer": 4
+        },
+        {
+          "type": "numeric",
+          "visual": {
+            "type": "objects",
+            "count": 11,
+            "emoji": "\ud83d\udccb"
+          },
+          "prompt": "Hakan: ||||| ||||| |. Tallies?",
+          "answer": 11
+        }
+      ]
+    }
 ];
 
 const MODULES_BY_ID = Object.fromEntries(MODULES.map(m => [m.id, m]));
