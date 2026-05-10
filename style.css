@@ -54,13 +54,20 @@ body {
 
 .screen.active {
     display: flex;
-    /* `safe center` keeps content centered when it fits the viewport, but
-       falls back to flex-start when content is taller — otherwise the top
-       gets clipped because you can't scroll past the flexbox center point.
-       This was breaking the start screen on iPad once the module list grew. */
-    align-items: safe center;
-    justify-content: safe center;
+    flex-direction: column;
+    /* horizontal centering of children */
+    align-items: center;
     animation: fadeIn 0.5s ease;
+}
+
+/* Auto vertical margins on direct children — when content fits the viewport
+   the margins balance and visually center it; when content is taller than
+   the viewport the margins collapse to 0 and content starts at the top so
+   the user can scroll down through everything. This works in every browser
+   that supports flexbox (i.e. all of them) and avoids the `safe center` /
+   flex-center-clipping bug that was hiding the top of the module list. */
+.screen.active > * {
+    margin-block: auto;
 }
 
 @keyframes fadeIn {
