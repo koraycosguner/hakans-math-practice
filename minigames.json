@@ -1,0 +1,283 @@
+[
+  {
+    "id": "number-tap-rush",
+    "title": "Number Tap Rush",
+    "emoji": "⚡",
+    "description": "Tap numbers 1 to 10 in order as fast as you can!",
+    "category": "fluency",
+    "skill": "counting",
+    "duration": 30,
+    "difficulty": "easy",
+    "objective": "Tap numbers 1-10 in correct order as quickly as possible",
+    "rules": [
+      "Numbers 1-10 appear scattered randomly on the board",
+      "Tap them in order: 1, then 2, then 3, all the way to 10",
+      "A wrong tap adds a +2 second penalty to your time",
+      "Your final time is shown when you finish",
+      "Beat your personal best to earn the record bonus"
+    ],
+    "rewards": { "robuxPerWin": 3, "bonusForRecord": 5 },
+    "config": {
+      "numbers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "boardSize": "320x320",
+      "tileSize": 56,
+      "tileColor": "#fde68a",
+      "tileActiveColor": "#34d399",
+      "wrongTapPenaltySeconds": 2,
+      "shuffleOnStart": true,
+      "showCurrentTarget": true,
+      "soundOnCorrect": "ding",
+      "soundOnWrong": "buzz"
+    }
+  },
+  {
+    "id": "bubble-pop-math",
+    "title": "Bubble Pop Math",
+    "emoji": "🫧",
+    "description": "Pop the bubble with the right answer before time runs out!",
+    "category": "fluency",
+    "skill": "addition",
+    "duration": 60,
+    "difficulty": "medium",
+    "objective": "Solve as many addition problems as you can in 60 seconds by popping the correct answer bubble",
+    "rules": [
+      "A math problem (e.g., 3 + 4) shows at the top of the screen",
+      "Bubbles with different numbers float up from the bottom",
+      "Tap the bubble that shows the correct answer to pop it",
+      "Correct pop = +1 point and a new problem appears",
+      "Wrong pop = the bubble fizzles and a small shake animation plays"
+    ],
+    "rewards": { "robuxPerWin": 4, "bonusForRecord": 5 },
+    "config": {
+      "duration": 60,
+      "problemTypes": ["addition"],
+      "addendRange": [1, 9],
+      "sumMax": 18,
+      "bubbleCount": 5,
+      "bubbleRiseSpeed": 60,
+      "bubbleColors": ["#60a5fa", "#f472b6", "#facc15", "#34d399", "#a78bfa"],
+      "decoyAnswerStrategy": "near-correct",
+      "decoyOffsetRange": [-3, 3],
+      "comboMultiplierAt": 3,
+      "soundOnPop": "pop",
+      "soundOnMiss": "splash"
+    }
+  },
+  {
+    "id": "make-10-match",
+    "title": "Make 10 Match",
+    "emoji": "🔟",
+    "description": "Tap two numbers that add up to 10!",
+    "category": "number-bond",
+    "skill": "number-bond",
+    "duration": 60,
+    "difficulty": "medium",
+    "objective": "Find and tap all the number pairs that sum to 10",
+    "rules": [
+      "A 4 by 4 grid is filled with numbers from 1 to 9",
+      "Tap one tile, then tap a second tile",
+      "If the two tiles add up to 10, they vanish with a sparkle",
+      "If they do not add to 10, both tiles flip back over briefly",
+      "Clear the whole board to finish the round"
+    ],
+    "rewards": { "robuxPerWin": 4, "bonusForRecord": 5 },
+    "config": {
+      "gridRows": 4,
+      "gridCols": 4,
+      "numberRange": [1, 9],
+      "targetSum": 10,
+      "guaranteedPairs": 8,
+      "tileSize": 64,
+      "tileBackColor": "#ffffff",
+      "tileSelectedColor": "#fef08a",
+      "tileMatchedColor": "#bbf7d0",
+      "hintAfterIdleSeconds": 15,
+      "soundOnMatch": "chime",
+      "soundOnMiss": "soft-thud"
+    }
+  },
+  {
+    "id": "speed-add",
+    "title": "Speed Add",
+    "emoji": "➕",
+    "description": "Answer as many addition problems as you can in 30 seconds!",
+    "category": "fluency",
+    "skill": "addition",
+    "duration": 30,
+    "difficulty": "easy",
+    "objective": "Answer as many single-digit addition problems as possible before time runs out",
+    "rules": [
+      "A problem like 5 + 3 appears in the middle of the screen",
+      "A number pad of 0 to 18 sits below the problem",
+      "Tap the correct answer to score a point and get a new problem",
+      "Wrong answers shake the pad but do not lose points",
+      "Your total correct is shown at the end"
+    ],
+    "rewards": { "robuxPerWin": 3, "bonusForRecord": 5 },
+    "config": {
+      "duration": 30,
+      "addendRange": [0, 9],
+      "sumMax": 18,
+      "padLayout": "0-18 grid (4 wide x 5 tall, last row 3 wide)",
+      "padButtonSize": 56,
+      "showRunningScore": true,
+      "showTimerBar": true,
+      "comboBonusAt": 5,
+      "soundOnCorrect": "ding-high",
+      "soundOnWrong": "low-bonk"
+    }
+  },
+  {
+    "id": "memory-numbers",
+    "title": "Memory Numbers",
+    "emoji": "🧠",
+    "description": "Flip cards to match numbers with their words!",
+    "category": "memory",
+    "skill": "counting",
+    "duration": 90,
+    "difficulty": "hard",
+    "objective": "Match every digit card with its matching number-word card",
+    "rules": [
+      "12 cards are placed face-down in a 4 by 3 grid",
+      "Tap a card to flip it, then tap a second card",
+      "Match a digit card (like 5) with its word card (like 'five') to keep both face up",
+      "Mismatched cards flip back after one second",
+      "Clear the whole board to win"
+    ],
+    "rewards": { "robuxPerWin": 5, "bonusForRecord": 5 },
+    "config": {
+      "gridRows": 3,
+      "gridCols": 4,
+      "pairCount": 6,
+      "pairPool": [
+        { "digit": 1, "word": "one" },
+        { "digit": 2, "word": "two" },
+        { "digit": 3, "word": "three" },
+        { "digit": 4, "word": "four" },
+        { "digit": 5, "word": "five" },
+        { "digit": 6, "word": "six" },
+        { "digit": 7, "word": "seven" },
+        { "digit": 8, "word": "eight" },
+        { "digit": 9, "word": "nine" },
+        { "digit": 10, "word": "ten" }
+      ],
+      "cardSize": 72,
+      "cardBackColor": "#818cf8",
+      "cardFaceColor": "#ffffff",
+      "flipDurationMs": 300,
+      "mismatchHoldMs": 1000,
+      "soundOnFlip": "flip",
+      "soundOnMatch": "sparkle"
+    }
+  },
+  {
+    "id": "falling-numbers",
+    "title": "Falling Numbers",
+    "emoji": "🌧️",
+    "description": "Tap only the numbers that follow the rule before they fall off!",
+    "category": "fluency",
+    "skill": "counting",
+    "duration": 45,
+    "difficulty": "medium",
+    "objective": "Tap numbers that match the current rule and avoid the ones that do not",
+    "rules": [
+      "A rule appears at the top, like 'Tap even numbers' or 'Tap numbers > 5'",
+      "Numbers from 1 to 20 fall slowly from the top of the screen",
+      "Tap matching numbers before they hit the ground for +1 point",
+      "Tap a wrong number = -1 point and a small shake",
+      "If a matching number falls off without being tapped = -1 point"
+    ],
+    "rewards": { "robuxPerWin": 4, "bonusForRecord": 5 },
+    "config": {
+      "duration": 45,
+      "numberRange": [1, 20],
+      "fallSpeedPxPerSec": 80,
+      "spawnIntervalMs": 900,
+      "maxOnScreen": 6,
+      "rulePool": [
+        { "id": "even", "label": "Tap even numbers", "predicate": "n % 2 === 0" },
+        { "id": "odd", "label": "Tap odd numbers", "predicate": "n % 2 === 1" },
+        { "id": "gt5", "label": "Tap numbers greater than 5", "predicate": "n > 5" },
+        { "id": "lt10", "label": "Tap numbers less than 10", "predicate": "n < 10" },
+        { "id": "mul2", "label": "Tap multiples of 2", "predicate": "n % 2 === 0" },
+        { "id": "mul5", "label": "Tap multiples of 5", "predicate": "n % 5 === 0" }
+      ],
+      "ruleChangesEveryMs": 15000,
+      "tileColor": "#fcd34d",
+      "soundOnCorrect": "plink",
+      "soundOnWrong": "thud"
+    }
+  },
+  {
+    "id": "shape-sorter",
+    "title": "Shape Sorter",
+    "emoji": "🔺",
+    "description": "Drag falling shapes into the right bucket!",
+    "category": "geometry",
+    "skill": "shape",
+    "duration": 60,
+    "difficulty": "easy",
+    "objective": "Sort shapes into their matching buckets as fast as you can",
+    "rules": [
+      "Three buckets sit at the bottom: triangle, circle, and square",
+      "Shapes spawn at the top and slowly drift down",
+      "Drag each shape onto its matching bucket to score +1 point",
+      "Wrong bucket bounces the shape back with a soft buzz",
+      "Shape touches the ground = it disappears with no points"
+    ],
+    "rewards": { "robuxPerWin": 3, "bonusForRecord": 5 },
+    "config": {
+      "duration": 60,
+      "shapes": ["triangle", "circle", "square"],
+      "shapeColors": {
+        "triangle": "#f87171",
+        "circle": "#60a5fa",
+        "square": "#34d399"
+      },
+      "buckets": [
+        { "shape": "triangle", "x": 80, "y": 540, "width": 90, "height": 90 },
+        { "shape": "circle", "x": 200, "y": 540, "width": 90, "height": 90 },
+        { "shape": "square", "x": 320, "y": 540, "width": 90, "height": 90 }
+      ],
+      "fallSpeedPxPerSec": 50,
+      "spawnIntervalMs": 1500,
+      "shapeSize": 60,
+      "snapTolerancePx": 40,
+      "soundOnCorrect": "click",
+      "soundOnWrong": "buzz"
+    }
+  },
+  {
+    "id": "counting-race",
+    "title": "Counting Race",
+    "emoji": "🐢",
+    "description": "Count the items and tap the right number before time runs out!",
+    "category": "counting",
+    "skill": "counting",
+    "duration": 60,
+    "difficulty": "easy",
+    "objective": "Count the items shown on screen and tap the correct total on the number pad",
+    "rules": [
+      "A group of items (apples, stars, balloons) shows on the screen",
+      "You have 6 seconds to count them",
+      "Tap the matching number on the digit pad (0 to 20)",
+      "Correct = +1 point and a new group appears",
+      "Wrong or time-out = no points but the round keeps going"
+    ],
+    "rewards": { "robuxPerWin": 3, "bonusForRecord": 5 },
+    "config": {
+      "duration": 60,
+      "perRoundSeconds": 6,
+      "itemPool": ["🍎", "⭐", "🎈", "🐠", "🌸", "🍪"],
+      "countRange": [1, 20],
+      "padLayout": "0-20 grid (5 wide x 5 tall)",
+      "padButtonSize": 48,
+      "itemLayout": "scattered-no-overlap",
+      "itemSize": 36,
+      "showCountdownBar": true,
+      "soundOnCorrect": "ding",
+      "soundOnWrong": "soft-bonk",
+      "soundOnTimeout": "tick"
+    }
+  }
+]

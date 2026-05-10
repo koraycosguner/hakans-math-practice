@@ -150,6 +150,331 @@ function recordProblemAttempt(moduleId, activity, idx, isCorrect) {
     try { localStorage.setItem(PROBLEM_STATS_KEY, JSON.stringify(all)); } catch (e) {}
 }
 
+// Adaptive review: return list of practice/quiz problem indices Hakan
+// has gotten wrong on this module (accuracy < 100%). Used by the
+// "Review Missed" button on the module detail screen.
+function getMissedProblems(moduleId) {
+    if (!moduleId) return [];
+    const all = loadProblemStats();
+    const out = [];
+    for (const key of Object.keys(all)) {
+        const [mid, activity, idxStr] = key.split('::');
+        if (mid !== moduleId) continue;
+        const s = all[key];
+        if (!s || s.attempts < 1) continue;
+        if (s.correct >= s.attempts) continue;  // never wrong
+        out.push({ activity, idx: parseInt(idxStr, 10), accuracy: s.correct / s.attempts });
+    }
+    out.sort((a, b) => a.accuracy - b.accuracy);
+    return out;
+}
+
+// Mark missed problems as "reviewed" — clear their stats so they don't
+// keep appearing. (Called when the review activity finishes.)
+function clearReviewedProblems(moduleId, items) {
+    if (!moduleId || !items) return;
+    const all = loadProblemStats();
+    for (const it of items) {
+        const key = `${moduleId}::${it.activity}::${it.idx}`;
+        delete all[key];
+    }
+    try { localStorage.setItem(PROBLEM_STATS_KEY, JSON.stringify(all)); } catch (e) {}
+}
+
+// ===== Achievement badges =====
+let BADGES_CATALOG = [];
+(async function loadBadgesCatalog() {
+    try {
+        const res = await fetch('badges.json?v=' + (typeof AUDIO_VERSION !== 'undefined' ? AUDIO_VERSION : 1));
+        if (res.ok) BADGES_CATALOG = await res.json();
+    } catch (e) {}
+})();
+
+const BADGES_EARNED_KEY = 'hakans-math-badges';
+function loadEarnedBadges() {
+    try {
+        const raw = localStorage.getItem(BADGES_EARNED_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+}
+function saveEarnedBadges(map) {
+    try { localStorage.setItem(BADGES_EARNED_KEY, JSON.stringify(map)); } catch (e) {}
+}
+
+function _gatherBadgeState() {
+    const progress = loadAllProgress();
+    const visits = loadAllVisits();
+    const streak = loadStreak();
+    const stats = loadProblemStats();
+    const robux = loadRobux();
+    const earned = loadEarnedBadges();
+    let totalStars = 0, modulesCompleted = 0, perfectModules = 0;
+    let quizzes = 0, lessons = 0, plays = 0, correctTotal = 0;
+    for (const id of Object.keys(progress)) {
+        const p = progress[id];
+        totalStars += p.stars || 0;
+        modulesCompleted += 1;
+        if (p.stars === 3) perfectModules += 1;
+    }
+    for (const id of Object.keys(visits)) {
+        plays += (visits[id].count || 1);
+    }
+    // Quizzes ~= modulesCompleted (each progress entry came from quiz)
+    quizzes = modulesCompleted;
+    // Approx lessons completed: count of visits where Hakan went to lesson
+    // (we don't separately track this; use plays as rough proxy)
+    lessons = Math.max(0, plays - quizzes);
+    for (const key of Object.keys(stats)) {
+        correctTotal += (stats[key].correct || 0);
+    }
+    // Per-category mastery
+    const catStart = {}, catMaster = {};
+    if (typeof MODULES !== 'undefined') {
+        for (const m of MODULES) {
+            const p = progress[m.id];
+            const cat = m.category;
+            if (!cat) continue;
+            if (catStart[cat] == null) catStart[cat] = { total: 0, started: 0, mastered: 0 };
+            catStart[cat].total += 1;
+            if (p) {
+                catStart[cat].started += 1;
+                if (p.stars === 3) catStart[cat].mastered += 1;
+            }
+        }
+    }
+    return {
+        progress, visits, streak, stats, robux, earned,
+        totalStars, modulesCompleted, perfectModules,
+        quizzes, lessons, plays, correctTotal, catStart, catMaster,
+    };
+}
+
+function evaluateBadge(badge, st) {
+    const c = badge.criteria || {};
+    switch (c.type) {
+        case 'quiz-completed':       return st.quizzes >= (c.threshold || 1);
+        case 'streak':               return (st.streak.current || 0) >= (c.threshold || 1);
+        case 'streak-best':          return (st.streak.longest || 0) >= (c.threshold || 1);
+        case 'total-stars':          return st.totalStars >= (c.threshold || 1);
+        case 'modules-completed':    return st.modulesCompleted >= (c.threshold || 1);
+        case 'perfect-quiz':         return st.perfectModules >= (c.threshold || 1);
+        case 'correct-answers':      return st.correctTotal >= (c.threshold || 1);
+        case 'robux-earned-total':   return st.robux >= (c.threshold || 1);
+        case 'play-count':           return st.plays >= (c.threshold || 1);
+        case 'lesson-completed':     return st.lessons >= (c.threshold || 1);
+        case 'category-complete': {
+            const cat = st.catStart[c.category];
+            return !!cat && cat.started === cat.total && cat.total > 0;
+        }
+        case 'category-mastered': {
+            const cat = st.catStart[c.category];
+            return !!cat && cat.mastered === cat.total && cat.total > 0;
+        }
+        case 'module-mastered': {
+            const p = st.progress[c.moduleId];
+            return !!p && p.stars === 3;
+        }
+    }
+    return false;
+}
+
+// Award any newly-earned badges and return the list (for UI notification).
+function checkAndAwardBadges() {
+    if (!BADGES_CATALOG.length) return [];
+    const st = _gatherBadgeState();
+    const newly = [];
+    let robuxToAdd = 0;
+    for (const b of BADGES_CATALOG) {
+        if (st.earned[b.id]) continue;
+        if (evaluateBadge(b, st)) {
+            st.earned[b.id] = { when: Date.now() };
+            newly.push(b);
+            if (b.robux) robuxToAdd += b.robux;
+        }
+    }
+    if (newly.length) {
+        saveEarnedBadges(st.earned);
+        if (robuxToAdd > 0) saveRobux(loadRobux() + robuxToAdd);
+    }
+    return newly;
+}
+
+// Floating badge toast — shows briefly when a badge is earned.
+function showBadgeToasts(badges) {
+    if (!badges || !badges.length) return;
+    badges.forEach((b, i) => {
+        setTimeout(() => {
+            const t = document.createElement('div');
+            t.className = 'badge-toast badge-toast-' + (b.tier || 'bronze');
+            t.innerHTML = `
+                <div class="bt-emoji">${b.emoji || '🏅'}</div>
+                <div class="bt-body">
+                    <div class="bt-name">${b.name}</div>
+                    <div class="bt-desc">${b.description || ''}</div>
+                    ${b.robux ? `<div class="bt-robux">+${b.robux} 💎</div>` : ''}
+                </div>`;
+            document.body.appendChild(t);
+            setTimeout(() => t.classList.add('bt-show'), 50);
+            setTimeout(() => {
+                t.classList.remove('bt-show');
+                setTimeout(() => t.remove(), 600);
+            }, 3500);
+        }, i * 600);
+    });
+}
+
+function openTrophyRoom() {
+    if (typeof playSound === 'function') playSound('click');
+    renderTrophyRoom();
+    showScreen('trophy-room-screen');
+}
+
+function renderTrophyRoom() {
+    const body = document.getElementById('trophy-room-body');
+    if (!body) return;
+    const earned = loadEarnedBadges();
+    const st = _gatherBadgeState();
+    const byTier = {};
+    for (const b of BADGES_CATALOG) {
+        const t = b.tier || 'bronze';
+        byTier[t] = byTier[t] || [];
+        byTier[t].push(b);
+    }
+    const order = ['diamond', 'platinum', 'gold', 'silver', 'bronze'];
+    let html = `<div class="tr-stats">
+        <div class="tr-stat-num">${Object.keys(earned).length}</div>
+        <div class="tr-stat-label">of ${BADGES_CATALOG.length} badges</div>
+    </div>`;
+    for (const t of order) {
+        const tierBadges = byTier[t] || [];
+        if (!tierBadges.length) continue;
+        const got = tierBadges.filter((b) => earned[b.id]).length;
+        html += `<h3 class="tr-tier-heading tr-tier-${t}">${t.toUpperCase()} ${got}/${tierBadges.length}</h3>`;
+        html += `<div class="tr-grid">`;
+        for (const b of tierBadges) {
+            const got = !!earned[b.id];
+            const progress = badgeProgressString(b, st);
+            html += `<div class="tr-card ${got ? 'tr-card-earned' : 'tr-card-locked'}">
+                <div class="tr-card-emoji">${b.emoji || '🏅'}</div>
+                <div class="tr-card-name">${b.name}</div>
+                <div class="tr-card-desc">${b.description || ''}</div>
+                ${got ? '<div class="tr-card-tag">✓ Earned</div>' : `<div class="tr-card-progress">${progress}</div>`}
+            </div>`;
+        }
+        html += `</div>`;
+    }
+    body.innerHTML = html;
+}
+
+function badgeProgressString(b, st) {
+    const c = b.criteria || {};
+    const get = (k, def) => (k != null ? k : def);
+    switch (c.type) {
+        case 'quiz-completed':     return `${st.quizzes} / ${c.threshold}`;
+        case 'streak':             return `${st.streak.current} / ${c.threshold} days`;
+        case 'total-stars':        return `${st.totalStars} / ${c.threshold} ⭐`;
+        case 'modules-completed':  return `${st.modulesCompleted} / ${c.threshold}`;
+        case 'perfect-quiz':       return `${st.perfectModules} / ${c.threshold} perfect`;
+        case 'correct-answers':    return `${st.correctTotal} / ${c.threshold}`;
+        case 'robux-earned-total': return `${st.robux.toFixed(0)} / ${c.threshold} 💎`;
+        case 'play-count':         return `${st.plays} / ${c.threshold}`;
+        case 'lesson-completed':   return `${st.lessons} / ${c.threshold}`;
+        case 'category-complete':
+        case 'category-mastered': {
+            const cat = st.catStart[c.category];
+            const key = c.type === 'category-complete' ? 'started' : 'mastered';
+            return cat ? `${cat[key]} / ${cat.total}` : 'Locked';
+        }
+        case 'module-mastered':    return 'Locked';
+    }
+    return '';
+}
+
+// ===== Math Pet =====
+let MATH_PET_CATALOG = null;
+(async function loadMathPetCatalog() {
+    try {
+        const res = await fetch('math-pet.json?v=' + (typeof AUDIO_VERSION !== 'undefined' ? AUDIO_VERSION : 1));
+        if (res.ok) MATH_PET_CATALOG = await res.json();
+    } catch (e) {}
+})();
+
+const PET_STORAGE_KEY = 'hakans-math-pet';
+function loadPetState() {
+    try {
+        const raw = localStorage.getItem(PET_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : { petId: null };
+    } catch (e) { return { petId: null }; }
+}
+function savePetState(state) {
+    try { localStorage.setItem(PET_STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function getPetStageForStars(pet, totalStars) {
+    if (!pet || !pet.stages) return null;
+    let current = pet.stages[0];
+    for (const s of pet.stages) {
+        if (totalStars >= (s.unlockAt || 0)) current = s;
+        else break;
+    }
+    return current;
+}
+
+function currentPetStage() {
+    if (!MATH_PET_CATALOG) return null;
+    const state = loadPetState();
+    const petId = state.petId || (MATH_PET_CATALOG.pets[0] && MATH_PET_CATALOG.pets[0].id);
+    const pet = MATH_PET_CATALOG.pets.find((p) => p.id === petId) || MATH_PET_CATALOG.pets[0];
+    if (!pet) return null;
+    const progress = loadAllProgress();
+    const totalStars = Object.values(progress).reduce((s, p) => s + (p.stars || 0), 0);
+    return { pet, stage: getPetStageForStars(pet, totalStars), totalStars };
+}
+
+function choosePet(id) {
+    const s = loadPetState();
+    s.petId = id;
+    savePetState(s);
+    if (typeof renderHomeModules === 'function') renderHomeModules();
+}
+
+function openPetPicker() {
+    if (!MATH_PET_CATALOG) return;
+    if (typeof playSound === 'function') playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'pet-picker-overlay';
+    const state = loadPetState();
+    let html = `<div class="pet-picker">
+        <h2>Choose your math buddy!</h2>
+        <div class="pet-picker-grid">`;
+    for (const p of MATH_PET_CATALOG.pets) {
+        const stage0 = p.stages[0] || {};
+        const isCurrent = (state.petId === p.id);
+        html += `<button class="pet-picker-card ${isCurrent ? 'pp-current' : ''}" data-id="${p.id}">
+            <div class="pp-emoji">${stage0.emoji || '🐾'}</div>
+            <div class="pp-name">${p.name}</div>
+            <div class="pp-desc">${p.description || ''}</div>
+        </button>`;
+    }
+    html += `</div>
+        <button class="pet-picker-close">Cancel</button>
+    </div>`;
+    overlay.innerHTML = html;
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.remove();
+    });
+    overlay.querySelectorAll('.pet-picker-card').forEach((c) => {
+        c.addEventListener('click', () => {
+            const id = c.getAttribute('data-id');
+            choosePet(id);
+            overlay.remove();
+        });
+    });
+    const close = overlay.querySelector('.pet-picker-close');
+    if (close) close.addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
 // "Practice this again" — modules where the most-recent quiz finish was
 // under 70% accuracy. We track per-module aggregate via PROGRESS (stars) +
 // problem stats — but for simplicity, surface modules where progress < 3

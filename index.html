@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=24">
+    <link rel="manifest" href="manifest.json?v=25">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=24">
+    <link rel="stylesheet" href="style.css?v=25">
 </head>
 <body>
     <!-- User Selection Screen -->
@@ -89,7 +89,12 @@
                     <button id="mod-quiz-btn"     class="activity-btn act-quiz"     onclick="startActivity('quiz')">
                         <span class="act-icon">⭐</span>
                         <span class="act-name">Quiz</span>
-                        <span class="act-sub">💎 4 each</span>
+                        <span class="act-sub">💎 2 each</span>
+                    </button>
+                    <button id="mod-review-btn"   class="activity-btn act-review"   onclick="startActivity('review')" style="display:none;">
+                        <span class="act-icon">🔁</span>
+                        <span class="act-name">Review Missed</span>
+                        <span class="act-sub">0 missed</span>
                     </button>
                 </div>
             </div>
@@ -402,12 +407,21 @@
         </div>
     </div>
 
+    <!-- Trophy Room (Hakan only) -->
+    <div id="trophy-room-screen" class="screen">
+        <div class="trophy-room">
+            <button class="back-btn" onclick="goHome()">🏠 Home</button>
+            <h1 class="tr-title">🏆 Hakan's Trophy Room</h1>
+            <div id="trophy-room-body"></div>
+        </div>
+    </div>
+
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=24"></script>
-    <script src="modules.js?v=24"></script>
-    <script src="game.js?v=24"></script>
+    <script src="audio.js?v=25"></script>
+    <script src="modules.js?v=25"></script>
+    <script src="game.js?v=25"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->

@@ -611,6 +611,35 @@ const MODULES = [
         "hint": "Hakan, after 12 comes 13. Then 14. The missing number is 13!"
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 7,
+            "label": "7"
+          },
+          {
+            "value": 2,
+            "label": "2"
+          },
+          {
+            "value": 9,
+            "label": "9"
+          },
+          {
+            "value": 4,
+            "label": "4"
+          }
+        ],
+        "correctOrder": [
+          2,
+          4,
+          7,
+          9
+        ],
+        "prompt": "Hakan, order these numbers smallest to biggest!",
+        "hint": "Count up to find smallest first: 1, 2... 2 is smallest. Then 4, then 7, then 9."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "numberline",
@@ -637,6 +666,24 @@ const MODULES = [
         "prompt": "Hakan counts 18, 19, ?, 21. Help him!",
         "answer": 20,
         "hint": "After 19 comes 20! Hakan knows this — 20 has a 0 at the end."
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          1,
+          "_",
+          3,
+          "_",
+          5,
+          "_"
+        ],
+        "blanks": [
+          2,
+          4,
+          6
+        ],
+        "prompt": "Hakan, fill in the missing numbers!",
+        "hint": "Count by 1s. The pattern goes up by one each time."
       },
       {
         "type": "numeric",
@@ -1263,6 +1310,35 @@ const MODULES = [
         "prompt": "How many TENS are in 36?",
         "answer": 3,
         "hint": "Hakan, the LEFT digit shows tens. In 36, the left digit is 3."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 41,
+            "label": "41"
+          },
+          {
+            "value": 14,
+            "label": "14"
+          },
+          {
+            "value": 44,
+            "label": "44"
+          },
+          {
+            "value": 4,
+            "label": "4"
+          }
+        ],
+        "correctOrder": [
+          4,
+          14,
+          41,
+          44
+        ],
+        "prompt": "Hakan, order from smallest to biggest!",
+        "hint": "Look at tens place. 4 has 0 tens. 14 has 1 ten. 41 has 4 tens, 1 one. 44 has 4 tens, 4 ones."
       },
       {
         "type": "numeric",
@@ -4310,6 +4386,41 @@ const MODULES = [
         "hint": "Plus 3 means THREE jumps. From 5: 6, 7, 8. Answer is 8, not 7."
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "3+1",
+          "3+4",
+          "3+2",
+          "3+5"
+        ],
+        "rightItems": [
+          "4",
+          "5",
+          "7",
+          "8"
+        ],
+        "correctPairs": [
+          [
+            "3+1",
+            "4"
+          ],
+          [
+            "3+4",
+            "7"
+          ],
+          [
+            "3+2",
+            "5"
+          ],
+          [
+            "3+5",
+            "8"
+          ]
+        ],
+        "prompt": "Hakan, match each +3 fact to its answer!",
+        "hint": "Start with 3 and count up. 3+1=4. 3+2=5. 3+4=7. 3+5=8."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
@@ -4921,6 +5032,41 @@ const MODULES = [
         ],
         "answerIndex": 1,
         "hint": "From 6, hop five: 7, 8, 9, 10, 11. Answer is 11, not 10!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "5+0",
+          "5+2",
+          "5+3",
+          "5+5"
+        ],
+        "rightItems": [
+          "5",
+          "7",
+          "8",
+          "10"
+        ],
+        "correctPairs": [
+          [
+            "5+0",
+            "5"
+          ],
+          [
+            "5+2",
+            "7"
+          ],
+          [
+            "5+3",
+            "8"
+          ],
+          [
+            "5+5",
+            "10"
+          ]
+        ],
+        "prompt": "Hakan, match each +5 fact!",
+        "hint": "Start at 5, count up. 5+0=5. 5+2=7. 5+3=8. 5+5=10."
       },
       {
         "type": "numeric",
@@ -8314,6 +8460,41 @@ const MODULES = [
         "hint": "Think: WHAT + 5 = 10? Answer is 5! Doubles!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "8-5",
+          "10-5",
+          "6-5",
+          "9-5"
+        ],
+        "rightItems": [
+          "1",
+          "3",
+          "4",
+          "5"
+        ],
+        "correctPairs": [
+          [
+            "8-5",
+            "3"
+          ],
+          [
+            "10-5",
+            "5"
+          ],
+          [
+            "6-5",
+            "1"
+          ],
+          [
+            "9-5",
+            "4"
+          ]
+        ],
+        "prompt": "Hakan, match each -5 fact!",
+        "hint": "Take 5 away. 8-5=3. 10-5=5. 6-5=1. 9-5=4."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "take-away",
@@ -10778,6 +10959,47 @@ const MODULES = [
         "hint": "Two whole hands of 5: Hakan gets 10!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "1+1",
+          "2+2",
+          "3+3",
+          "4+4",
+          "5+5"
+        ],
+        "rightItems": [
+          "2",
+          "4",
+          "6",
+          "8",
+          "10"
+        ],
+        "correctPairs": [
+          [
+            "1+1",
+            "2"
+          ],
+          [
+            "2+2",
+            "4"
+          ],
+          [
+            "3+3",
+            "6"
+          ],
+          [
+            "4+4",
+            "8"
+          ],
+          [
+            "5+5",
+            "10"
+          ]
+        ],
+        "prompt": "Hakan, match each double to its answer!",
+        "hint": "Doubles add a number to itself. 1+1=2, 2+2=4, 3+3=6, 4+4=8, 5+5=10."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "add-groups",
@@ -11092,6 +11314,47 @@ const MODULES = [
         "prompt": "Hakan: 9 + 9. Almost twenty!",
         "answer": 18,
         "hint": "Hakan's double 9: 9 + 9 = 18! Hakan got it fast!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "6+6",
+          "7+7",
+          "8+8",
+          "9+9",
+          "10+10"
+        ],
+        "rightItems": [
+          "12",
+          "14",
+          "16",
+          "18",
+          "20"
+        ],
+        "correctPairs": [
+          [
+            "6+6",
+            "12"
+          ],
+          [
+            "7+7",
+            "14"
+          ],
+          [
+            "8+8",
+            "16"
+          ],
+          [
+            "9+9",
+            "18"
+          ],
+          [
+            "10+10",
+            "20"
+          ]
+        ],
+        "prompt": "Hakan, match each big double to its answer!",
+        "hint": "Doubles for 6-10: 6+6=12, 7+7=14, 8+8=16, 9+9=18, 10+10=20."
       },
       {
         "type": "numeric",
@@ -11707,6 +11970,35 @@ const MODULES = [
         "hint": "Hakan: 4 needs just 1 more to make 5!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "0+5",
+          "1+4",
+          "2+3"
+        ],
+        "rightItems": [
+          "5",
+          "5",
+          "5"
+        ],
+        "correctPairs": [
+          [
+            "0+5",
+            "5"
+          ],
+          [
+            "1+4",
+            "5"
+          ],
+          [
+            "2+3",
+            "5"
+          ]
+        ],
+        "prompt": "Hakan, match each bond to its total!",
+        "hint": "All bonds of 5 equal 5! Match every pair on the left to a 5 on the right."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
@@ -12004,6 +12296,35 @@ const MODULES = [
         "prompt": "Hakan: 4 + ? = 6.",
         "answer": 2,
         "hint": "Hakan: 4 needs 2 more to make 6!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "1+5",
+          "2+4",
+          "3+3"
+        ],
+        "rightItems": [
+          "6",
+          "6",
+          "6"
+        ],
+        "correctPairs": [
+          [
+            "1+5",
+            "6"
+          ],
+          [
+            "2+4",
+            "6"
+          ],
+          [
+            "3+3",
+            "6"
+          ]
+        ],
+        "prompt": "Hakan, match each bond to 6!",
+        "hint": "Every pair on the left adds to 6. Match them all to 6."
       },
       {
         "type": "numeric",
@@ -12308,6 +12629,41 @@ const MODULES = [
         "hint": "Hakan: 4 + 3 = 7. Same as 3 + 4!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "0+7",
+          "3+4",
+          "2+5",
+          "1+6"
+        ],
+        "rightItems": [
+          "7",
+          "7",
+          "7",
+          "7"
+        ],
+        "correctPairs": [
+          [
+            "0+7",
+            "7"
+          ],
+          [
+            "3+4",
+            "7"
+          ],
+          [
+            "2+5",
+            "7"
+          ],
+          [
+            "1+6",
+            "7"
+          ]
+        ],
+        "prompt": "Hakan, match each bond to its answer!",
+        "hint": "All these pairs make 7 — that's the lesson! Match each to 7."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
@@ -12607,6 +12963,41 @@ const MODULES = [
         "prompt": "Hakan: 4 + ? = 8 (double!).",
         "answer": 4,
         "hint": "Hakan's double 4: 4 + 4 = 8! Hakan got it fast!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "1+7",
+          "2+6",
+          "3+5",
+          "4+4"
+        ],
+        "rightItems": [
+          "8",
+          "8",
+          "8",
+          "8"
+        ],
+        "correctPairs": [
+          [
+            "1+7",
+            "8"
+          ],
+          [
+            "2+6",
+            "8"
+          ],
+          [
+            "3+5",
+            "8"
+          ],
+          [
+            "4+4",
+            "8"
+          ]
+        ],
+        "prompt": "Hakan, match the math to 8!",
+        "hint": "Four different ways to make 8 — they all match to 8!"
       },
       {
         "type": "numeric",
@@ -12910,6 +13301,41 @@ const MODULES = [
         "hint": "Hakan: 4 and 5 are next door. 4 + 5 = 9!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "1+8",
+          "2+7",
+          "3+6",
+          "4+5"
+        ],
+        "rightItems": [
+          "9",
+          "9",
+          "9",
+          "9"
+        ],
+        "correctPairs": [
+          [
+            "1+8",
+            "9"
+          ],
+          [
+            "2+7",
+            "9"
+          ],
+          [
+            "3+6",
+            "9"
+          ],
+          [
+            "4+5",
+            "9"
+          ]
+        ],
+        "prompt": "Hakan, match each bond to 9!",
+        "hint": "All four pairs make 9. That's the magic of number bonds!"
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
@@ -13209,6 +13635,47 @@ const MODULES = [
         "prompt": "Hakan: 5 + ? = 10 (double!).",
         "answer": 5,
         "hint": "Hakan's double 5: 5 + 5 = 10! Hakan got it fast!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "1+9",
+          "2+8",
+          "3+7",
+          "4+6",
+          "5+5"
+        ],
+        "rightItems": [
+          "10",
+          "10",
+          "10",
+          "10",
+          "10"
+        ],
+        "correctPairs": [
+          [
+            "1+9",
+            "10"
+          ],
+          [
+            "2+8",
+            "10"
+          ],
+          [
+            "3+7",
+            "10"
+          ],
+          [
+            "4+6",
+            "10"
+          ],
+          [
+            "5+5",
+            "10"
+          ]
+        ],
+        "prompt": "Hakan, match every bond to 10!",
+        "hint": "Five ways to make 10. They ALL match to 10 — that's why we say bonds of 10!"
       },
       {
         "type": "numeric",
@@ -13547,6 +14014,35 @@ const MODULES = [
         "hint": "8 is way bigger than 1. Mouth eats 8: 8 > 1."
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 8,
+            "label": "8"
+          },
+          {
+            "value": 3,
+            "label": "3"
+          },
+          {
+            "value": 10,
+            "label": "10"
+          },
+          {
+            "value": 5,
+            "label": "5"
+          }
+        ],
+        "correctOrder": [
+          3,
+          5,
+          8,
+          10
+        ],
+        "prompt": "Hakan, order these numbers smallest to biggest!",
+        "hint": "Count up. Smaller numbers come first. 3 is the tiniest, then 5, 8, 10."
+      },
+      {
         "type": "choice",
         "visual": {
           "type": "compare-pair",
@@ -13577,6 +14073,40 @@ const MODULES = [
         ],
         "answerIndex": 0,
         "hint": "10 is the biggest single number Hakan knows. 10 > 7."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 1,
+            "label": "1"
+          },
+          {
+            "value": 9,
+            "label": "9"
+          },
+          {
+            "value": 6,
+            "label": "6"
+          },
+          {
+            "value": 4,
+            "label": "4"
+          },
+          {
+            "value": 2,
+            "label": "2"
+          }
+        ],
+        "correctOrder": [
+          1,
+          2,
+          4,
+          6,
+          9
+        ],
+        "prompt": "Hakan, order all five numbers smallest to biggest!",
+        "hint": "Start with the tiniest. 1 is smallest. Then 2, 4, 6, 9."
       },
       {
         "type": "choice",
@@ -13943,6 +14473,35 @@ const MODULES = [
         "hint": "9 has 0 tens. 16 has 1 ten. More tens wins, so 9 < 16."
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 13,
+            "label": "13"
+          },
+          {
+            "value": 7,
+            "label": "7"
+          },
+          {
+            "value": 18,
+            "label": "18"
+          },
+          {
+            "value": 11,
+            "label": "11"
+          }
+        ],
+        "correctOrder": [
+          7,
+          11,
+          13,
+          18
+        ],
+        "prompt": "Hakan, order smallest to biggest!",
+        "hint": "7 is the only single digit — smallest. The rest are teens: compare the ones."
+      },
+      {
         "type": "choice",
         "visual": {
           "type": "compare-pair",
@@ -13974,6 +14533,35 @@ const MODULES = [
         ],
         "answerIndex": 0,
         "hint": "Tens tie. Ones: 8 > 4. So Hakan with 18 has more."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 20,
+            "label": "20"
+          },
+          {
+            "value": 12,
+            "label": "12"
+          },
+          {
+            "value": 2,
+            "label": "2"
+          },
+          {
+            "value": 10,
+            "label": "10"
+          }
+        ],
+        "correctOrder": [
+          2,
+          10,
+          12,
+          20
+        ],
+        "prompt": "Hakan, order these from smallest to biggest!",
+        "hint": "Look at the tens. 2 has 0 tens. 10 and 12 have 1 ten. 20 has 2 tens."
       },
       {
         "type": "choice",
@@ -14335,6 +14923,35 @@ const MODULES = [
         ],
         "answerIndex": 1,
         "hint": "18 has 1 ten, 32 has 3 tens. So 18 < 32."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 35,
+            "label": "35"
+          },
+          {
+            "value": 53,
+            "label": "53"
+          },
+          {
+            "value": 25,
+            "label": "25"
+          },
+          {
+            "value": 43,
+            "label": "43"
+          }
+        ],
+        "correctOrder": [
+          25,
+          35,
+          43,
+          53
+        ],
+        "prompt": "Hakan, order these smallest to biggest!",
+        "hint": "Compare tens first: 25 has 2 tens, 35 has 3 tens, 43 has 4 tens, 53 has 5 tens."
       },
       {
         "type": "choice",
@@ -14731,6 +15348,35 @@ const MODULES = [
         "hint": "49 has 4 tens, 92 has 9 tens. So 49 < 92."
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 76,
+            "label": "76"
+          },
+          {
+            "value": 67,
+            "label": "67"
+          },
+          {
+            "value": 100,
+            "label": "100"
+          },
+          {
+            "value": 17,
+            "label": "17"
+          }
+        ],
+        "correctOrder": [
+          17,
+          67,
+          76,
+          100
+        ],
+        "prompt": "Hakan, order from smallest to biggest!",
+        "hint": "17 has 1 ten. 67 and 76 both have 6 tens vs 7 tens — 67 is smaller. 100 is biggest."
+      },
+      {
         "type": "choice",
         "visual": {
           "type": "compare-pair",
@@ -15104,6 +15750,23 @@ const MODULES = [
         "hint": "Add 2! 16 + 2 = 18. Skip counting by 2!"
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          0,
+          2,
+          "_",
+          6,
+          "_",
+          10
+        ],
+        "blanks": [
+          4,
+          8
+        ],
+        "prompt": "Hakan, skip count by 2s — fill in the blanks!",
+        "hint": "Add 2 each step. 2+2=4. 6+2=8."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -15146,6 +15809,23 @@ const MODULES = [
         "prompt": "Hakan counts 18, 20, 22, 24, ?. Next?",
         "answer": 26,
         "hint": "24 + 2 = 26. Hakan, you are amazing!"
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          10,
+          12,
+          "_",
+          16,
+          "_",
+          20
+        ],
+        "blanks": [
+          14,
+          18
+        ],
+        "prompt": "Hakan, skip by 2 past 10 — fill the blanks!",
+        "hint": "Keep adding 2. 12+2=14. 16+2=18."
       },
       {
         "type": "choice",
@@ -15491,6 +16171,23 @@ const MODULES = [
         "hint": "15 + 3 = 18. Skip counting by 3!"
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          0,
+          3,
+          "_",
+          9,
+          "_",
+          15
+        ],
+        "blanks": [
+          6,
+          12
+        ],
+        "prompt": "Hakan, skip by 3 — fill in the missing numbers!",
+        "hint": "Each step adds 3. 3+3=6. 9+3=12."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -15533,6 +16230,40 @@ const MODULES = [
         "prompt": "Hakan starts at 12 and skips by 3. Where?",
         "answer": 15,
         "hint": "12 + 3 = 15. One big hop! Hakan keeps thinking step by step."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 9,
+            "label": "9"
+          },
+          {
+            "value": 3,
+            "label": "3"
+          },
+          {
+            "value": 15,
+            "label": "15"
+          },
+          {
+            "value": 6,
+            "label": "6"
+          },
+          {
+            "value": 12,
+            "label": "12"
+          }
+        ],
+        "correctOrder": [
+          3,
+          6,
+          9,
+          12,
+          15
+        ],
+        "prompt": "Hakan, order these skip-3 numbers smallest to biggest!",
+        "hint": "These are all multiples of 3. Count by 3s: 3, 6, 9, 12, 15."
       },
       {
         "type": "choice",
@@ -15871,6 +16602,23 @@ const MODULES = [
         "hint": "Pattern +5. 20 + 5 = 25. Got it!"
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          0,
+          5,
+          "_",
+          15,
+          "_",
+          25
+        ],
+        "blanks": [
+          10,
+          20
+        ],
+        "prompt": "Hakan, skip by 5 — fill in!",
+        "hint": "Add 5 each time. 5+5=10. 15+5=20. Easy!"
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -15911,6 +16659,24 @@ const MODULES = [
         "prompt": "Hakan: 40, 45, 50, ?",
         "answer": 55,
         "hint": "50 + 5 = 55. Numbers end in 0 or 5!"
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          20,
+          "_",
+          30,
+          "_",
+          40,
+          "_"
+        ],
+        "blanks": [
+          25,
+          35,
+          45
+        ],
+        "prompt": "Hakan, fill in skip-5 past 20!",
+        "hint": "Skip 5: 20, 25, 30, 35, 40, 45. The ones digit flips between 0 and 5."
       },
       {
         "type": "choice",
@@ -16250,6 +17016,23 @@ const MODULES = [
         "hint": "Pattern +10. 40 + 10 = 50! Hakan keeps thinking step by step."
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          10,
+          20,
+          "_",
+          40,
+          "_",
+          60
+        ],
+        "blanks": [
+          30,
+          50
+        ],
+        "prompt": "Hakan, skip by 10 — fill in!",
+        "hint": "Each step adds 10. The tens digit goes up by 1: 20, 30, 40, 50."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -16290,6 +17073,23 @@ const MODULES = [
         "prompt": "Hakan: 70, 80, 90, ?",
         "answer": 100,
         "hint": "90 + 10 = 100. Hakan got it! Hakan keeps thinking step by step."
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          50,
+          60,
+          "_",
+          "_",
+          90,
+          100
+        ],
+        "blanks": [
+          70,
+          80
+        ],
+        "prompt": "Hakan, fill in skip-10 up to 100!",
+        "hint": "Add 10 each time: 60, 70, 80, 90, 100."
       },
       {
         "type": "choice",
@@ -16610,6 +17410,30 @@ const MODULES = [
         "hint": "Almost full! 5 on top + 4 on bottom = 9!"
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 2,
+            "label": "2"
+          },
+          {
+            "value": 8,
+            "label": "8"
+          },
+          {
+            "value": 5,
+            "label": "5"
+          }
+        ],
+        "correctOrder": [
+          2,
+          5,
+          8
+        ],
+        "prompt": "Hakan, drag to order from smallest to biggest!",
+        "hint": "Smallest comes first. Look for the tiny number — 2 is less than 5, and 5 is less than 8."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "ten-frame",
@@ -16630,6 +17454,35 @@ const MODULES = [
         "prompt": "Hakan, how many?",
         "answer": 3,
         "hint": "Just count: 1, 2, 3. Three apples!"
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 9,
+            "label": "9"
+          },
+          {
+            "value": 1,
+            "label": "1"
+          },
+          {
+            "value": 4,
+            "label": "4"
+          },
+          {
+            "value": 6,
+            "label": "6"
+          }
+        ],
+        "correctOrder": [
+          1,
+          4,
+          6,
+          9
+        ],
+        "prompt": "Hakan, order these four numbers smallest to biggest!",
+        "hint": "Count up: 1, 2, 3, 4... The number you say first is smallest."
       },
       {
         "type": "choice",
@@ -16924,6 +17777,30 @@ const MODULES = [
         "hint": "10 + 6 = 16. Hakan, you got this!"
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 13,
+            "label": "13"
+          },
+          {
+            "value": 17,
+            "label": "17"
+          },
+          {
+            "value": 11,
+            "label": "11"
+          }
+        ],
+        "correctOrder": [
+          11,
+          13,
+          17
+        ],
+        "prompt": "Hakan, order these teen numbers smallest to biggest!",
+        "hint": "All teens start with 10. Compare the ones: 1 < 3 < 7."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-ten-frames",
@@ -16948,6 +17825,23 @@ const MODULES = [
         "prompt": "Both frames are full!",
         "answer": 20,
         "hint": "10 + 10 = 20. Two full ten-frames! Amazing!"
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          10,
+          11,
+          "_",
+          13,
+          "_",
+          15
+        ],
+        "blanks": [
+          12,
+          14
+        ],
+        "prompt": "Hakan, fill in the missing teen numbers!",
+        "hint": "After 11 comes 12. After 13 comes 14. Each step adds 1."
       },
       {
         "type": "choice",
@@ -17242,6 +18136,30 @@ const MODULES = [
         "hint": "10, 20, 30, 40. The answer is 40!"
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 23,
+            "label": "23"
+          },
+          {
+            "value": 32,
+            "label": "32"
+          },
+          {
+            "value": 21,
+            "label": "21"
+          }
+        ],
+        "correctOrder": [
+          21,
+          23,
+          32
+        ],
+        "prompt": "Hakan, drag to order from smallest to biggest!",
+        "hint": "Look at the tens first. 21 and 23 both have 2 tens; 32 has 3 tens — biggest."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "blocks",
@@ -17273,6 +18191,23 @@ const MODULES = [
         "prompt": "Hakan has 4 tens and 7 ones. Total?",
         "answer": 47,
         "hint": "40 + 7 = 47. You got it, Hakan!"
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          27,
+          28,
+          "_",
+          30,
+          "_",
+          32
+        ],
+        "blanks": [
+          29,
+          31
+        ],
+        "prompt": "Hakan, fill in the missing numbers!",
+        "hint": "Count by 1s. After 28 comes 29. After 30 comes 31."
       },
       {
         "type": "numeric",
@@ -17585,6 +18520,22 @@ const MODULES = [
         "hint": "90 + 10 = 100! Hakan rocks! Hakan keeps thinking step by step."
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          67,
+          68,
+          "_",
+          "_",
+          71
+        ],
+        "blanks": [
+          69,
+          70
+        ],
+        "prompt": "Hakan, fill in the missing numbers in order!",
+        "hint": "After 68 comes 69, then 70. The tens change at 70."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -17615,6 +18566,35 @@ const MODULES = [
         "prompt": "95, 96, 97, 98, ?",
         "answer": 99,
         "hint": "Count by ones near 100. 98 + 1 = 99!"
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 80,
+            "label": "80"
+          },
+          {
+            "value": 18,
+            "label": "18"
+          },
+          {
+            "value": 8,
+            "label": "8"
+          },
+          {
+            "value": 88,
+            "label": "88"
+          }
+        ],
+        "correctOrder": [
+          8,
+          18,
+          80,
+          88
+        ],
+        "prompt": "Hakan, order from smallest to biggest!",
+        "hint": "Count the digits first. 8 is one digit, smallest. Then compare tens places: 18 (1 ten), 80 (8 tens), 88 (8 tens, 8 ones)."
       },
       {
         "type": "choice",
@@ -17927,6 +18907,41 @@ const MODULES = [
         "prompt": "Hakan: 7 + 3 (related bond).",
         "answer": 10,
         "hint": "Hakan: 7 + 3 = 10. A clean ten!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "8+2",
+          "8+3",
+          "8+4",
+          "8+5"
+        ],
+        "rightItems": [
+          "10",
+          "11",
+          "12",
+          "13"
+        ],
+        "correctPairs": [
+          [
+            "8+2",
+            "10"
+          ],
+          [
+            "8+3",
+            "11"
+          ],
+          [
+            "8+4",
+            "12"
+          ],
+          [
+            "8+5",
+            "13"
+          ]
+        ],
+        "prompt": "Hakan, match each +8 to its answer!",
+        "hint": "8 needs 2 to make 10. 8+3 = 8+2+1 = 11. 8+4 = 12. 8+5 = 13."
       },
       {
         "type": "numeric",
@@ -23747,6 +24762,30 @@ const MODULES = [
         "hint": "Hakan counts each cube one by one. He gets 7 cubes."
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 3,
+            "label": "Crayon (3 cubes)"
+          },
+          {
+            "value": 7,
+            "label": "Pencil (7 cubes)"
+          },
+          {
+            "value": 5,
+            "label": "Marker (5 cubes)"
+          }
+        ],
+        "correctOrder": [
+          3,
+          5,
+          7
+        ],
+        "prompt": "Hakan, order these by length — shortest to longest!",
+        "hint": "Shortest has the FEWEST cubes. Crayon is 3 cubes — shortest. Pencil is 7 — longest."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "objects",
@@ -24039,6 +25078,30 @@ const MODULES = [
         "prompt": "Hakan measured his fork. How many clips long?",
         "answer": 7,
         "hint": "Count each clip carefully. Hakan gets 7 clips."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 4,
+            "label": "Eraser (4 clips)"
+          },
+          {
+            "value": 9,
+            "label": "Book (9 clips)"
+          },
+          {
+            "value": 6,
+            "label": "Pencil (6 clips)"
+          }
+        ],
+        "correctOrder": [
+          4,
+          6,
+          9
+        ],
+        "prompt": "Hakan, order these by length — shortest to longest!",
+        "hint": "Fewer paperclips = shorter. Eraser (4) is shortest. Book (9) is longest."
       },
       {
         "type": "numeric",
@@ -24728,6 +25791,47 @@ const MODULES = [
         "answerIndex": 0
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "2",
+          "5",
+          "4",
+          "7",
+          "8"
+        ],
+        "rightItems": [
+          "Even",
+          "Odd",
+          "Even",
+          "Odd",
+          "Even"
+        ],
+        "correctPairs": [
+          [
+            "2",
+            "Even"
+          ],
+          [
+            "5",
+            "Odd"
+          ],
+          [
+            "4",
+            "Even"
+          ],
+          [
+            "7",
+            "Odd"
+          ],
+          [
+            "8",
+            "Even"
+          ]
+        ],
+        "prompt": "Hakan, match each number to Even or Odd!",
+        "hint": "Even numbers end in 0, 2, 4, 6, 8. Odd end in 1, 3, 5, 7, 9."
+      },
+      {
         "type": "choice",
         "visual": {
           "type": "bignum",
@@ -25117,6 +26221,23 @@ const MODULES = [
         "prompt": "Pattern: 1, ?, 1, 2, 1, 2. What is missing?",
         "answer": 2,
         "hint": "Hakan says 1-2-1-2. After 1 comes 2."
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          1,
+          2,
+          1,
+          2,
+          "_",
+          "_"
+        ],
+        "blanks": [
+          1,
+          2
+        ],
+        "prompt": "Hakan, fill in the AB pattern!",
+        "hint": "AB pattern goes 1, 2, 1, 2, 1, 2. Two things keep switching."
       },
       {
         "type": "numeric",
@@ -25558,6 +26679,24 @@ const MODULES = [
         "hint": "Hakan says pairs: 1-1-2-2. The 1 needs a partner — another 1."
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          1,
+          1,
+          2,
+          2,
+          "_",
+          "_",
+          2
+        ],
+        "blanks": [
+          1,
+          1
+        ],
+        "prompt": "Hakan, fill in the AABB pattern!",
+        "hint": "AABB goes 1, 1, 2, 2, 1, 1, 2, 2. Two of each, then switch."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -25959,6 +27098,35 @@ const MODULES = [
         "hint": "FIND 3 and 2. ADD them: 3 + 2 = 5 apples!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "3 apples + 4 apples",
+          "5 apples + 5 apples",
+          "2 apples + 3 apples"
+        ],
+        "rightItems": [
+          "5 apples",
+          "7 apples",
+          "10 apples"
+        ],
+        "correctPairs": [
+          [
+            "3 apples + 4 apples",
+            "7 apples"
+          ],
+          [
+            "5 apples + 5 apples",
+            "10 apples"
+          ],
+          [
+            "2 apples + 3 apples",
+            "5 apples"
+          ]
+        ],
+        "prompt": "Hakan picked apples — match each total!",
+        "hint": "Add the two amounts. 3+4=7. 5+5=10. 2+3=5."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "add-groups",
@@ -26289,6 +27457,35 @@ const MODULES = [
         "prompt": "Hakan has 7 cookies. He eats 5. How many left?",
         "answer": 2,
         "hint": "Start at 7. Take 5: count back 6, 5, 4, 3, 2. Just 2 left!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "10 cookies - 3",
+          "8 cookies - 2",
+          "9 cookies - 5"
+        ],
+        "rightItems": [
+          "4 left",
+          "6 left",
+          "7 left"
+        ],
+        "correctPairs": [
+          [
+            "10 cookies - 3",
+            "7 left"
+          ],
+          [
+            "8 cookies - 2",
+            "6 left"
+          ],
+          [
+            "9 cookies - 5",
+            "4 left"
+          ]
+        ],
+        "prompt": "Hakan ate some cookies — match each leftover!",
+        "hint": "Subtract what was eaten. 10-3=7. 8-2=6. 9-5=4."
       },
       {
         "type": "numeric",
@@ -26944,6 +28141,35 @@ const MODULES = [
         "hint": "Think: WHAT + 6 = 9? Answer is 3 toys still out!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "4 cars + 3 cars",
+          "6 cars + 2 cars",
+          "5 cars + 5 cars"
+        ],
+        "rightItems": [
+          "7 cars",
+          "8 cars",
+          "10 cars"
+        ],
+        "correctPairs": [
+          [
+            "4 cars + 3 cars",
+            "7 cars"
+          ],
+          [
+            "6 cars + 2 cars",
+            "8 cars"
+          ],
+          [
+            "5 cars + 5 cars",
+            "10 cars"
+          ]
+        ],
+        "prompt": "Hakan's toy box — match the totals!",
+        "hint": "Add the two groups. 4+3=7. 6+2=8. 5+5=10."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "take-away",
@@ -27269,6 +28495,35 @@ const MODULES = [
         "prompt": "Hakan tied 9 balloons. He added 5 more. How many?",
         "answer": 14,
         "hint": "Hakan starts at the bigger 9. Count up 5: 10, 11, 12, 13, 14!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "6 balloons + 4",
+          "3 balloons + 5",
+          "7 balloons + 3"
+        ],
+        "rightItems": [
+          "8 balloons",
+          "10 balloons",
+          "10 balloons"
+        ],
+        "correctPairs": [
+          [
+            "6 balloons + 4",
+            "10 balloons"
+          ],
+          [
+            "3 balloons + 5",
+            "8 balloons"
+          ],
+          [
+            "7 balloons + 3",
+            "10 balloons"
+          ]
+        ],
+        "prompt": "Hakan's birthday balloons — match each total!",
+        "hint": "Two ways to make 10! 6+4=10 and 7+3=10. 3+5=8."
       },
       {
         "type": "numeric",
@@ -27606,6 +28861,41 @@ const MODULES = [
         "hint": "FIND 5 and 3. \"More\" = ADD. 5 + 3 = 8!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "5 + 5 cents",
+          "3 + 7 cents",
+          "2 + 6 cents",
+          "4 + 4 cents"
+        ],
+        "rightItems": [
+          "8 cents",
+          "8 cents",
+          "10 cents",
+          "10 cents"
+        ],
+        "correctPairs": [
+          [
+            "5 + 5 cents",
+            "10 cents"
+          ],
+          [
+            "3 + 7 cents",
+            "10 cents"
+          ],
+          [
+            "2 + 6 cents",
+            "8 cents"
+          ],
+          [
+            "4 + 4 cents",
+            "8 cents"
+          ]
+        ],
+        "prompt": "Hakan is shopping — match each pair of coins to its total!",
+        "hint": "Two pairs make 10, two pairs make 8. Both pairs are correct — that's the lesson!"
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "take-away",
@@ -27929,6 +29219,30 @@ const MODULES = [
         "prompt": "Hakan has 7 tulips. He picks 5 more. Total?",
         "answer": 12,
         "hint": "Make 10: 7 + 3 = 10, +2 = 12! Hakan got it fast!"
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 3,
+            "label": "Tulip 3 cubes"
+          },
+          {
+            "value": 6,
+            "label": "Rose 6 cubes"
+          },
+          {
+            "value": 9,
+            "label": "Sunflower 9 cubes"
+          }
+        ],
+        "correctOrder": [
+          3,
+          6,
+          9
+        ],
+        "prompt": "Hakan, order the flowers shortest to tallest!",
+        "hint": "Tulip is shortest (3 cubes). Sunflower is tallest (9 cubes)."
       },
       {
         "type": "numeric",
@@ -28593,6 +29907,35 @@ const MODULES = [
         "prompt": "Hakan earned 7 coins. Got 4 more. How many altogether?",
         "answer": 11,
         "hint": "\"Altogether\" = ADD. 7 + 4 = 11 coins!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "Sold 5 + 3",
+          "Sold 4 + 6",
+          "Sold 2 + 5"
+        ],
+        "rightItems": [
+          "7 cups",
+          "8 cups",
+          "10 cups"
+        ],
+        "correctPairs": [
+          [
+            "Sold 5 + 3",
+            "8 cups"
+          ],
+          [
+            "Sold 4 + 6",
+            "10 cups"
+          ],
+          [
+            "Sold 2 + 5",
+            "7 cups"
+          ]
+        ],
+        "prompt": "Hakan's lemonade — match cups sold to total!",
+        "hint": "Add the morning and afternoon. 5+3=8. 4+6=10. 2+5=7."
       },
       {
         "type": "numeric",
@@ -29926,6 +31269,35 @@ const MODULES = [
         "hint": "\"Ate\" = SUBTRACT. 9 − 3 = 6 grapes left!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "7 grapes - 3",
+          "6 crackers - 2",
+          "10 nuts - 5"
+        ],
+        "rightItems": [
+          "4",
+          "4",
+          "5"
+        ],
+        "correctPairs": [
+          [
+            "7 grapes - 3",
+            "4"
+          ],
+          [
+            "6 crackers - 2",
+            "4"
+          ],
+          [
+            "10 nuts - 5",
+            "5"
+          ]
+        ],
+        "prompt": "Hakan's snacks — match each to leftover count!",
+        "hint": "Two snacks leave 4. 7-3=4 and 6-2=4. 10-5=5."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "add-groups",
@@ -30588,6 +31960,35 @@ const MODULES = [
         "prompt": "Hakan's class has 8 boys, 3 girls. How many MORE boys?",
         "answer": 5,
         "hint": "\"How many more\" = SUBTRACT. 8 − 3 = 5 more boys!"
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 2,
+            "label": "2 students"
+          },
+          {
+            "value": 8,
+            "label": "8 students"
+          },
+          {
+            "value": 5,
+            "label": "5 students"
+          },
+          {
+            "value": 11,
+            "label": "11 students"
+          }
+        ],
+        "correctOrder": [
+          2,
+          5,
+          8,
+          11
+        ],
+        "prompt": "Hakan, order class groups smallest to biggest!",
+        "hint": "Count up. 2 is smallest. 11 is biggest. The order is 2, 5, 8, 11."
       },
       {
         "type": "numeric",
@@ -40534,6 +41935,30 @@ const MODULES = [
         "hint": "Hakan compares: 9 cubes > 6 cubes, so the truck is longer."
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 2,
+            "label": "Crayon"
+          },
+          {
+            "value": 5,
+            "label": "Ruler"
+          },
+          {
+            "value": 8,
+            "label": "Pencil"
+          }
+        ],
+        "correctOrder": [
+          2,
+          5,
+          8
+        ],
+        "prompt": "Hakan, order these objects shortest to longest!",
+        "hint": "Crayon is tiny — shortest. Ruler is medium. Pencil is longest."
+      },
+      {
         "type": "choice",
         "visual": {
           "type": "objects",
@@ -40919,6 +42344,30 @@ const MODULES = [
         ],
         "answerIndex": 2,
         "hint": "Hakan sees both are 6 blocks. Same blocks — same height!"
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 3,
+            "label": "Hakan"
+          },
+          {
+            "value": 5,
+            "label": "Dad"
+          },
+          {
+            "value": 1,
+            "label": "Baby"
+          }
+        ],
+        "correctOrder": [
+          1,
+          3,
+          5
+        ],
+        "prompt": "Hakan, order them shortest to tallest!",
+        "hint": "Baby is tiny — shortest. Hakan is taller. Dad is tallest!"
       },
       {
         "type": "choice",
@@ -41316,6 +42765,30 @@ const MODULES = [
         ],
         "answerIndex": 0,
         "hint": "Hakan picks the biggest. 5 is more than 1 or 3."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 6,
+            "label": "Toy car"
+          },
+          {
+            "value": 12,
+            "label": "Bat"
+          },
+          {
+            "value": 9,
+            "label": "Spoon"
+          }
+        ],
+        "correctOrder": [
+          6,
+          9,
+          12
+        ],
+        "prompt": "Hakan, order shortest to longest!",
+        "hint": "Toy car is shortest. Spoon is in the middle. Bat is longest."
       },
       {
         "type": "choice",
@@ -42657,6 +44130,30 @@ const MODULES = [
         "hint": "Hakan picks the bigger. 9 > 4, so melon is heavier."
       },
       {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 1,
+            "label": "Feather"
+          },
+          {
+            "value": 3,
+            "label": "Apple"
+          },
+          {
+            "value": 5,
+            "label": "Brick"
+          }
+        ],
+        "correctOrder": [
+          1,
+          3,
+          5
+        ],
+        "prompt": "Hakan, order from lightest to heaviest!",
+        "hint": "Feather floats — lightest. Apple is in middle. Brick is heaviest."
+      },
+      {
         "type": "choice",
         "visual": {
           "type": "objects",
@@ -43042,6 +44539,30 @@ const MODULES = [
         ],
         "answerIndex": 0,
         "hint": "Hakan picks the smaller. 4 < 9, so small jug holds less."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 1,
+            "label": "Spoon"
+          },
+          {
+            "value": 3,
+            "label": "Cup"
+          },
+          {
+            "value": 5,
+            "label": "Bucket"
+          }
+        ],
+        "correctOrder": [
+          1,
+          3,
+          5
+        ],
+        "prompt": "Hakan, order from holds-least to holds-most!",
+        "hint": "Spoon holds tiny bit. Cup holds more. Bucket holds the most water."
       },
       {
         "type": "choice",
@@ -45359,6 +46880,24 @@ const MODULES = [
         "hint": "Hakan says 6-9-6-9. Next is 6."
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          3,
+          7,
+          3,
+          7,
+          "_",
+          "_",
+          3
+        ],
+        "blanks": [
+          3,
+          7
+        ],
+        "prompt": "Hakan, extend the AB pattern!",
+        "hint": "Say it: 3-7-3-7-3-7-3. After 7 comes 3."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -46235,6 +47774,26 @@ const MODULES = [
         "hint": "Hakan says 3-6-9-3-6-9. The missing is 6."
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          1,
+          2,
+          3,
+          1,
+          2,
+          "_",
+          1,
+          "_",
+          3
+        ],
+        "blanks": [
+          3,
+          2
+        ],
+        "prompt": "Hakan, fill in the ABC pattern!",
+        "hint": "ABC repeats 1-2-3-1-2-3. After 2 comes 3. After 1 comes 2."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -46660,6 +48219,24 @@ const MODULES = [
         "prompt": "Pattern: 10, 11, 12, ?",
         "answer": 13,
         "hint": "Hakan adds 1: 12 + 1 = 13. Use the rule from the lesson!"
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          4,
+          "_",
+          6,
+          "_",
+          8,
+          "_"
+        ],
+        "blanks": [
+          5,
+          7,
+          9
+        ],
+        "prompt": "Hakan, fill in the +1 pattern!",
+        "hint": "Each step adds 1. 4, 5, 6, 7, 8, 9."
       },
       {
         "type": "numeric",
@@ -52161,6 +53738,22 @@ const MODULES = [
         "hint": "117 + 1 = 118. Almost 120! Hakan keeps thinking step by step."
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          98,
+          99,
+          "_",
+          "_",
+          102
+        ],
+        "blanks": [
+          100,
+          101
+        ],
+        "prompt": "Hakan, fill in to cross the hundred!",
+        "hint": "After 99 comes 100 — a brand new place. Then 101!"
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "sequence",
@@ -52189,6 +53782,22 @@ const MODULES = [
         "prompt": "Hakan: 100, ?, 120. Skip count!",
         "answer": 110,
         "hint": "Skip by 10. 100 + 10 = 110! Hakan keeps thinking step by step."
+      },
+      {
+        "type": "fill-blanks",
+        "sequence": [
+          115,
+          "_",
+          117,
+          "_",
+          119
+        ],
+        "blanks": [
+          116,
+          118
+        ],
+        "prompt": "Hakan, fill in the missing numbers!",
+        "hint": "Count by 1s past 100. 115, 116, 117, 118, 119."
       },
       {
         "type": "choice",
@@ -52818,6 +54427,23 @@ const MODULES = [
         "hint": "Tens 5 → 6. Answer: 65. Hakan rocks!"
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          25,
+          35,
+          "_",
+          55,
+          "_",
+          75
+        ],
+        "blanks": [
+          45,
+          65
+        ],
+        "prompt": "Hakan, add 10 each step — fill in!",
+        "hint": "Ten more changes ONLY the tens digit. 35 + 10 = 45. 55 + 10 = 65."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-digit-num",
@@ -53408,6 +55034,22 @@ const MODULES = [
         "hint": "10 + 7 = 17. Easy peasy! Hakan keeps thinking step by step."
       },
       {
+        "type": "fill-blanks",
+        "sequence": [
+          14,
+          "_",
+          16,
+          "_",
+          18
+        ],
+        "blanks": [
+          15,
+          17
+        ],
+        "prompt": "Hakan, fill in the missing teen numbers!",
+        "hint": "Teens go 11, 12, 13... 14, 15, 16, 17, 18. Add 1 each step."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-ten-frames",
@@ -53430,6 +55072,35 @@ const MODULES = [
         "prompt": "Hakan: 1 stick + 6 ones = ?",
         "answer": 16,
         "hint": "10 + 6 = 16. Tens then ones! Hakan keeps thinking step by step."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 16,
+            "label": "16"
+          },
+          {
+            "value": 12,
+            "label": "12"
+          },
+          {
+            "value": 19,
+            "label": "19"
+          },
+          {
+            "value": 14,
+            "label": "14"
+          }
+        ],
+        "correctOrder": [
+          12,
+          14,
+          16,
+          19
+        ],
+        "prompt": "Hakan, order the teens smallest to biggest!",
+        "hint": "All have 1 ten. Compare the ones: 2 < 4 < 6 < 9."
       },
       {
         "type": "choice",
@@ -53732,6 +55403,35 @@ const MODULES = [
         "prompt": "Hakan: 8 sticks = ?",
         "answer": 80,
         "hint": "8 tens = 80. Hakan rocks! Hakan keeps thinking step by step."
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 30,
+            "label": "30"
+          },
+          {
+            "value": 70,
+            "label": "70"
+          },
+          {
+            "value": 10,
+            "label": "10"
+          },
+          {
+            "value": 50,
+            "label": "50"
+          }
+        ],
+        "correctOrder": [
+          10,
+          30,
+          50,
+          70
+        ],
+        "prompt": "Hakan, order these tens smallest to biggest!",
+        "hint": "Count by 10s: 10, 20, 30, 40, 50, 60, 70. Whichever comes first is smallest."
       },
       {
         "type": "numeric",
@@ -54078,6 +55778,41 @@ const MODULES = [
         ],
         "hint": "5 + 0 = 5. Yes! Adding 0 keeps the same!",
         "answerIndex": 0
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "3+4",
+          "5+2",
+          "6+1",
+          "4+4"
+        ],
+        "rightItems": [
+          "7",
+          "7",
+          "7",
+          "8"
+        ],
+        "correctPairs": [
+          [
+            "3+4",
+            "7"
+          ],
+          [
+            "5+2",
+            "7"
+          ],
+          [
+            "6+1",
+            "7"
+          ],
+          [
+            "4+4",
+            "8"
+          ]
+        ],
+        "prompt": "Hakan, match each expression to its value!",
+        "hint": "Three different sums all equal 7! 3+4, 5+2, 6+1 all make 7. 4+4=8."
       },
       {
         "type": "choice",
@@ -57300,6 +59035,41 @@ const MODULES = [
         "hint": "8 needs 2 more to be 10. Take that 2 from the 5. Now 10 + 3 = 13!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "9+3",
+          "8+4",
+          "7+5",
+          "9+4"
+        ],
+        "rightItems": [
+          "12",
+          "12",
+          "12",
+          "13"
+        ],
+        "correctPairs": [
+          [
+            "9+3",
+            "12"
+          ],
+          [
+            "8+4",
+            "12"
+          ],
+          [
+            "7+5",
+            "12"
+          ],
+          [
+            "9+4",
+            "13"
+          ]
+        ],
+        "prompt": "Hakan, match each to its sum!",
+        "hint": "Three of these all equal 12 — the lesson is that there are many ways to make 12!"
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
@@ -59141,6 +60911,41 @@ const MODULES = [
         "hint": "4 + 6: from 4, hop 6 — 5, 6, 7, 8, 9, 10. Yes! 4 and 6 are bonds of 10."
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "3 + ?",
+          "6 + ?",
+          "1 + ?",
+          "8 + ?"
+        ],
+        "rightItems": [
+          "2",
+          "4",
+          "7",
+          "9"
+        ],
+        "correctPairs": [
+          [
+            "3 + ?",
+            "7"
+          ],
+          [
+            "6 + ?",
+            "4"
+          ],
+          [
+            "1 + ?",
+            "9"
+          ],
+          [
+            "8 + ?",
+            "2"
+          ]
+        ],
+        "prompt": "Hakan, match each number with its partner that makes 10!",
+        "hint": "3 + 7 = 10. 6 + 4 = 10. 1 + 9 = 10. 8 + 2 = 10. Each pair makes 10."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "ten-frame",
@@ -59449,6 +61254,41 @@ const MODULES = [
         "hint": "16 needs 4. Same as 6 + 4 = 10. So 16 + 4 = 20!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "10 + ?",
+          "15 + ?",
+          "12 + ?",
+          "18 + ?"
+        ],
+        "rightItems": [
+          "2",
+          "5",
+          "8",
+          "10"
+        ],
+        "correctPairs": [
+          [
+            "10 + ?",
+            "10"
+          ],
+          [
+            "15 + ?",
+            "5"
+          ],
+          [
+            "12 + ?",
+            "8"
+          ],
+          [
+            "18 + ?",
+            "2"
+          ]
+        ],
+        "prompt": "Hakan, match each to its partner that makes 20!",
+        "hint": "10+10=20. 15+5=20. 12+8=20. 18+2=20. Find pairs that make 20."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-ten-frames",
@@ -59743,6 +61583,41 @@ const MODULES = [
         "prompt": "Hakan thinks: 3 + ? = 8. What is missing?",
         "answer": 5,
         "hint": "Hakan: family 3-5-8! Missing is 5!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "3+5",
+          "5+3",
+          "8-3",
+          "8-5"
+        ],
+        "rightItems": [
+          "3",
+          "5",
+          "8",
+          "8"
+        ],
+        "correctPairs": [
+          [
+            "3+5",
+            "8"
+          ],
+          [
+            "5+3",
+            "8"
+          ],
+          [
+            "8-3",
+            "5"
+          ],
+          [
+            "8-5",
+            "3"
+          ]
+        ],
+        "prompt": "Hakan, match the 3-5-8 family!",
+        "hint": "Three numbers make four facts: 3+5=8, 5+3=8, 8-3=5, 8-5=3."
       },
       {
         "type": "numeric",
@@ -60048,6 +61923,41 @@ const MODULES = [
         "hint": "Hakan: family 4-6-10. Missing is 6!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "4+6",
+          "6+4",
+          "10-4",
+          "10-6"
+        ],
+        "rightItems": [
+          "4",
+          "6",
+          "10",
+          "10"
+        ],
+        "correctPairs": [
+          [
+            "4+6",
+            "10"
+          ],
+          [
+            "6+4",
+            "10"
+          ],
+          [
+            "10-4",
+            "6"
+          ],
+          [
+            "10-6",
+            "4"
+          ]
+        ],
+        "prompt": "Hakan, match the 4-6-10 family!",
+        "hint": "Same family: 4+6=10, 6+4=10, 10-4=6, 10-6=4."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "two-digit-add",
@@ -60348,6 +62258,41 @@ const MODULES = [
         "prompt": "Hakan: 4 + 5 in his head.",
         "answer": 9,
         "hint": "Hakan starts at the bigger 5, counts up 4: 6, 7, 8, 9. Brain math!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "10 + 2",
+          "10 + 5",
+          "10 + 7",
+          "10 + 9"
+        ],
+        "rightItems": [
+          "12",
+          "15",
+          "17",
+          "19"
+        ],
+        "correctPairs": [
+          [
+            "10 + 2",
+            "12"
+          ],
+          [
+            "10 + 5",
+            "15"
+          ],
+          [
+            "10 + 7",
+            "17"
+          ],
+          [
+            "10 + 9",
+            "19"
+          ]
+        ],
+        "prompt": "Hakan, match each 10+ fact to its answer!",
+        "hint": "10 + a number makes a teen. 10+2=12. 10+5=15. 10+7=17. 10+9=19."
       },
       {
         "type": "numeric",
@@ -63560,6 +65505,35 @@ const MODULES = [
         "hint": "4 pieces ÷ 4 kids = 1 piece each!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "8 slices - 3 eaten",
+          "10 slices - 4",
+          "6 slices - 2"
+        ],
+        "rightItems": [
+          "4 left",
+          "5 left",
+          "6 left"
+        ],
+        "correctPairs": [
+          [
+            "8 slices - 3 eaten",
+            "5 left"
+          ],
+          [
+            "10 slices - 4",
+            "6 left"
+          ],
+          [
+            "6 slices - 2",
+            "4 left"
+          ]
+        ],
+        "prompt": "Hakan's pizza party — match leftover slices!",
+        "hint": "Subtract what was eaten. 8-3=5. 10-4=6. 6-2=4."
+      },
+      {
         "type": "choice",
         "visual": {
           "type": "fraction",
@@ -63898,6 +65872,35 @@ const MODULES = [
         "prompt": "Hakan has 4 cars. Dad gives 5 more. How many?",
         "answer": 9,
         "hint": "FIND 4 and 5. \"More\" = ADD. 4 + 5 = 9 cars!"
+      },
+      {
+        "type": "ordering",
+        "items": [
+          {
+            "value": 4,
+            "label": "Blue cars"
+          },
+          {
+            "value": 9,
+            "label": "Red cars"
+          },
+          {
+            "value": 2,
+            "label": "Green cars"
+          },
+          {
+            "value": 7,
+            "label": "Yellow cars"
+          }
+        ],
+        "correctOrder": [
+          2,
+          4,
+          7,
+          9
+        ],
+        "prompt": "Hakan, order car groups fewest to most!",
+        "hint": "Green is fewest (2). Red is most (9). Order: 2, 4, 7, 9."
       },
       {
         "type": "compare-groups",
@@ -64241,6 +66244,35 @@ const MODULES = [
         "hint": "\"In all\" = ADD. 5 + 4 = 9 books!"
       },
       {
+        "type": "matching",
+        "leftItems": [
+          "Hakan 5 + Sara 3",
+          "Hakan 6 + Sara 4",
+          "Hakan 2 + Sara 7"
+        ],
+        "rightItems": [
+          "8 total",
+          "9 total",
+          "10 total"
+        ],
+        "correctPairs": [
+          [
+            "Hakan 5 + Sara 3",
+            "8 total"
+          ],
+          [
+            "Hakan 6 + Sara 4",
+            "10 total"
+          ],
+          [
+            "Hakan 2 + Sara 7",
+            "9 total"
+          ]
+        ],
+        "prompt": "Hakan and Sara — match their combined counts!",
+        "hint": "Add both kids' amounts. 5+3=8. 6+4=10. 2+7=9."
+      },
+      {
         "type": "numeric",
         "visual": {
           "type": "compare-groups",
@@ -64577,6 +66609,35 @@ const MODULES = [
         "prompt": "Hakan picks 5 books. Sara picks 4. How many?",
         "answer": 9,
         "hint": "FIND 5 and 4. \"More\" = ADD. 5 + 4 = 9!"
+      },
+      {
+        "type": "matching",
+        "leftItems": [
+          "3 books + 4",
+          "5 books + 5",
+          "2 books + 6"
+        ],
+        "rightItems": [
+          "7 books",
+          "8 books",
+          "10 books"
+        ],
+        "correctPairs": [
+          [
+            "3 books + 4",
+            "7 books"
+          ],
+          [
+            "5 books + 5",
+            "10 books"
+          ],
+          [
+            "2 books + 6",
+            "8 books"
+          ]
+        ],
+        "prompt": "Hakan's library — match the totals!",
+        "hint": "Add the two stacks. 3+4=7. 5+5=10. 2+6=8."
       },
       {
         "type": "compare-groups",
@@ -67016,13 +69077,29 @@ function renderHomeModules() {
 
     let html = '';
 
-    // Streak banner — small flame indicator. Only shows if Hakan has come back
-    // 2+ days in a row (otherwise it's just noise on day one).
-    if (isHakan && streak.current >= 2) {
-        html += `<div class="streak-banner">
-            <span class="streak-flame">🔥</span>
-            <span class="streak-count">${streak.current}</span>
-            <span class="streak-label">day streak${streak.current === streak.longest ? ' — best ever!' : ''}</span>
+    // Top row: streak, pet, trophies (Hakan only)
+    if (isHakan) {
+        const petInfo = (typeof currentPetStage === 'function') ? currentPetStage() : null;
+        html += `<div class="home-top-row">`;
+        if (streak.current >= 2) {
+            html += `<div class="streak-banner">
+                <span class="streak-flame">🔥</span>
+                <span class="streak-count">${streak.current}</span>
+                <span class="streak-label">day streak${streak.current === streak.longest ? ' — best!' : ''}</span>
+            </div>`;
+        }
+        if (petInfo && petInfo.stage) {
+            html += `<button class="pet-badge" onclick="openPetPicker()" title="Tap to change your buddy">
+                <span class="pet-badge-emoji">${petInfo.stage.emoji}</span>
+                <span class="pet-badge-name">${petInfo.pet.name.split(' ')[0]}</span>
+            </button>`;
+        }
+        html += `<button class="trophy-btn" onclick="openTrophyRoom()">🏆 Trophies</button>`;
+        html += `</div>`;
+        // Module search
+        html += `<div class="module-search-wrap">
+            <input id="module-search" class="module-search" type="search"
+                   placeholder="🔎 Search modules..." oninput="filterModules(this.value)" />
         </div>`;
     }
 
@@ -67169,6 +69246,25 @@ function renderHomeModules() {
 // Module detail — three buttons: Lesson · Practice · Quiz
 // ----------------------------------------------------------------------
 
+// Filter visible module cards by a search query — matches title and description
+// (case-insensitive substring). Hides empty categories.
+function filterModules(query) {
+    const q = (query || '').toLowerCase().trim();
+    const cards = document.querySelectorAll('#module-grid .m-card');
+    cards.forEach((card) => {
+        const title = card.querySelector('.m-card-title');
+        const desc  = card.querySelector('.m-card-desc');
+        const text = ((title ? title.textContent : '') + ' ' + (desc ? desc.textContent : '')).toLowerCase();
+        const show = !q || text.indexOf(q) >= 0;
+        card.style.display = show ? '' : 'none';
+    });
+    // Hide categories with no visible cards
+    document.querySelectorAll('#module-grid .m-category').forEach((cat) => {
+        const anyVisible = cat.querySelectorAll('.m-card:not([style*="none"])').length > 0;
+        cat.style.display = anyVisible ? '' : 'none';
+    });
+}
+
 function selectModule(id) {
     if (typeof playSound === 'function') playSound('click');
     if (typeof initSpeechOnGesture === 'function') initSpeechOnGesture();
@@ -67186,6 +69282,23 @@ function selectModule(id) {
     document.getElementById('mod-lesson-btn').style.display   = mod.lesson ? '' : 'none';
     document.getElementById('mod-practice-btn').style.display = hasPractice ? '' : 'none';
     document.getElementById('mod-quiz-btn').style.display     = hasQuiz ? '' : 'none';
+
+    // Adaptive review: show a "Review Missed" button if Hakan has wrongly-
+    // answered problems on this module. Targeted re-exposure of the items
+    // he struggled with — much higher learning value than random practice.
+    const reviewBtn = document.getElementById('mod-review-btn');
+    if (reviewBtn) {
+        const isHakan = (typeof currentUser !== 'undefined' && currentUser === 'hakan');
+        const missed = isHakan && typeof getMissedProblems === 'function'
+            ? getMissedProblems(id) : [];
+        if (missed.length > 0) {
+            reviewBtn.style.display = '';
+            const cnt = reviewBtn.querySelector('.act-sub');
+            if (cnt) cnt.textContent = `${missed.length} missed`;
+        } else {
+            reviewBtn.style.display = 'none';
+        }
+    }
 
     showScreen('module-screen');
 }
@@ -67205,6 +69318,11 @@ function startActivity(activity) {
 
     if (activity === 'lesson') {
         startLesson(mod);
+        return;
+    }
+
+    if (activity === 'review') {
+        startReviewActivity(mod);
         return;
     }
 
@@ -67451,9 +69569,47 @@ function startGenericProblems(mod, activity) {
     renderModuleProblem();
 }
 
+// Build a review queue from problems Hakan got wrong, then run it as a
+// practice-style session (with hints, no Robux).
+function startReviewActivity(mod) {
+    if (!mod) return;
+    const missed = typeof getMissedProblems === 'function'
+        ? getMissedProblems(mod.id) : [];
+    if (missed.length === 0) {
+        alert("Nice! No problems to review.");
+        return;
+    }
+    // Pull the actual problem objects (clone so we don't mutate)
+    const queue = [];
+    for (const m of missed) {
+        const src = (m.activity === 'practice' ? mod.practice : mod.quiz) || [];
+        if (m.idx >= 0 && m.idx < src.length) queue.push(src[m.idx]);
+    }
+    if (queue.length === 0) {
+        alert("Nice! No problems to review.");
+        return;
+    }
+    // Store for clearing after completion
+    moduleState._reviewSource = missed;
+    moduleState._reviewQueue = queue;
+    moduleState.activity = 'review';
+    moduleState.problemIndex = 0;
+    moduleState.answer = '';
+    moduleState.score = 0;
+    moduleState.streak = 0;
+    moduleState.bestStreak = 0;
+    moduleState.correct = 0;
+    moduleState.sessionRobux = 0;
+    moduleState.hintShown = false;
+    moduleState.locked = false;
+    showScreen('module-game-screen');
+    renderModuleProblem();
+}
+
 function getCurrentProblems() {
     const mod = MODULES_BY_ID[moduleState.moduleId];
     if (!mod) return null;
+    if (moduleState.activity === 'review') return moduleState._reviewQueue || [];
     return moduleState.activity === 'practice' ? mod.practice : mod.quiz;
 }
 
@@ -67472,7 +69628,9 @@ function renderModuleProblem() {
     document.getElementById('mg-visual').innerHTML = renderVisual(p.visual);
     document.getElementById('mg-answer').textContent = '';
 
-    const phaseLabel = moduleState.activity === 'practice' ? '🎯 Practice' : '⭐ Quiz';
+    const phaseLabel =
+        moduleState.activity === 'practice' ? '🎯 Practice' :
+        moduleState.activity === 'review'   ? '🔁 Review'   : '⭐ Quiz';
     document.getElementById('mg-phase').textContent = `${mod.emoji} ${mod.title} — ${phaseLabel}`;
     document.getElementById('mg-progress-text').textContent = `${moduleState.problemIndex + 1} / ${total}`;
     document.getElementById('mg-progress-fill').style.width = `${(moduleState.problemIndex / total) * 100}%`;
@@ -67489,23 +69647,43 @@ function renderModuleProblem() {
         robuxDisplay.style.display = 'none';
     }
 
-    // Numeric vs choice answer UI
+    // Numeric vs choice vs new types (ordering / matching / fill-blanks)
     const numericPad = document.getElementById('mg-num-pad');
     const choicePad  = document.getElementById('mg-choice-pad');
     if (p.type === 'numeric') {
         numericPad.style.display = '';
         choicePad.style.display = 'none';
-    } else {
+    } else if (p.type === 'choice') {
         numericPad.style.display = 'none';
         choicePad.style.display = '';
         choicePad.innerHTML = (p.choices || []).map((c, i) =>
             `<button class="m-choice" onclick="mgPickChoice(${i})">${c}</button>`
         ).join('');
+    } else if (p.type === 'ordering' || p.type === 'matching' || p.type === 'fill-blanks') {
+        // Special types fill the visual area entirely; numeric pad becomes a
+        // "Check" button. Choice pad hidden.
+        numericPad.style.display = 'none';
+        choicePad.style.display = 'none';
+        const visualHost = document.getElementById('mg-visual');
+        if (p.type === 'ordering') {
+            visualHost.innerHTML = renderOrderingProblem(p);
+            bindOrderingProblem(visualHost, p);
+        } else if (p.type === 'matching') {
+            visualHost.innerHTML = renderMatchingProblem(p);
+            bindMatchingProblem(visualHost, p);
+        } else if (p.type === 'fill-blanks') {
+            visualHost.innerHTML = renderFillBlanksProblem(p);
+            bindFillBlanksProblem(visualHost, p);
+        }
+    } else {
+        numericPad.style.display = '';
+        choicePad.style.display = 'none';
     }
 
-    // Hint button
+    // Hint button — available during practice AND review (review is just
+    // practice on past mistakes; hints are even more important there).
     const hintBtn = document.getElementById('mg-hint-btn');
-    if (moduleState.activity === 'practice' && p.hint) {
+    if ((moduleState.activity === 'practice' || moduleState.activity === 'review') && p.hint) {
         hintBtn.style.display = '';
         hintBtn.classList.remove('exhausted');
     } else {
@@ -67517,7 +69695,7 @@ function renderModuleProblem() {
 }
 
 function mgShowHint() {
-    if (moduleState.activity !== 'practice' || moduleState.hintShown) return;
+    if ((moduleState.activity !== 'practice' && moduleState.activity !== 'review') || moduleState.hintShown) return;
     const p = getCurrentProblems()[moduleState.problemIndex];
     if (!p.hint) return;
     moduleState.hintShown = true;
@@ -67757,6 +69935,257 @@ function mgCheckAnswer() {
     }
 }
 
+// ----------------------------------------------------------------------
+// New problem types: ordering, matching, fill-blanks
+// These render their full UI into the visual area; they auto-check on
+// completion (no Check button needed) and call handleCorrect/handleWrong.
+// ----------------------------------------------------------------------
+
+function renderOrderingProblem(p) {
+    const items = p.items || [];
+    // Shuffle the display order deterministically per problem (so it's
+    // not always in the correct order to start with).
+    const idx = moduleState.problemIndex;
+    const order = items.map((it, i) => ({ it, sortKey: (i * 13 + idx * 7) % 100 }))
+        .sort((a, b) => a.sortKey - b.sortKey)
+        .map((x) => x.it);
+    const cells = order.map((it, i) => {
+        const v = (it && it.value != null) ? it.value : it;
+        const lbl = (it && it.label != null) ? it.label : String(v);
+        return `<button class="m-ord-tile" data-value="${v}" data-label="${lbl}">${lbl}</button>`;
+    }).join('');
+    const slots = items.map(() => '<div class="m-ord-slot"></div>').join('');
+    return `<div class="m-ord-wrap">
+        <div class="m-ord-slots">${slots}</div>
+        <div class="m-ord-tiles">${cells}</div>
+        <div class="m-ord-status">Tap in order</div>
+    </div>`;
+}
+
+function bindOrderingProblem(host, p) {
+    const correctOrder = p.correctOrder || (p.items || []).map((it) => (it.value != null ? it.value : it));
+    const tiles = host.querySelectorAll('.m-ord-tile');
+    const slots = host.querySelectorAll('.m-ord-slot');
+    const status = host.querySelector('.m-ord-status');
+    let placed = 0;
+    tiles.forEach((t) => {
+        t.addEventListener('click', () => {
+            if (t.classList.contains('m-ord-placed') || moduleState.locked) return;
+            const val = parseFloat(t.getAttribute('data-value'));
+            const slot = slots[placed];
+            if (!slot) return;
+            slot.textContent = t.getAttribute('data-label');
+            slot.classList.add('m-ord-slot-filled');
+            t.classList.add('m-ord-placed');
+            placed += 1;
+            if (typeof playSound === 'function') playSound('click');
+            // Check the placement
+            if (val !== correctOrder[placed - 1]) {
+                slot.classList.add('m-ord-slot-wrong');
+                if (typeof playSound === 'function') playSound('wrong');
+                if (status) status.textContent = "Hmm, let's try again!";
+                moduleState.answer = 'WRONG';
+                setTimeout(() => handleWrong(), 600);
+                return;
+            }
+            if (placed === slots.length) {
+                if (status) status.textContent = "Perfect! ✨";
+                moduleState.answer = 'OK';
+                setTimeout(() => handleCorrect(), 600);
+            }
+        });
+    });
+}
+
+function renderMatchingProblem(p) {
+    const left = p.leftItems || [];
+    const right = p.rightItems || [];
+    // Shuffle right column
+    const idx = moduleState.problemIndex;
+    const rOrder = right.map((it, i) => ({ it, sortKey: (i * 19 + idx * 11) % 100 }))
+        .sort((a, b) => a.sortKey - b.sortKey)
+        .map((x) => x.it);
+    const leftHtml = left.map((l) =>
+        `<button class="m-match-tile m-match-left" data-val="${l}">${l}</button>`).join('');
+    const rightHtml = rOrder.map((r) =>
+        `<button class="m-match-tile m-match-right" data-val="${r}">${r}</button>`).join('');
+    return `<div class="m-match-wrap">
+        <div class="m-match-col">${leftHtml}</div>
+        <div class="m-match-col">${rightHtml}</div>
+        <div class="m-match-status">Tap one on each side to pair!</div>
+    </div>`;
+}
+
+function bindMatchingProblem(host, p) {
+    const pairs = (p.correctPairs || []).map((pp) =>
+        Array.isArray(pp) ? pp : [pp.left, pp.right]);
+    const leftTiles  = host.querySelectorAll('.m-match-left');
+    const rightTiles = host.querySelectorAll('.m-match-right');
+    const status     = host.querySelector('.m-match-status');
+    let selected = null;
+    let pairsLeft = pairs.length;
+
+    function isValidPair(leftVal, rightVal) {
+        return pairs.some((pp) =>
+            String(pp[0]) === String(leftVal) && String(pp[1]) === String(rightVal));
+    }
+    function markUsed(leftVal, rightVal) {
+        leftTiles.forEach((t) => {
+            if (String(t.getAttribute('data-val')) === String(leftVal)) {
+                t.classList.add('m-match-done');
+            }
+        });
+        rightTiles.forEach((t) => {
+            if (String(t.getAttribute('data-val')) === String(rightVal)) {
+                t.classList.add('m-match-done');
+            }
+        });
+        // Remove the pair from the pool so it can be reused (matching can have
+        // duplicates e.g. 5+3 -> 8 and 4+4 -> 8). Splice the FIRST matching pair.
+        const i = pairs.findIndex((pp) =>
+            String(pp[0]) === String(leftVal) && String(pp[1]) === String(rightVal));
+        if (i >= 0) pairs.splice(i, 1);
+    }
+
+    function onTileClick(t, side) {
+        if (t.classList.contains('m-match-done') || moduleState.locked) return;
+        if (!selected) {
+            selected = { tile: t, side, val: t.getAttribute('data-val') };
+            t.classList.add('m-match-sel');
+            return;
+        }
+        // Already a selection — if it's the same side, switch selection
+        if (selected.side === side) {
+            selected.tile.classList.remove('m-match-sel');
+            selected = { tile: t, side, val: t.getAttribute('data-val') };
+            t.classList.add('m-match-sel');
+            return;
+        }
+        // Different side — try to pair
+        const leftVal  = selected.side === 'left' ? selected.val : t.getAttribute('data-val');
+        const rightVal = selected.side === 'left' ? t.getAttribute('data-val') : selected.val;
+        if (isValidPair(leftVal, rightVal)) {
+            selected.tile.classList.remove('m-match-sel');
+            t.classList.remove('m-match-sel');
+            markUsed(leftVal, rightVal);
+            selected = null;
+            pairsLeft -= 1;
+            if (typeof playSound === 'function') playSound('click');
+            if (pairsLeft <= 0) {
+                if (status) status.textContent = "All matched! ✨";
+                moduleState.answer = 'OK';
+                setTimeout(() => handleCorrect(), 600);
+            }
+        } else {
+            t.classList.add('m-match-wrong');
+            selected.tile.classList.add('m-match-wrong');
+            if (typeof playSound === 'function') playSound('wrong');
+            setTimeout(() => {
+                t.classList.remove('m-match-wrong', 'm-match-sel');
+                if (selected) selected.tile.classList.remove('m-match-wrong', 'm-match-sel');
+                selected = null;
+            }, 600);
+            moduleState.answer = 'WRONG';
+            setTimeout(() => handleWrong(), 700);
+        }
+    }
+    leftTiles.forEach((t) => t.addEventListener('click', () => onTileClick(t, 'left')));
+    rightTiles.forEach((t) => t.addEventListener('click', () => onTileClick(t, 'right')));
+}
+
+function renderFillBlanksProblem(p) {
+    const seq = p.sequence || [];
+    const cells = seq.map((s, i) => {
+        if (s === '_' || s == null) {
+            return `<button class="m-fb-blank" data-idx="${i}" data-val=""></button>`;
+        }
+        return `<span class="m-fb-num">${s}</span>`;
+    }).join('<span class="m-fb-sep">,</span>');
+    // Pick a digit pad of plausible candidates: all answers + 4 random nearby numbers
+    const blanks = p.blanks || [];
+    const pool = new Set(blanks.map(String));
+    blanks.forEach((b) => {
+        // Add a couple nearby numbers as distractors
+        if (b - 1 >= 0) pool.add(String(b - 1));
+        if (b + 1 <= 120) pool.add(String(b + 1));
+    });
+    // Pad with single-digit numbers up to 8 buttons
+    let candidate = 0;
+    while (pool.size < 8 && candidate < 20) {
+        pool.add(String(candidate));
+        candidate += 1;
+    }
+    const sorted = Array.from(pool).map(Number).sort((a, b) => a - b);
+    const pad = sorted.map((n) =>
+        `<button class="m-fb-pad-btn" data-num="${n}">${n}</button>`).join('');
+    return `<div class="m-fb-wrap">
+        <div class="m-fb-row">${cells}</div>
+        <div class="m-fb-pad">${pad}</div>
+        <div class="m-fb-status">Tap a blank, then tap the number!</div>
+    </div>`;
+}
+
+function bindFillBlanksProblem(host, p) {
+    const blanks = host.querySelectorAll('.m-fb-blank');
+    const padButtons = host.querySelectorAll('.m-fb-pad-btn');
+    const status = host.querySelector('.m-fb-status');
+    let active = null;
+    if (blanks.length) {
+        blanks[0].classList.add('m-fb-blank-active');
+        active = blanks[0];
+    }
+    blanks.forEach((b) => {
+        b.addEventListener('click', () => {
+            if (moduleState.locked) return;
+            if (active) active.classList.remove('m-fb-blank-active');
+            active = b;
+            active.classList.add('m-fb-blank-active');
+        });
+    });
+    padButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            if (moduleState.locked || !active) return;
+            const n = btn.getAttribute('data-num');
+            active.textContent = n;
+            active.setAttribute('data-val', n);
+            active.classList.remove('m-fb-blank-active');
+            // Advance to next empty blank
+            let nextBlank = null;
+            blanks.forEach((b) => {
+                if (b !== active && !nextBlank && !b.getAttribute('data-val')) nextBlank = b;
+            });
+            if (nextBlank) {
+                active = nextBlank;
+                active.classList.add('m-fb-blank-active');
+            } else {
+                // All filled — check answer
+                const want = p.blanks || [];
+                const blankIdxs = Array.from(blanks);
+                let allRight = true;
+                for (let i = 0; i < blankIdxs.length; i++) {
+                    const val = parseInt(blankIdxs[i].getAttribute('data-val'), 10);
+                    if (val !== want[i]) { allRight = false; break; }
+                }
+                if (allRight) {
+                    if (status) status.textContent = "All right! ✨";
+                    moduleState.answer = 'OK';
+                    setTimeout(() => handleCorrect(), 600);
+                } else {
+                    blankIdxs.forEach((b, i) => {
+                        if (parseInt(b.getAttribute('data-val'), 10) !== want[i]) {
+                            b.classList.add('m-fb-blank-wrong');
+                        }
+                    });
+                    moduleState.answer = 'WRONG';
+                    if (typeof playSound === 'function') playSound('wrong');
+                    setTimeout(() => handleWrong(), 700);
+                }
+            }
+            if (typeof playSound === 'function') playSound('click');
+        });
+    });
+}
+
 function handleCorrect() {
     if (typeof playSound === 'function') playSound('correct');
     moduleState.streak++;
@@ -67841,10 +70270,27 @@ function showModuleResults() {
         if (typeof saveModuleProgress === 'function') {
             saveModuleProgress(moduleState.moduleId, stars);
         }
+        // Check for newly-earned badges and show toasts
+        if (typeof checkAndAwardBadges === 'function') {
+            const earned = checkAndAwardBadges();
+            if (earned && earned.length && typeof showBadgeToasts === 'function') {
+                showBadgeToasts(earned);
+            }
+        }
     }
 
+    // After a review session: clear the reviewed problems so they don't keep
+    // surfacing. (If Hakan got them right this time, that's the goal of review.
+    // If he got them wrong AGAIN, he'll re-enter the queue next session.)
+    if (moduleState.activity === 'review' && typeof clearReviewedProblems === 'function') {
+        clearReviewedProblems(moduleState.moduleId, moduleState._reviewSource || []);
+    }
+
+    const isReview = moduleState.activity === 'review';
     document.getElementById('results-title').textContent =
-        isQuiz ? `🎉 Quiz Complete! 🎉` : `🎯 Practice Complete!`;
+        isQuiz   ? `🎉 Quiz Complete! 🎉` :
+        isReview ? `🔁 Review Complete! 🎉` :
+                   `🎯 Practice Complete!`;
     document.getElementById('final-score').textContent = moduleState.score;
     document.getElementById('final-correct').textContent = `${moduleState.correct} / ${total}`;
     document.getElementById('final-streak').textContent = moduleState.bestStreak;

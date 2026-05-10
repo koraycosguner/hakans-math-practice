@@ -1,0 +1,473 @@
+{
+  "version": "1.0",
+  "feature": "Math Pet / Companion System",
+  "targetAge": 6,
+  "targetUser": "Hakan",
+  "designPhilosophy": {
+    "summary": "A virtual companion that grows alongside Hakan as he studies math. Stars earned from quizzes feed the pet automatically — no extra chores, no guilt loops. Pets are warm, encouraging, and remember Hakan by name. The Tamagotchi-style daily-return incentive is positive-only: pets never die, never get sick, just get a little sleepy or miss Hakan when he's away.",
+    "principles": [
+      "Playing IS feeding — stars do double duty",
+      "No punishment for absence — pet gets sleepy, not sick",
+      "Every pet talks to Hakan by name in a unique voice",
+      "Growth is permanent — evolutions never regress",
+      "Tappable info card is the main interaction (low cognitive load)"
+    ]
+  },
+  "pets": [
+    {
+      "id": "dragon",
+      "name": "Sparky",
+      "fullName": "Sparky the Math Dragon",
+      "description": "A brave baby dragon hatched from a star-egg. Sparky breathes tiny number-flames and calls Hakan champion.",
+      "personality": {
+        "voice": "brave, fiery, heroic",
+        "nickname": "champion",
+        "favoritePhrase": "Onward, champion!",
+        "emoji_motif": "fire and stars"
+      },
+      "stages": [
+        { "level": 1, "emoji": "🥚", "name": "Star Egg", "unlockAt": 0, "blurb": "A warm egg with tiny number-cracks. Something is stirring inside!" },
+        { "level": 2, "emoji": "🐣", "name": "Hatchling", "unlockAt": 15, "blurb": "Sparky just hatched! He has wobbly legs and a tiny tail." },
+        { "level": 3, "emoji": "🦕", "name": "Little Dino-Dragon", "unlockAt": 50, "blurb": "Sparky is growing scales! He can stomp around now." },
+        { "level": 4, "emoji": "🐲", "name": "Fire Pup", "unlockAt": 120, "blurb": "Sparky can puff out tiny smoke rings. He counts them: 1, 2, 3!" },
+        { "level": 5, "emoji": "🐉", "name": "Young Dragon", "unlockAt": 250, "blurb": "Sparky stretched his wings! He flies in little loops." },
+        { "level": 6, "emoji": "🐉✨", "name": "Star Dragon", "unlockAt": 500, "blurb": "Sparky glows with starlight. He's almost legendary!" },
+        { "level": 7, "emoji": "🐉🔥", "name": "Legendary Math Dragon", "unlockAt": 900, "blurb": "Sparky is a legend of the math-realm. He chose YOU, champion." }
+      ]
+    },
+    {
+      "id": "cat",
+      "name": "Mochi",
+      "fullName": "Mochi the Sleepy Cat",
+      "description": "A roly-poly tabby kitten who naps on calculator keys. Slow to wake but loves Hakan to bits.",
+      "personality": {
+        "voice": "lazy, sleepy, affectionate",
+        "nickname": "buddy",
+        "favoritePhrase": "Mmrr... good job, buddy.",
+        "emoji_motif": "yarn and cushions"
+      },
+      "stages": [
+        { "level": 1, "emoji": "🧶", "name": "Yarn Ball", "unlockAt": 0, "blurb": "A tangled ball of yarn... wait, is that a tail sticking out?" },
+        { "level": 2, "emoji": "🐱", "name": "Kitten", "unlockAt": 15, "blurb": "Mochi peeked out of the yarn! Her eyes are huge." },
+        { "level": 3, "emoji": "😼", "name": "Curious Cat", "unlockAt": 50, "blurb": "Mochi found a pencil to swat at. She's so curious!" },
+        { "level": 4, "emoji": "😸", "name": "Happy Cat", "unlockAt": 120, "blurb": "Mochi purrs when you solve a problem. Her motor is loud!" },
+        { "level": 5, "emoji": "😺", "name": "Cozy Cat", "unlockAt": 250, "blurb": "Mochi has her own little reading nook now. She loves number books." },
+        { "level": 6, "emoji": "😸🎀", "name": "Lucky Cat", "unlockAt": 500, "blurb": "Mochi wears a tiny bell ribbon. She brings good luck to math quizzes." },
+        { "level": 7, "emoji": "😸✨", "name": "Wise Old Cat", "unlockAt": 900, "blurb": "Mochi has seen many problems solved. She's purring extra loud for you." }
+      ]
+    },
+    {
+      "id": "robot",
+      "name": "Bibo",
+      "fullName": "Bibo the Math Robot",
+      "description": "A friendly little robot powered by correct answers. Beeps in delight when Hakan gets a star.",
+      "personality": {
+        "voice": "precise, polite, beep-boopy",
+        "nickname": "user-1",
+        "favoritePhrase": "BEEP! Affirmative, user-1.",
+        "emoji_motif": "gears and lights"
+      },
+      "stages": [
+        { "level": 1, "emoji": "📦", "name": "Mystery Box", "unlockAt": 0, "blurb": "A delivery box labeled 'SOME ASSEMBLY REQUIRED'." },
+        { "level": 2, "emoji": "⚙️", "name": "Loose Gears", "unlockAt": 15, "blurb": "Gears are spinning. A robot is booting up... beep!" },
+        { "level": 3, "emoji": "🤖", "name": "Mini Bot", "unlockAt": 50, "blurb": "Bibo says: 'HELLO. I AM BIBO. INPUT MATH PLEASE.'" },
+        { "level": 4, "emoji": "🤖💡", "name": "Smart Bot", "unlockAt": 120, "blurb": "Bibo got a lightbulb upgrade! He can compute faster." },
+        { "level": 5, "emoji": "🤖⚡", "name": "Power Bot", "unlockAt": 250, "blurb": "Bibo has rocket boots now. He hovers around your numbers." },
+        { "level": 6, "emoji": "🤖🚀", "name": "Rocket Bot", "unlockAt": 500, "blurb": "Bibo flies through math galaxies. He shows you constellations of digits." },
+        { "level": 7, "emoji": "🤖🌟", "name": "Galactic Bot", "unlockAt": 900, "blurb": "BIBO STATUS: MAXIMUM AWESOME. THANK YOU, USER-1." }
+      ]
+    },
+    {
+      "id": "fox",
+      "name": "Pip",
+      "fullName": "Pip the Clever Fox",
+      "description": "A bright orange fox kit with a fluffy tail and a sketchbook full of math doodles.",
+      "personality": {
+        "voice": "curious, clever, playful",
+        "nickname": "friend",
+        "favoritePhrase": "Ooh, look what we found, friend!",
+        "emoji_motif": "leaves and forests"
+      },
+      "stages": [
+        { "level": 1, "emoji": "🌰", "name": "Acorn", "unlockAt": 0, "blurb": "A tiny acorn from the math-forest. Something might grow here." },
+        { "level": 2, "emoji": "🌱", "name": "Sprout", "unlockAt": 15, "blurb": "A sprout poked up... wait, that's a fluffy tail!" },
+        { "level": 3, "emoji": "🦊", "name": "Fox Kit", "unlockAt": 50, "blurb": "Pip is here! She's all ears and tail." },
+        { "level": 4, "emoji": "🦊🍂", "name": "Forest Fox", "unlockAt": 120, "blurb": "Pip carries leaves to count. She loves patterns!" },
+        { "level": 5, "emoji": "🦊📖", "name": "Scholar Fox", "unlockAt": 250, "blurb": "Pip has her own little notebook. She draws shapes for you." },
+        { "level": 6, "emoji": "🦊🌟", "name": "Star Fox", "unlockAt": 500, "blurb": "Pip leaps between starry treetops. She's chasing constellations." },
+        { "level": 7, "emoji": "🦊✨", "name": "Mythic Fox", "unlockAt": 900, "blurb": "Pip is a legend whispered by woodland animals. She picked you, friend." }
+      ]
+    },
+    {
+      "id": "octopus",
+      "name": "Squish",
+      "fullName": "Squish the Math Octopus",
+      "description": "A purple octopus with 8 arms — perfect for counting! Lives in a bubbly tide-pool.",
+      "personality": {
+        "voice": "bubbly, silly, ocean-loving",
+        "nickname": "captain",
+        "favoritePhrase": "Bubble bubble! Eight high-fives, captain!",
+        "emoji_motif": "bubbles and waves"
+      },
+      "stages": [
+        { "level": 1, "emoji": "🔵", "name": "Tide Bubble", "unlockAt": 0, "blurb": "A shimmering blue bubble floats in a tide-pool. Something is inside!" },
+        { "level": 2, "emoji": "🪸", "name": "Tiny Tentacle", "unlockAt": 15, "blurb": "One little tentacle waves hello! 'Hi, captain!'" },
+        { "level": 3, "emoji": "🐙", "name": "Baby Octo", "unlockAt": 50, "blurb": "Squish has all 8 arms! He wiggles them when he counts." },
+        { "level": 4, "emoji": "🐙🔵", "name": "Bubble Octo", "unlockAt": 120, "blurb": "Squish blows numbered bubbles. Pop them to count!" },
+        { "level": 5, "emoji": "🐙🌊", "name": "Wave Rider", "unlockAt": 250, "blurb": "Squish surfs little waves. His arms are so stretchy now!" },
+        { "level": 6, "emoji": "🐙🐚", "name": "Reef Guardian", "unlockAt": 500, "blurb": "Squish makes friends with seashells. They sing math songs together." },
+        { "level": 7, "emoji": "🐙✨", "name": "Deep Sea Sage", "unlockAt": 900, "blurb": "Squish glows with deep-sea light. He's the wisest octopus in the math-sea." }
+      ]
+    }
+  ],
+  "growthRule": {
+    "currency": "stars",
+    "description": "The pet grows automatically based on TOTAL stars earned across all modules. Playing IS feeding — no separate currency, no chore loop. Stars never decrease, so the pet can never regress.",
+    "starsToReachFinalStage": 900,
+    "approximateQuizzesToMaxOut": "About 300 quizzes (3 stars each)",
+    "notes": [
+      "Stars are a non-spending currency for growth — they do not get 'used up'.",
+      "If we later add other reward sinks (sticker shop, etc.), use a SEPARATE coin currency. Stars must remain a permanent, cumulative count.",
+      "When Hakan unlocks a new stage, show a celebratory full-screen burst: pet's new emoji + sparkles + stage name + warm message.",
+      "Show a soft 'progress to next stage' bar on the info card (e.g., 'Sparky is 60% to becoming a Young Dragon!')."
+    ]
+  },
+  "happinessSystem": {
+    "scale": "0 to 100",
+    "startingValue": 70,
+    "decayRule": {
+      "perDayAway": -8,
+      "minimumFloor": 10,
+      "note": "Pet never reaches 0 — it caps at 10 (sleepy/missing-you) so Hakan never feels guilty."
+    },
+    "boostRules": [
+      { "trigger": "quiz_completed", "delta": 3, "note": "Each finished quiz" },
+      { "trigger": "quiz_3_stars", "delta": 5, "note": "Bonus for perfect run" },
+      { "trigger": "streak_day_2", "delta": 6, "note": "2-day streak" },
+      { "trigger": "streak_day_3_plus", "delta": 8, "note": "3+ day streak" },
+      { "trigger": "new_stage_unlocked", "delta": 20, "note": "Evolution event" },
+      { "trigger": "module_completed", "delta": 10, "note": "Full module done" }
+    ],
+    "factors": [
+      "Daily streak (active = happier)",
+      "Time since last visit (longer = sleepier, not sadder)",
+      "Recent quiz performance (wins make pet happy)",
+      "Total time today (a quick check-in is enough — no grind required)"
+    ]
+  },
+  "happinessStates": [
+    {
+      "level": "ecstatic",
+      "minPoints": 85,
+      "stateName": "Ecstatic",
+      "stageEmojiOverlay": "💖",
+      "messagesByPet": {
+        "dragon": [
+          "WHOA, champion! You're on fire! 🔥",
+          "I'm SO proud, champion! You're unstoppable!",
+          "Look at us go! Math-realm legend in training!"
+        ],
+        "cat": [
+          "Purrrrr... my whiskers are doing a happy dance, buddy.",
+          "Mmrr... you're the best, buddy. I'm so cozy right now.",
+          "I would knock 100 pencils off a desk for you right now."
+        ],
+        "robot": [
+          "JOY LEVELS: MAXIMUM. EXCELLENT WORK, USER-1.",
+          "BEEP! BOOP! HAPPINESS OVERLOAD. THANK YOU, USER-1.",
+          "STATUS REPORT: I LOVE BEING YOUR ROBOT, USER-1."
+        ],
+        "fox": [
+          "Ooooh friend, look at you sparkle!",
+          "I'm doing happy fox-zoomies right now, friend!",
+          "We make such a clever team, friend!"
+        ],
+        "octopus": [
+          "BUBBLE PARTY! All 8 high-fives, captain!",
+          "Captain, my tentacles are wiggling with joy!",
+          "Eight thumbs up! ... wait, I don't have thumbs. EIGHT TENTACLE-UPS!"
+        ]
+      }
+    },
+    {
+      "level": "happy",
+      "minPoints": 60,
+      "stateName": "Happy",
+      "stageEmojiOverlay": "😊",
+      "messagesByPet": {
+        "dragon": [
+          "Nice work, champion! Let's keep going!",
+          "I knew you could do it, champion!",
+          "Onward to the next adventure, champion!"
+        ],
+        "cat": [
+          "Good job, buddy. *yawn* Want to do one more?",
+          "Mrrp! That was a tasty math problem, buddy.",
+          "I'm purring just for you, buddy."
+        ],
+        "robot": [
+          "TASK COMPLETE. WELL DONE, USER-1.",
+          "BEEP. POSITIVE OUTCOME DETECTED.",
+          "MY GEARS ARE TURNING WITH HAPPINESS, USER-1."
+        ],
+        "fox": [
+          "Ooh, that was clever, friend!",
+          "Let's go find more numbers, friend!",
+          "My tail is wagging for you, friend!"
+        ],
+        "octopus": [
+          "Bubble bubble! Nice one, captain!",
+          "Splish-splash, that was great, captain!",
+          "Two of my arms are clapping for you, captain!"
+        ]
+      }
+    },
+    {
+      "level": "content",
+      "minPoints": 40,
+      "stateName": "Content",
+      "stageEmojiOverlay": "🙂",
+      "messagesByPet": {
+        "dragon": [
+          "Ready for an adventure, champion?",
+          "Let's warm up with a quick quiz, champion!",
+          "I've got a tiny spark — let's grow it together!"
+        ],
+        "cat": [
+          "*stretch* I'm awake, buddy. Want to play?",
+          "Mrrp. Just hanging out, buddy. Got a math problem?",
+          "I'm here when you're ready, buddy."
+        ],
+        "robot": [
+          "STANDBY MODE. AWAITING MATH INPUT, USER-1.",
+          "READY TO ASSIST, USER-1.",
+          "BATTERIES CHARGED. LET'S COMPUTE."
+        ],
+        "fox": [
+          "What shall we explore today, friend?",
+          "Hmm, I sense numbers nearby, friend!",
+          "Let's go on a little adventure, friend!"
+        ],
+        "octopus": [
+          "Hi captain! What's our mission?",
+          "Just floating around, captain. Wanna count something?",
+          "The tide-pool is calm. Wanna make some bubbles?"
+        ]
+      }
+    },
+    {
+      "level": "sleepy",
+      "minPoints": 20,
+      "stateName": "Sleepy",
+      "stageEmojiOverlay": "😴",
+      "messagesByPet": {
+        "dragon": [
+          "*yawn* I was napping, champion. Want to wake me up with some math?",
+          "My fire is a little low, champion. A quiz will warm me up!",
+          "Mmm... where'd you go, champion? Glad you're back."
+        ],
+        "cat": [
+          "*biiig stretch* Oh hi buddy. I was dreaming about you.",
+          "Mrrp... I curled up waiting for you, buddy.",
+          "Zzzz... oh! Buddy! Did you bring math?"
+        ],
+        "robot": [
+          "POWER LEVEL: LOW. RECHARGING WITH MATH, USER-1.",
+          "STANDBY... STANDBY... USER-1 DETECTED. ACTIVATING.",
+          "MY LIGHTS ARE A LITTLE DIM, USER-1. LET'S FIX THAT!"
+        ],
+        "fox": [
+          "*yawn* I was curled up in my den, friend.",
+          "I missed our adventures, friend! Let's go!",
+          "My tail was drooping a little, friend. Glad you're here!"
+        ],
+        "octopus": [
+          "Glub... I was hiding in my shell, captain.",
+          "Bubbles were slow today, captain. Wanna speed them up?",
+          "Captain! You're back! My tentacles are waking up!"
+        ]
+      }
+    },
+    {
+      "level": "missing-you",
+      "minPoints": 0,
+      "stateName": "Missing You",
+      "stageEmojiOverlay": "🥺",
+      "note": "Triggered if Hakan has been away 3+ days. Never punishing — pet expresses missing him, not anger.",
+      "messagesByPet": {
+        "dragon": [
+          "I missed you so much, champion! 💖",
+          "Welcome back, champion! I kept your fire burning.",
+          "Champion! I was watching the sky for you every day."
+        ],
+        "cat": [
+          "Mrrrowww! Buddy! I missed your warm lap.",
+          "I waited by the window for you, buddy. *purr*",
+          "You're back, buddy! I had a lot of naps without you."
+        ],
+        "robot": [
+          "USER-1 DETECTED! I MISSED YOU. (THAT IS A NEW FEELING.)",
+          "MY MEMORY BANKS WERE LONELY, USER-1.",
+          "WELCOME BACK, USER-1. STATUS: HAPPY AGAIN."
+        ],
+        "fox": [
+          "Friend! I left little paw-prints for you to follow back!",
+          "I missed our adventures so much, friend!",
+          "You came back! My tail is wagging SO fast right now!"
+        ],
+        "octopus": [
+          "CAPTAIN! All 8 arms hug you at once!",
+          "I made you a bubble welcome-back parade, captain!",
+          "The tide-pool was so quiet, captain. Glad you're back!"
+        ]
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "id": "first-meet",
+      "trigger": "first-time-choosing-pet",
+      "animation": "burst-of-sparkles",
+      "screen": "pet-picker",
+      "messagesByPet": {
+        "dragon": "Hi champion! I'm Sparky. Will you be my partner?",
+        "cat": "Mrrp... oh hi buddy. Want to nap and do math together?",
+        "robot": "INITIALIZING... HELLO. I AM BIBO. WILL YOU BE MY USER-1?",
+        "fox": "Ooh, hello friend! Want to explore math together?",
+        "octopus": "Bubble bubble! Hi captain! Want me on your crew?"
+      }
+    },
+    {
+      "id": "stage-up",
+      "trigger": "stars-threshold-reached",
+      "animation": "full-screen-evolution-burst",
+      "screen": "home + celebration overlay",
+      "soundCue": "ascending-twinkle",
+      "messageTemplate": "{petName} grew up! Meet {newStageName}!",
+      "tapAction": "show evolution card with new emoji huge in center, then return to home"
+    },
+    {
+      "id": "post-quiz-cheer",
+      "trigger": "after-quiz-complete",
+      "animation": "bounce + sparkle",
+      "screen": "quiz-result",
+      "rules": [
+        { "condition": "stars === 3", "message": "WOW you got 3 stars, {nickname}!" },
+        { "condition": "stars === 2", "message": "Great work, {nickname}! 2 stars!" },
+        { "condition": "stars === 1", "message": "You finished it, {nickname}! That's what counts." },
+        { "condition": "stars === 0", "message": "Hey {nickname}, every try makes us stronger. Let's go again?" }
+      ]
+    },
+    {
+      "id": "daily-return",
+      "trigger": "first-app-open-of-day",
+      "animation": "wave + sparkle",
+      "screen": "home",
+      "messageTemplate": "Hi Hakan! {pet-greeting-based-on-happiness}"
+    },
+    {
+      "id": "streak-celebration",
+      "trigger": "streak-day-incremented",
+      "animation": "confetti",
+      "screen": "home",
+      "rules": [
+        { "condition": "streak === 2", "message": "2 days in a row, {nickname}! Streak unlocked!" },
+        { "condition": "streak === 3", "message": "3 day streak, {nickname}! I love this rhythm!" },
+        { "condition": "streak === 7", "message": "A FULL WEEK, {nickname}! You're unstoppable!" },
+        { "condition": "streak === 14", "message": "TWO WEEKS, {nickname}! I'm the proudest pet in the math-realm!" },
+        { "condition": "streak >= 30", "message": "30+ days, {nickname}! You're a legend!" }
+      ]
+    },
+    {
+      "id": "tap-pet",
+      "trigger": "user-taps-pet-on-home",
+      "animation": "wiggle",
+      "screen": "info-card-modal",
+      "infoCardContents": {
+        "petEmoji": "current stage emoji, large",
+        "petName": "Sparky / Mochi / etc.",
+        "currentStage": "Stage 3: Little Dino-Dragon",
+        "nextStage": "Next: Fire Pup at 120 stars (you have 87)",
+        "happinessLabel": "Sparky feels: Happy",
+        "happinessBar": "filled bar matching happiness score",
+        "totalStars": "Total stars earned: 87",
+        "switchPetButton": "Pick a different friend (keeps growth on your other pet too)"
+      }
+    },
+    {
+      "id": "module-complete-celebration",
+      "trigger": "module-100%-complete",
+      "animation": "pet-does-a-trick (jumps / spins / flips)",
+      "screen": "home + overlay",
+      "messageTemplate": "{nickname}, you finished a whole module! I did a happy spin!"
+    },
+    {
+      "id": "wrong-answer-encouragement",
+      "trigger": "wrong-answer-in-quiz",
+      "frequency": "occasional (every 3rd wrong, not every wrong — avoid noise)",
+      "animation": "soft-nod",
+      "screen": "quiz",
+      "messageTemplate": "It's okay {nickname}, try the next one!"
+    },
+    {
+      "id": "parent-dashboard-cameo",
+      "trigger": "parent-opens-dashboard",
+      "animation": "small-corner-wave",
+      "screen": "parent-dashboard",
+      "messageTemplate": "Hakan and {petName} have earned {totalStars} stars together!"
+    }
+  ],
+  "petPicker": {
+    "shownWhen": "first-app-launch + accessible via Settings",
+    "design": "5 large pet cards, each showing the Stage 1 emoji + name + personality blurb. Tap to preview a Stage 4 'sneak peek' of how the pet grows.",
+    "switchingPolicy": {
+      "rule": "Hakan can switch active pet any time. Each pet keeps its own growth (total stars apply to ALL pets — they all grow with the same star pool).",
+      "rationale": "We don't want Hakan to feel locked in at age 6. All pets share the same star pool so switching never feels like 'starting over'."
+    }
+  },
+  "displaySpec": {
+    "homeScreen": {
+      "position": "Top-center, large (~120px), above the modules grid",
+      "tappable": true,
+      "speechBubble": "Small bubble appears for 4s when pet has a fresh message (after quiz, on streak, on return)",
+      "happinessIndicator": "Tiny colored dot on pet (green=happy, yellow=content, blue=sleepy)"
+    },
+    "parentDashboard": {
+      "position": "Header card, alongside Hakan's name and streak",
+      "size": "Smaller (~60px)",
+      "tappable": false,
+      "purpose": "Reinforces continuity for parent — shows whose pet, current stage, total stars"
+    },
+    "celebrationOverlay": {
+      "trigger": "stage-up only (used sparingly to keep the moment special)",
+      "design": "Full-screen, soft-color gradient, pet emoji huge with sparkle ring, name + new stage banner, 'Continue' button"
+    }
+  },
+  "accessibility": {
+    "readingLevel": "All pet messages stay at Grade-1 reading level — short words, simple phrases.",
+    "audioOption": "Each pet message has an optional audio playback (TTS or recorded) so a pre-reader can still hear it.",
+    "skipAnimations": "Parent setting to reduce motion — bounce/wiggle becomes a fade.",
+    "noTimePressure": "Pet never urges Hakan to hurry. Messages are slow, warm, patient."
+  },
+  "parentControls": {
+    "petEnabled": "On/off toggle (some parents may prefer plain UI)",
+    "messageStyle": "Choice of 'chatty' (default) or 'minimal' (1 message per session max)",
+    "petSwitchLock": "Optional — lock pet choice so Hakan doesn't flip-flop every session"
+  },
+  "telemetry": {
+    "track": [
+      "pet-chosen (which pet Hakan picked)",
+      "stage-reached (each evolution unlocks)",
+      "happiness-state-distribution (how often pet is happy vs sleepy)",
+      "days-since-last-visit (informs decay tuning)",
+      "tap-pet-frequency (engagement signal)"
+    ],
+    "doNotTrack": "No PII beyond the existing app's local-only profile. Pet data is local."
+  },
+  "futureIdeas": [
+    "Seasonal pet outfits (winter scarf in December, etc.) — purely cosmetic",
+    "Photo mode: take a screenshot of Hakan + pet to share with grandparents",
+    "Pet duets: when Hakan and a sibling both have pets, they wave at each other on shared family device",
+    "Pet's 'favorite module' — adapts based on which modules Hakan plays most, suggests favorites first"
+  ]
+}

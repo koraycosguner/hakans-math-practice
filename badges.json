@@ -1,0 +1,962 @@
+[
+  {
+    "id": "first-quiz",
+    "name": "First Quiz!",
+    "emoji": "🎉",
+    "tier": "bronze",
+    "description": "You finished your very first quiz!",
+    "criteria": {
+      "type": "quiz-completed",
+      "threshold": 1
+    },
+    "robux": 5
+  },
+  {
+    "id": "first-lesson",
+    "name": "First Lesson Done!",
+    "emoji": "📖",
+    "tier": "bronze",
+    "description": "You finished your first lesson!",
+    "criteria": {
+      "type": "lesson-completed",
+      "threshold": 1
+    },
+    "robux": 5
+  },
+  {
+    "id": "first-star",
+    "name": "Star Catcher",
+    "emoji": "⭐",
+    "tier": "bronze",
+    "description": "You earned your very first star!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 1
+    },
+    "robux": 3
+  },
+  {
+    "id": "first-three-star",
+    "name": "Perfect!",
+    "emoji": "💯",
+    "tier": "bronze",
+    "description": "You got 3 stars on a module for the first time!",
+    "criteria": {
+      "type": "perfect-quiz",
+      "threshold": 1
+    },
+    "robux": 5
+  },
+  {
+    "id": "first-module",
+    "name": "Module Master",
+    "emoji": "🏁",
+    "tier": "bronze",
+    "description": "You finished your first module!",
+    "criteria": {
+      "type": "modules-completed",
+      "threshold": 1
+    },
+    "robux": 5
+  },
+  {
+    "id": "first-correct",
+    "name": "Got One!",
+    "emoji": "✅",
+    "tier": "bronze",
+    "description": "You got your first answer correct!",
+    "criteria": {
+      "type": "correct-answers",
+      "threshold": 1
+    },
+    "robux": 3
+  },
+  {
+    "id": "ten-correct",
+    "name": "Brain Power",
+    "emoji": "🧠",
+    "tier": "bronze",
+    "description": "You got 10 answers right!",
+    "criteria": {
+      "type": "correct-answers",
+      "threshold": 10
+    },
+    "robux": 4
+  },
+  {
+    "id": "first-robux",
+    "name": "Robux Rookie",
+    "emoji": "💰",
+    "tier": "bronze",
+    "description": "You earned your first Robux!",
+    "criteria": {
+      "type": "robux-earned-total",
+      "threshold": 1
+    },
+    "robux": 3
+  },
+  {
+    "id": "first-play",
+    "name": "Welcome, Hakan!",
+    "emoji": "👋",
+    "tier": "bronze",
+    "description": "You opened your first module!",
+    "criteria": {
+      "type": "play-count",
+      "threshold": 1
+    },
+    "robux": 3
+  },
+  {
+    "id": "five-quizzes",
+    "name": "Quiz Whiz",
+    "emoji": "📚",
+    "tier": "bronze",
+    "description": "You finished 5 quizzes!",
+    "criteria": {
+      "type": "quiz-completed",
+      "threshold": 5
+    },
+    "robux": 5
+  },
+  {
+    "id": "streak-2",
+    "name": "Back Again!",
+    "emoji": "📅",
+    "tier": "bronze",
+    "description": "You came back 2 days in a row!",
+    "criteria": {
+      "type": "streak",
+      "threshold": 2
+    },
+    "robux": 4
+  },
+  {
+    "id": "streak-3",
+    "name": "On Fire!",
+    "emoji": "🔥",
+    "tier": "silver",
+    "description": "You came back 3 days in a row!",
+    "criteria": {
+      "type": "streak",
+      "threshold": 3
+    },
+    "robux": 10
+  },
+  {
+    "id": "streak-5",
+    "name": "High Five Streak",
+    "emoji": "✋",
+    "tier": "silver",
+    "description": "You practiced 5 days in a row!",
+    "criteria": {
+      "type": "streak",
+      "threshold": 5
+    },
+    "robux": 12
+  },
+  {
+    "id": "streak-7",
+    "name": "Week Warrior",
+    "emoji": "⚔️",
+    "tier": "gold",
+    "description": "You practiced 7 days in a row!",
+    "criteria": {
+      "type": "streak",
+      "threshold": 7
+    },
+    "robux": 20
+  },
+  {
+    "id": "streak-14",
+    "name": "Two-Week Hero",
+    "emoji": "🦸",
+    "tier": "platinum",
+    "description": "You practiced 14 days in a row!",
+    "criteria": {
+      "type": "streak",
+      "threshold": 14
+    },
+    "robux": 40
+  },
+  {
+    "id": "streak-30",
+    "name": "Month Marvel",
+    "emoji": "🌟",
+    "tier": "diamond",
+    "description": "You practiced 30 days in a row! Wow!",
+    "criteria": {
+      "type": "streak",
+      "threshold": 30
+    },
+    "robux": 100
+  },
+  {
+    "id": "stars-5",
+    "name": "Five Star Hakan",
+    "emoji": "🌠",
+    "tier": "bronze",
+    "description": "You earned 5 stars!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 5
+    },
+    "robux": 5
+  },
+  {
+    "id": "stars-10",
+    "name": "Star Collector",
+    "emoji": "💫",
+    "tier": "bronze",
+    "description": "You earned 10 stars!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 10
+    },
+    "robux": 5
+  },
+  {
+    "id": "stars-25",
+    "name": "Star Squad",
+    "emoji": "⭐",
+    "tier": "silver",
+    "description": "You earned 25 stars!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 25
+    },
+    "robux": 10
+  },
+  {
+    "id": "stars-50",
+    "name": "Star Captain",
+    "emoji": "🌟",
+    "tier": "silver",
+    "description": "You earned 50 stars!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 50
+    },
+    "robux": 12
+  },
+  {
+    "id": "stars-100",
+    "name": "Century of Stars",
+    "emoji": "🎇",
+    "tier": "gold",
+    "description": "You earned 100 stars!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 100
+    },
+    "robux": 20
+  },
+  {
+    "id": "stars-200",
+    "name": "Star Champion",
+    "emoji": "🏆",
+    "tier": "platinum",
+    "description": "You earned 200 stars!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 200
+    },
+    "robux": 35
+  },
+  {
+    "id": "stars-400",
+    "name": "Star Legend",
+    "emoji": "👑",
+    "tier": "diamond",
+    "description": "You earned 400 stars! Legendary!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 400
+    },
+    "robux": 90
+  },
+  {
+    "id": "cat-A-start",
+    "name": "Counting Kickoff",
+    "emoji": "🔢",
+    "tier": "bronze",
+    "description": "You started the Counting topic!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "A"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-A-master",
+    "name": "Counting Champion",
+    "emoji": "🎖️",
+    "tier": "gold",
+    "description": "You mastered every Counting module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "A"
+    },
+    "robux": 25
+  },
+  {
+    "id": "cat-B-start",
+    "name": "Adding It Up",
+    "emoji": "➕",
+    "tier": "bronze",
+    "description": "You started the Addition topic!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "B"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-B-master",
+    "name": "Addition Ace",
+    "emoji": "🥇",
+    "tier": "platinum",
+    "description": "You mastered every Addition module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "B"
+    },
+    "robux": 50
+  },
+  {
+    "id": "cat-C-start",
+    "name": "Take Away Time",
+    "emoji": "➖",
+    "tier": "bronze",
+    "description": "You started the Subtraction topic!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "C"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-C-master",
+    "name": "Subtraction Star",
+    "emoji": "🎯",
+    "tier": "platinum",
+    "description": "You mastered every Subtraction module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "C"
+    },
+    "robux": 45
+  },
+  {
+    "id": "cat-D-start",
+    "name": "Tens and Ones Trailblazer",
+    "emoji": "🔟",
+    "tier": "bronze",
+    "description": "You started the Place Value topic!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "D"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-D-master",
+    "name": "Place Value Pro",
+    "emoji": "🧮",
+    "tier": "gold",
+    "description": "You mastered every Place Value module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "D"
+    },
+    "robux": 22
+  },
+  {
+    "id": "cat-E-start",
+    "name": "Number Detective Begins",
+    "emoji": "🕵️",
+    "tier": "bronze",
+    "description": "You started Comparing Numbers!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "E"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-E-master",
+    "name": "Compare Champion",
+    "emoji": "⚖️",
+    "tier": "gold",
+    "description": "You mastered every Compare module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "E"
+    },
+    "robux": 20
+  },
+  {
+    "id": "cat-F-start",
+    "name": "Time Traveler",
+    "emoji": "⏰",
+    "tier": "bronze",
+    "description": "You started Telling Time!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "F"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-F-master",
+    "name": "Time Master",
+    "emoji": "🕰️",
+    "tier": "gold",
+    "description": "You mastered every Time module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "F"
+    },
+    "robux": 22
+  },
+  {
+    "id": "cat-G-start",
+    "name": "Pocket Money",
+    "emoji": "💵",
+    "tier": "bronze",
+    "description": "You started counting Money!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "G"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-G-master",
+    "name": "Money Master",
+    "emoji": "💎",
+    "tier": "gold",
+    "description": "You mastered every Money module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "G"
+    },
+    "robux": 20
+  },
+  {
+    "id": "cat-H-start",
+    "name": "Shape Spotter",
+    "emoji": "🔺",
+    "tier": "bronze",
+    "description": "You started learning Shapes!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "H"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-H-master",
+    "name": "Shape Sensei",
+    "emoji": "🔷",
+    "tier": "gold",
+    "description": "You mastered every Shape module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "H"
+    },
+    "robux": 22
+  },
+  {
+    "id": "cat-I-start",
+    "name": "Fair Share Beginner",
+    "emoji": "🍕",
+    "tier": "bronze",
+    "description": "You started Fractions and Halves!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "I"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-I-master",
+    "name": "Fraction Friend",
+    "emoji": "🎂",
+    "tier": "gold",
+    "description": "You mastered every Halves & Fourths module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "I"
+    },
+    "robux": 20
+  },
+  {
+    "id": "cat-J-start",
+    "name": "Measure Up",
+    "emoji": "📏",
+    "tier": "bronze",
+    "description": "You started Measurement!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "J"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-J-master",
+    "name": "Measure Master",
+    "emoji": "📐",
+    "tier": "gold",
+    "description": "You mastered every Measure module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "J"
+    },
+    "robux": 22
+  },
+  {
+    "id": "cat-K-start",
+    "name": "Pattern Pioneer",
+    "emoji": "🟦",
+    "tier": "bronze",
+    "description": "You started Patterns!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "K"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-K-master",
+    "name": "Pattern Pro",
+    "emoji": "🎨",
+    "tier": "gold",
+    "description": "You mastered every Pattern module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "K"
+    },
+    "robux": 20
+  },
+  {
+    "id": "cat-L-start",
+    "name": "Graph Explorer",
+    "emoji": "📊",
+    "tier": "bronze",
+    "description": "You started Graphs and Data!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "L"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-L-master",
+    "name": "Data Detective",
+    "emoji": "📈",
+    "tier": "gold",
+    "description": "You mastered every Data module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "L"
+    },
+    "robux": 20
+  },
+  {
+    "id": "cat-M-start",
+    "name": "Word Problem Wonder",
+    "emoji": "💬",
+    "tier": "bronze",
+    "description": "You started Word Problems!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "M"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-M-master",
+    "name": "Storyteller Solver",
+    "emoji": "📜",
+    "tier": "platinum",
+    "description": "You mastered every Word Problem module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "M"
+    },
+    "robux": 40
+  },
+  {
+    "id": "cat-N-start",
+    "name": "Mix Master Beginner",
+    "emoji": "🎲",
+    "tier": "bronze",
+    "description": "You started Mixed Practice!",
+    "criteria": {
+      "type": "category-complete",
+      "category": "N"
+    },
+    "robux": 5
+  },
+  {
+    "id": "cat-N-master",
+    "name": "Math Mix Champion",
+    "emoji": "🏅",
+    "tier": "gold",
+    "description": "You mastered every Mixed Practice module with 3 stars!",
+    "criteria": {
+      "type": "category-mastered",
+      "category": "N"
+    },
+    "robux": 25
+  },
+  {
+    "id": "answers-25",
+    "name": "Answer Ace",
+    "emoji": "🎓",
+    "tier": "bronze",
+    "description": "You got 25 answers right!",
+    "criteria": {
+      "type": "correct-answers",
+      "threshold": 25
+    },
+    "robux": 5
+  },
+  {
+    "id": "answers-50",
+    "name": "Half a Hundred",
+    "emoji": "🥳",
+    "tier": "silver",
+    "description": "You got 50 answers right!",
+    "criteria": {
+      "type": "correct-answers",
+      "threshold": 50
+    },
+    "robux": 10
+  },
+  {
+    "id": "answers-100",
+    "name": "Hundred Hero",
+    "emoji": "💯",
+    "tier": "silver",
+    "description": "You got 100 answers right!",
+    "criteria": {
+      "type": "correct-answers",
+      "threshold": 100
+    },
+    "robux": 12
+  },
+  {
+    "id": "answers-500",
+    "name": "Super Solver",
+    "emoji": "🦾",
+    "tier": "platinum",
+    "description": "You got 500 answers right!",
+    "criteria": {
+      "type": "correct-answers",
+      "threshold": 500
+    },
+    "robux": 35
+  },
+  {
+    "id": "answers-1000",
+    "name": "Math Genius",
+    "emoji": "🧙",
+    "tier": "diamond",
+    "description": "You got 1000 answers right! Amazing!",
+    "criteria": {
+      "type": "correct-answers",
+      "threshold": 1000
+    },
+    "robux": 80
+  },
+  {
+    "id": "quizzes-10",
+    "name": "Ten Quizzes Done",
+    "emoji": "🔟",
+    "tier": "silver",
+    "description": "You finished 10 quizzes!",
+    "criteria": {
+      "type": "quiz-completed",
+      "threshold": 10
+    },
+    "robux": 8
+  },
+  {
+    "id": "quizzes-25",
+    "name": "Quiz Quarter",
+    "emoji": "📓",
+    "tier": "gold",
+    "description": "You finished 25 quizzes!",
+    "criteria": {
+      "type": "quiz-completed",
+      "threshold": 25
+    },
+    "robux": 18
+  },
+  {
+    "id": "perfect-5",
+    "name": "Five Perfects",
+    "emoji": "🌈",
+    "tier": "silver",
+    "description": "You got 3 stars on 5 quizzes!",
+    "criteria": {
+      "type": "perfect-quiz",
+      "threshold": 5
+    },
+    "robux": 10
+  },
+  {
+    "id": "perfect-10",
+    "name": "Ten Perfects",
+    "emoji": "🎆",
+    "tier": "gold",
+    "description": "You got 3 stars on 10 quizzes!",
+    "criteria": {
+      "type": "perfect-quiz",
+      "threshold": 10
+    },
+    "robux": 20
+  },
+  {
+    "id": "robux-50",
+    "name": "Robux Saver",
+    "emoji": "🏦",
+    "tier": "silver",
+    "description": "You earned 50 Robux!",
+    "criteria": {
+      "type": "robux-earned-total",
+      "threshold": 50
+    },
+    "robux": 10
+  },
+  {
+    "id": "robux-100",
+    "name": "Robux Boss",
+    "emoji": "🤑",
+    "tier": "silver",
+    "description": "You earned 100 Robux!",
+    "criteria": {
+      "type": "robux-earned-total",
+      "threshold": 100
+    },
+    "robux": 12
+  },
+  {
+    "id": "robux-200",
+    "name": "Big Spender Soon",
+    "emoji": "💸",
+    "tier": "gold",
+    "description": "You earned 200 Robux!",
+    "criteria": {
+      "type": "robux-earned-total",
+      "threshold": 200
+    },
+    "robux": 20
+  },
+  {
+    "id": "robux-500",
+    "name": "Robux Royalty",
+    "emoji": "👑",
+    "tier": "platinum",
+    "description": "You earned 500 Robux!",
+    "criteria": {
+      "type": "robux-earned-total",
+      "threshold": 500
+    },
+    "robux": 40
+  },
+  {
+    "id": "robux-1000",
+    "name": "Robux Tycoon",
+    "emoji": "🤴",
+    "tier": "diamond",
+    "description": "You earned 1000 Robux! Whoa!",
+    "criteria": {
+      "type": "robux-earned-total",
+      "threshold": 1000
+    },
+    "robux": 90
+  },
+  {
+    "id": "lessons-10",
+    "name": "Lesson Learner",
+    "emoji": "📕",
+    "tier": "bronze",
+    "description": "You finished 10 lessons!",
+    "criteria": {
+      "type": "lesson-completed",
+      "threshold": 10
+    },
+    "robux": 5
+  },
+  {
+    "id": "lessons-25",
+    "name": "Lesson Lover",
+    "emoji": "📗",
+    "tier": "silver",
+    "description": "You finished 25 lessons!",
+    "criteria": {
+      "type": "lesson-completed",
+      "threshold": 25
+    },
+    "robux": 10
+  },
+  {
+    "id": "lessons-50",
+    "name": "Lesson Legend",
+    "emoji": "📘",
+    "tier": "gold",
+    "description": "You finished 50 lessons!",
+    "criteria": {
+      "type": "lesson-completed",
+      "threshold": 50
+    },
+    "robux": 20
+  },
+  {
+    "id": "plays-25",
+    "name": "Practice Pal",
+    "emoji": "🎮",
+    "tier": "bronze",
+    "description": "You opened 25 modules!",
+    "criteria": {
+      "type": "play-count",
+      "threshold": 25
+    },
+    "robux": 5
+  },
+  {
+    "id": "plays-100",
+    "name": "Practice Power",
+    "emoji": "⚡",
+    "tier": "silver",
+    "description": "You opened 100 modules!",
+    "criteria": {
+      "type": "play-count",
+      "threshold": 100
+    },
+    "robux": 12
+  },
+  {
+    "id": "modules-10",
+    "name": "Module Maven",
+    "emoji": "🎒",
+    "tier": "silver",
+    "description": "You finished 10 modules!",
+    "criteria": {
+      "type": "modules-completed",
+      "threshold": 10
+    },
+    "robux": 10
+  },
+  {
+    "id": "modules-25",
+    "name": "Module Mountain",
+    "emoji": "⛰️",
+    "tier": "gold",
+    "description": "You finished 25 modules!",
+    "criteria": {
+      "type": "modules-completed",
+      "threshold": 25
+    },
+    "robux": 20
+  },
+  {
+    "id": "modules-50",
+    "name": "Module Mountain Top",
+    "emoji": "🏔️",
+    "tier": "platinum",
+    "description": "You finished 50 modules!",
+    "criteria": {
+      "type": "modules-completed",
+      "threshold": 50
+    },
+    "robux": 40
+  },
+  {
+    "id": "hakan-the-hero",
+    "name": "Hakan the Hero",
+    "emoji": "🦸‍♂️",
+    "tier": "platinum",
+    "description": "You earned 100 stars AND a 7-day streak!",
+    "criteria": {
+      "type": "total-stars",
+      "threshold": 100
+    },
+    "robux": 35
+  },
+  {
+    "id": "master-counting",
+    "name": "Counting Crown",
+    "emoji": "👑",
+    "tier": "silver",
+    "description": "You got 3 stars on the big Counting module!",
+    "criteria": {
+      "type": "module-mastered",
+      "moduleId": "counting"
+    },
+    "robux": 10
+  },
+  {
+    "id": "master-addition",
+    "name": "Addition Trophy",
+    "emoji": "🏆",
+    "tier": "silver",
+    "description": "You got 3 stars on the big Addition module!",
+    "criteria": {
+      "type": "module-mastered",
+      "moduleId": "addition"
+    },
+    "robux": 10
+  },
+  {
+    "id": "master-subtraction",
+    "name": "Subtraction Trophy",
+    "emoji": "🥈",
+    "tier": "silver",
+    "description": "You got 3 stars on the big Subtraction module!",
+    "criteria": {
+      "type": "module-mastered",
+      "moduleId": "subtraction"
+    },
+    "robux": 10
+  },
+  {
+    "id": "master-fact-families",
+    "name": "Fact Family Friend",
+    "emoji": "👨‍👩‍👧",
+    "tier": "gold",
+    "description": "You got 3 stars on the Fact Families module!",
+    "criteria": {
+      "type": "module-mastered",
+      "moduleId": "fact-families"
+    },
+    "robux": 18
+  },
+  {
+    "id": "quick-thinker",
+    "name": "Quick Thinker",
+    "emoji": "💡",
+    "tier": "gold",
+    "description": "You got 3 stars on 15 quizzes!",
+    "criteria": {
+      "type": "perfect-quiz",
+      "threshold": 15
+    },
+    "robux": 22
+  },
+  {
+    "id": "ultimate-hakan",
+    "name": "Ultimate Hakan",
+    "emoji": "🌠",
+    "tier": "diamond",
+    "description": "You earned 50 perfect 3-star quizzes! Math king!",
+    "criteria": {
+      "type": "perfect-quiz",
+      "threshold": 50
+    },
+    "robux": 100
+  }
+]
