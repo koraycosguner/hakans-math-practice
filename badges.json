@@ -958,5 +958,219 @@
       "threshold": 50
     },
     "robux": 100
+  },
+  {
+    "id": "mg-first-win",
+    "name": "First Mini-Game Win",
+    "emoji": "🎮",
+    "tier": "bronze",
+    "description": "Score in any mini-game!",
+    "criteria": {
+      "type": "game-played",
+      "threshold": 1
+    },
+    "robux": 4
+  },
+  {
+    "id": "mg-5-played",
+    "name": "Game Explorer",
+    "emoji": "🗺️",
+    "tier": "silver",
+    "description": "Play 5 different mini-games!",
+    "criteria": {
+      "type": "games-distinct",
+      "threshold": 5
+    },
+    "robux": 10
+  },
+  {
+    "id": "mg-all-played",
+    "name": "Game Master",
+    "emoji": "🏆",
+    "tier": "gold",
+    "description": "Play every mini-game at least once!",
+    "criteria": {
+      "type": "games-distinct",
+      "threshold": 9
+    },
+    "robux": 20
+  },
+  {
+    "id": "mg-daily-3",
+    "name": "Daily Doer",
+    "emoji": "📅",
+    "tier": "silver",
+    "description": "Complete the Daily Challenge 3 times!",
+    "criteria": {
+      "type": "daily-streak",
+      "threshold": 3
+    },
+    "robux": 12
+  },
+  {
+    "id": "mg-daily-7",
+    "name": "Daily Devotee",
+    "emoji": "🔥",
+    "tier": "gold",
+    "description": "Complete the Daily Challenge 7 days!",
+    "criteria": {
+      "type": "daily-streak",
+      "threshold": 7
+    },
+    "robux": 25
+  },
+  {
+    "id": "mg-tap-rush-15",
+    "name": "Speed Tapper",
+    "emoji": "⚡",
+    "tier": "silver",
+    "description": "Score 15+ in Number Tap Rush!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "number-tap-rush",
+      "threshold": 15
+    },
+    "robux": 12
+  },
+  {
+    "id": "mg-bubble-pop-20",
+    "name": "Bubble Popper",
+    "emoji": "🫧",
+    "tier": "silver",
+    "description": "Pop 20+ correct bubbles in one round!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "bubble-pop-math",
+      "threshold": 20
+    },
+    "robux": 12
+  },
+  {
+    "id": "mg-make-10-15",
+    "name": "Number Bond Hero",
+    "emoji": "🎯",
+    "tier": "silver",
+    "description": "Make 15+ pairs of 10 in one round!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "make-10-match",
+      "threshold": 15
+    },
+    "robux": 12
+  },
+  {
+    "id": "mg-speed-add-25",
+    "name": "Speed Demon",
+    "emoji": "💨",
+    "tier": "silver",
+    "description": "Score 25+ in Speed Add!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "speed-add",
+      "threshold": 25
+    },
+    "robux": 12
+  },
+  {
+    "id": "mg-memory-win",
+    "name": "Memory Master",
+    "emoji": "🧠",
+    "tier": "bronze",
+    "description": "Win Memory Numbers (match all 6 pairs)!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "memory-numbers",
+      "threshold": 6
+    },
+    "robux": 8
+  },
+  {
+    "id": "mg-falling-30",
+    "name": "Falling Reflexes",
+    "emoji": "🌙",
+    "tier": "silver",
+    "description": "Score 30+ in Falling Numbers!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "falling-numbers",
+      "threshold": 30
+    },
+    "robux": 12
+  },
+  {
+    "id": "mg-shapes-30",
+    "name": "Shape Sorter Pro",
+    "emoji": "🔷",
+    "tier": "silver",
+    "description": "Sort 30+ shapes in one round!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "shape-sorter",
+      "threshold": 30
+    },
+    "robux": 12
+  },
+  {
+    "id": "mg-counting-25",
+    "name": "Counting Champion",
+    "emoji": "🏃",
+    "tier": "silver",
+    "description": "Score 25+ in Counting Race!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "counting-race",
+      "threshold": 25
+    },
+    "robux": 12
+  },
+  {
+    "id": "mg-ttt-win",
+    "name": "Tic Tac Toe Winner",
+    "emoji": "❌⭕",
+    "tier": "bronze",
+    "description": "Win a Tic Tac Toe game!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "tic-tac-toe",
+      "threshold": 1
+    },
+    "robux": 6
+  },
+  {
+    "id": "mg-ttt-5",
+    "name": "Tic Tac Toe Champion",
+    "emoji": "👑",
+    "tier": "gold",
+    "description": "Win 5 Tic Tac Toe games in one round!",
+    "criteria": {
+      "type": "game-best",
+      "gameId": "tic-tac-toe",
+      "threshold": 5
+    },
+    "robux": 20
+  },
+  {
+    "id": "mg-50-played",
+    "name": "Game Marathon",
+    "emoji": "🎰",
+    "tier": "gold",
+    "description": "Play 50 mini-game rounds!",
+    "criteria": {
+      "type": "games-total",
+      "threshold": 50
+    },
+    "robux": 25
+  },
+  {
+    "id": "mg-200-played",
+    "name": "Mini-Game Legend",
+    "emoji": "💎",
+    "tier": "platinum",
+    "description": "Play 200 mini-game rounds!",
+    "criteria": {
+      "type": "games-total",
+      "threshold": 200
+    },
+    "robux": 50
   }
 ]

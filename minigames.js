@@ -136,24 +136,100 @@ function _saveBests(bests) {
 // HUB
 // ----------------------------------------------------------------------
 
+// Daily challenge — deterministic pick from the catalog based on today's
+// date. Earns 2x Robux on completion.
+const MG_DAILY_KEY = 'hakans-math-game-daily';
+function _todayKeyForGames() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function getDailyChallenge() {
+    if (!MINI_GAMES_CATALOG.length) return null;
+    const key = _todayKeyForGames();
+    const seed = key.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    return MINI_GAMES_CATALOG[seed % MINI_GAMES_CATALOG.length];
+}
+function isDailyChallenge(id) {
+    const dc = getDailyChallenge();
+    return !!dc && dc.id === id;
+}
+function isDailyCompletedToday(id) {
+    try {
+        const raw = localStorage.getItem(MG_DAILY_KEY);
+        if (!raw) return false;
+        const m = JSON.parse(raw);
+        return m && m.id === id && m.day === _todayKeyForGames();
+    } catch (e) { return false; }
+}
+function markDailyCompleted(id) {
+    try {
+        localStorage.setItem(MG_DAILY_KEY, JSON.stringify({ id, day: _todayKeyForGames() }));
+    } catch (e) {}
+}
+
+// Difficulty selector — global preference saved in localStorage.
+// Each game reads ctx.config plus the current difficulty to adjust spawn
+// rates, number ranges, etc.
+const MG_DIFF_KEY = 'hakans-math-game-diff';
+function loadDifficulty() {
+    try { return localStorage.getItem(MG_DIFF_KEY) || 'normal'; } catch (e) { return 'normal'; }
+}
+function setDifficulty(d) {
+    try { localStorage.setItem(MG_DIFF_KEY, d); } catch (e) {}
+    if (document.getElementById('minigames-grid')) openMiniGamesHub();
+}
+
 function openMiniGamesHub() {
     if (typeof playSound === 'function') playSound('click');
     const grid = document.getElementById('minigames-grid');
     if (!grid) return;
     const bests = _loadBests();
-    grid.innerHTML = MINI_GAMES_CATALOG.map((g) => {
+    const dc = getDailyChallenge();
+    const diff = loadDifficulty();
+
+    // Daily Challenge banner
+    let html = '';
+    if (dc) {
+        const doneToday = isDailyCompletedToday(dc.id);
+        html += `<section class="mg-daily" onclick="launchMiniGame('${dc.id}')">
+            <div class="mg-daily-label">🎯 Today's Challenge</div>
+            <div class="mg-daily-row">
+                <span class="mg-daily-icon">${dc.emoji || '🎮'}</span>
+                <div class="mg-daily-info">
+                    <div class="mg-daily-title">${dc.title}</div>
+                    <div class="mg-daily-sub">${doneToday ? '✓ Done today!' : 'Win 2× 💎 Robux today!'}</div>
+                </div>
+                <span class="mg-daily-arrow">→</span>
+            </div>
+        </section>`;
+    }
+
+    // Difficulty pills
+    html += `<div class="mg-diff-row">
+        <span class="mg-diff-label">Difficulty:</span>
+        <button class="mg-diff-btn ${diff === 'easy' ? 'mg-diff-on' : ''}" onclick="setDifficulty('easy')">🟢 Easy</button>
+        <button class="mg-diff-btn ${diff === 'normal' ? 'mg-diff-on' : ''}" onclick="setDifficulty('normal')">🟡 Normal</button>
+        <button class="mg-diff-btn ${diff === 'hard' ? 'mg-diff-on' : ''}" onclick="setDifficulty('hard')">🔴 Hard</button>
+    </div>`;
+
+    // Game grid
+    html += `<div class="mg-grid">` + MINI_GAMES_CATALOG.map((g) => {
         const best = bests[g.id];
         const bestLine = best
             ? `<div class="mgs-card-best">⭐ Best: ${best.score}</div>`
             : `<div class="mgs-card-best mgs-card-best-empty">Try it!</div>`;
+        const dcBadge = (dc && dc.id === g.id) ? `<span class="mgs-card-daily">🎯 Daily!</span>` : '';
         return `<button class="mgs-card mgs-card-${g.difficulty || 'easy'}" onclick="launchMiniGame('${g.id}')">
+            ${dcBadge}
             <span class="mgs-card-icon">${g.emoji || '🎮'}</span>
             <span class="mgs-card-title">${g.title}</span>
             <span class="mgs-card-desc">${g.description || ''}</span>
             <span class="mgs-card-meta">⏱ ${g.duration || 30}s · 💎 ${(g.rewards && g.rewards.robuxPerWin) || 3}</span>
             ${bestLine}
         </button>`;
-    }).join('');
+    }).join('') + `</div>`;
+
+    grid.innerHTML = html;
     showScreen('minigames-screen');
 }
 
@@ -188,6 +264,9 @@ function launchMiniGame(id) {
     _gameDeadlineMs = Date.now() + duration * 1000;
     _updateTimer();
     _gameTimer = setInterval(_updateTimer, 200);
+
+    // Effective config = game config plus current difficulty preference
+    const effectiveConfig = Object.assign({}, g.config || {}, { difficulty: loadDifficulty() });
 
     _activeGame = impl.start({
         area,
@@ -227,7 +306,7 @@ function launchMiniGame(id) {
             }
         },
         onWin: () => _endMiniGame(true),
-        config: g.config || {},
+        config: effectiveConfig,
     });
 }
 
@@ -257,11 +336,16 @@ function _endMiniGame(isWin) {
     const bests = _loadBests();
     const prev = bests[g.id];
     const isNewRecord = !prev || _gameScore > prev.score;
+    const isDaily = isDailyChallenge(g.id) && !isDailyCompletedToday(g.id);
     let robuxAwarded = 0;
 
     if (_gameScore > 0 && typeof currentUser !== 'undefined' && currentUser === 'hakan') {
         robuxAwarded = baseReward;
         if (isNewRecord) robuxAwarded += newRecordBonus;
+        if (isDaily) {
+            robuxAwarded *= 2;            // 2x Robux for completing daily challenge
+            markDailyCompleted(g.id);
+        }
         if (typeof saveRobux === 'function' && typeof loadRobux === 'function') {
             saveRobux(loadRobux() + robuxAwarded);
         }
@@ -270,6 +354,36 @@ function _endMiniGame(isWin) {
     if (isNewRecord && _gameScore > 0) {
         bests[g.id] = { score: _gameScore, when: Date.now() };
         _saveBests(bests);
+    }
+
+    // Track total mini-game rounds played for badges
+    try {
+        const raw = localStorage.getItem('hakans-math-game-rounds');
+        const t = raw ? (JSON.parse(raw).count || 0) : 0;
+        localStorage.setItem('hakans-math-game-rounds', JSON.stringify({ count: t + 1 }));
+    } catch (e) {}
+
+    // Daily-streak: if Hakan completed today's daily and yesterday's, extend
+    if (isDaily) {
+        try {
+            const today = _todayKeyForGames();
+            const raw = localStorage.getItem('hakans-math-game-daily-streak');
+            const s = raw ? JSON.parse(raw) : { current: 0, last: null, longest: 0 };
+            if (s.last === today) {
+                // already counted today (shouldn't happen with isDaily=true but safe)
+            } else if (s.last == null) {
+                s.current = 1;
+            } else {
+                const y = new Date(today + 'T00:00:00');
+                const lastD = new Date(s.last + 'T00:00:00');
+                const gap = Math.round((y - lastD) / 86400000);
+                if (gap === 1) s.current += 1;
+                else s.current = 1;
+            }
+            s.last = today;
+            s.longest = Math.max(s.longest || 0, s.current);
+            localStorage.setItem('hakans-math-game-daily-streak', JSON.stringify(s));
+        } catch (e) {}
     }
 
     document.getElementById('mg-over-title').textContent =
@@ -314,11 +428,20 @@ function exitMiniGame() {
 
 const GAME_IMPLS = {};
 
+// Difficulty scale helpers. Each game reads its own values via ctx.config.difficulty.
+function _diffVal(diff, easy, normal, hard) {
+    if (diff === 'easy')   return easy;
+    if (diff === 'hard')   return hard;
+    return normal;
+}
+
 // 1. Number Tap Rush — tap numbers 1-10 in order, randomly placed,
 // gently floating. Vibrant per-number colors. Wrong = shake + penalty.
 GAME_IMPLS['number-tap-rush'] = {
     start(ctx) {
-        const nums = (ctx.config && ctx.config.numbers) || [1,2,3,4,5,6,7,8,9,10];
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const maxN = _diffVal(diff, 5, 10, 15);
+        const nums = Array.from({length: maxN}, (_, i) => i + 1);
         let next = nums[0];
         const board = document.createElement('div');
         board.className = 'mg-ntr-board';
@@ -411,10 +534,12 @@ GAME_IMPLS['bubble-pop-math'] = {
 
         let currentAns = null;
         const HUES = [10, 45, 110, 180, 220, 270, 320];
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const bRange = _diffVal(diff, 5, 9, 14);
 
         function nextProblem() {
-            const a = Math.floor(Math.random() * 9) + 1;
-            const b = Math.floor(Math.random() * 9) + 1;
+            const a = Math.floor(Math.random() * bRange) + 1;
+            const b = Math.floor(Math.random() * bRange) + 1;
             currentAns = a + b;
             target.innerHTML = `<span class="mg-b-op">${a}</span><span class="mg-b-plus">+</span><span class="mg-b-op">${b}</span><span class="mg-b-eq">=</span><span class="mg-b-q">?</span>`;
             target.classList.remove('mg-b-pulse'); void target.offsetWidth;
@@ -551,10 +676,12 @@ GAME_IMPLS['speed-add'] = {
         wrap.appendChild(pad);
         ctx.area.appendChild(wrap);
 
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const range = _diffVal(diff, 5, 9, 15);
         let answer = 0;
         function next() {
-            const a = Math.floor(Math.random() * 9) + 1;
-            const b = Math.floor(Math.random() * 9) + 1;
+            const a = Math.floor(Math.random() * range) + 1;
+            const b = Math.floor(Math.random() * range) + 1;
             answer = a + b;
             eq.innerHTML =
                 `<span class="mg-sa-a">${a}</span>` +
@@ -905,8 +1032,11 @@ GAME_IMPLS['tic-tac-toe'] = {
         wrap.appendChild(tally);
         ctx.area.appendChild(wrap);
 
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Difficulty maps to AI smartness; can still override via ctx.config.aiSmartness
         const aiSmartness = (ctx.config && typeof ctx.config.aiSmartness === 'number')
-            ? ctx.config.aiSmartness : 0.7;
+            ? ctx.config.aiSmartness
+            : _diffVal(diff, 0.4, 0.7, 0.95);
         let cells = ['','','','','','','','',''];
         let turn = 'X';
         let locked = false;

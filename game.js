@@ -242,10 +242,31 @@ function _gatherBadgeState() {
             }
         }
     }
+    // Mini-game stats from localStorage
+    let gameBests = {};
+    let gamesTotal = 0, gamesAnyScored = 0, gamesDistinct = 0;
+    try {
+        const raw = localStorage.getItem('hakans-math-game-bests');
+        if (raw) gameBests = JSON.parse(raw) || {};
+    } catch (e) {}
+    gamesDistinct = Object.keys(gameBests).length;
+    gamesAnyScored = Object.values(gameBests).filter((b) => (b && b.score > 0)).length;
+    try {
+        const raw = localStorage.getItem('hakans-math-game-rounds');
+        gamesTotal = raw ? (JSON.parse(raw).count || 0) : 0;
+    } catch (e) {}
+    // Daily challenge streak
+    let dailyStreak = 0;
+    try {
+        const raw = localStorage.getItem('hakans-math-game-daily-streak');
+        if (raw) dailyStreak = JSON.parse(raw).current || 0;
+    } catch (e) {}
+
     return {
         progress, visits, streak, stats, robux, earned,
         totalStars, modulesCompleted, perfectModules,
         quizzes, lessons, plays, correctTotal, catStart, catMaster,
+        gameBests, gamesTotal, gamesAnyScored, gamesDistinct, dailyStreak,
     };
 }
 
@@ -274,6 +295,16 @@ function evaluateBadge(badge, st) {
             const p = st.progress[c.moduleId];
             return !!p && p.stars === 3;
         }
+        // Mini-game criteria — use mini-game bests + the global play-count
+        // counter (we don't track per-game plays separately).
+        case 'game-played':  return st.gamesAnyScored >= (c.threshold || 1);
+        case 'games-distinct': return st.gamesDistinct >= (c.threshold || 1);
+        case 'games-total':  return st.gamesTotal >= (c.threshold || 1);
+        case 'game-best': {
+            const b = st.gameBests[c.gameId];
+            return !!b && b.score >= (c.threshold || 1);
+        }
+        case 'daily-streak': return (st.dailyStreak || 0) >= (c.threshold || 1);
     }
     return false;
 }
