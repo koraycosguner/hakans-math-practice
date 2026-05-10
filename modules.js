@@ -197,6 +197,21 @@ function renderAddGroups(a, b, emoji) {
     </div>`;
 }
 
+// Two-group "comparing" visual: shows group A vs group B side-by-side WITHOUT
+// an addition operator. Use for compare problems ("which has more?") — the
+// `+` sign of add-groups would be misleading there.
+function renderCompareGroups(a, b, emoji) {
+    const left = [];
+    for (let i = 0; i < a; i++) left.push(`<span class="m-take-emoji">${emoji}</span>`);
+    const right = [];
+    for (let i = 0; i < b; i++) right.push(`<span class="m-take-emoji">${emoji}</span>`);
+    return `<div class="m-addgroups-row">
+        <div class="m-addgroups-side">${left.join('')}</div>
+        <div class="m-comparegroups-vs">vs</div>
+        <div class="m-addgroups-side">${right.join('')}</div>
+    </div>`;
+}
+
 // Ten-frame: 10 cells in a 2x5 grid, the first N filled.
 // Crucial visual for first-grade composing/decomposing tens.
 function renderTenFrame(filled, color) {
@@ -265,6 +280,7 @@ function renderVisual(visual) {
         case 'objects':      return renderObjects(visual.count, visual.emoji);
         case 'take-away':    return renderTakeAway(visual.total, visual.taken, visual.emoji);
         case 'add-groups':   return renderAddGroups(visual.a, visual.b, visual.emoji);
+        case 'compare-groups': return renderCompareGroups(visual.a, visual.b, visual.emoji);
         case 'ten-frame':    return renderTenFrame(visual.filled || 0, visual.color);
         case 'two-ten-frames': return renderTwoTenFrames(visual.filledA || 0, visual.filledB || 0, visual.colorA, visual.colorB);
         case 'two-digit-add': return renderTwoDigitAdd(visual.a, visual.b);
@@ -1166,7 +1182,7 @@ const MODULES = [
         "title": "More or Fewer?",
         "visual": {
           "emoji": "🍎",
-          "type": "add-groups",
+          "type": "compare-groups",
           "a": 5,
           "b": 3
         },
@@ -2746,7 +2762,7 @@ const MODULES = [
   {
     "id": "add-0",
     "title": "Adding 0",
-    "emoji": "0",
+    "emoji": "0️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 0 to any number.",
@@ -2998,7 +3014,7 @@ const MODULES = [
   {
     "id": "add-1",
     "title": "Adding 1",
-    "emoji": "️",
+    "emoji": "1️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 1 to any number.",
@@ -3253,7 +3269,7 @@ const MODULES = [
   {
     "id": "add-2",
     "title": "Adding 2",
-    "emoji": "⃣",
+    "emoji": "2️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 2 to any number.",
@@ -3507,7 +3523,7 @@ const MODULES = [
   {
     "id": "add-3",
     "title": "Adding 3",
-    "emoji": "1",
+    "emoji": "3️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 3 to any number.",
@@ -3762,7 +3778,7 @@ const MODULES = [
   {
     "id": "add-4",
     "title": "Adding 4",
-    "emoji": "️",
+    "emoji": "4️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 4 to any number.",
@@ -4017,7 +4033,7 @@ const MODULES = [
   {
     "id": "add-5",
     "title": "Adding 5",
-    "emoji": "⃣",
+    "emoji": "5️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 5 to any number.",
@@ -4272,7 +4288,7 @@ const MODULES = [
   {
     "id": "add-6",
     "title": "Adding 6",
-    "emoji": "2",
+    "emoji": "6️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 6 to any number.",
@@ -4527,7 +4543,7 @@ const MODULES = [
   {
     "id": "add-7",
     "title": "Adding 7",
-    "emoji": "️",
+    "emoji": "7️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 7 to any number.",
@@ -4782,7 +4798,7 @@ const MODULES = [
   {
     "id": "add-8",
     "title": "Adding 8",
-    "emoji": "⃣",
+    "emoji": "8️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 8 to any number.",
@@ -5037,7 +5053,7 @@ const MODULES = [
   {
     "id": "add-9",
     "title": "Adding 9",
-    "emoji": "3",
+    "emoji": "9️⃣",
     "category": "B",
     "kind": "generic",
     "description": "Add 9 to any number.",
@@ -5292,7 +5308,7 @@ const MODULES = [
   {
     "id": "add-10",
     "title": "Adding 10",
-    "emoji": "️",
+    "emoji": "🔟",
     "category": "B",
     "kind": "generic",
     "description": "Add 10 to any number.",
@@ -5544,7 +5560,7 @@ const MODULES = [
   {
     "id": "sub-0",
     "title": "Subtracting 0",
-    "emoji": "0",
+    "emoji": "0️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 0 from any number.",
@@ -5799,7 +5815,7 @@ const MODULES = [
   {
     "id": "sub-1",
     "title": "Subtracting 1",
-    "emoji": "️",
+    "emoji": "1️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 1 from any number.",
@@ -6055,7 +6071,7 @@ const MODULES = [
   {
     "id": "sub-2",
     "title": "Subtracting 2",
-    "emoji": "⃣",
+    "emoji": "2️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 2 from any number.",
@@ -6311,7 +6327,7 @@ const MODULES = [
   {
     "id": "sub-3",
     "title": "Subtracting 3",
-    "emoji": "1",
+    "emoji": "3️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 3 from any number.",
@@ -6567,7 +6583,7 @@ const MODULES = [
   {
     "id": "sub-4",
     "title": "Subtracting 4",
-    "emoji": "️",
+    "emoji": "4️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 4 from any number.",
@@ -6823,7 +6839,7 @@ const MODULES = [
   {
     "id": "sub-5",
     "title": "Subtracting 5",
-    "emoji": "⃣",
+    "emoji": "5️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 5 from any number.",
@@ -7079,7 +7095,7 @@ const MODULES = [
   {
     "id": "sub-6",
     "title": "Subtracting 6",
-    "emoji": "2",
+    "emoji": "6️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 6 from any number.",
@@ -7335,7 +7351,7 @@ const MODULES = [
   {
     "id": "sub-7",
     "title": "Subtracting 7",
-    "emoji": "️",
+    "emoji": "7️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 7 from any number.",
@@ -7591,7 +7607,7 @@ const MODULES = [
   {
     "id": "sub-8",
     "title": "Subtracting 8",
-    "emoji": "⃣",
+    "emoji": "8️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 8 from any number.",
@@ -7847,7 +7863,7 @@ const MODULES = [
   {
     "id": "sub-9",
     "title": "Subtracting 9",
-    "emoji": "3",
+    "emoji": "9️⃣",
     "category": "C",
     "kind": "generic",
     "description": "Take away 9 from any number.",
@@ -8103,7 +8119,7 @@ const MODULES = [
   {
     "id": "sub-10",
     "title": "Subtracting 10",
-    "emoji": "️",
+    "emoji": "🔟",
     "category": "C",
     "kind": "generic",
     "description": "Take away 10 from any number.",
