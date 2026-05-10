@@ -1,0 +1,4968 @@
+{
+  "counting": {
+    "strategy": "count-on",
+    "intro": "Hakan, count one at a time!",
+    "steps": [
+      {
+        "text": "Start at the first number",
+        "highlight": "start"
+      },
+      {
+        "text": "Each step is ONE more",
+        "highlight": "step"
+      },
+      {
+        "text": "The last number you say = how many!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 1,
+      "to": 5,
+      "result": 5
+    }
+  },
+  "fact-families": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, three numbers, four facts!",
+    "steps": [
+      {
+        "text": "Two PARTS make a WHOLE",
+        "highlight": "parts-whole"
+      },
+      {
+        "text": "Two adds: part + part = whole",
+        "highlight": "adds"
+      },
+      {
+        "text": "Two subtracts: whole − part = part",
+        "highlight": "subs"
+      },
+      {
+        "text": "Same family!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "parts": [
+        3,
+        5
+      ],
+      "whole": 8
+    }
+  },
+  "number-bond-adventure": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the bond!",
+    "steps": [
+      {
+        "text": "Look at the whole",
+        "highlight": "whole"
+      },
+      {
+        "text": "See one part",
+        "highlight": "have"
+      },
+      {
+        "text": "Count up to find the missing part",
+        "highlight": "count-up"
+      },
+      {
+        "text": "That's the partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "whole": 10,
+      "have": 6,
+      "partner": 4
+    }
+  },
+  "time": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, read the time!",
+    "steps": [
+      {
+        "text": "Long hand on 12 = o'clock",
+        "highlight": "long-12"
+      },
+      {
+        "text": "Long hand on 6 = half past",
+        "highlight": "long-6"
+      },
+      {
+        "text": "Read the short hand for the hour",
+        "highlight": "short-hand"
+      },
+      {
+        "text": "Say the time!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "clock",
+    "example": {
+      "hour": 3,
+      "minute": 0,
+      "answer": 3
+    }
+  },
+  "pattern-ab": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, AB pattern!",
+    "steps": [
+      {
+        "text": "See: A, B, A, B...",
+        "highlight": "see"
+      },
+      {
+        "text": "Two things take turns",
+        "highlight": "alternate"
+      },
+      {
+        "text": "What comes next?",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "pattern": [
+        1,
+        2,
+        1,
+        2
+      ],
+      "next": 1
+    }
+  },
+  "pattern-aabb": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, AABB pattern!",
+    "steps": [
+      {
+        "text": "Two A's, then two B's",
+        "highlight": "groups"
+      },
+      {
+        "text": "A, A, B, B, A, A, B, B...",
+        "highlight": "see"
+      },
+      {
+        "text": "What comes next?",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "pattern": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "next": 1
+    }
+  },
+  "sort-attribute": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, sort by what they share!",
+    "steps": [
+      {
+        "text": "Look at color, shape, or size",
+        "highlight": "attribute"
+      },
+      {
+        "text": "Group ones that match",
+        "highlight": "group"
+      },
+      {
+        "text": "Count each group",
+        "highlight": "count"
+      },
+      {
+        "text": "Done!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "groups": 2,
+      "items": 6
+    }
+  },
+  "addition": {
+    "strategy": "count-on",
+    "intro": "Hakan, let's count on to add!",
+    "steps": [
+      {
+        "text": "Find the bigger number first",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Start there in your head",
+        "highlight": "start"
+      },
+      {
+        "text": "Count up by the smaller number",
+        "highlight": "count-up"
+      },
+      {
+        "text": "The last number you say is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 3,
+      "result": 10
+    }
+  },
+  "subtraction": {
+    "strategy": "count-back",
+    "intro": "Hakan, count back to subtract!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Hop back one for each",
+        "highlight": "count-back"
+      },
+      {
+        "text": "Count: minus 1, minus 1...",
+        "highlight": "count"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 9,
+      "b": 3,
+      "result": 6
+    }
+  },
+  "two-digit-plus": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, add tens and ones!",
+    "steps": [
+      {
+        "text": "Add the tens together first",
+        "highlight": "tens"
+      },
+      {
+        "text": "Then add the ones together",
+        "highlight": "ones"
+      },
+      {
+        "text": "Combine tens + ones",
+        "highlight": "combine"
+      },
+      {
+        "text": "That's the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 23,
+      "b": 14,
+      "result": 37
+    }
+  },
+  "place-value": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, build it with tens and ones!",
+    "steps": [
+      {
+        "text": "Count the tall sticks (tens)",
+        "highlight": "tens"
+      },
+      {
+        "text": "Count the small blocks (ones)",
+        "highlight": "ones"
+      },
+      {
+        "text": "Tens make: tens times 10",
+        "highlight": "tens-value"
+      },
+      {
+        "text": "Add the ones to get the number",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "blocks",
+    "example": {
+      "tens": 2,
+      "ones": 3,
+      "result": 23
+    }
+  },
+  "compare": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, the alligator eats the bigger one!",
+    "steps": [
+      {
+        "text": "Look at both numbers",
+        "highlight": "look"
+      },
+      {
+        "text": "Which is bigger?",
+        "highlight": "decide"
+      },
+      {
+        "text": "The mouth opens to the bigger one",
+        "highlight": "open-bigger"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 5,
+      "b": 8,
+      "result": "<"
+    }
+  },
+  "word-problems": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, 4 steps to crack any story!",
+    "steps": [
+      {
+        "text": "READ the story slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: add or subtract?",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE and write the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 3,
+      "b": 2,
+      "result": 5
+    }
+  },
+  "add-0": {
+    "strategy": "count-on",
+    "intro": "Hakan, plus zero is the easiest trick!",
+    "steps": [
+      {
+        "text": "Look at the other number",
+        "highlight": "other"
+      },
+      {
+        "text": "Adding zero adds nothing",
+        "highlight": "zero"
+      },
+      {
+        "text": "The answer is just the other number!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 0,
+      "result": 7
+    }
+  },
+  "add-1": {
+    "strategy": "count-on",
+    "intro": "Hakan, plus 1 is the next number!",
+    "steps": [
+      {
+        "text": "Find the bigger number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Just say the next number after it",
+        "highlight": "next"
+      },
+      {
+        "text": "That is your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 6,
+      "b": 1,
+      "result": 7
+    }
+  },
+  "add-2": {
+    "strategy": "count-on",
+    "intro": "Hakan, plus 2 is two hops up!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Hop up 1, then 1 more",
+        "highlight": "hop"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 5,
+      "b": 2,
+      "result": 7
+    }
+  },
+  "add-3": {
+    "strategy": "count-on",
+    "intro": "Hakan, count on three hops!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Hop up: 1, 2, 3",
+        "highlight": "hop3"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 5,
+      "b": 3,
+      "result": 8
+    }
+  },
+  "add-4": {
+    "strategy": "count-on",
+    "intro": "Hakan, hop up four!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Count up: 1, 2, 3, 4",
+        "highlight": "hop4"
+      },
+      {
+        "text": "The last number is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 6,
+      "b": 4,
+      "result": 10
+    }
+  },
+  "add-5": {
+    "strategy": "count-on",
+    "intro": "Hakan, plus 5 — count on a whole hand!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Hop up 5 times (one whole hand)",
+        "highlight": "hop5"
+      },
+      {
+        "text": "Where you stop is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 4,
+      "b": 5,
+      "result": 9
+    }
+  },
+  "add-6": {
+    "strategy": "count-on",
+    "intro": "Hakan, count on six!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Hop up 6 times",
+        "highlight": "hop6"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 3,
+      "b": 6,
+      "result": 9
+    }
+  },
+  "add-7": {
+    "strategy": "count-on",
+    "intro": "Hakan, plus 7 — count on!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Hop up: 1, 2, 3, 4, 5, 6, 7",
+        "highlight": "hop7"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 3,
+      "b": 7,
+      "result": 10
+    }
+  },
+  "add-8": {
+    "strategy": "add-10-then-subtract-1",
+    "intro": "Hakan, add 8 with the +10 trick!",
+    "steps": [
+      {
+        "text": "Pretend the 8 is 10",
+        "highlight": "round"
+      },
+      {
+        "text": "Add 10 to the other number",
+        "highlight": "add10"
+      },
+      {
+        "text": "Take 2 away (because 8 is 2 less)",
+        "highlight": "minus-two"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 8,
+      "b": 5,
+      "result": 13
+    }
+  },
+  "add-9": {
+    "strategy": "add-10-then-subtract-1",
+    "intro": "Hakan, watch the +9 trick!",
+    "steps": [
+      {
+        "text": "First, add 10 (the easy way)",
+        "highlight": "round"
+      },
+      {
+        "text": "Then take away 1",
+        "highlight": "minus-one"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 9,
+      "result": 16
+    }
+  },
+  "add-10": {
+    "strategy": "add-10-then-add-more",
+    "intro": "Hakan, plus 10 just changes the tens!",
+    "steps": [
+      {
+        "text": "Look at the ones — they don't change",
+        "highlight": "ones"
+      },
+      {
+        "text": "Add 1 more ten",
+        "highlight": "tens"
+      },
+      {
+        "text": "Put tens and ones together",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 5,
+      "b": 10,
+      "result": 15
+    }
+  },
+  "sub-0": {
+    "strategy": "count-back",
+    "intro": "Hakan, minus zero changes nothing!",
+    "steps": [
+      {
+        "text": "Start with the number",
+        "highlight": "start"
+      },
+      {
+        "text": "Take 0 away",
+        "highlight": "zero"
+      },
+      {
+        "text": "The answer is the same number!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 0,
+      "result": 7
+    }
+  },
+  "sub-1": {
+    "strategy": "count-back",
+    "intro": "Hakan, minus 1 is the number before!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop back just 1",
+        "highlight": "back1"
+      },
+      {
+        "text": "The number before is your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 1,
+      "result": 6
+    }
+  },
+  "sub-2": {
+    "strategy": "count-back",
+    "intro": "Hakan, hop back two!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop back: 1, then 1 more",
+        "highlight": "back2"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 8,
+      "b": 2,
+      "result": 6
+    }
+  },
+  "sub-3": {
+    "strategy": "count-back",
+    "intro": "Hakan, hop back three!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop back: 1, 2, 3",
+        "highlight": "back3"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 9,
+      "b": 3,
+      "result": 6
+    }
+  },
+  "sub-4": {
+    "strategy": "count-back",
+    "intro": "Hakan, hop back four!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop back: 1, 2, 3, 4",
+        "highlight": "back4"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 10,
+      "b": 4,
+      "result": 6
+    }
+  },
+  "sub-5": {
+    "strategy": "count-back",
+    "intro": "Hakan, take 5 away — one whole hand!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop back 5 times (one hand)",
+        "highlight": "back5"
+      },
+      {
+        "text": "Where you stop is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 9,
+      "b": 5,
+      "result": 4
+    }
+  },
+  "sub-6": {
+    "strategy": "count-back",
+    "intro": "Hakan, hop back six!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop back 6 times",
+        "highlight": "back6"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 9,
+      "b": 6,
+      "result": 3
+    }
+  },
+  "sub-7": {
+    "strategy": "count-back",
+    "intro": "Hakan, hop back seven!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop back 7 times",
+        "highlight": "back7"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 10,
+      "b": 7,
+      "result": 3
+    }
+  },
+  "sub-8": {
+    "strategy": "take-10-add-1-back",
+    "intro": "Hakan, minus 8 — take 10, give 2 back!",
+    "steps": [
+      {
+        "text": "First take away 10 (easy!)",
+        "highlight": "minus10"
+      },
+      {
+        "text": "But you took 2 too many",
+        "highlight": "extra"
+      },
+      {
+        "text": "Add 2 back",
+        "highlight": "plus-two"
+      },
+      {
+        "text": "That is your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 15,
+      "b": 8,
+      "result": 7
+    }
+  },
+  "sub-9": {
+    "strategy": "take-10-add-1-back",
+    "intro": "Hakan, the −9 trick!",
+    "steps": [
+      {
+        "text": "First take away 10 (easy!)",
+        "highlight": "minus10"
+      },
+      {
+        "text": "Then add 1 back",
+        "highlight": "plus-one"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 15,
+      "b": 9,
+      "result": 6
+    }
+  },
+  "sub-10": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, minus 10 just takes a ten!",
+    "steps": [
+      {
+        "text": "Look at the ones — they stay",
+        "highlight": "ones"
+      },
+      {
+        "text": "Take away 1 ten",
+        "highlight": "tens"
+      },
+      {
+        "text": "Put tens and ones together",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 15,
+      "b": 10,
+      "result": 5
+    }
+  },
+  "math-tournament-20": {
+    "strategy": "make-10",
+    "intro": "Hakan, make 10 to win the round!",
+    "steps": [
+      {
+        "text": "Find a friendly pair that makes 10",
+        "highlight": "make-10"
+      },
+      {
+        "text": "Add the leftover number",
+        "highlight": "leftover"
+      },
+      {
+        "text": "10 + leftover = answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 8,
+      "b": 5,
+      "result": 13
+    }
+  },
+  "doubles-heroes-1-5": {
+    "strategy": "count-on",
+    "intro": "Hakan, doubles use both hands!",
+    "steps": [
+      {
+        "text": "Same number on each hand",
+        "highlight": "same"
+      },
+      {
+        "text": "Count all the fingers",
+        "highlight": "count"
+      },
+      {
+        "text": "Memorize: 1+1=2, 2+2=4, 3+3=6, 4+4=8, 5+5=10!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 4,
+      "b": 4,
+      "result": 8
+    }
+  },
+  "doubles-heroes-6-10": {
+    "strategy": "count-on",
+    "intro": "Hakan, big doubles to memorize!",
+    "steps": [
+      {
+        "text": "Same number twice",
+        "highlight": "same"
+      },
+      {
+        "text": "Memorize: 6+6=12, 7+7=14, 8+8=16, 9+9=18, 10+10=20",
+        "highlight": "memorize"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 7,
+      "result": 14
+    }
+  },
+  "near-doubles-trick": {
+    "strategy": "doubles-plus-one",
+    "intro": "Hakan, when numbers are next door, use a double!",
+    "steps": [
+      {
+        "text": "Find the smaller number",
+        "highlight": "smaller"
+      },
+      {
+        "text": "Double it (smaller + smaller)",
+        "highlight": "double"
+      },
+      {
+        "text": "Add 1 more",
+        "highlight": "plus-one"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 5,
+      "b": 6,
+      "result": 11
+    }
+  },
+  "bonds-5": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the partner that makes 5!",
+    "steps": [
+      {
+        "text": "Look at the number you have",
+        "highlight": "have"
+      },
+      {
+        "text": "Ask: how many more to make 5?",
+        "highlight": "ask"
+      },
+      {
+        "text": "Pairs: 0+5, 1+4, 2+3",
+        "highlight": "pairs"
+      },
+      {
+        "text": "That's your partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "have": 2,
+      "partner": 3,
+      "total": 5
+    }
+  },
+  "bonds-6": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the partner of 6!",
+    "steps": [
+      {
+        "text": "Look at the number you have",
+        "highlight": "have"
+      },
+      {
+        "text": "Count up to 6 in your head",
+        "highlight": "count-up"
+      },
+      {
+        "text": "Pairs: 0+6, 1+5, 2+4, 3+3",
+        "highlight": "pairs"
+      },
+      {
+        "text": "How many you counted is the partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "have": 4,
+      "partner": 2,
+      "total": 6
+    }
+  },
+  "bonds-7": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the partner of 7!",
+    "steps": [
+      {
+        "text": "Look at the number you have",
+        "highlight": "have"
+      },
+      {
+        "text": "Count up: how many more to 7?",
+        "highlight": "count-up"
+      },
+      {
+        "text": "Pairs: 0+7, 1+6, 2+5, 3+4",
+        "highlight": "pairs"
+      },
+      {
+        "text": "That's the partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "have": 3,
+      "partner": 4,
+      "total": 7
+    }
+  },
+  "bonds-8": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the partner of 8!",
+    "steps": [
+      {
+        "text": "Look at the number you have",
+        "highlight": "have"
+      },
+      {
+        "text": "Count up: how many more to 8?",
+        "highlight": "count-up"
+      },
+      {
+        "text": "Pairs: 0+8, 1+7, 2+6, 3+5, 4+4",
+        "highlight": "pairs"
+      },
+      {
+        "text": "That's the partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "have": 5,
+      "partner": 3,
+      "total": 8
+    }
+  },
+  "bonds-9": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the partner of 9!",
+    "steps": [
+      {
+        "text": "Look at the number you have",
+        "highlight": "have"
+      },
+      {
+        "text": "Count up: how many more to 9?",
+        "highlight": "count-up"
+      },
+      {
+        "text": "Pairs: 0+9, 1+8, 2+7, 3+6, 4+5",
+        "highlight": "pairs"
+      },
+      {
+        "text": "That's the partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "have": 4,
+      "partner": 5,
+      "total": 9
+    }
+  },
+  "bonds-10": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, bonds of 10 are the most important!",
+    "steps": [
+      {
+        "text": "Look at the number you have",
+        "highlight": "have"
+      },
+      {
+        "text": "Ask: how many more to fill the ten?",
+        "highlight": "fill-ten"
+      },
+      {
+        "text": "Memorize: 1+9, 2+8, 3+7, 4+6, 5+5",
+        "highlight": "pairs"
+      },
+      {
+        "text": "That's the partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "have": 7,
+      "partner": 3,
+      "total": 10
+    }
+  },
+  "compare-10": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, the alligator eats the bigger number!",
+    "steps": [
+      {
+        "text": "Look at both numbers",
+        "highlight": "look"
+      },
+      {
+        "text": "Find the bigger one",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Mouth opens to the bigger number",
+        "highlight": "open-bigger"
+      },
+      {
+        "text": "If they match, use =!",
+        "highlight": "equal"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 5,
+      "b": 8,
+      "result": "<"
+    }
+  },
+  "compare-20": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, compare numbers up to 20!",
+    "steps": [
+      {
+        "text": "Check the tens digit first",
+        "highlight": "tens"
+      },
+      {
+        "text": "More tens means bigger",
+        "highlight": "bigger-tens"
+      },
+      {
+        "text": "If tens are the same, check the ones",
+        "highlight": "ones"
+      },
+      {
+        "text": "Mouth opens to the bigger one!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 13,
+      "b": 18,
+      "result": "<"
+    }
+  },
+  "compare-50": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, tens decide first!",
+    "steps": [
+      {
+        "text": "Count the tens in each number",
+        "highlight": "tens"
+      },
+      {
+        "text": "More tens wins",
+        "highlight": "bigger-tens"
+      },
+      {
+        "text": "If tens tie, the ones decide",
+        "highlight": "ones"
+      },
+      {
+        "text": "Mouth eats the bigger one!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 27,
+      "b": 42,
+      "result": "<"
+    }
+  },
+  "compare-100": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, big-kid compare — tens first!",
+    "steps": [
+      {
+        "text": "Look at the tens digit",
+        "highlight": "tens"
+      },
+      {
+        "text": "More tens means bigger",
+        "highlight": "bigger-tens"
+      },
+      {
+        "text": "If tens match, check the ones",
+        "highlight": "ones"
+      },
+      {
+        "text": "Pick > , < , or =",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 67,
+      "b": 82,
+      "result": "<"
+    }
+  },
+  "skip-by-2": {
+    "strategy": "count-on",
+    "intro": "Hakan, skip every other!",
+    "steps": [
+      {
+        "text": "Start where you are",
+        "highlight": "start"
+      },
+      {
+        "text": "Skip 1, land on the next",
+        "highlight": "skip"
+      },
+      {
+        "text": "Pattern: 2, 4, 6, 8, 10...",
+        "highlight": "pattern"
+      },
+      {
+        "text": "That's your next number!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 4,
+      "step": 2,
+      "next": 6
+    }
+  },
+  "skip-by-3": {
+    "strategy": "count-on",
+    "intro": "Hakan, hop three at a time!",
+    "steps": [
+      {
+        "text": "Start where you are",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop 3 forward",
+        "highlight": "hop3"
+      },
+      {
+        "text": "Pattern: 3, 6, 9, 12, 15...",
+        "highlight": "pattern"
+      },
+      {
+        "text": "Where you land is next!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 6,
+      "step": 3,
+      "next": 9
+    }
+  },
+  "skip-by-5": {
+    "strategy": "count-on",
+    "intro": "Hakan, fives are easy!",
+    "steps": [
+      {
+        "text": "Start where you are",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop 5 forward",
+        "highlight": "hop5"
+      },
+      {
+        "text": "Pattern: 5, 10, 15, 20, 25...",
+        "highlight": "pattern"
+      },
+      {
+        "text": "Last digit is always 5 or 0!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 10,
+      "step": 5,
+      "next": 15
+    }
+  },
+  "skip-by-10": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, plus 10 just changes the tens!",
+    "steps": [
+      {
+        "text": "The ones digit stays",
+        "highlight": "ones"
+      },
+      {
+        "text": "Add 1 ten",
+        "highlight": "tens"
+      },
+      {
+        "text": "Pattern: 10, 20, 30, 40...",
+        "highlight": "pattern"
+      },
+      {
+        "text": "That's the next number!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 30,
+      "step": 10,
+      "next": 40
+    }
+  },
+  "count-to-10": {
+    "strategy": "count-on",
+    "intro": "Hakan, count one by one!",
+    "steps": [
+      {
+        "text": "Start at 1",
+        "highlight": "start"
+      },
+      {
+        "text": "Each step is one more",
+        "highlight": "step"
+      },
+      {
+        "text": "1, 2, 3, 4, 5, 6, 7, 8, 9, 10!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 1,
+      "to": 10
+    }
+  },
+  "count-to-20": {
+    "strategy": "count-on",
+    "intro": "Hakan, count up to 20!",
+    "steps": [
+      {
+        "text": "After 10 comes 11, 12, 13...",
+        "highlight": "teens"
+      },
+      {
+        "text": "Each step is one more",
+        "highlight": "step"
+      },
+      {
+        "text": "Keep counting all the way to 20!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 11,
+      "to": 20
+    }
+  },
+  "count-to-50": {
+    "strategy": "count-on",
+    "intro": "Hakan, count to 50!",
+    "steps": [
+      {
+        "text": "Count by ones up to 50",
+        "highlight": "ones"
+      },
+      {
+        "text": "Or skip by 10s: 10, 20, 30, 40, 50",
+        "highlight": "tens"
+      },
+      {
+        "text": "After 19 comes 20, after 29 comes 30...",
+        "highlight": "decade"
+      },
+      {
+        "text": "Keep going!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 19,
+      "next": 20
+    }
+  },
+  "count-to-100": {
+    "strategy": "count-on",
+    "intro": "Hakan, all the way to 100!",
+    "steps": [
+      {
+        "text": "After 99 comes 100",
+        "highlight": "hundred"
+      },
+      {
+        "text": "Skip by 10s helps: 10, 20, 30...100",
+        "highlight": "tens"
+      },
+      {
+        "text": "Last digit goes 0-9, then ten resets",
+        "highlight": "pattern"
+      },
+      {
+        "text": "You can do it!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 99,
+      "next": 100
+    }
+  },
+  "make10-8-3": {
+    "strategy": "make-10",
+    "intro": "Hakan, make 10 first for 8 + 3!",
+    "steps": [
+      {
+        "text": "8 needs 2 more to make 10",
+        "highlight": "fill"
+      },
+      {
+        "text": "Split the 3 into 2 + 1",
+        "highlight": "split"
+      },
+      {
+        "text": "Use the 2 to make 10",
+        "highlight": "make-10"
+      },
+      {
+        "text": "10 + 1 = 11",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-ten-frames",
+    "example": {
+      "a": 8,
+      "b": 3,
+      "result": 11
+    }
+  },
+  "make10-8-4": {
+    "strategy": "make-10",
+    "intro": "Hakan, make 10 first for 8 + 4!",
+    "steps": [
+      {
+        "text": "8 needs 2 to make 10",
+        "highlight": "fill"
+      },
+      {
+        "text": "Split 4 into 2 + 2",
+        "highlight": "split"
+      },
+      {
+        "text": "Use 2 to make 10",
+        "highlight": "make-10"
+      },
+      {
+        "text": "10 + 2 = 12",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-ten-frames",
+    "example": {
+      "a": 8,
+      "b": 4,
+      "result": 12
+    }
+  },
+  "make10-8-5": {
+    "strategy": "make-10",
+    "intro": "Hakan, make 10 first for 8 + 5!",
+    "steps": [
+      {
+        "text": "8 needs 2 to make 10",
+        "highlight": "fill"
+      },
+      {
+        "text": "Split 5 into 2 + 3",
+        "highlight": "split"
+      },
+      {
+        "text": "Use 2 to make 10",
+        "highlight": "make-10"
+      },
+      {
+        "text": "10 + 3 = 13",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-ten-frames",
+    "example": {
+      "a": 8,
+      "b": 5,
+      "result": 13
+    }
+  },
+  "make10-8-6": {
+    "strategy": "make-10",
+    "intro": "Hakan, make 10 first for 8 + 6!",
+    "steps": [
+      {
+        "text": "8 needs 2 to make 10",
+        "highlight": "fill"
+      },
+      {
+        "text": "Split 6 into 2 + 4",
+        "highlight": "split"
+      },
+      {
+        "text": "Use 2 to make 10",
+        "highlight": "make-10"
+      },
+      {
+        "text": "10 + 4 = 14",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-ten-frames",
+    "example": {
+      "a": 8,
+      "b": 6,
+      "result": 14
+    }
+  },
+  "make10-9-7": {
+    "strategy": "make-10",
+    "intro": "Hakan, make 10 first for 9 + 7!",
+    "steps": [
+      {
+        "text": "9 needs just 1 to make 10",
+        "highlight": "fill"
+      },
+      {
+        "text": "Split 7 into 1 + 6",
+        "highlight": "split"
+      },
+      {
+        "text": "Use 1 to make 10",
+        "highlight": "make-10"
+      },
+      {
+        "text": "10 + 6 = 16",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-ten-frames",
+    "example": {
+      "a": 9,
+      "b": 7,
+      "result": 16
+    }
+  },
+  "tenframe-3": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, fill the ten-frame to 3!",
+    "steps": [
+      {
+        "text": "Count the dots",
+        "highlight": "count"
+      },
+      {
+        "text": "Empty boxes are missing",
+        "highlight": "empty"
+      },
+      {
+        "text": "3 dots fill 3 spots",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "filled": 3,
+      "empty": 7
+    }
+  },
+  "tenframe-5": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, half a ten-frame is 5!",
+    "steps": [
+      {
+        "text": "Count the dots",
+        "highlight": "count"
+      },
+      {
+        "text": "5 fills the top row",
+        "highlight": "row"
+      },
+      {
+        "text": "5 + 5 = 10 (full frame)",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "filled": 5,
+      "empty": 5
+    }
+  },
+  "tenframe-7": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, 7 dots in the ten-frame!",
+    "steps": [
+      {
+        "text": "Count the dots: 7",
+        "highlight": "count"
+      },
+      {
+        "text": "How many empty? 3",
+        "highlight": "empty"
+      },
+      {
+        "text": "7 + 3 = 10!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "filled": 7,
+      "empty": 3
+    }
+  },
+  "tenframe-9": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, 9 dots — almost full!",
+    "steps": [
+      {
+        "text": "Count the dots: 9",
+        "highlight": "count"
+      },
+      {
+        "text": "Only 1 empty spot",
+        "highlight": "empty"
+      },
+      {
+        "text": "9 + 1 = 10!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "filled": 9,
+      "empty": 1
+    }
+  },
+  "tenframe-10": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, a full ten-frame is 10!",
+    "steps": [
+      {
+        "text": "All 10 spots filled",
+        "highlight": "full"
+      },
+      {
+        "text": "Top row 5 + bottom row 5",
+        "highlight": "rows"
+      },
+      {
+        "text": "Equals 10!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "filled": 10,
+      "total": 10
+    }
+  },
+  "compare-frames": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, more dots = bigger!",
+    "steps": [
+      {
+        "text": "Count the dots in each frame",
+        "highlight": "count"
+      },
+      {
+        "text": "Find the bigger group",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Pick > , < , or =",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 7,
+      "b": 4,
+      "result": ">"
+    }
+  },
+  "place-value-build": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, build it with tens and ones!",
+    "steps": [
+      {
+        "text": "Count the tall sticks (tens)",
+        "highlight": "tens"
+      },
+      {
+        "text": "Count the small blocks (ones)",
+        "highlight": "ones"
+      },
+      {
+        "text": "Tens go first, ones go last",
+        "highlight": "place"
+      },
+      {
+        "text": "Read it: ten-number then ones!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "blocks",
+    "example": {
+      "tens": 3,
+      "ones": 5,
+      "result": 35
+    }
+  },
+  "mystery-number": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, find the mystery number!",
+    "steps": [
+      {
+        "text": "Use the tens digit to start",
+        "highlight": "tens"
+      },
+      {
+        "text": "Use the ones digit to finish",
+        "highlight": "ones"
+      },
+      {
+        "text": "Put them together for the number",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "blocks",
+    "example": {
+      "tens": 4,
+      "ones": 2,
+      "result": 42
+    }
+  },
+  "ten-more-ten-less": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, plus 10 or minus 10!",
+    "steps": [
+      {
+        "text": "Look at the ones — they don't change",
+        "highlight": "ones"
+      },
+      {
+        "text": "If +10, add 1 ten",
+        "highlight": "plus-ten"
+      },
+      {
+        "text": "If −10, take 1 ten away",
+        "highlight": "minus-ten"
+      },
+      {
+        "text": "Combine for the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "blocks",
+    "example": {
+      "start": 34,
+      "op": "+10",
+      "result": 44
+    }
+  },
+  "time-all-hours": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, read the o'clock!",
+    "steps": [
+      {
+        "text": "Long hand on 12 = o'clock",
+        "highlight": "long-hand"
+      },
+      {
+        "text": "Look at the short hand",
+        "highlight": "short-hand"
+      },
+      {
+        "text": "The number it points to is the hour",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "clock",
+    "example": {
+      "hour": 3,
+      "minute": 0,
+      "answer": 3
+    }
+  },
+  "time-all-half": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, half past the hour!",
+    "steps": [
+      {
+        "text": "Long hand on 6 = half past",
+        "highlight": "long-hand"
+      },
+      {
+        "text": "Short hand is BETWEEN two numbers",
+        "highlight": "short-hand"
+      },
+      {
+        "text": "The smaller number is the hour",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "clock",
+    "example": {
+      "hour": 3,
+      "minute": 30,
+      "answer": 3
+    }
+  },
+  "coin-pennies": {
+    "strategy": "count-on",
+    "intro": "Hakan, count by 1s for pennies!",
+    "steps": [
+      {
+        "text": "Each penny = 1 cent",
+        "highlight": "value"
+      },
+      {
+        "text": "Count: 1, 2, 3, 4...",
+        "highlight": "count"
+      },
+      {
+        "text": "Total cents = total pennies!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 5,
+      "result": 5
+    }
+  },
+  "coin-nickels": {
+    "strategy": "count-on",
+    "intro": "Hakan, count by 5s for nickels!",
+    "steps": [
+      {
+        "text": "Each nickel = 5 cents",
+        "highlight": "value"
+      },
+      {
+        "text": "Count: 5, 10, 15, 20...",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = total cents!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 3,
+      "result": 15
+    }
+  },
+  "coin-dimes": {
+    "strategy": "count-on",
+    "intro": "Hakan, count by 10s for dimes!",
+    "steps": [
+      {
+        "text": "Each dime = 10 cents",
+        "highlight": "value"
+      },
+      {
+        "text": "Count: 10, 20, 30, 40...",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = total cents!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 4,
+      "result": 40
+    }
+  },
+  "length-cubes": {
+    "strategy": "count-on",
+    "intro": "Hakan, count the cubes!",
+    "steps": [
+      {
+        "text": "Line up cubes from end to end",
+        "highlight": "line-up"
+      },
+      {
+        "text": "Count one by one: 1, 2, 3...",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = how long!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 6,
+      "result": 6
+    }
+  },
+  "length-paperclips": {
+    "strategy": "count-on",
+    "intro": "Hakan, count the paperclips!",
+    "steps": [
+      {
+        "text": "No gaps between clips",
+        "highlight": "no-gaps"
+      },
+      {
+        "text": "Count: 1, 2, 3...",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = how long!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 5,
+      "result": 5
+    }
+  },
+  "add3-20": {
+    "strategy": "make-10",
+    "intro": "Hakan, find a friendly pair!",
+    "steps": [
+      {
+        "text": "Look for two numbers that make 10",
+        "highlight": "find-pair"
+      },
+      {
+        "text": "Add the friendly pair first",
+        "highlight": "make-10"
+      },
+      {
+        "text": "Add the third number to 10",
+        "highlight": "add-third"
+      },
+      {
+        "text": "10 + leftover = answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 3,
+      "b": 7,
+      "c": 4,
+      "result": 14
+    }
+  },
+  "even-odd-pairs": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, pair them up!",
+    "steps": [
+      {
+        "text": "Try to make pairs of 2",
+        "highlight": "pair"
+      },
+      {
+        "text": "All paired = even",
+        "highlight": "even"
+      },
+      {
+        "text": "One left over = odd",
+        "highlight": "odd"
+      },
+      {
+        "text": "Even or odd!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 6,
+      "result": "even"
+    }
+  },
+  "hakan-apple-tree": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, read the apple story!",
+    "steps": [
+      {
+        "text": "READ the story",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: more = add, gone = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 4,
+      "b": 3,
+      "result": 7
+    }
+  },
+  "hakan-cookie-jar": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, cookie jar story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: ate = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE for cookies left!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 8,
+      "taken": 3,
+      "result": 5
+    }
+  },
+  "hakan-at-park": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, park story time!",
+    "steps": [
+      {
+        "text": "READ the story",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: joined = add, left = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 5,
+      "b": 2,
+      "result": 7
+    }
+  },
+  "hakan-toy-box": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, toy box story!",
+    "steps": [
+      {
+        "text": "READ the story",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: gave away = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 10,
+      "taken": 4,
+      "result": 6
+    }
+  },
+  "hakan-birthday": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, birthday story!",
+    "steps": [
+      {
+        "text": "READ the story",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: more = add, ate = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 6,
+      "b": 4,
+      "result": 10
+    }
+  },
+  "hakan-shopping": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, shopping story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: bought more = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 3,
+      "b": 5,
+      "result": 8
+    }
+  },
+  "hakan-garden": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, garden story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: picked = subtract from total",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 9,
+      "taken": 3,
+      "result": 6
+    }
+  },
+  "hakan-bookshelf": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, bookshelf story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: added books = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 7,
+      "b": 2,
+      "result": 9
+    }
+  },
+  "hakan-lemonade": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, lemonade story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: sold = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 8,
+      "taken": 5,
+      "result": 3
+    }
+  },
+  "hakan-pet-store": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, pet store story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: in all = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 4,
+      "b": 5,
+      "result": 9
+    }
+  },
+  "hakan-sports-day": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, sports story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: scored more = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 6,
+      "b": 3,
+      "result": 9
+    }
+  },
+  "hakan-beach-day": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, beach story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: collected = add, lost = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 5,
+      "b": 4,
+      "result": 9
+    }
+  },
+  "hakan-snack-time": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, snack story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: ate = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 6,
+      "taken": 2,
+      "result": 4
+    }
+  },
+  "hakan-race-track": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, race story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: more cars = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 4,
+      "b": 4,
+      "result": 8
+    }
+  },
+  "hakan-class": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, class story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: joined = add, left = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 8,
+      "b": 3,
+      "result": 11
+    }
+  },
+  "hakan-lego-build": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, Lego story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: used = subtract from total",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 10,
+      "taken": 6,
+      "result": 4
+    }
+  },
+  "hakan-treasure-hunt": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, treasure story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: found more = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 5,
+      "b": 3,
+      "result": 8
+    }
+  },
+  "hakan-clock": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, time story!",
+    "steps": [
+      {
+        "text": "READ the time question",
+        "highlight": "read"
+      },
+      {
+        "text": "Long hand on 12 = o'clock",
+        "highlight": "long-hand"
+      },
+      {
+        "text": "Long hand on 6 = half past",
+        "highlight": "half"
+      },
+      {
+        "text": "Read the short hand for the hour!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "clock",
+    "example": {
+      "hour": 4,
+      "minute": 0,
+      "answer": 4
+    }
+  },
+  "hakan-bake-cookies": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, baking story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: more = add, ate = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 6,
+      "b": 6,
+      "result": 12
+    }
+  },
+  "hakan-fish-tank": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, fish tank story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: bought more = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 4,
+      "b": 3,
+      "result": 7
+    }
+  },
+  "hakan-crayon-box": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, crayon story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: broke = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 12,
+      "taken": 3,
+      "result": 9
+    }
+  },
+  "hakan-zoo": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, zoo story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: in all = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 7,
+      "b": 5,
+      "result": 12
+    }
+  },
+  "hakan-marbles": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, marbles story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: gave = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 10,
+      "taken": 3,
+      "result": 7
+    }
+  },
+  "hakan-flower-patch": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, flower story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: picked = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 8,
+      "taken": 4,
+      "result": 4
+    }
+  },
+  "hakan-stickers": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, stickers story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: more = add, used = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 5,
+      "b": 4,
+      "result": 9
+    }
+  },
+  "shapes-count-sides-corners": {
+    "strategy": "count-on",
+    "intro": "Hakan, count sides and corners!",
+    "steps": [
+      {
+        "text": "Sides are the straight edges",
+        "highlight": "sides"
+      },
+      {
+        "text": "Corners are the pointy parts",
+        "highlight": "corners"
+      },
+      {
+        "text": "Count one by one",
+        "highlight": "count"
+      },
+      {
+        "text": "Sides = corners for these shapes!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "shape",
+    "example": {
+      "name": "triangle",
+      "sides": 3,
+      "corners": 3
+    }
+  },
+  "shares-whole-halves": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, halves are 2 equal parts!",
+    "steps": [
+      {
+        "text": "Cut into 2 EQUAL parts",
+        "highlight": "cut"
+      },
+      {
+        "text": "Both pieces same size",
+        "highlight": "equal"
+      },
+      {
+        "text": "Each is 1 half",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "fraction",
+    "example": {
+      "parts": 2,
+      "filled": 1
+    }
+  },
+  "shares-halves-shapes": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the halves!",
+    "steps": [
+      {
+        "text": "Look for 2 equal parts",
+        "highlight": "look"
+      },
+      {
+        "text": "Same size = halves",
+        "highlight": "equal"
+      },
+      {
+        "text": "1 of 2 = a half!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "fraction",
+    "example": {
+      "parts": 2,
+      "filled": 1
+    }
+  },
+  "shares-fourths-quarters": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, fourths are 4 equal parts!",
+    "steps": [
+      {
+        "text": "Cut into 4 EQUAL parts",
+        "highlight": "cut"
+      },
+      {
+        "text": "All same size",
+        "highlight": "equal"
+      },
+      {
+        "text": "Each is 1 fourth (or quarter)",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "fraction",
+    "example": {
+      "parts": 4,
+      "filled": 1
+    }
+  },
+  "shares-halves-vs-fourths": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, halves vs fourths!",
+    "steps": [
+      {
+        "text": "Halves = 2 parts (BIG pieces)",
+        "highlight": "halves"
+      },
+      {
+        "text": "Fourths = 4 parts (small pieces)",
+        "highlight": "fourths"
+      },
+      {
+        "text": "More parts = smaller pieces",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "fraction",
+    "example": {
+      "halves": 2,
+      "fourths": 4
+    }
+  },
+  "shares-equal-unequal": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, are the parts equal?",
+    "steps": [
+      {
+        "text": "Look at all the parts",
+        "highlight": "look"
+      },
+      {
+        "text": "Are they ALL same size?",
+        "highlight": "compare"
+      },
+      {
+        "text": "Same = equal, different = unequal",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "fraction",
+    "example": {
+      "parts": 4,
+      "equal": true
+    }
+  },
+  "shares-sharing-with-hakan": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, share equally!",
+    "steps": [
+      {
+        "text": "READ how many friends",
+        "highlight": "read"
+      },
+      {
+        "text": "Cut into that many equal parts",
+        "highlight": "cut"
+      },
+      {
+        "text": "Each friend gets one part",
+        "highlight": "share"
+      },
+      {
+        "text": "Equal share!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "fraction",
+    "example": {
+      "parts": 4,
+      "filled": 1
+    }
+  },
+  "measure-longer": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, which is longer?",
+    "steps": [
+      {
+        "text": "Line up at the same start",
+        "highlight": "line-up"
+      },
+      {
+        "text": "Look which goes farther",
+        "highlight": "compare"
+      },
+      {
+        "text": "The one that ends farther = longer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 5,
+      "b": 7,
+      "result": ">"
+    }
+  },
+  "measure-taller": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, which is taller?",
+    "steps": [
+      {
+        "text": "Line up at the bottom",
+        "highlight": "line-up"
+      },
+      {
+        "text": "Look which reaches higher",
+        "highlight": "compare"
+      },
+      {
+        "text": "Higher = taller!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 6,
+      "b": 4,
+      "result": ">"
+    }
+  },
+  "measure-longest-of-3": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, find the longest!",
+    "steps": [
+      {
+        "text": "Line up all 3 at the same start",
+        "highlight": "line-up"
+      },
+      {
+        "text": "Find the one that goes farthest",
+        "highlight": "compare"
+      },
+      {
+        "text": "That's the longest!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 4,
+      "b": 7,
+      "c": 5,
+      "result": "b"
+    }
+  },
+  "measure-indirect": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, compare without lining up!",
+    "steps": [
+      {
+        "text": "Use a third object as a ruler",
+        "highlight": "ruler"
+      },
+      {
+        "text": "Compare each to the ruler",
+        "highlight": "compare"
+      },
+      {
+        "text": "Bigger than ruler vs. smaller",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 5,
+      "b": 8,
+      "result": "<"
+    }
+  },
+  "length-cubes-2": {
+    "strategy": "count-on",
+    "intro": "Hakan, count the cubes!",
+    "steps": [
+      {
+        "text": "Cubes line up end to end",
+        "highlight": "line"
+      },
+      {
+        "text": "Count: 1, 2, 3...",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = how long!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 7,
+      "result": 7
+    }
+  },
+  "length-paperclips-2": {
+    "strategy": "count-on",
+    "intro": "Hakan, count the paperclips!",
+    "steps": [
+      {
+        "text": "Clips with NO gaps",
+        "highlight": "no-gaps"
+      },
+      {
+        "text": "Count one by one",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = how long!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 6,
+      "result": 6
+    }
+  },
+  "weight-compare": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, which is heavier?",
+    "steps": [
+      {
+        "text": "Heavy goes DOWN on the scale",
+        "highlight": "down"
+      },
+      {
+        "text": "Light goes UP",
+        "highlight": "up"
+      },
+      {
+        "text": "Lower side = heavier!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": "heavy",
+      "b": "light"
+    }
+  },
+  "capacity-compare": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, which holds more?",
+    "steps": [
+      {
+        "text": "Bigger inside = holds more",
+        "highlight": "inside"
+      },
+      {
+        "text": "Compare the two containers",
+        "highlight": "compare"
+      },
+      {
+        "text": "Bigger one wins!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": "big",
+      "b": "small"
+    }
+  },
+  "tally-1-5": {
+    "strategy": "count-on",
+    "intro": "Hakan, count tally marks!",
+    "steps": [
+      {
+        "text": "Each line = 1",
+        "highlight": "line"
+      },
+      {
+        "text": "Count: 1, 2, 3, 4...",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number is the total!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 4,
+      "result": 4
+    }
+  },
+  "tally-6-10": {
+    "strategy": "count-on",
+    "intro": "Hakan, count tally bundles!",
+    "steps": [
+      {
+        "text": "A bundle of 5 has a slash",
+        "highlight": "bundle"
+      },
+      {
+        "text": "Count by 5 for bundles",
+        "highlight": "five"
+      },
+      {
+        "text": "Add the leftover lines",
+        "highlight": "leftover"
+      },
+      {
+        "text": "Total!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "bundles": 1,
+      "extra": 3,
+      "result": 8
+    }
+  },
+  "graph-picture": {
+    "strategy": "count-on",
+    "intro": "Hakan, count picture rows!",
+    "steps": [
+      {
+        "text": "Find the row to count",
+        "highlight": "row"
+      },
+      {
+        "text": "Count each picture: 1, 2, 3...",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = total!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 5,
+      "result": 5
+    }
+  },
+  "graph-bar": {
+    "strategy": "count-on",
+    "intro": "Hakan, read the bar height!",
+    "steps": [
+      {
+        "text": "Find the bar to read",
+        "highlight": "bar"
+      },
+      {
+        "text": "Look at the top number",
+        "highlight": "top"
+      },
+      {
+        "text": "Or count the squares up",
+        "highlight": "count"
+      },
+      {
+        "text": "That's the value!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "height": 6,
+      "result": 6
+    }
+  },
+  "compare-categories": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, compare the groups!",
+    "steps": [
+      {
+        "text": "Count each group",
+        "highlight": "count"
+      },
+      {
+        "text": "Find the bigger group",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Subtract for the difference",
+        "highlight": "diff"
+      },
+      {
+        "text": "How many more!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "compare-pair",
+    "example": {
+      "a": 5,
+      "b": 3,
+      "result": 2
+    }
+  },
+  "pattern-ab-extend": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the AB pattern!",
+    "steps": [
+      {
+        "text": "See the pattern: A, B, A, B...",
+        "highlight": "see"
+      },
+      {
+        "text": "What comes next?",
+        "highlight": "next"
+      },
+      {
+        "text": "Alternates back and forth",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "pattern": [
+        1,
+        2,
+        1,
+        2
+      ],
+      "next": 1
+    }
+  },
+  "pattern-aabb-extend": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the AABB pattern!",
+    "steps": [
+      {
+        "text": "Group of 2 same, then 2 same",
+        "highlight": "group"
+      },
+      {
+        "text": "A,A,B,B,A,A,B,B...",
+        "highlight": "see"
+      },
+      {
+        "text": "What comes next?",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "pattern": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "next": 1
+    }
+  },
+  "pattern-abc": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the ABC pattern!",
+    "steps": [
+      {
+        "text": "Three things repeat: A, B, C",
+        "highlight": "three"
+      },
+      {
+        "text": "A, B, C, A, B, C...",
+        "highlight": "see"
+      },
+      {
+        "text": "What comes next?",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "pattern": [
+        1,
+        2,
+        3,
+        1,
+        2
+      ],
+      "next": 3
+    }
+  },
+  "number-pattern-plus1": {
+    "strategy": "count-on",
+    "intro": "Hakan, plus 1 each step!",
+    "steps": [
+      {
+        "text": "Each number adds 1 more",
+        "highlight": "plus-one"
+      },
+      {
+        "text": "Look at the last number",
+        "highlight": "last"
+      },
+      {
+        "text": "Add 1 to find the next!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "pattern": [
+        3,
+        4,
+        5
+      ],
+      "next": 6
+    }
+  },
+  "time-oclock-deep": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, read the o'clock!",
+    "steps": [
+      {
+        "text": "Long hand on 12 = o'clock",
+        "highlight": "long-hand"
+      },
+      {
+        "text": "Read where the short hand points",
+        "highlight": "short-hand"
+      },
+      {
+        "text": "Say: number o'clock!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "clock",
+    "example": {
+      "hour": 5,
+      "minute": 0,
+      "answer": 5
+    }
+  },
+  "time-half-deep": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, half past the hour!",
+    "steps": [
+      {
+        "text": "Long hand on 6 = half past",
+        "highlight": "long-hand"
+      },
+      {
+        "text": "Short hand BETWEEN two numbers",
+        "highlight": "short-hand"
+      },
+      {
+        "text": "Pick the SMALLER number for the hour",
+        "highlight": "smaller"
+      },
+      {
+        "text": "Say: half past number!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "clock",
+    "example": {
+      "hour": 4,
+      "minute": 30,
+      "answer": 4
+    }
+  },
+  "time-mixed-oclock-half": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, o'clock or half past?",
+    "steps": [
+      {
+        "text": "Long hand on 12 = o'clock",
+        "highlight": "twelve"
+      },
+      {
+        "text": "Long hand on 6 = half past",
+        "highlight": "six"
+      },
+      {
+        "text": "Read the short hand",
+        "highlight": "short-hand"
+      },
+      {
+        "text": "Say the time!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "clock",
+    "example": {
+      "hour": 7,
+      "minute": 30,
+      "answer": "7:30"
+    }
+  },
+  "time-am-pm": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, AM or PM?",
+    "steps": [
+      {
+        "text": "AM = morning (before noon)",
+        "highlight": "am"
+      },
+      {
+        "text": "PM = afternoon and night",
+        "highlight": "pm"
+      },
+      {
+        "text": "Think: is the sun up or down?",
+        "highlight": "decide"
+      },
+      {
+        "text": "Pick AM or PM!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "clock",
+    "example": {
+      "hour": 8,
+      "context": "breakfast",
+      "answer": "AM"
+    }
+  },
+  "time-days": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, days of the week!",
+    "steps": [
+      {
+        "text": "Sun, Mon, Tue, Wed, Thu, Fri, Sat",
+        "highlight": "list"
+      },
+      {
+        "text": "Find today on the list",
+        "highlight": "today"
+      },
+      {
+        "text": "Tomorrow is the next one",
+        "highlight": "next"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "today": "Wednesday",
+      "tomorrow": "Thursday"
+    }
+  },
+  "time-months": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, months of the year!",
+    "steps": [
+      {
+        "text": "Jan, Feb, Mar, Apr...",
+        "highlight": "list"
+      },
+      {
+        "text": "12 months total",
+        "highlight": "twelve"
+      },
+      {
+        "text": "Find this month, next month",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "this": "March",
+      "next": "April"
+    }
+  },
+  "time-calendar": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, read the calendar!",
+    "steps": [
+      {
+        "text": "Find the date on the grid",
+        "highlight": "find"
+      },
+      {
+        "text": "Each row is a week (7 days)",
+        "highlight": "week"
+      },
+      {
+        "text": "Same column = same weekday",
+        "highlight": "column"
+      },
+      {
+        "text": "Read the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "date": 15,
+      "day": "Monday"
+    }
+  },
+  "money-penny-deep": {
+    "strategy": "count-on",
+    "intro": "Hakan, pennies = 1 cent each!",
+    "steps": [
+      {
+        "text": "Each penny is 1 cent",
+        "highlight": "value"
+      },
+      {
+        "text": "Count by 1: 1, 2, 3...",
+        "highlight": "count"
+      },
+      {
+        "text": "Total cents = number of pennies!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 6,
+      "result": 6
+    }
+  },
+  "money-nickel-deep": {
+    "strategy": "count-on",
+    "intro": "Hakan, nickels = 5 cents each!",
+    "steps": [
+      {
+        "text": "Each nickel = 5 cents",
+        "highlight": "value"
+      },
+      {
+        "text": "Skip count by 5: 5, 10, 15, 20",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = total cents!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 4,
+      "result": 20
+    }
+  },
+  "money-dime-deep": {
+    "strategy": "count-on",
+    "intro": "Hakan, dimes = 10 cents each!",
+    "steps": [
+      {
+        "text": "Each dime = 10 cents",
+        "highlight": "value"
+      },
+      {
+        "text": "Skip by 10: 10, 20, 30, 40",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = total cents!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 5,
+      "result": 50
+    }
+  },
+  "money-quarter": {
+    "strategy": "count-on",
+    "intro": "Hakan, quarters = 25 cents each!",
+    "steps": [
+      {
+        "text": "Each quarter = 25 cents",
+        "highlight": "value"
+      },
+      {
+        "text": "Count: 25, 50, 75, 100",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = total cents!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 2,
+      "result": 50
+    }
+  },
+  "money-count-pennies": {
+    "strategy": "count-on",
+    "intro": "Hakan, count the pennies!",
+    "steps": [
+      {
+        "text": "Pennies = 1 cent each",
+        "highlight": "value"
+      },
+      {
+        "text": "Count: 1, 2, 3, 4...",
+        "highlight": "count"
+      },
+      {
+        "text": "Total cents = total pennies!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 7,
+      "result": 7
+    }
+  },
+  "money-count-nickels": {
+    "strategy": "count-on",
+    "intro": "Hakan, count nickels by 5!",
+    "steps": [
+      {
+        "text": "Nickels = 5 cents each",
+        "highlight": "value"
+      },
+      {
+        "text": "Skip by 5: 5, 10, 15...",
+        "highlight": "count"
+      },
+      {
+        "text": "Last number = total cents!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "count": 3,
+      "result": 15
+    }
+  },
+  "money-mixed-easy": {
+    "strategy": "count-on",
+    "intro": "Hakan, count mixed coins!",
+    "steps": [
+      {
+        "text": "Start with the BIGGEST coin first",
+        "highlight": "biggest"
+      },
+      {
+        "text": "Skip count for each",
+        "highlight": "skip"
+      },
+      {
+        "text": "Add the smaller coins",
+        "highlight": "smaller"
+      },
+      {
+        "text": "Total cents!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "dimes": 1,
+      "pennies": 3,
+      "result": 13
+    }
+  },
+  "count-to-120": {
+    "strategy": "count-on",
+    "intro": "Hakan, count past 100!",
+    "steps": [
+      {
+        "text": "After 99 comes 100",
+        "highlight": "hundred"
+      },
+      {
+        "text": "Then 101, 102, 103...",
+        "highlight": "after"
+      },
+      {
+        "text": "After 119 comes 120!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 119,
+      "next": 120
+    }
+  },
+  "count-on-any": {
+    "strategy": "count-on",
+    "intro": "Hakan, count on from anywhere!",
+    "steps": [
+      {
+        "text": "Start at the given number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop forward by the small number",
+        "highlight": "hop"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "numberline",
+    "example": {
+      "from": 12,
+      "step": 3,
+      "result": 15
+    }
+  },
+  "ten-more-mental": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, plus 10 in your head!",
+    "steps": [
+      {
+        "text": "Look at the tens digit",
+        "highlight": "tens"
+      },
+      {
+        "text": "Add 1 ten",
+        "highlight": "plus-ten"
+      },
+      {
+        "text": "Ones stay the same",
+        "highlight": "ones"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-num",
+    "example": {
+      "start": 23,
+      "result": 33
+    }
+  },
+  "ten-less-mental": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, minus 10 in your head!",
+    "steps": [
+      {
+        "text": "Look at the tens digit",
+        "highlight": "tens"
+      },
+      {
+        "text": "Take 1 ten away",
+        "highlight": "minus-ten"
+      },
+      {
+        "text": "Ones stay the same",
+        "highlight": "ones"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-num",
+    "example": {
+      "start": 35,
+      "result": 25
+    }
+  },
+  "teen-numbers": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, teens are 10 + ones!",
+    "steps": [
+      {
+        "text": "All teens start with 10",
+        "highlight": "ten"
+      },
+      {
+        "text": "Add the ones digit",
+        "highlight": "ones"
+      },
+      {
+        "text": "10 + ones = teen!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-ten-frames",
+    "example": {
+      "a": 10,
+      "b": 5,
+      "result": 15
+    }
+  },
+  "multiples-of-10": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, multiples of 10!",
+    "steps": [
+      {
+        "text": "Pattern: 10, 20, 30, 40, 50...",
+        "highlight": "pattern"
+      },
+      {
+        "text": "Each one has 0 in the ones place",
+        "highlight": "zero"
+      },
+      {
+        "text": "Add 10 to get the next!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "blocks",
+    "example": {
+      "start": 30,
+      "next": 40
+    }
+  },
+  "true-false-eq": {
+    "strategy": "compare-tens-first",
+    "intro": "Hakan, is it true or false?",
+    "steps": [
+      {
+        "text": "Solve the LEFT side",
+        "highlight": "left"
+      },
+      {
+        "text": "Solve the RIGHT side",
+        "highlight": "right"
+      },
+      {
+        "text": "Equal? TRUE. Different? FALSE",
+        "highlight": "compare"
+      },
+      {
+        "text": "Pick true or false!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "left": "3+4",
+      "right": "7",
+      "result": "true"
+    }
+  },
+  "mix-1-add-sub": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, add or subtract?",
+    "steps": [
+      {
+        "text": "Look at the sign: + or −",
+        "highlight": "sign"
+      },
+      {
+        "text": "If +, count on",
+        "highlight": "plus"
+      },
+      {
+        "text": "If −, count back",
+        "highlight": "minus"
+      },
+      {
+        "text": "Solve!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 3,
+      "op": "+",
+      "result": 10
+    }
+  },
+  "mix-2-add-three": {
+    "strategy": "make-10",
+    "intro": "Hakan, add 3 numbers!",
+    "steps": [
+      {
+        "text": "Find a friendly pair (makes 10)",
+        "highlight": "find-pair"
+      },
+      {
+        "text": "Add the friendly pair first",
+        "highlight": "make-10"
+      },
+      {
+        "text": "Add the third number",
+        "highlight": "add-third"
+      },
+      {
+        "text": "Total!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 3,
+      "b": 7,
+      "c": 4,
+      "result": 14
+    }
+  },
+  "mix-3-stories": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, story problem time!",
+    "steps": [
+      {
+        "text": "READ the story",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: add or subtract?",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 4,
+      "b": 3,
+      "result": 7
+    }
+  },
+  "mix-4-place": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, tens and ones mix!",
+    "steps": [
+      {
+        "text": "Find the tens digit",
+        "highlight": "tens"
+      },
+      {
+        "text": "Find the ones digit",
+        "highlight": "ones"
+      },
+      {
+        "text": "Combine to read the number",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "blocks",
+    "example": {
+      "tens": 4,
+      "ones": 5,
+      "result": 45
+    }
+  },
+  "mix-5-boost": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, mixed boost!",
+    "steps": [
+      {
+        "text": "Read the question carefully",
+        "highlight": "read"
+      },
+      {
+        "text": "Pick the right strategy",
+        "highlight": "strategy"
+      },
+      {
+        "text": "Solve step by step",
+        "highlight": "solve"
+      },
+      {
+        "text": "Check your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 6,
+      "b": 4,
+      "result": 10
+    }
+  },
+  "counting-on-bigger": {
+    "strategy": "count-on",
+    "intro": "Hakan, start at the bigger one!",
+    "steps": [
+      {
+        "text": "Find the BIGGER number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Start there in your head",
+        "highlight": "start"
+      },
+      {
+        "text": "Count up by the smaller number",
+        "highlight": "count-up"
+      },
+      {
+        "text": "Last number you say = answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 2,
+      "b": 8,
+      "result": 10
+    }
+  },
+  "counting-back-bigger": {
+    "strategy": "count-back",
+    "intro": "Hakan, hop back to subtract!",
+    "steps": [
+      {
+        "text": "Start at the BIGGER number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Hop back: 1, 2, 3...",
+        "highlight": "hop-back"
+      },
+      {
+        "text": "Hop the small number's worth",
+        "highlight": "count"
+      },
+      {
+        "text": "Where you land = answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 9,
+      "b": 3,
+      "result": 6
+    }
+  },
+  "doubles-plus-1": {
+    "strategy": "doubles-plus-one",
+    "intro": "Hakan, doubles + 1 trick!",
+    "steps": [
+      {
+        "text": "Find the SMALLER number",
+        "highlight": "smaller"
+      },
+      {
+        "text": "Double it (smaller + smaller)",
+        "highlight": "double"
+      },
+      {
+        "text": "Add 1 more",
+        "highlight": "plus-one"
+      },
+      {
+        "text": "Answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 5,
+      "b": 6,
+      "result": 11
+    }
+  },
+  "doubles-minus-1": {
+    "strategy": "doubles-minus-one",
+    "intro": "Hakan, doubles − 1 trick!",
+    "steps": [
+      {
+        "text": "Find the BIGGER number",
+        "highlight": "bigger"
+      },
+      {
+        "text": "Double it (bigger + bigger)",
+        "highlight": "double"
+      },
+      {
+        "text": "Subtract 1",
+        "highlight": "minus-one"
+      },
+      {
+        "text": "Answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 5,
+      "b": 6,
+      "result": 11
+    }
+  },
+  "make-10-to-add": {
+    "strategy": "make-10",
+    "intro": "Hakan, make 10 to add!",
+    "steps": [
+      {
+        "text": "Find how much the bigger number needs to make 10",
+        "highlight": "fill"
+      },
+      {
+        "text": "Split the smaller number to give that much",
+        "highlight": "split"
+      },
+      {
+        "text": "Make 10 + the leftover",
+        "highlight": "make-10"
+      },
+      {
+        "text": "10 + leftover = answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-ten-frames",
+    "example": {
+      "a": 8,
+      "b": 5,
+      "result": 13
+    }
+  },
+  "make-10-to-subtract": {
+    "strategy": "make-10",
+    "intro": "Hakan, stop at 10 to subtract!",
+    "steps": [
+      {
+        "text": "Hop back from the teen to 10",
+        "highlight": "hop-to-10"
+      },
+      {
+        "text": "Count those hops",
+        "highlight": "count1"
+      },
+      {
+        "text": "Hop back the rest",
+        "highlight": "rest"
+      },
+      {
+        "text": "Where you land = answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 13,
+      "b": 5,
+      "result": 8
+    }
+  },
+  "add-9-trick": {
+    "strategy": "add-10-then-subtract-1",
+    "intro": "Hakan, watch the +9 trick!",
+    "steps": [
+      {
+        "text": "Pretend the 9 is 10",
+        "highlight": "round"
+      },
+      {
+        "text": "Add 10 (the easy way)",
+        "highlight": "add10"
+      },
+      {
+        "text": "Then take away 1",
+        "highlight": "minus-one"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 9,
+      "result": 16
+    }
+  },
+  "add-8-trick": {
+    "strategy": "add-10-then-subtract-1",
+    "intro": "Hakan, the +8 trick!",
+    "steps": [
+      {
+        "text": "Pretend the 8 is 10",
+        "highlight": "round"
+      },
+      {
+        "text": "Add 10 to the other number",
+        "highlight": "add10"
+      },
+      {
+        "text": "Take away 2 (because 8 is 2 less)",
+        "highlight": "minus-two"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 8,
+      "b": 5,
+      "result": 13
+    }
+  },
+  "subtract-9-trick": {
+    "strategy": "take-10-add-1-back",
+    "intro": "Hakan, the −9 trick!",
+    "steps": [
+      {
+        "text": "First take away 10 (easy!)",
+        "highlight": "minus10"
+      },
+      {
+        "text": "Then add 1 back",
+        "highlight": "plus-one"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 15,
+      "b": 9,
+      "result": 6
+    }
+  },
+  "compensation": {
+    "strategy": "add-10-then-subtract-1",
+    "intro": "Hakan, round, add, adjust!",
+    "steps": [
+      {
+        "text": "Round the close-to-10 number UP",
+        "highlight": "round"
+      },
+      {
+        "text": "Add the easy way",
+        "highlight": "add"
+      },
+      {
+        "text": "Take off the extras you added",
+        "highlight": "adjust"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 9,
+      "b": 5,
+      "result": 14
+    }
+  },
+  "number-bond-10": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the bond of 10!",
+    "steps": [
+      {
+        "text": "Look at the part you have",
+        "highlight": "have"
+      },
+      {
+        "text": "Count up to 10",
+        "highlight": "count-up"
+      },
+      {
+        "text": "Memorize: 1+9, 2+8, 3+7, 4+6, 5+5",
+        "highlight": "pairs"
+      },
+      {
+        "text": "That's the partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "have": 7,
+      "partner": 3
+    }
+  },
+  "number-bond-20": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, find the bond of 20!",
+    "steps": [
+      {
+        "text": "Look at the part you have",
+        "highlight": "have"
+      },
+      {
+        "text": "Count up to 20",
+        "highlight": "count-up"
+      },
+      {
+        "text": "Or: bond of 10 then add 10",
+        "highlight": "trick"
+      },
+      {
+        "text": "That's the partner!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-ten-frames",
+    "example": {
+      "have": 13,
+      "partner": 7
+    }
+  },
+  "fact-family-3-5-8": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, fact family of 3, 5, 8!",
+    "steps": [
+      {
+        "text": "3 + 5 = 8 (parts make whole)",
+        "highlight": "add1"
+      },
+      {
+        "text": "5 + 3 = 8 (flip works)",
+        "highlight": "add2"
+      },
+      {
+        "text": "8 − 5 = 3 (whole minus part)",
+        "highlight": "sub1"
+      },
+      {
+        "text": "8 − 3 = 5 (other part)",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "parts": [
+        3,
+        5
+      ],
+      "whole": 8
+    }
+  },
+  "fact-family-4-6-10": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, fact family of 4, 6, 10!",
+    "steps": [
+      {
+        "text": "4 + 6 = 10 (parts make whole)",
+        "highlight": "add1"
+      },
+      {
+        "text": "6 + 4 = 10 (flip works)",
+        "highlight": "add2"
+      },
+      {
+        "text": "10 − 6 = 4 (whole minus part)",
+        "highlight": "sub1"
+      },
+      {
+        "text": "10 − 4 = 6 (other part)",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "parts": [
+        4,
+        6
+      ],
+      "whole": 10
+    }
+  },
+  "mental-math-10": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, bonds of 10 in your head!",
+    "steps": [
+      {
+        "text": "Memorize: 1+9, 2+8, 3+7, 4+6, 5+5",
+        "highlight": "pairs"
+      },
+      {
+        "text": "Look at the part shown",
+        "highlight": "have"
+      },
+      {
+        "text": "Say the partner FAST",
+        "highlight": "fast"
+      },
+      {
+        "text": "Together they make 10!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "ten-frame",
+    "example": {
+      "have": 6,
+      "partner": 4
+    }
+  },
+  "speed-plus-5": {
+    "strategy": "count-on",
+    "intro": "Hakan, fast +5!",
+    "steps": [
+      {
+        "text": "Start at the bigger number",
+        "highlight": "start"
+      },
+      {
+        "text": "Hop up 5 (one whole hand)",
+        "highlight": "hop5"
+      },
+      {
+        "text": "Where you land is the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 5,
+      "result": 12
+    }
+  },
+  "speed-plus-10": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, fast +10!",
+    "steps": [
+      {
+        "text": "Ones don't change",
+        "highlight": "ones"
+      },
+      {
+        "text": "Add 1 ten",
+        "highlight": "tens"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 10,
+      "result": 17
+    }
+  },
+  "speed-minus-10": {
+    "strategy": "tens-then-ones",
+    "intro": "Hakan, fast −10!",
+    "steps": [
+      {
+        "text": "Ones stay the same",
+        "highlight": "ones"
+      },
+      {
+        "text": "Take 1 ten away",
+        "highlight": "tens"
+      },
+      {
+        "text": "That's your answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 17,
+      "b": 10,
+      "result": 7
+    }
+  },
+  "mixed-add-sub-10": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, + or − within 10!",
+    "steps": [
+      {
+        "text": "Look at the sign",
+        "highlight": "sign"
+      },
+      {
+        "text": "Plus = count on, Minus = count back",
+        "highlight": "decide"
+      },
+      {
+        "text": "Use bonds of 10 if you can!",
+        "highlight": "bonds"
+      },
+      {
+        "text": "Solve!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 3,
+      "op": "+",
+      "result": 10
+    }
+  },
+  "mixed-add-sub-20": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, + or − within 20!",
+    "steps": [
+      {
+        "text": "Read the sign",
+        "highlight": "sign"
+      },
+      {
+        "text": "If +, try make-10 trick",
+        "highlight": "make-10"
+      },
+      {
+        "text": "If −, try take-10 then add back",
+        "highlight": "take-10"
+      },
+      {
+        "text": "Solve!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 8,
+      "b": 5,
+      "op": "+",
+      "result": 13
+    }
+  },
+  "hakans-school-day": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, school day story!",
+    "steps": [
+      {
+        "text": "READ the story",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: add or subtract?",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 12,
+      "b": 4,
+      "result": 16
+    }
+  },
+  "hakans-family": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, family story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: in all = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 5,
+      "b": 4,
+      "result": 9
+    }
+  },
+  "hakans-snack-box": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, snack box story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: ate = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 12,
+      "taken": 4,
+      "result": 8
+    }
+  },
+  "hakans-calendar": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, calendar story!",
+    "steps": [
+      {
+        "text": "READ the date question",
+        "highlight": "read"
+      },
+      {
+        "text": "Use the calendar grid",
+        "highlight": "grid"
+      },
+      {
+        "text": "Add or subtract days",
+        "highlight": "days"
+      },
+      {
+        "text": "Find the new date!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "start": 5,
+      "add": 3,
+      "result": 8
+    }
+  },
+  "hakans-pizza-party": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, pizza party story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: ate = subtract, total = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 8,
+      "b": 4,
+      "result": 12
+    }
+  },
+  "hakans-toy-cars": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, toy cars story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: more = add, gave = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 7,
+      "b": 5,
+      "result": 12
+    }
+  },
+  "hakan-and-sara": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan and Sara story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND each person's number",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: total or difference?",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 6,
+      "b": 4,
+      "result": 10
+    }
+  },
+  "hakans-library": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, library story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: returned = subtract",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "take-away",
+    "example": {
+      "total": 10,
+      "taken": 3,
+      "result": 7
+    }
+  },
+  "hakans-soccer": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, soccer story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: scored more = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 5,
+      "b": 3,
+      "result": 8
+    }
+  },
+  "hakans-birthday-cake": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, birthday cake story!",
+    "steps": [
+      {
+        "text": "READ slowly",
+        "highlight": "read"
+      },
+      {
+        "text": "FIND the numbers",
+        "highlight": "find"
+      },
+      {
+        "text": "DECIDE: ate = subtract, in all = add",
+        "highlight": "decide"
+      },
+      {
+        "text": "SOLVE!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "add-groups",
+    "example": {
+      "a": 8,
+      "b": 3,
+      "result": 11
+    }
+  },
+  "hakan-number-detective": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, find the mystery number!",
+    "steps": [
+      {
+        "text": "READ all the clues",
+        "highlight": "read"
+      },
+      {
+        "text": "Use clues about tens and ones",
+        "highlight": "place"
+      },
+      {
+        "text": "Try numbers that fit",
+        "highlight": "try"
+      },
+      {
+        "text": "Mystery solved!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "blocks",
+    "example": {
+      "tens": 4,
+      "ones": 7,
+      "result": 47
+    }
+  },
+  "hakan-pattern-master": {
+    "strategy": "find-the-partner",
+    "intro": "Hakan, master the pattern!",
+    "steps": [
+      {
+        "text": "Look for the repeating part",
+        "highlight": "find"
+      },
+      {
+        "text": "What changes each time?",
+        "highlight": "rule"
+      },
+      {
+        "text": "Use the rule for the next one",
+        "highlight": "apply"
+      },
+      {
+        "text": "Done!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "sequence",
+    "example": {
+      "pattern": [
+        2,
+        4,
+        6,
+        8
+      ],
+      "next": 10
+    }
+  },
+  "hakan-math-marathon": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, math marathon!",
+    "steps": [
+      {
+        "text": "Read each question",
+        "highlight": "read"
+      },
+      {
+        "text": "Pick the right strategy",
+        "highlight": "strategy"
+      },
+      {
+        "text": "Solve step by step",
+        "highlight": "solve"
+      },
+      {
+        "text": "Move to the next!",
+        "highlight": "next"
+      }
+    ],
+    "applyToVisual": "two-digit-add",
+    "example": {
+      "a": 7,
+      "b": 8,
+      "result": 15
+    }
+  },
+  "hakan-graph-explorer": {
+    "strategy": "read-find-decide-solve",
+    "intro": "Hakan, read the graph!",
+    "steps": [
+      {
+        "text": "READ the question",
+        "highlight": "read"
+      },
+      {
+        "text": "Find the right bar or row",
+        "highlight": "find"
+      },
+      {
+        "text": "Count the height or items",
+        "highlight": "count"
+      },
+      {
+        "text": "That's the answer!",
+        "highlight": "answer"
+      }
+    ],
+    "applyToVisual": "objects",
+    "example": {
+      "category": "cats",
+      "count": 5
+    }
+  }
+}

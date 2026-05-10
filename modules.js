@@ -417,13 +417,14 @@ const MODULES = [
     "description": "Hakan learns to count up, count down, and find missing numbers.",
     "lesson": [
       {
-        "title": "Hakan, Let's Count!",
+        "title": "Tap & Count Apples",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🍎"
-        },
-        "text": "Hakan, today we will count! Counting tells us HOW MANY. Touch each apple and say a number with me: 1, 2, 3, 4, 5!",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 5,
+        "instruction": "Hakan, tap each apple as you count: 1, 2, 3, 4, 5!"
+      },
+        "text": "Hakan, today we will count! Counting tells us HOW MANY. Tap each apple and say a number out loud.",
         "caption": "Touch and count!"
       },
       {
@@ -468,19 +469,18 @@ const MODULES = [
         "caption": "Number = idea"
       },
       {
-        "title": "Find the Missing Number",
+        "title": "Tap the Missing Number",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            4,
-            5,
-            6,
-            7,
-            8
-          ],
-          "missingIndex": 2
-        },
-        "text": "Hakan, what number is missing? Look at neighbors! After 5 comes ___, then 7. The missing number is 6!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what number is missing? 4, 5, ?, 7, 8 — tap it!"
+      },
+        "text": "Hakan, what number is missing? Look at the neighbors! After 5 comes ___, then 7.",
         "caption": "Use the neighbors"
       },
       {
@@ -754,14 +754,14 @@ const MODULES = [
     "description": "Put numbers together. Plus, count on, doubles!",
     "lesson": [
       {
-        "title": "Putting Together",
+        "title": "Tap & Count: 3 + 2",
         "visual": {
-          "emoji": "🍎",
-          "type": "add-groups",
-          "a": 3,
-          "b": 2
-        },
-        "text": "Hakan has 3 apples. He gets 2 more. Now he has 5 apples in all! When we put two groups together, we ADD.",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 5,
+        "instruction": "Hakan has 3 apples and gets 2 more. Tap each apple to count them all!"
+      },
+        "text": "Hakan has 3 apples. He gets 2 more. Tap each apple and count to find the total!",
         "caption": "3 + 2 = 5 ✨"
       },
       {
@@ -795,13 +795,18 @@ const MODULES = [
         "caption": "5 + 3 = 8 ⭐"
       },
       {
-        "title": "The Plus Sign",
+        "title": "Tap the Answer: 3 + 2",
         "visual": {
-          "type": "two-digit-add",
-          "a": 3,
-          "b": 2
-        },
-        "text": "Hakan, look! The plus sign + means \"and\". When you see 3 + 2, it means three AND two together. The answer is 5!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 3 + 2? Tap the answer!"
+      },
+        "text": "The plus sign + means \"and.\" 3 + 2 means three AND two together. Tap the answer!",
         "caption": "Plus means and! 🌟"
       },
       {
@@ -860,14 +865,14 @@ const MODULES = [
     "description": "Take some away. Minus, count back!",
     "lesson": [
       {
-        "title": "Taking Away",
+        "title": "Tap & Count Cookies",
         "visual": {
-          "emoji": "🍪",
-          "type": "take-away",
-          "total": 5,
-          "taken": 2
-        },
-        "text": "Hakan has 5 cookies. He eats 2 of them. The 2 with the X are gone! How many cookies are left? Three!",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 5,
+        "instruction": "Hakan starts with 5 cookies. Tap each cookie as you count them!"
+      },
+        "text": "Hakan starts with 5 cookies. Tap each cookie to count how many he has before he eats any!",
         "caption": "5 − 2 = 3 ⭐"
       },
       {
@@ -914,14 +919,18 @@ const MODULES = [
         "caption": "Hop backwards! 🏆"
       },
       {
-        "title": "Use Your Fingers!",
+        "title": "Tap the Answer: 5 − 2",
         "visual": {
-          "emoji": "✋",
-          "type": "take-away",
-          "total": 7,
-          "taken": 3
-        },
-        "text": "Hold up 7 fingers. Fold down 3. The fingers still up tell you the answer. 7 − 3 = 4.",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan had 5 cookies and ate 2. How many left? Tap it!"
+      },
+        "text": "Hakan had 5 cookies and ate 2. Count what is left: 3 cookies! Tap the answer.",
         "caption": "Fingers are math tools! 🎯"
       },
       {
@@ -1005,14 +1014,18 @@ const MODULES = [
         "caption": "8 − 3 = 5 🎯"
       },
       {
-        "title": "Take the Other Away",
+        "title": "Tap the Whole",
         "visual": {
-          "emoji": "⭐",
-          "type": "take-away",
-          "total": 8,
-          "taken": 5
-        },
-        "text": "Eight stars take away five: three left. Hakan, you can do this too!",
+        "type": "tap-the-answer",
+        "options": [
+          "7",
+          "8",
+          "9"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 5 + 3 = ? Tap the answer!"
+      },
+        "text": "When you put 5 and 3 together, you get the whole. Tap the answer!",
         "caption": "8 − 5 = 3 ⭐"
       },
       {
@@ -1025,12 +1038,18 @@ const MODULES = [
         "caption": "4 facts from 3 numbers 🌟"
       },
       {
-        "title": "The Triangle Picture",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "shape",
-          "name": "triangle"
-        },
-        "text": "Watch with Hakan: we draw fact families as triangles. The big number sits on top. The two small ones sit at the bottom corners.",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "5",
+          "8"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 8 − 5 = ? Tap the answer!"
+      },
+        "text": "Take 5 away from 8. What is left? Tap the answer!",
         "caption": "Big on top! 💯"
       },
       {
@@ -1094,13 +1113,18 @@ const MODULES = [
         "caption": "Small blocks = ones"
       },
       {
-        "title": "Two Tens and Three Ones",
+        "title": "Tap the Number",
         "visual": {
-          "type": "blocks",
-          "tens": 2,
-          "ones": 3
-        },
-        "text": "Hakan sees 2 tall sticks and 3 small blocks. 2 tens = 20. Plus 3 ones = 23!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "23",
+          "32"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 2 tens and 3 ones make what number? Tap it!"
+      },
+        "text": "2 tens and 3 ones together make 23. Tap the right number!",
         "caption": "20 + 3 = 23"
       },
       {
@@ -1114,13 +1138,18 @@ const MODULES = [
         "caption": "30 + 5 = 35"
       },
       {
-        "title": "Reading Two-Digit Numbers",
+        "title": "Tap What the 5 Means",
         "visual": {
-          "type": "two-digit-num",
-          "n": 47,
-          "highlight": "tens"
-        },
-        "text": "Hakan, in 47 the 4 means 4 TENS = 40. The 7 means 7 ONES. So 47 is 40 + 7!",
+        "type": "tap-the-answer",
+        "options": [
+          "4 tens",
+          "5 tens",
+          "5 ones"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, in 50, what is the 5? Tap it!"
+      },
+        "text": "In the number 50, the 5 means 5 tens. Tap the right answer!",
         "caption": "Left = tens, right = ones"
       },
       {
@@ -1351,14 +1380,17 @@ const MODULES = [
     "description": "Hakan learns >, <, and = with the hungry alligator!",
     "lesson": [
       {
-        "title": "Hakan Counts Apples",
+        "title": "Tap the Bigger Group",
         "visual": {
-          "type": "compare-groups",
-          "a": 5,
-          "b": 3,
-          "emoji": "🍎"
-        },
-        "text": "Hakan has 5 red apples and 3 green apples. Which group has MORE?",
+        "type": "tap-the-answer",
+        "options": [
+          "3 apples",
+          "5 apples"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which group has MORE? Tap it!"
+      },
+        "text": "Hakan has 5 red apples and 3 green apples. Tap the group with MORE.",
         "caption": "5 vs 3 🍎"
       },
       {
@@ -1402,13 +1434,17 @@ const MODULES = [
         "caption": "6 = 6 🎯"
       },
       {
-        "title": "Try Two-Digit Numbers",
+        "title": "Tap the Bigger Number",
         "visual": {
-          "type": "compare-pair",
-          "a": 23,
-          "b": 18
-        },
-        "text": "Hakan, for two-digit numbers, check the TENS first. 2 tens beats 1 ten, so 23 > 18.",
+        "type": "tap-the-answer",
+        "options": [
+          "18",
+          "23"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which is bigger? Tap it!"
+      },
+        "text": "For two-digit numbers, check the TENS first. Tap the bigger number!",
         "caption": "23 > 18 (tens win) 💪"
       },
       {
@@ -1766,13 +1802,18 @@ const MODULES = [
         "caption": "40 + 6 = 46"
       },
       {
-        "title": "Pattern Time!",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 50,
-          "b": 2
-        },
-        "text": "Hakan, what do you notice? 50 + 2 = 52. The ONES digit becomes the second digit. Cool!",
+        "type": "tap-the-answer",
+        "options": [
+          "20",
+          "25",
+          "26"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, what is 13 + 13? Tap it!"
+      },
+        "text": "Add tens and ones. 1 ten + 1 ten = 2 tens. 3 ones + 3 ones = 6 ones. Tap the answer!",
         "caption": "Tens + ones = answer"
       },
       {
@@ -2027,13 +2068,18 @@ const MODULES = [
         "caption": "Two hands ✨"
       },
       {
-        "title": "Long Hand on 12 = O'Clock",
+        "title": "Tap the Time",
         "visual": {
-          "type": "clock",
-          "hour": 3,
-          "minute": 0
-        },
-        "text": "Watch this, Hakan! Long hand on 12. Short hand on 3. We say THREE O'CLOCK!",
+        "type": "tap-the-answer",
+        "options": [
+          "3 o'clock",
+          "Half past 3",
+          "12 o'clock"
+        ],
+        "correctIndex": 0,
+        "instruction": "Long hand on 12, short hand on 3. What time? Tap it!"
+      },
+        "text": "Long hand on 12 means O'CLOCK. Short hand on 3 means 3 o'clock. Tap the answer!",
         "caption": "Long on 12 = o'clock 🏆"
       },
       {
@@ -2057,13 +2103,18 @@ const MODULES = [
         "caption": "12 o'clock ⭐"
       },
       {
-        "title": "Long Hand on 6 = Half Past",
+        "title": "Tap the Time",
         "visual": {
-          "type": "clock",
-          "hour": 3,
-          "minute": 30
-        },
-        "text": "Now look, Hakan! Long hand on 6. Short hand BETWEEN 3 and 4. We pick the SMALLER number: half past 3!",
+        "type": "tap-the-answer",
+        "options": [
+          "3 o'clock",
+          "Half past 3",
+          "Half past 4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Long hand on 6, short hand between 3 and 4. Tap the time!"
+      },
+        "text": "Long hand on 6 means HALF PAST. We pick the smaller hour number. Tap the answer!",
         "caption": "Long on 6 = half past 🌟"
       },
       {
@@ -2416,21 +2467,33 @@ const MODULES = [
         "caption": "Sides + corners = shape name."
       },
       {
-        "title": "Circle = 0 Corners",
+        "title": "Tap the Circle",
         "visual": {
-          "type": "shape",
-          "name": "circle"
-        },
-        "text": "A CIRCLE is round. 0 sides. 0 corners. Like a wheel or the moon.",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "target": "circle",
+        "instruction": "Hakan, tap the CIRCLE!"
+      },
+        "text": "A CIRCLE is round with 0 corners. Tap the circle!",
         "caption": "Round, 0 corners = circle."
       },
       {
-        "title": "Triangle = 3 Sides",
+        "title": "Tap the Triangle",
         "visual": {
-          "type": "shape",
-          "name": "triangle"
-        },
-        "text": "A TRIANGLE has 3 sides and 3 corners. \"Tri\" means three!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "target": "triangle",
+        "instruction": "Hakan, tap the TRIANGLE!"
+      },
+        "text": "A TRIANGLE has 3 sides and 3 corners. Tap the triangle!",
         "caption": "3 sides, 3 corners = triangle."
       },
       {
@@ -2751,13 +2814,14 @@ const MODULES = [
     "description": "Math stories with Hakan! Read, find, decide, solve.",
     "lesson": [
       {
-        "title": "A Math Story",
+        "title": "Tap & Count Toys",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "🍎"
-        },
-        "text": "Hakan has 3 apples. He gets 2 more. How many in all? That is a math story!",
+        "type": "tap-to-count",
+        "emoji": "🧸",
+        "count": 4,
+        "instruction": "Hakan has 4 toys. Tap each toy to count them!"
+      },
+        "text": "Hakan has 4 toys. Tap each toy and count: 1, 2, 3, 4!",
         "caption": "Word problem 📖"
       },
       {
@@ -2807,23 +2871,44 @@ const MODULES = [
       {
         "title": "Try It: Cookies",
         "visual": {
-          "type": "take-away",
-          "total": 7,
-          "taken": 2,
-          "emoji": "🍪"
-        },
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Left"
+          },
+          {
+            "value": 2,
+            "label": "Hakan ate"
+          }
+        ],
+        "total": 7,
+        "totalLabel": "All cookies"
+      },
         "text": "READ: 7 cookies, Hakan eats 2. FIND: 7 and 2. DECIDE: \"eats\" = subtract. SOLVE: 7 − 2 = 5 left!",
         "caption": "7 − 2 = 5 ✨"
       },
       {
         "title": "Bar Models Help Too",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 5
-        },
-        "text": "Hakan can also draw a bar split into parts. 8 split into 5 and 3 — that shows 8 − 5 = 3!",
-        "caption": "Bar models 📊"
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Part"
+          },
+          {
+            "value": 3,
+            "label": "Other part"
+          }
+        ],
+        "total": 8,
+        "totalLabel": "Whole"
+      },
+        "text": "Hakan draws a bar for 8. He splits it into 5 and 3. The bar shows 8 − 5 = 3!",
+        "caption": "Bar model 📊"
       },
       {
         "title": "You Can Solve Stories!",
@@ -3068,13 +3153,14 @@ const MODULES = [
     "description": "Hakan learns the easiest add ever: zero changes nothing!",
     "lesson": [
       {
-        "title": "The Magic Zero",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "🍎"
-        },
-        "text": "Hakan has 4 apples. Nobody gives him any more. How many now? Still 4! Adding zero adds NOTHING.",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 1,
+        "instruction": "Tap each apple to count 1!"
+      },
+        "text": "Hakan starts counting. Tap each apple!",
         "caption": "4 + 0 = 4 💯"
       },
       {
@@ -3111,13 +3197,18 @@ const MODULES = [
         "caption": "9 + 0 = 9 🏆"
       },
       {
-        "title": "Symbols Now",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 7,
-          "b": 0
-        },
-        "text": "Hakan reads it: 7 + 0. Start at 7, add zero. Answer is just 7. The plus zero never changes the number!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 0? Tap the answer!"
+      },
+        "text": "Add 0 to 4. Tap the right answer!",
         "caption": "7 + 0 = 7 💯"
       },
       {
@@ -3365,13 +3456,14 @@ const MODULES = [
     "description": "Hakan adds 1 by counting up just one number.",
     "lesson": [
       {
-        "title": "Plus One = Next Number",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "🍎"
-        },
-        "text": "Hakan has 4 apples. He gets 1 more. To add 1, just say the NEXT number after 4. That's 5!",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 2,
+        "instruction": "Tap each apple to count 2!"
+      },
+        "text": "Hakan starts counting. Tap each apple!",
         "caption": "4 + 1 = 5 💯"
       },
       {
@@ -3408,13 +3500,18 @@ const MODULES = [
         "caption": "7 + 1 = 8 🏆"
       },
       {
-        "title": "Symbols Now",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 1
-        },
-        "text": "Hakan reads 8 + 1. Start at 8, count up 1: nine! The +1 trick: just say the next number.",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 1? Tap the answer!"
+      },
+        "text": "Add 1 to 4. Tap the right answer!",
         "caption": "8 + 1 = 9 ⭐"
       },
       {
@@ -3661,13 +3758,14 @@ const MODULES = [
     "description": "Hakan counts up two from the bigger number.",
     "lesson": [
       {
-        "title": "Plus 2 Means Two Jumps",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "⚽"
-        },
-        "text": "Hakan has 5 soccer balls. He gets 2 more. To add 2, jump up TWO numbers from 5: 6, 7!",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 3,
+        "instruction": "Tap each apple to count 3!"
+      },
+        "text": "Hakan starts counting. Tap each apple!",
         "caption": "5 + 2 = 7 💯"
       },
       {
@@ -3704,13 +3802,18 @@ const MODULES = [
         "caption": "7 + 2 = 9 🏆"
       },
       {
-        "title": "Symbols",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 2
-        },
-        "text": "Hakan reads 8 + 2. Start at 8, count up two: 9, 10. The +2 trick: two jumps up.",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 2? Tap the answer!"
+      },
+        "text": "Add 2 to 4. Tap the right answer!",
         "caption": "8 + 2 = 10 ⭐"
       },
       {
@@ -3956,13 +4059,14 @@ const MODULES = [
     "description": "Hakan counts up three from the bigger number.",
     "lesson": [
       {
-        "title": "Plus 3 = Three Jumps",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "🍕"
-        },
-        "text": "Hakan has 4 pizza slices. He gets 3 more. To add 3, jump up three from 4: 5, 6, 7!",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 4,
+        "instruction": "Tap each apple to count 4!"
+      },
+        "text": "Hakan starts counting. Tap each apple!",
         "caption": "4 + 3 = 7 💯"
       },
       {
@@ -3999,13 +4103,18 @@ const MODULES = [
         "caption": "4 + 3 = 7 🏆"
       },
       {
-        "title": "Symbols",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 7,
-          "b": 3
-        },
-        "text": "Hakan reads 7 + 3. Start at 7, three hops: 8, 9, 10. Plus 3 = three jumps up.",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 3? Tap the answer!"
+      },
+        "text": "Add 3 to 4. Tap the right answer!",
         "caption": "7 + 3 = 10 ⭐"
       },
       {
@@ -4252,13 +4361,14 @@ const MODULES = [
     "description": "Hakan counts up four from the bigger number.",
     "lesson": [
       {
-        "title": "Plus 4 = Four Jumps",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "⚽"
-        },
-        "text": "Hakan has 5 soccer balls. He gets 4 more. To add 4, hop four times from 5: 6, 7, 8, 9!",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 5,
+        "instruction": "Tap each apple to count 5!"
+      },
+        "text": "Hakan starts counting. Tap each apple!",
         "caption": "5 + 4 = 9 💯"
       },
       {
@@ -4295,13 +4405,18 @@ const MODULES = [
         "caption": "4 + 4 = 8 🏆"
       },
       {
-        "title": "Symbols",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 5,
-          "b": 4
-        },
-        "text": "Hakan reads 5 + 4. Start at 5, four hops: 6, 7, 8, 9. The +4 trick: four jumps up.",
+        "type": "tap-the-answer",
+        "options": [
+          "7",
+          "8",
+          "9"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 4? Tap the answer!"
+      },
+        "text": "Add 4 to 4. Tap the right answer!",
         "caption": "5 + 4 = 9 ⭐"
       },
       {
@@ -4548,13 +4663,14 @@ const MODULES = [
     "description": "Hakan counts up five from the bigger number.",
     "lesson": [
       {
-        "title": "Plus 5 = Five Hops",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "⚽"
-        },
-        "text": "Hakan has 4 soccer balls. He gets 5 more. To add 5, start at the bigger number 5, hop four: 6, 7, 8, 9!",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 6,
+        "instruction": "Tap each apple to count 6!"
+      },
+        "text": "Hakan starts counting. Tap each apple!",
         "caption": "4 + 5 = 9 💯"
       },
       {
@@ -4591,13 +4707,18 @@ const MODULES = [
         "caption": "7 + 5 = 12 🏆"
       },
       {
-        "title": "Symbols",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 5
-        },
-        "text": "Hakan reads 8 + 5. Start at 8, five hops: 9, 10, 11, 12, 13. The +5 trick: five hops up.",
+        "type": "tap-the-answer",
+        "options": [
+          "8",
+          "9",
+          "10"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 5? Tap the answer!"
+      },
+        "text": "Add 5 to 4. Tap the right answer!",
         "caption": "8 + 5 = 13 ⭐"
       },
       {
@@ -4863,14 +4984,13 @@ const MODULES = [
         "caption": "Bigger first"
       },
       {
-        "title": "Count On Six",
+        "title": "Fill the Ten-Frame: 6",
         "visual": {
-          "type": "numberline",
-          "from": 0,
-          "to": 20,
-          "mark": 13
-        },
-        "text": "Hakan starts at 7 and hops 6 times: 8, 9, 10, 11, 12, 13. He lands on 13!",
+        "type": "fill-ten-frame",
+        "target": 6,
+        "instruction": "Hakan, fill in 6 dots in the ten-frame!"
+      },
+        "text": "Use a ten-frame to show 6. Tap to fill in dots!",
         "caption": "7 + 6 = 13"
       },
       {
@@ -4885,14 +5005,18 @@ const MODULES = [
         "caption": "5 + 6 = 11"
       },
       {
-        "title": "Try 8 + 6",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "numberline",
-          "from": 0,
-          "to": 20,
-          "mark": 14
-        },
-        "text": "From 8, Hakan counts 6: 9, 10, 11, 12, 13, 14. He gets 14!",
+        "type": "tap-the-answer",
+        "options": [
+          "9",
+          "10",
+          "11"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 6? Tap the answer!"
+      },
+        "text": "Add 6 to 4. Tap the right answer!",
         "caption": "8 + 6 = 14"
       },
       {
@@ -5159,13 +5283,13 @@ const MODULES = [
         "caption": "7 needs 3 more"
       },
       {
-        "title": "Try 7 + 5",
+        "title": "Fill the Ten-Frame: 7",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 7,
-          "filledB": 5
-        },
-        "text": "For 7 + 5, Hakan splits the 5 into 3 + 2. He gives the 3 to make 10. Then 10 + 2 = 12!",
+        "type": "fill-ten-frame",
+        "target": 7,
+        "instruction": "Hakan, fill in 7 dots in the ten-frame!"
+      },
+        "text": "Use a ten-frame to show 7. Tap to fill in dots!",
         "caption": "7 + 5 = 12"
       },
       {
@@ -5179,13 +5303,18 @@ const MODULES = [
         "caption": "7 + 6 = 13"
       },
       {
-        "title": "Try 7 + 4",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 7,
-          "filledB": 4
-        },
-        "text": "Hakan splits 4 into 3 + 1. Make 10, leftover 1. So 7 + 4 = 11!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 7? Tap the answer!"
+      },
+        "text": "Add 7 to 4. Tap the right answer!",
         "caption": "7 + 4 = 11"
       },
       {
@@ -5451,13 +5580,13 @@ const MODULES = [
         "caption": "8 needs 2 more"
       },
       {
-        "title": "Try 8 + 5",
+        "title": "Fill the Ten-Frame: 8",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 8,
-          "filledB": 5
-        },
-        "text": "For 8 + 5, Hakan splits 5 into 2 + 3. Give the 2 to make 10. Then 10 + 3 = 13!",
+        "type": "fill-ten-frame",
+        "target": 8,
+        "instruction": "Hakan, fill in 8 dots in the ten-frame!"
+      },
+        "text": "Use a ten-frame to show 8. Tap to fill in dots!",
         "caption": "8 + 5 = 13"
       },
       {
@@ -5471,13 +5600,18 @@ const MODULES = [
         "caption": "8 + 6 = 14"
       },
       {
-        "title": "Try 8 + 4",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 8,
-          "filledB": 4
-        },
-        "text": "Hakan splits 4 into 2 + 2. Make 10, leftover 2. So 8 + 4 = 12!",
+        "type": "tap-the-answer",
+        "options": [
+          "11",
+          "12",
+          "13"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 8? Tap the answer!"
+      },
+        "text": "Add 8 to 4. Tap the right answer!",
         "caption": "8 + 4 = 12"
       },
       {
@@ -5743,13 +5877,13 @@ const MODULES = [
         "caption": "9 is 1 less than 10"
       },
       {
-        "title": "Try 9 + 5",
+        "title": "Fill the Ten-Frame: 9",
         "visual": {
-          "type": "two-digit-add",
-          "a": 9,
-          "b": 5
-        },
-        "text": "Step 1: Hakan adds 10 + 5 = 15. Step 2: Take 1 away. So 9 + 5 = 14!",
+        "type": "fill-ten-frame",
+        "target": 9,
+        "instruction": "Hakan, fill in 9 dots in the ten-frame!"
+      },
+        "text": "Use a ten-frame to show 9. Tap to fill in dots!",
         "caption": "9 + 5 = 14"
       },
       {
@@ -5763,13 +5897,18 @@ const MODULES = [
         "caption": "9 + 4 = 13"
       },
       {
-        "title": "Try 9 + 6",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 9,
-          "b": 6
-        },
-        "text": "Hakan does 10 + 6 = 16, then minus 1. So 9 + 6 = 15!",
+        "type": "tap-the-answer",
+        "options": [
+          "12",
+          "13",
+          "14"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 9? Tap the answer!"
+      },
+        "text": "Add 9 to 4. Tap the right answer!",
         "caption": "9 + 6 = 15"
       },
       {
@@ -6040,15 +6179,13 @@ const MODULES = [
         "caption": "5 + 10 = 15 ✨"
       },
       {
-        "title": "Apples and Tens",
+        "title": "Fill the Ten-Frame: 10",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 6,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan has 10 apples in one tray. He grabs 6 more. 10 + 6 = 16. Same ones, teen tens!",
+        "type": "fill-ten-frame",
+        "target": 10,
+        "instruction": "Hakan, fill in 10 dots in the ten-frame!"
+      },
+        "text": "Use a ten-frame to show 10. Tap to fill in dots!",
         "caption": "10 + 6 = 16 🎯"
       },
       {
@@ -6064,13 +6201,18 @@ const MODULES = [
         "caption": "10 + 7 = 17 🏆"
       },
       {
-        "title": "Symbols",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 10,
-          "b": 8
-        },
-        "text": "Hakan reads 10 + 8. The ones stay 8. Add the 1 ten in front: 18!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "14",
+          "15"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 + 10? Tap the answer!"
+      },
+        "text": "Add 10 to 4. Tap the right answer!",
         "caption": "10 + 8 = 18 ⭐"
       },
       {
@@ -6319,14 +6461,14 @@ const MODULES = [
     "description": "Hakan learns: minus 0 keeps the number the same!",
     "lesson": [
       {
-        "title": "Hakan's Magic Rule",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 5,
-          "taken": 0,
-          "emoji": "🍓"
-        },
-        "text": "Hakan, watch this! Minus 0 means we take away NOTHING. The number stays the same. Magic!",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 3,
+        "instruction": "Hakan has 3 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 3 cookies. Tap each cookie!",
         "caption": "5 − 0 = 5"
       },
       {
@@ -6362,13 +6504,18 @@ const MODULES = [
         "caption": "7 − 0 = 7"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 12,
-          "b": 0
-        },
-        "text": "Hakan, what do you notice? Every minus 0 answer is the SAME number you started with!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 3 − 0? Tap the answer!"
+      },
+        "text": "Take 0 away from 3. Tap the right answer!",
         "caption": "12 − 0 = 12"
       },
       {
@@ -6618,14 +6765,14 @@ const MODULES = [
     "description": "Hakan counts back 1 step to subtract 1!",
     "lesson": [
       {
-        "title": "Hop Back One",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 5,
-          "taken": 1,
-          "emoji": "🍒"
-        },
-        "text": "Hakan, look! Minus 1 means hop BACK one step. Start at the big number, count back 1.",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 4,
+        "instruction": "Hakan has 4 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 4 cookies. Tap each cookie!",
         "caption": "5 − 1 = 4"
       },
       {
@@ -6662,13 +6809,18 @@ const MODULES = [
         "caption": "6 − 1 = 5"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 9,
-          "b": 1
-        },
-        "text": "Hakan reads 9 − 1. Same trick: the number BEFORE 9 is 8. Answer is 8!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 4 − 1? Tap the answer!"
+      },
+        "text": "Take 1 away from 4. Tap the right answer!",
         "caption": "9 − 1 = 8"
       },
       {
@@ -6919,14 +7071,14 @@ const MODULES = [
     "description": "Hakan hops back 2 steps to subtract 2!",
     "lesson": [
       {
-        "title": "Hakan's Two-Hop Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 5,
-          "taken": 2,
-          "emoji": "🍒"
-        },
-        "text": "Hakan, look! Minus 2 means hop BACK 2 steps. Start big, count back twice!",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 5,
+        "instruction": "Hakan has 5 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 5 cookies. Tap each cookie!",
         "caption": "5 − 2 = 3"
       },
       {
@@ -6963,13 +7115,18 @@ const MODULES = [
         "caption": "9 − 2 = 7"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 10,
-          "b": 2
-        },
-        "text": "Hakan reads 10 − 2. He counts back twice from 10: 9, 8. Answer is 8!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 5 − 2? Tap the answer!"
+      },
+        "text": "Take 2 away from 5. Tap the right answer!",
         "caption": "10 − 2 = 8"
       },
       {
@@ -7220,14 +7377,14 @@ const MODULES = [
     "description": "Hakan counts back 3 steps to subtract 3!",
     "lesson": [
       {
-        "title": "Hakan's Three-Hop Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 7,
-          "taken": 3,
-          "emoji": "🍒"
-        },
-        "text": "Hakan, watch! Minus 3 means hop BACK 3 steps. Start big, count back three times.",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 6,
+        "instruction": "Hakan has 6 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 6 cookies. Tap each cookie!",
         "caption": "7 − 3 = 4"
       },
       {
@@ -7264,13 +7421,18 @@ const MODULES = [
         "caption": "10 − 3 = 7"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 3
-        },
-        "text": "Hakan reads 6 − 3. Count back 3 times from 6: 5, 4, 3. Answer 3!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 6 − 3? Tap the answer!"
+      },
+        "text": "Take 3 away from 6. Tap the right answer!",
         "caption": "6 − 3 = 3"
       },
       {
@@ -7521,14 +7683,14 @@ const MODULES = [
     "description": "Hakan hops back 4 steps to subtract 4!",
     "lesson": [
       {
-        "title": "Hakan's Four-Hop Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 8,
-          "taken": 4,
-          "emoji": "🍒"
-        },
-        "text": "Hakan, watch! Minus 4 means hop BACK 4 steps. Start at the big number, count back!",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 7,
+        "instruction": "Hakan has 7 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 7 cookies. Tap each cookie!",
         "caption": "8 − 4 = 4"
       },
       {
@@ -7565,13 +7727,18 @@ const MODULES = [
         "caption": "7 − 4 = 3"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 4
-        },
-        "text": "Hakan reads 6 − 4. He counts back 4 from 6: 5, 4, 3, 2. Answer is 2!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 7 − 4? Tap the answer!"
+      },
+        "text": "Take 4 away from 7. Tap the right answer!",
         "caption": "6 − 4 = 2"
       },
       {
@@ -7822,14 +7989,14 @@ const MODULES = [
     "description": "Hakan thinks: what plus 5 makes the big number?",
     "lesson": [
       {
-        "title": "Hakan's New Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 8,
-          "taken": 5,
-          "emoji": "🍒"
-        },
-        "text": "Hakan, watch! For 8 − 5, think: WHAT + 5 = 8? It's 3! So 8 − 5 = 3.",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 8,
+        "instruction": "Hakan has 8 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 8 cookies. Tap each cookie!",
         "caption": "8 − 5 = 3"
       },
       {
@@ -7866,13 +8033,18 @@ const MODULES = [
         "caption": "10 − 5 = 5"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 5
-        },
-        "text": "Hakan reads 6 − 5. WHAT + 5 = 6? Just 1 more! Answer is 1.",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 8 − 5? Tap the answer!"
+      },
+        "text": "Take 5 away from 8. Tap the right answer!",
         "caption": "6 − 5 = 1"
       },
       {
@@ -8124,14 +8296,14 @@ const MODULES = [
     "description": "Hakan thinks: what plus 6 makes the big number?",
     "lesson": [
       {
-        "title": "Hakan's Plus-6 Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 8,
-          "taken": 6,
-          "emoji": "🍒"
-        },
-        "text": "Hakan, watch! For 8 − 6, think: WHAT + 6 = 8? Answer is 2! So 8 − 6 = 2.",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 9,
+        "instruction": "Hakan has 9 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 9 cookies. Tap each cookie!",
         "caption": "8 − 6 = 2"
       },
       {
@@ -8168,13 +8340,18 @@ const MODULES = [
         "caption": "12 − 6 = 6"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 7,
-          "b": 6
-        },
-        "text": "Hakan reads 7 − 6. WHAT + 6 = 7? Just 1! Answer is 1.",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 9 − 6? Tap the answer!"
+      },
+        "text": "Take 6 away from 9. Tap the right answer!",
         "caption": "7 − 6 = 1"
       },
       {
@@ -8425,14 +8602,14 @@ const MODULES = [
     "description": "Hakan thinks: what plus 7 makes the big number?",
     "lesson": [
       {
-        "title": "Hakan's Plus-7 Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 7,
-          "emoji": "🍒"
-        },
-        "text": "Hakan, watch! For 9 − 7, think: WHAT + 7 = 9? Answer is 2! So 9 − 7 = 2.",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 10,
+        "instruction": "Hakan has 10 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 10 cookies. Tap each cookie!",
         "caption": "9 − 7 = 2"
       },
       {
@@ -8469,13 +8646,18 @@ const MODULES = [
         "caption": "14 − 7 = 7"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 11,
-          "b": 7
-        },
-        "text": "Hakan reads 11 − 7. WHAT + 7 = 11? Answer is 4!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 10 − 7? Tap the answer!"
+      },
+        "text": "Take 7 away from 10. Tap the right answer!",
         "caption": "11 − 7 = 4"
       },
       {
@@ -8726,14 +8908,14 @@ const MODULES = [
     "description": "Hakan thinks: what plus 8 makes the big number?",
     "lesson": [
       {
-        "title": "Hakan's Plus-8 Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "take-away",
-          "total": 10,
-          "taken": 8,
-          "emoji": "🍒"
-        },
-        "text": "Hakan, watch! For 10 − 8, think: WHAT + 8 = 10? Answer is 2! So 10 − 8 = 2.",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 11,
+        "instruction": "Hakan has 11 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 11 cookies. Tap each cookie!",
         "caption": "10 − 8 = 2"
       },
       {
@@ -8770,13 +8952,18 @@ const MODULES = [
         "caption": "16 − 8 = 8"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 12,
-          "b": 8
-        },
-        "text": "Hakan reads 12 − 8. WHAT + 8 = 12? Answer is 4!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 11 − 8? Tap the answer!"
+      },
+        "text": "Take 8 away from 11. Tap the right answer!",
         "caption": "12 − 8 = 4"
       },
       {
@@ -9026,13 +9213,14 @@ const MODULES = [
     "description": "Hakan's trick: take 10 away, then add 1 back!",
     "lesson": [
       {
-        "title": "Hakan's −9 Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 5
-        },
-        "text": "Hakan, watch! Subtracting 9 is tricky. Hakan's trick: take 10 away (easy!), then put 1 BACK!",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 12,
+        "instruction": "Hakan has 12 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 12 cookies. Tap each cookie!",
         "caption": "−9 = −10 then +1"
       },
       {
@@ -9066,18 +9254,18 @@ const MODULES = [
         "caption": "17 − 9 = 8"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            2,
-            3,
-            4,
-            5
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, what do you notice? When you subtract 9 from a teen, the answer is the ones digit + 1!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 12 − 9? Tap the answer!"
+      },
+        "text": "Take 9 away from 12. Tap the right answer!",
         "caption": "ones + 1 = answer"
       },
       {
@@ -9326,13 +9514,14 @@ const MODULES = [
     "description": "Hakan drops a 10! The ones digit stays the same.",
     "lesson": [
       {
-        "title": "Hakan's −10 Trick",
+        "title": "Tap & Count Start",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 5
-        },
-        "text": "Hakan, watch! Subtracting 10 is super easy. Just drop one ten. The ones digit stays!",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 13,
+        "instruction": "Hakan has 13 cookies. Tap each one to count!"
+      },
+        "text": "Hakan starts with 13 cookies. Tap each cookie!",
         "caption": "15 − 10 = 5"
       },
       {
@@ -9366,18 +9555,18 @@ const MODULES = [
         "caption": "12 − 10 = 2"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, what do you notice? 11−10=1, 12−10=2, 13−10=3. Just the ones!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 13 − 10? Tap the answer!"
+      },
+        "text": "Take 10 away from 13. Tap the right answer!",
         "caption": "Drop the 10!"
       },
       {
@@ -9659,15 +9848,18 @@ const MODULES = [
         "caption": "1 + 4 = 5 🎯"
       },
       {
-        "title": "Hakan, What Do You Notice?",
+        "title": "Tap the Bond",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 5,
-          "filledB": 0,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "5 + 0 = 5 too. Hakan, partners of 5 are: 0+5, 1+4, 2+3, 3+2, 4+1, 5+0. So many ways!",
+        "type": "tap-the-answer",
+        "options": [
+          "7",
+          "8",
+          "9"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 3 + 4 = ? Tap it!"
+      },
+        "text": "Number bonds: 3 and 4 make 7. Tap it!",
         "caption": "Many partners, same 5 🏆"
       },
       {
@@ -9946,13 +10138,18 @@ const MODULES = [
         "caption": "Make-10 strategy"
       },
       {
-        "title": "Tool 3: +9 Trick",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 9,
-          "b": 7
-        },
-        "text": "For 9 + 7, Hakan adds 10 + 7 = 17, minus 1 = 16. Quick!",
+        "type": "tap-the-answer",
+        "options": [
+          "18",
+          "19",
+          "20"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, 10 + 10 = ? Tap it!"
+      },
+        "text": "Doubling tens! 10 + 10 = 20. Tap it!",
         "caption": "+9 = +10 − 1"
       },
       {
@@ -10246,14 +10443,18 @@ const MODULES = [
         "caption": "2 + 2 = 4"
       },
       {
-        "title": "Two Hands of 3",
+        "title": "Tap the Double",
         "visual": {
-          "type": "add-groups",
-          "a": 3,
-          "b": 3,
-          "emoji": "🤟"
-        },
-        "text": "Hakan shows 3 fingers on each hand. 3 + 3 = 6. Same picture, double the count!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "8",
+          "10"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, double 5 = ? Tap it!"
+      },
+        "text": "5 + 5 = 10. Doubles power! Tap it!",
         "caption": "3 + 3 = 6"
       },
       {
@@ -10554,13 +10755,18 @@ const MODULES = [
         "caption": "7 + 7 = 14"
       },
       {
-        "title": "Two Frames of 8",
+        "title": "Tap the Double",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 8,
-          "filledB": 8
-        },
-        "text": "Hakan fills 8 in each frame. 8 + 8 = 16!",
+        "type": "tap-the-answer",
+        "options": [
+          "12",
+          "14",
+          "16"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, double 7 = ? Tap it!"
+      },
+        "text": "7 + 7 = 14. Tap the double!",
         "caption": "8 + 8 = 16"
       },
       {
@@ -10858,13 +11064,18 @@ const MODULES = [
         "caption": "3 + 4 = 7"
       },
       {
-        "title": "Try 6 + 7",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 7
-        },
-        "text": "Hakan thinks 6 + 6 = 12. Add 1 = 13. So 6 + 7 = 13!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 5 + 6 = double 5 + 1. Tap it!"
+      },
+        "text": "Near doubles: double 5 = 10, plus 1 = 11. Tap it!",
         "caption": "6 + 7 = 13"
       },
       {
@@ -11146,13 +11357,13 @@ const MODULES = [
         "caption": "0 + 5 = 5"
       },
       {
-        "title": "Bond 1 and 4",
+        "title": "Fill: Make 5",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 1,
-          "filledB": 4
-        },
-        "text": "Hakan splits: 1 dot and 4 dots. 1 + 4 = 5!",
+        "type": "fill-ten-frame",
+        "target": 5,
+        "instruction": "Hakan, fill in 5 dots! These are partners that make 5."
+      },
+        "text": "A ten-frame shows pairs that make 5. Tap to fill in 5 dots!",
         "caption": "1 + 4 = 5"
       },
       {
@@ -11176,20 +11387,18 @@ const MODULES = [
         "caption": "3 + 2 = 5"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Partner",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            0,
-            1,
-            2,
-            3,
-            4,
-            5
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, the pairs are: 0+5, 1+4, 2+3. The first number goes UP, the second goes DOWN!",
+        "type": "tap-the-answer",
+        "options": [
+          "1",
+          "2",
+          "3"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 3 + ? = 5. Tap the missing partner!"
+      },
+        "text": "3 plus what makes 5? Tap the missing partner!",
         "caption": "Up and down pattern"
       },
       {
@@ -11441,13 +11650,13 @@ const MODULES = [
         "caption": "0 + 6 = 6"
       },
       {
-        "title": "Bond 1 and 5",
+        "title": "Fill: Make 6",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 1,
-          "filledB": 5
-        },
-        "text": "Hakan: 1 dot + 5 dots = 6 dots. The pair 1 and 5!",
+        "type": "fill-ten-frame",
+        "target": 6,
+        "instruction": "Hakan, fill in 6 dots! These are partners that make 6."
+      },
+        "text": "A ten-frame shows pairs that make 6. Tap to fill in 6 dots!",
         "caption": "1 + 5 = 6"
       },
       {
@@ -11471,18 +11680,18 @@ const MODULES = [
         "caption": "3 + 3 = 6 (double)"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Partner",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            0,
-            1,
-            2,
-            3
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, look: 0+6, 1+5, 2+4, 3+3. Pairs go up to a meet-in-the-middle DOUBLE!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 3 + ? = 6. Tap the missing partner!"
+      },
+        "text": "3 plus what makes 6? Tap the missing partner!",
         "caption": "Meet at 3+3"
       },
       {
@@ -11737,13 +11946,13 @@ const MODULES = [
         "caption": "0 + 7 = 7"
       },
       {
-        "title": "Bond 1 and 6",
+        "title": "Fill: Make 7",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 1,
-          "filledB": 6
-        },
-        "text": "Hakan: 1 dot + 6 dots = 7 dots. The pair 1 and 6!",
+        "type": "fill-ten-frame",
+        "target": 7,
+        "instruction": "Hakan, fill in 7 dots! These are partners that make 7."
+      },
+        "text": "A ten-frame shows pairs that make 7. Tap to fill in 7 dots!",
         "caption": "1 + 6 = 7"
       },
       {
@@ -11767,20 +11976,18 @@ const MODULES = [
         "caption": "3 + 4 = 7"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Partner",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            1,
-            6,
-            2,
-            5,
-            3,
-            4
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, the bond pairs of 7 are: 0+7, 1+6, 2+5, 3+4. The first goes up, the second goes down!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 3 + ? = 7. Tap the missing partner!"
+      },
+        "text": "3 plus what makes 7? Tap the missing partner!",
         "caption": "Up and down"
       },
       {
@@ -12035,13 +12242,13 @@ const MODULES = [
         "caption": "0 + 8 = 8"
       },
       {
-        "title": "Bond 1 and 7",
+        "title": "Fill: Make 8",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 1,
-          "filledB": 7
-        },
-        "text": "Hakan: 1 + 7 = 8. The pair 1 and 7!",
+        "type": "fill-ten-frame",
+        "target": 8,
+        "instruction": "Hakan, fill in 8 dots! These are partners that make 8."
+      },
+        "text": "A ten-frame shows pairs that make 8. Tap to fill in 8 dots!",
         "caption": "1 + 7 = 8"
       },
       {
@@ -12065,13 +12272,18 @@ const MODULES = [
         "caption": "3 + 5 = 8"
       },
       {
-        "title": "Bond 4 and 4",
+        "title": "Tap the Partner",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 4,
-          "filledB": 4
-        },
-        "text": "Hakan: 4 + 4 = 8. The DOUBLE pair! Both are 4.",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 3 + ? = 8. Tap the missing partner!"
+      },
+        "text": "3 plus what makes 8? Tap the missing partner!",
         "caption": "4 + 4 = 8 (double)"
       },
       {
@@ -12332,13 +12544,13 @@ const MODULES = [
         "caption": "0 + 9 = 9"
       },
       {
-        "title": "Bond 1 and 8",
+        "title": "Fill: Make 9",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 1,
-          "filledB": 8
-        },
-        "text": "Hakan: 1 + 8 = 9. The pair 1 and 8!",
+        "type": "fill-ten-frame",
+        "target": 9,
+        "instruction": "Hakan, fill in 9 dots! These are partners that make 9."
+      },
+        "text": "A ten-frame shows pairs that make 9. Tap to fill in 9 dots!",
         "caption": "1 + 8 = 9"
       },
       {
@@ -12362,13 +12574,18 @@ const MODULES = [
         "caption": "3 + 6 = 9"
       },
       {
-        "title": "Bond 4 and 5",
+        "title": "Tap the Partner",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 4,
-          "filledB": 5
-        },
-        "text": "Hakan: 4 + 5 = 9. Near-doubles bond!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 3 + ? = 9. Tap the missing partner!"
+      },
+        "text": "3 plus what makes 9? Tap the missing partner!",
         "caption": "4 + 5 = 9"
       },
       {
@@ -12628,13 +12845,13 @@ const MODULES = [
         "caption": "1 + 9 = 10"
       },
       {
-        "title": "Bond 2 and 8",
+        "title": "Fill: Make 10",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 2,
-          "filledB": 8
-        },
-        "text": "Hakan: 2 + 8 = 10!",
+        "type": "fill-ten-frame",
+        "target": 10,
+        "instruction": "Hakan, fill in 10 dots! These are partners that make 10."
+      },
+        "text": "A ten-frame shows pairs that make 10. Tap to fill in 10 dots!",
         "caption": "2 + 8 = 10"
       },
       {
@@ -12658,13 +12875,18 @@ const MODULES = [
         "caption": "4 + 6 = 10"
       },
       {
-        "title": "Bond 5 and 5",
+        "title": "Tap the Partner",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 5,
-          "filledB": 5
-        },
-        "text": "Hakan: 5 + 5 = 10. The famous double!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 3 + ? = 10. Tap the missing partner!"
+      },
+        "text": "3 plus what makes 10? Tap the missing partner!",
         "caption": "5 + 5 = 10 (double)"
       },
       {
@@ -12917,13 +13139,17 @@ const MODULES = [
         "caption": "5 vs 8 🍎"
       },
       {
-        "title": "The Hungry Alligator",
+        "title": "Tap the Bigger",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 8
-        },
-        "text": "The alligator mouth always EATS the bigger number. 8 is bigger, so it opens toward 8: 5 < 8.",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which is bigger? Tap it!"
+      },
+        "text": "Compare 5 and 8. Tap the bigger number!",
         "caption": "5 < 8 🐊"
       },
       {
@@ -12947,13 +13173,18 @@ const MODULES = [
         "caption": "2 < 9 ⭐"
       },
       {
-        "title": "Equal Means Same",
+        "title": "Tap the Sign",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 6
-        },
-        "text": "When both numbers are the SAME, use =. 6 = 6. No mouth opens!",
+        "type": "tap-the-answer",
+        "options": [
+          ">",
+          "<",
+          "="
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan: 8 ? 5. Tap the right sign!"
+      },
+        "text": "The alligator eats the bigger number. Tap the right sign!",
         "caption": "6 = 6 🎯"
       },
       {
@@ -13291,13 +13522,17 @@ const MODULES = [
         "caption": "12 vs 17 🔢"
       },
       {
-        "title": "Check the Tens FIRST",
+        "title": "Tap the Bigger",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 14
-        },
-        "text": "Hakan, 8 has 0 tens. 14 has 1 ten. More tens wins! So 8 < 14.",
+        "type": "tap-the-answer",
+        "options": [
+          "12",
+          "17"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which is bigger? Tap it!"
+      },
+        "text": "Compare 12 and 17. Tap the bigger number!",
         "caption": "14 has more tens 💪"
       },
       {
@@ -13321,13 +13556,18 @@ const MODULES = [
         "caption": "16 > 11 ✨"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Sign",
         "visual": {
-          "type": "compare-pair",
-          "a": 19,
-          "b": 15
-        },
-        "text": "Hakan, see the pattern? Always check TENS first. If tens tie, check ONES.",
+        "type": "tap-the-answer",
+        "options": [
+          ">",
+          "<",
+          "="
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan: 17 ? 12. Tap the right sign!"
+      },
+        "text": "The alligator eats the bigger number. Tap the right sign!",
         "caption": "Tens, then ones 🎯"
       },
       {
@@ -13666,13 +13906,17 @@ const MODULES = [
         "caption": "32 vs 47 📊"
       },
       {
-        "title": "Check the Tens",
+        "title": "Tap the Bigger",
         "visual": {
-          "type": "blocks",
-          "tens": 3,
-          "ones": 2
-        },
-        "text": "32 has 3 tens. 47 has 4 tens. More tens wins, so 47 is bigger. 32 < 47.",
+        "type": "tap-the-answer",
+        "options": [
+          "38",
+          "42"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which is bigger? Tap it!"
+      },
+        "text": "Compare 38 and 42. Tap the bigger number!",
         "caption": "4 tens beats 3 💪"
       },
       {
@@ -13696,13 +13940,18 @@ const MODULES = [
         "caption": "Ones decide ⭐"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Sign",
         "visual": {
-          "type": "compare-pair",
-          "a": 45,
-          "b": 42
-        },
-        "text": "Hakan, see the pattern? Always check TENS first. If tens tie, check ONES.",
+        "type": "tap-the-answer",
+        "options": [
+          ">",
+          "<",
+          "="
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan: 42 ? 38. Tap the right sign!"
+      },
+        "text": "The alligator eats the bigger number. Tap the right sign!",
         "caption": "Tens, then ones 🎯"
       },
       {
@@ -14039,13 +14288,17 @@ const MODULES = [
         "caption": "67 vs 82 💯"
       },
       {
-        "title": "Tens Decide First",
+        "title": "Tap the Bigger",
         "visual": {
-          "type": "blocks",
-          "tens": 6,
-          "ones": 7
-        },
-        "text": "Hakan, 67 has 6 tens. 82 has 8 tens. More tens wins, so 67 < 82.",
+        "type": "tap-the-answer",
+        "options": [
+          "79",
+          "87"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which is bigger? Tap it!"
+      },
+        "text": "Compare 79 and 87. Tap the bigger number!",
         "caption": "8 tens beats 6 💪"
       },
       {
@@ -14069,13 +14322,18 @@ const MODULES = [
         "caption": "Ones decide ⭐"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Sign",
         "visual": {
-          "type": "compare-pair",
-          "a": 89,
-          "b": 84
-        },
-        "text": "Hakan, look at all our examples — TENS first, then ONES if tens tie!",
+        "type": "tap-the-answer",
+        "options": [
+          ">",
+          "<",
+          "="
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan: 87 ? 79. Tap the right sign!"
+      },
+        "text": "The alligator eats the bigger number. Tap the right sign!",
         "caption": "Tens, then ones 🎯"
       },
       {
@@ -14402,13 +14660,14 @@ const MODULES = [
     "description": "Hakan skip counts by 2s — fast counting!",
     "lesson": [
       {
-        "title": "Hakan Counts His Shoes",
+        "title": "Tap & Count 2",
         "visual": {
-          "type": "objects",
-          "count": 6,
-          "emoji": "👟"
-        },
-        "text": "Hakan has 6 shoes. He counts in pairs because shoes come in 2s. 2, 4, 6!",
+        "type": "tap-to-count",
+        "emoji": "⭐",
+        "count": 2,
+        "instruction": "Hakan, tap each star to count to 2!"
+      },
+        "text": "Each step we add 2. Tap each star!",
         "caption": "Pairs = +2"
       },
       {
@@ -14444,18 +14703,18 @@ const MODULES = [
         "caption": "Skip every other"
       },
       {
-        "title": "Find the Next Number",
+        "title": "Tap the Missing",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            2,
-            4,
-            6,
-            8
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, after 8 comes ___? Add 2! 8 + 2 = 10. The next is 10!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "6",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "2, 4, ?, 8. What's missing? Tap it!"
+      },
+        "text": "Skip count by 2s. What number is missing?",
         "caption": "Add 2 each time"
       },
       {
@@ -14792,13 +15051,14 @@ const MODULES = [
     "description": "Hakan skip counts by 3s using clovers and groups.",
     "lesson": [
       {
-        "title": "Three-Leaf Clovers",
+        "title": "Tap & Count 3",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "🍀"
-        },
-        "text": "Hakan finds clovers. Each clover has 3 leaves! Today we count by 3s.",
+        "type": "tap-to-count",
+        "emoji": "⭐",
+        "count": 3,
+        "instruction": "Hakan, tap each star to count to 3!"
+      },
+        "text": "Each step we add 3. Tap each star!",
         "caption": "+3 each clover"
       },
       {
@@ -14835,19 +15095,18 @@ const MODULES = [
         "caption": "Big hops of 3"
       },
       {
-        "title": "Pattern: Add 3",
+        "title": "Tap the Missing",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            3,
-            6,
-            9,
-            12,
-            15
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, the pattern is +3. After 12 comes 15. Always add 3!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "9",
+          "12"
+        ],
+        "correctIndex": 1,
+        "instruction": "3, 6, ?, 12. What's missing? Tap it!"
+      },
+        "text": "Skip count by 3s. What number is missing?",
         "caption": "Add 3 each time"
       },
       {
@@ -15176,13 +15435,14 @@ const MODULES = [
     "description": "Hakan skip counts by 5s using fingers and number lines.",
     "lesson": [
       {
-        "title": "Hakan's Hand Has 5",
+        "title": "Tap & Count 5",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🖐️"
-        },
-        "text": "Hakan, look at your hand! 5 fingers. Today we skip count by 5s.",
+        "type": "tap-to-count",
+        "emoji": "⭐",
+        "count": 5,
+        "instruction": "Hakan, tap each star to count to 5!"
+      },
+        "text": "Each step we add 5. Tap each star!",
         "caption": "1 hand = 5"
       },
       {
@@ -15218,19 +15478,18 @@ const MODULES = [
         "caption": "Big +5 hops"
       },
       {
-        "title": "Pattern: Add 5",
+        "title": "Tap the Missing",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            5,
-            10,
-            15,
-            20,
-            25
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, after 20 comes 25. Add 5 each time. The pattern feels easy!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "15",
+          "20"
+        ],
+        "correctIndex": 1,
+        "instruction": "5, 10, ?, 20. What's missing? Tap it!"
+      },
+        "text": "Skip count by 5s. What number is missing?",
         "caption": "Add 5 each time"
       },
       {
@@ -15559,13 +15818,14 @@ const MODULES = [
     "description": "Hakan skip counts by 10s — the fastest way to count big!",
     "lesson": [
       {
-        "title": "A Full Ten-Frame",
+        "title": "Tap & Count 10",
         "visual": {
-          "type": "ten-frame",
-          "filled": 10,
-          "color": "blue"
-        },
-        "text": "Hakan, a full ten-frame is 10! Today we skip count by 10s.",
+        "type": "tap-to-count",
+        "emoji": "⭐",
+        "count": 10,
+        "instruction": "Hakan, tap each star to count to 10!"
+      },
+        "text": "Each step we add 10. Tap each star!",
         "caption": "Full frame = 10"
       },
       {
@@ -15602,19 +15862,18 @@ const MODULES = [
         "caption": "Big +10 hops"
       },
       {
-        "title": "Pattern: Just the Tens!",
+        "title": "Tap the Missing",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            10,
-            20,
-            30,
-            40,
-            50
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, what do you notice? The TENS digit goes up by 1. Ones stay 0!",
+        "type": "tap-the-answer",
+        "options": [
+          "20",
+          "30",
+          "40"
+        ],
+        "correctIndex": 1,
+        "instruction": "10, 20, ?, 40. What's missing? Tap it!"
+      },
+        "text": "Skip count by 10s. What number is missing?",
         "caption": "Tens digit grows!"
       },
       {
@@ -15950,13 +16209,14 @@ const MODULES = [
         "caption": "10 boxes = 10!"
       },
       {
-        "title": "One Apple",
+        "title": "Tap & Count: 1",
         "visual": {
-          "type": "ten-frame",
-          "filled": 1,
-          "color": "red"
-        },
-        "text": "Hakan puts 1 apple in. He says 'one'. Just 1 box is filled!",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 1,
+        "instruction": "Hakan, tap the 1 apple!"
+      },
+        "text": "Hakan puts 1 apple. Tap it and say 'one'!",
         "caption": "1 = 1 box"
       },
       {
@@ -15980,13 +16240,13 @@ const MODULES = [
         "caption": "Top row = 5"
       },
       {
-        "title": "Eight Apples",
+        "title": "Fill the Ten-Frame: 8",
         "visual": {
-          "type": "ten-frame",
-          "filled": 8,
-          "color": "red"
-        },
-        "text": "Hakan adds 3 more. Now 8 apples! Count them all: 1...8!",
+        "type": "fill-ten-frame",
+        "target": 8,
+        "instruction": "Hakan, fill in 8 dots in the ten-frame!"
+      },
+        "text": "Hakan adds 3 more. Now 8 apples! Tap to fill the ten-frame!",
         "caption": "5 + 3 = 8"
       },
       {
@@ -16231,13 +16491,14 @@ const MODULES = [
     "description": "Hakan counts to 20 using two ten-frames.",
     "lesson": [
       {
-        "title": "Past 10 to 20!",
+        "title": "Tap & Count: 10",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 0
-        },
-        "text": "Hakan, today we count past 10 — to 20! Two ten-frames help us.",
+        "type": "tap-to-count",
+        "emoji": "🌟",
+        "count": 10,
+        "instruction": "Hakan, tap each star to count to 10!"
+      },
+        "text": "Hakan, today we count past 10. Tap each star!",
         "caption": "10 + 10 = 20"
       },
       {
@@ -16288,12 +16549,18 @@ const MODULES = [
         "caption": "10 + 7 = 17"
       },
       {
-        "title": "Pattern: Teens = 10 + Ones",
+        "title": "Tap the Next Number",
         "visual": {
-          "type": "bignum",
-          "n": 15
-        },
-        "text": "Hakan, what do you notice? Teen numbers are 10 + ones! 15 = 10 + 5!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "14",
+          "15"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, what comes after 12? Tap it!"
+      },
+        "text": "After 12 comes 13. Tap the right answer!",
         "caption": "Teens = 10 + ones"
       },
       {
@@ -16570,13 +16837,14 @@ const MODULES = [
     "description": "Hakan counts to 50 by tens and ones.",
     "lesson": [
       {
-        "title": "Hakan, Let's Reach 50!",
+        "title": "Tap & Count: 10",
         "visual": {
-          "type": "bignum",
-          "n": 50,
-          "color": "purple"
-        },
-        "text": "Hakan, today we count to 50! Tens and ones help us go fast.",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 10,
+        "instruction": "Hakan, tap each apple to count to 10!"
+      },
+        "text": "Hakan, today we count higher. Start by tapping 10 apples!",
         "caption": "50 = big number!"
       },
       {
@@ -16620,13 +16888,18 @@ const MODULES = [
         "caption": "5 tens = 50"
       },
       {
-        "title": "Adding Ones",
+        "title": "Tap the Next Number",
         "visual": {
-          "type": "blocks",
-          "tens": 3,
-          "ones": 5
-        },
-        "text": "Hakan stacks 3 tens and 5 ones. 30 + 5 = 35. Tens, then ones!",
+        "type": "tap-the-answer",
+        "options": [
+          "29",
+          "30",
+          "31"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what comes after 29? Tap it!"
+      },
+        "text": "After 29 comes 30. The tens roll over. Tap the right answer!",
         "caption": "30 + 5 = 35"
       },
       {
@@ -16866,13 +17139,14 @@ const MODULES = [
     "description": "Hakan counts all the way to 100 by tens.",
     "lesson": [
       {
-        "title": "Hakan, Let's Hit 100!",
+        "title": "Tap & Count Tens",
         "visual": {
-          "type": "bignum",
-          "n": 100,
-          "color": "purple"
-        },
-        "text": "Hakan, today we count to 100! Skip counting by 10s makes it FAST.",
+        "type": "tap-to-count",
+        "emoji": "🔟",
+        "count": 10,
+        "instruction": "Hakan, tap each ten-block to count by tens to 100!"
+      },
+        "text": "Each block holds 10. Tap each one to count: 10, 20, 30...!",
         "caption": "100 is huge!"
       },
       {
@@ -16916,24 +17190,18 @@ const MODULES = [
         "caption": "10 tens = 100!"
       },
       {
-        "title": "Pattern: Tens Digit Grows",
+        "title": "Tap the Next Number",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            10,
-            20,
-            30,
-            40,
-            50,
-            60,
-            70,
-            80,
-            90,
-            100
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, look! The tens digit goes 1, 2, 3... up to 10. Ones stay 0!",
+        "type": "tap-the-answer",
+        "options": [
+          "89",
+          "99",
+          "100"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, what comes after 99? Tap it!"
+      },
+        "text": "After 99 comes 100. Tap the right answer!",
         "caption": "Tens grow, ones = 0"
       },
       {
@@ -17243,12 +17511,13 @@ const MODULES = [
         "caption": "Make 10 first"
       },
       {
-        "title": "Step 1: Fill the 8",
+        "title": "Fill: 8",
         "visual": {
-          "type": "ten-frame",
-          "filled": 8
-        },
-        "text": "Hakan looks at 8 and asks: 'How many more to make 10?' The answer is 2!",
+        "type": "fill-ten-frame",
+        "target": 8,
+        "instruction": "Hakan, fill in 8 dots! That's the first number."
+      },
+        "text": "Start by filling in 8 on the ten-frame.",
         "caption": "8 needs 2 more"
       },
       {
@@ -17285,13 +17554,18 @@ const MODULES = [
         "caption": "8 + 3 = 11"
       },
       {
-        "title": "Why It Works",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 1
-        },
-        "text": "Hakan, 10 + something is super easy. That is why we always try to make 10 first!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 8 + 3? Tap the answer!"
+      },
+        "text": "Make 10 first, then add the rest. 8 + 3. Tap the answer!",
         "caption": "10 + 1 is easy"
       },
       {
@@ -17538,12 +17812,13 @@ const MODULES = [
         "caption": "Today: 8 + 4"
       },
       {
-        "title": "Step 1: Find the Gap",
+        "title": "Fill: 8",
         "visual": {
-          "type": "ten-frame",
-          "filled": 8
-        },
-        "text": "Hakan looks at 8. He asks: 'How many more to make 10?' Just 2!",
+        "type": "fill-ten-frame",
+        "target": 8,
+        "instruction": "Hakan, fill in 8 dots! That's the first number."
+      },
+        "text": "Start by filling in 8 on the ten-frame.",
         "caption": "8 needs 2 more"
       },
       {
@@ -17580,13 +17855,18 @@ const MODULES = [
         "caption": "8 + 4 = 12"
       },
       {
-        "title": "Estimate Check",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 4
-        },
-        "text": "Hakan, 8 + 4 — is the answer more or less than 10? MORE! Closer to 12. Right!",
+        "type": "tap-the-answer",
+        "options": [
+          "11",
+          "12",
+          "13"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 8 + 4? Tap the answer!"
+      },
+        "text": "Make 10 first, then add the rest. 8 + 4. Tap the answer!",
         "caption": "More than 10"
       },
       {
@@ -17833,12 +18113,13 @@ const MODULES = [
         "caption": "Today: 8 + 5"
       },
       {
-        "title": "Step 1: Find the Gap",
+        "title": "Fill: 8",
         "visual": {
-          "type": "ten-frame",
-          "filled": 8
-        },
-        "text": "Hakan: 8 needs how many to fill the 10? 2 more!",
+        "type": "fill-ten-frame",
+        "target": 8,
+        "instruction": "Hakan, fill in 8 dots! That's the first number."
+      },
+        "text": "Start by filling in 8 on the ten-frame.",
         "caption": "8 needs 2"
       },
       {
@@ -17875,13 +18156,18 @@ const MODULES = [
         "caption": "8 + 5 = 13"
       },
       {
-        "title": "Estimate It",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 5
-        },
-        "text": "Hakan, before solving — is 8 + 5 closer to 10 or 20? Closer to 10! About 13. Right!",
+        "type": "tap-the-answer",
+        "options": [
+          "12",
+          "13",
+          "14"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 8 + 5? Tap the answer!"
+      },
+        "text": "Make 10 first, then add the rest. 8 + 5. Tap the answer!",
         "caption": "Estimate first"
       },
       {
@@ -18128,12 +18414,13 @@ const MODULES = [
         "caption": "Today: 8 + 6"
       },
       {
-        "title": "Step 1: Find the Gap",
+        "title": "Fill: 8",
         "visual": {
-          "type": "ten-frame",
-          "filled": 8
-        },
-        "text": "Hakan: 8 needs how many for 10? Just 2!",
+        "type": "fill-ten-frame",
+        "target": 8,
+        "instruction": "Hakan, fill in 8 dots! That's the first number."
+      },
+        "text": "Start by filling in 8 on the ten-frame.",
         "caption": "8 needs 2"
       },
       {
@@ -18170,19 +18457,18 @@ const MODULES = [
         "caption": "8 + 6 = 14"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            10,
-            11,
-            12,
-            13,
-            14
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, look: 8+2=10, 8+3=11, 8+4=12, 8+5=13, 8+6=14. Each goes up by 1!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "14",
+          "15"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 8 + 6? Tap the answer!"
+      },
+        "text": "Make 10 first, then add the rest. 8 + 6. Tap the answer!",
         "caption": "Pattern: +1 each"
       },
       {
@@ -18429,12 +18715,13 @@ const MODULES = [
         "caption": "Today: 9 + 7"
       },
       {
-        "title": "Step 1: 9 Needs Just 1",
+        "title": "Fill: 9",
         "visual": {
-          "type": "ten-frame",
-          "filled": 9
-        },
-        "text": "Hakan: 9 only needs 1 more to make 10!",
+        "type": "fill-ten-frame",
+        "target": 9,
+        "instruction": "Hakan, fill in 9 dots! That's the first number."
+      },
+        "text": "Start by filling in 9 on the ten-frame.",
         "caption": "9 needs 1"
       },
       {
@@ -18471,13 +18758,18 @@ const MODULES = [
         "caption": "9 + 7 = 16"
       },
       {
-        "title": "Also: +9 Trick",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 9,
-          "b": 7
-        },
-        "text": "Hakan can ALSO use the +9 trick: 10 + 7 = 17, minus 1 = 16. Same answer!",
+        "type": "tap-the-answer",
+        "options": [
+          "15",
+          "16",
+          "17"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what is 9 + 7? Tap the answer!"
+      },
+        "text": "Make 10 first, then add the rest. 9 + 7. Tap the answer!",
         "caption": "+9 trick = 16 too"
       },
       {
@@ -18738,13 +19030,13 @@ const MODULES = [
         "caption": "1 dot = 1"
       },
       {
-        "title": "Two Dots Now",
+        "title": "Fill the Ten-Frame: 3",
         "visual": {
-          "type": "ten-frame",
-          "filled": 2,
-          "color": "blue"
-        },
-        "text": "Hakan adds another. Now 2 dots. Count: 1, 2!",
+        "type": "fill-ten-frame",
+        "target": 3,
+        "instruction": "Hakan, fill in 3 dots in the ten-frame!"
+      },
+        "text": "Tap to fill in 3 dots. The ten-frame helps you see the number!",
         "caption": "2 dots = 2"
       },
       {
@@ -18768,13 +19060,18 @@ const MODULES = [
         "caption": "3 < 5"
       },
       {
-        "title": "How Many Empty?",
+        "title": "Tap the Number",
         "visual": {
-          "type": "ten-frame",
-          "filled": 3,
-          "color": "blue"
-        },
-        "text": "Hakan, 3 dots filled. Empty boxes = 7. Together: 3 + 7 = 10!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, this ten-frame shows what number? Tap it!"
+      },
+        "text": "Look at the ten-frame. Count the dots. Tap the answer!",
         "caption": "3 + 7 = 10"
       },
       {
@@ -19028,13 +19325,13 @@ const MODULES = [
         "caption": "1 dot = 1"
       },
       {
-        "title": "Three Dots",
+        "title": "Fill the Ten-Frame: 5",
         "visual": {
-          "type": "ten-frame",
-          "filled": 3,
-          "color": "blue"
-        },
-        "text": "Hakan adds more. Now 3 dots in the top row.",
+        "type": "fill-ten-frame",
+        "target": 5,
+        "instruction": "Hakan, fill in 5 dots in the ten-frame!"
+      },
+        "text": "Tap to fill in 5 dots. The ten-frame helps you see the number!",
         "caption": "3 dots = 3"
       },
       {
@@ -19058,13 +19355,18 @@ const MODULES = [
         "caption": "Today: 5"
       },
       {
-        "title": "How Many Empty?",
+        "title": "Tap the Number",
         "visual": {
-          "type": "ten-frame",
-          "filled": 5,
-          "color": "blue"
-        },
-        "text": "Hakan, top row 5 + bottom row 0 empty = 5. Empty boxes = 5 too!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, this ten-frame shows what number? Tap it!"
+      },
+        "text": "Look at the ten-frame. Count the dots. Tap the answer!",
         "caption": "5 + 5 = 10"
       },
       {
@@ -19318,13 +19620,13 @@ const MODULES = [
         "caption": "Top row = 5"
       },
       {
-        "title": "One More: 6",
+        "title": "Fill the Ten-Frame: 7",
         "visual": {
-          "type": "ten-frame",
-          "filled": 6,
-          "color": "blue"
-        },
-        "text": "Hakan adds 1 to the bottom row. 5 + 1 = 6!",
+        "type": "fill-ten-frame",
+        "target": 7,
+        "instruction": "Hakan, fill in 7 dots in the ten-frame!"
+      },
+        "text": "Tap to fill in 7 dots. The ten-frame helps you see the number!",
         "caption": "5 + 1 = 6"
       },
       {
@@ -19348,13 +19650,18 @@ const MODULES = [
         "caption": "5 + extras = total"
       },
       {
-        "title": "How Many Empty?",
+        "title": "Tap the Number",
         "visual": {
-          "type": "ten-frame",
-          "filled": 7,
-          "color": "blue"
-        },
-        "text": "Hakan, 7 filled + 3 empty = 10. Together they make a full frame!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, this ten-frame shows what number? Tap it!"
+      },
+        "text": "Look at the ten-frame. Count the dots. Tap the answer!",
         "caption": "7 + 3 = 10"
       },
       {
@@ -19608,13 +19915,13 @@ const MODULES = [
         "caption": "Top row = 5"
       },
       {
-        "title": "Top + 3 = 8",
+        "title": "Fill the Ten-Frame: 9",
         "visual": {
-          "type": "ten-frame",
-          "filled": 8,
-          "color": "blue"
-        },
-        "text": "Hakan adds 3 more to the bottom. 5 + 3 = 8!",
+        "type": "fill-ten-frame",
+        "target": 9,
+        "instruction": "Hakan, fill in 9 dots in the ten-frame!"
+      },
+        "text": "Tap to fill in 9 dots. The ten-frame helps you see the number!",
         "caption": "5 + 3 = 8"
       },
       {
@@ -19638,13 +19945,18 @@ const MODULES = [
         "caption": "9 + 1 = 10"
       },
       {
-        "title": "How Many Empty?",
+        "title": "Tap the Number",
         "visual": {
-          "type": "ten-frame",
-          "filled": 9,
-          "color": "blue"
-        },
-        "text": "Hakan, 9 filled + 1 empty = 10. Just one empty box!",
+        "type": "tap-the-answer",
+        "options": [
+          "8",
+          "9",
+          "10"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, this ten-frame shows what number? Tap it!"
+      },
+        "text": "Look at the ten-frame. Count the dots. Tap the answer!",
         "caption": "9 + 1 = 10"
       },
       {
@@ -19898,13 +20210,13 @@ const MODULES = [
         "caption": "Top row = 5"
       },
       {
-        "title": "Top + 3 = 8",
+        "title": "Fill the Ten-Frame: 10",
         "visual": {
-          "type": "ten-frame",
-          "filled": 8,
-          "color": "blue"
-        },
-        "text": "Hakan adds more dots. 5 + 3 = 8. Almost there!",
+        "type": "fill-ten-frame",
+        "target": 10,
+        "instruction": "Hakan, fill in 10 dots in the ten-frame!"
+      },
+        "text": "Tap to fill in 10 dots. The ten-frame helps you see the number!",
         "caption": "5 + 3 = 8"
       },
       {
@@ -19928,13 +20240,18 @@ const MODULES = [
         "caption": "FULL = 10"
       },
       {
-        "title": "Pattern: Two Rows of 5",
+        "title": "Tap the Number",
         "visual": {
-          "type": "ten-frame",
-          "filled": 10,
-          "color": "blue"
-        },
-        "text": "Hakan, what do you notice? 5 on top + 5 on bottom = 10! Two equal rows!",
+        "type": "tap-the-answer",
+        "options": [
+          "9",
+          "10",
+          "11"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, this ten-frame shows what number? Tap it!"
+      },
+        "text": "Look at the ten-frame. Count the dots. Tap the answer!",
         "caption": "5 + 5 = 10"
       },
       {
@@ -20193,15 +20510,17 @@ const MODULES = [
         "caption": "7 > 4 ✨"
       },
       {
-        "title": "Same Trick Again",
+        "title": "Tap the Bigger",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 9,
-          "filledB": 3,
-          "colorA": "#22c55e",
-          "colorB": "#f59e0b"
-        },
-        "text": "Hakan, count again! Left has 9. Right has 3. 9 is bigger, so left has more.",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which ten-frame has MORE? Tap it!"
+      },
+        "text": "One frame has 6 dots, the other has 8. Tap the bigger number!",
         "caption": "9 > 3 🐊"
       },
       {
@@ -20620,13 +20939,18 @@ const MODULES = [
         "caption": "Build 23: 2 sticks + 3 ones"
       },
       {
-        "title": "Build 35",
+        "title": "Tap the Number",
         "visual": {
-          "type": "blocks",
-          "tens": 3,
-          "ones": 5
-        },
-        "text": "Hakan builds 35. Take 3 sticks (30) + 5 ones. 30 + 5 = 35!",
+        "type": "tap-the-answer",
+        "options": [
+          "12",
+          "21",
+          "23"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 2 tens + 1 one = ? Tap it!"
+      },
+        "text": "2 tens and 1 one make 21. Tap the right number!",
         "caption": "Build 35"
       },
       {
@@ -20920,13 +21244,18 @@ const MODULES = [
         "caption": "4T, 1O = 41"
       },
       {
-        "title": "Pattern: Tens × 10 + Ones",
+        "title": "Tap the Mystery",
         "visual": {
-          "type": "two-digit-num",
-          "n": 53,
-          "highlight": "tens"
-        },
-        "text": "Hakan, the secret: TENS × 10 + ONES = number! 5 tens + 3 = 53!",
+        "type": "tap-the-answer",
+        "options": [
+          "35",
+          "53",
+          "55"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 3 tens + 5 ones is what? Tap it!"
+      },
+        "text": "Build the number from tens and ones. Tap the right answer!",
         "caption": "Formula: T·10 + O"
       },
       {
@@ -21197,13 +21526,18 @@ const MODULES = [
         "caption": "23 + 10 = 33"
       },
       {
-        "title": "Try Again: 45 + 10",
+        "title": "Tap Ten More",
         "visual": {
-          "type": "blocks",
-          "tens": 5,
-          "ones": 5
-        },
-        "text": "Hakan, 45 + 10. Just add a stick! 5 tens + 5 ones = 55!",
+        "type": "tap-the-answer",
+        "options": [
+          "20",
+          "30",
+          "40"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, what is 30 + 10? Tap it!"
+      },
+        "text": "Add a ten to 30. Tap the right answer!",
         "caption": "45 + 10 = 55"
       },
       {
@@ -21458,13 +21792,18 @@ const MODULES = [
         "caption": "1:00 🏆"
       },
       {
-        "title": "3 O'Clock",
+        "title": "Tap the Time",
         "visual": {
-          "type": "clock",
-          "hour": 3,
-          "minute": 0
-        },
-        "text": "Long hand on 12. Short hand on 3. Hakan, 3 o'clock — like soccer practice!",
+        "type": "tap-the-answer",
+        "options": [
+          "2 o'clock",
+          "5 o'clock",
+          "8 o'clock"
+        ],
+        "correctIndex": 1,
+        "instruction": "Long hand on 12, short hand on 5. Tap the time!"
+      },
+        "text": "Read the long hand first — on 12 means O'CLOCK. Short hand says the hour.",
         "caption": "3:00 🎯"
       },
       {
@@ -21740,13 +22079,18 @@ const MODULES = [
         "caption": "Half past 1 🏆"
       },
       {
-        "title": "Half Past 3",
+        "title": "Tap the Time",
         "visual": {
-          "type": "clock",
-          "hour": 3,
-          "minute": 30
-        },
-        "text": "Long hand on 6. Short hand between 3 and 4. Hakan picks 3 — half past 3!",
+        "type": "tap-the-answer",
+        "options": [
+          "Half past 4",
+          "Half past 5",
+          "Half past 6"
+        ],
+        "correctIndex": 0,
+        "instruction": "Long hand on 6, short between 4 and 5. Tap it!"
+      },
+        "text": "Long hand on 6 = HALF PAST. Pick the smaller hour. Tap the time!",
         "caption": "Half past 3 🎯"
       },
       {
@@ -22002,13 +22346,14 @@ const MODULES = [
     "description": "Each penny = 1¢. Hakan, count them up!",
     "lesson": [
       {
-        "title": "Hakan, Today We Learn Pennies!",
+        "title": "Tap & Count Pennies",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🪙"
-        },
-        "text": "Hakan, today we'll learn about pennies. ONE penny = 1 cent. Easy!",
+        "type": "tap-to-count",
+        "emoji": "🪙",
+        "count": 5,
+        "instruction": "Hakan, tap each penny to count: 1¢, 2¢, 3¢, 4¢, 5¢!"
+      },
+        "text": "Each penny is 1 cent. Tap each one and count!",
         "caption": "1 penny = 1¢ ✨"
       },
       {
@@ -22042,13 +22387,18 @@ const MODULES = [
         "caption": "5¢ ⭐"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Total",
         "visual": {
-          "type": "bignum",
-          "n": 1,
-          "color": "brown"
-        },
-        "text": "Hakan, what do you notice? The number of pennies = number of cents!",
+        "type": "tap-the-answer",
+        "options": [
+          "3¢",
+          "5¢",
+          "7¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 5 pennies = ? cents. Tap it!"
+      },
+        "text": "Each penny is 1¢. Five pennies = 5¢!",
         "caption": "Same number 💯"
       },
       {
@@ -22314,13 +22664,18 @@ const MODULES = [
         "caption": "5, 10 = 10¢ 🎯"
       },
       {
-        "title": "Three Nickels",
+        "title": "Tap the Value",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "🪙"
-        },
-        "text": "Skip count by 5, Hakan: 5, 10, 15. Three nickels = 15 cents!",
+        "type": "tap-the-answer",
+        "options": [
+          "1¢",
+          "5¢",
+          "10¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 1 nickel is how many cents? Tap it!"
+      },
+        "text": "A nickel is worth 5 cents. Tap the right amount!",
         "caption": "5, 10, 15 = 15¢ ⭐"
       },
       {
@@ -22334,18 +22689,18 @@ const MODULES = [
         "caption": "20¢ 🌟"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Total",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            5,
-            10,
-            15,
-            20
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, what do you notice? Each nickel adds 5! That's skip-counting by 5.",
+        "type": "tap-the-answer",
+        "options": [
+          "10¢",
+          "15¢",
+          "20¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 3 nickels = ? cents. Tap it!"
+      },
+        "text": "Skip count by 5: 5, 10, 15. Tap the answer!",
         "caption": "+5 each 💯"
       },
       {
@@ -22601,13 +22956,18 @@ const MODULES = [
         "caption": "10, 20 = 20¢ 🎯"
       },
       {
-        "title": "Three Dimes",
+        "title": "Tap the Value",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "🪙"
-        },
-        "text": "Skip count by 10: 10, 20, 30. Hakan, three dimes = 30 cents!",
+        "type": "tap-the-answer",
+        "options": [
+          "5¢",
+          "10¢",
+          "25¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 1 dime is how many cents? Tap it!"
+      },
+        "text": "A dime is worth 10 cents. Tap the right amount!",
         "caption": "10, 20, 30 = 30¢ ⭐"
       },
       {
@@ -22621,18 +22981,18 @@ const MODULES = [
         "caption": "40¢ 🌟"
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Tap the Total",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            10,
-            20,
-            30,
-            40
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, what do you notice? Each dime adds 10! Skip counting by 10s.",
+        "type": "tap-the-answer",
+        "options": [
+          "20¢",
+          "30¢",
+          "40¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 3 dimes = ? cents. Tap it!"
+      },
+        "text": "Skip count by 10: 10, 20, 30. Tap the answer!",
         "caption": "+10 each 💯"
       },
       {
@@ -22858,13 +23218,14 @@ const MODULES = [
     "description": "Hakan lines up cubes end-to-end to measure how long things are.",
     "lesson": [
       {
-        "title": "Hakan's Lego Cubes",
+        "title": "Tap & Count Cubes",
         "visual": {
-          "type": "objects",
-          "emoji": "🟩",
-          "count": 4
-        },
-        "text": "Hey Hakan! Today we measure with cubes. Line them up end to end with no gaps. Then count!",
+        "type": "tap-to-count",
+        "emoji": "🟦",
+        "count": 5,
+        "instruction": "Hakan, tap each cube to count along the pencil!"
+      },
+        "text": "We measure by lining up cubes. Tap each cube!",
         "caption": "Line up, count up! 🎯"
       },
       {
@@ -23139,13 +23500,14 @@ const MODULES = [
     "description": "Hakan lays paperclips end-to-end to measure length.",
     "lesson": [
       {
-        "title": "Hakan's Paperclips",
+        "title": "Tap & Count Clips",
         "visual": {
-          "type": "objects",
-          "emoji": "📎",
-          "count": 4
-        },
-        "text": "Hi Hakan! Paperclips are perfect for measuring. Lay them end to end with no gaps!",
+        "type": "tap-to-count",
+        "emoji": "📎",
+        "count": 4,
+        "instruction": "Hakan, tap each paperclip to count the length!"
+      },
+        "text": "We measure with paperclips. Tap each one!",
         "caption": "End to end! 🎯"
       },
       {
@@ -23468,17 +23830,18 @@ const MODULES = [
         "caption": "2 + 8 + 5 = 15"
       },
       {
-        "title": "Try 4 + 6 + 3",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            4,
-            6,
-            3
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan spots 4 + 6 = 10. Then 10 + 3 = 13!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, what is 4 + 3 + 5? Tap it!"
+      },
+        "text": "Add three numbers together. Tap the right total!",
         "caption": "4 + 6 + 3 = 13"
       },
       {
@@ -23831,13 +24194,17 @@ const MODULES = [
         "caption": "5 = odd"
       },
       {
-        "title": "6 Apples Make 3 Pairs",
+        "title": "Tap Even or Odd",
         "visual": {
-          "type": "objects",
-          "count": 6,
-          "emoji": "🍎"
-        },
-        "text": "Hakan has 6. Pair them: 2 + 2 + 2 = 6. NO leftovers! EVEN!",
+        "type": "tap-the-answer",
+        "options": [
+          "Even",
+          "Odd"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, is 6 even or odd? Tap it!"
+      },
+        "text": "Even numbers make pairs. Odd numbers have one left over. Tap your choice!",
         "caption": "6 = even"
       },
       {
@@ -24214,20 +24581,18 @@ const MODULES = [
         "caption": "Same trick! 🐱🐶"
       },
       {
-        "title": "Find the Missing Spot",
+        "title": "Tap the Next",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            1,
-            2,
-            1,
-            2,
-            1,
-            2
-          ],
-          "missingIndex": 4
-        },
-        "text": "Hakan, look! The rule is 1, 2, 1, 2. So the missing one is 1!",
+        "type": "tap-the-answer",
+        "options": [
+          "red",
+          "blue",
+          "yellow"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, the pattern is red, blue, red, blue, ?. Tap what's next!"
+      },
+        "text": "AB pattern repeats. After blue comes red again. Tap your choice!",
         "caption": "Use the rule! 💯"
       },
       {
@@ -24660,20 +25025,17 @@ const MODULES = [
         "caption": "Same trick! 🐱🐱🐶🐶"
       },
       {
-        "title": "Find the Missing Spot",
+        "title": "Tap the Next",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            1,
-            1,
-            2,
-            2,
-            1,
-            1
-          ],
-          "missingIndex": 4
-        },
-        "text": "Hakan, the rule is 1-1-2-2. After 2-2 we go back to 1-1. Missing is 1!",
+        "type": "tap-the-answer",
+        "options": [
+          "red",
+          "blue"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, AABB pattern: red, red, blue, blue, red, red, ?. Tap next!"
+      },
+        "text": "AABB repeats in pairs. After red, red comes blue, blue!",
         "caption": "Use the rule! 💯"
       },
       {
@@ -25049,7 +25411,7 @@ const MODULES = [
     "emoji": "🍎",
     "category": "M",
     "kind": "generic",
-    "description": "Pick apples with Hakan and add them up!",
+    "description": "Pick apples with Hakan and Sara at Grandma's farm — count and add!",
     "lesson": [
       {
         "title": "Hakan's Big Tree",
@@ -25062,13 +25424,14 @@ const MODULES = [
         "caption": "1 apple 🍎"
       },
       {
-        "title": "READ the Story",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "🍎"
-        },
-        "text": "Hakan has 1 apple. He picks 2 more. How many now? Read it slowly!",
+        "type": "tap-to-count",
+        "emoji": "🍎",
+        "count": 3,
+        "instruction": "Hakan picks 3 apples. Tap each apple to count them!"
+      },
+        "text": "Hakan, the story uses 3 🍎. Tap each one to count!",
         "caption": "Read first 👀"
       },
       {
@@ -25096,35 +25459,60 @@ const MODULES = [
         "caption": "More = add ➕"
       },
       {
-        "title": "SOLVE: 1 + 2 = 3",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 1,
-          "b": 2
-        },
-        "text": "1 + 2 = 3. Hakan has 3 apples in his basket!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🍎 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🍎. How many were there? Tap the right number!",
         "caption": "1 + 2 = 3 💯"
       },
       {
         "title": "Another Story",
         "visual": {
-          "type": "add-groups",
-          "a": 2,
-          "b": 3,
-          "emoji": "🍎"
-        },
-        "text": "READ: Hakan has 2 apples. Dad gives 3 more. FIND 2 and 3. ADD: 2 + 3 = 5!",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 2,
+            "label": "Hakan had"
+          },
+          {
+            "value": 3,
+            "label": "Dad gave"
+          }
+        ],
+        "total": 5,
+        "totalLabel": "All apples"
+      },
+        "text": "READ: Hakan has 2 apples. Dad gives 3 more. The bar shows 2 and 3 make 5!",
         "caption": "2 + 3 = 5 ✨"
       },
       {
         "title": "One More: 4 + 1",
         "visual": {
-          "type": "add-groups",
-          "a": 4,
-          "b": 1,
-          "emoji": "🍎"
-        },
-        "text": "Hakan has 4 apples. Mom adds 1 more. 4 + 1 = 5 apples!",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 4,
+            "label": "Hakan picked"
+          },
+          {
+            "value": 1,
+            "label": "Mom added"
+          }
+        ],
+        "total": 5,
+        "totalLabel": "All apples"
+      },
+        "text": "Hakan has 4 apples. Mom adds 1 more. One bar with 4 and 1 = 5!",
         "caption": "4 + 1 = 5 🌟"
       },
       {
@@ -25372,7 +25760,7 @@ const MODULES = [
     "emoji": "🍪",
     "category": "C",
     "kind": "generic",
-    "description": "Hakan eats cookies — let's see how many are left!",
+    "description": "Cookies are vanishing from Hakan's jar — subtract to find how many are left!",
     "lesson": [
       {
         "title": "A Full Cookie Jar",
@@ -25385,14 +25773,14 @@ const MODULES = [
         "caption": "10 cookies to start"
       },
       {
-        "title": "Hakan Takes One",
+        "title": "Tap & Count",
         "visual": {
-          "type": "take-away",
-          "total": 10,
-          "taken": 1,
-          "emoji": "🍪"
-        },
-        "text": "Hakan eats 1 cookie. Look — the red ✖ shows the cookie he ate. Count what's left: 9!",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 4,
+        "instruction": "Hakan sees 4 cookies. Tap each cookie to count!"
+      },
+        "text": "Hakan, the story uses 4 🍪. Tap each one to count!",
         "caption": "10 − 1 = 9"
       },
       {
@@ -25418,13 +25806,18 @@ const MODULES = [
         "caption": "8 − 3 = 5"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 7,
-          "b": 2
-        },
-        "text": "Hakan reads 7 − 2. Same idea — take away 2 from 7. Count back: 6, 5! Answer 5.",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🍪 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🍪. How many were there? Tap the right number!",
         "caption": "7 − 2 = 5"
       },
       {
@@ -25690,16 +26083,17 @@ const MODULES = [
     "emoji": "🛝",
     "category": "B",
     "kind": "generic",
-    "description": "Hakan counts kids and toys at the playground.",
+    "description": "Hakan and Sara count kids and toys at the playground — addition and subtraction.",
     "lesson": [
       {
-        "title": "At the Playground",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "🧒"
-        },
-        "text": "Hakan runs to the park. He sees 4 kids playing already!",
+        "type": "tap-to-count",
+        "emoji": "🐶",
+        "count": 3,
+        "instruction": "Hakan sees 3 dogs at the park. Tap each one!"
+      },
+        "text": "Hakan, the story uses 3 🐶. Tap each one to count!",
         "caption": "4 kids at the park"
       },
       {
@@ -25735,14 +26129,18 @@ const MODULES = [
         "caption": "4 + 3 = 7"
       },
       {
-        "title": "Hakan Counts Swings",
+        "title": "Tap the Total",
         "visual": {
-          "type": "add-groups",
-          "a": 5,
-          "b": 2,
-          "emoji": "🛝"
-        },
-        "text": "Hakan sees 5 swings and 2 slides. 5 + 2 = 7 things to play on!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🐶 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🐶. How many were there? Tap the right number!",
         "caption": "5 + 2 = 7"
       },
       {
@@ -26006,16 +26404,17 @@ const MODULES = [
     "emoji": "🧸",
     "category": "C",
     "kind": "generic",
-    "description": "Hakan puts away toys — how many are left out?",
+    "description": "Help Hakan tidy his room — subtract toys as they go in the box!",
     "lesson": [
       {
-        "title": "A Messy Floor",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 9,
-          "emoji": "🧸"
-        },
-        "text": "Hakan looks at his floor. There are 9 toys everywhere! Time to clean up.",
+        "type": "tap-to-count",
+        "emoji": "🧸",
+        "count": 5,
+        "instruction": "Hakan opens his toy box. Tap each toy to count!"
+      },
+        "text": "Hakan, the story uses 5 🧸. Tap each one to count!",
         "caption": "9 toys to clean up"
       },
       {
@@ -26052,13 +26451,18 @@ const MODULES = [
         "caption": "7 − 2 = 5"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 5
-        },
-        "text": "Hakan reads 8 − 5. He thinks: WHAT + 5 = 8? Answer is 3 toys still out!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🧸 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🧸. How many were there? Tap the right number!",
         "caption": "8 − 5 = 3"
       },
       {
@@ -26324,16 +26728,17 @@ const MODULES = [
     "emoji": "🎂",
     "category": "B",
     "kind": "generic",
-    "description": "Hakan adds balloons, gifts, and friends at his birthday!",
+    "description": "Add up balloons, gifts, and friends at Sara's birthday party!",
     "lesson": [
       {
-        "title": "It's Hakan's Birthday!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 6,
-          "emoji": "🎈"
-        },
-        "text": "Hakan turns 6 today! He blows up 6 balloons for his party!",
+        "type": "tap-to-count",
+        "emoji": "🎂",
+        "count": 4,
+        "instruction": "Hakan blows 4 candles. Tap each one!"
+      },
+        "text": "Hakan, the story uses 4 🎂. Tap each one to count!",
         "caption": "6 balloons"
       },
       {
@@ -26368,14 +26773,18 @@ const MODULES = [
         "caption": "Make 10 first"
       },
       {
-        "title": "Hakan Counts Friends",
+        "title": "Tap the Total",
         "visual": {
-          "type": "add-groups",
-          "a": 7,
-          "b": 6,
-          "emoji": "🧒"
-        },
-        "text": "Hakan invited 7 friends. 6 more came. 7 + 6 = 13 friends!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🎂 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🎂. How many were there? Tap the right number!",
         "caption": "7 + 6 = 13"
       },
       {
@@ -26639,16 +27048,17 @@ const MODULES = [
     "emoji": "🛒",
     "category": "M",
     "kind": "generic",
-    "description": "Help Hakan count coins and pay for treats!",
+    "description": "Help Hakan count coins and pay for groceries with Mom!",
     "lesson": [
       {
-        "title": "Hakan's Pocket",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🪙"
-        },
-        "text": "Hakan has 5 shiny coins in his pocket. He's going to the store!",
+        "type": "tap-to-count",
+        "emoji": "🛒",
+        "count": 5,
+        "instruction": "Hakan picks 5 items. Tap each one!"
+      },
+        "text": "Hakan, the story uses 5 🛒. Tap each one to count!",
         "caption": "5 coins 🪙"
       },
       {
@@ -26686,35 +27096,60 @@ const MODULES = [
         "caption": "Spend = subtract ➖"
       },
       {
-        "title": "SOLVE: 5 − 2 = 3",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 5,
-          "b": 2
-        },
-        "text": "5 − 2 = 3. Hakan has 3 coins left after buying the toy!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🛒 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🛒. How many were there? Tap the right number!",
         "caption": "5 − 2 = 3 💯"
       },
       {
         "title": "More Coins",
         "visual": {
-          "type": "add-groups",
-          "a": 4,
-          "b": 3,
-          "emoji": "🪙"
-        },
-        "text": "Hakan has 4 coins. Grandma gives 3 more. \"Gives\" = ADD! 4 + 3 = 7 coins!",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 4,
+            "label": "Hakan had"
+          },
+          {
+            "value": 3,
+            "label": "Grandma gave"
+          }
+        ],
+        "total": 7,
+        "totalLabel": "All coins"
+      },
+        "text": "Hakan has 4 coins. Grandma gives 3 more. The bar joins 4 and 3 to make 7!",
         "caption": "4 + 3 = 7 ✨"
       },
       {
         "title": "Big Spend",
         "visual": {
-          "type": "take-away",
-          "total": 8,
-          "taken": 5,
-          "emoji": "🪙"
-        },
-        "text": "Hakan had 8 coins. He spent 5. \"Spent\" = SUBTRACT! 8 − 5 = 3 left.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 3,
+            "label": "Left"
+          },
+          {
+            "value": 5,
+            "label": "Hakan spent"
+          }
+        ],
+        "total": 8,
+        "totalLabel": "All coins"
+      },
+        "text": "Hakan had 8 coins. Bar splits: 5 spent and 3 left. 8 − 5 = 3!",
         "caption": "8 − 5 = 3 🌟"
       },
       {
@@ -26957,16 +27392,17 @@ const MODULES = [
     "emoji": "🌻",
     "category": "B",
     "kind": "generic",
-    "description": "Hakan plants and counts flowers in his sunny garden!",
+    "description": "Plant and count flowers in the backyard with Hakan and Dad!",
     "lesson": [
       {
-        "title": "Hakan's Sunny Garden",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🌻"
-        },
-        "text": "Hakan loves his garden. Today he sees 5 sunflowers!",
+        "type": "tap-to-count",
+        "emoji": "🌻",
+        "count": 6,
+        "instruction": "Hakan sees 6 flowers. Tap each!"
+      },
+        "text": "Hakan, the story uses 6 🌻. Tap each one to count!",
         "caption": "5 sunflowers"
       },
       {
@@ -27002,14 +27438,18 @@ const MODULES = [
         "caption": "7 + 5 = 12"
       },
       {
-        "title": "Doubles in the Garden",
+        "title": "Tap the Total",
         "visual": {
-          "type": "add-groups",
-          "a": 6,
-          "b": 6,
-          "emoji": "🌷"
-        },
-        "text": "Hakan plants 6 red and 6 yellow tulips. Double 6 = 12 tulips!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🌻 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🌻. How many were there? Tap the right number!",
         "caption": "6 + 6 = 12"
       },
       {
@@ -27274,16 +27714,17 @@ const MODULES = [
     "emoji": "📚",
     "category": "C",
     "kind": "generic",
-    "description": "Hakan takes books off the shelf — subtract within 20!",
+    "description": "Pull books off the shelf for storytime — subtract within 20!",
     "lesson": [
       {
-        "title": "A Big Bookshelf",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 15,
-          "emoji": "📚"
-        },
-        "text": "Hakan loves to read! He has 15 books on his shelf. Today we'll take some down.",
+        "type": "tap-to-count",
+        "emoji": "📚",
+        "count": 5,
+        "instruction": "Hakan has 5 books. Tap each!"
+      },
+        "text": "Hakan, the story uses 5 📚. Tap each one to count!",
         "caption": "15 books"
       },
       {
@@ -27320,13 +27761,18 @@ const MODULES = [
         "caption": "12 − 6 = 6"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 14,
-          "b": 5
-        },
-        "text": "Hakan reads 14 − 5. Count back: 13, 12, 11, 10, 9. Answer is 9!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 📚 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 📚. How many were there? Tap the right number!",
         "caption": "14 − 5 = 9"
       },
       {
@@ -27592,16 +28038,17 @@ const MODULES = [
     "emoji": "🍋",
     "category": "M",
     "kind": "generic",
-    "description": "Run a lemonade stand with Hakan — add and subtract!",
+    "description": "Run a lemonade stand with Hakan and Sara — add sales, subtract supplies!",
     "lesson": [
       {
-        "title": "Open for Business!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 8,
-          "emoji": "🥤"
-        },
-        "text": "Hakan sets up his lemonade stand. He has 8 cups all ready to sell!",
+        "type": "tap-to-count",
+        "emoji": "🍋",
+        "count": 4,
+        "instruction": "Hakan sees 4 lemons. Tap each!"
+      },
+        "text": "Hakan, the story uses 4 🍋. Tap each one to count!",
         "caption": "8 cups 🥤"
       },
       {
@@ -27639,35 +28086,60 @@ const MODULES = [
         "caption": "Sold = subtract ➖"
       },
       {
-        "title": "SOLVE: 8 − 2 = 6",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 2
-        },
-        "text": "8 − 2 = 6 cups left. Way to go, Hakan!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🍋 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🍋. How many were there? Tap the right number!",
         "caption": "8 − 2 = 6 💯"
       },
       {
         "title": "Mom Helps Out",
         "visual": {
-          "type": "add-groups",
-          "a": 6,
-          "b": 5,
-          "emoji": "🥤"
-        },
-        "text": "Hakan has 6 cups. Mom makes 5 more. \"More\" = ADD! 6 + 5 = 11 cups.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 6,
+            "label": "Hakan made"
+          },
+          {
+            "value": 5,
+            "label": "Mom made"
+          }
+        ],
+        "total": 11,
+        "totalLabel": "All cups"
+      },
+        "text": "Hakan has 6 cups. Mom makes 5 more. The bar shows 6 + 5 = 11 cups in all!",
         "caption": "6 + 5 = 11 ✨"
       },
       {
         "title": "Counting Coins",
         "visual": {
-          "type": "add-groups",
-          "a": 4,
-          "b": 3,
-          "emoji": "🪙"
-        },
-        "text": "Hakan earns 4 coins, then 3 more. \"More\" = ADD. 4 + 3 = 7 coins!",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 4,
+            "label": "First sale"
+          },
+          {
+            "value": 3,
+            "label": "Then earned"
+          }
+        ],
+        "total": 7,
+        "totalLabel": "All coins"
+      },
+        "text": "Hakan earns 4 coins, then 3 more. Bar puts 4 and 3 together: 4 + 3 = 7!",
         "caption": "4 + 3 = 7 🌟"
       },
       {
@@ -27910,16 +28382,17 @@ const MODULES = [
     "emoji": "🐶",
     "category": "M",
     "kind": "generic",
-    "description": "Compare animals at the pet store with Hakan!",
+    "description": "Compare animals at the pet store — greater than, less than!",
     "lesson": [
       {
-        "title": "A Trip to the Pets",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 6,
-          "emoji": "🐶"
-        },
-        "text": "Hakan visits the pet store. He sees 6 puppies wagging their tails!",
+        "type": "tap-to-count",
+        "emoji": "🐹",
+        "count": 5,
+        "instruction": "Hakan sees 5 hamsters. Tap each!"
+      },
+        "text": "Hakan, the story uses 5 🐹. Tap each one to count!",
         "caption": "6 puppies 🐶"
       },
       {
@@ -27958,34 +28431,56 @@ const MODULES = [
         "caption": "How many more = − ➖"
       },
       {
-        "title": "SOLVE: 6 − 4 = 2",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 4
-        },
-        "text": "6 − 4 = 2. Hakan has 2 MORE puppies than cats!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🐹 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🐹. How many were there? Tap the right number!",
         "caption": "6 − 4 = 2 💯"
       },
       {
         "title": "Birds vs Fish",
         "visual": {
-          "type": "compare-groups",
-          "a": 7,
-          "b": 3,
-          "emoji": "🐠"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 7,
+          "label": "Fish"
         },
-        "text": "Now Hakan counts 7 fish, 3 birds. \"How many more fish?\" 7 − 3 = 4 more!",
+        "smaller": {
+          "value": 3,
+          "label": "Birds"
+        },
+        "diff": 4,
+        "diffLabel": "more fish"
+      },
+        "text": "Hakan counts 7 fish, 3 birds. Two bars: the fish bar is 4 longer. 7 − 3 = 4!",
         "caption": "7 − 3 = 4 ✨"
       },
       {
         "title": "Equal Numbers",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 5
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 5,
+          "label": "Hamsters"
         },
-        "text": "Hakan sees 5 hamsters and 5 mice. They are EQUAL — same number!",
+        "smaller": {
+          "value": 5,
+          "label": "Mice"
+        },
+        "diff": 0,
+        "diffLabel": "equal"
+      },
+        "text": "Hakan sees 5 hamsters and 5 mice. The two bars are the same length — equal!",
         "caption": "5 = 5 🌟"
       },
       {
@@ -28228,16 +28723,17 @@ const MODULES = [
     "emoji": "🏃",
     "category": "B",
     "kind": "generic",
-    "description": "Hakan adds points and players on Sports Day!",
+    "description": "Add points and players on Sports Day with Coach Ben!",
     "lesson": [
       {
-        "title": "Sports Day Begins!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 8,
-          "emoji": "🏃"
-        },
-        "text": "Hakan zips out for sports day. He sees 8 runners ready!",
+        "type": "tap-to-count",
+        "emoji": "🏆",
+        "count": 4,
+        "instruction": "Hakan wins 4 medals. Tap each!"
+      },
+        "text": "Hakan, the story uses 4 🏆. Tap each one to count!",
         "caption": "8 runners"
       },
       {
@@ -28273,14 +28769,18 @@ const MODULES = [
         "caption": "7 + 5 = 12"
       },
       {
-        "title": "Kicking Goals",
+        "title": "Tap the Total",
         "visual": {
-          "type": "add-groups",
-          "a": 9,
-          "b": 6,
-          "emoji": "⚽"
-        },
-        "text": "Hakan kicks 9 goals. Friend kicks 6. +9 trick: 10 + 6 = 16, minus 1 = 15!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🏆 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🏆. How many were there? Tap the right number!",
         "caption": "9 + 6 = 15"
       },
       {
@@ -28545,16 +29045,17 @@ const MODULES = [
     "emoji": "🏖️",
     "category": "M",
     "kind": "generic",
-    "description": "Build sandcastles and find shells with Hakan at the beach!",
+    "description": "Build sandcastles and collect shells with Hakan at the beach!",
     "lesson": [
       {
-        "title": "At the Beach",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "🐚"
-        },
-        "text": "Hakan runs to the sand. He finds 4 pretty shells right away!",
+        "type": "tap-to-count",
+        "emoji": "🐚",
+        "count": 6,
+        "instruction": "Hakan finds 6 shells. Tap each!"
+      },
+        "text": "Hakan, the story uses 6 🐚. Tap each one to count!",
         "caption": "4 shells 🐚"
       },
       {
@@ -28592,35 +29093,58 @@ const MODULES = [
         "caption": "Gives = add ➕"
       },
       {
-        "title": "SOLVE: 4 + 3 = 7",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 4,
-          "b": 3
-        },
-        "text": "4 + 3 = 7. Hakan has 7 shells in his bucket!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🐚 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🐚. How many were there? Tap the right number!",
         "caption": "4 + 3 = 7 💯"
       },
       {
         "title": "Sandcastle Time",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 4,
-          "emoji": "🪣"
-        },
-        "text": "Hakan has 9 buckets of sand. 4 fall down! 9 − 4 = 5 buckets left.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Standing"
+          },
+          {
+            "value": 4,
+            "label": "Fell down"
+          }
+        ],
+        "total": 9,
+        "totalLabel": "All buckets"
+      },
+        "text": "Hakan has 9 buckets of sand. 4 fall. The bar splits: 5 left, 4 fell. 9 − 4 = 5!",
         "caption": "9 − 4 = 5 ✨"
       },
       {
         "title": "Sara's Shells",
         "visual": {
-          "type": "compare-groups",
-          "a": 8,
-          "b": 5,
-          "emoji": "🐚"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 8,
+          "label": "Hakan"
         },
-        "text": "Hakan has 8 shells, Sara has 5. \"How many more?\" SUBTRACT! 8 − 5 = 3.",
+        "smaller": {
+          "value": 5,
+          "label": "Sara"
+        },
+        "diff": 3,
+        "diffLabel": "more shells"
+      },
+        "text": "Hakan has 8 shells, Sara has 5. Hakan's bar is 3 longer. 8 − 5 = 3!",
         "caption": "8 − 5 = 3 🌟"
       },
       {
@@ -28863,16 +29387,17 @@ const MODULES = [
     "emoji": "🍿",
     "category": "M",
     "kind": "generic",
-    "description": "Share snacks fairly with Hakan and Sara!",
+    "description": "Share snacks fairly with Hakan and Sara on the drive home!",
     "lesson": [
       {
-        "title": "Snack Time!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 6,
-          "emoji": "🍿"
-        },
-        "text": "Hakan has a big bowl of 6 popcorn pieces. Yum, yum, yum!",
+        "type": "tap-to-count",
+        "emoji": "🍿",
+        "count": 5,
+        "instruction": "Hakan has 5 snacks. Tap each!"
+      },
+        "text": "Hakan, the story uses 5 🍿. Tap each one to count!",
         "caption": "6 popcorn 🍿"
       },
       {
@@ -28910,35 +29435,60 @@ const MODULES = [
         "caption": "Gives = subtract ➖"
       },
       {
-        "title": "SOLVE: 6 − 2 = 4",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 2
-        },
-        "text": "6 − 2 = 4. Hakan has 4 popcorn left!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🍿 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🍿. How many were there? Tap the right number!",
         "caption": "6 − 2 = 4 💯"
       },
       {
         "title": "More Snacks",
         "visual": {
-          "type": "add-groups",
-          "a": 5,
-          "b": 3,
-          "emoji": "🍇"
-        },
-        "text": "Hakan has 5 grapes. Mom adds 3. \"Adds\" = ADD! 5 + 3 = 8 grapes!",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Hakan had"
+          },
+          {
+            "value": 3,
+            "label": "Mom added"
+          }
+        ],
+        "total": 8,
+        "totalLabel": "All grapes"
+      },
+        "text": "Hakan has 5 grapes. Mom adds 3. The bar joins 5 and 3 to make 8!",
         "caption": "5 + 3 = 8 ✨"
       },
       {
         "title": "Crackers Gone!",
         "visual": {
-          "type": "take-away",
-          "total": 10,
-          "taken": 7,
-          "emoji": "🍪"
-        },
-        "text": "Hakan had 10 crackers. He ate 7. \"Ate\" = SUBTRACT! 10 − 7 = 3 left.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 3,
+            "label": "Left"
+          },
+          {
+            "value": 7,
+            "label": "Hakan ate"
+          }
+        ],
+        "total": 10,
+        "totalLabel": "All crackers"
+      },
+        "text": "Hakan had 10 crackers. He ate 7. The bar splits: 7 eaten, 3 left. 10 − 7 = 3!",
         "caption": "10 − 7 = 3 🌟"
       },
       {
@@ -29181,17 +29731,17 @@ const MODULES = [
     "emoji": "🏎️",
     "category": "B",
     "kind": "generic",
-    "description": "Hakan races on the number line — count on to win!",
+    "description": "Race toy cars on the number line — count on to reach the finish!",
     "lesson": [
       {
-        "title": "A Number Line Track",
+        "title": "Tap & Count",
         "visual": {
-          "type": "numberline",
-          "from": 0,
-          "to": 10,
-          "mark": 0
-        },
-        "text": "Hakan zooms his car onto a number line track from 0 to 10!",
+        "type": "tap-to-count",
+        "emoji": "🏎️",
+        "count": 4,
+        "instruction": "Hakan sees 4 race cars. Tap each!"
+      },
+        "text": "Hakan, the story uses 4 🏎️. Tap each one to count!",
         "caption": "Start at 0"
       },
       {
@@ -29228,14 +29778,18 @@ const MODULES = [
         "caption": "4 + 5 = 9"
       },
       {
-        "title": "Go Bigger",
+        "title": "Tap the Total",
         "visual": {
-          "type": "numberline",
-          "from": 0,
-          "to": 20,
-          "mark": 15
-        },
-        "text": "Hakan starts at 8 and jumps 7 spaces: 9, 10, 11, 12, 13, 14, 15!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🏎️ did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🏎️. How many were there? Tap the right number!",
         "caption": "8 + 7 = 15"
       },
       {
@@ -29501,16 +30055,17 @@ const MODULES = [
     "emoji": "🏫",
     "category": "M",
     "kind": "generic",
-    "description": "Compare more and fewer with Hakan's classmates!",
+    "description": "Compare classmates with Hakan in Mrs. Wilson's class!",
     "lesson": [
       {
-        "title": "In Hakan's Room",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 6,
-          "emoji": "👦"
-        },
-        "text": "Hakan's class has 6 boys today. They are ready to learn!",
+        "type": "tap-to-count",
+        "emoji": "📒",
+        "count": 5,
+        "instruction": "Hakan has 5 notebooks. Tap each!"
+      },
+        "text": "Hakan, the story uses 5 📒. Tap each one to count!",
         "caption": "6 boys 👦"
       },
       {
@@ -29549,35 +30104,58 @@ const MODULES = [
         "caption": "More = subtract ➖"
       },
       {
-        "title": "SOLVE: 6 − 4 = 2",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 4
-        },
-        "text": "6 − 4 = 2. Hakan finds 2 MORE boys than girls in the class!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 📒 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 📒. How many were there? Tap the right number!",
         "caption": "6 − 4 = 2 💯"
       },
       {
         "title": "Pencils & Erasers",
         "visual": {
-          "type": "compare-groups",
-          "a": 8,
-          "b": 5,
-          "emoji": "✏️"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 8,
+          "label": "Pencils"
         },
-        "text": "Hakan sees 8 pencils, 5 erasers. 8 − 5 = 3 more pencils!",
+        "smaller": {
+          "value": 5,
+          "label": "Erasers"
+        },
+        "diff": 3,
+        "diffLabel": "more pencils"
+      },
+        "text": "Hakan sees 8 pencils, 5 erasers. The pencil bar sticks out by 3. 8 − 5 = 3!",
         "caption": "8 − 5 = 3 ✨"
       },
       {
         "title": "Total Kids",
         "visual": {
-          "type": "add-groups",
-          "a": 6,
-          "b": 4,
-          "emoji": "🧒"
-        },
-        "text": "Hakan thinks: \"how many in all?\" = ADD! 6 + 4 = 10 kids total.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 6,
+            "label": "Boys"
+          },
+          {
+            "value": 4,
+            "label": "Girls"
+          }
+        ],
+        "total": 10,
+        "totalLabel": "All kids"
+      },
+        "text": "Hakan thinks: \"how many in all?\" The bar joins 6 boys and 4 girls = 10 kids!",
         "caption": "6 + 4 = 10 🌟"
       },
       {
@@ -29820,16 +30398,17 @@ const MODULES = [
     "emoji": "🧱",
     "category": "B",
     "kind": "generic",
-    "description": "Hakan builds towers — bond pairs that make 10!",
+    "description": "Build Lego towers with Hakan — find pairs that make 10!",
     "lesson": [
       {
-        "title": "Hakan Loves Legos",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 10,
-          "emoji": "🧱"
-        },
-        "text": "Hakan dumps out 10 Lego bricks. Time to build a perfect 10 tower!",
+        "type": "tap-to-count",
+        "emoji": "🧱",
+        "count": 6,
+        "instruction": "Hakan stacks 6 bricks. Tap each!"
+      },
+        "text": "Hakan, the story uses 6 🧱. Tap each one to count!",
         "caption": "10 bricks"
       },
       {
@@ -29865,13 +30444,18 @@ const MODULES = [
         "caption": "Bond of 10"
       },
       {
-        "title": "Find the Missing",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 4,
-          "b": 6
-        },
-        "text": "Hakan has 4 + ___ = 10. He thinks bond! Missing = 6.",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🧱 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🧱. How many were there? Tap the right number!",
         "caption": "4 + ? = 10"
       },
       {
@@ -30124,16 +30708,17 @@ const MODULES = [
     "emoji": "🗺️",
     "category": "B",
     "kind": "generic",
-    "description": "Find the missing addend with Hakan on a treasure hunt!",
+    "description": "Find the missing addend on Mrs. Wilson's treasure hunt!",
     "lesson": [
       {
-        "title": "A Map and a Mystery",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "💰"
-        },
-        "text": "Hakan finds a map. It says he needs 5 coins to open the chest!",
+        "type": "tap-to-count",
+        "emoji": "💎",
+        "count": 4,
+        "instruction": "Hakan finds 4 gems. Tap each!"
+      },
+        "text": "Hakan, the story uses 4 💎. Tap each one to count!",
         "caption": "Need: 5 coins"
       },
       {
@@ -30168,13 +30753,18 @@ const MODULES = [
         "caption": "4 + 6 = 10"
       },
       {
-        "title": "Use Doubles",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 6
-        },
-        "text": "Hakan needs 12 and has 6. 6 + ? = 12. Doubles! 6 + 6 = 12. So 6!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 💎 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 💎. How many were there? Tap the right number!",
         "caption": "6 + 6 = 12"
       },
       {
@@ -30419,16 +31009,17 @@ const MODULES = [
     "emoji": "🕒",
     "category": "M",
     "kind": "generic",
-    "description": "Math stories about time with Hakan!",
+    "description": "Tell time with Hakan in Mrs. Wilson's classroom!",
     "lesson": [
       {
-        "title": "A Time Story",
+        "title": "Tap & Count",
         "visual": {
-          "type": "clock",
-          "hour": 3,
-          "minute": 0
-        },
-        "text": "Hakan's class ends at 3 o'clock. Then he plays for 2 more hours!",
+        "type": "tap-to-count",
+        "emoji": "🕒",
+        "count": 3,
+        "instruction": "Hakan checks 3 clocks. Tap each!"
+      },
+        "text": "Hakan, the story uses 3 🕒. Tap each one to count!",
         "caption": "3 o'clock 🕒"
       },
       {
@@ -30466,13 +31057,18 @@ const MODULES = [
         "caption": "After = add ➕"
       },
       {
-        "title": "SOLVE: 3 + 2 = 5",
+        "title": "Tap the Total",
         "visual": {
-          "type": "clock",
-          "hour": 5,
-          "minute": 0
-        },
-        "text": "3 + 2 = 5. Hakan finishes at 5 o'clock!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🕒 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🕒. How many were there? Tap the right number!",
         "caption": "5 o'clock 💯"
       },
       {
@@ -30488,11 +31084,20 @@ const MODULES = [
       {
         "title": "How Many Hours?",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 6
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 9,
+          "label": "End time"
         },
-        "text": "Hakan's school starts at 6, ends at 9. \"How many hours?\" SUBTRACT! 9 − 6 = 3.",
+        "smaller": {
+          "value": 6,
+          "label": "Start time"
+        },
+        "diff": 3,
+        "diffLabel": "hours"
+      },
+        "text": "Hakan's school starts at 6, ends at 9. The bars compare — the gap is 3 hours!",
         "caption": "9 − 6 = 3 🌟"
       },
       {
@@ -30717,15 +31322,17 @@ const MODULES = [
     "emoji": "🍪",
     "category": "C",
     "kind": "generic",
-    "description": "Hakan subtracts from 10 in the kitchen!",
+    "description": "Bake cookies with Mom — subtract from 10 every time Hakan sneaks one!",
     "lesson": [
       {
-        "title": "A Tray of Ten",
+        "title": "Tap & Count",
         "visual": {
-          "type": "ten-frame",
-          "filled": 10
-        },
-        "text": "Hakan baked 10 cookies. The 10-frame is full! Today we'll take some away.",
+        "type": "tap-to-count",
+        "emoji": "🍪",
+        "count": 6,
+        "instruction": "Hakan bakes 6 cookies. Tap each!"
+      },
+        "text": "Hakan, the story uses 6 🍪. Tap each one to count!",
         "caption": "10 cookies"
       },
       {
@@ -30756,13 +31363,18 @@ const MODULES = [
         "caption": "10 − 3 = 7"
       },
       {
-        "title": "Just Symbols",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 10,
-          "b": 4
-        },
-        "text": "Hakan reads 10 − 4. Same idea: count back. Answer is 6!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🍪 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🍪. How many were there? Tap the right number!",
         "caption": "10 − 4 = 6"
       },
       {
@@ -30986,16 +31598,17 @@ const MODULES = [
     "emoji": "🐠",
     "category": "M",
     "kind": "generic",
-    "description": "Count and compare fish in Hakan's tank!",
+    "description": "Count and compare fish in Hakan's bedroom tank!",
     "lesson": [
       {
-        "title": "Hakan's Tank",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🐠"
-        },
-        "text": "Hakan has a fish tank. He counts 5 orange fish swimming!",
+        "type": "tap-to-count",
+        "emoji": "🐠",
+        "count": 5,
+        "instruction": "Hakan sees 5 fish. Tap each!"
+      },
+        "text": "Hakan, the story uses 5 🐠. Tap each one to count!",
         "caption": "5 fish 🐠"
       },
       {
@@ -31033,35 +31646,58 @@ const MODULES = [
         "caption": "Gives = add ➕"
       },
       {
-        "title": "SOLVE: 5 + 3 = 8",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 5,
-          "b": 3
-        },
-        "text": "5 + 3 = 8. Hakan has 8 fish in his tank!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🐠 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🐠. How many were there? Tap the right number!",
         "caption": "5 + 3 = 8 💯"
       },
       {
         "title": "Some Fish Swim Off",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 4,
-          "emoji": "🐟"
-        },
-        "text": "Hakan had 9 guppies. 4 swam to a friend's tank. 9 − 4 = 5 left!",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Stayed"
+          },
+          {
+            "value": 4,
+            "label": "Swam off"
+          }
+        ],
+        "total": 9,
+        "totalLabel": "All guppies"
+      },
+        "text": "Hakan had 9 guppies. 4 swam off. The bar splits: 4 gone, 5 left. 9 − 4 = 5!",
         "caption": "9 − 4 = 5 ✨"
       },
       {
         "title": "Compare Fish Colors",
         "visual": {
-          "type": "compare-groups",
-          "a": 7,
-          "b": 4,
-          "emoji": "🐠"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 7,
+          "label": "Orange"
         },
-        "text": "Hakan has 7 orange and 4 blue fish. \"How many MORE orange?\" 7 − 4 = 3.",
+        "smaller": {
+          "value": 4,
+          "label": "Blue"
+        },
+        "diff": 3,
+        "diffLabel": "more orange"
+      },
+        "text": "Hakan has 7 orange and 4 blue fish. The orange bar is 3 longer. 7 − 4 = 3!",
         "caption": "7 − 4 = 3 🌟"
       },
       {
@@ -31304,16 +31940,17 @@ const MODULES = [
     "emoji": "🖍️",
     "category": "B",
     "kind": "generic",
-    "description": "Hakan adds up his crayons — sums up to 20!",
+    "description": "Count crayons with Hakan and Sara — sums up to 20!",
     "lesson": [
       {
-        "title": "A New Box",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 12,
-          "emoji": "🖍️"
-        },
-        "text": "Hakan opens a box with 12 crayons. So many colors!",
+        "type": "tap-to-count",
+        "emoji": "🖍️",
+        "count": 6,
+        "instruction": "Hakan picks 6 crayons. Tap each!"
+      },
+        "text": "Hakan, the story uses 6 🖍️. Tap each one to count!",
         "caption": "12 crayons"
       },
       {
@@ -31349,13 +31986,18 @@ const MODULES = [
         "caption": "10 + 7 = 17"
       },
       {
-        "title": "Bridge Through Ten",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 9
-        },
-        "text": "8 + 9: Hakan makes 10 first. 8 + 2 = 10, then 10 + 7 = 17!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🖍️ did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🖍️. How many were there? Tap the right number!",
         "caption": "8 + 9 = 17"
       },
       {
@@ -31620,16 +32262,17 @@ const MODULES = [
     "emoji": "🦁",
     "category": "M",
     "kind": "generic",
-    "description": "Count animals at the zoo with Hakan — mixed math!",
+    "description": "Count animals on Mrs. Wilson's class zoo trip — mixed math!",
     "lesson": [
       {
-        "title": "Off to the Zoo!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "🦁"
-        },
-        "text": "Hakan goes to the zoo with Dad. They see 4 lions resting!",
+        "type": "tap-to-count",
+        "emoji": "🦁",
+        "count": 4,
+        "instruction": "Hakan visits 4 lions. Tap each!"
+      },
+        "text": "Hakan, the story uses 4 🦁. Tap each one to count!",
         "caption": "4 lions 🦁"
       },
       {
@@ -31667,35 +32310,58 @@ const MODULES = [
         "caption": "More = add ➕"
       },
       {
-        "title": "SOLVE: 4 + 3 = 7",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 4,
-          "b": 3
-        },
-        "text": "4 + 3 = 7. Hakan sees 7 lions in all!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🦁 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🦁. How many were there? Tap the right number!",
         "caption": "4 + 3 = 7 💯"
       },
       {
         "title": "Monkeys Hide",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 4,
-          "emoji": "🐵"
-        },
-        "text": "Hakan saw 9 monkeys. 4 hid behind trees. 9 − 4 = 5 still out!",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Still out"
+          },
+          {
+            "value": 4,
+            "label": "Hid"
+          }
+        ],
+        "total": 9,
+        "totalLabel": "All monkeys"
+      },
+        "text": "Hakan saw 9 monkeys. 4 hid. The bar splits: 4 hid, 5 still out. 9 − 4 = 5!",
         "caption": "9 − 4 = 5 ✨"
       },
       {
         "title": "Compare Animals",
         "visual": {
-          "type": "compare-groups",
-          "a": 8,
-          "b": 5,
-          "emoji": "🐘"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 8,
+          "label": "Elephants"
         },
-        "text": "Hakan sees 8 elephants, 5 giraffes. \"How many MORE elephants?\" 8 − 5 = 3!",
+        "smaller": {
+          "value": 5,
+          "label": "Giraffes"
+        },
+        "diff": 3,
+        "diffLabel": "more elephants"
+      },
+        "text": "Hakan sees 8 elephants, 5 giraffes. The elephant bar sticks out by 3. 8 − 5 = 3!",
         "caption": "8 − 5 = 3 🌟"
       },
       {
@@ -31938,16 +32604,17 @@ const MODULES = [
     "emoji": "🔵",
     "category": "M",
     "kind": "generic",
-    "description": "Win and lose marbles with Hakan!",
+    "description": "Play marbles with Hakan — win and lose, add and subtract!",
     "lesson": [
       {
-        "title": "Marble Pouch",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 7,
-          "emoji": "🔵"
-        },
-        "text": "Hakan has 7 shiny blue marbles in his pouch. He's ready to play!",
+        "type": "tap-to-count",
+        "emoji": "🔵",
+        "count": 5,
+        "instruction": "Hakan rolls 5 marbles. Tap each!"
+      },
+        "text": "Hakan, the story uses 5 🔵. Tap each one to count!",
         "caption": "7 marbles 🔵"
       },
       {
@@ -31985,35 +32652,58 @@ const MODULES = [
         "caption": "Wins = add ➕"
       },
       {
-        "title": "SOLVE: 7 + 3 = 10",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 7,
-          "b": 3
-        },
-        "text": "7 + 3 = 10. Hakan has 10 marbles now! Lucky!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🔵 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🔵. How many were there? Tap the right number!",
         "caption": "7 + 3 = 10 💯"
       },
       {
         "title": "Lost a Round",
         "visual": {
-          "type": "take-away",
-          "total": 10,
-          "taken": 4,
-          "emoji": "🔴"
-        },
-        "text": "Hakan had 10 marbles. He lost 4. \"Lost\" = SUBTRACT! 10 − 4 = 6.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 6,
+            "label": "Hakan kept"
+          },
+          {
+            "value": 4,
+            "label": "Lost"
+          }
+        ],
+        "total": 10,
+        "totalLabel": "All marbles"
+      },
+        "text": "Hakan had 10 marbles. He lost 4. The bar splits: 4 lost, 6 left. 10 − 4 = 6!",
         "caption": "10 − 4 = 6 ✨"
       },
       {
         "title": "Compare Pouches",
         "visual": {
-          "type": "compare-groups",
-          "a": 9,
-          "b": 5,
-          "emoji": "🔵"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 9,
+          "label": "Hakan"
         },
-        "text": "Hakan has 9, Sara has 5. \"How many MORE?\" SUBTRACT! 9 − 5 = 4 more.",
+        "smaller": {
+          "value": 5,
+          "label": "Sara"
+        },
+        "diff": 4,
+        "diffLabel": "more marbles"
+      },
+        "text": "Hakan has 9, Sara has 5. Hakan's bar is 4 longer than Sara's. 9 − 5 = 4!",
         "caption": "9 − 5 = 4 🌟"
       },
       {
@@ -32256,16 +32946,17 @@ const MODULES = [
     "emoji": "🌻",
     "category": "M",
     "kind": "generic",
-    "description": "Pick flowers for mom with Hakan!",
+    "description": "Pick a flower bouquet for Mom with Hakan!",
     "lesson": [
       {
-        "title": "In the Garden",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🌻"
-        },
-        "text": "Hakan walks in the garden. He sees 5 sunflowers shining bright!",
+        "type": "tap-to-count",
+        "emoji": "🌸",
+        "count": 6,
+        "instruction": "Hakan sees 6 flowers. Tap each!"
+      },
+        "text": "Hakan, the story uses 6 🌸. Tap each one to count!",
         "caption": "5 flowers 🌻"
       },
       {
@@ -32303,35 +32994,58 @@ const MODULES = [
         "caption": "In all = add ➕"
       },
       {
-        "title": "SOLVE: 5 + 4 = 9",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 5,
-          "b": 4
-        },
-        "text": "5 + 4 = 9. Hakan and Sara picked 9 flowers for mom!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🌸 did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the 🌸. How many were there? Tap the right number!",
         "caption": "5 + 4 = 9 💯"
       },
       {
         "title": "Some Wilted",
         "visual": {
-          "type": "take-away",
-          "total": 10,
-          "taken": 3,
-          "emoji": "🌷"
-        },
-        "text": "Hakan had 10 tulips. 3 wilted. \"Wilted\" = SUBTRACT! 10 − 3 = 7 left.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 7,
+            "label": "Still bright"
+          },
+          {
+            "value": 3,
+            "label": "Wilted"
+          }
+        ],
+        "total": 10,
+        "totalLabel": "All tulips"
+      },
+        "text": "Hakan had 10 tulips. 3 wilted. Bar splits: 3 wilted, 7 still bright. 10 − 3 = 7!",
         "caption": "10 − 3 = 7 ✨"
       },
       {
         "title": "Compare Bouquets",
         "visual": {
-          "type": "compare-groups",
-          "a": 8,
-          "b": 5,
-          "emoji": "🌹"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 8,
+          "label": "Hakan"
         },
-        "text": "Hakan has 8 roses, Sara has 5. \"How many MORE roses?\" 8 − 5 = 3!",
+        "smaller": {
+          "value": 5,
+          "label": "Sara"
+        },
+        "diff": 3,
+        "diffLabel": "more roses"
+      },
+        "text": "Hakan has 8 roses, Sara has 5. Hakan's bar is 3 longer. 8 − 5 = 3 more!",
         "caption": "8 − 5 = 3 🌟"
       },
       {
@@ -32574,16 +33288,17 @@ const MODULES = [
     "emoji": "⭐",
     "category": "M",
     "kind": "generic",
-    "description": "Trade stickers with Hakan and his friends!",
+    "description": "Trade stickers with Hakan and Sara — add and subtract!",
     "lesson": [
       {
-        "title": "Sticker Book",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 6,
-          "emoji": "⭐"
-        },
-        "text": "Hakan opens his sticker book. He has 6 star stickers inside!",
+        "type": "tap-to-count",
+        "emoji": "⭐",
+        "count": 5,
+        "instruction": "Hakan has 5 stickers. Tap each!"
+      },
+        "text": "Hakan, the story uses 5 ⭐. Tap each one to count!",
         "caption": "6 stickers ⭐"
       },
       {
@@ -32621,35 +33336,58 @@ const MODULES = [
         "caption": "Gets more = add ➕"
       },
       {
-        "title": "SOLVE: 6 + 4 = 10",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 4
-        },
-        "text": "6 + 4 = 10. Hakan has 10 stickers — a whole ten!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many ⭐ did you count? Tap the answer!"
+      },
+        "text": "Hakan, you counted the ⭐. How many were there? Tap the right number!",
         "caption": "6 + 4 = 10 💯"
       },
       {
         "title": "Trade Day",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 3,
-          "emoji": "🌟"
-        },
-        "text": "Hakan had 9 stickers. He traded 3 to a friend. \"Traded\" = SUBTRACT! 9 − 3 = 6.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 6,
+            "label": "Hakan kept"
+          },
+          {
+            "value": 3,
+            "label": "Traded"
+          }
+        ],
+        "total": 9,
+        "totalLabel": "All stickers"
+      },
+        "text": "Hakan had 9 stickers. He traded 3. The bar splits: 3 traded, 6 left. 9 − 3 = 6!",
         "caption": "9 − 3 = 6 ✨"
       },
       {
         "title": "Compare Books",
         "visual": {
-          "type": "compare-groups",
-          "a": 11,
-          "b": 7,
-          "emoji": "⭐"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 11,
+          "label": "Hakan"
         },
-        "text": "Hakan has 11, Sara has 7. \"How many MORE?\" SUBTRACT! 11 − 7 = 4.",
+        "smaller": {
+          "value": 7,
+          "label": "Sara"
+        },
+        "diff": 4,
+        "diffLabel": "more stickers"
+      },
+        "text": "Hakan has 11, Sara has 7. Hakan's bar is 4 longer than Sara's. 11 − 7 = 4!",
         "caption": "11 − 7 = 4 🌟"
       },
       {
@@ -32908,13 +33646,18 @@ const MODULES = [
         "caption": "0 corners + curved = circle."
       },
       {
-        "title": "The Clock is a Circle",
+        "title": "Tap the Circle",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🕐"
-        },
-        "text": "Hakan looks at a clock. Round all around! 0 corners. It's a circle!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "target": "circle",
+        "instruction": "Hakan, tap the CIRCLE!"
+      },
+        "text": "A circle has special features. Tap the circle!",
         "caption": "Clock face = circle."
       },
       {
@@ -32938,13 +33681,18 @@ const MODULES = [
         "caption": "Wheel = circle."
       },
       {
-        "title": "The Sun is a Circle",
+        "title": "Find the Circle",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "☀️"
-        },
-        "text": "Hakan looks up. The sun is round — a giant circle in the sky!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "target": "circle",
+        "instruction": "Hakan, find the CIRCLE again — tap it!"
+      },
+        "text": "Practice spotting the circle. Tap it!",
         "caption": "Sun = circle."
       },
       {
@@ -33242,13 +33990,18 @@ const MODULES = [
         "caption": "4 equal sides = square."
       },
       {
-        "title": "Cracker Square",
+        "title": "Tap the Square",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🍘"
-        },
-        "text": "Hakan eats a cracker. It has 4 equal sides — a square!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "target": "square",
+        "instruction": "Hakan, tap the SQUARE!"
+      },
+        "text": "A square has special features. Tap the square!",
         "caption": "4 sides + 4 corners = square."
       },
       {
@@ -33272,12 +34025,18 @@ const MODULES = [
         "caption": "Square window pane."
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Find the Square",
         "visual": {
-          "type": "shape",
-          "name": "square"
-        },
-        "text": "Hakan, every square has 4 sides the SAME length. Same rule every time!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "target": "square",
+        "instruction": "Hakan, find the SQUARE again — tap it!"
+      },
+        "text": "Practice spotting the square. Tap it!",
         "caption": "All 4 sides equal = square."
       },
       {
@@ -33557,13 +34316,18 @@ const MODULES = [
         "caption": "3 sides + 3 corners = triangle."
       },
       {
-        "title": "Pizza Slice",
+        "title": "Tap the Triangle",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🍕"
-        },
-        "text": "Hakan eats a pizza slice. It has 3 sides — it's a triangle!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "target": "triangle",
+        "instruction": "Hakan, tap the TRIANGLE!"
+      },
+        "text": "A triangle has special features. Tap the triangle!",
         "caption": "Pizza slice = triangle."
       },
       {
@@ -33587,12 +34351,18 @@ const MODULES = [
         "caption": "Sail = triangle."
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Find the Triangle",
         "visual": {
-          "type": "shape",
-          "name": "triangle"
-        },
-        "text": "Hakan, every triangle has 3 sides and 3 corners. Same rule every time!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "triangle"
+        ],
+        "target": "triangle",
+        "instruction": "Hakan, find the TRIANGLE again — tap it!"
+      },
+        "text": "Practice spotting the triangle. Tap it!",
         "caption": "Always 3 + 3."
       },
       {
@@ -33871,13 +34641,18 @@ const MODULES = [
         "caption": "2 long + 2 short = rectangle."
       },
       {
-        "title": "Door Shape",
+        "title": "Tap the Rectangle",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🚪"
-        },
-        "text": "Hakan opens a door. It has 4 corners — 2 long sides up & down, 2 short sides. Rectangle!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "rectangle"
+        ],
+        "target": "rectangle",
+        "instruction": "Hakan, tap the RECTANGLE!"
+      },
+        "text": "A rectangle has special features. Tap the rectangle!",
         "caption": "Door = rectangle."
       },
       {
@@ -33901,12 +34676,18 @@ const MODULES = [
         "caption": "Phone screen = rectangle."
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Find the Rectangle",
         "visual": {
-          "type": "shape",
-          "name": "rectangle"
-        },
-        "text": "Hakan, every rectangle has 4 corners and 2 long + 2 short sides!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "square",
+          "rectangle"
+        ],
+        "target": "rectangle",
+        "instruction": "Hakan, find the RECTANGLE again — tap it!"
+      },
+        "text": "Practice spotting the rectangle. Tap it!",
         "caption": "Always 4 corners."
       },
       {
@@ -34187,13 +34968,18 @@ const MODULES = [
         "caption": "6 sides = hexagon."
       },
       {
-        "title": "Honeycomb",
+        "title": "Tap the Hexagon",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🐝"
-        },
-        "text": "Hakan watches bees. They build hexagons in honeycomb — 6 sides each!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "hexagon",
+          "triangle"
+        ],
+        "target": "hexagon",
+        "instruction": "Hakan, tap the HEXAGON!"
+      },
+        "text": "A hexagon has special features. Tap the hexagon!",
         "caption": "Bees love hexagons."
       },
       {
@@ -34217,13 +35003,18 @@ const MODULES = [
         "caption": "Pencil end = hexagon."
       },
       {
-        "title": "What Do You Notice?",
+        "title": "Find the Hexagon",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "⬡"
-        },
-        "text": "Hakan, every hexagon has 6 sides AND 6 corners. Same rule!",
+        "type": "tap-shape",
+        "shapes": [
+          "circle",
+          "hexagon",
+          "triangle"
+        ],
+        "target": "hexagon",
+        "instruction": "Hakan, find the HEXAGON again — tap it!"
+      },
+        "text": "Practice spotting the hexagon. Tap it!",
         "caption": "Always 6 + 6."
       },
       {
@@ -34534,12 +35325,18 @@ const MODULES = [
         "caption": "Color doesn't change the shape."
       },
       {
-        "title": "Triangle is Always 3 Sides",
+        "title": "Tap Sides",
         "visual": {
-          "type": "shape",
-          "name": "triangle"
-        },
-        "text": "Hakan, big or small, blue or yellow — if it has 3 sides, it's a triangle!",
+        "type": "tap-the-answer",
+        "options": [
+          "3 sides",
+          "4 sides",
+          "0 sides"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, a triangle has how many sides? Tap it!"
+      },
+        "text": "Triangles always have 3 sides. Tap the right answer!",
         "caption": "3 sides = triangle, always."
       },
       {
@@ -34885,12 +35682,18 @@ const MODULES = [
         "caption": "Square = 4 + 4."
       },
       {
-        "title": "Rectangle: 4 + 4",
+        "title": "Tap Corners",
         "visual": {
-          "type": "shape",
-          "name": "rectangle"
-        },
-        "text": "Hakan counts a rectangle: 4 sides, 4 corners. Same as a square!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, a square has how many corners? Tap it!"
+      },
+        "text": "Count the corners on a square. Tap the right number!",
         "caption": "Rectangle = 4 + 4."
       },
       {
@@ -35140,13 +35943,18 @@ const MODULES = [
         "caption": "Cube = solid box shape."
       },
       {
-        "title": "Dice are Cubes",
+        "title": "Tap the Cube",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🎲"
-        },
-        "text": "Hakan rolls dice. Each die is a cube! 6 flat square faces.",
+        "type": "tap-shape",
+        "shapes": [
+          "cube",
+          "sphere",
+          "cone"
+        ],
+        "target": "cube",
+        "instruction": "Hakan, tap the CUBE!"
+      },
+        "text": "A cube is like a dice. Tap the cube!",
         "caption": "Dice = cube."
       },
       {
@@ -35479,13 +36287,18 @@ const MODULES = [
         "caption": "Sphere = round ball shape."
       },
       {
-        "title": "Soccer Ball",
+        "title": "Tap the Sphere",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "⚽"
-        },
-        "text": "Hakan kicks a soccer ball. A ball is a sphere! Round all the way around.",
+        "type": "tap-shape",
+        "shapes": [
+          "cube",
+          "sphere",
+          "cone"
+        ],
+        "target": "sphere",
+        "instruction": "Hakan, tap the SPHERE!"
+      },
+        "text": "A sphere is like a ball. Tap the sphere!",
         "caption": "Soccer ball = sphere."
       },
       {
@@ -35832,13 +36645,18 @@ const MODULES = [
         "caption": "Cylinder = can shape."
       },
       {
-        "title": "Soup Can",
+        "title": "Tap the Cylinder",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🥫"
-        },
-        "text": "Hakan picks up a soup can. It's a cylinder! Round circles on top and bottom.",
+        "type": "tap-shape",
+        "shapes": [
+          "cube",
+          "cylinder",
+          "cone"
+        ],
+        "target": "cylinder",
+        "instruction": "Hakan, tap the CYLINDER!"
+      },
+        "text": "A cylinder is like a soup can. Tap the cylinder!",
         "caption": "Can = cylinder."
       },
       {
@@ -36181,13 +36999,18 @@ const MODULES = [
         "caption": "Cone = round + pointy."
       },
       {
-        "title": "Ice Cream Cone",
+        "title": "Tap the Cone",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "🍦"
-        },
-        "text": "Hakan eats ice cream! The cone holding it has a pointy bottom and round top.",
+        "type": "tap-shape",
+        "shapes": [
+          "cube",
+          "cone",
+          "sphere"
+        ],
+        "target": "cone",
+        "instruction": "Hakan, tap the CONE!"
+      },
+        "text": "A cone is like an ice cream cone. Tap the cone!",
         "caption": "Ice cream cone."
       },
       {
@@ -36537,12 +37360,18 @@ const MODULES = [
         "caption": "2 triangles = 1 square."
       },
       {
-        "title": "2 Squares → Rectangle",
+        "title": "Tap the Shape",
         "visual": {
-          "type": "shape",
-          "name": "rectangle"
-        },
-        "text": "Hakan, put 2 squares side by side — together they make a rectangle!",
+        "type": "tap-the-answer",
+        "options": [
+          "square",
+          "rectangle",
+          "circle"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, two squares side-by-side make a what? Tap it!"
+      },
+        "text": "Two squares joined make a rectangle! Tap the right answer.",
         "caption": "2 squares = 1 rectangle."
       },
       {
@@ -36819,14 +37648,18 @@ const MODULES = [
         "caption": "Pizza in 2 = halves."
       },
       {
-        "title": "Cookie Cut in Half",
+        "title": "Tap the Parts",
         "visual": {
-          "type": "fraction",
-          "shape": "circle",
-          "parts": 2,
-          "filled": 1
-        },
-        "text": "Hakan splits a cookie. 2 equal parts — each is a half!",
+        "type": "tap-the-answer",
+        "options": [
+          "1 part",
+          "2 parts",
+          "4 parts"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, halves are how many equal parts? Tap it!"
+      },
+        "text": "Halves means 2 equal parts. Tap the right number!",
         "caption": "Cookie in 2 = halves."
       },
       {
@@ -37190,14 +38023,17 @@ const MODULES = [
         "caption": "Square in 2 = halves."
       },
       {
-        "title": "Half a Pizza",
+        "title": "Tap the Name",
         "visual": {
-          "type": "fraction",
-          "shape": "circle",
-          "parts": 2,
-          "filled": 1
-        },
-        "text": "Hakan splits a pizza. 2 equal slices = halves!",
+        "type": "tap-the-answer",
+        "options": [
+          "Halves",
+          "Fourths"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, the shape is in 2 equal pieces. What are these called? Tap it!"
+      },
+        "text": "Two equal pieces are halves. Tap the right name!",
         "caption": "Pizza in 2 = halves."
       },
       {
@@ -37544,14 +38380,18 @@ const MODULES = [
         "caption": "Pizza in 4 = fourths."
       },
       {
-        "title": "Cookie Cut in Fourths",
+        "title": "Tap the Parts",
         "visual": {
-          "type": "fraction",
-          "shape": "circle",
-          "parts": 4,
-          "filled": 1
-        },
-        "text": "Hakan splits a cookie 4 ways. Each piece = 1 fourth!",
+        "type": "tap-the-answer",
+        "options": [
+          "2",
+          "3",
+          "4"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, fourths means how many equal parts? Tap it!"
+      },
+        "text": "Fourths means 4 equal parts. Tap the right number!",
         "caption": "Cookie in 4 = fourths."
       },
       {
@@ -37926,14 +38766,17 @@ const MODULES = [
         "caption": "1 half > 1 fourth."
       },
       {
-        "title": "Fourths Are Smaller",
+        "title": "Tap the Name",
         "visual": {
-          "type": "fraction",
-          "shape": "circle",
-          "parts": 4,
-          "filled": 1
-        },
-        "text": "Hakan, 1 fourth is SMALLER than 1 half. More cuts = smaller pieces!",
+        "type": "tap-the-answer",
+        "options": [
+          "Halves",
+          "Fourths"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, MORE pieces means smaller pieces. Cut into 4? Tap the name!"
+      },
+        "text": "When we cut more pieces, each piece is smaller. 4 pieces = fourths.",
         "caption": "1 fourth < 1 half."
       },
       {
@@ -38267,14 +39110,17 @@ const MODULES = [
         "caption": "Same size = equal."
       },
       {
-        "title": "Equal Cookie Halves",
+        "title": "Tap Equal/Unequal",
         "visual": {
-          "type": "fraction",
-          "shape": "circle",
-          "parts": 2,
-          "filled": 1
-        },
-        "text": "Hakan splits a cookie evenly. Both pieces same size — equal!",
+        "type": "tap-the-answer",
+        "options": [
+          "Equal",
+          "Unequal"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, all pieces are the same size. Tap Equal or Unequal!"
+      },
+        "text": "Same size = equal. Different sizes = unequal. Tap the answer!",
         "caption": "Equal pieces always."
       },
       {
@@ -38658,13 +39504,18 @@ const MODULES = [
         "caption": "6 ÷ 2 = 3 each."
       },
       {
-        "title": "8 Slices, 4 Kids",
+        "title": "Tap How Many Each",
         "visual": {
-          "type": "objects",
-          "count": 8,
-          "emoji": "🍕"
-        },
-        "text": "Hakan has 8 pizza slices for 4 kids. 8 ÷ 4 = 2 slices each!",
+        "type": "tap-the-answer",
+        "options": [
+          "2 each",
+          "3 each",
+          "4 each"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan shares 6 cookies between 2 friends. How many each? Tap it!"
+      },
+        "text": "6 cookies into 2 groups = 3 each. Tap the answer!",
         "caption": "8 ÷ 4 = 2 each."
       },
       {
@@ -38966,13 +39817,17 @@ const MODULES = [
         "caption": "5 is longer than 3 ⭐"
       },
       {
-        "title": "Hakan's Hand vs Sister's",
+        "title": "Tap the Longer",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 6
-        },
-        "text": "Hakan and his sister put hands together at the wrist. Sister's hand is LONGER!",
+        "type": "tap-the-answer",
+        "options": [
+          "pencil",
+          "marker"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, which is longer? Tap it!"
+      },
+        "text": "Look at the two objects. Tap the LONGER one!",
         "caption": "6 is longer than 4 🌟"
       },
       {
@@ -39342,13 +40197,17 @@ const MODULES = [
         "caption": "7 is taller than 6 ⭐"
       },
       {
-        "title": "Tree vs Bush",
+        "title": "Tap the Taller",
         "visual": {
-          "type": "compare-pair",
-          "a": 9,
-          "b": 3
-        },
-        "text": "Hakan looks at the tree and bush. The tree is way TALLER!",
+        "type": "tap-the-answer",
+        "options": [
+          "tree",
+          "flower"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, which is taller? Tap it!"
+      },
+        "text": "Look at the heights. Tap the TALLER one!",
         "caption": "9 is taller than 3 🌟"
       },
       {
@@ -39727,13 +40586,18 @@ const MODULES = [
         "caption": "8 wins 🌟"
       },
       {
-        "title": "Three Towers",
+        "title": "Tap the Longest",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 9
-        },
-        "text": "Hakan built towers: 6, 9, and 5. The 9 is the TALLEST!",
+        "type": "tap-the-answer",
+        "options": [
+          "A",
+          "B",
+          "C"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which is the LONGEST of 3? Tap it!"
+      },
+        "text": "Compare three objects. Tap the LONGEST one!",
         "caption": "9 wins 💯"
       },
       {
@@ -40082,13 +40946,17 @@ const MODULES = [
         "caption": "5 cubes helps 🌟"
       },
       {
-        "title": "Two Towers, One Stick",
+        "title": "Tap the Longer",
         "visual": {
-          "type": "compare-pair",
-          "a": 8,
-          "b": 6
-        },
-        "text": "Hakan: Tower A is taller than the stick. Tower B is shorter. Tower A is TALLER!",
+        "type": "tap-the-answer",
+        "options": [
+          "A is longer",
+          "B is longer"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, A measures 8 cubes, B measures 5. Which is longer? Tap it!"
+      },
+        "text": "More cubes = longer. Tap the longer one!",
         "caption": "Stick helper 💯"
       },
       {
@@ -40426,13 +41294,14 @@ const MODULES = [
     "description": "Hakan measures bigger objects with cubes (10-20 range).",
     "lesson": [
       {
-        "title": "More Cubes for More Length",
+        "title": "Tap & Count Cubes",
         "visual": {
-          "type": "objects",
-          "emoji": "🟦",
-          "count": 12
-        },
-        "text": "Hi Hakan! Bigger things need MORE cubes. Same trick: line up, no gaps!",
+        "type": "tap-to-count",
+        "emoji": "🟦",
+        "count": 6,
+        "instruction": "Hakan, tap each cube to count the length!"
+      },
+        "text": "Line up cubes to measure. Tap each cube!",
         "caption": "Line up, count up! 🎯"
       },
       {
@@ -40711,13 +41580,14 @@ const MODULES = [
     "description": "Hakan measures bigger objects with paperclips (10-20 range).",
     "lesson": [
       {
-        "title": "More Clips for More Length",
+        "title": "Tap & Count Clips",
         "visual": {
-          "type": "objects",
-          "emoji": "📎",
-          "count": 11
-        },
-        "text": "Hi Hakan! Bigger things need MORE paperclips. Same trick: end-to-end, no gaps!",
+        "type": "tap-to-count",
+        "emoji": "📎",
+        "count": 5,
+        "instruction": "Hakan, tap each paperclip to count!"
+      },
+        "text": "Use paperclips to measure. Tap each one!",
         "caption": "End to end! 🎯"
       },
       {
@@ -41016,13 +41886,17 @@ const MODULES = [
         "caption": "Hakan > cat ⭐"
       },
       {
-        "title": "Apple vs Pumpkin",
+        "title": "Tap the Heavier",
         "visual": {
-          "type": "compare-pair",
-          "a": 1,
-          "b": 8
-        },
-        "text": "Hakan: apple is light, pumpkin is heavy. The PUMPKIN is heavier!",
+        "type": "tap-the-answer",
+        "options": [
+          "feather",
+          "rock"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which is HEAVIER? Tap it!"
+      },
+        "text": "Heavier means weighs more. Tap the heavier one!",
         "caption": "Pumpkin heavy! 🌟"
       },
       {
@@ -41392,13 +42266,17 @@ const MODULES = [
         "caption": "Bucket > cup ⭐"
       },
       {
-        "title": "Glass vs Pool",
+        "title": "Tap Holds More",
         "visual": {
-          "type": "compare-pair",
-          "a": 1,
-          "b": 10
-        },
-        "text": "Hakan: water glass holds 1. Pool holds 10! Pool holds WAY more!",
+        "type": "tap-the-answer",
+        "options": [
+          "small cup",
+          "big jug"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which holds MORE? Tap it!"
+      },
+        "text": "Capacity is how much something holds. Tap the one that holds more!",
         "caption": "Pool wins! 🌟"
       },
       {
@@ -41752,12 +42630,14 @@ const MODULES = [
     "description": "Hakan learns to count tally marks for small totals.",
     "lesson": [
       {
-        "title": "Hakan's Tally Trick",
+        "title": "Tap & Count Tallies",
         "visual": {
-          "type": "bignum",
-          "n": 5
-        },
-        "text": "Hi Hakan! Tally marks count things. Each line is ONE. Five lines = a group!",
+        "type": "tap-to-count",
+        "emoji": "✏️",
+        "count": 5,
+        "instruction": "Hakan, tap each tally mark to count to 5!"
+      },
+        "text": "Each line is one. Tap each tally mark!",
         "caption": "1 line = 1 ⭐"
       },
       {
@@ -42030,12 +42910,14 @@ const MODULES = [
     "description": "Hakan counts tally marks past 5 using groups.",
     "lesson": [
       {
-        "title": "Past 5 with Tally",
+        "title": "Tap & Count Tallies",
         "visual": {
-          "type": "bignum",
-          "n": 6
-        },
-        "text": "Hi Hakan! After 5, start a new group! Each diagonal group = 5.",
+        "type": "tap-to-count",
+        "emoji": "✏️",
+        "count": 7,
+        "instruction": "Hakan, tap each tally mark to count!"
+      },
+        "text": "Five lines and 2 more. Tap each!",
         "caption": "Group of 5 + more! 🎯"
       },
       {
@@ -42338,13 +43220,18 @@ const MODULES = [
         "caption": "3 slices 🌟"
       },
       {
-        "title": "Hakan's Soccer Balls",
+        "title": "Tap the Most",
         "visual": {
-          "type": "objects",
-          "emoji": "⚽",
-          "count": 6
-        },
-        "text": "Hakan saw 6 soccer balls in the picture graph. Six!",
+        "type": "tap-the-answer",
+        "options": [
+          "apples",
+          "pears",
+          "bananas"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, in the graph, which fruit has the MOST? Tap it!"
+      },
+        "text": "Look at the picture graph. Tap the bar with the most pictures!",
         "caption": "6 balls ⭐"
       },
       {
@@ -42623,13 +43510,18 @@ const MODULES = [
         "caption": "5 > 2 🌟"
       },
       {
-        "title": "Soccer vs Lego",
+        "title": "Tap the Tallest",
         "visual": {
-          "type": "compare-pair",
-          "a": 7,
-          "b": 4
-        },
-        "text": "Hakan's friends: 7 like soccer, 4 like Lego. Taller bar wins — soccer!",
+        "type": "tap-the-answer",
+        "options": [
+          "red",
+          "blue",
+          "green"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, which color has the TALLEST bar? Tap it!"
+      },
+        "text": "Tallest bar = most. Tap the color with the tallest bar!",
         "caption": "Soccer wins ⚽"
       },
       {
@@ -42954,13 +43846,18 @@ const MODULES = [
         "caption": "5 balls, 2 bricks 🌟"
       },
       {
-        "title": "Apples vs Oranges",
+        "title": "Tap the Attribute",
         "visual": {
-          "type": "compare-pair",
-          "a": 6,
-          "b": 3
-        },
-        "text": "Hakan sorted fruit: 6 apples, 3 oranges. Each group is easy to count!",
+        "type": "tap-the-answer",
+        "options": [
+          "color",
+          "shape",
+          "size"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, these are sorted by what? Tap it!"
+      },
+        "text": "Look closely. They're in groups by color! Tap your answer.",
         "caption": "6 apples, 3 oranges 💯"
       },
       {
@@ -43239,13 +44136,17 @@ const MODULES = [
         "caption": "Dogs win 🌟"
       },
       {
-        "title": "Soccer vs Lego Fans",
+        "title": "Tap More",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 9
-        },
-        "text": "Hakan asked friends: 4 like soccer, 9 like Lego. Lego is bigger!",
+        "type": "tap-the-answer",
+        "options": [
+          "dogs",
+          "cats"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, are there MORE dogs or cats? Tap it!"
+      },
+        "text": "Compare the bars. Tap the group with more!",
         "caption": "Lego wins 🧱"
       },
       {
@@ -43602,17 +44503,17 @@ const MODULES = [
         "caption": "2, 7, 2, 7, 2... ⭐"
       },
       {
-        "title": "Just Use the Rule",
+        "title": "Tap the Next",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            1,
-            4,
-            1,
-            4
-          ]
-        },
-        "text": "Hakan, after the second of the pair comes back to the first. After 4 → 1!",
+        "type": "tap-the-answer",
+        "options": [
+          "A",
+          "B"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, AB pattern: A, B, A, B, A, ?. Tap the next!"
+      },
+        "text": "AB repeats. After A, B comes A again. Tap it!",
         "caption": "Repeat the pair ✨"
       },
       {
@@ -44040,17 +44941,17 @@ const MODULES = [
         "caption": "Back to 2! ⭐"
       },
       {
-        "title": "Just Watch the Pairs",
+        "title": "Tap the Next",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            4,
-            4,
-            8,
-            8
-          ]
-        },
-        "text": "Hakan, after the second pair finishes, the FIRST pair starts again!",
+        "type": "tap-the-answer",
+        "options": [
+          "A",
+          "B"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, AABB pattern: A, A, B, B, A, A, ?. Tap next!"
+      },
+        "text": "AABB repeats. After AA, BB comes AA, then BB. Tap it!",
         "caption": "Pair, pair, pair ✨"
       },
       {
@@ -44484,20 +45385,18 @@ const MODULES = [
         "caption": "Same trick! 🐱🐶🐦"
       },
       {
-        "title": "Find the Missing One",
+        "title": "Tap the Next",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            1,
-            2,
-            3,
-            1,
-            2,
-            3
-          ],
-          "missingIndex": 4
-        },
-        "text": "Hakan, the rule is 1-2-3. After 1 comes 2! That's the missing one!",
+        "type": "tap-the-answer",
+        "options": [
+          "A",
+          "B",
+          "C"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, ABC pattern: A, B, C, A, B, C, ?. Tap it!"
+      },
+        "text": "ABC repeats. After C comes A again. Tap it!",
         "caption": "Use the rule! 💯"
       },
       {
@@ -44924,17 +45823,18 @@ const MODULES = [
         "caption": "Same rule! 🌟"
       },
       {
-        "title": "Start at 10",
+        "title": "Tap the Next",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            10,
-            11,
-            12,
-            13
-          ]
-        },
-        "text": "Hakan: 10, 11, 12, 13. The rule keeps working — +1!",
+        "type": "tap-the-answer",
+        "options": [
+          "8",
+          "9",
+          "10"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 6, 7, 8, ?. Tap the next!"
+      },
+        "text": "Add 1 each step. 8 + 1 = 9. Tap it!",
         "caption": "+1 from 10 ⭐"
       },
       {
@@ -45323,13 +46223,18 @@ const MODULES = [
         "caption": "Straight up = o'clock 🏆"
       },
       {
-        "title": "2 O'Clock",
+        "title": "Tap the Time",
         "visual": {
-          "type": "clock",
-          "hour": 2,
-          "minute": 0
-        },
-        "text": "Long hand on 12 (o'clock!). Short hand on 2. Hakan says: 2 o'clock!",
+        "type": "tap-the-answer",
+        "options": [
+          "3 o'clock",
+          "6 o'clock",
+          "9 o'clock"
+        ],
+        "correctIndex": 1,
+        "instruction": "Long hand on 12, short on 6. Tap the time!"
+      },
+        "text": "Long on 12 = O'CLOCK. Short on 6 = 6 o'clock. Tap it!",
         "caption": "2:00 🎯"
       },
       {
@@ -45717,13 +46622,18 @@ const MODULES = [
         "caption": "Straight down = half 🏆"
       },
       {
-        "title": "Pick the SMALLER Hour",
+        "title": "Tap the Time",
         "visual": {
-          "type": "clock",
-          "hour": 2,
-          "minute": 30
-        },
-        "text": "Short hand BETWEEN 2 and 3. Hakan, always pick the SMALLER number: half past 2!",
+        "type": "tap-the-answer",
+        "options": [
+          "Half past 7",
+          "Half past 8",
+          "Half past 9"
+        ],
+        "correctIndex": 0,
+        "instruction": "Long hand on 6, short between 7 and 8. Tap the time!"
+      },
+        "text": "Long on 6 = HALF PAST. Pick the smaller hour. Tap it!",
         "caption": "Smaller = 2 🎯"
       },
       {
@@ -46121,13 +47031,18 @@ const MODULES = [
         "caption": "Half past 3 🎯"
       },
       {
-        "title": "Watch the Long Hand!",
+        "title": "Tap the Time",
         "visual": {
-          "type": "clock",
-          "hour": 7,
-          "minute": 0
-        },
-        "text": "Long hand on 12 — 7 o'clock! Hakan, the long hand tells you o'clock or half past.",
+        "type": "tap-the-answer",
+        "options": [
+          "4 o'clock",
+          "Half past 4",
+          "Half past 5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Long hand on 6, short between 4 and 5. Tap the time!"
+      },
+        "text": "Long on 6 = half past. Smaller hour = 4. Tap it!",
         "caption": "7:00 ⭐"
       },
       {
@@ -46515,13 +47430,17 @@ const MODULES = [
         "caption": "Brush teeth ☀️"
       },
       {
-        "title": "PM = Afternoon/Evening",
+        "title": "Tap AM or PM",
         "visual": {
-          "type": "clock",
-          "hour": 7,
-          "minute": 0
-        },
-        "text": "Hakan, 7 PM is EVENING! Same number — but dark outside. Dinner time!",
+        "type": "tap-the-answer",
+        "options": [
+          "AM",
+          "PM"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, breakfast at 7. AM or PM? Tap it!"
+      },
+        "text": "Morning = AM. Afternoon/evening = PM. Tap the right one!",
         "caption": "7 PM = evening 🌙"
       },
       {
@@ -46882,17 +47801,18 @@ const MODULES = [
         "caption": "Weekend! 🎯"
       },
       {
-        "title": "Monday Comes First",
+        "title": "Tap the Day",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            1,
-            2,
-            3
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan, after Monday comes TUESDAY. After Tuesday comes WEDNESDAY!",
+        "type": "tap-the-answer",
+        "options": [
+          "Monday",
+          "Wednesday",
+          "Friday"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, after Tuesday comes? Tap it!"
+      },
+        "text": "Days of the week in order. After Tuesday is Wednesday. Tap it!",
         "caption": "Mon → Tue → Wed ⭐"
       },
       {
@@ -47302,17 +48222,18 @@ const MODULES = [
         "caption": "Apr, May, Jun 🎯"
       },
       {
-        "title": "Summer Months",
+        "title": "Tap the Month",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            7,
-            8,
-            9
-          ],
-          "missingIndex": -1
-        },
-        "text": "July, August, September! Hakan, summer is hot — pool time!",
+        "type": "tap-the-answer",
+        "options": [
+          "February",
+          "March",
+          "April"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, after January comes? Tap it!"
+      },
+        "text": "Months in order. After January is February. Tap it!",
         "caption": "Jul, Aug, Sep ⭐"
       },
       {
@@ -47692,19 +48613,18 @@ const MODULES = [
         "caption": "1st of month 🎯"
       },
       {
-        "title": "Counting by 1s",
+        "title": "Tap the Days",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            1,
-            2,
-            3,
-            4,
-            5
-          ],
-          "missingIndex": -1
-        },
-        "text": "Hakan counts: 1, 2, 3, 4, 5! Each square on the calendar = 1 day.",
+        "type": "tap-the-answer",
+        "options": [
+          "7 days",
+          "12 days",
+          "30 days"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, a week has how many days? Tap it!"
+      },
+        "text": "A week is 7 days long. Tap the answer!",
         "caption": "+1 each day ⭐"
       },
       {
@@ -48008,13 +48928,18 @@ const MODULES = [
         "caption": "3¢ 🎯"
       },
       {
-        "title": "5 Pennies = 5¢",
+        "title": "Tap the Value",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🪙"
-        },
-        "text": "Hakan, 5 pennies = 5 cents. Same value as 1 nickel!",
+        "type": "tap-the-answer",
+        "options": [
+          "1¢",
+          "5¢",
+          "10¢"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, a penny is worth how much? Tap it!"
+      },
+        "text": "A penny is 1 cent. Tap the right value!",
         "caption": "5¢ ⭐"
       },
       {
@@ -48318,13 +49243,18 @@ const MODULES = [
         "caption": "10¢ 🎯"
       },
       {
-        "title": "3 Nickels = 15¢",
+        "title": "Tap the Value",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "🪙"
-        },
-        "text": "Skip count by 5, Hakan: 5, 10, 15. Three nickels = 15 cents!",
+        "type": "tap-the-answer",
+        "options": [
+          "1¢",
+          "5¢",
+          "10¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, a nickel is worth how much? Tap it!"
+      },
+        "text": "A nickel is 5 cents. Tap the right value!",
         "caption": "15¢ ⭐"
       },
       {
@@ -48633,13 +49563,18 @@ const MODULES = [
         "caption": "20¢ 🎯"
       },
       {
-        "title": "3 Dimes = 30¢",
+        "title": "Tap the Value",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "🪙"
-        },
-        "text": "Skip count by 10, Hakan: 10, 20, 30. Three dimes = 30 cents!",
+        "type": "tap-the-answer",
+        "options": [
+          "5¢",
+          "10¢",
+          "25¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, a dime is worth how much? Tap it!"
+      },
+        "text": "A dime is 10 cents. Tap the right value!",
         "caption": "30¢ ⭐"
       },
       {
@@ -48936,13 +49871,18 @@ const MODULES = [
         "caption": "50¢ 🎯"
       },
       {
-        "title": "3 Quarters = 75¢",
+        "title": "Tap the Value",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "🪙"
-        },
-        "text": "Hakan: 25, 50, 75. Three quarters = 75 cents!",
+        "type": "tap-the-answer",
+        "options": [
+          "10¢",
+          "25¢",
+          "50¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, a quarter is worth how much? Tap it!"
+      },
+        "text": "A quarter is 25 cents. Tap the right value!",
         "caption": "75¢ ⭐"
       },
       {
@@ -49251,13 +50191,14 @@ const MODULES = [
     "description": "Hakan counts pennies up to 20¢!",
     "lesson": [
       {
-        "title": "Hakan, Today We Count Pennies!",
+        "title": "Tap & Count Pennies",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🪙"
-        },
-        "text": "Hakan, today we count pennies! Each penny = 1 cent. Just count: 1, 2, 3...",
+        "type": "tap-to-count",
+        "emoji": "🪙",
+        "count": 6,
+        "instruction": "Hakan, tap each penny to count!"
+      },
+        "text": "Each penny is 1¢. Tap each one to total!",
         "caption": "Count by 1s ✨"
       },
       {
@@ -49537,13 +50478,14 @@ const MODULES = [
     "description": "Hakan counts nickels by 5s!",
     "lesson": [
       {
-        "title": "Hakan, Today We Count Nickels!",
+        "title": "Tap & Count Nickels",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "🪙"
-        },
-        "text": "Hakan, today we count nickels by 5s! Each nickel = 5¢. Skip count!",
+        "type": "tap-to-count",
+        "emoji": "🪙",
+        "count": 4,
+        "instruction": "Hakan, tap each nickel to count by 5s!"
+      },
+        "text": "Each nickel is 5¢. Tap each: 5, 10, 15, 20!",
         "caption": "Count by 5s ✨"
       },
       {
@@ -49864,13 +50806,18 @@ const MODULES = [
         "caption": "5 + 2 = 7¢ 🎯"
       },
       {
-        "title": "Dime + Penny",
+        "title": "Tap the Total",
         "visual": {
-          "type": "bignum",
-          "n": 11,
-          "color": "silver"
-        },
-        "text": "1 dime = 10¢. Add 1 penny: 10 + 1 = 11¢! Hakan, you got it!",
+        "type": "tap-the-answer",
+        "options": [
+          "10¢",
+          "11¢",
+          "15¢"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, dime + penny = ? Tap it!"
+      },
+        "text": "10¢ + 1¢ = 11¢. Tap the right total!",
         "caption": "10 + 1 = 11¢ ⭐"
       },
       {
@@ -50120,13 +51067,14 @@ const MODULES = [
     "description": "Hakan counts past 100 — all the way to 120!",
     "lesson": [
       {
-        "title": "Hakan, Past 100!",
+        "title": "Tap & Count Tens",
         "visual": {
-          "type": "bignum",
-          "n": 100,
-          "color": "purple"
-        },
-        "text": "Hakan, you already count to 100. Today we go FURTHER — to 120!",
+        "type": "tap-to-count",
+        "emoji": "🔟",
+        "count": 10,
+        "instruction": "Hakan, tap each ten-block to count to 100!"
+      },
+        "text": "Each block is 10. Tap to count: 10, 20...100!",
         "caption": "Past 100!"
       },
       {
@@ -50196,12 +51144,18 @@ const MODULES = [
         "caption": "Reaching 120!"
       },
       {
-        "title": "Pattern: Just Like 1-20 with 100 in Front!",
+        "title": "Tap the Next",
         "visual": {
-          "type": "bignum",
-          "n": 115
-        },
-        "text": "Hakan, what do you notice? 115 looks like 15. Just imagine 100 added!",
+        "type": "tap-the-answer",
+        "options": [
+          "119",
+          "120",
+          "121"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, what comes after 119? Tap it!"
+      },
+        "text": "After 119 comes 120! Tap the answer.",
         "caption": "100 + 15 = 115"
       },
       {
@@ -50537,14 +51491,18 @@ const MODULES = [
         "caption": "6 → 7 → 8 → 9"
       },
       {
-        "title": "Start at 14, Count Up 4",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "numberline",
-          "from": 14,
-          "to": 20,
-          "mark": 18
-        },
-        "text": "Hakan starts at 14. He hops 4 times: 15, 16, 17, 18!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, start at 8, count on 3. Tap the answer!"
+      },
+        "text": "Start at 8: 9, 10, 11. Tap the right answer!",
         "caption": "14 → 18"
       },
       {
@@ -50849,13 +51807,18 @@ const MODULES = [
         "caption": "23 + 10 = 33"
       },
       {
-        "title": "Now: 45 + 10",
+        "title": "Tap Ten More",
         "visual": {
-          "type": "blocks",
-          "tens": 4,
-          "ones": 5
-        },
-        "text": "Hakan, 45 + 10. Just bump the TENS digit by 1. 4 → 5!",
+        "type": "tap-the-answer",
+        "options": [
+          "20",
+          "30",
+          "40"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, 30 + 10 = ? Tap it!"
+      },
+        "text": "Add a ten. 30 → 40. Tap it!",
         "caption": "Tens digit +1"
       },
       {
@@ -51124,13 +52087,18 @@ const MODULES = [
         "caption": "45 − 10 = 35"
       },
       {
-        "title": "Try: 67 − 10",
+        "title": "Tap Ten Less",
         "visual": {
-          "type": "blocks",
-          "tens": 6,
-          "ones": 7
-        },
-        "text": "Hakan, 67 − 10. Take away a stick! Tens 6 → 5. Ones stay.",
+        "type": "tap-the-answer",
+        "options": [
+          "20",
+          "30",
+          "40"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 30 − 10 = ? Tap it!"
+      },
+        "text": "Take a ten away. 30 → 20. Tap it!",
         "caption": "Tens digit −1"
       },
       {
@@ -51402,27 +52370,28 @@ const MODULES = [
         "caption": "11 = 10 + 1"
       },
       {
-        "title": "13 = 10 + 3",
+        "title": "Tap the Teen",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 3,
-          "colorA": "blue",
-          "colorB": "red"
-        },
-        "text": "Hakan, 13 means 10 + 3! Full frame + 3 dots = 13!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "30",
+          "31"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 1 ten + 3 ones = ? Tap it!"
+      },
+        "text": "1 ten and 3 ones make 13. Tap the right number!",
         "caption": "13 = 10 + 3"
       },
       {
-        "title": "16 = 10 + 6",
+        "title": "Fill: Ten",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 6,
-          "colorA": "blue",
-          "colorB": "red"
-        },
-        "text": "Hakan, 16 = 10 + 6! Always start with 10, add the ones!",
+        "type": "fill-ten-frame",
+        "target": 10,
+        "instruction": "Hakan, fill the ten-frame to make 10! Then we add ones to make a teen."
+      },
+        "text": "Fill the ten-frame with 10. Then more ones make a teen number!",
         "caption": "16 = 10 + 6"
       },
       {
@@ -51732,13 +52701,18 @@ const MODULES = [
         "caption": "3T = 30"
       },
       {
-        "title": "5 Sticks = 50",
+        "title": "Tap the Multiple",
         "visual": {
-          "type": "blocks",
-          "tens": 5,
-          "ones": 0
-        },
-        "text": "Hakan, 5 sticks = 50! Always ending in 0!",
+        "type": "tap-the-answer",
+        "options": [
+          "50",
+          "55",
+          "60"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 5 tens = ? Tap it!"
+      },
+        "text": "5 tens = 50. Tap the right answer!",
         "caption": "5T = 50"
       },
       {
@@ -52056,14 +53030,17 @@ const MODULES = [
         "caption": "4 + 1 = 5 ✅"
       },
       {
-        "title": "2 + 2 = 5: False!",
+        "title": "Tap True/False",
         "visual": {
-          "type": "add-groups",
-          "a": 2,
-          "b": 2,
-          "emoji": "🍎"
-        },
-        "text": "Hakan, 2 + 2 = 5? NO! 2 + 2 = 4, NOT 5. FALSE!",
+        "type": "tap-the-answer",
+        "options": [
+          "True",
+          "False"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 3 + 4 = 7. True or false? Tap it!"
+      },
+        "text": "Check: 3 + 4 = 7. Yes! True. Tap it!",
         "caption": "No match = False"
       },
       {
@@ -52441,14 +53418,18 @@ const MODULES = [
         "caption": "8 − 3 = 5 🍪"
       },
       {
-        "title": "Subtract Again: Take Away",
+        "title": "Tap the Answer",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 4,
-          "emoji": "🐟"
-        },
-        "text": "Hakan's fish tank had 9 fish. 4 swam away. 9 − 4 = 5 fish left.",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "5",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 8 − 3 = ? Tap it!"
+      },
+        "text": "Take 3 away from 8. Tap the answer!",
         "caption": "9 − 4 = 5 🐟"
       },
       {
@@ -52754,14 +53735,18 @@ const MODULES = [
         "caption": "5 + 5 = 10 ✨"
       },
       {
-        "title": "Try Again: Step by Step",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "add-groups",
-          "a": 4,
-          "b": 1,
-          "emoji": "⚽"
-        },
-        "text": "1 + 4 + 2. First: 1 + 4 = 5. Then: 5 + 2 = 7. Hakan, you got it!",
+        "type": "tap-the-answer",
+        "options": [
+          "7",
+          "9",
+          "11"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 2 + 3 + 4 = ? Tap it!"
+      },
+        "text": "Add three numbers: 2 + 3 = 5, then +4 = 9. Tap it!",
         "caption": "1 + 4 + 2 = 7 ⭐"
       },
       {
@@ -53064,14 +54049,18 @@ const MODULES = [
         "caption": "Add total 7 ⚽"
       },
       {
-        "title": "Subtract Story: 'Lost' or 'Gone'",
+        "title": "Tap the Total",
         "visual": {
-          "type": "take-away",
-          "total": 8,
-          "taken": 3,
-          "emoji": "🍪"
-        },
-        "text": "Hakan had 8 cookies. He ate 3. 'Ate' = take away! 8 − 3 = 5 cookies left.",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan had 4, got 3 more. How many? Tap it!"
+      },
+        "text": "4 + 3 = 7. Tap the answer!",
         "caption": "Ate = subtract 🍪"
       },
       {
@@ -53378,13 +54367,18 @@ const MODULES = [
         "caption": "+10 = next ten 💪"
       },
       {
-        "title": "Subtract 10: Tens Shrink",
+        "title": "Tap the Number",
         "visual": {
-          "type": "blocks",
-          "tens": 3,
-          "ones": 5
-        },
-        "text": "Hakan, subtract 10 takes away ONE TEN. 45 − 10 = 35. Easy!",
+        "type": "tap-the-answer",
+        "options": [
+          "46",
+          "64",
+          "60"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 6 tens + 4 ones = ? Tap it!"
+      },
+        "text": "6 tens + 4 ones = 64. Tap it!",
         "caption": "−10 = one less ten ⭐"
       },
       {
@@ -53696,13 +54690,18 @@ const MODULES = [
         "caption": "Take away = sub 🍪"
       },
       {
-        "title": "Place Value Review",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "blocks",
-          "tens": 3,
-          "ones": 7
-        },
-        "text": "Hakan, 37 means 3 tens and 7 ones. Tens always come first!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 5 + 5 = ? Tap it!"
+      },
+        "text": "Doubles! 5 + 5 = 10. Tap it!",
         "caption": "37 = 3 tens + 7 ones 🏠"
       },
       {
@@ -54018,14 +55017,18 @@ const MODULES = [
         "caption": "1 + 8: start at 8, jump 1 = 9 🎯"
       },
       {
-        "title": "Hakan, What Do You Notice?",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "add-groups",
-          "a": 9,
-          "b": 2,
-          "emoji": "⚽"
-        },
-        "text": "Hakan: 2 + 9. Start at 9, jump 2: 10, 11. Hakan, see how starting big saves time?",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 7 + 3. Start at 7, count on 3. Tap it!"
+      },
+        "text": "7, 8, 9, 10. Tap the answer!",
         "caption": "2 + 9: start at 9, jump 2 = 11 🏆"
       },
       {
@@ -54316,14 +55319,18 @@ const MODULES = [
         "caption": "7 − 1 = 6"
       },
       {
-        "title": "Hop 2 Steps",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "numberline",
-          "from": 1,
-          "to": 12,
-          "mark": 8
-        },
-        "text": "For 10 − 2, Hakan starts at 10 and hops back twice: 9, 8! He lands on 8.",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 10 − 3. Count back 3 from 10. Tap it!"
+      },
+        "text": "10, 9, 8, 7. Tap the answer!",
         "caption": "10 − 2 = 8"
       },
       {
@@ -54612,13 +55619,18 @@ const MODULES = [
         "caption": "4 + 5 = 9"
       },
       {
-        "title": "Try 6 + 7",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 7
-        },
-        "text": "Hakan knows 6 + 6 = 12. One more is 13. So 6 + 7 = 13!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 5 + 6 = double 5 + 1. Tap the answer!"
+      },
+        "text": "Double 5 = 10. Plus 1 = 11. Tap it!",
         "caption": "6 + 7 = 13"
       },
       {
@@ -54919,13 +55931,18 @@ const MODULES = [
         "caption": "5 + 5 − 1 = 9"
       },
       {
-        "title": "Try 6 + 7",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 7
-        },
-        "text": "Double 7 is 14. Minus one is 13. Hakan got 6 + 7 = 13!",
+        "type": "tap-the-answer",
+        "options": [
+          "8",
+          "9",
+          "10"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 5 + 4 = double 5 − 1. Tap it!"
+      },
+        "text": "Double 5 = 10. Minus 1 = 9. Tap it!",
         "caption": "7 + 7 − 1 = 13"
       },
       {
@@ -55203,15 +56220,13 @@ const MODULES = [
         "caption": "8 + 5: fill the ten first 💯"
       },
       {
-        "title": "Step by Step",
+        "title": "Fill: Make 10",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 3,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan: 8 + 2 = 10 (filled). Then 5 - 2 = 3 left. So 10 + 3 = 13. That's 8 + 5 = 13!",
+        "type": "fill-ten-frame",
+        "target": 10,
+        "instruction": "Hakan, fill the ten-frame to make 10!"
+      },
+        "text": "Use the ten-frame to make 10 first. Tap to fill it!",
         "caption": "10 + 3 = 13 ✨"
       },
       {
@@ -55239,13 +56254,18 @@ const MODULES = [
         "caption": "7 + 5 = 12 🏆"
       },
       {
-        "title": "Symbols",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-digit-add",
-          "a": 8,
-          "b": 6
-        },
-        "text": "Hakan reads 8 + 6. Make 8 into 10 by taking 2 from 6. Now 10 + 4 = 14. So 8 + 6 = 14!",
+        "type": "tap-the-answer",
+        "options": [
+          "12",
+          "13",
+          "14"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 8 + 5 = 10 + 3. Tap the answer!"
+      },
+        "text": "Make 10 from 8 + 2, then 3 left = 13. Tap it!",
         "caption": "8 + 6 = 14 ⭐"
       },
       {
@@ -55533,14 +56553,18 @@ const MODULES = [
         "caption": "13 − 3 = 10"
       },
       {
-        "title": "Step 2: Hop the Rest",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "numberline",
-          "from": 0,
-          "to": 15,
-          "mark": 8
-        },
-        "text": "Hakan has 2 hops left. From 10 hop 2 more: 9, 8. Final answer 8!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 13 − 6. Go back to 10 first. Tap the answer!"
+      },
+        "text": "13 − 3 = 10. Then 10 − 3 = 7. Tap it!",
         "caption": "10 − 2 = 8"
       },
       {
@@ -55830,15 +56854,18 @@ const MODULES = [
         "caption": "9 + 5 = 14 🎯"
       },
       {
-        "title": "Hakan, What Do You Notice?",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 6,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan: 9 + 6. Think 10 + 6 = 16. Take 1 away: 15. The answer is always 1 less than the teen number!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "14",
+          "15"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 9 + 4 = 10 + 3. Tap the answer!"
+      },
+        "text": "Add 10, then take 1 off. 10 + 4 − 1 = 13. Tap it!",
         "caption": "9 + 6 = 15 🏆"
       },
       {
@@ -56132,15 +57159,18 @@ const MODULES = [
         "caption": "8 + 5 = 13 🎯"
       },
       {
-        "title": "Hakan, What Do You Notice?",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 6,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan: 8 + 6. Think 10 + 6 = 16. Take 2 away: 14. The answer is always 2 less than the teen number!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "14",
+          "15"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 8 + 5 = 10 + 3. Tap the answer!"
+      },
+        "text": "Add 10, then take 2 off. 10 + 5 − 2 = 13. Tap it!",
         "caption": "8 + 6 = 14 🏆"
       },
       {
@@ -56431,13 +57461,18 @@ const MODULES = [
         "caption": "13 − 10 + 1 = 4"
       },
       {
-        "title": "Try 17 − 9",
+        "title": "Tap the Difference",
         "visual": {
-          "type": "two-digit-add",
-          "a": 17,
-          "b": 9
-        },
-        "text": "Hakan does 17 − 10 = 7. Add 1 back: 7 + 1 = 8. So 17 − 9 = 8!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 16 − 9. Take 10 off, add 1 back. Tap it!"
+      },
+        "text": "16 − 10 = 6. Add 1 back = 7. Tap it!",
         "caption": "17 − 10 + 1 = 8"
       },
       {
@@ -56732,15 +57767,18 @@ const MODULES = [
         "caption": "8 + 6 = 14 🎯"
       },
       {
-        "title": "Hakan, What Do You Notice?",
+        "title": "Tap the Sum",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 7,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan: 9 + 7. Round 9 up to 10 (1 extra). Now 10 + 7 = 17. Take 1 off: 16. Hakan, the trick: round, add, fix!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 9 + 1 = 10. Tap it!"
+      },
+        "text": "Adjust to make easy numbers. Tap the answer!",
         "caption": "9 + 7 = 16 🏆"
       },
       {
@@ -57011,15 +58049,13 @@ const MODULES = [
         "caption": "Bonds of 10 💯"
       },
       {
-        "title": "9 and 1",
+        "title": "Fill: 10",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 9,
-          "filledB": 1,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan, 9 + 1 = 10. Nine blue dots plus one orange dot fills the frame!",
+        "type": "fill-ten-frame",
+        "target": 10,
+        "instruction": "Hakan, fill the ten-frame with 10!"
+      },
+        "text": "10 has many partners: 1+9, 2+8, 3+7... Fill it!",
         "caption": "9 + 1 = 10 ✨"
       },
       {
@@ -57047,15 +58083,18 @@ const MODULES = [
         "caption": "7 + 3 = 10 🏆"
       },
       {
-        "title": "6 and 4",
+        "title": "Tap the Partner",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 6,
-          "filledB": 4,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan: 6 + 4 = 10. Memorize this! Bonds of 10 are super useful.",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, 5 + ? = 10. Tap the partner!"
+      },
+        "text": "5 + 5 = 10. Tap the partner!",
         "caption": "6 + 4 = 10 ⭐"
       },
       {
@@ -57300,15 +58339,13 @@ const MODULES = [
         "caption": "10 + 10 = 20 💯"
       },
       {
-        "title": "19 and 1",
+        "title": "Fill: First Ten",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 9,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan: 19 + 1 = 20. Almost a full 20 — just 1 missing!",
+        "type": "fill-ten-frame",
+        "target": 10,
+        "instruction": "Hakan, fill 10 to start! Then we double up to 20."
+      },
+        "text": "20 = 10 + 10. Fill the first ten-frame!",
         "caption": "19 + 1 = 20 ✨"
       },
       {
@@ -57336,15 +58373,18 @@ const MODULES = [
         "caption": "17 + 3 = 20 🏆"
       },
       {
-        "title": "16 and 4",
+        "title": "Tap the Partner",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 10,
-          "filledB": 6,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "Hakan: 16 + 4 = 20. The 6 in 16 needs 4 — same as 6 + 4 = 10. Just add 10 more in front!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "14",
+          "15"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 6 + ? = 20. Tap the partner!"
+      },
+        "text": "6 + 14 = 20. Tap the partner!",
         "caption": "16 + 4 = 20 ⭐"
       },
       {
@@ -57632,14 +58672,18 @@ const MODULES = [
         "caption": "5 + 3 = 8"
       },
       {
-        "title": "Fact 3: 8 − 3 = 5",
+        "title": "Tap the Whole",
         "visual": {
-          "type": "take-away",
-          "total": 8,
-          "taken": 3,
-          "emoji": "⭐"
-        },
-        "text": "Big minus one small = the other small. Hakan: 8 − 3 = 5!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, 3 + 5 = ? Tap the whole!"
+      },
+        "text": "3 + 5 = 8. Tap the whole!",
         "caption": "8 − 3 = 5"
       },
       {
@@ -57931,14 +58975,18 @@ const MODULES = [
         "caption": "6 + 4 = 10"
       },
       {
-        "title": "Fact 3: 10 − 4 = 6",
+        "title": "Tap the Whole",
         "visual": {
-          "type": "take-away",
-          "total": 10,
-          "taken": 4,
-          "emoji": "⭐"
-        },
-        "text": "Big minus small = other small. Hakan: 10 − 4 = 6!",
+        "type": "tap-the-answer",
+        "options": [
+          "8",
+          "9",
+          "10"
+        ],
+        "correctIndex": 2,
+        "instruction": "Hakan, 4 + 6 = ? Tap the whole!"
+      },
+        "text": "4 + 6 = 10. Tap the whole!",
         "caption": "10 − 4 = 6"
       },
       {
@@ -58229,13 +59277,18 @@ const MODULES = [
         "caption": "5 + 2 = 7 🎯"
       },
       {
-        "title": "Hakan, What Do You Notice?",
+        "title": "Tap Fast: Make 10",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 3
-        },
-        "text": "Hakan: 6 + 3. Start at 6, count: 7, 8, 9. The trick is counting in your head — quick and quiet!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 7 + 3 = ? Tap fast!"
+      },
+        "text": "Bonds of 10! 7 + 3 = 10. Tap it fast!",
         "caption": "6 + 3 = 9 🏆"
       },
       {
@@ -58525,15 +59578,18 @@ const MODULES = [
         "caption": "1 + 4 = 5 🎯"
       },
       {
-        "title": "Hakan, What Do You Notice?",
+        "title": "Tap Fast: +5",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 2,
-          "filledB": 3,
-          "colorA": "#3b82f6",
-          "colorB": "#f97316"
-        },
-        "text": "2 + 3 = 5. The pairs that make 5 are like best friends. Hakan, the more you see them, the faster you get!",
+        "type": "tap-the-answer",
+        "options": [
+          "10",
+          "11",
+          "12"
+        ],
+        "correctIndex": 0,
+        "instruction": "Hakan, 5 + 5 = ? Tap fast!"
+      },
+        "text": "Double 5 = 10. Tap fast!",
         "caption": "2 + 3 = 5 🏆"
       },
       {
@@ -58825,13 +59881,18 @@ const MODULES = [
         "caption": "4 + 4 = 8 🎯"
       },
       {
-        "title": "Hakan, What Do You Notice?",
+        "title": "Tap Fast: +10",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 4
-        },
-        "text": "Hakan: 6 + 4 = 10. A bond of 10. Just KNOW it. The more you see them, the faster you go!",
+        "type": "tap-the-answer",
+        "options": [
+          "13",
+          "14",
+          "15"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 4 + 10 = ? Tap fast!"
+      },
+        "text": "Add 10. 4 + 10 = 14. Tap fast!",
         "caption": "6 + 4 = 10 🏆"
       },
       {
@@ -59119,13 +60180,18 @@ const MODULES = [
         "caption": "−1 = before"
       },
       {
-        "title": "Use Bonds",
+        "title": "Tap Fast: −10",
         "visual": {
-          "type": "two-ten-frames",
-          "filledA": 7,
-          "filledB": 3
-        },
-        "text": "Hakan knows 7 + 3 = 10. So 10 − 7 = 3 and 10 − 3 = 7. Bonds work BOTH ways!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 14 − 10 = ? Tap fast!"
+      },
+        "text": "Subtract a ten. 14 − 10 = 4. Tap fast!",
         "caption": "Bonds = subtract too"
       },
       {
@@ -59418,13 +60484,18 @@ const MODULES = [
         "caption": "− = take away"
       },
       {
-        "title": "Same Numbers, Different Jobs",
+        "title": "Tap the Answer",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 2
-        },
-        "text": "Hakan tries 6 + 2 = 8, then 8 − 2 = 6. Same numbers, very different answers!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 9 − 5 = ? Tap it!"
+      },
+        "text": "Mix it up! 9 − 5 = 4. Tap it!",
         "caption": "Sign matters"
       },
       {
@@ -59713,14 +60784,18 @@ const MODULES = [
         "caption": "+9 = +10 − 1"
       },
       {
-        "title": "Minus: Stop at 10",
+        "title": "Tap the Answer",
         "visual": {
-          "type": "numberline",
-          "from": 0,
-          "to": 20,
-          "mark": 10
-        },
-        "text": "For 14 − 6, Hakan stops at 10 first: 14 − 4 = 10, then 10 − 2 = 8!",
+        "type": "tap-the-answer",
+        "options": [
+          "12",
+          "13",
+          "14"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, 8 + 5 = ? Tap it!"
+      },
+        "text": "Mix add/sub to 20. 8 + 5 = 13. Tap it!",
         "caption": "Stop at 10"
       },
       {
@@ -59981,13 +61056,14 @@ const MODULES = [
     "description": "Math from Hakan's school day, hour by hour!",
     "lesson": [
       {
-        "title": "Off to School",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 3,
-          "emoji": "📚"
-        },
-        "text": "Hakan packs 3 books in his backpack. School time!",
+        "type": "tap-to-count",
+        "emoji": "🎒",
+        "count": 5,
+        "instruction": "Hakan, tap each 🎒 to count 5!"
+      },
+        "text": "Hakan begins his story. Tap each 🎒 to count!",
         "caption": "3 books 📚"
       },
       {
@@ -60025,35 +61101,58 @@ const MODULES = [
         "caption": "Gives = add ➕"
       },
       {
-        "title": "SOLVE: 3 + 2 = 5",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 3,
-          "b": 2
-        },
-        "text": "3 + 2 = 5. Hakan has 5 books for class!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🎒 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "3 + 2 = 5 💯"
       },
       {
         "title": "Pencils Lost",
         "visual": {
-          "type": "take-away",
-          "total": 7,
-          "taken": 2,
-          "emoji": "✏️"
-        },
-        "text": "Hakan had 7 pencils. He lost 2. \"Lost\" = SUBTRACT! 7 − 2 = 5 left.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Left"
+          },
+          {
+            "value": 2,
+            "label": "Lost"
+          }
+        ],
+        "total": 7,
+        "totalLabel": "All pencils"
+      },
+        "text": "Hakan had 7 pencils. He lost 2. The bar splits: 2 lost, 5 left. 7 − 2 = 5!",
         "caption": "7 − 2 = 5 ✨"
       },
       {
         "title": "Recess Time",
         "visual": {
-          "type": "compare-groups",
-          "a": 9,
-          "b": 6,
-          "emoji": "🎒"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 9,
+          "label": "Backpacks"
         },
-        "text": "Hakan sees 9 backpacks, 6 lunch boxes. \"How many MORE backpacks?\" 9 − 6 = 3!",
+        "smaller": {
+          "value": 6,
+          "label": "Lunch boxes"
+        },
+        "diff": 3,
+        "diffLabel": "more backpacks"
+      },
+        "text": "Hakan sees 9 backpacks, 6 lunch boxes. Backpack bar is 3 longer. 9 − 6 = 3!",
         "caption": "9 − 6 = 3 🌟"
       },
       {
@@ -60303,13 +61402,14 @@ const MODULES = [
     "description": "Counting people and things in Hakan's family!",
     "lesson": [
       {
-        "title": "Hakan's Home",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "👨‍👩‍👧‍👦"
-        },
-        "text": "Hakan lives with Mom, Dad, and Sara. That's 4 people!",
+        "type": "tap-to-count",
+        "emoji": "👨‍👩‍👦",
+        "count": 4,
+        "instruction": "Hakan, tap each 👨‍👩‍👦 to count 4!"
+      },
+        "text": "Hakan begins his story. Tap each 👨‍👩‍👦 to count!",
         "caption": "4 people 👨‍👩‍👧‍👦"
       },
       {
@@ -60347,35 +61447,58 @@ const MODULES = [
         "caption": "More = add ➕"
       },
       {
-        "title": "SOLVE: 4 + 2 = 6",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 4,
-          "b": 2
-        },
-        "text": "4 + 2 = 6. Now 6 people in Hakan's house!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 👨‍👩‍👦 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "4 + 2 = 6 💯"
       },
       {
         "title": "Some Leave",
         "visual": {
-          "type": "take-away",
-          "total": 7,
-          "taken": 2,
-          "emoji": "👋"
-        },
-        "text": "Hakan sees 7 people. 2 leave for a walk. \"Leave\" = SUBTRACT! 7 − 2 = 5.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Stayed"
+          },
+          {
+            "value": 2,
+            "label": "Left for walk"
+          }
+        ],
+        "total": 7,
+        "totalLabel": "All people"
+      },
+        "text": "Hakan sees 7 people. 2 leave. Bar splits: 2 left, 5 stayed. 7 − 2 = 5!",
         "caption": "7 − 2 = 5 ✨"
       },
       {
         "title": "Compare Cousins",
         "visual": {
-          "type": "compare-groups",
-          "a": 8,
-          "b": 5,
-          "emoji": "🧒"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 8,
+          "label": "Boy cousins"
         },
-        "text": "Hakan has 8 boy cousins, 5 girl cousins. \"How many MORE boys?\" 8 − 5 = 3!",
+        "smaller": {
+          "value": 5,
+          "label": "Girl cousins"
+        },
+        "diff": 3,
+        "diffLabel": "more boys"
+      },
+        "text": "Hakan has 8 boy cousins, 5 girl cousins. Boy bar is 3 longer. 8 − 5 = 3!",
         "caption": "8 − 5 = 3 🌟"
       },
       {
@@ -60625,13 +61748,14 @@ const MODULES = [
     "description": "Counting snacks in Hakan's lunch box!",
     "lesson": [
       {
-        "title": "Lunch Time!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🥪"
-        },
-        "text": "Hakan opens his snack box. He has 5 yummy crackers!",
+        "type": "tap-to-count",
+        "emoji": "🥨",
+        "count": 6,
+        "instruction": "Hakan, tap each 🥨 to count 6!"
+      },
+        "text": "Hakan begins his story. Tap each 🥨 to count!",
         "caption": "5 crackers 🥪"
       },
       {
@@ -60669,35 +61793,58 @@ const MODULES = [
         "caption": "More = add ➕"
       },
       {
-        "title": "SOLVE: 5 + 3 = 8",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 5,
-          "b": 3
-        },
-        "text": "5 + 3 = 8. Hakan has 8 crackers for lunch!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🥨 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "5 + 3 = 8 💯"
       },
       {
         "title": "Snacks Eaten",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 4,
-          "emoji": "🍎"
-        },
-        "text": "Hakan has 9 fruit slices. He eats 4. \"Eats\" = SUBTRACT! 9 − 4 = 5 left.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Left"
+          },
+          {
+            "value": 4,
+            "label": "Hakan ate"
+          }
+        ],
+        "total": 9,
+        "totalLabel": "All slices"
+      },
+        "text": "Hakan had 9 fruit slices. He ate 4. Bar splits: 4 eaten, 5 left. 9 − 4 = 5!",
         "caption": "9 − 4 = 5 ✨"
       },
       {
         "title": "Compare Boxes",
         "visual": {
-          "type": "compare-groups",
-          "a": 8,
-          "b": 5,
-          "emoji": "🥪"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 8,
+          "label": "Hakan"
         },
-        "text": "Hakan has 8 crackers, Sara has 5. \"How many MORE crackers?\" 8 − 5 = 3!",
+        "smaller": {
+          "value": 5,
+          "label": "Sara"
+        },
+        "diff": 3,
+        "diffLabel": "more crackers"
+      },
+        "text": "Hakan has 8 crackers, Sara has 5. Hakan's bar is 3 longer. 8 − 5 = 3 more!",
         "caption": "8 − 5 = 3 🌟"
       },
       {
@@ -60947,13 +62094,14 @@ const MODULES = [
     "description": "Days and dates with Hakan's calendar!",
     "lesson": [
       {
-        "title": "Hakan's Week",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 7,
-          "emoji": "📅"
-        },
-        "text": "Hakan looks at his week. There are 7 days from Sunday to Saturday!",
+        "type": "tap-to-count",
+        "emoji": "📅",
+        "count": 7,
+        "instruction": "Hakan, tap each 📅 to count 7!"
+      },
+        "text": "Hakan begins his story. Tap each 📅 to count!",
         "caption": "7 days 📅"
       },
       {
@@ -60991,34 +62139,58 @@ const MODULES = [
         "caption": "More = add ➕"
       },
       {
-        "title": "SOLVE: 7 + 3 = 10",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 7,
-          "b": 3
-        },
-        "text": "7 + 3 = 10. Hakan waits 10 days total. A whole ten!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 📅 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "7 + 3 = 10 💯"
       },
       {
         "title": "Days Gone By",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 4,
-          "emoji": "📅"
-        },
-        "text": "Hakan had 9 days till birthday. 4 went by. \"Went by\" = SUBTRACT! 9 − 4 = 5.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Days left"
+          },
+          {
+            "value": 4,
+            "label": "Days gone"
+          }
+        ],
+        "total": 9,
+        "totalLabel": "All days"
+      },
+        "text": "Hakan had 9 days till birthday. 4 went by. Bar splits: 4 gone, 5 to go. 9 − 4 = 5!",
         "caption": "9 − 4 = 5 ✨"
       },
       {
         "title": "Compare Months",
         "visual": {
-          "type": "compare-pair",
-          "a": 12,
-          "b": 7
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 12,
+          "label": "Months"
         },
-        "text": "Hakan knows: a year has 12 months, a week has 7 days. \"How many more months?\" 12 − 7 = 5!",
+        "smaller": {
+          "value": 7,
+          "label": "Days"
+        },
+        "diff": 5,
+        "diffLabel": "more months"
+      },
+        "text": "A year has 12 months, a week has 7 days. Months bar is 5 longer. 12 − 7 = 5!",
         "caption": "12 − 7 = 5 🌟"
       },
       {
@@ -61265,14 +62437,14 @@ const MODULES = [
     "description": "Halves and fourths at Hakan's pizza party!",
     "lesson": [
       {
-        "title": "Hakan's Pizza Party!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "fraction",
-          "shape": "circle",
-          "parts": 1,
-          "filled": 1
-        },
-        "text": "Hakan throws a pizza party! 1 whole pizza, ready to share. Today we'll cut it fair!",
+        "type": "tap-to-count",
+        "emoji": "🍕",
+        "count": 8,
+        "instruction": "Hakan, tap each 🍕 to count 8!"
+      },
+        "text": "Hakan begins his story. Tap each 🍕 to count!",
         "caption": "1 whole pizza."
       },
       {
@@ -61309,14 +62481,18 @@ const MODULES = [
         "caption": "4 equal = fourths."
       },
       {
-        "title": "4 Friends, 4 Pieces",
+        "title": "Tap the Total",
         "visual": {
-          "type": "fraction",
-          "shape": "circle",
-          "parts": 4,
-          "filled": 4
-        },
-        "text": "Hakan invites 3 friends — 4 kids total. Each gets 1 fourth. Fair!",
+        "type": "tap-the-answer",
+        "options": [
+          "7",
+          "8",
+          "9"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🍕 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "4 fourths for 4 kids."
       },
       {
@@ -61601,13 +62777,14 @@ const MODULES = [
     "description": "Race and count toy cars with Hakan!",
     "lesson": [
       {
-        "title": "Toy Box",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 5,
-          "emoji": "🚗"
-        },
-        "text": "Hakan has 5 toy cars in his box. They are red and blue and green!",
+        "type": "tap-to-count",
+        "emoji": "🚗",
+        "count": 5,
+        "instruction": "Hakan, tap each 🚗 to count 5!"
+      },
+        "text": "Hakan begins his story. Tap each 🚗 to count!",
         "caption": "5 cars 🚗"
       },
       {
@@ -61645,35 +62822,58 @@ const MODULES = [
         "caption": "Gives = add ➕"
       },
       {
-        "title": "SOLVE: 5 + 4 = 9",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 5,
-          "b": 4
-        },
-        "text": "5 + 4 = 9. Hakan has 9 cars now! Vroom!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🚗 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "5 + 4 = 9 💯"
       },
       {
         "title": "Cars Lent Out",
         "visual": {
-          "type": "take-away",
-          "total": 8,
-          "taken": 3,
-          "emoji": "🚙"
-        },
-        "text": "Hakan had 8 cars. He lent 3 to Sara. \"Lent\" = SUBTRACT! 8 − 3 = 5.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 5,
+            "label": "Hakan kept"
+          },
+          {
+            "value": 3,
+            "label": "Lent to Sara"
+          }
+        ],
+        "total": 8,
+        "totalLabel": "All cars"
+      },
+        "text": "Hakan had 8 cars. He lent 3 to Sara. Bar splits: 3 lent, 5 kept. 8 − 3 = 5!",
         "caption": "8 − 3 = 5 ✨"
       },
       {
         "title": "Compare Colors",
         "visual": {
-          "type": "compare-groups",
-          "a": 9,
-          "b": 6,
-          "emoji": "🚗"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 9,
+          "label": "Red cars"
         },
-        "text": "Hakan has 9 red cars, 6 blue. \"How many MORE red?\" 9 − 6 = 3!",
+        "smaller": {
+          "value": 6,
+          "label": "Blue cars"
+        },
+        "diff": 3,
+        "diffLabel": "more red"
+      },
+        "text": "Hakan has 9 red cars, 6 blue. The red bar is 3 longer. 9 − 6 = 3 more red!",
         "caption": "9 − 6 = 3 🌟"
       },
       {
@@ -61923,13 +63123,14 @@ const MODULES = [
     "description": "Compare problems with Hakan and his sister Sara!",
     "lesson": [
       {
-        "title": "Brother and Sister",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 6,
-          "emoji": "📚"
-        },
-        "text": "Hakan has 6 books. His sister Sara has fewer. Let's compare!",
+        "type": "tap-to-count",
+        "emoji": "👫",
+        "count": 4,
+        "instruction": "Hakan, tap each 👫 to count 4!"
+      },
+        "text": "Hakan begins his story. Tap each 👫 to count!",
         "caption": "6 books 📚"
       },
       {
@@ -61968,35 +63169,58 @@ const MODULES = [
         "caption": "More = subtract ➖"
       },
       {
-        "title": "SOLVE: 6 − 4 = 2",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 6,
-          "b": 4
-        },
-        "text": "6 − 4 = 2. Hakan has 2 MORE books than Sara!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 👫 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "6 − 4 = 2 💯"
       },
       {
         "title": "Crayons Compare",
         "visual": {
-          "type": "compare-groups",
-          "a": 8,
-          "b": 5,
-          "emoji": "🖍️"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 8,
+          "label": "Hakan"
         },
-        "text": "Hakan has 8 crayons, Sara has 5. \"How many MORE?\" 8 − 5 = 3 more!",
+        "smaller": {
+          "value": 5,
+          "label": "Sara"
+        },
+        "diff": 3,
+        "diffLabel": "more crayons"
+      },
+        "text": "Hakan has 8 crayons, Sara has 5. The bars show Hakan's is 3 longer. 8 − 5 = 3!",
         "caption": "8 − 5 = 3 ✨"
       },
       {
         "title": "Total Together",
         "visual": {
-          "type": "add-groups",
-          "a": 6,
-          "b": 4,
-          "emoji": "📚"
-        },
-        "text": "But Hakan asks \"how many in ALL?\" = ADD! 6 + 4 = 10 books between them.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 6,
+            "label": "Hakan"
+          },
+          {
+            "value": 4,
+            "label": "Sara"
+          }
+        ],
+        "total": 10,
+        "totalLabel": "All books"
+      },
+        "text": "\"How many in ALL?\" Bar joins 6 and 4 = 10 books between Hakan and Sara!",
         "caption": "6 + 4 = 10 🌟"
       },
       {
@@ -62246,13 +63470,14 @@ const MODULES = [
     "description": "Counting books at the library with Hakan!",
     "lesson": [
       {
-        "title": "At the Library",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 4,
-          "emoji": "📚"
-        },
-        "text": "Hakan walks in. He picks 4 colorful books off the shelf!",
+        "type": "tap-to-count",
+        "emoji": "📚",
+        "count": 6,
+        "instruction": "Hakan, tap each 📚 to count 6!"
+      },
+        "text": "Hakan begins his story. Tap each 📚 to count!",
         "caption": "4 books 📚"
       },
       {
@@ -62290,35 +63515,58 @@ const MODULES = [
         "caption": "More = add ➕"
       },
       {
-        "title": "SOLVE: 4 + 3 = 7",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 4,
-          "b": 3
-        },
-        "text": "4 + 3 = 7. Hakan and Sara have 7 books!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 📚 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "4 + 3 = 7 💯"
       },
       {
         "title": "Books Returned",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 5,
-          "emoji": "📚"
-        },
-        "text": "Hakan had 9 books. He returned 5. \"Returned\" = SUBTRACT! 9 − 5 = 4 left.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 4,
+            "label": "Left"
+          },
+          {
+            "value": 5,
+            "label": "Returned"
+          }
+        ],
+        "total": 9,
+        "totalLabel": "All books"
+      },
+        "text": "Hakan had 9 books. He returned 5. Bar splits: 5 returned, 4 kept. 9 − 5 = 4!",
         "caption": "9 − 5 = 4 ✨"
       },
       {
         "title": "Compare Sections",
         "visual": {
-          "type": "compare-groups",
-          "a": 11,
-          "b": 7,
-          "emoji": "📖"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 11,
+          "label": "Picture"
         },
-        "text": "Hakan sees 11 picture books, 7 chapter books. \"More picture?\" 11 − 7 = 4!",
+        "smaller": {
+          "value": 7,
+          "label": "Chapter"
+        },
+        "diff": 4,
+        "diffLabel": "more picture"
+      },
+        "text": "Hakan sees 11 picture books, 7 chapter books. Picture bar is 4 longer. 11 − 7 = 4!",
         "caption": "11 − 7 = 4 🌟"
       },
       {
@@ -62568,13 +63816,14 @@ const MODULES = [
     "description": "Goals, scores, and adding at Hakan's soccer game!",
     "lesson": [
       {
-        "title": "Game Day!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "objects",
-          "count": 1,
-          "emoji": "⚽"
-        },
-        "text": "Hakan runs onto the field. He kicks 1 great goal in the first half!",
+        "type": "tap-to-count",
+        "emoji": "⚽",
+        "count": 5,
+        "instruction": "Hakan, tap each ⚽ to count 5!"
+      },
+        "text": "Hakan begins his story. Tap each ⚽ to count!",
         "caption": "1 goal ⚽"
       },
       {
@@ -62612,35 +63861,58 @@ const MODULES = [
         "caption": "More = add ➕"
       },
       {
-        "title": "SOLVE: 1 + 2 = 3",
+        "title": "Tap the Total",
         "visual": {
-          "type": "two-digit-add",
-          "a": 1,
-          "b": 2
-        },
-        "text": "1 + 2 = 3. Hakan scored 3 goals — hat trick!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many ⚽ did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "1 + 2 = 3 💯"
       },
       {
         "title": "Players on Field",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 2,
-          "emoji": "🧒"
-        },
-        "text": "Hakan sees 9 players. 2 took a break. \"Break\" = SUBTRACT! 9 − 2 = 7 left.",
+        "type": "bar-model",
+        "kind": "part-whole",
+        "parts": [
+          {
+            "value": 7,
+            "label": "Playing"
+          },
+          {
+            "value": 2,
+            "label": "On break"
+          }
+        ],
+        "total": 9,
+        "totalLabel": "All players"
+      },
+        "text": "Hakan sees 9 players. 2 took a break. Bar splits: 2 break, 7 playing. 9 − 2 = 7!",
         "caption": "9 − 2 = 7 ✨"
       },
       {
         "title": "Score Compare",
         "visual": {
-          "type": "compare-groups",
-          "a": 5,
-          "b": 3,
-          "emoji": "⚽"
+        "type": "bar-model",
+        "kind": "compare",
+        "bigger": {
+          "value": 5,
+          "label": "Hakan's team"
         },
-        "text": "Hakan's team scored 5, other team scored 3. \"How many MORE?\" 5 − 3 = 2!",
+        "smaller": {
+          "value": 3,
+          "label": "Other team"
+        },
+        "diff": 2,
+        "diffLabel": "more goals"
+      },
+        "text": "Hakan's team scored 5, other team scored 3. Hakan's bar is 2 longer. 5 − 3 = 2!",
         "caption": "5 − 3 = 2 🌟"
       },
       {
@@ -62890,14 +64162,14 @@ const MODULES = [
     "description": "Hakan slices his birthday cake into fair pieces!",
     "lesson": [
       {
-        "title": "Hakan's Birthday Cake!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "fraction",
-          "shape": "circle",
-          "parts": 1,
-          "filled": 1
-        },
-        "text": "Hakan turned 6! A round birthday cake! Today we'll cut it fair for everyone.",
+        "type": "tap-to-count",
+        "emoji": "🎂",
+        "count": 7,
+        "instruction": "Hakan, tap each 🎂 to count 7!"
+      },
+        "text": "Hakan begins his story. Tap each 🎂 to count!",
         "caption": "1 whole cake."
       },
       {
@@ -62934,14 +64206,18 @@ const MODULES = [
         "caption": "Same size = fair."
       },
       {
-        "title": "Square Cake Halved",
+        "title": "Tap the Total",
         "visual": {
-          "type": "fraction",
-          "shape": "square",
-          "parts": 2,
-          "filled": 1
-        },
-        "text": "Hakan: square cake works the same way. Cut in 2 = halves!",
+        "type": "tap-the-answer",
+        "options": [
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🎂 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "Square cake halves."
       },
       {
@@ -63237,13 +64513,14 @@ const MODULES = [
     "description": "Hakan solves number-clue mysteries to find the biggest number!",
     "lesson": [
       {
-        "title": "Detective Hakan",
+        "title": "Tap & Count",
         "visual": {
-          "type": "bignum",
-          "n": 5,
-          "color": "#8b5cf6"
-        },
-        "text": "Hakan, today YOU are a number detective! We use clues to figure out which number is biggest.",
+        "type": "tap-to-count",
+        "emoji": "🔎",
+        "count": 5,
+        "instruction": "Hakan, tap each 🔎 to count 5!"
+      },
+        "text": "Hakan begins his story. Tap each 🔎 to count!",
         "caption": "On the case! 🕵️"
       },
       {
@@ -63285,17 +64562,18 @@ const MODULES = [
         "caption": "Order: 3, 5, 8 ✨"
       },
       {
-        "title": "Order Three More",
+        "title": "Tap the Total",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            7,
-            2,
-            4
-          ],
-          "missingIndex": -1
-        },
-        "text": "Watch, Hakan! Smallest first: 2. Biggest: 7. Middle (leftover): 4. Order: 2, 4, 7.",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🔎 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "2, 4, 7 ⭐"
       },
       {
@@ -63677,12 +64955,14 @@ const MODULES = [
     "description": "Hakan finds rules in different patterns: AB, AABB, +1, +2.",
     "lesson": [
       {
-        "title": "Hakan, Pattern Master",
+        "title": "Tap & Count",
         "visual": {
-          "type": "bignum",
-          "n": 5
-        },
-        "text": "Hi Hakan! You know patterns! Find the rule, then keep going!",
+        "type": "tap-to-count",
+        "emoji": "🌀",
+        "count": 4,
+        "instruction": "Hakan, tap each 🌀 to count 4!"
+      },
+        "text": "Hakan begins his story. Tap each 🌀 to count!",
         "caption": "Find the rule! 🎯"
       },
       {
@@ -63732,17 +65012,18 @@ const MODULES = [
         "caption": "+1 rule ⭐"
       },
       {
-        "title": "+2: Skip Count",
+        "title": "Tap the Total",
         "visual": {
-          "type": "sequence",
-          "nums": [
-            2,
-            4,
-            6,
-            8
-          ]
-        },
-        "text": "Hakan: 2, 4, 6, 8. Each is +2! Skip count by 2s!",
+        "type": "tap-the-answer",
+        "options": [
+          "3",
+          "4",
+          "5"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🌀 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "+2 rule 💯"
       },
       {
@@ -64082,13 +65363,14 @@ const MODULES = [
     "description": "Hakan races through every math skill — addition, subtraction, place value, time!",
     "lesson": [
       {
-        "title": "The Math Marathon!",
+        "title": "Tap & Count",
         "visual": {
-          "type": "bignum",
-          "n": 10,
-          "color": "#22c55e"
-        },
-        "text": "Hakan, today is a MATH MARATHON! We'll race through every skill. Ready? Set? Go!",
+        "type": "tap-to-count",
+        "emoji": "🏃",
+        "count": 6,
+        "instruction": "Hakan, tap each 🏃 to count 6!"
+      },
+        "text": "Hakan begins his story. Tap each 🏃 to count!",
         "caption": "Marathon time! 🏃"
       },
       {
@@ -64125,14 +65407,18 @@ const MODULES = [
         "caption": "10 − 4 = 6 🍪"
       },
       {
-        "title": "Lap 2: Subtract Again",
+        "title": "Tap the Total",
         "visual": {
-          "type": "take-away",
-          "total": 9,
-          "taken": 6,
-          "emoji": "🐟"
-        },
-        "text": "Hakan: 9 − 6. Take away 6 from 9. 3 left. Still going strong!",
+        "type": "tap-the-answer",
+        "options": [
+          "5",
+          "6",
+          "7"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 🏃 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "9 − 6 = 3 🐟"
       },
       {
@@ -64404,13 +65690,14 @@ const MODULES = [
     "description": "Hakan explores graphs: count, compare, and find totals.",
     "lesson": [
       {
-        "title": "Hakan, Graph Explorer",
+        "title": "Tap & Count",
         "visual": {
-          "type": "compare-pair",
-          "a": 5,
-          "b": 8
-        },
-        "text": "Hi Hakan! Graphs tell stories. Count them, compare them, find totals!",
+        "type": "tap-to-count",
+        "emoji": "📊",
+        "count": 5,
+        "instruction": "Hakan, tap each 📊 to count 5!"
+      },
+        "text": "Hakan begins his story. Tap each 📊 to count!",
         "caption": "Read the graph! 🎯"
       },
       {
@@ -64444,13 +65731,18 @@ const MODULES = [
         "caption": "Subtract! 💯"
       },
       {
-        "title": "Find the Total",
+        "title": "Tap the Total",
         "visual": {
-          "type": "compare-pair",
-          "a": 4,
-          "b": 6
-        },
-        "text": "Hakan, ADD both groups for the total: 4 + 6 = 10!",
+        "type": "tap-the-answer",
+        "options": [
+          "4",
+          "5",
+          "6"
+        ],
+        "correctIndex": 1,
+        "instruction": "Hakan, how many 📊 did you count? Tap the total!"
+      },
+        "text": "Recall the count. Tap the right total!",
         "caption": "Add for total ✨"
       },
       {
@@ -65270,6 +66562,16 @@ function showSolutionButton(p) {
     host.appendChild(btn);
 }
 
+// Per-module worked-example scripts loaded at startup (see workedExamples.json).
+// Each entry: { strategy, intro, steps, applyToVisual, example } for a module id.
+let WORKED_EXAMPLES = {};
+(async function loadWorkedExamples() {
+    try {
+        const res = await fetch('workedExamples.json?v=' + (typeof AUDIO_VERSION !== 'undefined' ? AUDIO_VERSION : 1));
+        if (res.ok) WORKED_EXAMPLES = await res.json();
+    } catch (e) { /* silent — feature falls back to generic walkthrough */ }
+})();
+
 // Animated walkthrough for the few visuals we know how to step through.
 // Renders into the existing visual container with a temporary overlay.
 function playSolutionWalkthrough(p) {
@@ -65277,6 +66579,52 @@ function playSolutionWalkthrough(p) {
     if (!visualHost) return;
     const v = p.visual || {};
     if (typeof playSound === 'function') playSound('click');
+
+    // Per-module worked example takes priority — author-provided narration
+    // tied to the lesson's primary strategy.
+    const we = WORKED_EXAMPLES[moduleState.moduleId];
+    if (we && Array.isArray(we.steps) && we.steps.length) {
+        const overlay = document.createElement('div');
+        overlay.className = 'walk-overlay';
+        overlay.innerHTML = `<div class="walk-num"></div><div class="walk-step"></div>`;
+        visualHost.appendChild(overlay);
+        const numEl = overlay.querySelector('.walk-num');
+        const stepEl = overlay.querySelector('.walk-step');
+        if (we.intro) stepEl.textContent = we.intro;
+        const result = we.example && (we.example.result != null ? we.example.result : we.example.answer);
+        let i = 0;
+        function tickStep() {
+            if (i >= we.steps.length) {
+                if (result != null) {
+                    numEl.textContent = result;
+                    if (we.example && we.example.a != null && we.example.b != null) {
+                        const op = (we.strategy && we.strategy.indexOf('count-back') >= 0) ||
+                                   (we.strategy && we.strategy.indexOf('take') >= 0)
+                                   ? '−' : '+';
+                        stepEl.textContent = `${we.example.a} ${op} ${we.example.b} = ${result} ✨`;
+                    } else {
+                        stepEl.textContent = `Answer: ${result} ✨`;
+                    }
+                    if (typeof playSound === 'function') playSound('correct');
+                }
+                setTimeout(() => overlay.remove(), 2400);
+                return;
+            }
+            const s = we.steps[i++];
+            stepEl.textContent = (typeof s === 'string') ? s : (s && s.text) || '';
+            if (s && s.text) {
+                const m = String(s.text).match(/\b(\d+)\b/);
+                if (m) {
+                    numEl.textContent = m[1];
+                    numEl.classList.remove('walk-pop'); void numEl.offsetWidth;
+                    numEl.classList.add('walk-pop');
+                }
+            }
+            setTimeout(tickStep, 1200);
+        }
+        if (we.intro) setTimeout(tickStep, 1200); else tickStep();
+        return;
+    }
 
     // For "5 + 3" style problems, count up: 5 -> 6 -> 7 -> 8
     if (v.type === 'two-digit-add' || v.type === 'add-groups') {
