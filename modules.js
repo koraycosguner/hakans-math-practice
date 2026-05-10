@@ -204,6 +204,7 @@ const MODULES = [
         title: 'Counting to 120',
         emoji: '🔢',
         order: 1,
+        category: 'A',
         kind: 'generic',
         description: 'Count up, count down, and find missing numbers.',
         lesson: [
@@ -259,6 +260,7 @@ const MODULES = [
         title: 'Addition within 20',
         emoji: '➕',
         order: 2,
+        category: 'B',
         kind: 'addsub',
         gameMode: 'addition',
         description: 'Put numbers together. Plus, count on, doubles!',
@@ -296,6 +298,7 @@ const MODULES = [
         title: 'Subtraction within 20',
         emoji: '➖',
         order: 3,
+        category: 'C',
         kind: 'addsub',
         gameMode: 'subtraction',
         description: 'Take some away. Minus, count back!',
@@ -333,6 +336,7 @@ const MODULES = [
         title: 'Fact Families',
         emoji: '🔺',
         order: 4,
+        category: 'N',
         kind: 'factfamily',
         description: 'Three numbers, four facts. The math superpower!',
         lesson: [
@@ -369,6 +373,7 @@ const MODULES = [
         title: 'Place Value',
         emoji: '🧱',
         order: 5,
+        category: 'D',
         kind: 'generic',
         description: 'Tens and ones — what each digit means.',
         lesson: [
@@ -424,6 +429,7 @@ const MODULES = [
         title: 'Compare Numbers',
         emoji: '⚖️',
         order: 6,
+        category: 'E',
         kind: 'generic',
         description: 'Greater than, less than, or equal? You decide!',
         lesson: [
@@ -479,6 +485,7 @@ const MODULES = [
         title: 'Bigger Numbers',
         emoji: '🔟',
         order: 7,
+        category: 'D',
         kind: 'generic',
         description: 'Add a small number to a bigger one.',
         lesson: [
@@ -528,6 +535,7 @@ const MODULES = [
         title: 'Telling Time',
         emoji: '🕐',
         order: 8,
+        category: 'F',
         kind: 'generic',
         description: 'Read a clock — hour and half-hour.',
         lesson: [
@@ -583,6 +591,7 @@ const MODULES = [
         title: 'Shapes & Halves',
         emoji: '🔷',
         order: 9,
+        category: 'H',
         kind: 'generic',
         description: 'Circles, squares, triangles — and equal parts!',
         lesson: [
@@ -638,6 +647,7 @@ const MODULES = [
         title: 'Word Problems',
         emoji: '📖',
         order: 10,
+        category: 'M',
         kind: 'generic',
         description: 'Math stories. Find the numbers and solve!',
         lesson: [
@@ -709,18 +719,64 @@ const ROBUX_PER_QUIZ_CORRECT = 4;
 // Home — module grid
 // ----------------------------------------------------------------------
 
+// Module categories — order, emoji, title.
+// Modules carry a `category` letter that maps into here.
+const CATEGORIES = [
+    { id: 'A', title: 'Counting & Number Sense', emoji: '🔢' },
+    { id: 'B', title: 'Addition Strategies',     emoji: '➕' },
+    { id: 'C', title: 'Subtraction Strategies',  emoji: '➖' },
+    { id: 'D', title: 'Place Value & Big Numbers', emoji: '🔟' },
+    { id: 'E', title: 'Comparing Numbers',       emoji: '⚖️' },
+    { id: 'F', title: 'Telling Time',            emoji: '🕐' },
+    { id: 'G', title: 'Money & Coins',           emoji: '🪙' },
+    { id: 'H', title: 'Shapes (2D & 3D)',        emoji: '🔷' },
+    { id: 'I', title: 'Equal Shares',            emoji: '🥧' },
+    { id: 'J', title: 'Measurement',             emoji: '📏' },
+    { id: 'K', title: 'Patterns',                emoji: '🌀' },
+    { id: 'L', title: 'Graphs & Data',           emoji: '📊' },
+    { id: 'M', title: 'Word Problems',           emoji: '📖' },
+    { id: 'N', title: 'Mixed Math',              emoji: '🎯' },
+];
+
 function renderHomeModules() {
     const grid = document.getElementById('module-grid');
     if (!grid) return;
-    const sorted = MODULES.slice().sort((a, b) => a.order - b.order);
-    grid.innerHTML = sorted.map((m, i) => `
-        <button class="m-card" onclick="selectModule('${m.id}')">
-            <span class="m-card-num">${i + 1}</span>
-            <span class="m-card-icon">${m.emoji}</span>
-            <span class="m-card-title">${m.title}</span>
-            <span class="m-card-desc">${m.description}</span>
-        </button>
-    `).join('');
+
+    // Default category if a module didn't get one assigned.
+    const fallback = 'A';
+    const byCategory = {};
+    for (const m of MODULES) {
+        const cat = m.category || fallback;
+        (byCategory[cat] || (byCategory[cat] = [])).push(m);
+    }
+
+    let html = '';
+    let total = 0;
+    for (const cat of CATEGORIES) {
+        const mods = byCategory[cat.id];
+        if (!mods || !mods.length) continue;
+        mods.sort((a, b) => (a.order || 999) - (b.order || 999));
+        html += `<section class="m-category">
+            <h3 class="m-category-heading">${cat.emoji} ${cat.title}
+                <span class="m-category-count">${mods.length}</span>
+            </h3>
+            <div class="m-category-grid">
+                ${mods.map((m) => `
+                    <button class="m-card" onclick="selectModule('${m.id}')">
+                        <span class="m-card-icon">${m.emoji}</span>
+                        <span class="m-card-title">${m.title}</span>
+                        <span class="m-card-desc">${m.description}</span>
+                    </button>
+                `).join('')}
+            </div>
+        </section>`;
+        total += mods.length;
+    }
+    grid.innerHTML = html;
+
+    // Show overall count in the header
+    const heading = document.querySelector('.modules-heading');
+    if (heading) heading.textContent = `Pick a Module — ${total} skills to explore!`;
 }
 
 // ----------------------------------------------------------------------
@@ -1039,8 +1095,22 @@ function showModuleResults() {
     }
 
     showScreen('results-screen');
-    // Wire Play Again to restart the same activity
-    window.__lastModuleStarter = function () { startGenericProblems(mod, moduleState.activity); };
+
+    // After Practice, the "Play Again" button becomes "Take the Quiz!" so
+    // the natural progression is practice → quiz. After the Quiz it just
+    // restarts the quiz.
+    const playBtn = document.querySelector('.play-again-btn');
+    if (playBtn) {
+        if (moduleState.activity === 'practice') {
+            playBtn.innerHTML = '⭐ Take the Quiz!';
+            window.__lastModuleStarter = function () { startGenericProblems(mod, 'quiz'); };
+        } else {
+            playBtn.innerHTML = '🔄 Play Again';
+            window.__lastModuleStarter = function () { startGenericProblems(mod, 'quiz'); };
+        }
+    } else {
+        window.__lastModuleStarter = function () { startGenericProblems(mod, moduleState.activity); };
+    }
 }
 
 // ----------------------------------------------------------------------
