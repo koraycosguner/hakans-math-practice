@@ -137,12 +137,22 @@ def load_manifest() -> dict:
 
 # ---------- generation ----------
 
+def transform_for_speech(text: str) -> str:
+    """Apply substitutions only to the text passed to edge-tts (NOT to the
+    manifest key). 'Hakan' is a Turkish name; the en-US voice's default
+    pronunciation ('HAY-kuhn') is anglicized. Respelling as 'Hah-Kahn'
+    (with a hyphen between the two syllables) gives en-US-GuyNeural a
+    pronunciation much closer to Turkish /haˈkan/."""
+    return re.sub(r"\bHakan\b", "Hah-Kahn", text)
+
+
 async def gen_one(spoken: str, out_path: str, sem: asyncio.Semaphore):
     if os.path.exists(out_path) and os.path.getsize(out_path) > 0:
         return True
     async with sem:
         try:
-            comm = edge_tts.Communicate(spoken, VOICE, rate=RATE, pitch=PITCH)
+            spoken_for_tts = transform_for_speech(spoken)
+            comm = edge_tts.Communicate(spoken_for_tts, VOICE, rate=RATE, pitch=PITCH)
             await comm.save(out_path)
             return True
         except Exception as e:
