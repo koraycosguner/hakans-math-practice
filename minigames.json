@@ -16,9 +16,23 @@
       "Your final time is shown when you finish",
       "Beat your personal best to earn the record bonus"
     ],
-    "rewards": { "robuxPerWin": 3, "bonusForRecord": 5 },
+    "rewards": {
+      "robuxPerWin": 3,
+      "bonusForRecord": 5
+    },
     "config": {
-      "numbers": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
       "boardSize": "320x320",
       "tileSize": 56,
       "tileColor": "#fde68a",
@@ -47,17 +61,34 @@
       "Correct pop = +1 point and a new problem appears",
       "Wrong pop = the bubble fizzles and a small shake animation plays"
     ],
-    "rewards": { "robuxPerWin": 4, "bonusForRecord": 5 },
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 5
+    },
     "config": {
       "duration": 60,
-      "problemTypes": ["addition"],
-      "addendRange": [1, 9],
+      "problemTypes": [
+        "addition"
+      ],
+      "addendRange": [
+        1,
+        9
+      ],
       "sumMax": 18,
       "bubbleCount": 5,
       "bubbleRiseSpeed": 60,
-      "bubbleColors": ["#60a5fa", "#f472b6", "#facc15", "#34d399", "#a78bfa"],
+      "bubbleColors": [
+        "#60a5fa",
+        "#f472b6",
+        "#facc15",
+        "#34d399",
+        "#a78bfa"
+      ],
       "decoyAnswerStrategy": "near-correct",
-      "decoyOffsetRange": [-3, 3],
+      "decoyOffsetRange": [
+        -3,
+        3
+      ],
       "comboMultiplierAt": 3,
       "soundOnPop": "pop",
       "soundOnMiss": "splash"
@@ -80,11 +111,17 @@
       "If they do not add to 10, both tiles flip back over briefly",
       "Clear the whole board to finish the round"
     ],
-    "rewards": { "robuxPerWin": 4, "bonusForRecord": 5 },
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 5
+    },
     "config": {
       "gridRows": 4,
       "gridCols": 4,
-      "numberRange": [1, 9],
+      "numberRange": [
+        1,
+        9
+      ],
       "targetSum": 10,
       "guaranteedPairs": 8,
       "tileSize": 64,
@@ -113,10 +150,16 @@
       "Wrong answers shake the pad but do not lose points",
       "Your total correct is shown at the end"
     ],
-    "rewards": { "robuxPerWin": 3, "bonusForRecord": 5 },
+    "rewards": {
+      "robuxPerWin": 3,
+      "bonusForRecord": 5
+    },
     "config": {
       "duration": 30,
-      "addendRange": [0, 9],
+      "addendRange": [
+        0,
+        9
+      ],
       "sumMax": 18,
       "padLayout": "0-18 grid (4 wide x 5 tall, last row 3 wide)",
       "padButtonSize": 56,
@@ -144,22 +187,55 @@
       "Mismatched cards flip back after one second",
       "Clear the whole board to win"
     ],
-    "rewards": { "robuxPerWin": 5, "bonusForRecord": 5 },
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 5
+    },
     "config": {
       "gridRows": 3,
       "gridCols": 4,
       "pairCount": 6,
       "pairPool": [
-        { "digit": 1, "word": "one" },
-        { "digit": 2, "word": "two" },
-        { "digit": 3, "word": "three" },
-        { "digit": 4, "word": "four" },
-        { "digit": 5, "word": "five" },
-        { "digit": 6, "word": "six" },
-        { "digit": 7, "word": "seven" },
-        { "digit": 8, "word": "eight" },
-        { "digit": 9, "word": "nine" },
-        { "digit": 10, "word": "ten" }
+        {
+          "digit": 1,
+          "word": "one"
+        },
+        {
+          "digit": 2,
+          "word": "two"
+        },
+        {
+          "digit": 3,
+          "word": "three"
+        },
+        {
+          "digit": 4,
+          "word": "four"
+        },
+        {
+          "digit": 5,
+          "word": "five"
+        },
+        {
+          "digit": 6,
+          "word": "six"
+        },
+        {
+          "digit": 7,
+          "word": "seven"
+        },
+        {
+          "digit": 8,
+          "word": "eight"
+        },
+        {
+          "digit": 9,
+          "word": "nine"
+        },
+        {
+          "digit": 10,
+          "word": "ten"
+        }
       ],
       "cardSize": 72,
       "cardBackColor": "#818cf8",
@@ -187,20 +263,50 @@
       "Tap a wrong number = -1 point and a small shake",
       "If a matching number falls off without being tapped = -1 point"
     ],
-    "rewards": { "robuxPerWin": 4, "bonusForRecord": 5 },
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 5
+    },
     "config": {
       "duration": 45,
-      "numberRange": [1, 20],
+      "numberRange": [
+        1,
+        20
+      ],
       "fallSpeedPxPerSec": 80,
       "spawnIntervalMs": 900,
       "maxOnScreen": 6,
       "rulePool": [
-        { "id": "even", "label": "Tap even numbers", "predicate": "n % 2 === 0" },
-        { "id": "odd", "label": "Tap odd numbers", "predicate": "n % 2 === 1" },
-        { "id": "gt5", "label": "Tap numbers greater than 5", "predicate": "n > 5" },
-        { "id": "lt10", "label": "Tap numbers less than 10", "predicate": "n < 10" },
-        { "id": "mul2", "label": "Tap multiples of 2", "predicate": "n % 2 === 0" },
-        { "id": "mul5", "label": "Tap multiples of 5", "predicate": "n % 5 === 0" }
+        {
+          "id": "even",
+          "label": "Tap even numbers",
+          "predicate": "n % 2 === 0"
+        },
+        {
+          "id": "odd",
+          "label": "Tap odd numbers",
+          "predicate": "n % 2 === 1"
+        },
+        {
+          "id": "gt5",
+          "label": "Tap numbers greater than 5",
+          "predicate": "n > 5"
+        },
+        {
+          "id": "lt10",
+          "label": "Tap numbers less than 10",
+          "predicate": "n < 10"
+        },
+        {
+          "id": "mul2",
+          "label": "Tap multiples of 2",
+          "predicate": "n % 2 === 0"
+        },
+        {
+          "id": "mul5",
+          "label": "Tap multiples of 5",
+          "predicate": "n % 5 === 0"
+        }
       ],
       "ruleChangesEveryMs": 15000,
       "tileColor": "#fcd34d",
@@ -225,19 +331,44 @@
       "Wrong bucket bounces the shape back with a soft buzz",
       "Shape touches the ground = it disappears with no points"
     ],
-    "rewards": { "robuxPerWin": 3, "bonusForRecord": 5 },
+    "rewards": {
+      "robuxPerWin": 3,
+      "bonusForRecord": 5
+    },
     "config": {
       "duration": 60,
-      "shapes": ["triangle", "circle", "square"],
+      "shapes": [
+        "triangle",
+        "circle",
+        "square"
+      ],
       "shapeColors": {
         "triangle": "#f87171",
         "circle": "#60a5fa",
         "square": "#34d399"
       },
       "buckets": [
-        { "shape": "triangle", "x": 80, "y": 540, "width": 90, "height": 90 },
-        { "shape": "circle", "x": 200, "y": 540, "width": 90, "height": 90 },
-        { "shape": "square", "x": 320, "y": 540, "width": 90, "height": 90 }
+        {
+          "shape": "triangle",
+          "x": 80,
+          "y": 540,
+          "width": 90,
+          "height": 90
+        },
+        {
+          "shape": "circle",
+          "x": 200,
+          "y": 540,
+          "width": 90,
+          "height": 90
+        },
+        {
+          "shape": "square",
+          "x": 320,
+          "y": 540,
+          "width": 90,
+          "height": 90
+        }
       ],
       "fallSpeedPxPerSec": 50,
       "spawnIntervalMs": 1500,
@@ -264,12 +395,25 @@
       "Correct = +1 point and a new group appears",
       "Wrong or time-out = no points but the round keeps going"
     ],
-    "rewards": { "robuxPerWin": 3, "bonusForRecord": 5 },
+    "rewards": {
+      "robuxPerWin": 3,
+      "bonusForRecord": 5
+    },
     "config": {
       "duration": 60,
       "perRoundSeconds": 6,
-      "itemPool": ["🍎", "⭐", "🎈", "🐠", "🌸", "🍪"],
-      "countRange": [1, 20],
+      "itemPool": [
+        "🍎",
+        "⭐",
+        "🎈",
+        "🐠",
+        "🌸",
+        "🍪"
+      ],
+      "countRange": [
+        1,
+        20
+      ],
       "padLayout": "0-20 grid (5 wide x 5 tall)",
       "padButtonSize": 48,
       "itemLayout": "scattered-no-overlap",
@@ -278,6 +422,30 @@
       "soundOnCorrect": "ding",
       "soundOnWrong": "soft-bonk",
       "soundOnTimeout": "tick"
+    }
+  },
+  {
+    "id": "tic-tac-toe",
+    "title": "Tic Tac Toe",
+    "emoji": "❌⭕",
+    "description": "Classic 3-in-a-row — beat the computer!",
+    "category": "strategy",
+    "skill": "logic",
+    "duration": 120,
+    "difficulty": "easy",
+    "objective": "Win as many games as you can!",
+    "rules": [
+      "You're X. The computer is O.",
+      "Tap a square to place your X.",
+      "First to get 3 in a row wins!",
+      "Score = how many games you win in 2 minutes."
+    ],
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 6
+    },
+    "config": {
+      "aiSmartness": 0.7
     }
   }
 ]

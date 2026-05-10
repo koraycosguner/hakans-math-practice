@@ -76,6 +76,43 @@ function _pulseTimerIfLow() {
     }
 }
 
+// Haptic feedback — short pulse on most browsers/devices that support it.
+// Silent failure on unsupported devices (desktop browsers etc.).
+function mgVibrate(pattern) {
+    try { if (navigator.vibrate) navigator.vibrate(pattern); } catch (e) {}
+}
+
+// Pause state — when paused, timer freezes and game inputs are blocked.
+let _gamePaused = false;
+let _gamePauseAt = 0;
+function pauseMiniGame() {
+    if (!_gameTimer || _gamePaused) return;
+    _gamePaused = true;
+    _gamePauseAt = Date.now();
+    document.getElementById('mg-play-area').classList.add('mg-paused');
+    const btn = document.getElementById('mg-pause-btn');
+    if (btn) btn.textContent = '▶ Resume';
+}
+function resumeMiniGame() {
+    if (!_gamePaused) return;
+    const pausedFor = Date.now() - _gamePauseAt;
+    _gameDeadlineMs += pausedFor;  // extend deadline by paused time
+    _gamePaused = false;
+    document.getElementById('mg-play-area').classList.remove('mg-paused');
+    const btn = document.getElementById('mg-pause-btn');
+    if (btn) btn.textContent = '⏸ Pause';
+}
+function toggleMiniGamePause() {
+    if (_gamePaused) resumeMiniGame();
+    else pauseMiniGame();
+}
+
+// Auto-pause when tab becomes inactive so the timer doesn't burn down
+// while Hakan is on another tab/app.
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden && _gameTimer && !_gamePaused) pauseMiniGame();
+});
+
 const MG_BEST_KEY = 'hakans-math-game-bests';
 
 function _loadBests() {
@@ -127,6 +164,9 @@ function launchMiniGame(id) {
     _activeGameId = id;
     _gameScore = 0;
     _gameCombo = 0;
+    _gamePaused = false;
+    const pauseBtn = document.getElementById('mg-pause-btn');
+    if (pauseBtn) pauseBtn.textContent = '⏸ Pause';
     document.getElementById('mg-play-over').style.display = 'none';
     document.getElementById('mg-play-instr').textContent = g.objective || '';
     document.getElementById('mg-play-score').textContent = 'Score: 0';
@@ -152,6 +192,7 @@ function launchMiniGame(id) {
     _activeGame = impl.start({
         area,
         onScore: (delta, opts) => {
+            if (_gamePaused) return;
             _gameScore += delta;
             if (delta > 0) {
                 _gameCombo += 1;
@@ -164,17 +205,20 @@ function launchMiniGame(id) {
                     mgConfettiBurst(opt.x, opt.y, _gameCombo >= 3 ? 12 : 6);
                 }
                 if (typeof playSound === 'function') playSound('correct');
+                mgVibrate(_gameCombo >= 3 ? [40, 20, 40] : 25);
             } else {
                 document.getElementById('mg-play-score').textContent = 'Score: ' + _gameScore;
             }
         },
         onPenalty: (seconds, opts) => {
+            if (_gamePaused) return;
             // Add penalty time to deadline (shorten remaining)
             _gameDeadlineMs -= seconds * 1000;
             _gameCombo = 0;
             const o = opts || {};
             mgScorePopup('-' + seconds + 's', o.x, o.y, 'mg-popup-bad');
             if (typeof playSound === 'function') playSound('wrong');
+            mgVibrate(80);
             // brief area shake
             const area = document.getElementById('mg-play-area');
             if (area) {
@@ -188,6 +232,7 @@ function launchMiniGame(id) {
 }
 
 function _updateTimer() {
+    if (_gamePaused) return;        // freeze countdown while paused
     const remaining = Math.max(0, Math.ceil((_gameDeadlineMs - Date.now()) / 1000));
     document.getElementById('mg-play-timer').textContent = remaining + 's';
     _pulseTimerIfLow();
@@ -836,6 +881,159 @@ GAME_IMPLS['counting-race'] = {
             }
         }
         nextRound();
+        return { stop() {} };
+    }
+};
+
+// 9. Tic Tac Toe — classic 3x3, Hakan as X, computer as O.
+// Difficulty is a smartness factor (0..1) that controls how often the AI
+// plays optimally vs. randomly. Each round (win/loss/draw) resets the board.
+GAME_IMPLS['tic-tac-toe'] = {
+    start(ctx) {
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-ttt-wrap';
+        const status = document.createElement('div');
+        status.className = 'mg-ttt-status';
+        status.textContent = "Your turn — you're X!";
+        const board = document.createElement('div');
+        board.className = 'mg-ttt-board';
+        const tally = document.createElement('div');
+        tally.className = 'mg-ttt-tally';
+        tally.innerHTML = `<span class="mg-ttt-tally-x">❌ You: <b id="mg-ttt-wx">0</b></span><span class="mg-ttt-tally-o">⭕ CPU: <b id="mg-ttt-wo">0</b></span><span class="mg-ttt-tally-d">🤝 Ties: <b id="mg-ttt-wd">0</b></span>`;
+        wrap.appendChild(status);
+        wrap.appendChild(board);
+        wrap.appendChild(tally);
+        ctx.area.appendChild(wrap);
+
+        const aiSmartness = (ctx.config && typeof ctx.config.aiSmartness === 'number')
+            ? ctx.config.aiSmartness : 0.7;
+        let cells = ['','','','','','','','',''];
+        let turn = 'X';
+        let locked = false;
+        let xWins = 0, oWins = 0, draws = 0;
+
+        const LINES = [
+            [0,1,2],[3,4,5],[6,7,8],  // rows
+            [0,3,6],[1,4,7],[2,5,8],  // cols
+            [0,4,8],[2,4,6],          // diagonals
+        ];
+
+        function winnerOf(s) {
+            for (const ln of LINES) {
+                const [a,b,c] = ln;
+                if (s[a] && s[a] === s[b] && s[a] === s[c]) return { who: s[a], line: ln };
+            }
+            if (s.every((v) => v)) return { who: 'draw' };
+            return null;
+        }
+
+        // AI returns the cell index to play
+        function aiMove() {
+            // 1. If smart roll, find a winning move
+            if (Math.random() < aiSmartness) {
+                for (let i = 0; i < 9; i++) {
+                    if (cells[i]) continue;
+                    cells[i] = 'O';
+                    if (winnerOf(cells) && winnerOf(cells).who === 'O') {
+                        cells[i] = '';
+                        return i;
+                    }
+                    cells[i] = '';
+                }
+                // 2. Block X from winning
+                for (let i = 0; i < 9; i++) {
+                    if (cells[i]) continue;
+                    cells[i] = 'X';
+                    if (winnerOf(cells) && winnerOf(cells).who === 'X') {
+                        cells[i] = '';
+                        return i;
+                    }
+                    cells[i] = '';
+                }
+                // 3. Take center
+                if (!cells[4]) return 4;
+                // 4. Take a corner
+                const corners = [0, 2, 6, 8].filter((i) => !cells[i]);
+                if (corners.length) return corners[Math.floor(Math.random() * corners.length)];
+            }
+            // Random fallback
+            const empties = cells.map((v, i) => v ? null : i).filter((i) => i !== null);
+            return empties[Math.floor(Math.random() * empties.length)];
+        }
+
+        function renderBoard(highlightLine) {
+            board.innerHTML = '';
+            cells.forEach((c, i) => {
+                const cell = document.createElement('button');
+                cell.className = 'mg-ttt-cell';
+                if (c) cell.classList.add('mg-ttt-cell-' + c.toLowerCase(), 'mg-ttt-filled');
+                if (highlightLine && highlightLine.indexOf(i) >= 0) cell.classList.add('mg-ttt-cell-win');
+                cell.textContent = c === 'X' ? '❌' : c === 'O' ? '⭕' : '';
+                cell.addEventListener('click', () => onCellClick(i));
+                board.appendChild(cell);
+            });
+        }
+
+        function updateTally() {
+            const wx = document.getElementById('mg-ttt-wx');
+            const wo = document.getElementById('mg-ttt-wo');
+            const wd = document.getElementById('mg-ttt-wd');
+            if (wx) wx.textContent = xWins;
+            if (wo) wo.textContent = oWins;
+            if (wd) wd.textContent = draws;
+        }
+
+        function checkAndEndRound() {
+            const w = winnerOf(cells);
+            if (!w) return false;
+            locked = true;
+            if (w.who === 'X') {
+                xWins += 1;
+                status.textContent = "🎉 You win!";
+                ctx.onScore(1);
+                renderBoard(w.line);
+            } else if (w.who === 'O') {
+                oWins += 1;
+                status.textContent = "Computer wins this round — try again!";
+                renderBoard(w.line);
+            } else {
+                draws += 1;
+                status.textContent = "🤝 It's a tie!";
+                renderBoard(null);
+            }
+            updateTally();
+            setTimeout(() => {
+                cells = ['','','','','','','','',''];
+                turn = 'X';
+                locked = false;
+                status.textContent = "Your turn — you're X!";
+                renderBoard();
+            }, 1500);
+            return true;
+        }
+
+        function onCellClick(i) {
+            if (locked || cells[i] || turn !== 'X') return;
+            cells[i] = 'X';
+            renderBoard();
+            if (checkAndEndRound()) return;
+            turn = 'O';
+            status.textContent = "Computer's turn...";
+            locked = true;
+            setTimeout(() => {
+                const move = aiMove();
+                if (move != null) {
+                    cells[move] = 'O';
+                    renderBoard();
+                }
+                if (checkAndEndRound()) return;
+                turn = 'X';
+                locked = false;
+                status.textContent = "Your turn — go again!";
+            }, 500);
+        }
+
+        renderBoard();
         return { stop() {} };
     }
 };
