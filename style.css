@@ -1540,15 +1540,19 @@ body::after {
 
 /* ===== Place Value blocks (SVG) ===== */
 .pv-blocks {
-    max-height: 240px;
-    height: auto;
+    height: 200px;
     width: auto;
     max-width: 100%;
     display: block;
 }
 
 .lesson-visual .pv-blocks {
-    max-height: 200px;
+    height: 170px;
+}
+
+@media (max-width: 720px) {
+    .pv-blocks { height: 150px; }
+    .lesson-visual .pv-blocks { height: 130px; }
 }
 
 /* ===== Place Value: 2-digit number display ===== */

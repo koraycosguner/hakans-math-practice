@@ -411,7 +411,11 @@ function renderBlocks(tens, ones) {
         parts.push(`<rect x="${x}" y="${y}" width="${oneSize}" height="${oneSize}" rx="2" fill="#FFB74D" stroke="#E69100" stroke-width="2"/>`);
     }
 
-    return `<svg viewBox="-5 -5 ${totalWidth + 10} ${tenHeight + 10}" xmlns="http://www.w3.org/2000/svg" class="pv-blocks" preserveAspectRatio="xMidYMid meet">${parts.join('')}</svg>`;
+    // iOS Safari needs explicit width/height attributes on inline SVG inside
+    // flex containers — otherwise the layout box collapses to 0 and nothing renders.
+    const vbW = totalWidth + 10;
+    const vbH = tenHeight + 10;
+    return `<svg viewBox="-5 -5 ${vbW} ${vbH}" width="${vbW}" height="${vbH}" xmlns="http://www.w3.org/2000/svg" class="pv-blocks" preserveAspectRatio="xMidYMid meet">${parts.join('')}</svg>`;
 }
 
 // Render a 2-digit number with the highlighted place colored.

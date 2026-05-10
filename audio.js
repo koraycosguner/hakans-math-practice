@@ -1,25 +1,21 @@
 // ===== Clip-based audio playback =====
 // Loads audio/manifest.json at startup and serves clips for spoken text.
-// Falls back to Web Speech API for anything not in the manifest.
-//
-// Sequence playback uses Web Audio API for gapless concatenation
-// (e.g. "5 plus 3" plays without audible silence between atoms).
-//
-// game.js's speak() calls tryPlayClip(text) before doing TTS — if that
-// returns true, the TTS path is skipped.
+// Composed phrases are concatenated into a single AudioBuffer (with
+// silence trimming) so playback flows smoothly without scheduling gaps.
 
+const AUDIO_VERSION = 4;
 let CLIP_MANIFEST = {};
 let CLIP_MANIFEST_LOADED = false;
 
 (async function loadClipManifest() {
     try {
-        const res = await fetch('audio/manifest.json', { cache: 'no-cache' });
+        const res = await fetch('audio/manifest.json?v=' + AUDIO_VERSION, { cache: 'no-cache' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         CLIP_MANIFEST = await res.json();
         CLIP_MANIFEST_LOADED = true;
-        console.log('Audio clips loaded:', Object.keys(CLIP_MANIFEST).length);
+        console.log('[audio v' + AUDIO_VERSION + '] manifest loaded —', Object.keys(CLIP_MANIFEST).length, 'keys');
     } catch (e) {
-        console.log('No clip manifest (will use Web Speech API only):', e.message);
+        console.log('[audio v' + AUDIO_VERSION + '] no manifest, will use Web Speech API:', e.message);
         CLIP_MANIFEST_LOADED = false;
     }
 })();
@@ -51,8 +47,6 @@ function __normalizeForLookup(text) {
         .replace(/[^\w\s]/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
-    // Convert standalone integers 0-99 to word form so digit-source text
-    // matches word-source recordings (e.g. "10 ones" -> "ten ones").
     s = s.replace(/\b(\d{1,2})\b/g, (_, d) => {
         const n = parseInt(d, 10);
         return (n >= 0 && n < 100) ? __numToWords(n) : d;
@@ -60,7 +54,7 @@ function __normalizeForLookup(text) {
     return s;
 }
 
-// ---------- Web Audio API for gapless sequence playback ----------
+// ---------- Web Audio context + clip cache ----------
 let __audioCtx = null;
 function __getCtx() {
     if (!__audioCtx) {
@@ -71,17 +65,16 @@ function __getCtx() {
     return __audioCtx;
 }
 
-const __decodedCache = new Map();   // filename -> AudioBuffer
+const __decodedCache = new Map();
 let __activeSources = [];
 
 async function __decodeClip(filename) {
     if (__decodedCache.has(filename)) return __decodedCache.get(filename);
     const ctx = __getCtx();
     if (!ctx) throw new Error('No AudioContext');
-    const res = await fetch('audio/' + filename);
+    const res = await fetch('audio/' + filename + '?v=' + AUDIO_VERSION);
     if (!res.ok) throw new Error('clip fetch failed: ' + filename);
     const buf = await res.arrayBuffer();
-    // Safari: decodeAudioData uses callback API
     const decoded = await new Promise((resolve, reject) => {
         try {
             const p = ctx.decodeAudioData(buf, resolve, reject);
@@ -100,13 +93,59 @@ function __cancelAll() {
     __activeSources = [];
 }
 
+// Find first/last sample whose abs value exceeds the silence threshold,
+// then add a small pre/post-roll so we don't clip phoneme onsets/offsets.
+function __findSpeechRange(channelData, sampleRate) {
+    const SILENCE = 0.012;          // ~ -38 dBFS
+    const PRE_ROLL  = Math.floor(sampleRate * 0.005); // 5 ms
+    const POST_ROLL = Math.floor(sampleRate * 0.012); // 12 ms (a touch more)
+    const len = channelData.length;
+    let s = 0;
+    while (s < len && Math.abs(channelData[s]) < SILENCE) s++;
+    if (s === len) return { start: 0, end: len };
+    let e = len - 1;
+    while (e > s && Math.abs(channelData[e]) < SILENCE) e--;
+    return {
+        start: Math.max(0, s - PRE_ROLL),
+        end: Math.min(len, e + 1 + POST_ROLL),
+    };
+}
+
+// Concatenate decoded buffers into a single AudioBuffer with silence
+// trimming, so playback is one continuous source — no scheduling gaps,
+// no MP3 padding showing through.
+function __concatBuffers(ctx, buffers) {
+    const sampleRate = buffers[0].sampleRate;
+    const numChannels = Math.min(2, Math.max(1, ...buffers.map(b => b.numberOfChannels)));
+
+    // Compute the trimmed range of each buffer once.
+    const ranges = buffers.map(b => __findSpeechRange(b.getChannelData(0), b.sampleRate));
+    const totalLen = ranges.reduce((sum, r) => sum + (r.end - r.start), 0);
+    if (totalLen === 0) return null;
+
+    const out = ctx.createBuffer(numChannels, totalLen, sampleRate);
+    for (let ch = 0; ch < numChannels; ch++) {
+        const outData = out.getChannelData(ch);
+        let offset = 0;
+        for (let i = 0; i < buffers.length; i++) {
+            const buf = buffers[i];
+            const range = ranges[i];
+            const sourceCh = Math.min(ch, buf.numberOfChannels - 1);
+            const inData = buf.getChannelData(sourceCh);
+            const len = range.end - range.start;
+            outData.set(inData.subarray(range.start, range.end), offset);
+            offset += len;
+        }
+    }
+    return out;
+}
+
 async function __playClips(filenames) {
     const ctx = __getCtx();
     if (!ctx) {
-        // Fallback: HTMLAudio sequential (used if Web Audio unavailable)
         for (const f of filenames) {
             await new Promise((res) => {
-                const a = new Audio('audio/' + f);
+                const a = new Audio('audio/' + f + '?v=' + AUDIO_VERSION);
                 a.onended = res;
                 a.onerror = res;
                 a.play().catch(res);
@@ -117,32 +156,31 @@ async function __playClips(filenames) {
     if (ctx.state === 'suspended') {
         try { await ctx.resume(); } catch (e) {}
     }
-    // Decode all in parallel, then schedule back-to-back at sample-accurate
-    // start times so there's no silence between clips.
+
     let buffers;
     try {
         buffers = await Promise.all(filenames.map(__decodeClip));
     } catch (e) {
-        console.warn('decode failed, falling back to sequential:', e);
+        console.warn('[audio] decode failed:', e);
         return;
     }
-    const sources = [];
-    let t = ctx.currentTime + 0.04;       // tiny headroom
-    const TRIM_END = 0.07;                 // drop trailing silence per clip (s)
-    for (const buf of buffers) {
-        const src = ctx.createBufferSource();
-        src.buffer = buf;
-        src.connect(ctx.destination);
-        const dur = Math.max(0.05, buf.duration - TRIM_END);
-        src.start(t);
-        src.stop(t + dur + 0.02);
-        t += dur;
-        sources.push(src);
+
+    let toPlay;
+    if (buffers.length === 1) {
+        toPlay = buffers[0];
+    } else {
+        toPlay = __concatBuffers(ctx, buffers);
+        if (!toPlay) return;
     }
-    __activeSources = sources;
+
+    const src = ctx.createBufferSource();
+    src.buffer = toPlay;
+    src.connect(ctx.destination);
+    src.start();
+    __activeSources = [src];
 }
 
-// ---------- Lookup (exact + greedy compose) ----------
+// ---------- Lookup ----------
 function __findExactClip(text) {
     if (!CLIP_MANIFEST_LOADED) return null;
     const key = __normalizeForLookup(text);
@@ -158,7 +196,6 @@ function __composeClips(text) {
     let i = 0;
     while (i < tokens.length) {
         let matched = false;
-        // longest-match: try the longest possible n-gram from i first
         for (let j = tokens.length; j > i; j--) {
             const candidate = tokens.slice(i, j).join(' ');
             const file = CLIP_MANIFEST[candidate];
@@ -174,9 +211,39 @@ function __composeClips(text) {
     return out.length ? out : null;
 }
 
-// Track phrases we couldn't match so missing ones can be added later.
-// Inspect with `audioReport()` in the browser console.
+// ---------- Public ----------
 const __missingPhrases = new Set();
+
+function tryPlayClip(text) {
+    if (!CLIP_MANIFEST_LOADED) return false;
+    if (typeof speechEnabled !== 'undefined' && !speechEnabled) return true;
+
+    if (typeof window.speechSynthesis !== 'undefined') {
+        try { window.speechSynthesis.cancel(); } catch (e) {}
+    }
+    __cancelAll();
+
+    const exact = __findExactClip(text);
+    if (exact) { __playClips([exact]); return true; }
+
+    const composed = __composeClips(text);
+    if (composed && composed.length) { __playClips(composed); return true; }
+
+    if (!__missingPhrases.has(text)) {
+        __missingPhrases.add(text);
+        console.warn('[audio] no clip for:', JSON.stringify(text));
+    }
+    return true; // silence-on-miss (no TTS fallback)
+}
+
+function cancelAllAudio() {
+    __cancelAll();
+    if (typeof window.speechSynthesis !== 'undefined') {
+        try { window.speechSynthesis.cancel(); } catch (e) {}
+    }
+}
+
+// ---------- Debug helpers ----------
 window.audioReport = function () {
     if (__missingPhrases.size === 0) {
         console.log('[audio] no missing phrases — full coverage');
@@ -188,59 +255,17 @@ window.audioReport = function () {
     return list;
 };
 
-/**
- * Public entry: returns true if the request was consumed (clip played
- * OR intentionally silenced because no clip was available).
- *
- * Once the manifest has loaded, this function NEVER returns false. The
- * caller (speak() in game.js) treats that as "consumed" and skips its
- * Web Speech API fallback. That guarantees the audio is either the
- * GuyNeural voice or silent — never a jarring switch to a system voice
- * for the few phrases that aren't in the library yet.
- *
- * Phrases that miss are recorded to __missingPhrases so we can add
- * clips for the high-value ones in the next pass.
- */
-function tryPlayClip(text) {
-    // Manifest still loading — let the caller decide. In practice this
-    // only happens for utterances fired before the first user gesture,
-    // which is rare in this app.
-    if (!CLIP_MANIFEST_LOADED) return false;
-
-    if (typeof speechEnabled !== 'undefined' && !speechEnabled) return true; // muted
-
-    // Stop anything already playing
-    if (typeof window.speechSynthesis !== 'undefined') {
-        try { window.speechSynthesis.cancel(); } catch (e) {}
+window.debugLookup = function (text) {
+    if (!CLIP_MANIFEST_LOADED) {
+        console.log('manifest not loaded yet');
+        return;
     }
-    __cancelAll();
-
-    // 1) Exact match (full sentence in the library)
-    const exact = __findExactClip(text);
-    if (exact) {
-        __playClips([exact]);
-        return true;
-    }
-
-    // 2) Compose from atoms
+    const norm = __normalizeForLookup(text);
+    const exact = CLIP_MANIFEST[norm];
     const composed = __composeClips(text);
-    if (composed && composed.length) {
-        __playClips(composed);
-        return true;
-    }
-
-    // 3) No match — silence rather than fall back to a different voice.
-    if (!__missingPhrases.has(text)) {
-        __missingPhrases.add(text);
-        console.warn('[audio] no clip for:', JSON.stringify(text));
-    }
-    return true;
-}
-
-// Allow other modules to silence playback
-function cancelAllAudio() {
-    __cancelAll();
-    if (typeof window.speechSynthesis !== 'undefined') {
-        try { window.speechSynthesis.cancel(); } catch (e) {}
-    }
-}
+    console.log('input:     ', JSON.stringify(text));
+    console.log('normalized:', JSON.stringify(norm));
+    console.log('exact:     ', exact || '(none)');
+    console.log('composed:  ', composed || '(cannot compose)');
+    return { norm, exact, composed };
+};

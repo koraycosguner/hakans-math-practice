@@ -53,8 +53,13 @@ def normalize(text: str) -> str:
     # Strip emoji ranges (Python re uses \uXXXX, not \u{XXXX})
     s = re.sub(r"[\U0001F000-\U0001FFFF]|[☀-➿]", "", s)
     s = re.sub(r"[−–—]", "minus", s)
-    s = re.sub(r"[^\w\s]", " ", s)        # space, not empty (matches JS)
+    s = re.sub(r"[^\w\s]", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
+    # Convert standalone integers 0-99 to word form (matches JS audio.js).
+    def _w(m):
+        n = int(m.group(1))
+        return number_to_words(n) if 0 <= n < 100 else m.group(1)
+    s = re.sub(r"\b(\d{1,2})\b", _w, s)
     return s
 
 
@@ -176,6 +181,24 @@ LESSON = [
 ]
 for msg in LESSON:
     PHRASES.append((msg, msg, "lesson-" + slugify(msg)))
+
+
+# Math problem phrases — pre-render for smooth single-clip playback
+# Covers easy add/sub within Hakan's range. Format matches game.js:
+#   speak(`${a} ${spokenOp} ${b}?`)  =>  "5 plus 3?"
+MATH_RANGE_ADD = 12   # a, b in 0..12 inclusive (covers easy + confidence builders)
+MATH_MAX_MINUEND = 20  # subtraction up to 20
+
+for a in range(0, MATH_RANGE_ADD + 1):
+    for b in range(0, MATH_RANGE_ADD + 1):
+        # Addition
+        msg = f"{number_to_words(a)} plus {number_to_words(b)}"
+        PHRASES.append((msg, msg, f"math-add-{a}-{b}"))
+for a in range(0, MATH_MAX_MINUEND + 1):
+    for b in range(0, min(a, MATH_RANGE_ADD) + 1):
+        # Subtraction (a >= b so result is non-negative)
+        msg = f"{number_to_words(a)} minus {number_to_words(b)}"
+        PHRASES.append((msg, msg, f"math-sub-{a}-{b}"))
 
 
 # Place Value hints
