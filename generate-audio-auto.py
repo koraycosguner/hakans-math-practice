@@ -64,6 +64,7 @@ def normalize(text: str) -> str:
     s = text.lower()
     s = re.sub(r"[\U0001F000-\U0001FFFF]|[☀-➿]|[︀-﻿]", "", s)
     s = re.sub(r"[−–—]", "minus", s)
+    s = re.sub(r"_+", " ", s)             # strip fill-in-the-blank lines
     s = re.sub(r"[^\w\s]", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
 

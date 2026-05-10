@@ -292,6 +292,8 @@ function renderVisual(visual) {
         case 'tap-the-answer': return renderTapTheAnswer(visual);
         case 'tap-shape':      return renderTapShape(visual);
         case 'fill-ten-frame': return renderFillTenFrame(visual);
+        case 'count-along':    return renderCountAlong(visual);
+        case 'find-mistake':   return renderFindMistake(visual);
     }
     return '';
 }
@@ -401,6 +403,37 @@ function renderFillTenFrame(visual) {
     </div>`;
 }
 
+// count-along: shows N emojis that auto-light up in sequence with a "1, 2, 3..."
+// counter — kids watch, listen, count along. Replay button lets them re-watch.
+// Less clicky than tap-to-count, more engaging than a static visual.
+function renderCountAlong(visual) {
+    const n = Math.max(0, Math.min(20, visual.count || 0));
+    const emoji = visual.emoji || '⭐';
+    const instr = visual.instruction || 'Count along with the lights!';
+    const items = Array.from({length: n}, (_, i) =>
+        `<span class="ic-ca-emoji" data-idx="${i}">${emoji}</span>`).join('');
+    return `<div class="ic-wrap" data-interactive="count-along" data-target="${n}">
+        <div class="ic-instr">${instr}</div>
+        <div class="ic-ca-row">${items}</div>
+        <div class="ic-ca-num">0</div>
+        <button class="ic-ca-replay">▶ Play Again</button>
+    </div>`;
+}
+
+// find-mistake: shows a sequence with one wrong number; tap the wrong one.
+// E.g. nums:[1,2,3,5,5] mistake at index 3 (should be 4). Great for ordering.
+function renderFindMistake(visual) {
+    const nums = visual.nums || [];
+    const wrongIdx = visual.wrongIndex == null ? 0 : visual.wrongIndex;
+    const instr = visual.instruction || 'One number is wrong — tap it!';
+    const items = nums.map((n, i) =>
+        `<button class="ic-fm-num" data-idx="${i}" data-wrong="${i === wrongIdx ? '1' : '0'}">${n}</button>`).join('');
+    return `<div class="ic-wrap" data-interactive="find-mistake" data-target="${wrongIdx}">
+        <div class="ic-instr">${instr}</div>
+        <div class="ic-fm-row">${items}</div>
+    </div>`;
+}
+
 // ----------------------------------------------------------------------
 // MODULE DATA
 // All Grade 1 modules. Lesson copy is short, kid-friendly, and recorded
@@ -480,7 +513,7 @@ const MODULES = [
         "correctIndex": 1,
         "instruction": "Hakan, what number is missing? 4, 5, ?, 7, 8 — tap it!"
       },
-        "text": "Hakan, what number is missing? Look at the neighbors! After 5 comes ___, then 7.",
+        "text": "Hakan, what number is missing? Look at the neighbors! After 5, the missing number comes before 7.",
         "caption": "Use the neighbors"
       },
       {
@@ -556,7 +589,7 @@ const MODULES = [
         },
         "prompt": "Hakan sees 6, 7, ?, 9. What number is missing?",
         "answer": 8,
-        "hint": "Look at the neighbors. 7 then ___ then 9. The missing number is 8!"
+        "hint": "Look at the neighbors. After 7 and before 9, the missing number is 8!"
       },
       {
         "type": "numeric",
@@ -66548,6 +66581,57 @@ function bindInteractivePrimitives(host) {
                 if (isCorrect) {
                     b.classList.add('ic-correct', 'ic-locked');
                     buttons.forEach((x) => x.classList.add('ic-locked'));
+                    if (typeof playSound === 'function') playSound('correct');
+                } else {
+                    b.classList.add('ic-wrong');
+                    if (typeof playSound === 'function') playSound('wrong');
+                    setTimeout(() => b.classList.remove('ic-wrong'), 600);
+                }
+            });
+        });
+        return;
+    }
+
+    if (kind === 'count-along') {
+        const target = parseInt(wrap.getAttribute('data-target'), 10) || 0;
+        const items = wrap.querySelectorAll('.ic-ca-emoji');
+        const counter = wrap.querySelector('.ic-ca-num');
+        const replay = wrap.querySelector('.ic-ca-replay');
+        let timer = null;
+        function play() {
+            if (timer) { clearInterval(timer); timer = null; }
+            items.forEach((it) => it.classList.remove('ic-ca-lit'));
+            if (counter) counter.textContent = '0';
+            let i = 0;
+            timer = setInterval(() => {
+                if (i >= target) {
+                    clearInterval(timer); timer = null;
+                    wrap.classList.add('ic-done');
+                    if (typeof playSound === 'function') playSound('correct');
+                    return;
+                }
+                items[i].classList.add('ic-ca-lit');
+                i += 1;
+                if (counter) counter.textContent = String(i);
+                if (typeof playSound === 'function') playSound('click');
+            }, 700);
+        }
+        if (replay) replay.addEventListener('click', play);
+        // Auto-start on first render (kids don't need to find a button)
+        setTimeout(play, 400);
+        return;
+    }
+
+    if (kind === 'find-mistake') {
+        const buttons = wrap.querySelectorAll('.ic-fm-num');
+        buttons.forEach((b) => {
+            b.addEventListener('click', () => {
+                if (b.classList.contains('ic-locked')) return;
+                const isWrong = b.getAttribute('data-wrong') === '1';
+                if (isWrong) {
+                    b.classList.add('ic-correct', 'ic-locked');
+                    buttons.forEach((x) => x.classList.add('ic-locked'));
+                    wrap.classList.add('ic-done');
                     if (typeof playSound === 'function') playSound('correct');
                 } else {
                     b.classList.add('ic-wrong');

@@ -44,6 +44,7 @@ function __normalizeForLookup(text) {
         .toLowerCase()
         .replace(/[\u{1F000}-\u{1FFFF}]|[\u{2600}-\u{27BF}]|[\u{FE00}-\u{FEFF}]|[‍️]/gu, '')
         .replace(/[−–—]/g, 'minus')
+        .replace(/_+/g, ' ')              // strip fill-in-the-blank lines
         .replace(/[^\w\s]/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
