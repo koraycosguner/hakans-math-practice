@@ -42071,9 +42071,9 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "objects",
-          "emoji": "✏️",
-          "count": 10
+          "type": "two-digit-add",
+          "a": 5,
+          "b": 5
         },
         "prompt": "Hakan: 5 + 5 = ?",
         "answer": 10,
@@ -64403,7 +64403,7 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "compare-pair",
+          "type": "two-digit-add",
           "a": 4,
           "b": 6
         },
@@ -64414,7 +64414,7 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "compare-pair",
+          "type": "two-digit-add",
           "a": 3,
           "b": 5
         },
@@ -64452,7 +64452,7 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "compare-pair",
+          "type": "two-digit-add",
           "a": 6,
           "b": 4
         },
@@ -64501,7 +64501,7 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "compare-pair",
+          "type": "two-digit-add",
           "a": 4,
           "b": 6
         },
@@ -64511,7 +64511,7 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "compare-pair",
+          "type": "two-digit-add",
           "a": 3,
           "b": 5
         },
@@ -64546,7 +64546,7 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "compare-pair",
+          "type": "two-digit-add",
           "a": 6,
           "b": 4
         },
@@ -64581,7 +64581,7 @@ const MODULES = [
       {
         "type": "numeric",
         "visual": {
-          "type": "compare-pair",
+          "type": "two-digit-add",
           "a": 7,
           "b": 8
         },
@@ -65019,10 +65019,153 @@ function mgShowHint() {
     const p = getCurrentProblems()[moduleState.problemIndex];
     if (!p.hint) return;
     moduleState.hintShown = true;
-    document.getElementById('mg-hint-text').textContent = '💡 ' + p.hint;
     document.getElementById('mg-hint-btn').classList.add('exhausted');
     if (typeof speak === 'function') speak(p.hint);
     if (typeof playSound === 'function') playSound('click');
+    // Typewriter reveal — feels more like guidance unfolding step by step
+    // than a wall of text suddenly appearing.
+    typewriterHint('💡 ' + p.hint, document.getElementById('mg-hint-text'));
+    // Add a "Show Me" button that animates the solution if we can derive
+    // it from the visual (two-digit-add, take-away).
+    showSolutionButton(p);
+}
+
+// Small helper: types `text` into `el` one character at a time.
+function typewriterHint(text, el) {
+    if (!el) return;
+    el.textContent = '';
+    let i = 0;
+    const speed = 22; // ms per character
+    function tick() {
+        if (i >= text.length) return;
+        el.textContent = text.slice(0, ++i);
+        setTimeout(tick, speed);
+    }
+    tick();
+}
+
+// Add a "Show Step-by-Step" button after the hint when the problem has a
+// visual we know how to walk through. Cleared on the next problem.
+function showSolutionButton(p) {
+    const host = document.getElementById('mg-hint-text');
+    if (!host) return;
+    const v = p.visual || {};
+    let canWalk = false;
+    if (v.type === 'two-digit-add' || v.type === 'add-groups') canWalk = true;
+    if (v.type === 'take-away') canWalk = true;
+    if (v.type === 'two-ten-frames' && v.filledA != null && v.filledB != null) canWalk = true;
+    if (!canWalk) return;
+
+    const btn = document.createElement('button');
+    btn.className = 'show-step-btn';
+    btn.textContent = '🎬 Show me step-by-step';
+    btn.onclick = () => playSolutionWalkthrough(p);
+    host.appendChild(document.createElement('br'));
+    host.appendChild(btn);
+}
+
+// Animated walkthrough for the few visuals we know how to step through.
+// Renders into the existing visual container with a temporary overlay.
+function playSolutionWalkthrough(p) {
+    const visualHost = document.getElementById('mg-visual');
+    if (!visualHost) return;
+    const v = p.visual || {};
+    if (typeof playSound === 'function') playSound('click');
+
+    // For "5 + 3" style problems, count up: 5 -> 6 -> 7 -> 8
+    if (v.type === 'two-digit-add' || v.type === 'add-groups') {
+        const a = v.a || 0, b = v.b || 0;
+        const isAdd = (p.answer == null) ? true : (a + b === p.answer);
+        if (!isAdd) return;
+        let n = a;
+        const target = a + b;
+        const overlay = document.createElement('div');
+        overlay.className = 'walk-overlay';
+        overlay.innerHTML = `<div class="walk-num"></div><div class="walk-step"></div>`;
+        visualHost.appendChild(overlay);
+        const numEl = overlay.querySelector('.walk-num');
+        const stepEl = overlay.querySelector('.walk-step');
+        numEl.textContent = a;
+        stepEl.textContent = `Start at ${a}`;
+        let count = 0;
+        function step() {
+            if (count >= b) {
+                stepEl.textContent = `${a} + ${b} = ${target} ✨`;
+                if (typeof playSound === 'function') playSound('correct');
+                setTimeout(() => overlay.remove(), 2400);
+                return;
+            }
+            n += 1; count += 1;
+            numEl.textContent = n;
+            numEl.classList.remove('walk-pop');
+            void numEl.offsetWidth;
+            numEl.classList.add('walk-pop');
+            stepEl.textContent = `Count on: ${n}`;
+            setTimeout(step, 720);
+        }
+        setTimeout(step, 700);
+        return;
+    }
+
+    // For "8 - 3" style: count down
+    if (v.type === 'take-away') {
+        const total = v.total || 0, taken = v.taken || 0;
+        let n = total;
+        const target = total - taken;
+        const overlay = document.createElement('div');
+        overlay.className = 'walk-overlay';
+        overlay.innerHTML = `<div class="walk-num"></div><div class="walk-step"></div>`;
+        visualHost.appendChild(overlay);
+        const numEl = overlay.querySelector('.walk-num');
+        const stepEl = overlay.querySelector('.walk-step');
+        numEl.textContent = total;
+        stepEl.textContent = `Start at ${total}`;
+        let count = 0;
+        function step() {
+            if (count >= taken) {
+                stepEl.textContent = `${total} − ${taken} = ${target} ✨`;
+                if (typeof playSound === 'function') playSound('correct');
+                setTimeout(() => overlay.remove(), 2400);
+                return;
+            }
+            n -= 1; count += 1;
+            numEl.textContent = n;
+            numEl.classList.remove('walk-pop');
+            void numEl.offsetWidth;
+            numEl.classList.add('walk-pop');
+            stepEl.textContent = `Take 1 away: ${n}`;
+            setTimeout(step, 720);
+        }
+        setTimeout(step, 700);
+        return;
+    }
+
+    // Two-ten-frames (make-10): split-and-fill animation (simplified text)
+    if (v.type === 'two-ten-frames') {
+        const a = v.filledA || 0, b = v.filledB || 0;
+        const overlay = document.createElement('div');
+        overlay.className = 'walk-overlay';
+        overlay.innerHTML = `<div class="walk-step"></div>`;
+        visualHost.appendChild(overlay);
+        const stepEl = overlay.querySelector('.walk-step');
+        const steps = [
+            `Start: ${a} and ${b}`,
+            `Take ${10 - a} from ${b} to fill the 10`,
+            `Now: 10 and ${a + b - 10} more`,
+            `${a} + ${b} = ${a + b} ✨`,
+        ];
+        let i = 0;
+        function step() {
+            if (i >= steps.length) {
+                if (typeof playSound === 'function') playSound('correct');
+                setTimeout(() => overlay.remove(), 2400);
+                return;
+            }
+            stepEl.textContent = steps[i++];
+            setTimeout(step, 1100);
+        }
+        step();
+    }
 }
 
 function mgTypeNumber(d) {
