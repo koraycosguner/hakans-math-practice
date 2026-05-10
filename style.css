@@ -54,8 +54,12 @@ body {
 
 .screen.active {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /* `safe center` keeps content centered when it fits the viewport, but
+       falls back to flex-start when content is taller — otherwise the top
+       gets clipped because you can't scroll past the flexbox center point.
+       This was breaking the start screen on iPad once the module list grew. */
+    align-items: safe center;
+    justify-content: safe center;
     animation: fadeIn 0.5s ease;
 }
 
