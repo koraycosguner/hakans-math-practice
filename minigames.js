@@ -1019,6 +1019,13 @@ GAME_IMPLS['tic-tac-toe'] = {
     start(ctx) {
         const wrap = document.createElement('div');
         wrap.className = 'mg-ttt-wrap';
+        // Mode toggle: 'cpu' (vs computer) or 'two' (Hakan vs friend/sister)
+        let mode = 'cpu';
+        const modeRow = document.createElement('div');
+        modeRow.className = 'mg-ttt-mode';
+        modeRow.innerHTML =
+            '<button class="mg-ttt-mode-btn mg-ttt-mode-on" data-mode="cpu">🤖 vs Computer</button>' +
+            '<button class="mg-ttt-mode-btn" data-mode="two">👫 2-Player</button>';
         const status = document.createElement('div');
         status.className = 'mg-ttt-status';
         status.textContent = "Your turn — you're X!";
@@ -1026,11 +1033,26 @@ GAME_IMPLS['tic-tac-toe'] = {
         board.className = 'mg-ttt-board';
         const tally = document.createElement('div');
         tally.className = 'mg-ttt-tally';
-        tally.innerHTML = `<span class="mg-ttt-tally-x">❌ You: <b id="mg-ttt-wx">0</b></span><span class="mg-ttt-tally-o">⭕ CPU: <b id="mg-ttt-wo">0</b></span><span class="mg-ttt-tally-d">🤝 Ties: <b id="mg-ttt-wd">0</b></span>`;
+        tally.innerHTML = `<span class="mg-ttt-tally-x">❌ <b id="mg-ttt-wx">0</b></span><span class="mg-ttt-tally-o" id="mg-ttt-o-label">⭕ CPU: <b id="mg-ttt-wo">0</b></span><span class="mg-ttt-tally-d">🤝 Ties: <b id="mg-ttt-wd">0</b></span>`;
+        wrap.appendChild(modeRow);
         wrap.appendChild(status);
         wrap.appendChild(board);
         wrap.appendChild(tally);
         ctx.area.appendChild(wrap);
+
+        modeRow.querySelectorAll('.mg-ttt-mode-btn').forEach((b) => {
+            b.addEventListener('click', () => {
+                mode = b.getAttribute('data-mode');
+                modeRow.querySelectorAll('.mg-ttt-mode-btn').forEach((x) => x.classList.toggle('mg-ttt-mode-on', x === b));
+                cells = ['','','','','','','','',''];
+                turn = 'X';
+                locked = false;
+                const oLbl = document.getElementById('mg-ttt-o-label');
+                if (oLbl) oLbl.innerHTML = (mode === 'cpu' ? '⭕ CPU: ' : '⭕ ') + '<b id="mg-ttt-wo">' + oWins + '</b>';
+                status.textContent = mode === 'two' ? 'Player 1 — tap a square (you\'re X)' : "Your turn — you're X!";
+                renderBoard();
+            });
+        });
 
         const diff = (ctx.config && ctx.config.difficulty) || 'normal';
         // Difficulty maps to AI smartness; can still override via ctx.config.aiSmartness
@@ -1143,7 +1165,18 @@ GAME_IMPLS['tic-tac-toe'] = {
         }
 
         function onCellClick(i) {
-            if (locked || cells[i] || turn !== 'X') return;
+            if (locked || cells[i]) return;
+            if (mode === 'two') {
+                // 2-player mode: alternating taps, no AI
+                cells[i] = turn;
+                renderBoard();
+                if (checkAndEndRound()) return;
+                turn = (turn === 'X' ? 'O' : 'X');
+                status.textContent = (turn === 'X' ? "Player 1's turn — tap a square (X)" : "Player 2's turn — tap a square (O)");
+                return;
+            }
+            // vs CPU
+            if (turn !== 'X') return;
             cells[i] = 'X';
             renderBoard();
             if (checkAndEndRound()) return;

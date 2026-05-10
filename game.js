@@ -674,6 +674,43 @@ function renderParentDashboard() {
         <div class="pd-tile"><div class="pd-tile-num">${wkCorrect}</div><div class="pd-tile-label">correct answers</div></div>
     </div>`;
 
+    // === Daily activity chart (last 7 days) ===
+    const dayLabels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const today = new Date();
+    const dayBuckets = [];
+    for (let d = 6; d >= 0; d--) {
+        const date = new Date(today);
+        date.setDate(today.getDate() - d);
+        date.setHours(0, 0, 0, 0);
+        const start = date.getTime();
+        const end = start + 86400000;
+        let correct = 0;
+        for (const k of Object.keys(stats)) {
+            const s = stats[k];
+            if ((s.last || 0) >= start && s.last < end) correct += (s.correct || 0);
+        }
+        dayBuckets.push({
+            label: dayLabels[date.getDay()],
+            correct,
+            isToday: (d === 0),
+        });
+    }
+    const maxBar = Math.max(1, ...dayBuckets.map((b) => b.correct));
+    html += `<h2 class="pd-section">Daily Activity (Last 7 Days)</h2>`;
+    html += `<div class="pd-chart"><div class="pd-chart-bars">`;
+    for (const b of dayBuckets) {
+        const heightPct = Math.max(2, (b.correct / maxBar) * 100);
+        const cls = b.correct === 0 ? 'pd-chart-bar-empty' :
+                    b.isToday ? 'pd-chart-bar-today' : '';
+        html += `<div class="pd-chart-bar-col">
+            <div class="pd-chart-bar ${cls}" style="height:${heightPct}%">
+                ${b.correct > 0 ? `<span class="pd-chart-val">${b.correct}</span>` : ''}
+            </div>
+            <div class="pd-chart-day">${b.label}</div>
+        </div>`;
+    }
+    html += `</div></div>`;
+
     // === Goals (Koray-settable) ===
     const goal = loadGoals();
     const moduleGoal = goal.modulesPerWeek || 5;
