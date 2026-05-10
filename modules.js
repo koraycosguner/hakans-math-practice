@@ -1044,6 +1044,11 @@ function showModuleResults() {
 }
 
 // ----------------------------------------------------------------------
-// On page load, populate the module grid
+// On page load, populate the module grid. Scripts are at the end of
+// body, so the DOM is already parsed by the time this runs.
 // ----------------------------------------------------------------------
-document.addEventListener('DOMContentLoaded', renderHomeModules);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderHomeModules);
+} else {
+    renderHomeModules();
+}
