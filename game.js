@@ -19,6 +19,38 @@ function saveRobux(amount) {
     localStorage.setItem(ROBUX_STORAGE_KEY, JSON.stringify({ robux: amount }));
 }
 
+// ===== Module progress (per-quiz best stars) =====
+const PROGRESS_STORAGE_KEY = 'hakans-math-progress';
+
+function loadAllProgress() {
+    try {
+        const raw = localStorage.getItem(PROGRESS_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+        return {};
+    }
+}
+
+function saveModuleProgress(moduleId, stars) {
+    if (!moduleId) return;
+    const all = loadAllProgress();
+    const prev = all[moduleId];
+    // Only upgrade — never downgrade a previous best score.
+    const best = prev && prev.stars > stars ? prev.stars : stars;
+    all[moduleId] = { stars: best, lastCompleted: Date.now() };
+    try {
+        localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(all));
+    } catch (e) {}
+}
+
+function resetProgress() {
+    if (confirm("Reset Hakan's module progress (stars)? This won't change Robux.")) {
+        try { localStorage.removeItem(PROGRESS_STORAGE_KEY); } catch (e) {}
+        alert('Progress reset.');
+        if (typeof renderHomeModules === 'function') renderHomeModules();
+    }
+}
+
 function selectUser(name) {
     currentUser = name;
     playSound('click');
@@ -1759,6 +1791,8 @@ function goHome() {
     } else if (currentUser === 'koray') {
         document.getElementById('admin-robux').textContent = loadRobux().toFixed(2);
     }
+    // Re-render the module grid so freshly-earned stars show up.
+    if (typeof renderHomeModules === 'function') renderHomeModules();
     showScreen('start-screen');
 }
 
