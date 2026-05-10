@@ -2594,71 +2594,224 @@ body::after {
 }
 .mg-over-btn-home { background: rgba(255,255,255,0.2); color: white; border: 2px solid white; }
 
+/* ===== Juice: score popups, confetti, timer pulse, combo flash ===== */
+.mg-popup {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    font-weight: 900;
+    font-size: 1.6rem;
+    z-index: 4;
+    animation: mgPopupFly 0.9s ease-out forwards;
+}
+.mg-popup-good { color: #16a34a; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+.mg-popup-bad  { color: #dc2626; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+@keyframes mgPopupFly {
+    0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+    20%  { opacity: 1; transform: translate(-50%, -70%) scale(1.2); }
+    100% { opacity: 0; transform: translate(-50%, -200%) scale(1); }
+}
+
+.mg-confetti {
+    position: absolute;
+    pointer-events: none;
+    font-size: 1.2rem;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    animation: mgConfettiFly 1s ease-out forwards;
+}
+@keyframes mgConfettiFly {
+    0%   { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.4) rotate(360deg); opacity: 0; }
+}
+
+.mg-timer-low {
+    animation: mgTimerThump 0.6s ease-in-out infinite;
+    background: linear-gradient(135deg, #ef4444, #f97316) !important;
+}
+@keyframes mgTimerThump {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.12); }
+}
+
+.mg-combo-flash {
+    animation: mgComboFlash 0.6s ease-out;
+}
+@keyframes mgComboFlash {
+    0%   { background: rgba(255,255,255,0.2); }
+    30%  { background: linear-gradient(135deg, #fbbf24, #f97316); color: white; }
+    100% { background: rgba(255,255,255,0.2); }
+}
+
+.mg-shake {
+    animation: mgAreaShake 0.4s ease-in-out;
+}
+@keyframes mgAreaShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+/* Per-game themed backgrounds for the play area */
+.mg-theme-number-tap-rush  { background: radial-gradient(ellipse at top, #fef3c7, #fde68a 60%, #fbbf24); }
+.mg-theme-bubble-pop-math  { background: linear-gradient(180deg, #dbeafe, #93c5fd); }
+.mg-theme-make-10-match    { background: radial-gradient(ellipse at center, #f3e8ff, #e9d5ff 60%, #c084fc); }
+.mg-theme-speed-add        { background: linear-gradient(135deg, #fef3c7, #fcd34d); }
+.mg-theme-memory-numbers   { background: radial-gradient(ellipse at top, #fce7f3, #fbcfe8 60%, #f9a8d4); }
+.mg-theme-falling-numbers  { background: linear-gradient(180deg, #c7d2fe, #818cf8); }
+.mg-theme-shape-sorter     { background: radial-gradient(ellipse at center, #d1fae5, #6ee7b7 70%, #34d399); }
+.mg-theme-counting-race    { background: linear-gradient(135deg, #cffafe, #67e8f9); }
+
 /* ===== Game 1: Number Tap Rush ===== */
+.mg-ntr-target {
+    text-align: center;
+    margin-bottom: 12px;
+    background: white;
+    border-radius: 16px;
+    padding: 12px 18px;
+    box-shadow: var(--shadow-small);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: center;
+}
+.mg-ntr-prefix { color: var(--text-light); font-weight: 700; font-size: 1.1rem; }
+.mg-ntr-target-num {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--primary);
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    color: #92400e;
+    padding: 2px 16px;
+    border-radius: 12px;
+}
+.mg-ntr-target.mg-ntr-bump { animation: mgNTRBump 0.4s ease; }
+@keyframes mgNTRBump {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
 .mg-ntr-board {
     position: relative;
     width: 100%;
     height: 380px;
-    background: linear-gradient(135deg, #f0eeff, #e0e7ff);
     border-radius: 16px;
     overflow: hidden;
 }
 .mg-ntr-num {
     position: absolute;
-    width: 56px;
-    height: 56px;
-    border: 3px solid white;
+    width: 64px;
+    height: 64px;
+    border: none;
     border-radius: 50%;
     color: white;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
     transition: transform 0.15s ease;
+    animation: mgNTRFloat 3.5s ease-in-out infinite;
 }
-.mg-ntr-num:hover { transform: scale(1.1); }
-.mg-ntr-num.done { opacity: 0.3; transform: scale(0.85); }
+@keyframes mgNTRFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+}
+.mg-ntr-num:hover { transform: scale(1.12); }
+.mg-ntr-num.done  { opacity: 0.25; transform: scale(0.7); animation: none; }
 .mg-ntr-num.wrong { animation: icShake 0.4s ease; }
 
 /* ===== Game 2: Bubble Pop ===== */
 .mg-bubble-wrap { width: 100%; height: 100%; display: flex; flex-direction: column; }
 .mg-bubble-target {
     text-align: center;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--primary);
-    padding: 10px;
+    padding: 12px 20px;
     background: white;
-    border-radius: 14px;
+    border-radius: 18px;
     margin-bottom: 12px;
     box-shadow: var(--shadow-small);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: 900;
 }
-.mg-bubble-field { position: relative; flex: 1; min-height: 320px; overflow: hidden; }
+.mg-bubble-target.mg-b-pulse { animation: mgBPulse 0.5s ease; }
+@keyframes mgBPulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+}
+.mg-b-op {
+    font-size: 2.2rem;
+    color: var(--primary);
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    padding: 2px 14px;
+    border-radius: 10px;
+}
+.mg-b-plus, .mg-b-eq { font-size: 1.8rem; color: var(--text-light); }
+.mg-b-q { font-size: 2.4rem; color: #f97316; }
+
+.mg-bubble-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+.mg-bubble-amb {
+    position: absolute;
+    bottom: -40px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    animation: mgAmbRise linear infinite;
+}
+@keyframes mgAmbRise {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-560px); }
+}
+
+.mg-bubble-field { position: relative; flex: 1; min-height: 320px; overflow: hidden; z-index: 1; }
 .mg-bubble {
     position: absolute;
     bottom: 0;
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #93c5fd, #3b82f6);
     color: white;
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 900;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(59,130,246,0.3);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
     animation: bubbleRise 5s linear forwards;
+    transition: transform 0.15s ease;
 }
-.mg-bubble.wrong { background: radial-gradient(circle at 30% 30%, #fca5a5, #ef4444); animation: bubblePop 0.4s ease forwards; }
+.mg-bubble:hover { transform: scale(1.1); }
+.mg-bubble.wrong { animation: bubblePop 0.4s ease forwards; }
+.mg-bubble.mg-b-done { animation: bubblePop 0.4s ease forwards; }
 @keyframes bubbleRise {
-    from { bottom: -90px; }
+    from { bottom: -100px; }
     to   { bottom: 100%; }
 }
 @keyframes bubblePop {
-    to { transform: scale(0); opacity: 0; }
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.4); opacity: 0.8; }
+    100% { transform: scale(0); opacity: 0; }
 }
 
 /* ===== Game 3: Make 10 Match ===== */
+.mg-m10-wrap { display: flex; flex-direction: column; gap: 12px; height: 100%; }
+.mg-m10-header {
+    text-align: center;
+    font-weight: 900;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, #a78bfa, #7c3aed);
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+}
 .mg-m10-board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -2666,206 +2819,335 @@ body::after {
 }
 .mg-m10-card {
     aspect-ratio: 1;
-    background: white;
-    border: 3px solid var(--primary);
-    border-radius: 14px;
-    font-size: 2rem;
+    border: 3px solid;
+    border-radius: 16px;
     font-weight: 900;
-    color: var(--primary);
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    animation: mgM10Enter 0.4s ease backwards;
 }
+@keyframes mgM10Enter {
+    from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+.mg-m10-card:hover { transform: scale(1.08) rotate(2deg); }
+.mg-m10-val { font-size: 2.4rem; }
 .mg-m10-card.selected {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    border-color: #f5c518;
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px #f5c518, 0 8px 20px rgba(245, 197, 24, 0.5);
 }
 .mg-m10-card.done {
-    background: linear-gradient(135deg, #d1fae5, #6ee7b7);
-    border-color: #43E97B;
-    color: #065f46;
-    opacity: 0.7;
-    cursor: default;
+    animation: mgM10Done 0.6s ease forwards;
+    pointer-events: none;
+}
+@keyframes mgM10Done {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.3) rotate(8deg); filter: drop-shadow(0 0 12px gold); }
+    100% { transform: scale(0.6) rotate(0deg); opacity: 0.2; }
 }
 .mg-m10-card.wrong { animation: icShake 0.4s ease; }
 
 /* ===== Game 4: Speed Add ===== */
-.mg-sa-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.mg-sa-wrap { display: flex; flex-direction: column; align-items: center; gap: 24px; padding-top: 8px; }
 .mg-sa-eq {
     display: flex;
-    gap: 16px;
-    font-size: 2.4rem;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 18px 26px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.mg-sa-eq.mg-sa-bump { animation: mgSABump 0.5s ease; }
+@keyframes mgSABump {
+    0%   { transform: scale(0.85) rotate(-2deg); opacity: 0.5; }
+    60%  { transform: scale(1.12) rotate(2deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.mg-sa-a, .mg-sa-b {
+    font-size: 2.8rem;
     font-weight: 900;
     color: var(--primary);
-    background: white;
-    padding: 16px 24px;
-    border-radius: 18px;
-    box-shadow: var(--shadow-small);
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+    padding: 4px 14px;
+    border-radius: 12px;
 }
+.mg-sa-op, .mg-sa-eqs {
+    font-size: 2.2rem;
+    color: var(--text-light);
+    font-weight: 900;
+}
+.mg-sa-q { font-size: 2.8rem; color: #f97316; font-weight: 900; }
+
 .mg-sa-pad {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 14px;
     width: 100%;
-    max-width: 300px;
+    max-width: 360px;
 }
 .mg-sa-opt {
-    padding: 22px;
-    font-size: 1.8rem;
+    padding: 26px;
+    font-size: 2.2rem;
     font-weight: 900;
-    background: white;
-    color: var(--primary);
-    border: 3px solid var(--primary);
-    border-radius: 16px;
+    border: 3px solid;
+    border-radius: 18px;
     cursor: pointer;
     touch-action: manipulation;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    animation: mgSAEnter 0.3s ease backwards;
+    transition: transform 0.15s ease;
 }
-.mg-sa-opt.wrong { animation: icShake 0.4s ease; border-color: #f87171; }
+@keyframes mgSAEnter {
+    from { opacity: 0; transform: scale(0.7); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.mg-sa-opt:hover { transform: scale(1.06); }
+.mg-sa-opt.mg-sa-correct { animation: mgSACorrect 0.4s ease; }
+@keyframes mgSACorrect {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.25) rotate(-3deg); box-shadow: 0 0 20px gold; }
+    100% { transform: scale(0.85); opacity: 0.5; }
+}
+.mg-sa-opt.wrong { animation: icShake 0.4s ease; border-color: #f87171 !important; background: #fee2e2 !important; }
 
 /* ===== Game 5: Memory Numbers ===== */
 .mg-mem-board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 12px;
+    max-width: 540px;
+    margin: 0 auto;
 }
 .mg-mem-card {
     aspect-ratio: 3/4;
     border: none;
     background: transparent;
     cursor: pointer;
-    perspective: 600px;
+    perspective: 800px;
     padding: 0;
+    position: relative;
+    animation: mgMemEnter 0.4s ease backwards;
+}
+@keyframes mgMemEnter {
+    from { opacity: 0; transform: rotateY(180deg); }
+    to   { opacity: 1; transform: rotateY(0deg); }
 }
 .mg-mem-card .face {
     position: absolute;
     inset: 0;
-    border-radius: 12px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 900;
     backface-visibility: hidden;
-    transition: transform 0.4s ease;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
-.mg-mem-card { position: relative; }
 .mg-mem-card .front {
-    background: linear-gradient(135deg, #6c63ff, #5a52e0);
+    background:
+        repeating-linear-gradient(45deg,
+            #6c63ff, #6c63ff 8px,
+            #7c6cff 8px, #7c6cff 16px);
     color: white;
+    border: 3px solid #4338ca;
     transform: rotateY(0deg);
+    font-size: 2.4rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 .mg-mem-card .back {
-    background: white;
-    color: var(--primary);
-    border: 3px solid var(--primary);
+    background: linear-gradient(135deg,
+        hsl(var(--cardHue, 220), 80%, 92%),
+        hsl(var(--cardHue, 220), 70%, 75%));
+    color: hsl(var(--cardHue, 220), 80%, 25%);
+    border: 3px solid hsl(var(--cardHue, 220), 60%, 45%);
     transform: rotateY(180deg);
 }
 .mg-mem-card.flipped .front { transform: rotateY(180deg); }
 .mg-mem-card.flipped .back  { transform: rotateY(0deg); }
 .mg-mem-card.matched .back {
-    background: linear-gradient(135deg, #d1fae5, #6ee7b7);
-    border-color: #43E97B;
-    color: #065f46;
+    box-shadow: 0 0 0 4px gold, 0 0 20px rgba(245, 197, 24, 0.6);
+    animation: mgMemMatchGlow 1.4s ease-in-out infinite;
+}
+@keyframes mgMemMatchGlow {
+    0%, 100% { box-shadow: 0 0 0 4px gold, 0 0 20px rgba(245, 197, 24, 0.6); }
+    50%      { box-shadow: 0 0 0 4px gold, 0 0 28px rgba(245, 197, 24, 0.9); }
 }
 
 /* ===== Game 6: Falling Numbers ===== */
 .mg-falling-wrap { width: 100%; height: 100%; display: flex; flex-direction: column; }
 .mg-falling-rule {
     text-align: center;
-    font-size: 1.2rem;
-    font-weight: 800;
+    font-size: 1.3rem;
+    font-weight: 900;
     background: linear-gradient(135deg, #fde68a, #facc15);
     color: #92400e;
-    padding: 10px;
-    border-radius: 12px;
+    padding: 14px;
+    border-radius: 14px;
     margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(250, 204, 21, 0.4);
+    border: 3px solid #ca8a04;
 }
-.mg-falling-field { position: relative; flex: 1; min-height: 320px; overflow: hidden; }
+.mg-falling-rule.mg-rule-pulse { animation: mgRulePulse 0.5s ease; }
+@keyframes mgRulePulse {
+    0%   { transform: scale(0.85); background: linear-gradient(135deg, #fb923c, #ea580c); color: white; }
+    100% { transform: scale(1); background: linear-gradient(135deg, #fde68a, #facc15); color: #92400e; }
+}
+.mg-falling-field { position: relative; flex: 1; min-height: 320px; overflow: hidden; border-radius: 16px; }
 .mg-falling-num {
     position: absolute;
     top: 0;
-    width: 52px;
-    height: 52px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #a78bfa, #6c63ff);
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     font-weight: 900;
     border: none;
     cursor: pointer;
-    box-shadow: 0 3px 8px rgba(108,99,255,0.3);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
-.mg-falling-num.done { background: radial-gradient(circle at 30% 30%, #6ee7b7, #43E97B); transform: scale(1.2); }
+.mg-falling-num.done {
+    animation: mgFallingDone 0.3s ease forwards;
+}
+@keyframes mgFallingDone {
+    0%   { transform: scale(1); }
+    100% { transform: scale(1.6); opacity: 0; }
+}
 
 /* ===== Game 7: Shape Sorter ===== */
-.mg-shape-wrap { display: flex; flex-direction: column; gap: 22px; align-items: center; }
-.mg-shape-shapes { min-height: 110px; display: flex; align-items: center; justify-content: center; }
-.mg-shape-piece {
-    padding: 22px 26px;
-    background: linear-gradient(135deg, #c7d2fe, #6c63ff);
-    color: white;
-    border: 4px solid transparent;
-    border-radius: 18px;
+.mg-shape-wrap { display: flex; flex-direction: column; gap: 18px; align-items: center; }
+.mg-shape-prompt {
+    background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+    color: #064e3b;
+    padding: 10px 20px;
+    border-radius: 14px;
     font-weight: 900;
-    text-transform: uppercase;
-    font-size: 1rem;
-    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
 }
-.mg-shape-piece.selected {
-    border-color: #f5c518;
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(245,197,24,0.4);
+.mg-shape-shapes {
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
 }
-.mg-shape-piece-circle    { border-radius: 50%; }
-.mg-shape-piece-square    { border-radius: 8px; }
-.mg-shape-piece-triangle  { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); padding: 30px 26px 22px; }
-.mg-shape-piece-rectangle { border-radius: 8px; padding: 14px 36px; }
-.mg-shape-buckets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; max-width: 360px; }
+.mg-shape-piece {
+    animation: mgShapeFloat 2s ease-in-out infinite, mgShapeBounce 0.4s ease;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.25));
+    cursor: default;
+}
+@keyframes mgShapeFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+}
+@keyframes mgShapeBounce {
+    from { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.mg-shape-buckets {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 420px;
+}
 .mg-shape-bucket {
-    padding: 18px;
+    padding: 14px 12px;
     background: white;
     border: 3px dashed var(--primary);
-    border-radius: 14px;
+    border-radius: 16px;
     font-weight: 800;
     color: var(--primary);
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    transition: transform 0.15s ease;
 }
-.mg-shape-bucket-label { text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.08em; }
+.mg-shape-bucket:hover { transform: translateY(-3px); }
+.mg-shape-bucket-svg { display: flex; align-items: center; justify-content: center; }
+.mg-shape-bucket-label { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.06em; }
+.mg-shape-bucket-count {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    background: #f5c518;
+    color: #92400e;
+    font-weight: 900;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+}
+.mg-shape-bucket.right { animation: mgShapeRight 0.5s ease; border-style: solid; }
+@keyframes mgShapeRight {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.15); box-shadow: 0 0 24px rgba(67, 233, 123, 0.6); }
+    100% { transform: scale(1); }
+}
 .mg-shape-bucket.wrong { animation: icShake 0.4s ease; }
 
 /* ===== Game 8: Counting Race ===== */
-.mg-count-wrap { display: flex; flex-direction: column; gap: 16px; align-items: center; }
-.mg-count-items {
-    min-height: 110px;
-    background: linear-gradient(135deg, #f0eeff, #e0e7ff);
+.mg-count-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.mg-count-prompt {
+    background: linear-gradient(135deg, #cffafe, #67e8f9);
+    color: #155e75;
+    padding: 10px 24px;
     border-radius: 14px;
-    padding: 12px;
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+.mg-count-items {
+    min-height: 130px;
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
     align-items: center;
     width: 100%;
+    max-width: 460px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-.mg-count-item { font-size: 2.2rem; line-height: 1; }
+.mg-count-item {
+    font-size: 2.6rem;
+    line-height: 1;
+    animation: mgCountPopIn 0.4s ease backwards;
+}
+@keyframes mgCountPopIn {
+    from { opacity: 0; transform: scale(0.4) rotate(-15deg); }
+    to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
 .mg-count-pad {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
     width: 100%;
-    max-width: 320px;
+    max-width: 380px;
 }
 .mg-count-digit {
     padding: 16px 0;
-    background: white;
-    color: var(--primary);
-    border: 2px solid var(--primary);
-    border-radius: 12px;
-    font-size: 1.4rem;
+    border: 3px solid;
+    border-radius: 14px;
+    font-size: 1.5rem;
     font-weight: 900;
     cursor: pointer;
+    transition: transform 0.15s ease;
 }
-.mg-count-digit.wrong { animation: icShake 0.4s ease; border-color: #f87171; }
+.mg-count-digit:hover { transform: scale(1.06); }
+.mg-count-digit.right { animation: mgSACorrect 0.4s ease; }
+.mg-count-digit.wrong { animation: icShake 0.4s ease; }
 
 /* ===== Home top row: streak + pet + trophies ===== */
 .home-top-row {
