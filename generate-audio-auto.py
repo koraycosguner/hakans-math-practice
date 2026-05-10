@@ -33,7 +33,9 @@ MANIFEST = os.path.join(OUT_DIR, "manifest.json")
 VOICE = "en-US-GuyNeural"
 RATE = "-10%"
 PITCH = "+0Hz"
-CONCURRENT = 8
+CONCURRENT = 4   # Lower than edge-tts can handle, but more reliable: fewer
+                # socket timeouts and better behavior under transient network
+                # hiccups when generating thousands of clips in a row.
 
 
 # ---------- normalize / slugify (must match audio.js) ----------
@@ -139,25 +141,48 @@ def load_manifest() -> dict:
 
 def transform_for_speech(text: str) -> str:
     """Apply substitutions only to the text passed to edge-tts (NOT to the
-    manifest key). 'Hakan' is a Turkish name; the en-US voice's default
-    pronunciation ('HAY-kuhn') is anglicized. Respelling as 'Hah-Kahn'
-    (with a hyphen between the two syllables) gives en-US-GuyNeural a
-    pronunciation much closer to Turkish /haˈkan/."""
-    return re.sub(r"\bHakan\b", "Hah-Kahn", text)
+    manifest key the audio.js side computes from the displayed text).
+
+    1. Math operators -> spoken words ('5 + 3 = ?' -> '5 plus 3 equals ?')
+       so the TTS doesn't drop them silently.
+    2. 'Hakan: ...' -> 'Hakan, ...' for a more natural pause.
+    3. 'Hakan' -> 'Hah-Kahn' for Turkish-ish pronunciation (the en-US voice
+       otherwise anglicizes it to 'HAY-kuhn')."""
+    # Math operators (do this BEFORE Hakan->Hah-Kahn so the hyphen we add
+    # for Hah-Kahn isn't re-interpreted as a minus sign).
+    text = re.sub(r"\s*\+\s*", " plus ", text)
+    text = re.sub(r"\s*=\s*", " equals ", text)
+    # Minus only between digits — avoid matching word hyphens like "ten-frame".
+    text = re.sub(r"(?<=\d)\s*[−–—-]\s*(?=\d)", " minus ", text)
+    # Colon after Hakan reads better as a comma (small pause)
+    text = re.sub(r"Hakan:\s*", "Hakan, ", text)
+    # Finally, Turkish-ish pronunciation
+    text = re.sub(r"\bHakan\b", "Hah-Kahn", text)
+    # Collapse double spaces produced by the substitutions
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
 
 
 async def gen_one(spoken: str, out_path: str, sem: asyncio.Semaphore):
     if os.path.exists(out_path) and os.path.getsize(out_path) > 0:
         return True
-    async with sem:
-        try:
-            spoken_for_tts = transform_for_speech(spoken)
-            comm = edge_tts.Communicate(spoken_for_tts, VOICE, rate=RATE, pitch=PITCH)
-            await comm.save(out_path)
-            return True
-        except Exception as e:
-            sys.stderr.write(f"[fail] {spoken[:40]}... {e}\n")
-            return False
+    spoken_for_tts = transform_for_speech(spoken)
+    # Up to 3 retries with exponential backoff — edge-tts will sometimes
+    # timeout or return empty audio on busy paths; a quick retry usually wins.
+    last_err = None
+    for attempt in range(3):
+        async with sem:
+            try:
+                comm = edge_tts.Communicate(spoken_for_tts, VOICE, rate=RATE, pitch=PITCH)
+                await comm.save(out_path)
+                if os.path.exists(out_path) and os.path.getsize(out_path) > 0:
+                    return True
+            except Exception as e:
+                last_err = e
+        # Outside the semaphore: backoff before next retry to release a slot
+        await asyncio.sleep(0.5 * (2 ** attempt))
+    sys.stderr.write(f"[fail] {spoken[:40]}... {last_err}\n")
+    return False
 
 
 async def main():

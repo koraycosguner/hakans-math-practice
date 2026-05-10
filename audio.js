@@ -3,7 +3,7 @@
 // Composed phrases are concatenated into a single AudioBuffer (with
 // silence trimming) so playback flows smoothly without scheduling gaps.
 
-const AUDIO_VERSION = 9;
+const AUDIO_VERSION = 17;
 let CLIP_MANIFEST = {};
 let CLIP_MANIFEST_LOADED = false;
 
@@ -112,16 +112,21 @@ function __findSpeechRange(channelData, sampleRate) {
 }
 
 // Concatenate decoded buffers into a single AudioBuffer with silence
-// trimming, so playback is one continuous source — no scheduling gaps,
-// no MP3 padding showing through.
+// trimming and a short equal-power crossfade at every join, so stitched
+// clips don't have audible click/seam where they meet.
 function __concatBuffers(ctx, buffers) {
     const sampleRate = buffers[0].sampleRate;
     const numChannels = Math.min(2, Math.max(1, ...buffers.map(b => b.numberOfChannels)));
+    const fadeSamples = Math.floor(sampleRate * 0.012); // 12ms crossfade
 
-    // Compute the trimmed range of each buffer once.
+    // Trimmed speech range for each buffer
     const ranges = buffers.map(b => __findSpeechRange(b.getChannelData(0), b.sampleRate));
-    const totalLen = ranges.reduce((sum, r) => sum + (r.end - r.start), 0);
-    if (totalLen === 0) return null;
+
+    // Total length: sum of trimmed lengths, minus crossfade overlap per join
+    const trimmedLens = ranges.map(r => r.end - r.start);
+    const totalLen = trimmedLens.reduce((s, v) => s + v, 0)
+                     - fadeSamples * Math.max(0, buffers.length - 1);
+    if (totalLen <= 0) return null;
 
     const out = ctx.createBuffer(numChannels, totalLen, sampleRate);
     for (let ch = 0; ch < numChannels; ch++) {
@@ -132,9 +137,31 @@ function __concatBuffers(ctx, buffers) {
             const range = ranges[i];
             const sourceCh = Math.min(ch, buf.numberOfChannels - 1);
             const inData = buf.getChannelData(sourceCh);
-            const len = range.end - range.start;
-            outData.set(inData.subarray(range.start, range.end), offset);
-            offset += len;
+            const len = trimmedLens[i];
+            const start = range.start;
+
+            if (i === 0) {
+                outData.set(inData.subarray(start, range.end), offset);
+                offset += len;
+            } else {
+                // Crossfade with the trailing portion already in outData
+                const xf = Math.min(fadeSamples, len, offset);
+                // Apply equal-power crossfade in the overlap region
+                for (let s = 0; s < xf; s++) {
+                    const t = s / xf; // 0..1
+                    const fadeOut = Math.cos((t * Math.PI) / 2); // 1..0
+                    const fadeIn = Math.sin((t * Math.PI) / 2);  // 0..1
+                    const outIdx = offset - xf + s;
+                    outData[outIdx] = outData[outIdx] * fadeOut
+                                    + inData[start + s]  * fadeIn;
+                }
+                // Append the rest of this buffer past the crossfade region
+                const rest = len - xf;
+                if (rest > 0) {
+                    outData.set(inData.subarray(start + xf, range.end), offset);
+                    offset += rest;
+                }
+            }
         }
     }
     return out;
@@ -187,6 +214,12 @@ function __findExactClip(text) {
     return CLIP_MANIFEST[key] || null;
 }
 
+// Cap composition at 3 clips. Stitching more than three independently-
+// generated clips together produces robotic, disconnected speech because
+// each piece has different intonation and cadence. Better to stay silent
+// and let the audio-gen pipeline catch up than to play something jarring.
+const MAX_COMPOSED_CLIPS = 3;
+
 function __composeClips(text) {
     if (!CLIP_MANIFEST_LOADED) return null;
     const norm = __normalizeForLookup(text);
@@ -207,6 +240,7 @@ function __composeClips(text) {
             }
         }
         if (!matched) return null;
+        if (out.length > MAX_COMPOSED_CLIPS) return null;
     }
     return out.length ? out : null;
 }
