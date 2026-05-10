@@ -28679,11 +28679,35 @@ function renderHomeModules() {
     }
 
     const progress = (typeof loadAllProgress === 'function') ? loadAllProgress() : {};
+    const visits   = (typeof loadAllVisits   === 'function') ? loadAllVisits()   : {};
     const totalStars = Object.values(progress).reduce((sum, p) => sum + (p.stars || 0), 0);
     const completedCount = Object.keys(progress).length;
     const isHakan = (typeof currentUser !== 'undefined' && currentUser === 'hakan');
 
     let html = '';
+
+    // "Recently Played" — last 5 modules Hakan opened (by lastVisited)
+    if (isHakan) {
+        const recent = Object.entries(visits)
+            .map(([id, v]) => ({ id, ...v }))
+            .sort((a, b) => (b.lastVisited || 0) - (a.lastVisited || 0))
+            .slice(0, 5)
+            .map((v) => MODULES_BY_ID[v.id])
+            .filter(Boolean);
+        if (recent.length > 0) {
+            html += `<section class="recently-played">
+                <div class="rp-label">⏱️ Recently Played</div>
+                <div class="rp-row">
+                    ${recent.map((m) => `
+                        <button class="rp-card" onclick="selectModule('${m.id}')" title="${m.title}">
+                            <span class="rp-icon">${m.emoji}</span>
+                            <span class="rp-title">${m.title}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </section>`;
+        }
+    }
 
     // "Today's Adventure" banner — picks a deterministic-by-day uncompleted module
     if (isHakan) {
@@ -28728,8 +28752,14 @@ function renderHomeModules() {
                     const starsHtml = isHakan && stars > 0
                         ? `<span class="m-card-stars">${'⭐'.repeat(stars)}</span>`
                         : '';
-                    const doneCls = stars > 0 ? ' m-card-done' : '';
+                    const v = visits[m.id];
+                    const visitCount = v ? v.count : 0;
+                    const countHtml = isHakan && visitCount > 0
+                        ? `<span class="m-card-count" title="Played ${visitCount} time${visitCount === 1 ? '' : 's'}">${visitCount}</span>`
+                        : '';
+                    const doneCls = stars > 0 ? ' m-card-done' : (visitCount > 0 ? ' m-card-visited' : '');
                     return `<button class="m-card${doneCls}" onclick="selectModule('${m.id}')">
+                        ${countHtml}
                         ${starsHtml}
                         <span class="m-card-icon">${m.emoji}</span>
                         <span class="m-card-title">${m.title}</span>
@@ -28783,6 +28813,13 @@ function startActivity(activity) {
     const mod = MODULES_BY_ID[moduleState.moduleId];
     if (!mod) return;
     moduleState.activity = activity;
+
+    // Track every activity start so the home grid can show a play-count
+    // badge ("you've worked on this N times") and a Recently Played row.
+    if (typeof currentUser !== 'undefined' && currentUser === 'hakan' &&
+        typeof recordModuleVisit === 'function') {
+        recordModuleVisit(moduleState.moduleId);
+    }
 
     if (activity === 'lesson') {
         startLesson(mod);

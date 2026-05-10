@@ -51,6 +51,34 @@ function resetProgress() {
     }
 }
 
+// ===== Module visit tracking (every lesson/practice/quiz start) =====
+// Used to show "you've worked on this N times" badges and a Recently
+// Played section on the home grid. Independent from PROGRESS so we can
+// surface modules Hakan opened but hasn't yet aced.
+const VISITS_STORAGE_KEY = 'hakans-math-visits';
+
+function loadAllVisits() {
+    try {
+        const raw = localStorage.getItem(VISITS_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+        return {};
+    }
+}
+
+function recordModuleVisit(moduleId) {
+    if (!moduleId) return;
+    const all = loadAllVisits();
+    const prev = all[moduleId];
+    all[moduleId] = {
+        count: (prev && prev.count ? prev.count : 0) + 1,
+        lastVisited: Date.now(),
+    };
+    try {
+        localStorage.setItem(VISITS_STORAGE_KEY, JSON.stringify(all));
+    } catch (e) {}
+}
+
 function selectUser(name) {
     currentUser = name;
     playSound('click');
