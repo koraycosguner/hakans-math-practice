@@ -1015,6 +1015,300 @@ GAME_IMPLS['counting-race'] = {
 // 9. Tic Tac Toe — classic 3x3, Hakan as X, computer as O.
 // Difficulty is a smartness factor (0..1) that controls how often the AI
 // plays optimally vs. randomly. Each round (win/loss/draw) resets the board.
+// 10. Math Maze — cross 6 stepping stones by answering each one.
+// Wrong answer = step back one. Reach the end = +1 score, new maze.
+GAME_IMPLS['math-maze'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const stoneCount = 6;
+        const range = _diffVal(diff, 5, 9, 12);
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-maze-wrap';
+        const status = document.createElement('div');
+        status.className = 'mg-maze-status';
+        const trail = document.createElement('div');
+        trail.className = 'mg-maze-trail';
+        const probArea = document.createElement('div');
+        probArea.className = 'mg-maze-prob';
+        wrap.appendChild(status);
+        wrap.appendChild(trail);
+        wrap.appendChild(probArea);
+        ctx.area.appendChild(wrap);
+
+        let stones = [];
+        let pos = 0;
+
+        function buildMaze() {
+            stones = [];
+            for (let i = 0; i < stoneCount; i++) {
+                const a = Math.floor(Math.random() * range) + 1;
+                const b = Math.floor(Math.random() * range) + 1;
+                stones.push({ a, b, answer: a + b });
+            }
+            pos = 0;
+            renderTrail();
+            renderProblem();
+        }
+
+        function renderTrail() {
+            trail.innerHTML = '';
+            for (let i = 0; i < stoneCount; i++) {
+                const stone = document.createElement('div');
+                stone.className = 'mg-maze-stone';
+                if (i < pos) stone.classList.add('mg-maze-stone-done');
+                if (i === pos) stone.classList.add('mg-maze-stone-here');
+                stone.innerHTML = i === pos ? '🟢' : (i < pos ? '✓' : '');
+                trail.appendChild(stone);
+                if (i < stoneCount - 1) {
+                    const arrow = document.createElement('div');
+                    arrow.className = 'mg-maze-arrow';
+                    arrow.textContent = '→';
+                    trail.appendChild(arrow);
+                }
+            }
+        }
+
+        function renderProblem() {
+            if (pos >= stoneCount) {
+                status.textContent = '🎉 You crossed the maze!';
+                probArea.innerHTML = '';
+                return;
+            }
+            const s = stones[pos];
+            status.textContent = `Stone ${pos + 1} of ${stoneCount} — solve to step forward!`;
+            // Generate 3 options
+            const opts = new Set([s.answer]);
+            while (opts.size < 3) {
+                opts.add(Math.max(0, s.answer + Math.floor(Math.random() * 5) - 2));
+            }
+            const arr = Array.from(opts).sort(() => Math.random() - 0.5);
+            probArea.innerHTML =
+                `<div class="mg-maze-eq"><span class="mg-maze-num">${s.a}</span><span class="mg-maze-op">+</span><span class="mg-maze-num">${s.b}</span><span class="mg-maze-op">=</span><span class="mg-maze-q">?</span></div>` +
+                `<div class="mg-maze-opts">${arr.map((o) => `<button class="mg-maze-opt" data-v="${o}">${o}</button>`).join('')}</div>`;
+            probArea.querySelectorAll('.mg-maze-opt').forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    const v = parseInt(btn.getAttribute('data-v'), 10);
+                    if (v === s.answer) {
+                        btn.classList.add('mg-maze-opt-right');
+                        pos += 1;
+                        setTimeout(() => {
+                            if (pos >= stoneCount) {
+                                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                                setTimeout(buildMaze, 500);
+                            } else {
+                                renderTrail();
+                                renderProblem();
+                            }
+                        }, 300);
+                    } else {
+                        btn.classList.add('mg-maze-opt-wrong');
+                        ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                        if (pos > 0) pos -= 1;
+                        setTimeout(() => {
+                            renderTrail();
+                            renderProblem();
+                        }, 500);
+                    }
+                });
+            });
+        }
+        buildMaze();
+        return { stop() {} };
+    }
+};
+
+// 11. Math Snake — classic snake on a 10x10 grid. Math problem at the top.
+// Multiple numbered food items on the grid; eat the correct answer to grow.
+// Wrong food = no growth + penalty. Wall = reset position + penalty.
+GAME_IMPLS['math-snake'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const tickMs = _diffVal(diff, 300, 220, 170);
+        const W = 10, H = 10;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-snake-wrap';
+        const probEl = document.createElement('div');
+        probEl.className = 'mg-snake-prob';
+        const boardEl = document.createElement('div');
+        boardEl.className = 'mg-snake-board';
+        boardEl.style.setProperty('--snake-w', W);
+        boardEl.style.setProperty('--snake-h', H);
+        const ctrlsEl = document.createElement('div');
+        ctrlsEl.className = 'mg-snake-ctrls';
+        ctrlsEl.innerHTML =
+            '<button class="mg-snake-btn" data-dir="up">⬆️</button>' +
+            '<div class="mg-snake-row">' +
+              '<button class="mg-snake-btn" data-dir="left">⬅️</button>' +
+              '<button class="mg-snake-btn" data-dir="down">⬇️</button>' +
+              '<button class="mg-snake-btn" data-dir="right">➡️</button>' +
+            '</div>';
+        wrap.appendChild(probEl);
+        wrap.appendChild(boardEl);
+        wrap.appendChild(ctrlsEl);
+        ctx.area.appendChild(wrap);
+
+        // State
+        let snake = [{x:3,y:5},{x:2,y:5},{x:1,y:5}];
+        let dir = 'right';
+        let nextDir = 'right';
+        let foods = [];   // {x, y, val}
+        let target = 0;   // current math target
+        let problem = null;
+        let alive = true;
+
+        function nextProblem() {
+            const a = Math.floor(Math.random() * 9) + 1;
+            const b = Math.floor(Math.random() * 9) + 1;
+            target = a + b;
+            problem = { a, b, target };
+            probEl.innerHTML =
+                `<span class="mg-snake-eq">${a} + ${b} = ?</span>` +
+                `<span class="mg-snake-hint">Eat ${target}!</span>`;
+            spawnFoods();
+        }
+
+        function isOccupied(x, y) {
+            for (const s of snake) if (s.x === x && s.y === y) return true;
+            for (const f of foods) if (f.x === x && f.y === y) return true;
+            return false;
+        }
+        function randomFreeCell() {
+            for (let tries = 0; tries < 50; tries++) {
+                const x = Math.floor(Math.random() * W);
+                const y = Math.floor(Math.random() * H);
+                if (!isOccupied(x, y)) return { x, y };
+            }
+            return null;
+        }
+        function spawnFoods() {
+            foods = [];
+            // 1 correct + 2 wrong nearby numbers
+            const correctPos = randomFreeCell();
+            if (correctPos) foods.push({ ...correctPos, val: target, correct: true });
+            const wrongs = new Set();
+            while (wrongs.size < 2) {
+                const w = Math.max(0, target + Math.floor(Math.random() * 5) - 2);
+                if (w !== target) wrongs.add(w);
+            }
+            for (const w of wrongs) {
+                const c = randomFreeCell();
+                if (c) foods.push({ ...c, val: w, correct: false });
+            }
+        }
+
+        function draw() {
+            const cells = new Array(W * H).fill('');
+            // snake body
+            snake.forEach((s, i) => {
+                cells[s.y * W + s.x] = i === 0 ? 'head' : 'body';
+            });
+            let html = '';
+            for (let y = 0; y < H; y++) {
+                for (let x = 0; x < W; x++) {
+                    const food = foods.find((f) => f.x === x && f.y === y);
+                    const c = cells[y * W + x];
+                    if (food) {
+                        html += `<div class="mg-snake-cell mg-snake-food"><span>${food.val}</span></div>`;
+                    } else if (c === 'head') {
+                        html += `<div class="mg-snake-cell mg-snake-head"></div>`;
+                    } else if (c === 'body') {
+                        html += `<div class="mg-snake-cell mg-snake-body"></div>`;
+                    } else {
+                        html += `<div class="mg-snake-cell"></div>`;
+                    }
+                }
+            }
+            boardEl.innerHTML = html;
+        }
+
+        function step() {
+            if (!alive || _gamePaused) return;
+            dir = nextDir;
+            const head = snake[0];
+            const nx = head.x + (dir === 'right' ? 1 : dir === 'left' ? -1 : 0);
+            const ny = head.y + (dir === 'down' ? 1 : dir === 'up' ? -1 : 0);
+            // Wall collision = reset position + penalty
+            if (nx < 0 || nx >= W || ny < 0 || ny >= H) {
+                ctx.onPenalty(2);
+                snake = [{x:5,y:5},{x:4,y:5},{x:3,y:5}];
+                dir = 'right';
+                nextDir = 'right';
+                draw();
+                return;
+            }
+            // Self-collision
+            const selfHit = snake.some((s) => s.x === nx && s.y === ny);
+            if (selfHit) {
+                ctx.onPenalty(2);
+                snake = [{x:5,y:5},{x:4,y:5},{x:3,y:5}];
+                dir = 'right';
+                nextDir = 'right';
+                draw();
+                return;
+            }
+            // Move
+            snake.unshift({ x: nx, y: ny });
+            // Food check
+            const foodIdx = foods.findIndex((f) => f.x === nx && f.y === ny);
+            let grow = false;
+            if (foodIdx >= 0) {
+                const f = foods[foodIdx];
+                if (f.correct) {
+                    ctx.onScore(1);
+                    grow = true;
+                    nextProblem();   // new problem + foods
+                } else {
+                    ctx.onPenalty(1);
+                    foods.splice(foodIdx, 1);
+                }
+            }
+            if (!grow) snake.pop();
+            draw();
+        }
+
+        ctrlsEl.querySelectorAll('.mg-snake-btn').forEach((b) => {
+            b.addEventListener('click', () => {
+                const d = b.getAttribute('data-dir');
+                // Can't reverse direction immediately
+                if (d === 'up' && dir === 'down') return;
+                if (d === 'down' && dir === 'up') return;
+                if (d === 'left' && dir === 'right') return;
+                if (d === 'right' && dir === 'left') return;
+                nextDir = d;
+            });
+        });
+
+        // Swipe support
+        let touchX = null, touchY = null;
+        boardEl.addEventListener('touchstart', (e) => {
+            const t = e.touches[0];
+            touchX = t.clientX; touchY = t.clientY;
+        });
+        boardEl.addEventListener('touchend', (e) => {
+            if (touchX == null) return;
+            const t = e.changedTouches[0];
+            const dx = t.clientX - touchX, dy = t.clientY - touchY;
+            if (Math.abs(dx) < 20 && Math.abs(dy) < 20) return;
+            let d;
+            if (Math.abs(dx) > Math.abs(dy)) d = dx > 0 ? 'right' : 'left';
+            else d = dy > 0 ? 'down' : 'up';
+            if (d === 'up' && dir === 'down') return;
+            if (d === 'down' && dir === 'up') return;
+            if (d === 'left' && dir === 'right') return;
+            if (d === 'right' && dir === 'left') return;
+            nextDir = d;
+            touchX = null;
+        });
+
+        nextProblem();
+        draw();
+        const tickTimer = setInterval(step, tickMs);
+
+        return { stop() { alive = false; clearInterval(tickTimer); } };
+    }
+};
+
 GAME_IMPLS['tic-tac-toe'] = {
     start(ctx) {
         const wrap = document.createElement('div');

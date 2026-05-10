@@ -447,5 +447,51 @@
     "config": {
       "aiSmartness": 0.7
     }
+  },
+  {
+    "id": "math-maze",
+    "title": "Math Maze",
+    "emoji": "🗺️",
+    "description": "Solve to step across the maze!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Cross the maze — each step needs the right answer.",
+    "rules": [
+      "Hakan starts at the left, needs to reach the right.",
+      "Each stone shows a math problem.",
+      "Tap the right answer to step forward.",
+      "Wrong answer? Step back one stone.",
+      "Cross the maze for +1 score, then a new one appears!"
+    ],
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
+    "id": "math-snake",
+    "title": "Math Snake",
+    "emoji": "🐍",
+    "description": "Eat the right answer to grow!",
+    "category": "arcade",
+    "skill": "addition",
+    "duration": 60,
+    "difficulty": "hard",
+    "objective": "Eat the correct answer to the math problem. Avoid walls!",
+    "rules": [
+      "Use arrow buttons (or swipe) to steer the snake.",
+      "Each problem shows: eat the correct sum/difference.",
+      "Wrong food = no growth + small time penalty.",
+      "Hit a wall? Snake resets, time penalty.",
+      "Grow as long as you can!"
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 10
+    },
+    "config": {}
   }
 ]
