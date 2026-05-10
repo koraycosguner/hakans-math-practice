@@ -222,6 +222,184 @@ for msg in MASCOT:
     PHRASES.append((msg, msg, "mascot-" + slugify(msg)))
 
 
+# =====================================================================
+# Module lesson + prompt audio (Grade 1 modules in modules.js)
+# =====================================================================
+# Lesson body texts — record each as one full natural-flowing clip.
+LESSON_BODIES = [
+    # Counting
+    "When we count, each new number is one more than the last. One, two, three, four, five.",
+    "We can count by tens to reach big numbers fast. Ten, twenty, thirty, forty, fifty.",
+    "Sometimes a number is missing in a row. Look at the numbers around it. Four, five, six, seven, eight.",
+    "We can count backwards too. Each number is one less than the last. Ten, nine, eight, seven.",
+    # Addition
+    "When we add, we put two groups together. Three apples and two more apples make five apples.",
+    "The plus sign means and. Three plus two is five.",
+    "When we add, we can start with the bigger number and count up. Five plus three. Five, six, seven, eight.",
+    "Doubles are easy to remember. Five plus five is ten. Six plus six is twelve.",
+    # Subtraction
+    "When we take some away, we subtract. Five cookies. Two are eaten. Three are left.",
+    "The minus sign means take away. Five minus two is three.",
+    "Start at the big number and count back. Eight minus three. Eight, seven, six, five.",
+    "Adding and subtracting are opposites. If three plus five is eight, then eight minus five is three.",
+    # Fact Families
+    "Three numbers can make a fact family. Three, five, and eight all go together.",
+    "Each family makes four math facts. Three plus five is eight. Five plus three is eight. Eight minus three is five. Eight minus five is three.",
+    "We can draw a fact family in a triangle. The big number sits at the top. The two small numbers sit at the bottom.",
+    "If you know one fact in a family, you know them all. That is a math superpower!",
+    # Place Value (re-stated to match new lesson copy in modules.js)
+    "When you have ten ones all together, you can group them into one ten. The tall blue bar is one ten. It has ten little squares stacked up.",
+    "Two-digit numbers have tens and ones. This picture shows two tens and three ones.",
+    "Count the tens first, then the ones. Four tens make forty. Then add seven more.",
+    "If there are no orange ones, the number ends in zero. Six tens with zero ones is just sixty.",
+    # Compare
+    "When we compare numbers, we find which is bigger, smaller, or the same. Seven is bigger than three.",
+    "The greater than sign looks like an alligator mouth. The mouth always opens to eat the bigger number. Seven is greater than three.",
+    "Same alligator, opposite direction. Three is less than seven.",
+    "When two numbers are the same, we use the equal sign. Five equals five.",
+    # Two-digit add
+    "We can add a small number to a bigger one. Twenty-three plus five.",
+    "Look at the ones place. Twenty-three has three ones. Three plus five is eight.",
+    "The tens stay the same. Twenty-three plus five is twenty-eight.",
+    # Time
+    "A clock has two hands. The short hand shows the hour. The long hand shows the minutes.",
+    "When the long hand points to twelve, we say o clock. This shows three o clock.",
+    "When the long hand points to six, we say half past. This shows half past three.",
+    "First look at the short hand for the hour. Then look at the long hand. This is half past seven.",
+    # Shapes
+    "A circle is round. A square has four equal sides. A triangle has three sides. Shapes are everywhere!",
+    "When we cut something into two equal parts, each part is one half.",
+    "When we cut something into four equal parts, each part is one fourth. Some people call them quarters.",
+    "Halves and fourths must always be the same size. Equal parts!",
+    # Word problems
+    "Hakan has three apples. He gets two more. How many in all? That is a math story.",
+    "Look for the numbers in the story. Three and two. Those are our numbers.",
+    "Did Hakan get more apples or lose some? Got more means add. Lost means subtract. Three plus two is five!",
+]
+for msg in LESSON_BODIES:
+    PHRASES.append((msg, msg, "lesson-" + slugify(msg)))
+
+
+# Question prompts (every prompt the modules call speak() with)
+PROMPTS_MODULE = [
+    # Counting
+    "What number comes after four?",
+    "What number comes after five?",
+    "What number comes after nine?",
+    "What number comes after eleven?",
+    "What number comes after fourteen?",
+    "What number comes after ninety nine?",
+    "What number comes before seven?",
+    "What number comes before nine?",
+    "What number comes before twenty?",
+    "What is the missing number?",
+    "Counting by tens. What is the missing number?",
+    # Compare
+    "Five compared to eight?",
+    "Twelve compared to seven?",
+    "Six compared to six?",
+    "Nine compared to eleven?",
+    "Fifteen compared to five?",
+    "Four compared to nine?",
+    "Thirteen compared to ten?",
+    "Seven compared to seven?",
+    "Eleven compared to eight?",
+    "Three compared to eighteen?",
+    "Twenty compared to twenty?",
+    "Six compared to sixteen?",
+    "Fourteen compared to four?",
+    "Seventeen compared to twelve?",
+    "Nine compared to nine?",
+    # Two-digit add prompts
+    "Twenty-three plus five?",
+    "Forty-one plus six?",
+    "Thirty-five plus four?",
+    "Twelve plus seven?",
+    "Fifty-six plus three?",
+    "Twenty-one plus four?",
+    "Thirty-three plus six?",
+    "Forty-five plus two?",
+    "Seventeen plus two?",
+    "Sixty-two plus five?",
+    "Seventy-four plus three?",
+    "Fifty-one plus eight?",
+    "Twenty-four plus five?",
+    "Thirteen plus six?",
+    "Eighty-two plus four?",
+    # Time / shapes
+    "What time is this?",
+    "What shape is this?",
+    "A shape with no corners?",
+    "A shape with three sides?",
+    "How many equal parts?",
+    # Generic
+    "What number is this?",
+    "How many tens?",
+    "How many ones?",
+    # Word problems
+    "Hakan has four dogs. Two more come. How many dogs in all?",
+    "There are eight cookies. Hakan eats three. How many are left?",
+    "Hakan has seven stars. He gets two more. How many stars?",
+    "Ten balloons. Six pop. How many are left?",
+    "Five fish in a tank. Seven more are added. How many fish?",
+    "Three apples. Four more apples. How many in all?",
+    "Nine cats. Five run away. How many cats are left?",
+    "Six balls. Five more balls. How many in all?",
+    "Twelve butterflies. Four fly away. How many are left?",
+    "Two fish. Eight more fish. How many in all?",
+    "Hakan has fifteen strawberries. He eats ten. How many are left?",
+    "Four ducks. Five more come. How many ducks?",
+    "Eleven bunnies. Eight hop away. How many are left?",
+    "Eight stars. Six more stars. How many in all?",
+    "Twenty turtles. Fourteen swim away. How many are left?",
+]
+for msg in PROMPTS_MODULE:
+    PHRASES.append((msg, msg, "qp-" + slugify(msg)))
+
+
+# Practice hints (used in practice mode)
+HINTS_MODULE = [
+    # Counting
+    "Look at the number line. The next number after four is one more.",
+    "Nine plus one more is ten.",
+    "One less than seven.",
+    "Between seven and nine is eight.",
+    "After ten and before twelve.",
+    # Compare
+    "Five is smaller than eight, so it is less than.",
+    "Twelve is bigger than seven, so it is greater than.",
+    "Same numbers means equal.",
+    "Nine is less than eleven.",
+    "Fifteen is much bigger than five.",
+    # Two-digit
+    "Three plus five is eight. Tens stay at twenty.",
+    "One plus six is seven. Plus forty.",
+    "Five plus four is nine. Plus thirty.",
+    "Two plus seven is nine. Plus ten.",
+    "Six plus three is nine. Plus fifty.",
+    # Time
+    "Long hand on twelve, short hand on four.",
+    "Long hand on six means half past.",
+    "Long hand on twelve, short hand on nine.",
+    "Half past two!",
+    "Both hands at the top!",
+    # Shapes
+    "Round and no corners!",
+    "Four equal sides!",
+    "Three sides!",
+    "Count the slices!",
+    "Two by two!",
+    # Word problem hints
+    "Four plus two.",
+    "Eight minus three.",
+    "Seven plus two.",
+    "Ten minus six.",
+    "Five plus seven.",
+]
+for msg in HINTS_MODULE:
+    PHRASES.append((msg, msg, "h-" + slugify(msg)))
+
+
 # ---------- generate ----------
 
 async def gen_one(spoken: str, slug: str, out_path: str) -> None:

@@ -1372,22 +1372,7 @@ function showScreen(screenId) {
 let selectedMode = 'addsub'; // 'addsub' or 'factfamily'
 let activeGameMode = 'addsub'; // which mode is currently running
 
-function setMode(mode, btn) {
-    selectedMode = mode;
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    playSound('click');
-}
-
-function startSelected() {
-    if (selectedMode === 'addsub') {
-        startGame('mixed');
-    } else if (selectedMode === 'factfamily') {
-        startFactFamilyGame();
-    } else if (selectedMode === 'placevalue') {
-        startPlaceValueModule();
-    }
-}
+// (Old mode-button flow removed — replaced by module grid in modules.js)
 
 // ===== Start Game =====
 function initSpeechOnGesture() {

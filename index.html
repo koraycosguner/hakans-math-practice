@@ -59,30 +59,38 @@
 
             <button class="switch-user-btn" onclick="switchUser()">👤 Switch User</button>
 
-            <div class="mode-selection">
-                <h2>Pick your game:</h2>
-                <div class="mode-buttons">
-                    <button class="mode-btn active" onclick="setMode('addsub', this)">
-                        <span class="mode-icon">🧮</span>
-                        <span class="mode-label">Addition &<br>Subtraction</span>
-                        <small>💎 4 each</small>
+            <h2 class="modules-heading">Pick a Module:</h2>
+            <div id="module-grid" class="module-grid"></div>
+        </div>
+    </div>
+
+    <!-- Module Detail Screen — 3 activity buttons -->
+    <div id="module-screen" class="screen">
+        <div class="module-detail-container">
+            <button class="back-btn module-back-btn" onclick="goHome()">🏠 Home</button>
+            <div class="module-detail-card">
+                <div id="module-detail-icon" class="module-detail-icon">🔢</div>
+                <h1 id="module-detail-title" class="module-detail-title">Module</h1>
+                <p id="module-detail-desc" class="module-detail-desc">Description.</p>
+
+                <div class="activity-buttons">
+                    <button id="mod-lesson-btn"   class="activity-btn act-lesson"   onclick="startActivity('lesson')">
+                        <span class="act-icon">📚</span>
+                        <span class="act-name">Lesson</span>
+                        <span class="act-sub">Learn the idea</span>
                     </button>
-                    <button class="mode-btn" onclick="setMode('factfamily', this)">
-                        <span class="mode-icon">🔺</span>
-                        <span class="mode-label">Fact<br>Families</span>
-                        <small>💎 2 each</small>
+                    <button id="mod-practice-btn" class="activity-btn act-practice" onclick="startActivity('practice')">
+                        <span class="act-icon">🎯</span>
+                        <span class="act-name">Practice</span>
+                        <span class="act-sub">With hints</span>
                     </button>
-                    <button class="mode-btn" onclick="setMode('placevalue', this)">
-                        <span class="mode-icon">🔢</span>
-                        <span class="mode-label">Place<br>Value</span>
-                        <small>📚 lesson + 💎 4 each</small>
+                    <button id="mod-quiz-btn"     class="activity-btn act-quiz"     onclick="startActivity('quiz')">
+                        <span class="act-icon">⭐</span>
+                        <span class="act-name">Quiz</span>
+                        <span class="act-sub">💎 4 each</span>
                     </button>
                 </div>
             </div>
-
-            <button class="start-game-btn" onclick="startSelected()">
-                🚀 Start!
-            </button>
         </div>
     </div>
 
@@ -281,69 +289,70 @@
         </div>
     </div>
 
-    <!-- Place Value Game Screen (guided practice + quiz) -->
-    <div id="pv-game-screen" class="screen">
+    <!-- Module Game Screen — generic practice/quiz for any module -->
+    <div id="module-game-screen" class="screen">
         <div class="game-layout">
             <div class="game-header">
                 <button class="back-btn" onclick="goHome()">🏠 Home</button>
-                <span id="pv-phase" class="pv-phase-tag">🎯 Practice</span>
+                <span id="mg-phase" class="pv-phase-tag">🎯 Practice</span>
                 <div class="score-display">
                     <span class="stars-label">⭐</span>
-                    <span id="pv-score">0</span>
+                    <span id="mg-score">0</span>
                 </div>
                 <div class="streak-display">
-                    <span id="pv-streak">🔥 0</span>
+                    <span id="mg-streak">🔥 0</span>
                 </div>
-                <div id="pv-robux-display" class="robux-display" style="display:none;">
+                <div id="mg-robux-display" class="robux-display" style="display:none;">
                     <span>💎</span>
-                    <span id="pv-robux-game">0.0</span>
+                    <span id="mg-robux-game">0.0</span>
                 </div>
                 <div class="progress-bar">
-                    <div id="pv-progress-fill" class="progress-fill"></div>
-                    <span id="pv-progress-text">1 / 5</span>
+                    <div id="mg-progress-fill" class="progress-fill"></div>
+                    <span id="mg-progress-text">1 / 5</span>
                 </div>
             </div>
 
             <div class="game-main">
                 <div class="game-left">
                     <div class="problem-card pv-card">
-                        <div id="pv-question" class="pv-question">What number is this?</div>
-                        <div id="pv-visual" class="pv-visual"></div>
-                        <div class="pv-answer-row">
+                        <div id="mg-question" class="pv-question">Question?</div>
+                        <div id="mg-visual" class="pv-visual"></div>
+                        <div id="mg-answer-row" class="pv-answer-row">
                             <span class="pv-answer-label">Answer:</span>
-                            <span class="pv-answer-box"><span id="pv-answer" class="pv-answer">&nbsp;</span></span>
+                            <span class="pv-answer-box"><span id="mg-answer" class="pv-answer">&nbsp;</span></span>
                         </div>
                     </div>
 
                     <div class="hint-area">
                         <div class="hint-buttons-row">
-                            <button id="pv-hint-btn" class="hint-btn" onclick="pvShowHint()">💡 Hint</button>
+                            <button id="mg-hint-btn" class="hint-btn" onclick="mgShowHint()">💡 Hint</button>
                         </div>
-                        <div id="pv-hint-text" class="hint-steps"></div>
+                        <div id="mg-hint-text" class="hint-steps"></div>
                     </div>
                 </div>
 
                 <div class="game-right">
-                    <div class="number-pad">
-                        <button class="num-key" onclick="pvTypeNumber('1')">1</button>
-                        <button class="num-key" onclick="pvTypeNumber('2')">2</button>
-                        <button class="num-key" onclick="pvTypeNumber('3')">3</button>
-                        <button class="num-key" onclick="pvTypeNumber('4')">4</button>
-                        <button class="num-key" onclick="pvTypeNumber('5')">5</button>
-                        <button class="num-key" onclick="pvTypeNumber('6')">6</button>
-                        <button class="num-key" onclick="pvTypeNumber('7')">7</button>
-                        <button class="num-key" onclick="pvTypeNumber('8')">8</button>
-                        <button class="num-key" onclick="pvTypeNumber('9')">9</button>
-                        <button class="num-key delete-key" onclick="pvDeleteNumber()">⌫</button>
-                        <button class="num-key" onclick="pvTypeNumber('0')">0</button>
-                        <button class="num-key check-key" onclick="pvCheckAnswer()">✓</button>
+                    <div id="mg-num-pad" class="number-pad">
+                        <button class="num-key" onclick="mgTypeNumber('1')">1</button>
+                        <button class="num-key" onclick="mgTypeNumber('2')">2</button>
+                        <button class="num-key" onclick="mgTypeNumber('3')">3</button>
+                        <button class="num-key" onclick="mgTypeNumber('4')">4</button>
+                        <button class="num-key" onclick="mgTypeNumber('5')">5</button>
+                        <button class="num-key" onclick="mgTypeNumber('6')">6</button>
+                        <button class="num-key" onclick="mgTypeNumber('7')">7</button>
+                        <button class="num-key" onclick="mgTypeNumber('8')">8</button>
+                        <button class="num-key" onclick="mgTypeNumber('9')">9</button>
+                        <button class="num-key delete-key" onclick="mgDeleteNumber()">⌫</button>
+                        <button class="num-key" onclick="mgTypeNumber('0')">0</button>
+                        <button class="num-key check-key" onclick="mgCheckAnswer()">✓</button>
                     </div>
+                    <div id="mg-choice-pad" class="choice-pad" style="display:none;"></div>
                 </div>
             </div>
         </div>
 
-        <div id="pv-feedback-overlay" class="feedback-overlay hidden">
-            <div id="pv-feedback-content" class="feedback-content"></div>
+        <div id="mg-feedback-overlay" class="feedback-overlay hidden">
+            <div id="mg-feedback-content" class="feedback-content"></div>
         </div>
     </div>
 
@@ -385,7 +394,7 @@
     <canvas id="confetti-canvas"></canvas>
 
     <script src="audio.js"></script>
-    <script src="lessons.js"></script>
+    <script src="modules.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
