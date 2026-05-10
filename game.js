@@ -188,16 +188,23 @@ function playSound(type) {
 let speechEnabled = true;
 
 function speak(text) {
-    if (!speechEnabled || !('speechSynthesis' in window)) return;
-
-    // Cancel any ongoing speech
-    window.speechSynthesis.cancel();
+    if (!speechEnabled) return;
 
     // Strip emojis and special chars for cleaner speech
     const cleanText = text.replace(/[\u{1F000}-\u{1FFFF}]|[\u{2600}-\u{27BF}]|[\u{FE00}-\u{FEFF}]|[\u200D\uFE0F]/gu, '')
                           .replace(/[−–—]/g, 'minus')  // speak math minus signs
                           .trim();
     if (!cleanText) return;
+
+    // Prefer pre-recorded MP3 clips (cross-browser, neural-quality voice).
+    // tryPlayClip is defined in audio.js; returns true when it served the request.
+    if (typeof tryPlayClip === 'function' && tryPlayClip(cleanText)) {
+        return;
+    }
+
+    // Fallback: Web Speech API (depends on what's installed in the browser/OS)
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.rate = 0.9;   // Slightly slower for kids
