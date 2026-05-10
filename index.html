@@ -10,10 +10,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#667eea">
-    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6c63ff">
+    <link rel="manifest" href="manifest.json?v=18">
+    <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=17">
+    <link rel="stylesheet" href="style.css?v=18">
 </head>
 <body>
     <!-- User Selection Screen -->
@@ -55,6 +56,7 @@
                     <span>Hakan's Robux: 💎 <span id="admin-robux">0.0</span></span>
                     <button class="admin-reset-btn" onclick="resetRobux()">Reset Robux</button>
                 </div>
+                <button class="parent-dash-btn" onclick="openParentDashboard()">📊 View Hakan's Progress</button>
             </div>
 
             <button class="switch-user-btn" onclick="switchUser()">👤 Switch User</button>
@@ -390,11 +392,31 @@
         </div>
     </div>
 
+    <!-- Parent Dashboard (Koray only) -->
+    <div id="parent-dashboard-screen" class="screen">
+        <div class="parent-dashboard">
+            <button class="back-btn" onclick="goHome()">🏠 Home</button>
+            <h1 class="pd-title">📊 Hakan's Progress</h1>
+            <div id="parent-dashboard-body"></div>
+        </div>
+    </div>
+
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=17"></script>
-    <script src="modules.js?v=17"></script>
-    <script src="game.js?v=17"></script>
+    <script src="audio.js?v=18"></script>
+    <script src="modules.js?v=18"></script>
+    <script src="game.js?v=18"></script>
+
+    <!-- Service worker registration: enables offline use and installs the app
+         to the home screen on iPad/Mac/Android. -->
+    <script>
+      if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+              navigator.serviceWorker.register('sw.js')
+                  .catch((err) => console.warn('[sw] register failed:', err));
+          });
+      }
+    </script>
 </body>
 </html>

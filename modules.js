@@ -64652,11 +64652,64 @@ function renderHomeModules() {
 
     const progress = (typeof loadAllProgress === 'function') ? loadAllProgress() : {};
     const visits   = (typeof loadAllVisits   === 'function') ? loadAllVisits()   : {};
+    const streak   = (typeof loadStreak      === 'function') ? loadStreak()      : { current: 0, longest: 0 };
     const totalStars = Object.values(progress).reduce((sum, p) => sum + (p.stars || 0), 0);
     const completedCount = Object.keys(progress).length;
     const isHakan = (typeof currentUser !== 'undefined' && currentUser === 'hakan');
 
     let html = '';
+
+    // Streak banner — small flame indicator. Only shows if Hakan has come back
+    // 2+ days in a row (otherwise it's just noise on day one).
+    if (isHakan && streak.current >= 2) {
+        html += `<div class="streak-banner">
+            <span class="streak-flame">🔥</span>
+            <span class="streak-count">${streak.current}</span>
+            <span class="streak-label">day streak${streak.current === streak.longest ? ' — best ever!' : ''}</span>
+        </div>`;
+    }
+
+    // "Practice This Again" — modules Hakan got 1 star on (struggled). Lower
+    // priority than Today's Adventure but above the full grid so Hakan sees
+    // them when he opens the app.
+    if (isHakan && typeof findStrugglingModuleIds === 'function') {
+        const strugglingIds = findStrugglingModuleIds();
+        const struggling = strugglingIds.map((id) => MODULES_BY_ID[id]).filter(Boolean);
+        if (struggling.length > 0) {
+            html += `<section class="suggest-row suggest-struggle">
+                <div class="sr-label">💪 Try These Again</div>
+                <div class="sr-sub">You almost had these — let's get a star!</div>
+                <div class="rp-row">
+                    ${struggling.map((m) => `
+                        <button class="rp-card rp-card-struggle" onclick="selectModule('${m.id}')" title="${m.title}">
+                            <span class="rp-icon">${m.emoji}</span>
+                            <span class="rp-title">${m.title}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </section>`;
+        }
+    }
+
+    // "Review Time" — modules Hakan completed 7+ days ago. Spaced repetition.
+    if (isHakan && typeof findReviewModuleIds === 'function') {
+        const reviewIds = findReviewModuleIds();
+        const review = reviewIds.map((id) => MODULES_BY_ID[id]).filter(Boolean);
+        if (review.length > 0) {
+            html += `<section class="suggest-row suggest-review">
+                <div class="sr-label">🧠 Review Time</div>
+                <div class="sr-sub">It's been a while — keep these fresh!</div>
+                <div class="rp-row">
+                    ${review.map((m) => `
+                        <button class="rp-card rp-card-review" onclick="selectModule('${m.id}')" title="${m.title}">
+                            <span class="rp-icon">${m.emoji}</span>
+                            <span class="rp-title">${m.title}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </section>`;
+        }
+    }
 
     // "Recently Played" — last 5 modules Hakan opened (by lastVisited)
     if (isHakan) {
@@ -65017,6 +65070,15 @@ function handleCorrect() {
         }
     }
 
+    // Per-problem struggle tracking (Hakan only — only counts the FIRST attempt
+    // on each problem so we don't double-count after a wrong-then-correct).
+    if (typeof currentUser !== 'undefined' && currentUser === 'hakan' &&
+        typeof recordProblemAttempt === 'function' && !moduleState._countedThisProblem) {
+        recordProblemAttempt(moduleState.moduleId, moduleState.activity,
+                             moduleState.problemIndex, true);
+        moduleState._countedThisProblem = true;
+    }
+
     const msg = (typeof MESSAGES !== 'undefined') ? randomChoice(MESSAGES.correct) : 'Great!';
     showMGFeedback('correct', msg);
     if (typeof speak === 'function') speak(msg);
@@ -65027,6 +65089,16 @@ function handleCorrect() {
 function handleWrong() {
     if (typeof playSound === 'function') playSound('wrong');
     moduleState.streak = 0;
+
+    // Per-problem struggle tracking — record the first wrong attempt
+    // (after that, additional retries don't change the stats).
+    if (typeof currentUser !== 'undefined' && currentUser === 'hakan' &&
+        typeof recordProblemAttempt === 'function' && !moduleState._countedThisProblem) {
+        recordProblemAttempt(moduleState.moduleId, moduleState.activity,
+                             moduleState.problemIndex, false);
+        moduleState._countedThisProblem = true;
+    }
+
     const msg = (typeof MESSAGES !== 'undefined') ? randomChoice(MESSAGES.wrong) : 'Try again!';
     showMGFeedback('wrong', msg);
     if (typeof speak === 'function') speak(msg);
@@ -65047,6 +65119,7 @@ function showMGFeedback(kind, msg) {
 function advanceModuleProblem() {
     moduleState.locked = false;
     moduleState.problemIndex++;
+    moduleState._countedThisProblem = false;     // reset for next problem
     const total = getCurrentProblems().length;
     if (moduleState.problemIndex >= total) {
         showModuleResults();

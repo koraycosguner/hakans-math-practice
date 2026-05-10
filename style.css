@@ -1830,6 +1830,194 @@ body::after {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* ===== Parent Dashboard (Koray view) ===== */
+.parent-dashboard {
+    width: 100%;
+    max-width: 900px;
+    padding: 16px;
+}
+.pd-title {
+    color: white;
+    margin: 16px 0 24px;
+    text-align: center;
+}
+.pd-stats-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+}
+@media (min-width: 640px) {
+    .pd-stats-row { grid-template-columns: repeat(4, 1fr); }
+}
+.pd-tile {
+    background: white;
+    border-radius: 18px;
+    padding: 18px 14px;
+    text-align: center;
+    box-shadow: var(--shadow-small);
+}
+.pd-tile-num {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+}
+.pd-tile-label {
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    margin-top: 4px;
+    font-weight: 600;
+}
+.pd-tile-sub {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    margin-top: 2px;
+}
+
+.pd-section {
+    color: white;
+    font-size: 1.15rem;
+    margin: 22px 0 12px;
+    font-weight: 800;
+}
+
+.pd-cats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: white;
+    border-radius: 16px;
+    padding: 14px 16px;
+}
+.pd-cat {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "name nums" "bar bar";
+    gap: 4px 12px;
+    align-items: center;
+}
+.pd-cat-name { grid-area: name; font-weight: 700; color: var(--text-dark); }
+.pd-cat-numbers { grid-area: nums; font-size: 0.85rem; color: var(--text-light); white-space: nowrap; }
+.pd-cat-bar {
+    grid-area: bar;
+    height: 8px;
+    background: #f0f0f5;
+    border-radius: 999px;
+    overflow: hidden;
+}
+.pd-cat-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6c63ff, #a78bfa);
+    transition: width 0.4s ease;
+}
+.pd-cat-bar-full { background: linear-gradient(90deg, #f5a020, #f5c518); }
+
+.pd-table {
+    width: 100%;
+    background: white;
+    border-radius: 16px;
+    border-collapse: collapse;
+    overflow: hidden;
+    box-shadow: var(--shadow-small);
+}
+.pd-table th, .pd-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f5;
+    font-size: 0.9rem;
+}
+.pd-table thead {
+    background: #f8f7ff;
+}
+.pd-table th {
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.pd-table tbody tr:last-child td { border-bottom: none; }
+
+.pd-acc {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+.pd-acc-low { background: #fee2e2; color: #b91c1c; }
+.pd-acc-mid { background: #fef3c7; color: #92400e; }
+.pd-acc-ok  { background: #d1fae5; color: #065f46; }
+
+.pd-empty {
+    background: white;
+    color: var(--text-light);
+    border-radius: 16px;
+    padding: 18px 20px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.parent-dash-btn {
+    margin-top: 12px;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #6c63ff, #5a52e0);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-small);
+}
+.parent-dash-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+/* ===== Daily streak banner ===== */
+.streak-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ff9966, #ff5e62);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+    margin: 0 0 18px;
+}
+.streak-flame { font-size: 1.2rem; }
+.streak-count { font-size: 1.3rem; font-weight: 900; }
+.streak-label { font-size: 0.9rem; }
+
+/* ===== Suggestion rows (struggle / review) ===== */
+.suggest-row {
+    margin: 0 0 18px 0;
+    padding: 12px 14px;
+    border-radius: 18px;
+}
+.suggest-struggle {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border: 2px solid #fdba74;
+}
+.suggest-review {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 2px solid #7dd3fc;
+}
+.sr-label {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+.sr-sub {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+.rp-card-struggle { border-color: #fdba74; }
+.rp-card-review { border-color: #7dd3fc; }
+
 /* ===== Recently Played row ===== */
 .recently-played {
     margin: 0 0 18px 0;

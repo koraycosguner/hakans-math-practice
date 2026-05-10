@@ -77,6 +77,262 @@ function recordModuleVisit(moduleId) {
     try {
         localStorage.setItem(VISITS_STORAGE_KEY, JSON.stringify(all));
     } catch (e) {}
+    // Daily streak: any visit on a new day extends the streak.
+    bumpDailyStreak();
+}
+
+// ===== Daily streak =====
+const STREAK_STORAGE_KEY = 'hakans-math-streak';
+
+function _todayKey() {
+    // Local-time YYYY-MM-DD
+    const d = new Date();
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dd}`;
+}
+
+function _daysBetween(aKey, bKey) {
+    const a = new Date(aKey + 'T00:00:00');
+    const b = new Date(bKey + 'T00:00:00');
+    return Math.round((b - a) / 86400000);
+}
+
+function loadStreak() {
+    try {
+        const raw = localStorage.getItem(STREAK_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : { current: 0, longest: 0, last: null };
+    } catch (e) {
+        return { current: 0, longest: 0, last: null };
+    }
+}
+
+function bumpDailyStreak() {
+    const today = _todayKey();
+    const s = loadStreak();
+    if (s.last === today) return s.current;       // already counted today
+    if (s.last == null) {
+        s.current = 1;
+    } else {
+        const gap = _daysBetween(s.last, today);
+        if (gap === 1) s.current = (s.current || 0) + 1;
+        else if (gap > 1) s.current = 1;          // streak broken; reset
+        else s.current = s.current || 1;          // shouldn't happen (clock skew)
+    }
+    if (s.current > (s.longest || 0)) s.longest = s.current;
+    s.last = today;
+    try { localStorage.setItem(STREAK_STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+    return s.current;
+}
+
+// ===== Per-problem struggle tracking =====
+const PROBLEM_STATS_KEY = 'hakans-math-problems';
+
+function loadProblemStats() {
+    try {
+        const raw = localStorage.getItem(PROBLEM_STATS_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch (e) {
+        return {};
+    }
+}
+
+function recordProblemAttempt(moduleId, activity, idx, isCorrect) {
+    if (!moduleId || idx == null || activity == null) return;
+    const all = loadProblemStats();
+    const key = `${moduleId}::${activity}::${idx}`;
+    const prev = all[key] || { attempts: 0, correct: 0 };
+    prev.attempts += 1;
+    if (isCorrect) prev.correct += 1;
+    prev.last = Date.now();
+    all[key] = prev;
+    try { localStorage.setItem(PROBLEM_STATS_KEY, JSON.stringify(all)); } catch (e) {}
+}
+
+// "Practice this again" — modules where the most-recent quiz finish was
+// under 70% accuracy. We track per-module aggregate via PROGRESS (stars) +
+// problem stats — but for simplicity, surface modules where progress < 3
+// stars AND a quiz has been attempted (so the suggestion is targeted).
+function findStrugglingModuleIds() {
+    const progress = loadAllProgress();
+    const visits = loadAllVisits();
+    const out = [];
+    for (const id of Object.keys(progress)) {
+        const p = progress[id];
+        const v = visits[id];
+        if (!p || !v) continue;
+        if (p.stars < 2) {                        // 1 star = struggled
+            out.push({ id, lastVisited: v.lastVisited || 0, stars: p.stars });
+        }
+    }
+    out.sort((a, b) => b.lastVisited - a.lastVisited);
+    return out.map((x) => x.id).slice(0, 6);
+}
+
+// "Review time" — modules Hakan completed (any stars) but hasn't visited
+// in 7+ days. Shown as a gentle nudge.
+function findReviewModuleIds() {
+    const progress = loadAllProgress();
+    const visits = loadAllVisits();
+    const sevenDaysAgo = Date.now() - 7 * 86400000;
+    const out = [];
+    for (const id of Object.keys(progress)) {
+        const v = visits[id];
+        if (!v) continue;
+        if (v.lastVisited < sevenDaysAgo) {
+            out.push({ id, lastVisited: v.lastVisited, stars: progress[id].stars });
+        }
+    }
+    out.sort((a, b) => a.lastVisited - b.lastVisited);  // oldest first
+    return out.map((x) => x.id).slice(0, 5);
+}
+
+// ===== Parent Dashboard (Koray view of Hakan's progress) =====
+
+function openParentDashboard() {
+    if (typeof playSound === 'function') playSound('click');
+    renderParentDashboard();
+    showScreen('parent-dashboard-screen');
+}
+
+function renderParentDashboard() {
+    const body = document.getElementById('parent-dashboard-body');
+    if (!body) return;
+
+    const progress = loadAllProgress();
+    const visits   = loadAllVisits();
+    const streak   = loadStreak();
+    const stats    = loadProblemStats();
+    const robux    = loadRobux();
+
+    const totalStars = Object.values(progress).reduce((s, p) => s + (p.stars || 0), 0);
+    const completed = Object.keys(progress).length;
+    const visited   = Object.keys(visits).length;
+    const totalMods = (typeof MODULES !== 'undefined') ? MODULES.length : 0;
+
+    // Per-category breakdown
+    const byCat = {};
+    if (typeof MODULES !== 'undefined' && typeof CATEGORIES !== 'undefined') {
+        for (const cat of CATEGORIES) byCat[cat.id] = { cat, total: 0, done: 0, stars: 0 };
+        for (const m of MODULES) {
+            const slot = byCat[m.category];
+            if (!slot) continue;
+            slot.total++;
+            const p = progress[m.id];
+            if (p) {
+                slot.done++;
+                slot.stars += p.stars || 0;
+            }
+        }
+    }
+
+    // Aggregate per-module stats from problem-level data
+    const moduleAccuracy = {};
+    for (const key of Object.keys(stats)) {
+        const [mid] = key.split('::');
+        if (!mid) continue;
+        const s = stats[key];
+        const slot = moduleAccuracy[mid] || { attempts: 0, correct: 0 };
+        slot.attempts += s.attempts;
+        slot.correct  += s.correct;
+        moduleAccuracy[mid] = slot;
+    }
+
+    // Modules where Hakan struggled (lowest accuracy first, min 3 attempts)
+    const struggling = [];
+    for (const id of Object.keys(moduleAccuracy)) {
+        const a = moduleAccuracy[id];
+        if (a.attempts < 3) continue;
+        const acc = a.correct / a.attempts;
+        struggling.push({ id, acc, attempts: a.attempts });
+    }
+    struggling.sort((a, b) => a.acc - b.acc);
+
+    // Recent activity — last 10 visits
+    const recent = Object.entries(visits)
+        .map(([id, v]) => ({ id, ...v }))
+        .sort((a, b) => (b.lastVisited || 0) - (a.lastVisited || 0))
+        .slice(0, 10);
+
+    function modTitle(id) {
+        const m = (typeof MODULES_BY_ID !== 'undefined') ? MODULES_BY_ID[id] : null;
+        return m ? `${m.emoji} ${m.title}` : id;
+    }
+
+    function timeAgo(ts) {
+        const days = Math.floor((Date.now() - ts) / 86400000);
+        if (days === 0) return 'today';
+        if (days === 1) return 'yesterday';
+        if (days < 7) return days + ' days ago';
+        if (days < 14) return '1 week ago';
+        if (days < 30) return Math.floor(days / 7) + ' weeks ago';
+        return Math.floor(days / 30) + ' months ago';
+    }
+
+    let html = '';
+
+    // Top stat tiles
+    html += `<div class="pd-stats-row">
+        <div class="pd-tile"><div class="pd-tile-num">${streak.current}</div><div class="pd-tile-label">🔥 day streak</div><div class="pd-tile-sub">best: ${streak.longest}</div></div>
+        <div class="pd-tile"><div class="pd-tile-num">${completed}/${totalMods}</div><div class="pd-tile-label">✅ modules done</div><div class="pd-tile-sub">${visited} visited</div></div>
+        <div class="pd-tile"><div class="pd-tile-num">${totalStars}</div><div class="pd-tile-label">⭐ total stars</div><div class="pd-tile-sub">max ${totalMods * 3}</div></div>
+        <div class="pd-tile"><div class="pd-tile-num">💎 ${robux.toFixed(1)}</div><div class="pd-tile-label">Robux earned</div></div>
+    </div>`;
+
+    // Per-category breakdown
+    html += `<h2 class="pd-section">Categories</h2>`;
+    html += `<div class="pd-cats">`;
+    for (const c of Object.values(byCat).filter((x) => x.total > 0)) {
+        const pct = c.total ? Math.round((c.done / c.total) * 100) : 0;
+        const fillCls = pct === 100 ? 'pd-cat-bar-full' : '';
+        html += `<div class="pd-cat">
+            <div class="pd-cat-name">${c.cat.emoji} ${c.cat.title}</div>
+            <div class="pd-cat-numbers">${c.done}/${c.total} · ${c.stars}⭐</div>
+            <div class="pd-cat-bar"><div class="pd-cat-bar-fill ${fillCls}" style="width:${pct}%"></div></div>
+        </div>`;
+    }
+    html += `</div>`;
+
+    // Struggling modules
+    html += `<h2 class="pd-section">Where Hakan Needs Help</h2>`;
+    if (struggling.length === 0) {
+        html += `<p class="pd-empty">Not enough data yet. Once Hakan completes more quizzes, his trouble spots will show here.</p>`;
+    } else {
+        html += `<table class="pd-table">
+            <thead><tr><th>Module</th><th>Accuracy</th><th>Attempts</th></tr></thead>
+            <tbody>`;
+        for (const s of struggling.slice(0, 8)) {
+            const accPct = Math.round(s.acc * 100);
+            const cls = s.acc < 0.5 ? 'pd-acc-low' : (s.acc < 0.7 ? 'pd-acc-mid' : 'pd-acc-ok');
+            html += `<tr>
+                <td>${modTitle(s.id)}</td>
+                <td><span class="pd-acc ${cls}">${accPct}%</span></td>
+                <td>${s.attempts}</td>
+            </tr>`;
+        }
+        html += `</tbody></table>`;
+    }
+
+    // Recent activity
+    html += `<h2 class="pd-section">Recent Activity</h2>`;
+    if (recent.length === 0) {
+        html += `<p class="pd-empty">No activity yet.</p>`;
+    } else {
+        html += `<table class="pd-table">
+            <thead><tr><th>Module</th><th>Plays</th><th>Last</th></tr></thead>
+            <tbody>`;
+        for (const r of recent) {
+            html += `<tr>
+                <td>${modTitle(r.id)}</td>
+                <td>${r.count || 1}</td>
+                <td>${timeAgo(r.lastVisited)}</td>
+            </tr>`;
+        }
+        html += `</tbody></table>`;
+    }
+
+    body.innerHTML = html;
 }
 
 function selectUser(name) {
