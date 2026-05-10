@@ -1830,6 +1830,272 @@ body::after {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+/* ===== Bar models (Singapore Math) ===== */
+.bar-model {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 14px 16px;
+    background: #fafafa;
+    border: 2px solid #e5e7eb;
+    border-radius: 18px;
+    font-size: 0.95rem;
+}
+.bar-model-part-whole .bar-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+.bar-total-label {
+    font-weight: 700;
+    color: var(--text-dark);
+}
+.bar-total-value {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+.bar-segments {
+    display: flex;
+    height: 56px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
+}
+.bar-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 800;
+    text-align: center;
+    padding: 4px 6px;
+    min-width: 30px;
+    border-right: 2px solid rgba(255,255,255,0.5);
+}
+.bar-part:last-child { border-right: none; }
+.bar-part-value { font-size: 1.05rem; line-height: 1.1; }
+.bar-part-label { font-size: 0.72rem; opacity: 0.95; }
+.bar-part-0 { background: #6c63ff; }
+.bar-part-1 { background: #ff7e57; }
+.bar-part-2 { background: #43E97B; }
+.bar-part-3 { background: #f5c518; }
+
+.bar-model-compare .bar-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 10px;
+    align-items: center;
+    margin: 8px 0;
+}
+.bar-label { font-weight: 700; color: var(--text-dark); font-size: 0.9rem; }
+.bar-track {
+    height: 32px;
+    background: #f0f0f5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.bar-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    color: white;
+    font-weight: 800;
+    transition: width 0.5s ease;
+}
+.bar-fill-big { background: linear-gradient(90deg, #6c63ff, #5a52e0); }
+.bar-fill-small { background: linear-gradient(90deg, #ff7e57, #ff5e62); }
+.bar-diff {
+    text-align: center;
+    margin-top: 10px;
+}
+.bar-diff-chip {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+/* ===== Interactive lesson primitives ===== */
+.ic-wrap {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 14px 16px;
+    background: #fff;
+    border: 3px dashed #c7d2fe;
+    border-radius: 20px;
+    text-align: center;
+}
+.ic-wrap.ic-done {
+    border-style: solid;
+    border-color: #43E97B;
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+}
+.ic-instr {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+.ic-counter {
+    margin-top: 10px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+/* tap-to-count */
+.ic-tap-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+.ic-tap-emoji {
+    font-size: 2.4rem;
+    width: 60px;
+    height: 60px;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    touch-action: manipulation;
+    padding: 0;
+}
+.ic-tap-emoji:hover { transform: translateY(-3px); }
+.ic-tap-emoji.ic-tapped {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    transform: scale(1.1);
+    border-color: #f5c518;
+    animation: icPop 0.4s ease;
+}
+
+/* tap-the-answer */
+.ic-opt-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.ic-tap-opt {
+    flex: 1 1 80px;
+    min-width: 80px;
+    padding: 16px 12px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: white;
+    color: var(--primary);
+    border: 3px solid #c7d2fe;
+    border-radius: 16px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.ic-tap-opt.ic-correct {
+    background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+    border-color: #43E97B;
+    color: #065f46;
+    animation: icPop 0.5s ease;
+}
+.ic-tap-opt.ic-wrong {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #b91c1c;
+    animation: icShake 0.4s ease;
+}
+.ic-tap-opt.ic-locked { cursor: default; opacity: 0.85; }
+
+/* tap-shape */
+.ic-shape-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.ic-tap-shape {
+    width: 100px;
+    height: 100px;
+    background: white;
+    border: 3px solid #c7d2fe;
+    border-radius: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+.ic-tap-shape.ic-correct {
+    background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+    border-color: #43E97B;
+    animation: icPop 0.5s ease;
+}
+.ic-tap-shape.ic-wrong { animation: icShake 0.4s ease; border-color: #fca5a5; }
+.ic-tap-shape.ic-locked { cursor: default; opacity: 0.7; }
+.ic-tap-shape.ic-correct.ic-locked { opacity: 1; }
+
+/* fill-ten-frame */
+.ic-tf-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    max-width: 280px;
+    margin: 0 auto;
+}
+.ic-tf-cell {
+    aspect-ratio: 1;
+    background: white;
+    border: 2px solid #2D3436;
+    border-radius: 6px;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.ic-tf-cell.ic-tapped {
+    background: radial-gradient(circle, #FF6B6B 60%, #9B2C2C 100%);
+    animation: icPop 0.35s ease;
+}
+
+@keyframes icPop {
+    0%   { transform: scale(0.9); }
+    50%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+@keyframes icShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* Story Mode toggle */
+.story-mode-btn {
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    touch-action: manipulation;
+}
+.story-mode-btn.story-mode-on {
+    background: linear-gradient(135deg, #43E97B, #38f9d7);
+    color: #065f46;
+    border-color: #43E97B;
+    animation: smoPulse 2s ease-in-out infinite;
+}
+@keyframes smoPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(67, 233, 123, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(67, 233, 123, 0); }
+}
+
 /* ===== Step-by-step solution walkthrough ===== */
 .show-step-btn {
     margin-top: 10px;

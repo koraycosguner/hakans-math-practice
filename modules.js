@@ -285,8 +285,120 @@ function renderVisual(visual) {
         case 'two-ten-frames': return renderTwoTenFrames(visual.filledA || 0, visual.filledB || 0, visual.colorA, visual.colorB);
         case 'two-digit-add': return renderTwoDigitAdd(visual.a, visual.b);
         case 'two-digit-num': return renderTwoDigitNumber(visual.n, visual.highlight);
+        case 'bar-model':    return renderBarModel(visual);
+        // Interactive primitives — these render placeholder HTML; the lesson
+        // renderer wires up event handlers in renderLessonPage().
+        case 'tap-to-count':   return renderTapToCount(visual);
+        case 'tap-the-answer': return renderTapTheAnswer(visual);
+        case 'tap-shape':      return renderTapShape(visual);
+        case 'fill-ten-frame': return renderFillTenFrame(visual);
     }
     return '';
+}
+
+// ----------------------------------------------------------------------
+// Bar-model visual (Singapore Math) — two flavors:
+//   part-whole: one bar split into parts that sum to a total
+//   compare:    two stacked bars, the longer's extra = difference
+// ----------------------------------------------------------------------
+function renderBarModel(visual) {
+    if (visual.kind === 'compare') {
+        const big = visual.bigger || {value:0,label:''};
+        const small = visual.smaller || {value:0,label:''};
+        const diff = visual.diff != null ? visual.diff : (big.value - small.value);
+        const diffLabel = visual.diffLabel || 'more';
+        const maxV = Math.max(big.value || 1, small.value || 1);
+        const bigPct = (big.value / maxV) * 100;
+        const smallPct = (small.value / maxV) * 100;
+        return `<div class="bar-model bar-model-compare">
+            <div class="bar-row">
+                <div class="bar-label">${big.label}</div>
+                <div class="bar-track"><div class="bar-fill bar-fill-big" style="width:${bigPct}%">${big.value}</div></div>
+            </div>
+            <div class="bar-row">
+                <div class="bar-label">${small.label}</div>
+                <div class="bar-track"><div class="bar-fill bar-fill-small" style="width:${smallPct}%">${small.value}</div></div>
+            </div>
+            <div class="bar-diff"><span class="bar-diff-chip">${diff} ${diffLabel}</span></div>
+        </div>`;
+    }
+    // part-whole
+    const parts = visual.parts || [];
+    const total = visual.total != null ? visual.total : parts.reduce((s,p)=>s+(p.value||0),0);
+    const totalLabel = visual.totalLabel || 'Total';
+    const sum = parts.reduce((s,p)=>s+(p.value||0),0) || 1;
+    const seg = parts.map((p,idx)=>{
+        const pct = (p.value / sum) * 100;
+        return `<div class="bar-part bar-part-${idx % 4}" style="width:${pct}%">
+            <span class="bar-part-value">${p.value}</span>
+            ${p.label ? `<span class="bar-part-label">${p.label}</span>` : ''}
+        </div>`;
+    }).join('');
+    return `<div class="bar-model bar-model-part-whole">
+        <div class="bar-total-row">
+            <div class="bar-total-label">${totalLabel}</div>
+            <div class="bar-total-value">${total}</div>
+        </div>
+        <div class="bar-segments">${seg}</div>
+    </div>`;
+}
+
+// ----------------------------------------------------------------------
+// Interactive lesson primitives
+// ----------------------------------------------------------------------
+
+// Each renderer outputs HTML with a wrapper having data-interactive="..."
+// so the lesson renderer can wire up handlers after innerHTML insertion.
+
+function renderTapToCount(visual) {
+    const n = Math.max(0, Math.min(20, visual.count || 0));
+    const emoji = visual.emoji || '⭐';
+    const instr = visual.instruction || 'Tap each one!';
+    const items = Array.from({length: n}, (_, i) =>
+        `<button class="ic-tap-emoji" data-idx="${i}">${emoji}</button>`).join('');
+    return `<div class="ic-wrap" data-interactive="tap-to-count" data-target="${n}">
+        <div class="ic-instr">${instr}</div>
+        <div class="ic-tap-row">${items}</div>
+        <div class="ic-counter">0 / ${n}</div>
+    </div>`;
+}
+
+function renderTapTheAnswer(visual) {
+    const opts = visual.options || [];
+    const instr = visual.instruction || 'Tap the right answer!';
+    const correct = visual.correctIndex == null ? 0 : visual.correctIndex;
+    const buttons = opts.map((o, i) =>
+        `<button class="ic-tap-opt" data-correct="${i === correct ? '1' : '0'}">${o}</button>`).join('');
+    return `<div class="ic-wrap" data-interactive="tap-the-answer">
+        <div class="ic-instr">${instr}</div>
+        <div class="ic-opt-row">${buttons}</div>
+    </div>`;
+}
+
+function renderTapShape(visual) {
+    const shapes = visual.shapes || [];
+    const target = visual.target || '';
+    const instr = visual.instruction || `Tap the ${target}!`;
+    const buttons = shapes.map((s) =>
+        `<button class="ic-tap-shape" data-shape="${s}" data-correct="${s === target ? '1' : '0'}">
+            ${renderShape(s)}
+        </button>`).join('');
+    return `<div class="ic-wrap" data-interactive="tap-shape" data-target="${target}">
+        <div class="ic-instr">${instr}</div>
+        <div class="ic-shape-row">${buttons}</div>
+    </div>`;
+}
+
+function renderFillTenFrame(visual) {
+    const target = Math.max(1, Math.min(10, visual.target || 5));
+    const instr = visual.instruction || `Tap to fill ${target} dots!`;
+    const cells = Array.from({length: 10}, (_, i) =>
+        `<button class="ic-tf-cell" data-idx="${i}"></button>`).join('');
+    return `<div class="ic-wrap" data-interactive="fill-ten-frame" data-target="${target}">
+        <div class="ic-instr">${instr}</div>
+        <div class="ic-tf-grid">${cells}</div>
+        <div class="ic-counter">0 / ${target}</div>
+    </div>`;
 }
 
 // ----------------------------------------------------------------------
@@ -64885,10 +64997,14 @@ function renderLessonPage() {
     const isLast = moduleState.lessonIndex === total - 1;
 
     document.getElementById('lesson-title').textContent = page.title;
-    document.getElementById('lesson-visual').innerHTML = renderVisual(page.visual);
+    const visualHost = document.getElementById('lesson-visual');
+    visualHost.innerHTML = renderVisual(page.visual);
     document.getElementById('lesson-text').textContent = page.text;
     document.getElementById('lesson-caption').textContent = page.caption || '';
     document.getElementById('lesson-progress').textContent = `Lesson ${moduleState.lessonIndex + 1} / ${total}`;
+
+    // Wire up any interactive primitives that just got inserted
+    bindInteractivePrimitives(visualHost);
 
     const dots = [];
     for (let i = 0; i < total; i++) {
@@ -64902,6 +65018,96 @@ function renderLessonPage() {
         isLast ? (isDelegated ? 'Done ✓' : "Let's Practice! 🎯") : 'Next ➡️';
 
     if (typeof speak === 'function') speak(page.text);
+
+    // Story Mode: auto-advance after speech finishes
+    if (moduleState.storyMode && !isLast) {
+        scheduleStoryModeAdvance(page.text);
+    }
+}
+
+// Story Mode: after a lesson page is spoken, wait an extra moment then
+// advance to the next page automatically. Estimates speech duration from
+// text length (since we don't get an "ended" callback from MP3 clip mode).
+let __storyModeTimer = null;
+function scheduleStoryModeAdvance(text) {
+    if (__storyModeTimer) clearTimeout(__storyModeTimer);
+    // ~70ms per character + 1.6s tail; capped 4s minimum, 14s max.
+    const ms = Math.max(4000, Math.min(14000, (text || '').length * 70 + 1600));
+    __storyModeTimer = setTimeout(() => {
+        if (!moduleState.storyMode) return;
+        nextLessonPage();
+    }, ms);
+}
+
+function toggleStoryMode() {
+    moduleState.storyMode = !moduleState.storyMode;
+    const btn = document.getElementById('story-mode-btn');
+    if (btn) {
+        btn.classList.toggle('story-mode-on', moduleState.storyMode);
+        btn.textContent = moduleState.storyMode ? '▶ Auto-Play On' : '▶ Auto-Play Off';
+    }
+    if (moduleState.storyMode) {
+        // Kick off immediately on the current page
+        const mod = MODULES_BY_ID[moduleState.moduleId];
+        const page = mod && mod.lesson && mod.lesson[moduleState.lessonIndex];
+        if (page) scheduleStoryModeAdvance(page.text);
+    } else if (__storyModeTimer) {
+        clearTimeout(__storyModeTimer);
+        __storyModeTimer = null;
+    }
+}
+
+// ----------------------------------------------------------------------
+// Interactive lesson primitive event handling
+// ----------------------------------------------------------------------
+function bindInteractivePrimitives(host) {
+    if (!host) return;
+    const wrap = host.querySelector('[data-interactive]');
+    if (!wrap) return;
+    const kind = wrap.getAttribute('data-interactive');
+
+    if (kind === 'tap-to-count' || kind === 'fill-ten-frame') {
+        const target = parseInt(wrap.getAttribute('data-target'), 10) || 0;
+        const buttons = wrap.querySelectorAll(kind === 'tap-to-count' ? '.ic-tap-emoji' : '.ic-tf-cell');
+        const counter = wrap.querySelector('.ic-counter');
+        let tapped = 0;
+        buttons.forEach((b) => {
+            b.addEventListener('click', () => {
+                if (b.classList.contains('ic-tapped')) return;
+                if (tapped >= target) return;
+                b.classList.add('ic-tapped');
+                tapped += 1;
+                if (counter) counter.textContent = `${tapped} / ${target}`;
+                if (typeof playSound === 'function') playSound('click');
+                if (tapped === target) {
+                    wrap.classList.add('ic-done');
+                    if (counter) counter.textContent = `Done! 🎉`;
+                    if (typeof playSound === 'function') playSound('correct');
+                }
+            });
+        });
+        return;
+    }
+
+    if (kind === 'tap-the-answer' || kind === 'tap-shape') {
+        const buttons = wrap.querySelectorAll(kind === 'tap-the-answer' ? '.ic-tap-opt' : '.ic-tap-shape');
+        buttons.forEach((b) => {
+            b.addEventListener('click', () => {
+                if (b.classList.contains('ic-locked')) return;
+                const isCorrect = b.getAttribute('data-correct') === '1';
+                if (isCorrect) {
+                    b.classList.add('ic-correct', 'ic-locked');
+                    buttons.forEach((x) => x.classList.add('ic-locked'));
+                    if (typeof playSound === 'function') playSound('correct');
+                } else {
+                    b.classList.add('ic-wrong');
+                    if (typeof playSound === 'function') playSound('wrong');
+                    setTimeout(() => b.classList.remove('ic-wrong'), 600);
+                }
+            });
+        });
+        return;
+    }
 }
 
 function nextLessonPage() {

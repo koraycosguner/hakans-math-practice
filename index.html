@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=19">
+    <link rel="manifest" href="manifest.json?v=20">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=19">
+    <link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
     <!-- User Selection Screen -->
@@ -275,6 +275,7 @@
         <div class="lesson-layout">
             <div class="lesson-header">
                 <button class="back-btn" onclick="goHome()">🏠 Home</button>
+                <button id="story-mode-btn" class="story-mode-btn" onclick="toggleStoryMode()">▶ Auto-Play Off</button>
                 <span id="lesson-progress" class="lesson-progress-text">Lesson 1 / 4</span>
                 <div id="lesson-dots" class="lesson-dots"></div>
             </div>
@@ -404,9 +405,9 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=19"></script>
-    <script src="modules.js?v=19"></script>
-    <script src="game.js?v=19"></script>
+    <script src="audio.js?v=20"></script>
+    <script src="modules.js?v=20"></script>
+    <script src="game.js?v=20"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->
