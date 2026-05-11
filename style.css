@@ -8048,6 +8048,45 @@ html.theme-space body::before {
 }
 html.theme-space .screen { position: relative; z-index: 1; }
 
+/* ===== Iteration 24: brain drills + compare buttons ===== */
+.drills-btn {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3);
+}
+.drill-compare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 18px 0;
+}
+.dc-btn {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(108, 99, 255, 0.4);
+    transition: transform 0.15s ease;
+}
+.dc-btn:hover { transform: translateY(-3px); }
+.dc-vs {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text-light);
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

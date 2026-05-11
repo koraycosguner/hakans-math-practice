@@ -1012,6 +1012,149 @@ function _initKeyboardInput() {
 }
 _initKeyboardInput();
 
+// ===== Brain Drills — quick math drills via simple overlays =====
+function openBrainDrills() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    overlay.innerHTML = `<div class="sound-card">
+        <h2>🧠 Brain Drills</h2>
+        <div class="sound-sub">Quick math workouts, +1 💎 each.</div>
+        <div class="sound-options" style="grid-template-columns:repeat(2,1fr);">
+            <button class="sound-opt" onclick="runDrill('numberbond')"><div class="sound-emoji">🔟</div><div class="sound-name">Friends of 10</div><div class="sound-desc">What makes 10?</div></button>
+            <button class="sound-opt" onclick="runDrill('doubles')"><div class="sound-emoji">👯</div><div class="sound-name">Doubles</div><div class="sound-desc">2+2, 5+5, 9+9</div></button>
+            <button class="sound-opt" onclick="runDrill('counton')"><div class="sound-emoji">⬆️</div><div class="sound-name">Count On</div><div class="sound-desc">Count up by 1</div></button>
+            <button class="sound-opt" onclick="runDrill('skipcount')"><div class="sound-emoji">⏭️</div><div class="sound-name">Skip Count</div><div class="sound-desc">By 2s, 5s, 10s</div></button>
+            <button class="sound-opt" onclick="runDrill('compare')"><div class="sound-emoji">⚖️</div><div class="sound-name">Bigger?</div><div class="sound-desc">Pick bigger #</div></button>
+            <button class="sound-opt" onclick="runDrill('mixed')"><div class="sound-emoji">🎲</div><div class="sound-name">Mixed</div><div class="sound-desc">A bit of all</div></button>
+        </div>
+        <button class="sound-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
+function runDrill(type) {
+    document.querySelectorAll('.sound-overlay').forEach((o) => o.remove());
+    const probs = _generateDrillProblems(type, 5);
+    let idx = 0, correct = 0;
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    function renderQ() {
+        if (idx >= probs.length) {
+            const reward = correct;
+            if (reward > 0) saveRobux(loadRobux() + reward);
+            overlay.innerHTML = `<div class="potd-card">
+                <h2>🧠 Drill done!</h2>
+                <div class="qm-score">${correct} / ${probs.length}</div>
+                <div class="qm-reward">+${reward} 💎</div>
+                <button class="potd-close">Awesome</button>
+            </div>`;
+            overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+            if (correct === probs.length && typeof launchConfetti === 'function') launchConfetti();
+            return;
+        }
+        const cur = probs[idx];
+        if (cur.type === 'compare') {
+            overlay.innerHTML = `<div class="potd-card">
+                <h2>⚖️ Which is bigger?</h2>
+                <div class="qm-progress">${idx + 1} of ${probs.length}</div>
+                <div class="drill-compare">
+                    <button class="dc-btn" data-pick="${cur.a}">${cur.a}</button>
+                    <span class="dc-vs">vs</span>
+                    <button class="dc-btn" data-pick="${cur.b}">${cur.b}</button>
+                </div>
+                <div class="potd-feedback"></div>
+            </div>`;
+            const fb = overlay.querySelector('.potd-feedback');
+            overlay.querySelectorAll('.dc-btn').forEach((b) => {
+                b.addEventListener('click', () => {
+                    const pick = parseInt(b.getAttribute('data-pick'), 10);
+                    if (pick === cur.answer) {
+                        correct++;
+                        fb.innerHTML = '<div class="potd-correct">✅ Yes!</div>';
+                        playSound('correct');
+                    } else {
+                        fb.innerHTML = '<div class="potd-wrong">Other one was bigger!</div>';
+                        playSound('wrong');
+                    }
+                    setTimeout(() => { idx++; renderQ(); }, 700);
+                });
+            });
+        } else {
+            overlay.innerHTML = `<div class="potd-card">
+                <h2>${cur.title || '🧠 Quick!'}</h2>
+                <div class="qm-progress">${idx + 1} of ${probs.length}</div>
+                <div class="potd-question">${cur.q}</div>
+                <input type="number" class="potd-input" autocomplete="off" inputmode="numeric" />
+                <div class="potd-actions">
+                    <button class="potd-check">Check</button>
+                    <button class="qm-skip">Skip</button>
+                </div>
+                <div class="potd-feedback"></div>
+            </div>`;
+            const input = overlay.querySelector('.potd-input');
+            const fb = overlay.querySelector('.potd-feedback');
+            const submit = () => {
+                const val = parseInt(input.value, 10);
+                if (Number.isNaN(val)) return;
+                if (val === cur.a) {
+                    correct++;
+                    fb.innerHTML = `<div class="potd-correct">✅ ${cur.q.replace('?', cur.a)}</div>`;
+                    playSound('correct');
+                    setTimeout(() => { idx++; renderQ(); }, 700);
+                } else {
+                    fb.innerHTML = `<div class="potd-wrong">Answer was ${cur.a}.</div>`;
+                    playSound('wrong');
+                    setTimeout(() => { idx++; renderQ(); }, 1000);
+                }
+            };
+            overlay.querySelector('.potd-check').addEventListener('click', submit);
+            overlay.querySelector('.qm-skip').addEventListener('click', () => { idx++; renderQ(); });
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+            setTimeout(() => input.focus(), 50);
+        }
+    }
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+    renderQ();
+}
+
+function _generateDrillProblems(type, n) {
+    const out = [];
+    for (let i = 0; i < n; i++) {
+        if (type === 'numberbond') {
+            const target = 10;
+            const a = 1 + Math.floor(Math.random() * 9);
+            out.push({ q: `${a} + ? = ${target}`, a: target - a });
+        } else if (type === 'doubles') {
+            const x = 1 + Math.floor(Math.random() * 10);
+            out.push({ q: `${x} + ${x} = ?`, a: x + x });
+        } else if (type === 'counton') {
+            const x = 5 + Math.floor(Math.random() * 14);
+            const c = 1 + Math.floor(Math.random() * 3);
+            out.push({ q: `${x} + ${c} = ?`, a: x + c });
+        } else if (type === 'skipcount') {
+            const by = [2, 5, 10][Math.floor(Math.random() * 3)];
+            const start = by * (1 + Math.floor(Math.random() * 4));
+            out.push({ q: `${start}, ${start + by}, ?`, a: start + 2 * by, title: `⏭️ Skip by ${by}` });
+        } else if (type === 'compare') {
+            let a, b;
+            do {
+                a = 1 + Math.floor(Math.random() * 50);
+                b = 1 + Math.floor(Math.random() * 50);
+            } while (a === b);
+            out.push({ type: 'compare', a, b, answer: Math.max(a, b) });
+        } else {
+            // mixed
+            const k = ['numberbond', 'doubles', 'counton', 'skipcount', 'compare'][Math.floor(Math.random() * 5)];
+            out.push.apply(out, _generateDrillProblems(k, 1));
+        }
+    }
+    return out.slice(0, n);
+}
+
 // ===== Math jokes (Grade 1 friendly) =====
 const MATH_JOKES = [
     { q: "Why was 6 afraid of 7?", a: "Because 7, 8, 9! 😂" },
