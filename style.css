@@ -12337,21 +12337,39 @@ html.show-timer .timer-display { display: inline-flex; }
     filter: blur(0.3px);
 }
 
-/* ===== Iteration 9: glossary search, milestone, mascot mood, type chips ===== */
+/* ===== Glossary search, milestone, mascot mood, type chips ===== */
 .glo-search-wrap {
     max-width: 480px;
-    margin: 8px auto 14px;
+    margin: 10px auto 18px;
+    position: relative;
 }
 .glo-search {
     width: 100%;
-    padding: 10px 14px;
-    border-radius: 14px;
-    border: 2px solid #e5e7eb;
+    padding: 12px 18px;
+    border-radius: 18px;
+    border: 3px solid rgba(255, 255, 255, 0.7);
     font-size: 1rem;
-    background: white;
+    font-weight: 700;
+    color: #1f2937;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     outline: none;
+    box-shadow:
+        0 6px 18px rgba(108, 99, 255, 0.2),
+        inset 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: transform 0.18s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.glo-search:focus { border-color: var(--primary); }
+.glo-search::placeholder { color: #94a3b8; font-weight: 600; }
+.glo-search:focus {
+    border-color: #8b5cf6;
+    transform: scale(1.02);
+    box-shadow:
+        0 10px 24px rgba(139, 92, 246, 0.3),
+        inset 0 2px 4px rgba(0, 0, 0, 0.04),
+        0 0 0 4px rgba(139, 92, 246, 0.2);
+}
+@media (prefers-reduced-motion: reduce) {
+    .glo-search { transition: none !important; }
+}
 
 /* Milestone celebration overlay */
 .milestone-overlay {
