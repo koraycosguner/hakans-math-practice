@@ -8956,6 +8956,53 @@ html.motion-reduced .affirmation-card { animation: none; }
     cursor: pointer;
 }
 
+/* ===== Iteration 37: animation polish ===== */
+/* Module card hover lifts more pronounced */
+.m-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+/* Screen transition fade */
+.screen.active {
+    animation: screenFadeIn 0.3s ease-out;
+}
+@keyframes screenFadeIn {
+    0%   { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+html.motion-reduced .screen.active { animation: none; }
+
+/* Press squish on key buttons */
+.activity-btn:active,
+.continue-btn:active,
+.quickmath-btn:active,
+.savings-goal:active {
+    transform: scale(0.96);
+    transition: transform 0.08s ease;
+}
+
+/* Mascot photo gentle wiggle on home */
+#start-screen.active .mascot-photo {
+    animation: mascotIdle 4s ease-in-out infinite;
+}
+@keyframes mascotIdle {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25%      { transform: rotate(-2deg) scale(1.02); }
+    75%      { transform: rotate(2deg) scale(1.02); }
+}
+html.motion-reduced .mascot-photo { animation: none; }
+
+/* Robux total pulse */
+.robux-banner #robux-total {
+    animation: robuxPulse 3s ease-in-out infinite;
+}
+@keyframes robuxPulse {
+    0%, 100% { color: inherit; }
+    50%      { color: #f59e0b; text-shadow: 0 2px 8px rgba(245,158,11,0.5); }
+}
+html.motion-reduced #robux-total { animation: none; }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;
