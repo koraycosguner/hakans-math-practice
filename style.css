@@ -1264,16 +1264,35 @@ body {
     text-align: center;
     max-width: 600px;
     width: 100%;
-    background: var(--card-bg);
+    background: linear-gradient(135deg, var(--card-bg) 0%, #f8fafc 100%);
     border-radius: 32px;
     padding: clamp(30px, 5vw, 50px);
-    box-shadow: var(--shadow);
+    box-shadow: 0 20px 60px rgba(108, 99, 255, 0.18), 0 0 0 4px rgba(108, 99, 255, 0.06);
+    border: 2px solid rgba(108, 99, 255, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+/* Decorative top ribbon */
+.results-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #fbbf24, #f97316, #ec4899, #8b5cf6, #3b82f6, #10b981);
 }
 
 .results-title {
     font-size: clamp(1.8rem, 4vw, 2.8rem);
     margin-bottom: 16px;
-    color: var(--text-dark);
+    background: linear-gradient(135deg, #8b5cf6 0%, #4338ca 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 8px rgba(108,99,255,0.25));
+    letter-spacing: -0.02em;
+    line-height: 1.15;
 }
 
 .results-mascot {
@@ -1287,7 +1306,7 @@ body {
 .results-stats {
     display: flex;
     justify-content: center;
-    gap: clamp(16px, 4vw, 40px);
+    gap: clamp(10px, 2vw, 20px);
     margin-bottom: 24px;
     flex-wrap: wrap;
 }
@@ -1295,24 +1314,36 @@ body {
 .stat-item {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 4px;
-    min-width: 100px;
+    min-width: 96px;
+    background: white;
+    border-radius: 18px;
+    padding: 14px 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    border: 2px solid rgba(108, 99, 255, 0.12);
+    transition: transform 0.2s ease;
 }
+.stat-item:hover { transform: translateY(-3px); }
 
 .stat-icon {
     font-size: clamp(1.5rem, 3vw, 2.5rem);
+    line-height: 1;
 }
 
 .stat-label {
-    font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+    font-size: clamp(0.72rem, 1.4vw, 0.85rem);
     color: var(--text-light);
-    font-weight: 600;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
 .stat-value {
     font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 800;
+    font-weight: 900;
     color: var(--primary);
+    letter-spacing: -0.02em;
 }
 
 .star-rating {
