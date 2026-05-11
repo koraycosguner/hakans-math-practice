@@ -71066,6 +71066,8 @@ function handleCorrect() {
     if (moduleState.correct === 1 && typeof _firstCorrectCelebration === 'function') {
         _firstCorrectCelebration();
     }
+    // Pet happy heart floats up
+    if (typeof _petHappyHeart === 'function') _petHappyHeart();
     // Sparkle ring around the answer box.
     const ansBox = document.querySelector('#module-game-screen .pv-answer-box');
     if (ansBox) {

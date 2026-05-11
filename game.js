@@ -808,11 +808,16 @@ const PET_OUTFITS = [
     { id: 'hat-cap',      slot: 'hat',  emoji: '🧢', name: 'Baseball Cap', price: 15 },
     { id: 'hat-grad',     slot: 'hat',  emoji: '🎓', name: 'Grad Cap',     price: 25 },
     { id: 'hat-party',    slot: 'hat',  emoji: '🎉', name: 'Party Hat',    price: 30 },
+    { id: 'hat-cowboy',   slot: 'hat',  emoji: '🤠', name: 'Cowboy Hat',   price: 22 },
+    { id: 'hat-helmet',   slot: 'hat',  emoji: '⛑️', name: 'Builder Hat',  price: 28 },
+    { id: 'hat-fire',     slot: 'hat',  emoji: '🔥', name: 'Fire Crown',   price: 80 },
     { id: 'acc-glasses',  slot: 'acc',  emoji: '👓', name: 'Cool Glasses', price: 25 },
     { id: 'acc-sunglasses', slot: 'acc', emoji: '😎', name: 'Sunglasses',  price: 35 },
     { id: 'acc-bowtie',   slot: 'acc',  emoji: '🎀', name: 'Bow Tie',      price: 18 },
     { id: 'acc-cape',     slot: 'acc',  emoji: '🦸', name: 'Hero Cape',    price: 60 },
     { id: 'acc-star',     slot: 'acc',  emoji: '⭐', name: 'Star Sticker', price: 12 },
+    { id: 'acc-rainbow',  slot: 'acc',  emoji: '🌈', name: 'Rainbow Aura', price: 75 },
+    { id: 'acc-rocket',   slot: 'acc',  emoji: '🚀', name: 'Rocket Boost', price: 100 },
 ];
 
 const PET_OUTFIT_KEY = 'hakans-math-pet-outfits';
@@ -1243,6 +1248,17 @@ function _generateQuickMathProblems(n) {
     return out;
 }
 
+// Tiny pet-happy heart that floats up briefly when Hakan gets an answer right.
+function _petHappyHeart() {
+    const h = document.createElement('div');
+    h.className = 'pet-happy-heart';
+    h.textContent = '💕';
+    h.style.left = (40 + Math.random() * 20) + 'vw';
+    document.body.appendChild(h);
+    setTimeout(() => h.classList.add('ph-go'), 30);
+    setTimeout(() => h.remove(), 1200);
+}
+
 // First-correct-in-session celebration: a quick burst of stars
 function _firstCorrectCelebration() {
     if (typeof spawnFloatingStars === 'function') spawnFloatingStars(6);
@@ -1590,29 +1606,69 @@ function openSoundProfilePicker() {
     document.body.appendChild(overlay);
 }
 
+// Pet treats catalog. Cheap → tasty → fancy.
+const PET_TREATS = [
+    { id: 'apple',  emoji: '🍎', name: 'Apple',  price: 5,  msg: 'Yum, an apple!' },
+    { id: 'cookie', emoji: '🍪', name: 'Cookie', price: 8,  msg: 'Sweet treat!' },
+    { id: 'pizza',  emoji: '🍕', name: 'Pizza',  price: 15, msg: 'PIZZA party!' },
+    { id: 'cake',   emoji: '🎂', name: 'Cake',   price: 25, msg: 'Birthday vibes!' },
+];
+
+// Open a treat picker so Hakan chooses the food.
+function openTreatPicker() {
+    playSound('click');
+    const balance = loadRobux();
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    let opts = '';
+    PET_TREATS.forEach((t) => {
+        const can = balance >= t.price;
+        opts += `<button class="sound-opt treat-opt${can?'':' treat-disabled'}" data-id="${t.id}">
+            <div class="sound-emoji">${t.emoji}</div>
+            <div class="sound-name">${t.name}</div>
+            <div class="sound-desc">${t.price} 💎</div>
+        </button>`;
+    });
+    overlay.innerHTML = `<div class="sound-card">
+        <h2>🍽️ Feed Your Pet</h2>
+        <div class="sound-sub">Balance: ${balance.toFixed(0)} 💎</div>
+        <div class="sound-options">${opts}</div>
+        <button class="sound-close">Maybe later</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelectorAll('[data-id]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const t = PET_TREATS.find((x) => x.id === btn.getAttribute('data-id'));
+            if (!t || loadRobux() < t.price) return;
+            saveRobux(loadRobux() - t.price);
+            const s = loadPetState();
+            s.lastFed = Date.now();
+            s.lastTreat = t.id;
+            savePetState(s);
+            // Multiple floating treat icons
+            for (let i = 0; i < 8; i++) {
+                const h = document.createElement('div');
+                h.className = 'feed-pet-heart';
+                h.textContent = (Math.random() < 0.5) ? t.emoji : '❤️';
+                h.style.left = (50 + (Math.random() - 0.5) * 20) + '%';
+                h.style.animationDelay = (i * 0.1) + 's';
+                document.body.appendChild(h);
+                setTimeout(() => h.classList.add('fp-go'), 30 + i * 100);
+                setTimeout(() => h.remove(), 1800 + i * 100);
+            }
+            playSound('correct');
+            overlay.remove();
+            if (typeof renderHomeModules === 'function') renderHomeModules();
+        });
+    });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
 // Feed your pet for 5 Robux — resets mood and shows a happy animation.
 function feedPet() {
-    const balance = loadRobux();
-    const cost = 5;
-    if (balance < cost) {
-        alert(`Need ${cost} 💎 to feed your pet, Hakan!`);
-        return;
-    }
-    if (!confirm(`Feed your buddy for ${cost} 💎?`)) return;
-    saveRobux(balance - cost);
-    // Reset mood: bump pet "last fed" so mood logic shows happy
-    const s = loadPetState();
-    s.lastFed = Date.now();
-    savePetState(s);
-    // Floating heart animation
-    const heart = document.createElement('div');
-    heart.className = 'feed-pet-heart';
-    heart.textContent = '❤️';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.classList.add('fp-go'), 30);
-    setTimeout(() => heart.remove(), 1500);
-    playSound('correct');
-    if (typeof renderHomeModules === 'function') renderHomeModules();
+    // Route through the treat picker instead of a flat 5-robux feed.
+    openTreatPicker();
 }
 
 // Pet nickname — Hakan can rename his buddy.

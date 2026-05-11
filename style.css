@@ -7946,6 +7946,39 @@ html.rainbow-mode body {
 }
 html.motion-reduced .emoji-rain { display: none; }
 
+/* ===== Iteration 22: more outfits, treats, pet hearts, idle bob ===== */
+.treat-opt.treat-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Pet happy heart drift */
+.pet-happy-heart {
+    position: fixed;
+    bottom: 30vh;
+    font-size: 1.8rem;
+    z-index: 99500;
+    pointer-events: none;
+    opacity: 0;
+    transition: transform 1s ease-out, opacity 1s ease-out;
+}
+.pet-happy-heart.ph-go {
+    transform: translateY(-100px) scale(1.4);
+    opacity: 1;
+}
+html.motion-reduced .pet-happy-heart { display: none; }
+
+/* Pet badge idle bob */
+.pet-badge-emoji {
+    display: inline-block;
+    animation: petIdleBob 3s ease-in-out infinite;
+}
+@keyframes petIdleBob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+}
+html.motion-reduced .pet-badge-emoji { animation: none; }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;
