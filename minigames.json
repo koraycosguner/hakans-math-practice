@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "submarine-dive",
+    "title": "Submarine Dive",
+    "emoji": "🚢",
+    "description": "Dive deeper through the ocean — find the treasure at the bottom!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each right answer dives one layer deeper, passing fish, jellyfish and octopus. Reach the treasure chest at the bottom!",
+    "rules": [
+      "🚢 Submarine starts at the ocean surface.",
+      "Each ocean layer gets darker; each holds a sea creature.",
+      "Solve math → dive past that creature into the next layer.",
+      "Reach the bottom (5 / 6 / 8 layers by difficulty) to find treasure 💎 +5."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "tortoise-hare",
     "title": "Tortoise & Hare",
     "emoji": "🐰",

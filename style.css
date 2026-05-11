@@ -7016,6 +7016,201 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     }
 }
 
+/* ===== Mini-game 31 · Submarine Dive ===== */
+.mg-sub-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 14px;
+}
+.mg-sub-q {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 3px dashed #2563eb;
+    border-radius: 24px;
+    padding: 12px 22px;
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.18);
+    text-align: center;
+    min-width: 240px;
+}
+.mg-sub-task {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    margin-bottom: 4px;
+}
+.mg-sub-eq {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: #1e3a8a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.mg-sub-eqs { color: #2563eb; }
+.mg-sub-qmark { color: #f97316; font-size: 2.1rem; }
+
+.mg-sub-scene {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    height: 320px;
+    border-radius: 22px;
+    border: 3px solid #1e40af;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(30, 64, 175, 0.3);
+}
+.mg-sub-sun {
+    position: absolute;
+    top: 4px;
+    right: 10px;
+    font-size: 1.6rem;
+    z-index: 2;
+    filter: drop-shadow(0 0 6px rgba(252, 211, 77, 0.7));
+}
+.mg-sub-layer {
+    width: 100%;
+    flex-grow: 1;
+    position: relative;
+    height: 12.5%;
+}
+.mg-sub-dec {
+    position: absolute;
+    top: 40%;
+    font-size: 1.5rem;
+    animation: subDecFloat 4s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.mg-sub-dec-l { left: 12%; }
+.mg-sub-dec-r { right: 12%; animation-direction: reverse; animation-duration: 5s; }
+@keyframes subDecFloat {
+    0%, 100% { transform: translate(0, 0) rotate(-3deg); }
+    50%      { transform: translate(14px, -6px) rotate(3deg); }
+}
+.mg-sub-treasure {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    z-index: 2;
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 2px solid #92400e;
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.5);
+}
+.mg-sub-treasure-pop {
+    animation: subTreasurePop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
+}
+@keyframes subTreasurePop {
+    0%   { transform: translateX(-50%) scale(1); }
+    100% { transform: translateX(-50%) scale(1.25); }
+}
+.mg-sub-vehicle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.4rem;
+    z-index: 3;
+    transition: top 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+}
+.mg-sub-bubble {
+    position: absolute;
+    bottom: 20%;
+    font-size: 1.3rem;
+    pointer-events: none;
+    animation: subBubbleRise 2s ease-out forwards;
+}
+@keyframes subBubbleRise {
+    0%   { transform: translateY(0) scale(0.6); opacity: 0; }
+    20%  { opacity: 1; }
+    100% { transform: translateY(-260px) scale(1.3); opacity: 0; }
+}
+
+.mg-sub-prog {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    background: rgba(255, 255, 255, 0.78);
+    padding: 6px 16px;
+    border-radius: 16px;
+}
+.mg-sub-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+}
+.mg-sub-opt {
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 3px solid #93c5fd;
+    border-radius: 18px;
+    padding: 14px 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #1e3a8a;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 0 #2563eb, 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+.mg-sub-opt:hover {
+    transform: translateY(-2px);
+    border-color: #2563eb;
+    box-shadow: 0 6px 0 #2563eb, 0 10px 18px rgba(37, 99, 235, 0.3);
+}
+.mg-sub-opt:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #2563eb;
+}
+.mg-sub-opt.mg-sub-right {
+    border-color: #16a34a;
+    background: linear-gradient(135deg, #bbf7d0 0%, #86efac 100%);
+    color: #14532d;
+    animation: subRightFlash 0.5s ease;
+}
+.mg-sub-opt.mg-sub-wrong {
+    border-color: #ef4444;
+    background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+    color: #7f1d1d;
+    animation: subWrongShake 0.4s ease;
+}
+@keyframes subRightFlash {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.1); }
+}
+@keyframes subWrongShake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+}
+.mg-sub-win {
+    font-size: 1.55rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: subWinPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes subWinPop {
+    0%   { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-sub-dec, .mg-sub-treasure-pop, .mg-sub-vehicle,
+    .mg-sub-bubble, .mg-sub-win,
+    .mg-sub-opt.mg-sub-right, .mg-sub-opt.mg-sub-wrong {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;

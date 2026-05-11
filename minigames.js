@@ -4800,3 +4800,178 @@ GAME_IMPLS['tortoise-hare'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 31. SUBMARINE DIVE — Dive deeper to find treasure! 🚢
+// Submarine starts at the surface. Each right answer dives one layer
+// deeper, passing fish, jellyfish, octopus, then the treasure chest at
+// the bottom. Reach the bottom → +5 💎 + treasure burst.
+// =====================================================================
+GAME_IMPLS['submarine-dive'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const totalLayers = diff === 'easy' ? 5 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        // Ocean creatures per layer (top → bottom)
+        const SEA = [
+            { emoji: '🐠', name: 'fish' },
+            { emoji: '🐡', name: 'puffer fish' },
+            { emoji: '🪼', name: 'jellyfish' },
+            { emoji: '🐙', name: 'octopus' },
+            { emoji: '🦑', name: 'squid' },
+            { emoji: '🦐', name: 'shrimp' },
+            { emoji: '🦀', name: 'crab' },
+            { emoji: '🐚', name: 'shell' },
+        ];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-sub-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-sub-q';
+        wrap.appendChild(qBox);
+
+        // Ocean scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-sub-scene';
+        // Sun
+        const sun = document.createElement('div');
+        sun.className = 'mg-sub-sun';
+        sun.textContent = '☀️';
+        scene.appendChild(sun);
+        // Layers (built top → bottom)
+        const layers = [];
+        for (let i = 0; i < totalLayers; i++) {
+            const layer = document.createElement('div');
+            layer.className = 'mg-sub-layer';
+            // Bottom is the darkest
+            const shadeT = i / Math.max(1, totalLayers - 1); // 0 → 1
+            const lightness = 60 - shadeT * 38;             // 60% → 22%
+            layer.style.background = `linear-gradient(180deg, hsl(200 70% ${lightness + 4}%), hsl(210 70% ${lightness - 4}%))`;
+            // Decorative creature
+            const c = SEA[Math.min(i, SEA.length - 1)];
+            const dec = document.createElement('span');
+            dec.className = 'mg-sub-dec mg-sub-dec-' + (i % 2 === 0 ? 'l' : 'r');
+            dec.textContent = c.emoji;
+            layer.appendChild(dec);
+            scene.appendChild(layer);
+            layers.push(layer);
+        }
+        // Treasure chest at the bottom
+        const treasure = document.createElement('div');
+        treasure.className = 'mg-sub-treasure';
+        treasure.innerHTML = '💎';
+        scene.appendChild(treasure);
+        // Submarine (positioned absolutely on top)
+        const sub = document.createElement('div');
+        sub.className = 'mg-sub-vehicle';
+        sub.innerHTML = '🚢';
+        scene.appendChild(sub);
+
+        wrap.appendChild(scene);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-sub-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-sub-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let depth = 0;
+        const layerHeight = 100 / (totalLayers + 1);
+
+        function placeSub() {
+            // The sub sits between layers: depth = 0 means above layer[0]
+            const top = depth * layerHeight;
+            sub.style.top = `${top}%`;
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            const nextCreature = SEA[Math.min(depth, SEA.length - 1)];
+            qBox.innerHTML =
+                `<div class="mg-sub-task">Dive past the ${nextCreature.emoji} ${nextCreature.name}</div>` +
+                `<div class="mg-sub-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-sub-eqs">=</span><span class="mg-sub-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-sub-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-sub-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-sub-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                depth += 1;
+                placeSub();
+                prog.innerHTML = `🌊 Depth: <b>${depth}</b> / ${totalLayers}`;
+                if (depth >= totalLayers) {
+                    qBox.innerHTML = `<div class="mg-sub-win">💎 TREASURE FOUND! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    treasure.classList.add('mg-sub-treasure-pop');
+                    // Bubble burst
+                    for (let i = 0; i < 12; i++) {
+                        const bub = document.createElement('span');
+                        bub.className = 'mg-sub-bubble';
+                        bub.textContent = '🫧';
+                        bub.style.left = `${30 + Math.random() * 40}%`;
+                        bub.style.animationDelay = `${i * 60}ms`;
+                        scene.appendChild(bub);
+                        setTimeout(() => bub.remove(), 2400);
+                    }
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2800);
+                    return;
+                }
+                setTimeout(nextProblem, 600);
+            } else {
+                btn.classList.add('mg-sub-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-sub-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            depth = 0;
+            placeSub();
+            treasure.classList.remove('mg-sub-treasure-pop');
+            scene.querySelectorAll('.mg-sub-bubble').forEach((b) => b.remove());
+            prog.innerHTML = `🌊 Depth: <b>0</b> / ${totalLayers}`;
+            nextProblem();
+        }
+
+        placeSub();
+        prog.innerHTML = `🌊 Depth: <b>0</b> / ${totalLayers}`;
+        nextProblem();
+        return { stop() {} };
+    }
+};
