@@ -357,11 +357,16 @@ function renderTwoTenFrames(filledA, filledB, colorA, colorB) {
 }
 
 // 2-digit add visual: "23 + 5" with the ones boxed.
+// The single most-used visual (1000+ uses across modules). Was a plain
+// "A + B" card. Now shows each number in its own pill, an operation chip,
+// and an equals sign — a more conceptual equation display.
 function renderTwoDigitAdd(a, b) {
     return `<div class="m-add-2d">
         <span class="m-add-num">${a}</span>
         <span class="m-add-op">+</span>
         <span class="m-add-num">${b}</span>
+        <span class="m-add-eq">=</span>
+        <span class="m-add-q">?</span>
     </div>`;
 }
 
