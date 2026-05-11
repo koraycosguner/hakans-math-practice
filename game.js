@@ -2647,6 +2647,22 @@ function openScrapbook() {
     renderScrapbook();
     showScreen('scrapbook-screen');
 }
+// Categorize each sticker by its position in STICKER_POOL.
+const STICKER_CATEGORIES = [
+    { name: '🐾 Animals',  range: [0, 12],  emoji: '🐾' },
+    { name: '🍎 Food',     range: [12, 24], emoji: '🍎' },
+    { name: '🎮 Fun',      range: [24, 36], emoji: '🎮' },
+    { name: '⭐ Sparkle',  range: [36, 48], emoji: '⭐' },
+    { name: '🌊 Ocean',    range: [48, 60], emoji: '🌊' },
+];
+function _stickerCategory(emoji) {
+    const i = STICKER_POOL.indexOf(emoji);
+    for (const c of STICKER_CATEGORIES) {
+        if (i >= c.range[0] && i < c.range[1]) return c.name;
+    }
+    return '🎁 Bonus';
+}
+
 function renderScrapbook() {
     const body = document.getElementById('scrapbook-body');
     if (!body) return;
@@ -2663,15 +2679,34 @@ function renderScrapbook() {
     const unique = new Set(arr.map((x) => x.sticker)).size;
     let html = `<div class="sb-stats">
         <div class="sb-stat-num">${arr.length}</div>
-        <div class="sb-stat-label">stickers · ${unique} unique</div>
+        <div class="sb-stat-label">stickers · ${unique} of ${STICKER_POOL.length} unique</div>
+        <div class="sb-completion">
+            <div class="sb-completion-bar"><div class="sb-completion-fill" style="width:${Math.round((unique / STICKER_POOL.length) * 100)}%"></div></div>
+        </div>
     </div>`;
-    html += '<div class="sb-grid">';
-    arr.slice().reverse().forEach((s, i) => {
-        // Random tilt for sticker-board feel
-        const tilt = ((i * 47) % 14) - 7;
-        html += `<div class="sb-sticker" style="transform: rotate(${tilt}deg)" onclick="zoomSticker('${s.sticker}')">${s.sticker}</div>`;
+    // Group by category
+    const byCat = {};
+    const seen = {};
+    arr.slice().reverse().forEach((s) => {
+        const cat = _stickerCategory(s.sticker);
+        (byCat[cat] = byCat[cat] || []).push(s);
+        seen[s.sticker] = true;
     });
-    html += '</div>';
+    // Render each category as a "page"
+    STICKER_CATEGORIES.forEach((cat) => {
+        const got = (byCat[cat.name] || []).length;
+        const total = cat.range[1] - cat.range[0];
+        const uniqueInCat = new Set((byCat[cat.name] || []).map((s) => s.sticker)).size;
+        html += `<div class="sb-cat">
+            <div class="sb-cat-header">${cat.name} <span class="sb-cat-count">${uniqueInCat} / ${total}</span></div>
+            <div class="sb-grid">`;
+        for (let i = cat.range[0]; i < cat.range[1]; i++) {
+            const emoji = STICKER_POOL[i];
+            const have = seen[emoji];
+            html += `<div class="sb-sticker ${have ? '' : 'sb-sticker-missing'}" onclick="${have ? `zoomSticker('${emoji}')` : ''}">${have ? emoji : '?'}</div>`;
+        }
+        html += '</div></div>';
+    });
     body.innerHTML = html;
 }
 

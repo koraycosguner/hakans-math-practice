@@ -8388,6 +8388,90 @@ html.theme-space .screen { position: relative; z-index: 1; }
     50%      { transform: scale(1.1) rotate(8deg); }
 }
 
+/* ===== Iteration 27: sticker album by category ===== */
+.sb-completion {
+    margin-top: 8px;
+}
+.sb-completion-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 999px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+}
+.sb-completion-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24, #f97316);
+    border-radius: 999px;
+    transition: width 0.6s ease;
+}
+
+.sb-cat {
+    margin-bottom: 24px;
+}
+.sb-cat-header {
+    color: var(--primary);
+    font-weight: 900;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+}
+.sb-cat-count {
+    background: white;
+    color: var(--primary);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+.sb-sticker-missing {
+    opacity: 0.3;
+    background: #f1f5f9;
+    color: #94a3b8;
+    cursor: default !important;
+}
+.sb-sticker-missing:hover { transform: none !important; }
+
+.trophy-showcase {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #fbbf24;
+    border-radius: 18px;
+    padding: 12px 14px;
+    margin: 8px 0;
+    cursor: pointer;
+    transition: transform 0.18s ease;
+}
+.trophy-showcase:hover { transform: translateY(-2px); }
+.ts-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #78350f;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+.ts-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.ts-badge {
+    font-size: 2rem;
+    background: white;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

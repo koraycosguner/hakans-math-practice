@@ -69359,6 +69359,23 @@ function renderHomeModules() {
         html += `<div class="tip-of-day"><span class="tod-emoji">💡</span><span class="tod-label">Today's Tip:</span> ${tip}</div>`;
     }
 
+    // Trophy showcase: 5 most-recently-earned badges as a row on home
+    if (isHakan && typeof loadEarnedBadges === 'function' && typeof BADGES_CATALOG !== 'undefined' && BADGES_CATALOG.length) {
+        const earned = loadEarnedBadges();
+        const items = Object.entries(earned)
+            .map(([id, e]) => ({ id, ts: typeof e === 'number' ? e : (e && e.when) || 0 }))
+            .sort((a, b) => b.ts - a.ts)
+            .slice(0, 5)
+            .map(({ id }) => BADGES_CATALOG.find((b) => b.id === id))
+            .filter(Boolean);
+        if (items.length) {
+            html += `<section class="trophy-showcase" onclick="openTrophyRoom()">
+                <div class="ts-label">🏆 Recent Trophies</div>
+                <div class="ts-row">${items.map((b) => `<div class="ts-badge" title="${b.name}">${b.emoji || '🏅'}</div>`).join('')}</div>
+            </section>`;
+        }
+    }
+
     // "I'm best at!" — top 3 modules by accuracy (min 5 attempts)
     if (isHakan && typeof loadProblemStats === 'function') {
         const stats = loadProblemStats();
