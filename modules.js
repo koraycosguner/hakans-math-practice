@@ -70444,7 +70444,12 @@ function startGenericProblems(mod, activity) {
     moduleState.hintsUsed = 0;
     moduleState.locked = false;
     showScreen('module-game-screen');
-    renderModuleProblem();
+    // Quiz mode gets a quick countdown for fun
+    if (activity === 'quiz' && typeof _readyCountdown === 'function') {
+        _readyCountdown(() => renderModuleProblem());
+    } else {
+        renderModuleProblem();
+    }
 }
 
 // Build a review queue from problems Hakan got wrong, then run it as a
@@ -71157,6 +71162,10 @@ function handleCorrect() {
         // Emoji rain on the milestone of exactly 5 (once)
         if (moduleState.streak === 5 && typeof emojiRain === 'function') {
             emojiRain(['🔥', '⭐', '🎉', '💫'], 24);
+        }
+        // MEGA celebration at 10 in a row
+        if (moduleState.streak === 10 && typeof _mega10 === 'function') {
+            _mega10();
         }
     }
 

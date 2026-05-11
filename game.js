@@ -2719,6 +2719,46 @@ function _generateQuickMathProblems(n) {
     return out;
 }
 
+// MEGA 10-in-a-row celebration
+function _mega10() {
+    const overlay = document.createElement('div');
+    overlay.className = 'mega10-overlay';
+    overlay.innerHTML = `<div class="mega10-text">10 IN A ROW!</div>
+                         <div class="mega10-sub">YOU'RE ON FIRE, HAKAN! 🔥🔥🔥</div>`;
+    document.body.appendChild(overlay);
+    setTimeout(() => overlay.classList.add('mega10-show'), 30);
+    if (typeof launchConfetti === 'function') launchConfetti();
+    if (typeof emojiRain === 'function') emojiRain(['🔥','⭐','🎉','💫','🏆','🚀'], 40);
+    playSound('win');
+    if (typeof speak === 'function') speak("Ten in a row, Hakan! Amazing!");
+    saveRobux(loadRobux() + 10);
+    setTimeout(() => {
+        overlay.classList.remove('mega10-show');
+        setTimeout(() => overlay.remove(), 400);
+    }, 2800);
+}
+
+// "Ready Set Go" countdown when entering a fresh module session
+function _readyCountdown(callback) {
+    const overlay = document.createElement('div');
+    overlay.className = 'ready-overlay';
+    document.body.appendChild(overlay);
+    const steps = ['Ready?', 'Set...', 'GO! 🚀'];
+    let i = 0;
+    const tick = () => {
+        if (i >= steps.length) {
+            overlay.remove();
+            if (callback) callback();
+            return;
+        }
+        overlay.innerHTML = `<div class="ready-text">${steps[i]}</div>`;
+        playSound(i === 2 ? 'win' : 'click');
+        i++;
+        setTimeout(tick, 600);
+    };
+    tick();
+}
+
 // Snack-break suggestion after long sessions.
 function _showSnackBreak() {
     const tips = [
