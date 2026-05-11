@@ -5449,3 +5449,158 @@ GAME_IMPLS['cookie-baker'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 35. DINO DIG — Uncover the dinosaur tile by tile! 🦖
+// 5x4 grid of dirt tiles hiding a giant dino emoji. Each right answer
+// chips away one tile (in scan order) to reveal more of the dino. Reveal
+// the whole grid = dino roars + +5 💎.
+// =====================================================================
+GAME_IMPLS['dino-dig'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const cols = diff === 'easy' ? 4 : diff === 'hard' ? 6 : 5;
+        const rows = diff === 'easy' ? 3 : diff === 'hard' ? 5 : 4;
+        const totalTiles = cols * rows;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const DINOS = ['🦖', '🦕', '🦎'];
+        const dinoEmoji = DINOS[Math.floor(Math.random() * DINOS.length)];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-dino-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-dino-q';
+        wrap.appendChild(qBox);
+
+        // Dig site: tiles overlaid on big dino
+        const site = document.createElement('div');
+        site.className = 'mg-dino-site';
+        const dinoLayer = document.createElement('div');
+        dinoLayer.className = 'mg-dino-figure';
+        dinoLayer.textContent = dinoEmoji;
+        site.appendChild(dinoLayer);
+        const tilesLayer = document.createElement('div');
+        tilesLayer.className = 'mg-dino-tiles';
+        tilesLayer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        tilesLayer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+        const tiles = [];
+        const dirtChars = ['🟫', '🪨', '🟫', '🟫', '🪨'];
+        for (let i = 0; i < totalTiles; i++) {
+            const tile = document.createElement('div');
+            tile.className = 'mg-dino-tile';
+            tile.textContent = dirtChars[i % dirtChars.length];
+            tilesLayer.appendChild(tile);
+            tiles.push(tile);
+        }
+        site.appendChild(tilesLayer);
+
+        wrap.appendChild(site);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-dino-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-dino-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let chipped = 0;
+
+        // Pre-shuffle the reveal order so the dino emerges in a fun pattern
+        const revealOrder = [];
+        for (let i = 0; i < totalTiles; i++) revealOrder.push(i);
+        revealOrder.sort(() => Math.random() - 0.5);
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML =
+                `<div class="mg-dino-task">⛏️ Chip away the dirt!</div>` +
+                `<div class="mg-dino-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-dino-eqs">=</span><span class="mg-dino-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-dino-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-dino-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function chipTile() {
+            if (chipped >= totalTiles) return;
+            const idx = revealOrder[chipped];
+            tiles[idx].classList.add('mg-dino-tile-gone');
+            // Brief chip-spark
+            const spark = document.createElement('span');
+            spark.className = 'mg-dino-spark';
+            spark.textContent = '✨';
+            tiles[idx].appendChild(spark);
+            setTimeout(() => spark.remove(), 600);
+            chipped += 1;
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-dino-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                chipTile();
+                prog.innerHTML = `⛏️ <b>${chipped}</b> / ${totalTiles} tiles chipped`;
+                if (chipped >= totalTiles) {
+                    qBox.innerHTML = `<div class="mg-dino-win">${dinoEmoji} DINO UNCOVERED! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    dinoLayer.classList.add('mg-dino-figure-roar');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2700);
+                    return;
+                }
+                setTimeout(nextProblem, 550);
+            } else {
+                btn.classList.add('mg-dino-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-dino-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            chipped = 0;
+            tiles.forEach((t, i) => {
+                t.classList.remove('mg-dino-tile-gone');
+                t.textContent = dirtChars[i % dirtChars.length];
+            });
+            // New reveal order each round for replay value
+            revealOrder.sort(() => Math.random() - 0.5);
+            dinoLayer.classList.remove('mg-dino-figure-roar');
+            prog.innerHTML = `⛏️ <b>0</b> / ${totalTiles} tiles chipped`;
+            nextProblem();
+        }
+
+        prog.innerHTML = `⛏️ <b>0</b> / ${totalTiles} tiles chipped`;
+        nextProblem();
+        return { stop() {} };
+    }
+};

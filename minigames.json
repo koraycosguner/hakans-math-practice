@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "dino-dig",
+    "title": "Dino Dig",
+    "emoji": "🦖",
+    "description": "Chip away dirt tiles to uncover a hidden dinosaur fossil!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each right answer chips away one dirt tile. Reveal the whole dinosaur underneath!",
+    "rules": [
+      "🦖 / 🦕 / 🦎 hides under a grid of 🟫 dirt tiles.",
+      "Each right answer chips away one tile in a randomized reveal order.",
+      "Spark animation on each chip; dino slowly emerges.",
+      "Uncover all tiles (12 / 20 / 30 by difficulty) → dino roars + +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "cookie-baker",
     "title": "Cookie Baker",
     "emoji": "🍪",
