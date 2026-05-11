@@ -7418,6 +7418,64 @@ html.motion-reduced .lp-slide-in { animation: none !important; }
     transform: translate(-50%, 0);
 }
 
+/* ===== Iteration 16: gentle wrong, weekly recap, top 3 ===== */
+/* Gentle wrong feedback: softer color + no shake */
+html.feedback-gentle .problem-card.wrong,
+html.feedback-gentle .m-card.wrong {
+    animation: none !important;
+    background: linear-gradient(135deg, #fef9c3, #fef08a) !important;
+    border-color: #fbbf24 !important;
+}
+html.feedback-gentle .feedback-content.fb-wrong {
+    background: #fef3c7 !important;
+    color: #78350f !important;
+}
+
+/* Weekly recap */
+.wr-overlay { background: rgba(0,0,0,0.65); }
+.wr-card { max-width: 460px; padding: 26px 22px !important; text-align: center; }
+.wr-title { font-weight: 900; color: var(--primary); font-size: 1.4rem; margin-bottom: 14px; }
+.wr-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.wr-tile {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+    border-radius: 14px;
+    padding: 14px 6px;
+}
+.wr-num { font-size: 2rem; font-weight: 900; color: var(--primary); line-height: 1; }
+.wr-lbl { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+.wr-msg { color: #475569; margin-bottom: 14px; }
+.wr-close {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 12px 22px;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(108,99,255,0.4);
+}
+
+/* Best-at row */
+.suggest-best .sr-label { color: #047857; }
+.rp-card-best {
+    background: linear-gradient(135deg, #ecfdf5, #a7f3d0);
+    border: 2px solid #10b981;
+    position: relative;
+}
+.rp-acc {
+    display: block;
+    font-size: 0.72rem;
+    color: #047857;
+    font-weight: 800;
+    margin-top: 2px;
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

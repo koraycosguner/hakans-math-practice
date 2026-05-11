@@ -69297,6 +69297,43 @@ function renderHomeModules() {
         }
     }
 
+    // "I'm best at!" — top 3 modules by accuracy (min 5 attempts)
+    if (isHakan && typeof loadProblemStats === 'function') {
+        const stats = loadProblemStats();
+        const byMod = {};
+        for (const k of Object.keys(stats)) {
+            const [mid] = k.split('::');
+            if (!mid) continue;
+            const s = stats[k];
+            const slot = byMod[mid] || { attempts: 0, correct: 0 };
+            slot.attempts += (s.attempts || 0);
+            slot.correct  += (s.correct || 0);
+            byMod[mid] = slot;
+        }
+        const ranked = Object.entries(byMod)
+            .filter(([, s]) => s.attempts >= 5)
+            .map(([id, s]) => ({ id, acc: s.correct / s.attempts, attempts: s.attempts }))
+            .sort((a, b) => b.acc - a.acc)
+            .slice(0, 3)
+            .map((r) => ({ ...r, mod: MODULES_BY_ID[r.id] }))
+            .filter((r) => r.mod);
+        if (ranked.length) {
+            html += `<section class="suggest-row suggest-best">
+                <div class="sr-label">💪 You're best at</div>
+                <div class="sr-sub">Top accuracy — pure mastery!</div>
+                <div class="rp-row">
+                    ${ranked.map((r) => `
+                        <button class="rp-card rp-card-best" onclick="selectModule('${r.id}')" title="${r.mod.title} (${Math.round(r.acc * 100)}%)">
+                            <span class="rp-icon">${r.mod.emoji}</span>
+                            <span class="rp-title">${r.mod.title}</span>
+                            <span class="rp-acc">${Math.round(r.acc * 100)}%</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </section>`;
+        }
+    }
+
     // Resume lessons: show modules with active lesson bookmarks
     if (isHakan && typeof _loadLessonBookmarks === 'function') {
         const bms = _loadLessonBookmarks();

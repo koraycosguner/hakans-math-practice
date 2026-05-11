@@ -1211,6 +1211,14 @@ function loadVoiceSpeed() {
 function saveVoiceSpeed(s) {
     try { localStorage.setItem('hakans-math-voice-speed', s); } catch (e) {}
 }
+function loadFeedbackIntensity() {
+    try { return localStorage.getItem('hakans-math-feedback') || 'normal'; }
+    catch (e) { return 'normal'; }
+}
+function saveFeedbackIntensity(v) {
+    try { localStorage.setItem('hakans-math-feedback', v); } catch (e) {}
+    applyComfortSettings();
+}
 
 function applyComfortSettings() {
     const root = document.documentElement;
@@ -1225,6 +1233,9 @@ function applyComfortSettings() {
     root.classList.add(`font-${font}`);
     const timer = loadShowTimer();
     root.classList.toggle('show-timer', timer);
+    const fb = loadFeedbackIntensity();
+    root.classList.remove('feedback-normal', 'feedback-gentle');
+    root.classList.add(`feedback-${fb}`);
 }
 
 function openComfortPicker() {
@@ -1265,6 +1276,11 @@ function openComfortPicker() {
             <button class="sound-opt ${loadVoiceSpeed()==='normal'?'sound-current':''}" data-vs="normal"><div class="sound-emoji">🚶</div><div class="sound-name">Normal</div></button>
             <button class="sound-opt ${loadVoiceSpeed()==='fast'?'sound-current':''}"   data-vs="fast"><div class="sound-emoji">🐇</div><div class="sound-name">Fast</div></button>
         </div>
+        <div class="comfort-row-label">Wrong-answer feedback</div>
+        <div class="sound-options" style="grid-template-columns: repeat(2, 1fr);">
+            <button class="sound-opt ${loadFeedbackIntensity()==='normal'?'sound-current':''}" data-fb="normal"><div class="sound-emoji">🎯</div><div class="sound-name">Normal</div><div class="sound-desc">Red shake</div></button>
+            <button class="sound-opt ${loadFeedbackIntensity()==='gentle'?'sound-current':''}" data-fb="gentle"><div class="sound-emoji">🌿</div><div class="sound-name">Gentle</div><div class="sound-desc">Soft fade</div></button>
+        </div>
         <button class="sound-close">Done</button>
     </div>`;
     overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
@@ -1302,6 +1318,13 @@ function openComfortPicker() {
             overlay.remove();
             // Demo the new speed.
             if (typeof speak === 'function') speak("This is my voice now, Hakan!");
+            openComfortPicker();
+        });
+    });
+    overlay.querySelectorAll('[data-fb]').forEach((b) => {
+        b.addEventListener('click', () => {
+            saveFeedbackIntensity(b.getAttribute('data-fb'));
+            overlay.remove();
             openComfortPicker();
         });
     });
@@ -1698,6 +1721,51 @@ function renderScrapbook() {
     });
     html += '</div>';
     body.innerHTML = html;
+}
+
+// Weekly recap: Monday morning summary of last week's wins.
+function checkWeeklyRecap() {
+    if (typeof currentUser === 'undefined' || currentUser !== 'hakan') return;
+    const today = new Date();
+    if (today.getDay() !== 1) return;  // Only Monday
+    const todayKey = today.toISOString().slice(0, 10);
+    let last = null;
+    try { last = localStorage.getItem('hakans-math-weekly-recap'); } catch (e) {}
+    if (last === todayKey) return;
+    try { localStorage.setItem('hakans-math-weekly-recap', todayKey); } catch (e) {}
+    // Calculate last 7 days stats
+    const wkAgo = Date.now() - 7 * 86400000;
+    const visits = loadAllVisits();
+    const progress = loadAllProgress();
+    const stats = loadProblemStats();
+    let wkVisits = 0, wkStars = 0, wkCorrect = 0;
+    for (const id of Object.keys(visits)) {
+        if ((visits[id].lastVisited || 0) >= wkAgo) wkVisits += (visits[id].count || 1);
+    }
+    for (const id of Object.keys(progress)) {
+        if ((progress[id].lastCompleted || 0) >= wkAgo) wkStars += progress[id].stars || 0;
+    }
+    for (const k of Object.keys(stats)) {
+        const s = stats[k];
+        if ((s.last || 0) >= wkAgo) wkCorrect += (s.correct || 0);
+    }
+    if (wkVisits === 0 && wkStars === 0 && wkCorrect === 0) return;
+    setTimeout(() => {
+        const overlay = document.createElement('div');
+        overlay.className = 'cert-overlay wr-overlay';
+        overlay.innerHTML = `<div class="cert-card wr-card">
+            <div class="wr-title">📊 Last Week, Hakan!</div>
+            <div class="wr-grid">
+                <div class="wr-tile"><div class="wr-num">${wkVisits}</div><div class="wr-lbl">module plays</div></div>
+                <div class="wr-tile"><div class="wr-num">${wkStars}</div><div class="wr-lbl">⭐ earned</div></div>
+                <div class="wr-tile"><div class="wr-num">${wkCorrect}</div><div class="wr-lbl">correct answers</div></div>
+            </div>
+            <div class="wr-msg">Great week! Let's make this one even better. 🚀</div>
+            <button class="wr-close">Let's go!</button>
+        </div>`;
+        overlay.querySelector('.wr-close').addEventListener('click', () => overlay.remove());
+        document.body.appendChild(overlay);
+    }, 800);
 }
 
 function checkDailyBonus() {
@@ -2244,7 +2312,10 @@ function selectUser(name) {
     currentUser = name;
     // Daily bonus check happens when Hakan selects himself.
     if (name === 'hakan') {
-        setTimeout(() => { if (typeof checkDailyBonus === 'function') checkDailyBonus(); }, 400);
+        setTimeout(() => {
+            if (typeof checkDailyBonus === 'function') checkDailyBonus();
+            if (typeof checkWeeklyRecap === 'function') checkWeeklyRecap();
+        }, 400);
         setTimeout(() => { if (typeof maybeStartOnboarding === 'function') maybeStartOnboarding(); }, 1600);
     }
     playSound('click');
