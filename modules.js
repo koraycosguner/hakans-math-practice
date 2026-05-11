@@ -69111,9 +69111,11 @@ function renderHomeModules() {
             const eq = outfits.equipped || {};
             const hatStr = eq.hat ? (PET_OUTFITS.find((o) => o.id === eq.hat) || {}).emoji || '' : '';
             const accStr = eq.acc ? (PET_OUTFITS.find((o) => o.id === eq.acc) || {}).emoji || '' : '';
+            const petState = (typeof loadPetState === 'function') ? loadPetState() : {};
+            const petName = (petState.nickname || petInfo.pet.name.split(' ')[0]);
             html += `<button class="pet-badge" onclick="openPetPicker()" title="Tap to change your buddy">
                 <span class="pet-badge-emoji">${hatStr}${petInfo.stage.emoji}${accStr}</span>
-                <span class="pet-badge-name">${petInfo.pet.name.split(' ')[0]}</span>
+                <span class="pet-badge-name">${petName}</span>
             </button>`;
         }
         html += `<button class="trophy-btn" onclick="openTrophyRoom()">🏆 Trophies</button>`;
@@ -69323,26 +69325,45 @@ function openProgressMap() {
     const allTotal = Object.values(byCat).reduce((s, c) => s + c.total, 0);
     const allStarted = Object.values(byCat).reduce((s, c) => s + c.started, 0);
 
+    // Math World themes per category — adds narrative flavor.
+    const WORLD_THEMES = {
+        A: { theme: 'Counting Forest 🌲', subtitle: 'where every tree wants to be counted' },
+        B: { theme: 'Addition Town ➕',   subtitle: 'where numbers love to join hands' },
+        C: { theme: 'Subtract Cove 🌊',   subtitle: 'where waves carry numbers away' },
+        D: { theme: 'Place Value Mountain ⛰️', subtitle: 'home of tens and ones' },
+        E: { theme: 'Compare Canyon ⚖️',  subtitle: 'where bigger and smaller meet' },
+        F: { theme: 'Clock Tower 🕐',     subtitle: 'where time tells its story' },
+        G: { theme: 'Coin Cave 🪙',       subtitle: 'glittering with pennies and dimes' },
+        H: { theme: 'Shape Castle 🔷',    subtitle: 'built with every shape' },
+        I: { theme: 'Sharing Garden 🥧',  subtitle: 'where pies split fair' },
+        J: { theme: 'Measure Meadow 📏',  subtitle: 'rolling fields of length' },
+        K: { theme: 'Pattern Path 🌀',    subtitle: 'the trail that never repeats' },
+        L: { theme: 'Data Den 📊',        subtitle: 'home of bar graphs and tallies' },
+        M: { theme: 'Story Square 📖',    subtitle: 'where Hakan\'s adventures unfold' },
+        N: { theme: 'Mixed-Math Maze 🎯', subtitle: 'a little of everything' },
+    };
+
     let html = `<div class="pm-summary">
         <div class="pm-summary-stat"><div class="pm-summary-num">${allStarted}/${allTotal}</div><div class="pm-summary-label">modules</div></div>
         <div class="pm-summary-stat"><div class="pm-summary-num">${totalStars}</div><div class="pm-summary-label">⭐ stars</div></div>
     </div>`;
     html += `<div class="pm-islands">`;
-    let prevDone = true;  // first category always unlocked
+    let prevDone = true;
     for (const cat of CATEGORIES) {
         const c = byCat[cat.id];
         if (c.total === 0) continue;
         const startedPct = Math.round((c.started / c.total) * 100);
         const masteredPct = Math.round((c.mastered / c.total) * 100);
-        // Status: locked (no prereq done), available, in-progress, mastered
         const isMastered = c.mastered === c.total && c.total > 0;
         const isInProgress = c.started > 0;
         const stateCls = isMastered ? 'pm-island-mastered' :
                          isInProgress ? 'pm-island-progress' :
                          'pm-island-new';
+        const world = WORLD_THEMES[cat.id] || { theme: cat.title, subtitle: '' };
         html += `<div class="pm-island ${stateCls}">
             <div class="pm-island-emoji">${cat.emoji}</div>
-            <div class="pm-island-name">${cat.title}</div>
+            <div class="pm-island-name">${world.theme}</div>
+            <div class="pm-island-sub">${world.subtitle}</div>
             <div class="pm-island-progress">${c.started}/${c.total} · ${c.stars}⭐</div>
             <div class="pm-island-bar">
                 <div class="pm-island-bar-fill" style="width:${startedPct}%"></div>
@@ -70528,8 +70549,23 @@ function showModuleResults() {
 // On page load, populate the module grid. Scripts are at the end of
 // body, so the DOM is already parsed by the time this runs.
 // ----------------------------------------------------------------------
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderHomeModules);
-} else {
+function _hideAppSplash() {
+    const el = document.getElementById('app-splash');
+    if (!el) return;
+    el.classList.add('splash-hide');
+    setTimeout(() => { try { el.remove(); } catch (e) {} }, 500);
+}
+function _bootHome() {
     renderHomeModules();
+    // Give the home screen one frame to paint, then fade splash out.
+    requestAnimationFrame(() => requestAnimationFrame(_hideAppSplash));
+}
+// Safety: never let the splash linger more than 2.5s even if something
+// fails to load — Hakan should never see a blank wall.
+setTimeout(_hideAppSplash, 2500);
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _bootHome);
+} else {
+    _bootHome();
 }

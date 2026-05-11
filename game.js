@@ -116,14 +116,34 @@ function bumpDailyStreak() {
         s.current = 1;
     } else {
         const gap = _daysBetween(s.last, today);
-        if (gap === 1) s.current = (s.current || 0) + 1;
-        else if (gap > 1) s.current = 1;          // streak broken; reset
-        else s.current = s.current || 1;          // shouldn't happen (clock skew)
+        if (gap === 1) {
+            s.current = (s.current || 0) + 1;
+        } else if (gap === 2 && s.insuranceUsedWeek !== _isoWeekTag()) {
+            // Streak insurance: 1 free skip per ISO week.
+            s.current = (s.current || 0) + 1;
+            s.insuranceUsedWeek = _isoWeekTag();
+            s._comebackFreebie = true;
+        } else if (gap > 1) {
+            s.current = 1;
+            // Big comeback bonus: returning after 3+ days
+            if (gap >= 3) s._comebackGap = gap;
+        } else {
+            s.current = s.current || 1;
+        }
     }
     if (s.current > (s.longest || 0)) s.longest = s.current;
     s.last = today;
     try { localStorage.setItem(STREAK_STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
     return s.current;
+}
+
+function _isoWeekTag() {
+    const d = new Date();
+    const day = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - day);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    const weekNum = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+    return d.getUTCFullYear() + '-W' + weekNum;
 }
 
 // ===== Per-problem struggle tracking =====
@@ -581,6 +601,19 @@ function choosePet(id) {
     if (typeof renderHomeModules === 'function') renderHomeModules();
 }
 
+// Pet nickname — Hakan can rename his buddy.
+function renamePet() {
+    const s = loadPetState();
+    const current = (typeof currentPetStage === 'function') ? currentPetStage() : null;
+    const defaultName = current && current.pet ? current.pet.name.split(' ')[0] : 'Buddy';
+    const newName = prompt("What's your buddy's name?", s.nickname || defaultName);
+    if (newName && newName.trim()) {
+        s.nickname = newName.trim().slice(0, 20);
+        savePetState(s);
+        if (typeof renderHomeModules === 'function') renderHomeModules();
+    }
+}
+
 function openPetPicker() {
     if (!MATH_PET_CATALOG) return;
     if (typeof playSound === 'function') playSound('click');
@@ -601,6 +634,7 @@ function openPetPicker() {
     }
     html += `</div>
         <button class="pet-picker-shop" onclick="openPetShop()">🛍️ Pet Shop</button>
+        <button class="pet-picker-rename" onclick="renamePet()">✏️ Rename Pet</button>
         <button class="pet-picker-close">Cancel</button>
     </div>`;
     overlay.innerHTML = html;
@@ -901,20 +935,32 @@ function checkDailyBonus() {
     const today = _todayKeyForBonus();
     if (last === today) return;
     try { localStorage.setItem(DAILY_BONUS_KEY, today); } catch (e) {}
-    // Daily streak determines reward size — incentive to come back.
     const s = (typeof loadStreak === 'function') ? loadStreak() : { current: 0 };
-    const amount = _dailyBonusForStreak(s.current || 1);
+    let amount = _dailyBonusForStreak(s.current || 1);
+    // Comeback bonus: returning after a gap of 3+ days
+    let comebackBonus = 0;
+    if (s._comebackGap) {
+        comebackBonus = Math.min(15, s._comebackGap * 3);
+        amount += comebackBonus;
+        delete s._comebackGap;
+        try { localStorage.setItem(STREAK_STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+    }
     saveRobux(loadRobux() + amount);
-    showDailyBonusPopup(amount, s.current || 1);
+    showDailyBonusPopup(amount, s.current || 1, comebackBonus, s._comebackFreebie);
 }
 
-function showDailyBonusPopup(amount, streakDays) {
+function showDailyBonusPopup(amount, streakDays, comebackBonus, usedInsurance) {
     // Also award a daily sticker
     const sticker = (typeof checkDailyStickerBonus === 'function') ? checkDailyStickerBonus() : null;
     const robux = (amount != null) ? amount : DAILY_BONUS_AMOUNT;
-    const streakLine = streakDays >= 3
-        ? `<div class="db-streak-bonus">🔥 ${streakDays}-day streak bonus!</div>`
-        : '';
+    let streakLine = '';
+    if (usedInsurance) {
+        streakLine = `<div class="db-streak-bonus">🛡️ Streak saved! Free skip used.</div>`;
+    } else if (comebackBonus && comebackBonus > 0) {
+        streakLine = `<div class="db-streak-bonus">👋 Welcome back! +${comebackBonus} comeback bonus!</div>`;
+    } else if (streakDays >= 3) {
+        streakLine = `<div class="db-streak-bonus">🔥 ${streakDays}-day streak bonus!</div>`;
+    }
     const overlay = document.createElement('div');
     overlay.className = 'daily-bonus-overlay';
     overlay.innerHTML = `
