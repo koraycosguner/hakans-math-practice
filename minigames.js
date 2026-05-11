@@ -2370,6 +2370,168 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 20. COLOR MATH — paint-by-numbers grid revealed by math answers.
+// Each grid cell has a number 1-4. Hakan must solve a math problem
+// whose answer matches one of those numbers — tapping a matching cell
+// fills it in. When all cells of every number are filled, the picture
+// is "revealed" (rainbow celebration).
+// =====================================================================
+GAME_IMPLS['color-math'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const gridSize = diff === 'easy' ? 5 : diff === 'hard' ? 7 : 6;
+        // Color palette indexed by answer value
+        const PALETTE = {
+            1: { fill: '#fbbf24', name: 'Sunny Yellow' },
+            2: { fill: '#3b82f6', name: 'Ocean Blue' },
+            3: { fill: '#16a34a', name: 'Grass Green' },
+            4: { fill: '#dc2626', name: 'Hero Red' },
+        };
+        const COLORS = diff === 'easy' ? [1, 2] : diff === 'hard' ? [1, 2, 3, 4] : [1, 2, 3];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-color-wrap';
+
+        const prompt = document.createElement('div');
+        prompt.className = 'mg-color-prompt';
+        wrap.appendChild(prompt);
+
+        const grid = document.createElement('div');
+        grid.className = 'mg-color-grid';
+        grid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+        wrap.appendChild(grid);
+
+        const opts = document.createElement('div');
+        opts.className = 'mg-color-opts';
+        wrap.appendChild(opts);
+
+        const status = document.createElement('div');
+        status.className = 'mg-color-status';
+        wrap.appendChild(status);
+
+        ctx.area.appendChild(wrap);
+
+        // Build cells: each gets a random color value from COLORS
+        const cells = [];
+        let totalCells = gridSize * gridSize;
+        for (let i = 0; i < totalCells; i++) {
+            const colorVal = COLORS[Math.floor(Math.random() * COLORS.length)];
+            const cell = document.createElement('button');
+            cell.className = 'mg-color-cell';
+            cell.dataset.val = String(colorVal);
+            cell.textContent = String(colorVal);
+            grid.appendChild(cell);
+            cells.push({ el: cell, val: colorVal, painted: false });
+        }
+
+        let currentAns = null;
+        let totalPainted = 0;
+
+        function paintCell(cell) {
+            if (cell.painted) return false;
+            cell.painted = true;
+            cell.el.classList.add('mg-color-painted');
+            cell.el.style.background = PALETTE[cell.val].fill;
+            cell.el.textContent = '';
+            totalPainted += 1;
+            updateStatus();
+            return true;
+        }
+
+        function updateStatus() {
+            const remaining = totalCells - totalPainted;
+            if (remaining === 0) {
+                status.innerHTML = `🎨 Picture revealed! +5 💎 bonus!`;
+                ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                ctx.onWin();
+                setTimeout(resetGrid, 2200);
+            } else {
+                status.textContent = `${totalPainted} / ${totalCells} cells painted`;
+            }
+        }
+
+        function genProblem() {
+            // Pick an answer that matches a number visible on the grid
+            const unpainted = cells.filter((c) => !c.painted);
+            if (unpainted.length === 0) return null;
+            const targetCell = unpainted[Math.floor(Math.random() * unpainted.length)];
+            const ans = targetCell.val;
+            const op = Math.random() < 0.5 ? '+' : '-';
+            let a, b;
+            if (op === '+') {
+                a = Math.floor(Math.random() * Math.max(1, ans - 1)) + 1;
+                b = ans - a;
+                if (b < 1) { a = 1; b = ans - 1; }
+            } else {
+                b = Math.floor(Math.random() * 5) + 1;
+                a = ans + b;
+            }
+            if (a < 1 || b < 1) {
+                // fallback: just say "X" if it's hard to phrase
+                return { a: ans, b: 0, op: '+', ans };
+            }
+            return { a, b, op, ans };
+        }
+
+        function nextProblem() {
+            const p = genProblem();
+            if (!p) return;
+            currentAns = p.ans;
+            // Show problem + which color to look for
+            const pal = PALETTE[p.ans];
+            prompt.innerHTML = `
+                <div class="mg-color-eq">${p.a} ${p.op === '-' ? '−' : '+'} ${p.b === 0 ? '' : p.b}<span class="mg-color-eqs">=</span><span class="mg-color-q">?</span></div>
+                <div class="mg-color-cue">Find a <b style="color:${pal.fill}">${p.ans}</b> cell — paint it ${pal.name}!</div>
+            `;
+            // Build options
+            const set = new Set([p.ans]);
+            while (set.size < Math.min(4, COLORS.length + 1)) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(1, p.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-color-opt" data-correct="${v === p.ans ? '1' : '0'}" data-val="${v}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-color-opt').forEach((b) => {
+                b.addEventListener('click', () => {
+                    const val = parseInt(b.getAttribute('data-val'), 10);
+                    if (val === currentAns) {
+                        // Find an unpainted cell with this value and paint it
+                        const target = cells.find((c) => !c.painted && c.val === val);
+                        if (target) {
+                            paintCell(target);
+                            ctx.onScore(1);
+                            setTimeout(nextProblem, 380);
+                        }
+                    } else {
+                        b.classList.add('mg-color-wrong');
+                        ctx.onPenalty(1);
+                        setTimeout(() => b.classList.remove('mg-color-wrong'), 400);
+                    }
+                });
+            });
+        }
+
+        function resetGrid() {
+            cells.forEach((c) => {
+                c.painted = false;
+                c.el.style.background = '';
+                c.el.classList.remove('mg-color-painted');
+                c.el.textContent = String(c.val);
+            });
+            totalPainted = 0;
+            updateStatus();
+            nextProblem();
+        }
+
+        updateStatus();
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
 // 19. MATH FISHING — fish swim across a pond with numbers on them.
 // Hakan must catch the fish whose number matches the answer to a math
 // problem. Reel-in animation, score per fish, splash effects.
