@@ -601,6 +601,29 @@
     "config": {}
   },
   {
+    "id": "math-fishing",
+    "title": "Math Fishing",
+    "emoji": "🎣",
+    "description": "Catch the fish whose number matches the answer!",
+    "category": "fluency",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Read the math problem. Tap the swimming fish that shows the correct answer.",
+    "rules": [
+      "A problem like '4 + 3' shows at the top.",
+      "Fish 🐟🐠🐡🦈 swim across the pond, each with a number on its side.",
+      "Tap the fish whose number is the answer.",
+      "Wrong fish = misses (no penalty fish, light penalty score).",
+      "Combo +2 points starting at 3 in a row."
+    ],
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 6
+    },
+    "config": {}
+  },
+  {
     "id": "treasure-map",
     "title": "Treasure Map",
     "emoji": "🗺️",

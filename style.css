@@ -4428,6 +4428,150 @@ body::after {
 }
 .mg-tmap-feedback:empty { background: transparent; }
 
+/* ===== Game 19: Math Fishing ===== */
+.mg-theme-math-fishing {
+    background: linear-gradient(180deg, #fde68a 0%, #67e8f9 30%, #06b6d4 100%);
+}
+.mg-fish-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+    max-width: 540px;
+}
+.mg-fish-q {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0c4a6e;
+    background: white;
+    padding: 10px 22px;
+    border-radius: 16px;
+    border: 3px solid #0ea5e9;
+    box-shadow: 0 4px 14px rgba(14,165,233,0.4);
+}
+.mg-fish-q b {
+    font-weight: 900;
+    color: #1d4ed8;
+    margin-left: 4px;
+    font-size: 1.5rem;
+}
+.mg-fish-bucket {
+    background: rgba(255,255,255,0.9);
+    color: #0c4a6e;
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-weight: 800;
+    font-size: 0.95rem;
+}
+.mg-fish-pond {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    background:
+        linear-gradient(180deg,
+            #93c5fd 0%,
+            #60a5fa 30%,
+            #3b82f6 70%,
+            #1e40af 100%);
+    border: 4px solid #0c4a6e;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: inset 0 4px 12px rgba(0,0,0,0.25);
+}
+.mg-fish-sun {
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    font-size: 2rem;
+    animation: fishSunGlow 3s ease-in-out infinite;
+}
+@keyframes fishSunGlow {
+    0%,100% { transform: scale(1); }
+    50%     { transform: scale(1.1); }
+}
+.mg-fish-cloud {
+    position: absolute;
+    top: 4px;
+    left: 18%;
+    font-size: 1.8rem;
+    opacity: 0.85;
+    animation: fishCloudDrift 12s linear infinite;
+}
+@keyframes fishCloudDrift {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(220px); }
+}
+.mg-fish {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 64px;
+    height: 56px;
+    z-index: 3;
+    font-family: inherit;
+}
+.mg-fish-body {
+    font-size: 2rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.mg-fish-body.mg-fish-flip {
+    transform: scaleX(-1);
+}
+.mg-fish-num {
+    background: white;
+    color: #1d4ed8;
+    border-radius: 999px;
+    padding: 0 8px;
+    font-weight: 900;
+    font-size: 0.85rem;
+    border: 2px solid #1d4ed8;
+    margin-top: -4px;
+    z-index: 4;
+    line-height: 1.2;
+}
+.mg-fish-swim-r { animation: fishSwimR linear; }
+.mg-fish-swim-l { animation: fishSwimL linear; }
+@keyframes fishSwimR {
+    0%   { left: -15%; }
+    100% { left: 110%; }
+}
+@keyframes fishSwimL {
+    0%   { left: 110%; }
+    100% { left: -15%; }
+}
+.mg-fish-caught { animation: fishCaught 0.4s ease-out forwards; }
+@keyframes fishCaught {
+    0%   { transform: scale(1) rotate(0); }
+    100% { transform: scale(0.4) rotate(180deg); opacity: 0; }
+}
+.mg-fish-miss { animation: icShake 0.4s ease; }
+.mg-fish-hook {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    pointer-events: none;
+}
+.mg-fish-line {
+    width: 2px;
+    height: 30px;
+    background: rgba(0,0,0,0.4);
+    margin: 0 auto;
+}
+.mg-fish-bait {
+    font-size: 1.4rem;
+    text-align: center;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;

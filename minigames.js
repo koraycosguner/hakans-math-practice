@@ -2269,6 +2269,153 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 19. MATH FISHING — fish swim across a pond with numbers on them.
+// Hakan must catch the fish whose number matches the answer to a math
+// problem. Reel-in animation, score per fish, splash effects.
+// =====================================================================
+GAME_IMPLS['math-fishing'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const fishCount = diff === 'easy' ? 4 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-fish-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-fish-q';
+        wrap.appendChild(qBox);
+
+        const caughtRow = document.createElement('div');
+        caughtRow.className = 'mg-fish-bucket';
+        caughtRow.textContent = '🪣 0';
+        wrap.appendChild(caughtRow);
+
+        const pond = document.createElement('div');
+        pond.className = 'mg-fish-pond';
+
+        // Sun / cloud decorations
+        const sun = document.createElement('div');
+        sun.className = 'mg-fish-sun';
+        sun.textContent = '☀️';
+        pond.appendChild(sun);
+        const cloud = document.createElement('div');
+        cloud.className = 'mg-fish-cloud';
+        cloud.textContent = '☁️';
+        pond.appendChild(cloud);
+
+        wrap.appendChild(pond);
+
+        // Hook
+        const hook = document.createElement('div');
+        hook.className = 'mg-fish-hook';
+        hook.innerHTML = `<div class="mg-fish-line"></div><div class="mg-fish-bait">🪝</div>`;
+        pond.appendChild(hook);
+
+        ctx.area.appendChild(wrap);
+
+        let targetAns = null;
+        let activeFish = [];
+        let caught = 0;
+        let combo = 0;
+
+        const fishEmojis = ['🐟', '🐠', '🐡', '🦈'];
+
+        function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = rand(1, maxA), b = rand(1, maxA);
+                return { a, b, op, ans: a + b };
+            }
+            const a = rand(2, maxA);
+            const b = rand(1, a);
+            return { a, b, op, ans: a - b };
+        }
+
+        function clearFish() {
+            activeFish.forEach((f) => { try { f.remove(); } catch (e) {} });
+            activeFish = [];
+        }
+
+        function spawnFish() {
+            clearFish();
+            // Build set of numbers to display: include answer, fill with plausible wrongs
+            const nums = new Set([targetAns]);
+            while (nums.size < fishCount) {
+                const d = rand(-4, 4);
+                const v = Math.max(0, targetAns + d);
+                if (v !== targetAns || nums.size === 0) nums.add(v);
+            }
+            const arr = Array.from(nums).sort(() => Math.random() - 0.5);
+            arr.forEach((n, i) => {
+                const f = document.createElement('button');
+                f.className = 'mg-fish';
+                f.dataset.val = String(n);
+                // Random lane (Y) and starting X, direction
+                const lane = (i % 4);
+                const fromLeft = Math.random() < 0.5;
+                const emoji = fishEmojis[Math.floor(Math.random() * fishEmojis.length)];
+                f.innerHTML = `<span class="mg-fish-body ${fromLeft ? '' : 'mg-fish-flip'}">${emoji}</span><span class="mg-fish-num">${n}</span>`;
+                f.style.top = (12 + lane * 18) + '%';
+                f.style.left = fromLeft ? '-15%' : '110%';
+                const dur = 4 + Math.random() * 3;  // seconds across pond
+                f.style.animationDuration = dur + 's';
+                f.style.animationDelay = (Math.random() * 1.2) + 's';
+                f.classList.add(fromLeft ? 'mg-fish-swim-r' : 'mg-fish-swim-l');
+                pond.appendChild(f);
+                activeFish.push(f);
+                f.addEventListener('click', (e) => onCatch(f, n, e));
+            });
+        }
+
+        function onCatch(f, n, e) {
+            if (f.classList.contains('mg-fish-caught')) return;
+            if (n === targetAns) {
+                f.classList.add('mg-fish-caught');
+                // Hook reels up to the fish then both go to bucket
+                const rect = f.getBoundingClientRect();
+                const pondRect = pond.getBoundingClientRect();
+                const x = ((rect.left + rect.width / 2) - pondRect.left) / pondRect.width * 100;
+                const y = ((rect.top  + rect.height / 2) - pondRect.top)  / pondRect.height * 100;
+                hook.style.transition = 'left 0.3s ease, top 0.3s ease';
+                hook.style.left = x + '%';
+                hook.style.top  = y + '%';
+                caught += 1; combo += 1;
+                const pts = combo >= 3 ? 2 : 1;
+                ctx.onScore(pts, { x: e.clientX, y: e.clientY });
+                caughtRow.textContent = '🪣 ' + caught + (combo >= 3 ? ` · 🔥 ${combo}` : '');
+                setTimeout(() => {
+                    try { f.remove(); } catch (err) {}
+                    activeFish = activeFish.filter((x) => x !== f);
+                    hook.style.transition = 'left 0.3s ease, top 0.3s ease';
+                    hook.style.left = '50%';
+                    hook.style.top  = '8%';
+                    setTimeout(nextProblem, 400);
+                }, 350);
+            } else {
+                f.classList.add('mg-fish-miss');
+                setTimeout(() => f.classList.remove('mg-fish-miss'), 400);
+                combo = 0;
+                caughtRow.textContent = '🪣 ' + caught;
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+            }
+        }
+
+        function nextProblem() {
+            const p = genProblem();
+            targetAns = p.ans;
+            qBox.innerHTML = `Catch the fish that says: <b>${p.a} ${p.op === '-' ? '−' : '+'} ${p.b}</b>`;
+            spawnFish();
+        }
+
+        nextProblem();
+        return { stop() { clearFish(); } };
+    }
+};
+
+// =====================================================================
 // 18. TREASURE MAP — pirate adventure on a path of math stones.
 // Hakan controls a pirate that hops along stepping stones. Each stone
 // has a math problem; correct = +1 step, wrong = stay. Reach the X to
