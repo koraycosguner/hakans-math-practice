@@ -205,9 +205,23 @@ function recordModuleVisit(moduleId) {
     if (!moduleId) return;
     const all = loadAllVisits();
     const prev = all[moduleId];
+    const todayKey = _todayKey();
+    let visitStreak = (prev && prev.visitStreak) || 0;
+    const lastDay = prev && prev.lastDay;
+    if (lastDay === todayKey) {
+        // Same day — no change to streak.
+    } else if (lastDay) {
+        const gap = _daysBetween(lastDay, todayKey);
+        if (gap === 1) visitStreak += 1;
+        else visitStreak = 1;
+    } else {
+        visitStreak = 1;
+    }
     all[moduleId] = {
         count: (prev && prev.count ? prev.count : 0) + 1,
         lastVisited: Date.now(),
+        lastDay: todayKey,
+        visitStreak,
     };
     try {
         localStorage.setItem(VISITS_STORAGE_KEY, JSON.stringify(all));
@@ -995,6 +1009,65 @@ function _generateQuickMathProblems(n) {
         out.push({ q, a: ans });
     }
     return out;
+}
+
+// "NEW BEST!" splash for mini-game records.
+function _showNewBestSplash(name, score, prevBest) {
+    const el = document.createElement('div');
+    el.className = 'newbest-splash';
+    el.innerHTML = `<div class="nb-emoji">🏅</div>
+                    <div class="nb-text">NEW BEST!</div>
+                    <div class="nb-sub">${score}${prevBest ? ` (was ${prevBest})` : ''} · ${name}</div>`;
+    document.body.appendChild(el);
+    setTimeout(() => el.classList.add('nb-show'), 30);
+    setTimeout(() => {
+        el.classList.remove('nb-show');
+        setTimeout(() => el.remove(), 400);
+    }, 2200);
+}
+
+// Mystery box reward: random chance after a session, tap to reveal.
+function showMysteryBox() {
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay mystery-overlay';
+    overlay.innerHTML = `<div class="potd-card mystery-card">
+        <div class="mystery-box">📦</div>
+        <h2>Mystery Box, Hakan!</h2>
+        <div class="mystery-sub">Tap to open!</div>
+        <button class="mystery-open">Open it!</button>
+    </div>`;
+    overlay.querySelector('.mystery-open').addEventListener('click', () => {
+        // Pick the reward
+        const rewards = [
+            { kind: 'robux', n: 5,  emoji: '💎', text: '+5 Robux' },
+            { kind: 'robux', n: 3,  emoji: '💎', text: '+3 Robux' },
+            { kind: 'robux', n: 10, emoji: '💎', text: '+10 Robux!' },
+            { kind: 'sticker',     emoji: '🌟', text: 'Bonus sticker!' },
+            { kind: 'robux', n: 2,  emoji: '💎', text: '+2 Robux' },
+        ];
+        const r = rewards[Math.floor(Math.random() * rewards.length)];
+        if (r.kind === 'robux') saveRobux(loadRobux() + r.n);
+        else if (r.kind === 'sticker') {
+            // Add a random sticker from STICKER_POOL if available
+            if (typeof STICKER_POOL !== 'undefined' && typeof loadStickers === 'function' && typeof saveStickers === 'function') {
+                const arr = loadStickers();
+                const s = STICKER_POOL[Math.floor(Math.random() * STICKER_POOL.length)];
+                arr.push({ sticker: s, when: Date.now(), bonus: true });
+                saveStickers(arr);
+            }
+        }
+        overlay.innerHTML = `<div class="potd-card mystery-card">
+            <div class="mystery-reveal">${r.emoji}</div>
+            <h2>${r.text}</h2>
+            <div class="mystery-sub">Awesome work, Hakan!</div>
+            <button class="potd-close">Sweet!</button>
+        </div>`;
+        overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+        if (typeof launchConfetti === 'function') launchConfetti();
+        playSound('win');
+    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
 }
 
 // Big "PERFECT!" splash when Hakan 3-stars a quiz.
@@ -4133,6 +4206,9 @@ function _renderResultsRecap() {
             line += `<div class="rr-row"><span class="rr-icon">💡</span><span class="rr-text">Hints used: ${hintsUsed} — smart move to ask!</span></div>`;
         } else if (total > 0) {
             line += `<div class="rr-row"><span class="rr-icon">🧠</span><span class="rr-text">No hints needed — independent thinking!</span></div>`;
+        }
+        if (ms && ms._newPersonalBest) {
+            line += `<div class="rr-row rr-pb">🥇 NEW PERSONAL BEST!</div>`;
         }
         recap.innerHTML = line;
         recap.style.display = '';

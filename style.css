@@ -7154,6 +7154,99 @@ html.focus-mode .focus-btn { background: linear-gradient(135deg, #0c4a6e, #07598
     box-shadow: 0 2px 6px rgba(16,185,129,0.18);
 }
 
+/* ===== Iteration 13: mystery box, new best, personal best, slide-in, visit streak ===== */
+.mystery-overlay { background: rgba(0,0,0,0.65); }
+.mystery-card { max-width: 380px; text-align: center; }
+.mystery-box {
+    font-size: 5rem;
+    animation: mysteryShake 0.6s ease-in-out infinite;
+    margin: 8px 0;
+}
+@keyframes mysteryShake {
+    0%, 100% { transform: rotate(-3deg); }
+    50%      { transform: rotate(3deg); }
+}
+.mystery-open {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 12px 24px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(245,158,11,0.45);
+    margin-top: 8px;
+}
+.mystery-reveal {
+    font-size: 5rem;
+    margin: 8px 0 4px;
+    animation: mysteryPop 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+@keyframes mysteryPop {
+    0%   { transform: scale(0.4) rotate(-10deg); opacity: 0; }
+    60%  { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.mystery-sub { color: var(--text-light); margin-bottom: 12px; }
+
+/* NEW BEST splash */
+.newbest-splash {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translate(-50%, -20px);
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #422006;
+    border-radius: 22px;
+    padding: 14px 22px;
+    font-weight: 900;
+    box-shadow: 0 16px 40px rgba(245, 158, 11, 0.55);
+    opacity: 0;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    z-index: 99800;
+    text-align: center;
+    pointer-events: none;
+}
+.newbest-splash.nb-show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+.nb-emoji { font-size: 2.4rem; }
+.nb-text { font-size: 1.4rem; font-weight: 900; letter-spacing: 0.04em; }
+.nb-sub { font-size: 0.85rem; opacity: 0.9; }
+
+/* Personal best pill on results recap */
+.rr-pb {
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    color: #78350f;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 900;
+    display: inline-block;
+    align-self: center;
+    box-shadow: 0 4px 10px rgba(251,191,36,0.35);
+}
+
+/* Lesson slide-in transition */
+.lp-slide-in { animation: lessonSlideIn 0.35s ease-out; }
+@keyframes lessonSlideIn {
+    0% { transform: translateX(20px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+html.motion-reduced .lp-slide-in { animation: none !important; }
+
+/* Visit streak chip in module detail */
+.mdp-chip-streak {
+    background: linear-gradient(135deg, #fed7aa, #fb923c) !important;
+    color: #7c2d12 !important;
+    animation: streakChipPulse 1.6s ease-in-out infinite;
+}
+@keyframes streakChipPulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

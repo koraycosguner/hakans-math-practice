@@ -454,6 +454,13 @@ function _endMiniGame(isWin) {
         _gameScore <= 0 ? "Better luck next time, Hakan!" :
         isNewRecord ? "🏅 New Record, Hakan!" :
         isWin ? "🎉 You won, Hakan!" : "⏰ Time's Up!";
+
+    if (isNewRecord && _gameScore > 0 && typeof launchConfetti === 'function') {
+        launchConfetti();
+        if (typeof _showNewBestSplash === 'function') {
+            _showNewBestSplash(g.name || 'Mini-Game', _gameScore, prev ? prev.score : 0);
+        }
+    }
     document.getElementById('mg-over-score-text').textContent = `Score: ${_gameScore}${prev ? `  (best ${Math.max(_gameScore, prev.score)})` : ''}`;
     document.getElementById('mg-over-robux').textContent = robuxAwarded > 0
         ? `+${robuxAwarded} 💎 Robux earned!`

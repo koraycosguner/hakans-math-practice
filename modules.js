@@ -69607,6 +69607,9 @@ function selectModule(id) {
         if (v && v.count > 0) {
             bits.push(`<span class="mdp-chip">📈 Played ${v.count}x</span>`);
         }
+        if (v && v.visitStreak >= 2) {
+            bits.push(`<span class="mdp-chip mdp-chip-streak">🔥 ${v.visitStreak}-day visit streak</span>`);
+        }
         pill.innerHTML = bits.join('');
         pill.style.display = bits.length ? '' : 'none';
     }
@@ -69812,6 +69815,14 @@ function renderLessonPage() {
     const page = mod.lesson[moduleState.lessonIndex];
     const isFirst = moduleState.lessonIndex === 0;
     const isLast = moduleState.lessonIndex === total - 1;
+
+    // Slide-in animation each page render.
+    const card = document.querySelector('.lesson-card');
+    if (card) {
+        card.classList.remove('lp-slide-in');
+        void card.offsetWidth;
+        card.classList.add('lp-slide-in');
+    }
 
     document.getElementById('lesson-title').textContent = page.title;
     const visualHost = document.getElementById('lesson-visual');
@@ -71035,6 +71046,11 @@ function showModuleResults() {
     const stars = accuracy >= 0.9 ? 3 : accuracy >= 0.7 ? 2 : 1;
     const isQuiz = moduleState.activity === 'quiz';
 
+    // Compare to previous best stars so we can announce a new personal best.
+    const prevProgress = (typeof loadAllProgress === 'function') ? loadAllProgress() : {};
+    const prevBest = prevProgress[moduleState.moduleId] && prevProgress[moduleState.moduleId].stars;
+    moduleState._newPersonalBest = isQuiz && stars > (prevBest || 0);
+
     // Save progress on quiz completion (Hakan only — keep Koray's runs untracked)
     if (isQuiz && typeof currentUser !== 'undefined' && currentUser === 'hakan') {
         if (typeof saveModuleProgress === 'function') {
@@ -71108,6 +71124,14 @@ function showModuleResults() {
         const fam = moduleState._missedFamilies[0];
         moduleState._missedFamilies = [];
         setTimeout(() => offerFactFamilyReview(fam), 1800);
+    }
+
+    // Mystery box: small random chance after practice/quiz/review to surprise
+    // Hakan with a bonus reward. Only for Hakan, only with ≥50% accuracy.
+    if (typeof currentUser !== 'undefined' && currentUser === 'hakan' &&
+        accuracy >= 0.5 && Math.random() < 0.20 &&
+        typeof showMysteryBox === 'function') {
+        setTimeout(() => showMysteryBox(), 2200);
     }
 
     // After Practice, the "Play Again" button becomes "Take the Quiz!" so
