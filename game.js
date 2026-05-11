@@ -165,6 +165,27 @@ function resetProgress() {
     }
 }
 
+// ===== Module favorites — Hakan can pin his favorites to the top =====
+const FAVORITES_KEY = 'hakans-math-favorites';
+function loadFavorites() {
+    try {
+        const raw = localStorage.getItem(FAVORITES_KEY);
+        return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+}
+function saveFavorites(map) {
+    try { localStorage.setItem(FAVORITES_KEY, JSON.stringify(map)); } catch (e) {}
+}
+function toggleFavorite(moduleId, ev) {
+    if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+    const favs = loadFavorites();
+    if (favs[moduleId]) { delete favs[moduleId]; }
+    else { favs[moduleId] = Date.now(); }
+    saveFavorites(favs);
+    if (typeof renderHomeModules === 'function') renderHomeModules();
+    playSound('click');
+}
+
 // ===== Module visit tracking (every lesson/practice/quiz start) =====
 // Used to show "you've worked on this N times" badges and a Recently
 // Played section on the home grid. Independent from PROGRESS so we can
@@ -868,6 +889,22 @@ function _initKeyboardInput() {
 }
 _initKeyboardInput();
 
+// Tap the mascot photo to replay the current speech-bubble text.
+function _initMascotTap() {
+    document.addEventListener('click', (e) => {
+        const m = e.target.closest('.game-mascot, .mascot');
+        if (!m) return;
+        const bubble = m.parentElement && m.parentElement.querySelector('.speech-bubble');
+        if (!bubble) return;
+        const text = bubble.textContent.trim();
+        if (text && typeof speak === 'function') {
+            playSound('click');
+            speak(text);
+        }
+    });
+}
+_initMascotTap();
+
 // ===== Quick Math — 5 mixed problems in a focused overlay =====
 function openQuickMath() {
     playSound('click');
@@ -958,6 +995,27 @@ function _generateQuickMathProblems(n) {
         out.push({ q, a: ans });
     }
     return out;
+}
+
+// Big "PERFECT!" splash when Hakan 3-stars a quiz.
+function showPerfectSplash(mod) {
+    const overlay = document.createElement('div');
+    overlay.className = 'perfect-overlay';
+    overlay.innerHTML = `<div class="perfect-card">
+        <div class="perfect-emoji">🏆</div>
+        <div class="perfect-text">PERFECT!</div>
+        <div class="perfect-sub">${mod ? mod.title : ''}</div>
+        <div class="perfect-stars">⭐⭐⭐</div>
+        <button class="perfect-close">Awesome!</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.perfect-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+    if (typeof launchConfetti === 'function') {
+        launchConfetti();
+        setTimeout(launchConfetti, 800);
+    }
+    playSound('win');
 }
 
 // Persistent hot-streak banner during the current session.
@@ -3880,6 +3938,14 @@ function handleKeyPress(e) {
 
 // ===== Navigation =====
 function goHome() {
+    // If Hakan is mid-quiz, confirm so he doesn't lose progress.
+    const id = (document.querySelector('.screen.active') || {}).id;
+    if (id === 'module-game-screen' && typeof moduleState !== 'undefined' &&
+        moduleState.activity === 'quiz' && moduleState.problemIndex > 0 &&
+        moduleState.problemIndex < (getCurrentProblems() || []).length) {
+        const ok = confirm("You're in the middle of a quiz, Hakan! Leave anyway?");
+        if (!ok) return;
+    }
     playSound('click');
     // Refresh Robux displays on start screen
     if (currentUser === 'hakan') {

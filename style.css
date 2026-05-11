@@ -6970,6 +6970,118 @@ html.focus-mode .focus-btn { background: linear-gradient(135deg, #0c4a6e, #07598
     box-shadow: 0 2px 6px rgba(234,88,12,0.3);
 }
 
+/* ===== Iteration 11: perfect splash, favorites, stuck-help ===== */
+.perfect-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(124,58,237,0.4), rgba(0,0,0,0.7));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99900;
+    padding: 20px;
+}
+.perfect-card {
+    background: white;
+    border-radius: 28px;
+    padding: 30px 26px;
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    animation: perfectPop 0.6s cubic-bezier(0.3, 1.5, 0.6, 1);
+}
+@keyframes perfectPop {
+    0%   { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+    60%  { transform: scale(1.1) rotate(2deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.perfect-emoji {
+    font-size: 5rem;
+    animation: perfectBounce 1.4s ease-in-out infinite;
+}
+@keyframes perfectBounce {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50%      { transform: scale(1.15) rotate(8deg); }
+}
+.perfect-text {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.04em;
+    margin: 4px 0 6px;
+}
+.perfect-sub {
+    color: #475569;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+.perfect-stars {
+    font-size: 2.4rem;
+    margin: 8px 0 16px;
+    letter-spacing: 0.4rem;
+}
+.perfect-close {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 14px 28px;
+    font-weight: 900;
+    font-size: 1.05rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(245,158,11,0.45);
+}
+
+/* Module card favorite star */
+.m-card-fav {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #cbd5e1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 6;
+    line-height: 1;
+    transition: transform 0.18s ease, color 0.18s ease;
+}
+.m-card-fav:hover { transform: scale(1.15); }
+.m-card-fav-on {
+    color: #f59e0b;
+    text-shadow: 0 2px 6px rgba(245,158,11,0.4);
+}
+.rp-card-fav {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #fbbf24;
+}
+
+/* Stuck-help overlay */
+.stuck-overlay { background: rgba(0,0,0,0.55); }
+.stuck-card { max-width: 420px; text-align: center; }
+.stuck-emoji { font-size: 3rem; margin-bottom: 6px; }
+.stuck-card h2 { color: var(--primary); margin: 0 0 6px; }
+.stuck-sub { color: #475569; margin-bottom: 14px; font-size: 0.95rem; }
+.stuck-actions { display: flex; gap: 10px; justify-content: center; }
+.stuck-lesson, .stuck-keep {
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.stuck-lesson {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+    color: white;
+}
+.stuck-keep {
+    background: #f1f5f9;
+    color: #334155;
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

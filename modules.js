@@ -69280,6 +69280,27 @@ function renderHomeModules() {
         }
     }
 
+    // Favorites — pinned by Hakan
+    if (isHakan && typeof loadFavorites === 'function') {
+        const favs = loadFavorites();
+        const favIds = Object.keys(favs).sort((a, b) => favs[b] - favs[a]);
+        const favMods = favIds.map((id) => MODULES_BY_ID[id]).filter(Boolean).slice(0, 8);
+        if (favMods.length) {
+            html += `<section class="suggest-row suggest-favorites">
+                <div class="sr-label">⭐ Favorites</div>
+                <div class="sr-sub">Your pinned modules — tap to play.</div>
+                <div class="rp-row">
+                    ${favMods.map((m) => `
+                        <button class="rp-card rp-card-fav" onclick="selectModule('${m.id}')" title="${m.title}">
+                            <span class="rp-icon">${m.emoji}</span>
+                            <span class="rp-title">${m.title}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            </section>`;
+        }
+    }
+
     // "Recently Played" — last 5 modules Hakan opened (by lastVisited)
     if (isHakan) {
         const recent = Object.entries(visits)
@@ -69410,10 +69431,16 @@ function renderHomeModules() {
                     const newBadge = (isHakan && visitCount === 0 && !p)
                         ? '<span class="m-card-new-pill">NEW!</span>'
                         : '';
+                    const favs = (isHakan && typeof loadFavorites === 'function') ? loadFavorites() : {};
+                    const isFav = !!favs[m.id];
+                    const favBtn = isHakan
+                        ? `<span class="m-card-fav ${isFav ? 'm-card-fav-on' : ''}" onclick="toggleFavorite('${m.id}', event)" title="${isFav ? 'Unpin' : 'Pin to favorites'}">${isFav ? '⭐' : '☆'}</span>`
+                        : '';
                     return `<button class="m-card${doneCls}${newCls}${catCls}" onclick="selectModule('${m.id}')">
                         ${countHtml}
                         ${starsHtml}
                         ${newBadge}
+                        ${favBtn}
                         <span class="m-card-icon-wrap">
                             <span class="m-card-icon">${m.emoji}</span>
                         </span>
@@ -69969,6 +69996,30 @@ function bindInteractivePrimitives(host) {
 }
 
 // Show a mastery certificate for a category Hakan has 3-starred fully.
+// Friendly stuck-help suggestion after 3 wrong in a row in practice.
+function showStuckHelp(mod) {
+    if (!mod) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay stuck-overlay';
+    overlay.innerHTML = `<div class="potd-card stuck-card">
+        <div class="stuck-emoji">🤗</div>
+        <h2>Tricky one, Hakan!</h2>
+        <div class="stuck-sub">It's okay! Want to peek at the lesson again? Or just keep trying — your brain is growing!</div>
+        <div class="stuck-actions">
+            <button class="stuck-lesson">📚 Re-read lesson</button>
+            <button class="stuck-keep">🎯 Keep trying</button>
+        </div>
+    </div>`;
+    overlay.querySelector('.stuck-lesson').addEventListener('click', () => {
+        overlay.remove();
+        if (mod.lesson) {
+            startLesson(mod);
+        }
+    });
+    overlay.querySelector('.stuck-keep').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
 function showCategoryCertificate(catId) {
     const cat = CATEGORIES.find((c) => c.id === catId);
     if (!cat) return;
@@ -70692,6 +70743,7 @@ function handleCorrect() {
     moduleState.bestStreak = Math.max(moduleState.bestStreak, moduleState.streak);
     moduleState.correct++;
     moduleState.score += 10;
+    moduleState._wrongInARow = 0;
 
     // High-five popup at every 3rd in-a-row (3, 6, 9...) — short and fun.
     if (moduleState.streak > 0 && moduleState.streak % 3 === 0 &&
@@ -70738,6 +70790,14 @@ function _hideHotStreakBanner() {
 
 function handleWrong() {
     _hideHotStreakBanner();
+    moduleState._wrongInARow = (moduleState._wrongInARow || 0) + 1;
+    // After 3 wrong in a row in practice/review, offer a soft lesson re-read.
+    if ((moduleState.activity === 'practice' || moduleState.activity === 'review') &&
+        moduleState._wrongInARow >= 3 && !moduleState._suggestedLesson &&
+        typeof showStuckHelp === 'function') {
+        moduleState._suggestedLesson = true;
+        showStuckHelp(MODULES_BY_ID[moduleState.moduleId]);
+    }
     if (typeof playSound === 'function') playSound('wrong');
     moduleState.streak = 0;
 
@@ -70962,6 +71022,11 @@ function showModuleResults() {
     // Set state.currentModule for the recap/next-up panels rendered by showResults.
     if (typeof state !== 'undefined' && mod) state.currentModule = mod;
     if (typeof _renderResultsRecap === 'function') _renderResultsRecap();
+
+    // Big "PERFECT!" splash for a 3-star quiz finish.
+    if (stars === 3 && isQuiz && typeof showPerfectSplash === 'function') {
+        showPerfectSplash(mod);
+    }
 
     showScreen('results-screen');
 
