@@ -8969,29 +8969,52 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     margin-bottom: 14px;
 }
 .trophy-btn {
-    padding: 8px 14px;
-    background: linear-gradient(135deg, #f5c518, #ffd700);
-    color: #2D3436;
-    border: 2px solid #f5a020;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+    border: 3px solid #d97706;
     border-radius: 999px;
-    font-weight: 800;
+    font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(245, 197, 24, 0.3);
+    box-shadow: 0 4px 0 #b45309, 0 6px 14px rgba(245, 197, 24, 0.4);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
     touch-action: manipulation;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.trophy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #b45309, 0 10px 18px rgba(245, 197, 24, 0.55);
+}
+.trophy-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #b45309;
 }
 .pet-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 6px 14px 6px 8px;
-    background: white;
-    border: 2px solid #c7d2fe;
+    background: linear-gradient(135deg, #ffffff 0%, #f0eeff 100%);
+    border: 3px solid #a78bfa;
     border-radius: 999px;
     cursor: pointer;
     touch-action: manipulation;
+    box-shadow: 0 3px 0 #7c3aed, 0 5px 10px rgba(124, 58, 237, 0.2);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
 }
-.pet-badge-emoji { font-size: 1.6rem; line-height: 1; }
-.pet-badge-name { font-weight: 700; color: var(--primary); }
+.pet-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #7c3aed, 0 8px 14px rgba(124, 58, 237, 0.3);
+}
+.pet-badge:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #7c3aed;
+}
+.pet-badge-emoji { font-size: 1.6rem; line-height: 1; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15)); }
+.pet-badge-name { font-weight: 900; color: var(--primary); }
+@media (prefers-reduced-motion: reduce) {
+    .trophy-btn, .pet-badge { transition: none !important; }
+}
 
 /* ===== Module search ===== */
 .module-search-wrap { margin: 0 0 14px; }
