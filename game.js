@@ -818,6 +818,11 @@ const PET_OUTFITS = [
     { id: 'acc-star',     slot: 'acc',  emoji: '⭐', name: 'Star Sticker', price: 12 },
     { id: 'acc-rainbow',  slot: 'acc',  emoji: '🌈', name: 'Rainbow Aura', price: 75 },
     { id: 'acc-rocket',   slot: 'acc',  emoji: '🚀', name: 'Rocket Boost', price: 100 },
+    { id: 'hat-pirate',   slot: 'hat',  emoji: '🏴‍☠️', name: 'Pirate Hat',   price: 40 },
+    { id: 'hat-santa',    slot: 'hat',  emoji: '🎅', name: 'Santa Hat',     price: 30 },
+    { id: 'acc-medal',    slot: 'acc',  emoji: '🥇', name: 'Gold Medal',    price: 45 },
+    { id: 'acc-balloon',  slot: 'acc',  emoji: '🎈', name: 'Party Balloon', price: 16 },
+    { id: 'acc-flower',   slot: 'acc',  emoji: '🌸', name: 'Cherry Bloom',  price: 14 },
 ];
 
 const PET_OUTFIT_KEY = 'hakans-math-pet-outfits';
@@ -3152,6 +3157,57 @@ const PET_TREATS = [
     { id: 'cake',   emoji: '🎂', name: 'Cake',   price: 25, msg: 'Birthday vibes!' },
 ];
 
+// Track feed history (last 10 treats)
+function _logFeed(treat) {
+    try {
+        const raw = localStorage.getItem('hakans-math-feed-log');
+        const log = raw ? JSON.parse(raw) : [];
+        log.unshift({ t: treat, at: Date.now() });
+        const trimmed = log.slice(0, 10);
+        localStorage.setItem('hakans-math-feed-log', JSON.stringify(trimmed));
+    } catch (e) {}
+}
+function loadFeedLog() {
+    try { return JSON.parse(localStorage.getItem('hakans-math-feed-log')) || []; }
+    catch (e) { return []; }
+}
+
+// Pet park: show all pets in the catalog with their current stage emoji.
+function openPetPark() {
+    playSound('click');
+    if (!MATH_PET_CATALOG) return;
+    const state = loadPetState();
+    const progress = loadAllProgress();
+    const totalStars = Object.values(progress).reduce((s, p) => s + (p.stars || 0), 0);
+    const log = loadFeedLog();
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    let pets = '';
+    for (const p of MATH_PET_CATALOG.pets) {
+        const stage = getPetStageForStars(p, totalStars);
+        const isCur = state.petId === p.id;
+        pets += `<div class="park-pet ${isCur ? 'park-current' : ''}">
+            <div class="park-pet-emoji">${stage ? stage.emoji : '🐾'}</div>
+            <div class="park-pet-name">${p.name}</div>
+            ${isCur ? '<div class="park-pet-tag">⭐ Active</div>' : ''}
+        </div>`;
+    }
+    const recent = log.slice(0, 5).map((entry) => {
+        const t = PET_TREATS.find((x) => x.id === entry.t);
+        return `<span class="park-treat">${t ? t.emoji : '🍪'}</span>`;
+    }).join('');
+    overlay.innerHTML = `<div class="potd-card park-card">
+        <h2>🏞️ Pet Park</h2>
+        <div class="sound-sub">Where all your buddies hang out!</div>
+        <div class="park-grid">${pets}</div>
+        ${recent ? `<div class="park-log"><span class="park-log-label">Recent treats:</span> ${recent}</div>` : ''}
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+}
+
 // Open a treat picker so Hakan chooses the food.
 function openTreatPicker() {
     playSound('click');
@@ -3183,6 +3239,7 @@ function openTreatPicker() {
             s.lastFed = Date.now();
             s.lastTreat = t.id;
             savePetState(s);
+            _logFeed(t.id);
             // Multiple floating treat icons
             for (let i = 0; i < 8; i++) {
                 const h = document.createElement('div');
@@ -3247,6 +3304,7 @@ function openPetPicker() {
         <button class="pet-picker-shop" onclick="openPetShop()">🛍️ Pet Shop</button>
         <button class="pet-picker-rename" onclick="renamePet()">✏️ Rename Pet</button>
         <button class="pet-picker-feed" onclick="feedPet()">🍎 Feed (5 💎)</button>
+        <button class="pet-picker-park" onclick="openPetPark()">🏞️ Pet Park</button>
         <button class="pet-picker-close">Cancel</button>
     </div>`;
     overlay.innerHTML = html;
