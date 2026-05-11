@@ -14307,51 +14307,69 @@ html.theme-space .screen { position: relative; z-index: 1; }
 }
 
 .sb-cat {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    padding: 12px 12px 14px;
+    border: 2px solid rgba(255, 255, 255, 0.12);
 }
 .sb-cat-header {
-    color: var(--primary);
+    color: white;
     font-weight: 900;
-    font-size: 1.1rem;
-    margin-bottom: 8px;
+    font-size: 1.15rem;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 4px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 .sb-cat-count {
-    background: white;
-    color: var(--primary);
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+    border: 2px solid #fff;
     border-radius: 999px;
-    padding: 4px 10px;
-    font-size: 0.78rem;
-    font-weight: 800;
+    padding: 5px 14px;
+    font-size: 0.82rem;
+    font-weight: 900;
+    box-shadow: 0 3px 8px rgba(217, 119, 6, 0.4);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .sb-sticker-missing {
-    opacity: 0.3;
-    background: #f1f5f9;
+    opacity: 0.35;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
     color: #94a3b8;
     cursor: default !important;
+    border: 2px dashed #cbd5e1;
 }
 .sb-sticker-missing:hover { transform: none !important; }
 
 .trophy-showcase {
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    border: 2px solid #fbbf24;
-    border-radius: 18px;
-    padding: 12px 14px;
-    margin: 8px 0;
+    background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+    border: 3px solid #d97706;
+    border-radius: 20px;
+    padding: 14px 16px;
+    margin: 10px 0;
     cursor: pointer;
-    transition: transform 0.18s ease;
+    transition: transform 0.18s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 0 #b45309, 0 10px 20px rgba(217, 119, 6, 0.3);
 }
-.trophy-showcase:hover { transform: translateY(-2px); }
+.trophy-showcase:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #b45309, 0 14px 26px rgba(217, 119, 6, 0.45);
+}
+.trophy-showcase:active {
+    transform: translateY(2px);
+    box-shadow: 0 3px 0 #b45309;
+}
 .ts-label {
-    font-size: 0.85rem;
-    font-weight: 800;
+    font-size: 0.9rem;
+    font-weight: 900;
     color: #78350f;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
+    letter-spacing: 0.6px;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 .ts-row {
     display: flex;
@@ -14360,7 +14378,7 @@ html.theme-space .screen { position: relative; z-index: 1; }
 }
 .ts-badge {
     font-size: 2rem;
-    background: white;
+    background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
     width: 48px;
     height: 48px;
     display: flex;
