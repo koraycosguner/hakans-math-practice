@@ -17,8 +17,8 @@
       "Beat your personal best to earn the record bonus"
     ],
     "rewards": {
-      "robuxPerWin": 3,
-      "bonusForRecord": 5
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "numbers": [
@@ -62,8 +62,8 @@
       "Wrong pop = the bubble fizzles and a small shake animation plays"
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 5
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "duration": 60,
@@ -112,8 +112,8 @@
       "Clear the whole board to finish the round"
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 5
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "gridRows": 4,
@@ -151,8 +151,8 @@
       "Your total correct is shown at the end"
     ],
     "rewards": {
-      "robuxPerWin": 3,
-      "bonusForRecord": 5
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "duration": 30,
@@ -188,8 +188,8 @@
       "Clear the whole board to win"
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 5
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "gridRows": 3,
@@ -264,8 +264,8 @@
       "If a matching number falls off without being tapped = -1 point"
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 5
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "duration": 45,
@@ -332,8 +332,8 @@
       "Shape touches the ground = it disappears with no points"
     ],
     "rewards": {
-      "robuxPerWin": 3,
-      "bonusForRecord": 5
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "duration": 60,
@@ -396,8 +396,8 @@
       "Wrong or time-out = no points but the round keeps going"
     ],
     "rewards": {
-      "robuxPerWin": 3,
-      "bonusForRecord": 5
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "duration": 60,
@@ -441,8 +441,8 @@
       "Score = how many games you win in 2 minutes."
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 6
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {
       "aiSmartness": 0.7
@@ -466,8 +466,8 @@
       "Cross the maze for +1 score, then a new one appears!"
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -489,8 +489,8 @@
       "Grow as long as you can!"
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 10
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -511,8 +511,8 @@
       "Defeat the monster before time runs out!"
     ],
     "rewards": {
-      "robuxPerWin": 6,
-      "bonusForRecord": 10
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -532,8 +532,8 @@
       "Wrong = 1s penalty."
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 6
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -553,8 +553,8 @@
       "Wrong = 1s penalty."
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 6
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -574,8 +574,8 @@
       "First correct build scores!"
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -595,8 +595,8 @@
       "Wrong = 1s penalty."
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 6
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -617,8 +617,8 @@
       "Reach the far shore (trees + flowers) after 5 / 6 / 8 hops → +5 💎."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -639,8 +639,8 @@
       "Notes you've played accumulate in a song-sequence strip below the keys."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 9
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -661,8 +661,8 @@
       "Successful launch → +5 💎."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 9
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -683,8 +683,8 @@
       "Reach the 🏁 at the summit → +5 💎."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -705,8 +705,8 @@
       "Uncover all tiles (12 / 20 / 30 by difficulty) → dino roars + +5 💎."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -727,8 +727,8 @@
       "Fill the shelf (4 / 6 / 8 trays by difficulty) to win (+5 💎)."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -749,8 +749,8 @@
       "Reach the 🏆 at the top (5 / 6 / 8 layers) for +5 💎."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -771,8 +771,8 @@
       "3+ combo = bonus per hit. Reach the streak goal to win (+5 💎)."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 9
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -793,8 +793,8 @@
       "Reach the bottom (5 / 6 / 8 layers by difficulty) to find treasure 💎 +5."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -816,8 +816,8 @@
       "Hare wins → +5 💎 cheer."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -838,8 +838,8 @@
       "Tower toppled? Restart. Stack 4 / 6 / 8 scoops (by difficulty) to win (+5 💎)."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -859,8 +859,8 @@
       "Fill all 6 / 9 / 12 cells (by difficulty) to complete the hive (+5 💎)."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -881,8 +881,8 @@
       "Complete 3 / 4 / 6 rounds (by difficulty) → pizza ready + +5 💎."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -902,8 +902,8 @@
       "Complete the rainbow (5 stripes easy, 7 stripes normal) for +5 💎 shimmer."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -923,8 +923,8 @@
       "Light all 4 / 6 / 10 candles to win the party (+5 💎)."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 7
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -945,8 +945,8 @@
       "Spell cast → 18 sparkles burst + +5 💎."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -968,8 +968,8 @@
       "Lose → rematch starts after 2.4s."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -990,8 +990,8 @@
       "Hatch all eggs (4/5/7 by difficulty) to win +5 💎."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -1012,8 +1012,8 @@
       "100% fuel → 3, 2, 1, LIFTOFF! Bonus +5 points."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -1034,8 +1034,8 @@
       "Build the full train to win a +5 jackpot."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 7
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -1056,8 +1056,8 @@
       "Fill every cell to win a +5 jackpot bonus."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 7
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -1079,8 +1079,8 @@
       "Combo +2 points starting at 3 in a row."
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 6
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -1101,8 +1101,8 @@
       "Reach the last stone to open the 💎 treasure chest (+5 bonus)."
     ],
     "rewards": {
-      "robuxPerWin": 5,
-      "bonusForRecord": 8
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   },
@@ -1124,8 +1124,8 @@
       "Fill every plot to harvest the garden for a +5 jackpot."
     ],
     "rewards": {
-      "robuxPerWin": 4,
-      "bonusForRecord": 6
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
     },
     "config": {}
   }

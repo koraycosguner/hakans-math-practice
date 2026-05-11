@@ -70910,62 +70910,40 @@ function renderHomeModules() {
 
     let html = '';
 
-    // Time-based greeting + day flair + seasonal
+    // === GRADE-1-FRIENDLY HOME ===
+    // Minimal: greeting, top buttons, Today's Adventure, Continue, modules grid.
+    // All extras (POTD, daily spin, quick math, quests, lucky color/number,
+    // joke, fact, tip) live behind the "🎁 Today" button.
+
+    // 1. Greeting + tiny streak chip
     if (isHakan) {
         const h = new Date().getHours();
-        const greet = h < 5  ? '🌙 Late night math, Hakan?' :
+        const greet = h < 5  ? '🌙 Hi, Hakan!' :
                       h < 12 ? '☀️ Good morning, Hakan!' :
                       h < 17 ? '🌤️ Good afternoon, Hakan!' :
                       h < 21 ? '🌅 Good evening, Hakan!' :
-                               '🌙 Time to wind down, Hakan!';
-        const dow = (typeof dayOfWeekFlair === 'function') ? dayOfWeekFlair() : null;
-        const season = (typeof seasonalEmoji === 'function') ? seasonalEmoji() : '';
-        const dowStr = dow ? `<span class="dow-flair">${dow.emoji} ${dow.name} ${season}</span>` : '';
-        html += `<div class="home-greeting">${greet} ${dowStr}</div>`;
+                               '🌙 Hi, Hakan!';
+        const streakChip = streak.current >= 2
+            ? `<span class="home-streak-chip">🔥 ${streak.current}</span>`
+            : '';
+        html += `<div class="home-greeting-row">
+            <div class="home-greeting">${greet}</div>
+            ${streakChip}
+        </div>`;
 
-        // Daily affirmation (Hakan only, big card)
-        if (typeof todaysAffirmation === 'function') {
-            html += `<div class="affirmation-card">${todaysAffirmation()}</div>`;
-        }
-        // Lucky color
-        if (typeof todaysLuckyColor === 'function') {
-            const c = todaysLuckyColor();
-            html += `<div class="lucky-color"><span class="lc-swatch" style="background:${c.hex}"></span> Today's lucky color: <b style="color:${c.hex}">${c.name}</b> ${c.emoji}</div>`;
-        }
-
-        // Streak resilience reminder: if Hakan hasn't practiced today and the
-        // hour is getting late, gently nudge him.
-        const s = streak;
+        // Streak resilience reminder: if Hakan hasn't practiced today and
+        // the hour is getting late, gently nudge him.
         const today = new Date().toISOString().slice(0, 10);
-        const practicedToday = s && s.history && s.history.includes(today);
-        if (s && s.current >= 2 && !practicedToday && h >= 17) {
-            html += `<div class="streak-warn">⏰ Don't lose your ${s.current}-day streak, Hakan! Practice one module before bed!</div>`;
+        const practicedToday = streak && streak.history && streak.history.includes(today);
+        if (streak && streak.current >= 2 && !practicedToday && h >= 17) {
+            html += `<div class="streak-warn">⏰ Practice 1 module to keep your ${streak.current}-day streak!</div>`;
         }
     }
 
-    // Top row: streak, pet, trophies (Hakan only)
+    // 2. Top row: Pet | 🎮 Games | 🎁 Today | ⋯ More
     if (isHakan) {
         const petInfo = (typeof currentPetStage === 'function') ? currentPetStage() : null;
         html += `<div class="home-top-row">`;
-        if (streak.current >= 2) {
-            html += `<div class="streak-banner">
-                <span class="streak-flame">🔥</span>
-                <span class="streak-count">${streak.current}</span>
-                <span class="streak-label">day streak${streak.current === streak.longest ? ' — best!' : ''}</span>
-            </div>`;
-        }
-        // Last-7-days dot calendar
-        if (typeof lastSevenDays === 'function') {
-            const days = lastSevenDays();
-            html += `<div class="streak-week" title="Last 7 days">`;
-            for (const d of days) {
-                html += `<div class="sw-day ${d.practiced ? 'sw-on' : ''}">
-                    <div class="sw-label">${d.label}</div>
-                    <div class="sw-dot">${d.practiced ? '🔥' : '·'}</div>
-                </div>`;
-            }
-            html += `</div>`;
-        }
         if (petInfo && petInfo.stage) {
             const outfits = (typeof loadPetOutfits === 'function') ? loadPetOutfits() : { equipped: {} };
             const eq = outfits.equipped || {};
@@ -70973,365 +70951,33 @@ function renderHomeModules() {
             const accStr = eq.acc ? (PET_OUTFITS.find((o) => o.id === eq.acc) || {}).emoji || '' : '';
             const petState = (typeof loadPetState === 'function') ? loadPetState() : {};
             const petName = (petState.nickname || petInfo.pet.name.split(' ')[0]);
-            const mood = (typeof petMood === 'function') ? petMood() : null;
-            const moodStr = mood ? `<span class="pet-mood-bubble">${mood.emoji} ${mood.text}</span>` : '';
-            // Pet level: based on stage index (1-based) within current pet.
             const stages = petInfo.pet.stages || [];
             const stageIdx = stages.findIndex((s) => s === petInfo.stage);
             const lvl = Math.max(1, stageIdx + 1);
-            html += `<button class="pet-badge pet-badge-mood-${mood ? mood.mood : ''}" onclick="openPetPicker()" title="${mood ? mood.text : 'Tap to change your buddy'}">
+            html += `<button class="pet-badge" onclick="openPetPicker()" title="Tap to change your buddy">
                 <span class="pet-badge-emoji">${hatStr}${petInfo.stage.emoji}${accStr}</span>
                 <span class="pet-badge-name">${petName}</span>
                 <span class="pet-level-chip">Lv${lvl}</span>
-                ${moodStr}
             </button>`;
         }
-        html += `<button class="trophy-btn" onclick="openTrophyRoom()">🏆 Trophies</button>`;
         html += `<button class="minigames-btn" onclick="openMiniGamesHub()">🎮 Games</button>`;
-        html += `<button class="journey-btn" onclick="openProgressMap()">🗺️ Journey</button>`;
-        html += `<button class="stories-btn" onclick="openStoryHub()">📚 Stories</button>`;
-        html += `<button class="toys-btn" onclick="openMathToys()">🧰 Toys</button>`;
+        // "🎁 Today" → bundled extras (replaces 5 separate widgets on home)
+        const spinReadyDot = (typeof _spinUsedToday === 'function' && !_spinUsedToday()) ? '<span class="today-btn-dot"></span>' : '';
+        html += `<button class="today-btn" onclick="openTodayHub()">🎁 Today${spinReadyDot}</button>`;
         html += `<button class="more-btn" onclick="openMoreMenu()" title="More">⋯ More</button>`;
         html += `</div>`;
-        // Module search
-        html += `<div class="module-search-wrap">
-            <input id="module-search" class="module-search" type="search"
-                   placeholder="🔎 Search modules..." oninput="filterModules(this.value)" />
-        </div>`;
     }
 
-    // Overall mastery progress
+    // 3. Today's Adventure (hero)
     if (isHakan) {
-        const totalMods = MODULES.length;
-        let stars3 = 0, started = 0;
-        Object.values(progress).forEach((p) => {
-            if (p && p.stars > 0) started++;
-            if (p && p.stars === 3) stars3++;
-        });
-        const pctStarted = totalMods ? Math.round((started / totalMods) * 100) : 0;
-        const pctMastered = totalMods ? Math.round((stars3 / totalMods) * 100) : 0;
-        // Overall accuracy across all problem attempts
-        let totAttempts = 0, totCorrect = 0;
-        const stats = (typeof loadProblemStats === 'function') ? loadProblemStats() : {};
-        for (const k of Object.keys(stats)) {
-            totAttempts += (stats[k].attempts || 0);
-            totCorrect  += (stats[k].correct || 0);
-        }
-        const accStr = totAttempts > 0
-            ? ` · 🎯 ${Math.round((totCorrect / totAttempts) * 100)}% accuracy`
-            : '';
-        html += `<div class="overall-progress">
-            <div class="op-line">📈 ${started} / ${totalMods} started · ${stars3} mastered (3⭐)${accStr}</div>
-            <div class="op-bar">
-                <div class="op-fill" style="width:${pctStarted}%"></div>
-                <div class="op-fill-mastered" style="width:${pctMastered}%"></div>
-            </div>
-            <div class="op-pct">${pctMastered}% mastered</div>
-        </div>`;
-    }
-
-    // Daily spin promo when not used today
-    if (isHakan && typeof _spinUsedToday === 'function' && !_spinUsedToday()) {
-        html += `<button class="spin-promo" onclick="openDailySpin()">
-            🎡 <b>Daily Spin Ready!</b> Tap to win a prize!
-        </button>`;
-    }
-
-    // Quick Math + savings goal row
-    if (isHakan) {
-        html += `<div class="quick-row">`;
-        html += `<button class="quickmath-btn" onclick="openQuickMath()">⚡ Quick Math <span class="qm-reward-hint">+5 💎 max</span></button>`;
-        const goal = (typeof loadSavingsGoal === 'function') ? loadSavingsGoal() : null;
-        const balance = (typeof loadRobux === 'function') ? loadRobux() : 0;
-        if (goal && goal.target > 0) {
-            const pct = Math.min(100, Math.round((balance / goal.target) * 100));
-            const done = balance >= goal.target;
-            html += `<button class="savings-goal ${done ? 'savings-done' : ''}" onclick="openSavingsGoalPicker()">
-                <div class="sg-label">${done ? '🎉 Goal reached!' : '💰 Saving for'}</div>
-                <div class="sg-target">${goal.label}</div>
-                <div class="sg-bar"><div class="sg-fill" style="width:${pct}%"></div></div>
-                <div class="sg-progress">${Math.round(balance)} / ${goal.target} 💎</div>
-            </button>`;
-        } else {
-            html += `<button class="savings-goal savings-empty" onclick="openSavingsGoalPicker()">
-                <div class="sg-label">💰 Set a goal!</div>
-                <div class="sg-target">Pick something fun to save up for.</div>
-            </button>`;
-        }
-        html += `</div>`;
-    }
-
-    // Problem of the Day card
-    if (isHakan && typeof _potdToday === 'function') {
-        const potd = _potdToday();
-        const prob = POTD_POOL[potd.idx];
-        if (prob) {
-            html += `<button class="potd-card-home ${potd.solved ? 'potd-solved' : ''}" onclick="openProblemOfTheDay()">
-                <div class="potd-card-label">🎯 Problem of the Day</div>
-                <div class="potd-card-q">${potd.solved ? '✅ Solved! ' + prob.q : prob.q}</div>
-                <div class="potd-card-prize">${potd.solved ? 'Come back tomorrow!' : 'Solve it for +5 💎'}</div>
-            </button>`;
-        }
-    }
-
-    // Daily quests panel
-    if (isHakan && typeof loadDailyQuests === 'function') {
-        const qs = loadDailyQuests();
-        if (qs && qs.quests && qs.quests.length) {
-            const rerollDone = (typeof _todayRerolled === 'function' && _todayRerolled());
-            html += `<section class="quests-panel">
-                <div class="qp-header">
-                    <div class="qp-label">📋 Today's Quests</div>
-                    <button class="qp-reroll ${rerollDone ? 'qp-reroll-used' : ''}" onclick="rerollDailyQuests()" ${rerollDone ? 'disabled' : ''} title="${rerollDone ? 'Already rerolled today' : 'Reroll once per day'}">🎲 ${rerollDone ? 'Used' : 'Reroll'}</button>
-                </div>
-                <div class="qp-list">`;
-            for (const q of qs.quests) {
-                const pct = Math.min(100, Math.round(((q.progress || 0) / q.target) * 100));
-                const done = q.claimed;
-                html += `<div class="qp-item ${done ? 'qp-done' : ''}">
-                    <div class="qp-row1">
-                        <span class="qp-text">${q.text}</span>
-                        <span class="qp-robux">${done ? '✓' : '+' + q.robux + ' 💎'}</span>
-                    </div>
-                    <div class="qp-bar"><div class="qp-fill" style="width:${pct}%"></div></div>
-                    <div class="qp-progress">${q.progress || 0} / ${q.target}</div>
-                </div>`;
-            }
-            html += `</div></section>`;
-        }
-    }
-
-    // "Practice This Again" — modules Hakan got 1 star on (struggled). Lower
-    // priority than Today's Adventure but above the full grid so Hakan sees
-    // them when he opens the app.
-    if (isHakan && typeof findStrugglingModuleIds === 'function') {
-        const strugglingIds = findStrugglingModuleIds();
-        const struggling = strugglingIds.map((id) => MODULES_BY_ID[id]).filter(Boolean);
-        if (struggling.length > 0) {
-            html += `<section class="suggest-row suggest-struggle">
-                <div class="sr-label">💪 Try These Again</div>
-                <div class="sr-sub">You almost had these — let's get a star!</div>
-                <div class="rp-row">
-                    ${struggling.map((m) => `
-                        <button class="rp-card rp-card-struggle" onclick="selectModule('${m.id}')" title="${m.title}">
-                            <span class="rp-icon">${m.emoji}</span>
-                            <span class="rp-title">${m.title}</span>
-                        </button>
-                    `).join('')}
-                </div>
-            </section>`;
-        }
-    }
-
-    // "Review Time" — modules Hakan completed 7+ days ago. Spaced repetition.
-    if (isHakan && typeof findReviewModuleIds === 'function') {
-        const reviewIds = findReviewModuleIds();
-        const review = reviewIds.map((id) => MODULES_BY_ID[id]).filter(Boolean);
-        if (review.length > 0) {
-            html += `<section class="suggest-row suggest-review">
-                <div class="sr-label">🧠 Review Time</div>
-                <div class="sr-sub">It's been a while — keep these fresh!</div>
-                <div class="rp-row">
-                    ${review.map((m) => `
-                        <button class="rp-card rp-card-review" onclick="selectModule('${m.id}')" title="${m.title}">
-                            <span class="rp-icon">${m.emoji}</span>
-                            <span class="rp-title">${m.title}</span>
-                        </button>
-                    `).join('')}
-                </div>
-            </section>`;
-        }
-    }
-
-    // Fun fact of the day
-    if (isHakan && typeof todaysFunFact === 'function') {
-        html += `<div class="funfact">🧠 ${todaysFunFact()}</div>`;
-    }
-
-    // Math joke of the day (Hakan only)
-    if (isHakan && typeof todaysMathJoke === 'function') {
-        const joke = todaysMathJoke();
-        html += `<div class="joke-card" onclick="this.classList.toggle('joke-open')">
-            <div class="joke-label">😂 Math Joke of the Day</div>
-            <div class="joke-q">${joke.q}</div>
-            <div class="joke-a">${joke.a}</div>
-            <div class="joke-hint">Tap to flip</div>
-        </div>`;
-    }
-
-    // Lucky number of the day (Hakan only)
-    if (isHakan && typeof todaysLuckyNumber === 'function') {
-        const ln = todaysLuckyNumber();
-        html += `<div class="lucky-num"><span class="ln-label">🍀 Today's lucky number:</span> <span class="ln-val">${ln}</span></div>`;
-    }
-
-    // Tip of the day: rotating math tip for Hakan
-    if (isHakan) {
-        const TIPS = [
-            "Doubles are your friends! 2+2=4, 3+3=6, 4+4=8.",
-            "When adding 9, take 1 from the other number and add it to 9 to make 10.",
-            "Subtract by counting up! 8-5? Count from 5: 6, 7, 8 — that's 3 jumps.",
-            "Anything plus zero stays the same.",
-            "Anything minus zero stays the same.",
-            "Even numbers end in 0, 2, 4, 6, or 8.",
-            "Odd numbers end in 1, 3, 5, 7, or 9.",
-            "Squares have 4 equal sides. Rectangles have 4 sides, too — but two pairs.",
-            "A triangle has 3 sides. A pentagon has 5 sides. Count the corners!",
-            "Half of 10 is 5. Half of 20 is 10. Half means split into 2 equal groups.",
-            "1 dime = 10 cents. 1 nickel = 5 cents. 1 quarter = 25 cents.",
-            "A clock has 12 numbers. The little hand shows the hour.",
-            "When you add, the number gets BIGGER. When you subtract, it gets SMALLER.",
-            "Practice makes progress, not perfection!",
-            "Use your fingers to count — pros do too!",
-            "Read the problem TWICE before you answer.",
-            "If a number ends in 0, it's a multiple of 10.",
-            "Equal '=' means the same on both sides, like a seesaw.",
-            "Bigger numbers go on the LEFT in writing, but the right has more value.",
-            "12 inches = 1 foot. (Like 12 cookies = 1 dozen!)",
-            "Count by 5s on a clock: 5, 10, 15, 20...",
-            "1 quarter = 25 cents = 5 nickels = 25 pennies!",
-            "10 + anything ending in zero is easy: just stack the tens!",
-            "A circle has 0 sides and 0 corners. Tricky!",
-        ];
         const dayKey = new Date().toISOString().slice(0, 10);
-        const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
-        const tip = TIPS[seed % TIPS.length];
-        html += `<div class="tip-of-day"><span class="tod-emoji">💡</span><span class="tod-label">Today's Tip:</span> ${tip}</div>`;
-    }
-
-    // Trophy showcase: 5 most-recently-earned badges as a row on home
-    if (isHakan && typeof loadEarnedBadges === 'function' && typeof BADGES_CATALOG !== 'undefined' && BADGES_CATALOG.length) {
-        const earned = loadEarnedBadges();
-        const items = Object.entries(earned)
-            .map(([id, e]) => ({ id, ts: typeof e === 'number' ? e : (e && e.when) || 0 }))
-            .sort((a, b) => b.ts - a.ts)
-            .slice(0, 5)
-            .map(({ id }) => BADGES_CATALOG.find((b) => b.id === id))
-            .filter(Boolean);
-        if (items.length) {
-            html += `<section class="trophy-showcase" onclick="openTrophyRoom()">
-                <div class="ts-label">🏆 Recent Trophies</div>
-                <div class="ts-row">${items.map((b) => `<div class="ts-badge" title="${b.name}">${b.emoji || '🏅'}</div>`).join('')}</div>
-            </section>`;
-        }
-    }
-
-    // "I'm best at!" — top 3 modules by accuracy (min 5 attempts)
-    if (isHakan && typeof loadProblemStats === 'function') {
-        const stats = loadProblemStats();
-        const byMod = {};
-        for (const k of Object.keys(stats)) {
-            const [mid] = k.split('::');
-            if (!mid) continue;
-            const s = stats[k];
-            const slot = byMod[mid] || { attempts: 0, correct: 0 };
-            slot.attempts += (s.attempts || 0);
-            slot.correct  += (s.correct || 0);
-            byMod[mid] = slot;
-        }
-        const ranked = Object.entries(byMod)
-            .filter(([, s]) => s.attempts >= 5)
-            .map(([id, s]) => ({ id, acc: s.correct / s.attempts, attempts: s.attempts }))
-            .sort((a, b) => b.acc - a.acc)
-            .slice(0, 3)
-            .map((r) => ({ ...r, mod: MODULES_BY_ID[r.id] }))
-            .filter((r) => r.mod);
-        if (ranked.length) {
-            html += `<section class="suggest-row suggest-best">
-                <div class="sr-label">💪 You're best at</div>
-                <div class="sr-sub">Top accuracy — pure mastery!</div>
-                <div class="rp-row">
-                    ${ranked.map((r) => `
-                        <button class="rp-card rp-card-best" onclick="selectModule('${r.id}')" title="${r.mod.title} (${Math.round(r.acc * 100)}%)">
-                            <span class="rp-icon">${r.mod.emoji}</span>
-                            <span class="rp-title">${r.mod.title}</span>
-                            <span class="rp-acc">${Math.round(r.acc * 100)}%</span>
-                        </button>
-                    `).join('')}
-                </div>
-            </section>`;
-        }
-    }
-
-    // Resume lessons: show modules with active lesson bookmarks
-    if (isHakan && typeof _loadLessonBookmarks === 'function') {
-        const bms = _loadLessonBookmarks();
-        const bmList = Object.entries(bms)
-            .filter(([id, v]) => v && v.page > 0 && MODULES_BY_ID[id])
-            .sort((a, b) => (b[1].at || 0) - (a[1].at || 0))
-            .slice(0, 4);
-        if (bmList.length) {
-            html += `<section class="suggest-row suggest-resume">
-                <div class="sr-label">📖 Resume Lessons</div>
-                <div class="sr-sub">Pick up where you left off.</div>
-                <div class="rp-row">
-                    ${bmList.map(([id, v]) => {
-                        const m = MODULES_BY_ID[id];
-                        return `<button class="rp-card rp-card-resume" onclick="selectModule('${id}')" title="${m.title}">
-                            <span class="rp-icon">${m.emoji}</span>
-                            <span class="rp-title">${m.title}</span>
-                            <span class="rp-page">Page ${v.page + 1}</span>
-                        </button>`;
-                    }).join('')}
-                </div>
-            </section>`;
-        }
-    }
-
-    // Favorites — pinned by Hakan
-    if (isHakan && typeof loadFavorites === 'function') {
-        const favs = loadFavorites();
-        const favIds = Object.keys(favs).sort((a, b) => favs[b] - favs[a]);
-        const favMods = favIds.map((id) => MODULES_BY_ID[id]).filter(Boolean).slice(0, 8);
-        if (favMods.length) {
-            html += `<section class="suggest-row suggest-favorites">
-                <div class="sr-label">⭐ Favorites</div>
-                <div class="sr-sub">Your pinned modules — tap to play.</div>
-                <div class="rp-row">
-                    ${favMods.map((m) => `
-                        <button class="rp-card rp-card-fav" onclick="selectModule('${m.id}')" title="${m.title}">
-                            <span class="rp-icon">${m.emoji}</span>
-                            <span class="rp-title">${m.title}</span>
-                        </button>
-                    `).join('')}
-                </div>
-            </section>`;
-        }
-    }
-
-    // "Recently Played" — last 5 modules Hakan opened (by lastVisited)
-    if (isHakan) {
-        const recent = Object.entries(visits)
-            .map(([id, v]) => ({ id, ...v }))
-            .sort((a, b) => (b.lastVisited || 0) - (a.lastVisited || 0))
-            .slice(0, 5)
-            .map((v) => MODULES_BY_ID[v.id])
-            .filter(Boolean);
-        if (recent.length > 0) {
-            html += `<section class="recently-played">
-                <div class="rp-label">⏱️ Recently Played</div>
-                <div class="rp-row">
-                    ${recent.map((m) => `
-                        <button class="rp-card" onclick="selectModule('${m.id}')" title="${m.title}">
-                            <span class="rp-icon">${m.emoji}</span>
-                            <span class="rp-title">${m.title}</span>
-                        </button>
-                    `).join('')}
-                </div>
-            </section>`;
-        }
-    }
-
-    // "Today's Adventure" banner — picks a deterministic-by-day uncompleted module
-    if (isHakan) {
-        const dayKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
         const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
         const uncompleted = MODULES.filter((m) => !progress[m.id]);
         const pool = uncompleted.length ? uncompleted : MODULES;
         const todayMod = pool[seed % pool.length];
         if (todayMod) {
             html += `<section class="todays-adventure" onclick="selectModule('${todayMod.id}')">
-                <div class="ta-label">🌟 Today's Adventure 🌟</div>
+                <div class="ta-label">🌟 Today's Adventure</div>
                 <div class="ta-card">
                     <span class="ta-icon">${todayMod.emoji}</span>
                     <div class="ta-text">
@@ -71344,24 +70990,7 @@ function renderHomeModules() {
         }
     }
 
-    // Category jump-links + filter chips (Hakan only)
-    if (isHakan) {
-        html += `<div class="filter-chips">
-            <button class="fc fc-active" data-filter="all" onclick="filterModulesByState('all')">All</button>
-            <button class="fc" data-filter="new" onclick="filterModulesByState('new')">✨ New</button>
-            <button class="fc" data-filter="started" onclick="filterModulesByState('started')">⏳ Started</button>
-            <button class="fc" data-filter="mastered" onclick="filterModulesByState('mastered')">🏆 Mastered</button>
-        </div>`;
-        html += `<div class="cat-jumplinks">`;
-        for (const cat of CATEGORIES) {
-            const mods = byCategory[cat.id];
-            if (!mods || !mods.length) continue;
-            html += `<button class="cat-jump cat-jump-cat-${cat.id}" onclick="jumpToCategory('${cat.id}')" title="${cat.title}">${cat.emoji}</button>`;
-        }
-        html += `</div>`;
-    }
-
-    // Quick "Continue" button if there's a bookmarked lesson
+    // 4. Continue button — only if there's a bookmarked lesson
     if (isHakan && typeof _loadLessonBookmarks === 'function') {
         const bms = _loadLessonBookmarks();
         const recent = Object.entries(bms)
@@ -71383,35 +71012,29 @@ function renderHomeModules() {
         }
     }
 
-    // Daily snapshot: today's quick stats
+    // 5. Module search (smaller, in the Modules section header zone)
     if (isHakan) {
-        const todayStr = new Date().toISOString().slice(0, 10);
-        const todayKey = `${todayStr}T`;
-        let todayProblems = 0;
-        const stats = (typeof loadProblemStats === 'function') ? loadProblemStats() : {};
-        for (const k of Object.keys(stats)) {
-            const s = stats[k];
-            if (s.last) {
-                const d = new Date(s.last);
-                if (d.toISOString().slice(0, 10) === todayStr) {
-                    todayProblems += (s.correct || 0);
-                }
-            }
+        html += `<div class="module-search-wrap">
+            <input id="module-search" class="module-search" type="search"
+                   placeholder="🔎 Search modules..." oninput="filterModules(this.value)" />
+        </div>`;
+    }
+
+    // 6. Filter chips + category jumplinks (right above the grid)
+    if (isHakan) {
+        html += `<div class="filter-chips">
+            <button class="fc fc-active" data-filter="all" onclick="filterModulesByState('all')">All</button>
+            <button class="fc" data-filter="new" onclick="filterModulesByState('new')">✨ New</button>
+            <button class="fc" data-filter="started" onclick="filterModulesByState('started')">⏳ Started</button>
+            <button class="fc" data-filter="mastered" onclick="filterModulesByState('mastered')">🏆 Mastered</button>
+        </div>`;
+        html += `<div class="cat-jumplinks">`;
+        for (const cat of CATEGORIES) {
+            const mods = byCategory[cat.id];
+            if (!mods || !mods.length) continue;
+            html += `<button class="cat-jump cat-jump-cat-${cat.id}" onclick="jumpToCategory('${cat.id}')" title="${cat.title}">${cat.emoji}</button>`;
         }
-        let todayStars = 0;
-        for (const id of Object.keys(progress)) {
-            const p = progress[id];
-            if (p.lastCompleted) {
-                const d = new Date(p.lastCompleted);
-                if (d.toISOString().slice(0, 10) === todayStr) todayStars += (p.stars || 0);
-            }
-        }
-        if (todayProblems > 0 || todayStars > 0) {
-            html += `<div class="today-snapshot">
-                <span class="ts-emoji">📅</span>
-                <span class="ts-text">Today: <b>${todayProblems}</b> answers · <b>${todayStars}</b> ⭐ earned</span>
-            </div>`;
-        }
+        html += `</div>`;
     }
 
     let total = 0;

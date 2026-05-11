@@ -2329,10 +2329,18 @@ function openMoreMenu() {
     overlay.innerHTML = `<div class="sound-card hub-card">
         <h2>⋯ More</h2>
         <div class="sound-sub">Collections, settings, and surprises.</div>
-        <div class="hub-section-label">📦 My Stuff</div>
+        <div class="hub-section-label">🗺️ Explore</div>
         <div class="sound-options" style="grid-template-columns:repeat(3,1fr);">
+            <button class="sound-opt" onclick="openTrophyRoom();closeSoundOverlay()"><div class="sound-emoji">🏆</div><div class="sound-name">Trophies</div></button>
+            <button class="sound-opt" onclick="openProgressMap();closeSoundOverlay()"><div class="sound-emoji">🗺️</div><div class="sound-name">Journey</div></button>
+            <button class="sound-opt" onclick="openStoryHub();closeSoundOverlay()"><div class="sound-emoji">📚</div><div class="sound-name">Stories</div></button>
+            <button class="sound-opt" onclick="openMathToys();closeSoundOverlay()"><div class="sound-emoji">🧰</div><div class="sound-name">Toys</div></button>
             <button class="sound-opt" onclick="openScrapbook();closeSoundOverlay()"><div class="sound-emoji">📖</div><div class="sound-name">Stickers</div></button>
             <button class="sound-opt" onclick="openGlossary();closeSoundOverlay()"><div class="sound-emoji">📚</div><div class="sound-name">Words</div></button>
+        </div>
+        <div class="hub-section-label">💰 Goals & Surprises</div>
+        <div class="sound-options" style="grid-template-columns:repeat(2,1fr);">
+            <button class="sound-opt" onclick="openSavingsGoalPicker();closeSoundOverlay()"><div class="sound-emoji">💰</div><div class="sound-name">Set a Goal</div></button>
             <button class="sound-opt" onclick="surpriseMe();closeSoundOverlay()"><div class="sound-emoji">🎲</div><div class="sound-name">Surprise</div></button>
         </div>
         <div class="hub-section-label">💬 Voice</div>
@@ -2346,6 +2354,104 @@ function openMoreMenu() {
             <button class="sound-opt" onclick="openThemePicker();closeSoundOverlay()"><div class="sound-emoji">🎨</div><div class="sound-name">Theme</div></button>
             <button class="sound-opt" onclick="openHelpScreen();closeSoundOverlay()"><div class="sound-emoji">❓</div><div class="sound-name">Help</div></button>
         </div>
+        <button class="sound-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
+// "🎁 Today" hub — bundles the daily extras that used to clutter the home
+// page: POTD, Daily Spin, Quick Math, Quests, lucky color/number, math joke,
+// fun fact, daily tip. One tap from home, easy to find, easy to dismiss.
+function openTodayHub() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay today-overlay';
+    const spinUsed = (typeof _spinUsedToday === 'function') ? _spinUsedToday() : true;
+    const lucky = (typeof todaysLuckyColor === 'function') ? todaysLuckyColor() : null;
+    const luckyNum = (typeof todaysLuckyNumber === 'function') ? todaysLuckyNumber() : null;
+    const joke = (typeof todaysMathJoke === 'function') ? todaysMathJoke() : null;
+    const fact = (typeof todaysFunFact === 'function') ? todaysFunFact() : null;
+    const aff = (typeof todaysAffirmation === 'function') ? todaysAffirmation() : null;
+
+    // POTD chip
+    let potdHTML = '';
+    if (typeof _potdToday === 'function' && typeof POTD_POOL !== 'undefined') {
+        const potd = _potdToday();
+        const prob = POTD_POOL[potd.idx];
+        if (prob) {
+            potdHTML = `<button class="today-tile today-potd ${potd.solved ? 'today-done' : ''}" onclick="closeSoundOverlay(); openProblemOfTheDay();">
+                <div class="today-tile-label">🎯 Problem of the Day</div>
+                <div class="today-tile-body">${potd.solved ? '✅ Solved!' : prob.q}</div>
+                <div class="today-tile-prize">${potd.solved ? 'Back tomorrow!' : '+5 💎'}</div>
+            </button>`;
+        }
+    }
+
+    // Daily quests block
+    let questsHTML = '';
+    if (typeof loadDailyQuests === 'function') {
+        const qs = loadDailyQuests();
+        if (qs && qs.quests && qs.quests.length) {
+            const rerollDone = (typeof _todayRerolled === 'function' && _todayRerolled());
+            questsHTML = `<section class="quests-panel today-quests">
+                <div class="qp-header">
+                    <div class="qp-label">📋 Today's Quests</div>
+                    <button class="qp-reroll ${rerollDone ? 'qp-reroll-used' : ''}" onclick="rerollDailyQuests(); openTodayHub();" ${rerollDone ? 'disabled' : ''}>🎲 ${rerollDone ? 'Used' : 'Reroll'}</button>
+                </div>
+                <div class="qp-list">
+                ${qs.quests.map((q) => {
+                    const pct = Math.min(100, Math.round(((q.progress || 0) / q.target) * 100));
+                    const done = q.claimed;
+                    return `<div class="qp-item ${done ? 'qp-done' : ''}">
+                        <div class="qp-row1">
+                            <span class="qp-text">${q.text}</span>
+                            <span class="qp-robux">${done ? '✓' : '+' + q.robux + ' 💎'}</span>
+                        </div>
+                        <div class="qp-bar"><div class="qp-fill" style="width:${pct}%"></div></div>
+                        <div class="qp-progress">${q.progress || 0} / ${q.target}</div>
+                    </div>`;
+                }).join('')}
+                </div>
+            </section>`;
+        }
+    }
+
+    overlay.innerHTML = `<div class="sound-card today-card">
+        <h2>🎁 Today</h2>
+        <div class="sound-sub">Bonuses, surprises, and the day's fun stuff.</div>
+        ${aff ? `<div class="affirmation-card today-affirm">${aff}</div>` : ''}
+        <div class="today-grid">
+            <button class="today-tile today-spin ${spinUsed ? 'today-done' : ''}" onclick="closeSoundOverlay(); openDailySpin();">
+                <div class="today-tile-label">🎡 Daily Spin</div>
+                <div class="today-tile-body">${spinUsed ? '✅ Used today!' : 'Spin for a prize!'}</div>
+                <div class="today-tile-prize">${spinUsed ? 'Back tomorrow!' : 'Tap to spin'}</div>
+            </button>
+            ${potdHTML}
+            <button class="today-tile today-quickmath" onclick="closeSoundOverlay(); openQuickMath();">
+                <div class="today-tile-label">⚡ Quick Math</div>
+                <div class="today-tile-body">5 quick problems</div>
+                <div class="today-tile-prize">+5 💎 max</div>
+            </button>
+            <button class="today-tile today-teaser" onclick="closeSoundOverlay(); openBrainTeaser();">
+                <div class="today-tile-label">🧩 Brain Teaser</div>
+                <div class="today-tile-body">A puzzle for today</div>
+                <div class="today-tile-prize">+3 💎</div>
+            </button>
+        </div>
+        ${questsHTML}
+        <div class="today-row">
+            ${lucky ? `<div class="today-chip today-lucky"><span class="lc-swatch" style="background:${lucky.hex}"></span> Lucky color: <b style="color:${lucky.hex}">${lucky.name}</b> ${lucky.emoji}</div>` : ''}
+            ${luckyNum != null ? `<div class="today-chip today-luckynum">🍀 Lucky number: <b>${luckyNum}</b></div>` : ''}
+        </div>
+        ${joke ? `<div class="joke-card today-joke" onclick="this.classList.toggle('joke-open')">
+            <div class="joke-label">😂 Math Joke</div>
+            <div class="joke-q">${joke.q}</div>
+            <div class="joke-a">${joke.a}</div>
+            <div class="joke-hint">Tap to flip</div>
+        </div>` : ''}
+        ${fact ? `<div class="funfact today-fact">🧠 ${fact}</div>` : ''}
         <button class="sound-close">Close</button>
     </div>`;
     overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
