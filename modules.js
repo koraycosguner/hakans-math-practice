@@ -620,9 +620,16 @@ function renderTapNumberLine(visual) {
     for (let n = from; n <= to; n++) {
         ticks.push(`<button class="ic-nl-tick" data-n="${n}" data-correct="${n === target ? '1' : '0'}">${n}</button>`);
     }
-    return `<div class="ic-wrap" data-interactive="tap-numberline" data-target="${target}">
-        <div class="ic-instr">${instr}</div>
-        <div class="ic-nl-line">${ticks.join('')}</div>
+    return `<div class="ic-wrap ic-nl-wrap" data-interactive="tap-numberline" data-target="${target}">
+        <div class="ic-nl-hat">
+            <span class="ic-nl-arrow-l">◀</span>
+            <span class="ic-nl-instr">${instr}</span>
+            <span class="ic-nl-arrow-r">▶</span>
+        </div>
+        <div class="ic-nl-line">
+            <span class="ic-nl-axis"></span>
+            ${ticks.join('')}
+        </div>
     </div>`;
 }
 
@@ -632,10 +639,14 @@ function renderFindMistake(visual) {
     const nums = visual.nums || [];
     const wrongIdx = visual.wrongIndex == null ? 0 : visual.wrongIndex;
     const instr = visual.instruction || 'One number is wrong — tap it!';
-    const items = nums.map((n, i) =>
-        `<button class="ic-fm-num" data-idx="${i}" data-wrong="${i === wrongIdx ? '1' : '0'}">${n}</button>`).join('');
-    return `<div class="ic-wrap" data-interactive="find-mistake" data-target="${wrongIdx}">
-        <div class="ic-instr">${instr}</div>
+    // Build "n → m → ..." pattern with arrows between tiles
+    const items = nums.map((n, i) => {
+        const tile = `<button class="ic-fm-num" data-idx="${i}" data-wrong="${i === wrongIdx ? '1' : '0'}">${n}</button>`;
+        const arrow = (i < nums.length - 1) ? '<span class="ic-fm-arrow">→</span>' : '';
+        return tile + arrow;
+    }).join('');
+    return `<div class="ic-wrap ic-fm-wrap" data-interactive="find-mistake" data-target="${wrongIdx}">
+        <div class="ic-fm-hat"><span class="ic-fm-magnifier">🔎</span><span class="ic-fm-instr">${instr}</span></div>
         <div class="ic-fm-row">${items}</div>
     </div>`;
 }
@@ -3528,7 +3539,8 @@ const MODULES = [
           "emoji": "🦆"
         },
         "prompt": "Hakan has 9 ducks and Sara has 5. How many more does Hakan have?",
-        "answer": 4
+        "answer": 4,
+        "hint": "Subtract: 9 − 5 = 4 more ducks for Hakan."
       },
       {
         "type": "numeric",
@@ -32126,7 +32138,8 @@ const MODULES = [
           "emoji": "🐚"
         },
         "prompt": "Hakan has 9 shells, Sara has 6. How many more?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Take Sara's 6 away from Hakan's 9: 9 − 6 = 3."
       },
       {
         "type": "numeric",
@@ -34819,7 +34832,8 @@ const MODULES = [
           "emoji": "🐠"
         },
         "prompt": "Hakan has 9 orange, 6 blue fish. How many more orange?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 9 − 6 = 3 more orange fish."
       },
       {
         "type": "numeric",
@@ -35488,7 +35502,8 @@ const MODULES = [
           "emoji": "🦁"
         },
         "prompt": "Hakan sees 8 lions, 5 tigers. How many more lions?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 8 − 5 = 3 more lions."
       },
       {
         "type": "numeric",
@@ -35843,7 +35858,8 @@ const MODULES = [
           "emoji": "🔵"
         },
         "prompt": "Hakan has 9 marbles, Sara has 6. How many more?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Take 6 away from 9: 9 − 6 = 3."
       },
       {
         "type": "numeric",
@@ -36174,7 +36190,8 @@ const MODULES = [
           "emoji": "🌷"
         },
         "prompt": "Hakan has 8 tulips, Sara has 5. How many more?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 8 − 5 = 3 more tulips."
       },
       {
         "type": "numeric",
@@ -36517,7 +36534,8 @@ const MODULES = [
           "emoji": "⭐"
         },
         "prompt": "Hakan has 8, Sara has 5. How many more?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract Sara from Hakan: 8 − 5 = 3."
       },
       {
         "type": "numeric",
@@ -65965,7 +65983,8 @@ const MODULES = [
           "emoji": "✏️"
         },
         "prompt": "Hakan has 7 pencils, Sara has 4. How many more?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 7 − 4 = 3 more pencils."
       },
       {
         "type": "numeric",
@@ -66308,7 +66327,8 @@ const MODULES = [
           "emoji": "🧒"
         },
         "prompt": "Hakan has 6 boy cousins, 3 girl cousins. How many more boys?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 6 − 3 = 3 more boys."
       },
       {
         "type": "numeric",
@@ -66651,7 +66671,8 @@ const MODULES = [
           "emoji": "🥪"
         },
         "prompt": "Hakan has 8 crackers, Sara has 5. How many more?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 8 − 5 = 3 more crackers."
       },
       {
         "type": "numeric",
@@ -67743,7 +67764,8 @@ const MODULES = [
           "emoji": "🚗"
         },
         "prompt": "Hakan has 9 red cars, 6 blue. How many more red?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 9 − 6 = 3 more red cars."
       },
       {
         "type": "numeric",
@@ -68491,7 +68513,8 @@ const MODULES = [
           "emoji": "📖"
         },
         "prompt": "Hakan reads 7 books, Sara reads 4. How many more?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 7 − 4 = 3 more books."
       },
       {
         "type": "numeric",
@@ -68834,7 +68857,8 @@ const MODULES = [
           "emoji": "⚽"
         },
         "prompt": "Hakan's team scored 8, other team 5. How many more?",
-        "answer": 3
+        "answer": 3,
+        "hint": "Subtract: 8 − 5 = 3 more goals."
       },
       {
         "type": "numeric",
