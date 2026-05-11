@@ -3585,14 +3585,24 @@ function showOnboardingStep(steps, idx) {
     overlay.className = 'ob-overlay';
     const tip = document.createElement('div');
     tip.className = 'ob-tip ob-tip-' + (s.position || 'top');
+    const owls = ['🦉', '🐻', '🦊', '🐰'];
+    const mascot = owls[idx % owls.length];
+    // Progress dots
+    const dots = Array.from({ length: steps.length }, (_, i) =>
+        `<span class="ob-dot${i === idx ? ' ob-dot-on' : ''}${i < idx ? ' ob-dot-done' : ''}"></span>`
+    ).join('');
+    const isLast = (idx === steps.length - 1);
     tip.innerHTML = `
+        <div class="ob-mascot">${mascot}</div>
         <div class="ob-text">${s.text}</div>
-        <div class="ob-progress">${idx + 1} / ${steps.length}</div>
-        <button class="ob-next-btn">${idx === steps.length - 1 ? "Let's play!" : 'Next ➡'}</button>
+        <div class="ob-dots">${dots}</div>
+        <div class="ob-actions">
+            ${isLast ? '' : '<button class="ob-skip-btn">Skip tour</button>'}
+            <button class="ob-next-btn">${isLast ? "🎉 Let's play!" : 'Next ➡'}</button>
+        </div>
     `;
     overlay.appendChild(tip);
     document.body.appendChild(overlay);
-    // Position tip near the target
     const rect = target.getBoundingClientRect();
     requestAnimationFrame(() => {
         const tRect = tip.getBoundingClientRect();
@@ -3603,7 +3613,6 @@ function showOnboardingStep(steps, idx) {
         left = Math.max(12, Math.min(window.innerWidth - tRect.width - 12, left));
         tip.style.top = top + 'px';
         tip.style.left = left + 'px';
-        // Highlight the target
         target.classList.add('ob-highlighted');
     });
     overlay.querySelector('.ob-next-btn').addEventListener('click', () => {
@@ -3611,6 +3620,13 @@ function showOnboardingStep(steps, idx) {
         overlay.remove();
         showOnboardingStep(steps, idx + 1);
     });
+    const skipBtn = overlay.querySelector('.ob-skip-btn');
+    if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+            target.classList.remove('ob-highlighted');
+            overlay.remove();
+        });
+    }
 }
 
 function filterGlossary(q) {
