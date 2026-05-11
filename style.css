@@ -1593,10 +1593,10 @@ body::after {
 
 .lesson-card {
     flex: 1;
-    background: var(--card-bg);
+    background: linear-gradient(180deg, var(--card-bg) 0%, #fafbff 100%);
     border-radius: 28px;
     padding: clamp(20px, 3vw, 36px);
-    box-shadow: var(--shadow);
+    box-shadow: 0 12px 36px rgba(108, 99, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1604,14 +1604,32 @@ body::after {
     gap: clamp(14px, 2vw, 22px);
     text-align: center;
     overflow: auto;
+    position: relative;
+    border: 2px solid rgba(108, 99, 255, 0.08);
+}
+/* Decorative top accent for lessons */
+.lesson-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 5px;
+    background: linear-gradient(90deg, #8b5cf6, #f97316);
+    border-radius: 0 0 999px 999px;
 }
 
 .lesson-title {
     font-size: clamp(1.4rem, 3.2vw, 2.4rem);
-    font-weight: 800;
-    color: var(--primary);
+    font-weight: 900;
+    background: linear-gradient(135deg, #8b5cf6 0%, #4338ca 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin: 0;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
 }
 
 .lesson-visual {
@@ -1637,12 +1655,14 @@ body::after {
 
 .lesson-caption {
     font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    font-weight: 800;
-    color: #FFA000;
-    background: linear-gradient(135deg, #FFF3CD, #FFE08A);
-    padding: 10px 22px;
-    border-radius: 14px;
-    border: 2px solid #FFD93D;
+    font-weight: 900;
+    color: #78350f;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    padding: 12px 26px;
+    border-radius: 16px;
+    border: 2px solid #f59e0b;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+    display: inline-block;
 }
 
 .lesson-nav {
