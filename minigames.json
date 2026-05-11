@@ -601,6 +601,29 @@
     "config": {}
   },
   {
+    "id": "tortoise-hare",
+    "title": "Tortoise & Hare",
+    "emoji": "🐰",
+    "description": "Race the tortoise! Each right answer hops the hare forward.",
+    "category": "fluency",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Hop the hare to the finish line before the slow-and-steady tortoise gets there!",
+    "rules": [
+      "🐰 vs 🐢 on parallel lanes.",
+      "Right answer → hare hops 3 spaces.",
+      "Wrong answer → tortoise plods 1 space.",
+      "First to the 🏁 wins. Track is 12 / 18 / 24 spaces by difficulty.",
+      "Hare wins → +5 💎 cheer."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "ice-cream-stack",
     "title": "Ice Cream Stack",
     "emoji": "🍦",

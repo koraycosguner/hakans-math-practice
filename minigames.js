@@ -4637,3 +4637,166 @@ GAME_IMPLS['ice-cream-stack'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 30. TORTOISE & HARE — 🐢 vs 🐰 race!
+// Hakan plays the hare. Each right answer hops the hare forward (3 steps).
+// Each wrong answer gives the tortoise a steady plod (1 step). First to
+// cross the finish line wins. Track length scales by difficulty.
+// =====================================================================
+GAME_IMPLS['tortoise-hare'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const trackLen = diff === 'easy' ? 12 : diff === 'hard' ? 24 : 18;
+        const hopSize = 3;
+        const plodSize = 1;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-trh-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-trh-q';
+        wrap.appendChild(qBox);
+
+        // Race scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-trh-scene';
+        scene.innerHTML = `
+            <div class="mg-trh-sky">
+                <span class="mg-trh-cloud mg-trh-cloud-1">☁️</span>
+                <span class="mg-trh-cloud mg-trh-cloud-2">☁️</span>
+            </div>
+            <div class="mg-trh-track">
+                <div class="mg-trh-lane mg-trh-lane-hare">
+                    <div class="mg-trh-runner mg-trh-hare">🐰</div>
+                </div>
+                <div class="mg-trh-lane mg-trh-lane-tort">
+                    <div class="mg-trh-runner mg-trh-tort">🐢</div>
+                </div>
+                <div class="mg-trh-finish">🏁</div>
+            </div>
+        `;
+        wrap.appendChild(scene);
+
+        const hareEl = scene.querySelector('.mg-trh-hare');
+        const tortEl = scene.querySelector('.mg-trh-tort');
+
+        const prog = document.createElement('div');
+        prog.className = 'mg-trh-prog';
+        wrap.appendChild(prog);
+
+        const opts = document.createElement('div');
+        opts.className = 'mg-trh-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let harePos = 0;
+        let tortPos = 0;
+        let done = false;
+
+        function placeRunner(el, pos) {
+            const pct = Math.min(100, (pos / trackLen) * 100);
+            el.style.left = `${pct}%`;
+        }
+
+        function updateProg() {
+            prog.innerHTML = `🐰 <b>${harePos}</b> / ${trackLen} &nbsp;&nbsp; 🐢 <b>${tortPos}</b> / ${trackLen}`;
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.55 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-trh-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-trh-eqs">=</span><span class="mg-trh-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-trh-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-trh-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function checkFinish() {
+            if (harePos >= trackLen) {
+                done = true;
+                qBox.innerHTML = `<div class="mg-trh-win">🐰 HARE WINS! +5 💎</div>`;
+                opts.innerHTML = '';
+                hareEl.classList.add('mg-trh-hare-cheer');
+                ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                ctx.onWin();
+                setTimeout(reset, 2800);
+                return true;
+            }
+            if (tortPos >= trackLen) {
+                done = true;
+                qBox.innerHTML = `<div class="mg-trh-lose">🐢 The tortoise won this round… try again!</div>`;
+                opts.innerHTML = '';
+                tortEl.classList.add('mg-trh-tort-cheer');
+                setTimeout(reset, 2400);
+                return true;
+            }
+            return false;
+        }
+
+        function onAnswer(btn, e) {
+            if (done) return;
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-trh-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                harePos += hopSize;
+                hareEl.classList.add('mg-trh-hare-hop');
+                placeRunner(hareEl, harePos);
+                setTimeout(() => hareEl.classList.remove('mg-trh-hare-hop'), 400);
+                updateProg();
+                if (checkFinish()) return;
+                setTimeout(nextProblem, 500);
+            } else {
+                btn.classList.add('mg-trh-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                tortPos += plodSize;
+                placeRunner(tortEl, tortPos);
+                updateProg();
+                if (checkFinish()) return;
+                setTimeout(() => btn.classList.remove('mg-trh-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            harePos = 0;
+            tortPos = 0;
+            done = false;
+            placeRunner(hareEl, 0);
+            placeRunner(tortEl, 0);
+            hareEl.classList.remove('mg-trh-hare-cheer');
+            tortEl.classList.remove('mg-trh-tort-cheer');
+            updateProg();
+            nextProblem();
+        }
+
+        placeRunner(hareEl, 0);
+        placeRunner(tortEl, 0);
+        updateProg();
+        nextProblem();
+        return { stop() {} };
+    }
+};
