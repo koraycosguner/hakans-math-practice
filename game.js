@@ -695,6 +695,24 @@ function savePetState(state) {
     try { localStorage.setItem(PET_STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
 }
 
+// Pet mood based on time since last app open. Pure read — no side effects.
+function petMood() {
+    const visits = loadAllVisits();
+    let lastVisit = 0;
+    for (const id of Object.keys(visits)) {
+        const t = visits[id].lastVisited || 0;
+        if (t > lastVisit) lastVisit = t;
+    }
+    if (!lastVisit) return { mood: 'fresh', emoji: '✨', text: "Let's play!" };
+    const days = (Date.now() - lastVisit) / 86400000;
+    if (days >= 3) return { mood: 'sad',     emoji: '😢', text: 'Missed you!' };
+    if (days >= 1) return { mood: 'hungry',  emoji: '😋', text: 'Hungry for math!' };
+    const hours = (Date.now() - lastVisit) / 3600000;
+    if (hours >= 8)  return { mood: 'happy', emoji: '😊', text: 'Ready to learn!' };
+    if (hours >= 2)  return { mood: 'curious', emoji: '🤔', text: 'Another round?' };
+    return { mood: 'energized', emoji: '⚡', text: "Let's go!" };
+}
+
 function getPetStageForStars(pet, totalStars) {
     if (!pet || !pet.stages) return null;
     let current = pet.stages[0];
@@ -902,6 +920,24 @@ function _initKeyboardInput() {
     });
 }
 _initKeyboardInput();
+
+// One-tap encouragement: speak a random Hakan-shoutout.
+function hakanSays() {
+    const pool = MESSAGES.correct.concat(MESSAGES.start || []);
+    const msg = pool[Math.floor(Math.random() * pool.length)];
+    playSound('click');
+    if (typeof speak === 'function') speak(msg);
+    // Tiny floating bubble for visual feedback.
+    const el = document.createElement('div');
+    el.className = 'hakansays-toast';
+    el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(() => el.classList.add('hs-show'), 30);
+    setTimeout(() => {
+        el.classList.remove('hs-show');
+        setTimeout(() => el.remove(), 400);
+    }, 2400);
+}
 
 // Tap the mascot photo to replay the current speech-bubble text.
 function _initMascotTap() {
@@ -1670,6 +1706,8 @@ function checkDailyBonus() {
     try { last = localStorage.getItem(DAILY_BONUS_KEY); } catch (e) {}
     const today = _todayKeyForBonus();
     if (last === today) return;
+    // First-of-day wave: extra confetti.
+    if (typeof launchConfetti === 'function') launchConfetti();
     try { localStorage.setItem(DAILY_BONUS_KEY, today); } catch (e) {}
     const s = (typeof loadStreak === 'function') ? loadStreak() : { current: 0 };
     let amount = _dailyBonusForStreak(s.current || 1);
@@ -2077,6 +2115,36 @@ function renderParentDashboard() {
         </div>`;
     }
     html += `</div></div>`;
+
+    // === Accuracy trend (week-over-week) ===
+    const wkAccs = [];
+    for (let weekOffset = 3; weekOffset >= 0; weekOffset--) {
+        const wkStart = Date.now() - (weekOffset + 1) * 7 * 86400000;
+        const wkEnd   = Date.now() - weekOffset * 7 * 86400000;
+        let attempts = 0, correct = 0;
+        for (const k of Object.keys(stats)) {
+            const s = stats[k];
+            if ((s.last || 0) >= wkStart && (s.last || 0) < wkEnd) {
+                attempts += (s.attempts || 0);
+                correct  += (s.correct || 0);
+            }
+        }
+        const acc = attempts > 0 ? Math.round((correct / attempts) * 100) : null;
+        wkAccs.push({ acc, label: weekOffset === 0 ? 'This wk' : `${weekOffset}wk ago` });
+    }
+    if (wkAccs.some((w) => w.acc != null)) {
+        html += `<h2 class="pd-section">Accuracy Trend (Last 4 Weeks)</h2>`;
+        html += `<div class="pd-acc-trend">`;
+        for (const w of wkAccs) {
+            const h = w.acc != null ? Math.max(6, w.acc) : 6;
+            html += `<div class="pd-acc-col">
+                <div class="pd-acc-val">${w.acc != null ? w.acc + '%' : '–'}</div>
+                <div class="pd-acc-bar" style="height:${h}%"></div>
+                <div class="pd-acc-label">${w.label}</div>
+            </div>`;
+        }
+        html += `</div>`;
+    }
 
     // === Streak heatmap (last 30 days) ===
     const days30 = (typeof lastThirtyDays === 'function') ? lastThirtyDays() : [];

@@ -69145,9 +69145,12 @@ function renderHomeModules() {
             const accStr = eq.acc ? (PET_OUTFITS.find((o) => o.id === eq.acc) || {}).emoji || '' : '';
             const petState = (typeof loadPetState === 'function') ? loadPetState() : {};
             const petName = (petState.nickname || petInfo.pet.name.split(' ')[0]);
-            html += `<button class="pet-badge" onclick="openPetPicker()" title="Tap to change your buddy">
+            const mood = (typeof petMood === 'function') ? petMood() : null;
+            const moodStr = mood ? `<span class="pet-mood-bubble">${mood.emoji} ${mood.text}</span>` : '';
+            html += `<button class="pet-badge pet-badge-mood-${mood ? mood.mood : ''}" onclick="openPetPicker()" title="${mood ? mood.text : 'Tap to change your buddy'}">
                 <span class="pet-badge-emoji">${hatStr}${petInfo.stage.emoji}${accStr}</span>
                 <span class="pet-badge-name">${petName}</span>
+                ${moodStr}
             </button>`;
         }
         html += `<button class="trophy-btn" onclick="openTrophyRoom()">🏆 Trophies</button>`;
@@ -69159,6 +69162,7 @@ function renderHomeModules() {
         const spEmoji = sp === 'silent' ? '🤫' : sp === 'gentle' ? '🍃' : '🎉';
         html += `<button class="sound-btn" onclick="openSoundProfilePicker()" title="Sound: ${sp}">${spEmoji} Sound</button>`;
         html += `<button class="comfort-btn" onclick="openComfortPicker()" title="Text &amp; motion">🅰️ Comfort</button>`;
+        html += `<button class="hakansays-btn" onclick="hakanSays()" title="Hear an encouragement">🎤 Hakan Says</button>`;
         html += `</div>`;
         // Module search
         html += `<div class="module-search-wrap">
@@ -69288,6 +69292,31 @@ function renderHomeModules() {
                             <span class="rp-title">${m.title}</span>
                         </button>
                     `).join('')}
+                </div>
+            </section>`;
+        }
+    }
+
+    // Resume lessons: show modules with active lesson bookmarks
+    if (isHakan && typeof _loadLessonBookmarks === 'function') {
+        const bms = _loadLessonBookmarks();
+        const bmList = Object.entries(bms)
+            .filter(([id, v]) => v && v.page > 0 && MODULES_BY_ID[id])
+            .sort((a, b) => (b[1].at || 0) - (a[1].at || 0))
+            .slice(0, 4);
+        if (bmList.length) {
+            html += `<section class="suggest-row suggest-resume">
+                <div class="sr-label">📖 Resume Lessons</div>
+                <div class="sr-sub">Pick up where you left off.</div>
+                <div class="rp-row">
+                    ${bmList.map(([id, v]) => {
+                        const m = MODULES_BY_ID[id];
+                        return `<button class="rp-card rp-card-resume" onclick="selectModule('${id}')" title="${m.title}">
+                            <span class="rp-icon">${m.emoji}</span>
+                            <span class="rp-title">${m.title}</span>
+                            <span class="rp-page">Page ${v.page + 1}</span>
+                        </button>`;
+                    }).join('')}
                 </div>
             </section>`;
         }
