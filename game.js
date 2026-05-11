@@ -6622,10 +6622,32 @@ function showResults() {
         `${state.correctAnswers} / ${state.totalQuestions}`;
     document.getElementById('final-streak').textContent = state.bestStreak;
 
-    // Star rating
+    // Star rating — animate stars in one-by-one with staggered delays so it
+    // feels like a real "rating reveal" rather than a flat text string.
     const stars = Math.ceil(pct * 5);
     const starRating = document.getElementById('star-rating');
-    starRating.textContent = '⭐'.repeat(stars) + '☆'.repeat(5 - stars);
+    starRating.innerHTML = '';
+    for (let i = 0; i < 5; i++) {
+        const s = document.createElement('span');
+        const lit = i < stars;
+        s.className = 'star-anim ' + (lit ? 'star-lit' : 'dim-star');
+        s.textContent = lit ? '⭐' : '☆';
+        s.style.animationDelay = (200 + i * 180) + 'ms';
+        starRating.appendChild(s);
+    }
+    // After the last star lands, fire a confetti burst from it.
+    if (stars >= 4 && typeof burstConfettiAt === 'function') {
+        setTimeout(() => {
+            const lastLit = starRating.querySelector('.star-anim.star-lit:last-of-type');
+            if (lastLit) burstConfettiAt(lastLit, { count: 18 });
+        }, 200 + stars * 180 + 100);
+    }
+    if (stars === 5 && typeof burstConfettiAt === 'function') {
+        setTimeout(() => {
+            const mascot = document.getElementById('results-mascot');
+            if (mascot) burstConfettiAt(mascot, { count: 24, emojis: ['🏆','🌟','🎉','💎','👑','🎊'] });
+        }, 1100);
+    }
 
     // Robux results (Hakan only)
     const robuxResults = document.getElementById('robux-results');
@@ -6644,8 +6666,15 @@ function showResults() {
 
     showScreen('results-screen');
 
-    // Confetti!
-    if (pct >= 0.5) {
+    // Confetti! Stacked bursts so perfect scores feel truly epic.
+    if (pct === 1) {
+        launchConfetti();
+        setTimeout(launchConfetti, 500);
+        setTimeout(launchConfetti, 1000);
+    } else if (pct >= 0.8) {
+        launchConfetti();
+        setTimeout(launchConfetti, 600);
+    } else if (pct >= 0.5) {
         launchConfetti();
     }
 }

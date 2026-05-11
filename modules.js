@@ -483,8 +483,32 @@ function renderVisual(visual) {
         case 'count-along':    return renderCountAlong(visual);
         case 'find-mistake':   return renderFindMistake(visual);
         case 'tap-numberline': return renderTapNumberLine(visual);
+        case 'tap-in-order':   return renderTapInOrder(visual);
     }
     return '';
+}
+
+// tap-in-order: shuffled number tiles. Hakan must tap them in ascending
+// order (or descending if visual.descending). Wrong taps shake; correct
+// taps light up green and stay lit. Great for skip-counting / ordering.
+function renderTapInOrder(visual) {
+    const nums = (visual.nums || []).slice();
+    const descending = !!visual.descending;
+    const target = nums.slice().sort((a, b) => descending ? (b - a) : (a - b));
+    const instr = visual.instruction || (descending ? 'Tap from biggest to smallest!' : 'Tap from smallest to biggest!');
+    // Shuffled display order, deterministic-ish using the input order if
+    // pre-shuffled. We render in array order — caller can pre-shuffle.
+    const items = nums.map((n) =>
+        `<button class="ic-tio-tile" data-n="${n}">${n}</button>`
+    ).join('');
+    return `<div class="ic-wrap ic-tio-wrap" data-interactive="tap-in-order" data-target="${JSON.stringify(target).replace(/"/g, '&quot;')}">
+        <div class="ic-tio-hat">
+            <span class="ic-tio-icon">${descending ? '⬇️' : '⬆️'}</span>
+            <span class="ic-tio-instr">${instr}</span>
+        </div>
+        <div class="ic-tio-progress">Next: <b class="ic-tio-next">${target[0]}</b> · <span class="ic-tio-count">0 / ${target.length}</span></div>
+        <div class="ic-tio-row">${items}</div>
+    </div>`;
 }
 
 // ----------------------------------------------------------------------
@@ -71652,6 +71676,47 @@ function bindInteractivePrimitives(host) {
         if (replay) replay.addEventListener('click', play);
         // Auto-start on first render (kids don't need to find a button)
         setTimeout(play, 400);
+        return;
+    }
+
+    if (kind === 'tap-in-order') {
+        const targetStr = wrap.getAttribute('data-target') || '[]';
+        let target = [];
+        try { target = JSON.parse(targetStr); } catch (e) {}
+        const tiles = wrap.querySelectorAll('.ic-tio-tile');
+        const nextLabel = wrap.querySelector('.ic-tio-next');
+        const countLabel = wrap.querySelector('.ic-tio-count');
+        let step = 0;
+        tiles.forEach((t) => {
+            t.addEventListener('click', () => {
+                if (t.classList.contains('ic-tio-done')) return;
+                if (step >= target.length) return;
+                const n = parseInt(t.getAttribute('data-n'), 10);
+                if (n === target[step]) {
+                    t.classList.add('ic-tio-done');
+                    if (typeof playSound === 'function') playSound('hop');
+                    if (typeof speak === 'function') speak(String(n));
+                    step += 1;
+                    if (countLabel) countLabel.textContent = `${step} / ${target.length}`;
+                    if (step < target.length) {
+                        if (nextLabel) nextLabel.textContent = target[step];
+                    } else {
+                        wrap.classList.add('ic-done');
+                        if (nextLabel && nextLabel.parentElement) {
+                            nextLabel.parentElement.textContent = 'Done! 🎉';
+                        }
+                        if (typeof playSound === 'function') playSound('correct');
+                        if (typeof burstConfettiAt === 'function') {
+                            setTimeout(() => burstConfettiAt(wrap, { count: 20 }), 150);
+                        }
+                    }
+                } else {
+                    t.classList.add('ic-tio-wrong');
+                    if (typeof playSound === 'function') playSound('wrong');
+                    setTimeout(() => t.classList.remove('ic-tio-wrong'), 400);
+                }
+            });
+        });
         return;
     }
 
