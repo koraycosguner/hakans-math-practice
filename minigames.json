@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "math-express",
+    "title": "Math Express",
+    "emoji": "🚂",
+    "description": "Build your train! Each correct answer adds a car.",
+    "category": "adventure",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Solve math problems to add cars to your train. Build a 4/6/8-car train (easy/normal/hard) to win.",
+    "rules": [
+      "🚂 engine sits ready on the tracks.",
+      "A math problem appears. Tap the correct answer.",
+      "Each correct answer attaches a new car carrying that number.",
+      "Build the full train to win a +5 jackpot."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 7
+    },
+    "config": {}
+  },
+  {
     "id": "color-math",
     "title": "Color Math",
     "emoji": "🎨",

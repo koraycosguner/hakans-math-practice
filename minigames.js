@@ -2370,6 +2370,153 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 21. MATH EXPRESS — Hakan builds a train! Each correct math answer
+// connects a new car to the engine. Build a full train to win.
+// =====================================================================
+GAME_IMPLS['math-express'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const totalCars = diff === 'easy' ? 4 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-train-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-train-q';
+        wrap.appendChild(qBox);
+
+        // Track + train
+        const track = document.createElement('div');
+        track.className = 'mg-train-track';
+        // Sky + clouds + sun
+        const sky = document.createElement('div');
+        sky.className = 'mg-train-sky';
+        sky.innerHTML = `
+            <span class="mg-train-sun">☀️</span>
+            <span class="mg-train-cloud mg-train-cloud-1">☁️</span>
+            <span class="mg-train-cloud mg-train-cloud-2">☁️</span>
+        `;
+        const trainRow = document.createElement('div');
+        trainRow.className = 'mg-train-row';
+        // Engine
+        const engine = document.createElement('div');
+        engine.className = 'mg-train-engine';
+        engine.textContent = '🚂';
+        trainRow.appendChild(engine);
+        // Cars (initially hidden, revealed as Hakan solves)
+        const cars = [];
+        const CAR_EMOJI = ['🚃', '🚋', '🚞', '🛺', '🚆'];
+        for (let i = 0; i < totalCars; i++) {
+            const car = document.createElement('div');
+            car.className = 'mg-train-car mg-train-car-hidden';
+            car.dataset.idx = String(i);
+            car.innerHTML = `<span class="mg-train-car-emoji">${CAR_EMOJI[i % CAR_EMOJI.length]}</span><span class="mg-train-car-num">?</span>`;
+            trainRow.appendChild(car);
+            cars.push(car);
+        }
+        // Tracks rail
+        const rail = document.createElement('div');
+        rail.className = 'mg-train-rail';
+        track.appendChild(sky);
+        track.appendChild(trainRow);
+        track.appendChild(rail);
+        wrap.appendChild(track);
+
+        const opts = document.createElement('div');
+        opts.className = 'mg-train-opts';
+        wrap.appendChild(opts);
+
+        const status = document.createElement('div');
+        status.className = 'mg-train-status';
+        status.textContent = `Train: 0 / ${totalCars} cars`;
+        wrap.appendChild(status);
+
+        ctx.area.appendChild(wrap);
+
+        let attached = 0;
+        let target = null;
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-train-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-train-eqs">=</span><span class="mg-train-qmark">?</span></div>`;
+            // Build 3 options
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-train-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-train-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-train-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                // Reveal next car with the answer
+                if (attached < totalCars) {
+                    const car = cars[attached];
+                    car.classList.remove('mg-train-car-hidden');
+                    car.classList.add('mg-train-car-attach');
+                    car.querySelector('.mg-train-car-num').textContent = String(target.ans);
+                    attached += 1;
+                    status.textContent = `Train: ${attached} / ${totalCars} cars`;
+                    if (attached >= totalCars) {
+                        // Full train! Choo choo win
+                        qBox.innerHTML = `<div class="mg-train-win">🚂💨 ALL ABOARD!</div>`;
+                        opts.innerHTML = '';
+                        ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                        ctx.onWin();
+                        trainRow.classList.add('mg-train-row-go');
+                        setTimeout(reset, 2500);
+                        return;
+                    }
+                }
+                setTimeout(nextProblem, 420);
+            } else {
+                btn.classList.add('mg-train-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-train-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            attached = 0;
+            cars.forEach((c) => {
+                c.classList.add('mg-train-car-hidden');
+                c.classList.remove('mg-train-car-attach');
+                c.querySelector('.mg-train-car-num').textContent = '?';
+            });
+            trainRow.classList.remove('mg-train-row-go');
+            status.textContent = `Train: 0 / ${totalCars} cars`;
+            nextProblem();
+        }
+
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
 // 20. COLOR MATH — paint-by-numbers grid revealed by math answers.
 // Each grid cell has a number 1-4. Hakan must solve a math problem
 // whose answer matches one of those numbers — tapping a matching cell
