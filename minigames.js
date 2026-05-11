@@ -1827,62 +1827,113 @@ GAME_IMPLS['clock-quiz'] = {
 // 14. Coin Counter — coins shown, pick the total cents from options.
 GAME_IMPLS['coin-counter'] = {
     start(ctx) {
-        const wrap = document.createElement('div');
-        wrap.className = 'mg-coin-wrap';
-        const prompt = document.createElement('div');
-        prompt.className = 'mg-coin-prompt';
-        prompt.textContent = 'How many cents?';
-        const coins = document.createElement('div');
-        coins.className = 'mg-coin-coins';
-        const opts = document.createElement('div');
-        opts.className = 'mg-coin-opts';
-        wrap.appendChild(prompt);
-        wrap.appendChild(coins);
-        wrap.appendChild(opts);
-        ctx.area.appendChild(wrap);
-
-        const COIN_TYPES = [
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Difficulty-scaled coin pools:
+        // easy: pennies + nickels only (low cap)
+        // normal: + dimes (medium cap)
+        // hard: all 4 coin types, larger range
+        const COIN_TYPES_ALL = [
             { name: 'penny',   value: 1,  emoji: '🟤', cls: 'mg-coin-penny' },
             { name: 'nickel',  value: 5,  emoji: '⚪', cls: 'mg-coin-nickel' },
             { name: 'dime',    value: 10, emoji: '🪙', cls: 'mg-coin-dime' },
             { name: 'quarter', value: 25, emoji: '🟡', cls: 'mg-coin-quarter' },
         ];
+        const POOL = diff === 'easy'   ? COIN_TYPES_ALL.slice(0, 2)
+                   : diff === 'normal' ? COIN_TYPES_ALL.slice(0, 3)
+                                       : COIN_TYPES_ALL;
+        const MAX_TOTAL = diff === 'easy' ? 20 : diff === 'hard' ? 100 : 50;
+        const MIN_COINS = diff === 'easy' ? 2 : 3;
+        const MAX_COINS = diff === 'easy' ? 5 : diff === 'hard' ? 8 : 6;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-coin-wrap';
+        const prompt = document.createElement('div');
+        prompt.className = 'mg-coin-prompt';
+        prompt.textContent = 'How many cents in total?';
+        const groupsWrap = document.createElement('div');
+        groupsWrap.className = 'mg-coin-groups';
+        const opts = document.createElement('div');
+        opts.className = 'mg-coin-opts';
+        const feedback = document.createElement('div');
+        feedback.className = 'mg-coin-feedback';
+        wrap.appendChild(prompt);
+        wrap.appendChild(groupsWrap);
+        wrap.appendChild(opts);
+        wrap.appendChild(feedback);
+        ctx.area.appendChild(wrap);
+
+        let streak = 0;
 
         function nextProblem() {
-            // Generate 2-5 coins, total <= ~50
-            const n = Math.floor(Math.random() * 4) + 2;
+            // Generate 3-MAX coins from pool
+            const n = MIN_COINS + Math.floor(Math.random() * (MAX_COINS - MIN_COINS + 1));
             const used = [];
             let total = 0;
             for (let i = 0; i < n; i++) {
-                // bias toward lower-value coins for kid-friendly totals
-                const idx = Math.random() < 0.5 ? 0 : Math.random() < 0.5 ? 1 : Math.random() < 0.7 ? 2 : 3;
-                const c = COIN_TYPES[idx];
-                if (total + c.value > 60) continue;
-                used.push(c);
-                total += c.value;
+                const c = POOL[Math.floor(Math.random() * POOL.length)];
+                if (total + c.value > MAX_TOTAL) {
+                    // pick a smaller coin instead
+                    const cheap = POOL[0];
+                    if (total + cheap.value <= MAX_TOTAL) {
+                        used.push(cheap); total += cheap.value;
+                    }
+                    continue;
+                }
+                used.push(c); total += c.value;
             }
-            if (total === 0) { used.push(COIN_TYPES[0]); total = 1; }
-            coins.innerHTML = used.map((c) =>
-                `<span class="mg-coin ${c.cls}" title="${c.name}">${c.emoji}<span class="mg-coin-val">${c.value}¢</span></span>`
-            ).join('');
-            // Options
+            if (total === 0) { used.push(POOL[0]); total = POOL[0].value; }
+
+            // Group coins by type so Hakan sees them in stacks (skip-counting affordance)
+            const grouped = {};
+            for (const c of used) {
+                grouped[c.value] = grouped[c.value] || { coin: c, count: 0 };
+                grouped[c.value].count += 1;
+            }
+            const sortedGroups = Object.values(grouped).sort((a, b) => b.coin.value - a.coin.value);
+            groupsWrap.innerHTML = sortedGroups.map((g) => {
+                const coinBits = [];
+                for (let i = 0; i < g.count; i++) {
+                    coinBits.push(`<span class="mg-coin ${g.coin.cls}" title="${g.coin.name}">${g.coin.emoji}<span class="mg-coin-val">${g.coin.value}¢</span></span>`);
+                }
+                const subtotal = g.coin.value * g.count;
+                return `<div class="mg-coin-group">
+                    <div class="mg-coin-group-row">${coinBits.join('')}</div>
+                    <div class="mg-coin-group-sub">${g.count} × ${g.coin.value}¢ = ${subtotal}¢</div>
+                </div>`;
+            }).join('');
+
+            // Options: total + 3 distractors (different magnitudes)
             const set = new Set([total]);
-            while (set.size < 3) {
-                const delta = (Math.floor(Math.random() * 4) + 1) * (Math.random() < 0.5 ? 1 : -1) * 5;
-                set.add(Math.max(1, total + delta));
+            const deltas = diff === 'hard'
+                ? [-15, -10, -5, 5, 10, 15, 20, 25]
+                : [-10, -5, 5, 10, 15];
+            while (set.size < 4) {
+                const d = deltas[Math.floor(Math.random() * deltas.length)];
+                const v = Math.max(1, total + d);
+                set.add(v);
             }
             const arr = Array.from(set).sort(() => Math.random() - 0.5);
             opts.innerHTML = arr.map((v) =>
-                `<button class="mg-coin-opt" data-correct="${v === total ? '1' : '0'}">${v}¢</button>`
+                `<button class="mg-coin-opt" data-correct="${v === total ? '1' : '0'}" data-val="${v}">${v}¢</button>`
             ).join('');
+            feedback.textContent = '';
             opts.querySelectorAll('.mg-coin-opt').forEach((b) => {
                 b.addEventListener('click', (e) => {
                     if (b.getAttribute('data-correct') === '1') {
                         b.classList.add('mg-coin-right');
-                        ctx.onScore(1, { x: e.clientX, y: e.clientY });
-                        setTimeout(nextProblem, 350);
+                        streak += 1;
+                        const pts = streak >= 3 ? 2 : 1;
+                        ctx.onScore(pts, { x: e.clientX, y: e.clientY });
+                        feedback.textContent = streak >= 3 ? `🔥 ${streak} streak! +${pts}` : '';
+                        setTimeout(nextProblem, 400);
                     } else {
                         b.classList.add('mg-coin-wrong');
+                        streak = 0;
+                        const v = parseInt(b.getAttribute('data-val'), 10);
+                        const diff_abs = Math.abs(v - total);
+                        feedback.textContent = diff_abs <= 10
+                            ? `So close! Off by ${diff_abs}¢.`
+                            : `Try again — count the groups!`;
                         ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
                         setTimeout(() => b.classList.remove('mg-coin-wrong'), 400);
                     }

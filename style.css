@@ -3842,6 +3842,48 @@ body::after {
 .mg-coin-opt.mg-coin-right { animation: mgSACorrect 0.4s ease; }
 .mg-coin-opt.mg-coin-wrong { animation: icShake 0.4s ease; border-color: #ef4444; }
 
+.mg-coin-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 480px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 12px;
+    border-radius: 14px;
+}
+.mg-coin-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 10px;
+    background: white;
+    border-radius: 10px;
+    border: 2px solid #fde68a;
+}
+.mg-coin-group-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+.mg-coin-group-sub {
+    font-weight: 800;
+    color: #92400e;
+    font-size: 0.85rem;
+    text-align: right;
+}
+.mg-coin-feedback {
+    min-height: 22px;
+    color: #92400e;
+    font-weight: 800;
+    font-size: 0.92rem;
+    background: rgba(255,255,255,0.7);
+    padding: 4px 14px;
+    border-radius: 999px;
+}
+.mg-coin-feedback:empty { background: transparent; }
+
 /* ===== Game 15: Place Value Builder ===== */
 .mg-theme-place-value-builder { background: radial-gradient(ellipse at top, #ede9fe, #c4b5fd 60%, #7c3aed); }
 .mg-pv-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
