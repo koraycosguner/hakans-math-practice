@@ -33,6 +33,27 @@ function saveRobux(amount) {
             localStorage.setItem('hakans-math-robux-log', JSON.stringify(log));
         } catch (e) {}
     }
+    // Milestone celebrations
+    const milestones = [50, 100, 250, 500, 1000];
+    for (const m of milestones) {
+        if (prev < m && amount >= m) {
+            if (typeof _robuxMilestone === 'function') _robuxMilestone(m);
+            break;
+        }
+    }
+}
+
+function _robuxMilestone(n) {
+    const el = document.createElement('div');
+    el.className = 'robux-milestone';
+    el.innerHTML = `<div class="rm-emoji">💎</div><div class="rm-text">${n} ROBUX!</div><div class="rm-sub">Look at your stash, Hakan!</div>`;
+    document.body.appendChild(el);
+    setTimeout(() => el.classList.add('rm-show'), 50);
+    if (typeof launchConfetti === 'function') launchConfetti();
+    setTimeout(() => {
+        el.classList.remove('rm-show');
+        setTimeout(() => el.remove(), 400);
+    }, 2400);
 }
 
 // Show today's earned Robux summary when banner is tapped.
@@ -896,7 +917,26 @@ function choosePet(id) {
     const s = loadPetState();
     s.petId = id;
     savePetState(s);
+    // Mark the time so we can show pet age.
+    try {
+        const map = JSON.parse(localStorage.getItem('hakans-math-pet-chosen-times') || '{}');
+        if (!map[id]) {
+            map[id] = Date.now();
+            localStorage.setItem('hakans-math-pet-chosen-times', JSON.stringify(map));
+        }
+    } catch (e) {}
     if (typeof renderHomeModules === 'function') renderHomeModules();
+}
+
+function petAgeDays() {
+    try {
+        const map = JSON.parse(localStorage.getItem('hakans-math-pet-chosen-times') || '{}');
+        const s = loadPetState();
+        const petId = s.petId || (MATH_PET_CATALOG && MATH_PET_CATALOG.pets[0] && MATH_PET_CATALOG.pets[0].id);
+        const t = map[petId];
+        if (!t) return 0;
+        return Math.floor((Date.now() - t) / 86400000);
+    } catch (e) { return 0; }
 }
 
 // Toggle a focus mode that hides score/streak chips during practice.
@@ -1367,6 +1407,7 @@ function openComfortPicker() {
             <button class="sound-opt ${loadFeedbackIntensity()==='normal'?'sound-current':''}" data-fb="normal"><div class="sound-emoji">🎯</div><div class="sound-name">Normal</div><div class="sound-desc">Red shake</div></button>
             <button class="sound-opt ${loadFeedbackIntensity()==='gentle'?'sound-current':''}" data-fb="gentle"><div class="sound-emoji">🌿</div><div class="sound-name">Gentle</div><div class="sound-desc">Soft fade</div></button>
         </div>
+        <div class="comfort-credits">v59 · Made with ❤️ for Hakan</div>
         <button class="sound-close">Done</button>
     </div>`;
     overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
@@ -1509,8 +1550,11 @@ function openPetPicker() {
     const overlay = document.createElement('div');
     overlay.className = 'pet-picker-overlay';
     const state = loadPetState();
+    const age = petAgeDays();
+    const ageStr = age > 0 ? `<div class="pp-age">🎂 With you for ${age} day${age === 1 ? '' : 's'}</div>` : '';
     let html = `<div class="pet-picker">
         <h2>Choose your math buddy!</h2>
+        ${ageStr}
         <div class="pet-picker-grid">`;
     for (const p of MATH_PET_CATALOG.pets) {
         const stage0 = p.stages[0] || {};

@@ -69188,8 +69188,18 @@ function renderHomeModules() {
         });
         const pctStarted = totalMods ? Math.round((started / totalMods) * 100) : 0;
         const pctMastered = totalMods ? Math.round((stars3 / totalMods) * 100) : 0;
+        // Overall accuracy across all problem attempts
+        let totAttempts = 0, totCorrect = 0;
+        const stats = (typeof loadProblemStats === 'function') ? loadProblemStats() : {};
+        for (const k of Object.keys(stats)) {
+            totAttempts += (stats[k].attempts || 0);
+            totCorrect  += (stats[k].correct || 0);
+        }
+        const accStr = totAttempts > 0
+            ? ` · 🎯 ${Math.round((totCorrect / totAttempts) * 100)}% accuracy`
+            : '';
         html += `<div class="overall-progress">
-            <div class="op-line">📈 ${started} / ${totalMods} started · ${stars3} mastered (3⭐)</div>
+            <div class="op-line">📈 ${started} / ${totalMods} started · ${stars3} mastered (3⭐)${accStr}</div>
             <div class="op-bar">
                 <div class="op-fill" style="width:${pctStarted}%"></div>
                 <div class="op-fill-mastered" style="width:${pctMastered}%"></div>
@@ -69471,6 +69481,28 @@ function renderHomeModules() {
             html += `<button class="cat-jump cat-jump-cat-${cat.id}" onclick="jumpToCategory('${cat.id}')" title="${cat.title}">${cat.emoji}</button>`;
         }
         html += `</div>`;
+    }
+
+    // Quick "Continue" button if there's a bookmarked lesson
+    if (isHakan && typeof _loadLessonBookmarks === 'function') {
+        const bms = _loadLessonBookmarks();
+        const recent = Object.entries(bms)
+            .filter(([id, v]) => v && v.page > 0 && MODULES_BY_ID[id])
+            .sort((a, b) => (b[1].at || 0) - (a[1].at || 0))[0];
+        if (recent) {
+            const [rid, rv] = recent;
+            const rmod = MODULES_BY_ID[rid];
+            if (rmod) {
+                html += `<button class="continue-btn" onclick="selectModule('${rid}')">
+                    <span class="cb-icon">${rmod.emoji}</span>
+                    <span class="cb-body">
+                        <span class="cb-label">⏯️ Pick up where you left off</span>
+                        <span class="cb-title">${rmod.title}</span>
+                        <span class="cb-page">Page ${rv.page + 1}</span>
+                    </span>
+                </button>`;
+            }
+        }
     }
 
     // Daily snapshot: today's quick stats
