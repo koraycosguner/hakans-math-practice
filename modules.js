@@ -85,37 +85,53 @@ function renderSequence(numbers, missingIndex) {
     return `<div class="m-sequence">${items.join('<span class="m-seq-arrow">→</span>')}</div>`;
 }
 
-// Clock face (analog). Hour 1..12, minute 0..59 (we use 0 or 30).
+// Clock face (analog). Hour 1..12, minute 0..59.
+// Polished version: bezel ring, minute tick marks, color-coded hands,
+// hand labels (H/M), high-contrast palette.
 function renderClock(hour, minute) {
     const cx = 120, cy = 120, r = 100;
     const parts = [];
-    parts.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="#FFFCF2" stroke="#2D3436" stroke-width="4"/>`);
+    // Bezel (outer ring) — gold so it looks like a wall clock
+    parts.push(`<circle cx="${cx}" cy="${cy}" r="${r + 8}" fill="#fef3c7" stroke="#92400e" stroke-width="3"/>`);
+    parts.push(`<circle cx="${cx}" cy="${cy}" r="${r + 4}" fill="none" stroke="#fbbf24" stroke-width="2"/>`);
+    // Face
+    parts.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="#1f2937" stroke-width="3"/>`);
+    // Minute tick marks (60 little marks)
+    for (let m = 0; m < 60; m++) {
+        const a = (m * 6 - 90) * Math.PI / 180;
+        const inner = r - (m % 5 === 0 ? 8 : 4);
+        const x1 = cx + inner * Math.cos(a), y1 = cy + inner * Math.sin(a);
+        const x2 = cx + r * Math.cos(a), y2 = cy + r * Math.sin(a);
+        parts.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${m % 5 === 0 ? '#1f2937' : '#9ca3af'}" stroke-width="${m % 5 === 0 ? 3 : 1.5}"/>`);
+    }
     // Hour numerals
     for (let h = 1; h <= 12; h++) {
         const a = (h * 30 - 90) * Math.PI / 180;
         const x = cx + (r - 22) * Math.cos(a);
         const y = cy + (r - 22) * Math.sin(a) + 7;
-        parts.push(`<text x="${x}" y="${y}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="20" font-weight="800" fill="#2D3436">${h}</text>`);
+        parts.push(`<text x="${x}" y="${y}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="20" font-weight="900" fill="#1f2937">${h}</text>`);
     }
-    // Tick marks (only at hours)
-    for (let h = 0; h < 12; h++) {
-        const a = (h * 30 - 90) * Math.PI / 180;
-        const x1 = cx + (r - 6) * Math.cos(a), y1 = cy + (r - 6) * Math.sin(a);
-        const x2 = cx + r * Math.cos(a), y2 = cy + r * Math.sin(a);
-        parts.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#2D3436" stroke-width="3"/>`);
-    }
-    // Hour hand (visual hour considers minutes for half-past)
+    // Hour hand — thick + short + purple
     const visualHour = hour + (minute / 60);
     const hourAng = (visualHour * 30 - 90) * Math.PI / 180;
-    const hourLen = 50;
-    parts.push(`<line x1="${cx}" y1="${cy}" x2="${cx + hourLen * Math.cos(hourAng)}" y2="${cy + hourLen * Math.sin(hourAng)}" stroke="#6C63FF" stroke-width="7" stroke-linecap="round"/>`);
-    // Minute hand
+    const hourLen = 52;
+    const hx = cx + hourLen * Math.cos(hourAng);
+    const hy = cy + hourLen * Math.sin(hourAng);
+    parts.push(`<line x1="${cx}" y1="${cy}" x2="${hx}" y2="${hy}" stroke="#6C63FF" stroke-width="9" stroke-linecap="round"/>`);
+    // Hour-hand label
+    parts.push(`<circle cx="${hx}" cy="${hy}" r="11" fill="#6C63FF" stroke="white" stroke-width="2"/>`);
+    parts.push(`<text x="${hx}" y="${hy + 4}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" font-weight="900" fill="white">H</text>`);
+    // Minute hand — long + thinner + red
     const minAng = (minute * 6 - 90) * Math.PI / 180;
-    const minLen = 80;
-    parts.push(`<line x1="${cx}" y1="${cy}" x2="${cx + minLen * Math.cos(minAng)}" y2="${cy + minLen * Math.sin(minAng)}" stroke="#FF6B6B" stroke-width="5" stroke-linecap="round"/>`);
-    // Center dot
-    parts.push(`<circle cx="${cx}" cy="${cy}" r="6" fill="#2D3436"/>`);
-    return `<svg viewBox="0 0 240 240" width="240" height="240" xmlns="http://www.w3.org/2000/svg" class="m-svg" preserveAspectRatio="xMidYMid meet">${parts.join('')}</svg>`;
+    const minLen = 82;
+    const mx = cx + minLen * Math.cos(minAng);
+    const my = cy + minLen * Math.sin(minAng);
+    parts.push(`<line x1="${cx}" y1="${cy}" x2="${mx}" y2="${my}" stroke="#FF6B6B" stroke-width="6" stroke-linecap="round"/>`);
+    parts.push(`<circle cx="${mx}" cy="${my}" r="9" fill="#FF6B6B" stroke="white" stroke-width="2"/>`);
+    parts.push(`<text x="${mx}" y="${my + 3}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="10" font-weight="900" fill="white">M</text>`);
+    // Center cap
+    parts.push(`<circle cx="${cx}" cy="${cy}" r="7" fill="#fbbf24" stroke="#1f2937" stroke-width="2"/>`);
+    return `<svg viewBox="0 0 240 240" width="240" height="240" xmlns="http://www.w3.org/2000/svg" class="m-svg m-svg-clock" preserveAspectRatio="xMidYMid meet">${parts.join('')}</svg>`;
 }
 
 // Simple shape SVG for shape lessons & quiz.
