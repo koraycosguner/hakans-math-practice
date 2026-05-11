@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "dino-eggs",
+    "title": "Dino Egg Hatch",
+    "emoji": "🦖",
+    "description": "Help dinosaur eggs hatch by solving math!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each egg has a number. Solve the math problem and tap the matching egg to hatch a baby dino.",
+    "rules": [
+      "🥚 eggs sit in a nest, each with a number.",
+      "Prompt: 'Find egg N + M' (or N − M).",
+      "Pick the right answer button → matching egg cracks open.",
+      "Hatch all eggs (4/5/7 by difficulty) to win +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "rocket-launch",
     "title": "Rocket Launch",
     "emoji": "🚀",

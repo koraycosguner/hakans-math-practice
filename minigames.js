@@ -2370,6 +2370,168 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 23. DINO EGG HATCH — Hakan helps eggs hatch by solving math.
+// Each egg shows a number. The math problem's answer matches one egg.
+// Tap that egg → it cracks open → a baby dino emerges.
+// Hatch all eggs to win the round.
+// =====================================================================
+GAME_IMPLS['dino-eggs'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const eggCount = diff === 'easy' ? 4 : diff === 'hard' ? 7 : 5;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+        const DINO_EMOJIS = ['🦕', '🦖', '🐲', '🐊', '🦎'];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-egg-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-egg-q';
+        wrap.appendChild(qBox);
+
+        // Nest with eggs
+        const nest = document.createElement('div');
+        nest.className = 'mg-egg-nest';
+        // Decorative grass blades
+        const grass = document.createElement('div');
+        grass.className = 'mg-egg-grass';
+        grass.innerHTML = '🌿🌱🌿🌱🌿🌱🌿🌱';
+        nest.appendChild(grass);
+
+        const eggRow = document.createElement('div');
+        eggRow.className = 'mg-egg-row';
+        const eggs = [];
+        for (let i = 0; i < eggCount; i++) {
+            const egg = document.createElement('div');
+            egg.className = 'mg-egg';
+            const val = 1 + Math.floor(Math.random() * 18);
+            egg.dataset.val = String(val);
+            egg.innerHTML = `<span class="mg-egg-shell">🥚</span><span class="mg-egg-num">${val}</span><span class="mg-egg-dino" style="display:none;">${DINO_EMOJIS[i % DINO_EMOJIS.length]}</span>`;
+            eggRow.appendChild(egg);
+            eggs.push({ el: egg, val, hatched: false });
+        }
+        nest.appendChild(eggRow);
+        wrap.appendChild(nest);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-egg-opts';
+        wrap.appendChild(opts);
+
+        const status = document.createElement('div');
+        status.className = 'mg-egg-status';
+        status.textContent = `0 / ${eggCount} hatched`;
+        wrap.appendChild(status);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let hatched = 0;
+
+        function genProblem() {
+            // Find an egg that hasn't hatched yet, then craft a math problem
+            // whose answer is that egg's number.
+            const unhatched = eggs.filter((e) => !e.hatched);
+            if (unhatched.length === 0) return null;
+            const tEgg = unhatched[Math.floor(Math.random() * unhatched.length)];
+            const ans = tEgg.val;
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = Math.max(1, Math.floor(Math.random() * Math.max(1, ans - 1)) + 1);
+                const b = ans - a;
+                if (b < 0) return { a: ans, b: 0, op: '+', ans };
+                return { a, b, op, ans };
+            }
+            const b = 1 + Math.floor(Math.random() * Math.min(maxA, ans + 3));
+            const a = ans + b;
+            return { a, b, op, ans };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            if (!target) return;
+            qBox.innerHTML = `<div class="mg-egg-eq">Find egg <b>${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}</b></div>`;
+            // 3 options
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-egg-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-egg-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-egg-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                // Find the egg with that value and hatch it
+                const tEgg = eggs.find((eg) => !eg.hatched && eg.val === target.ans);
+                if (tEgg) hatchEgg(tEgg);
+                if (hatched >= eggCount) {
+                    qBox.innerHTML = `<div class="mg-egg-win">🦖 All eggs hatched! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2500);
+                    return;
+                }
+                setTimeout(nextProblem, 700);
+            } else {
+                btn.classList.add('mg-egg-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-egg-wrong'), 400);
+            }
+        }
+
+        function hatchEgg(eggObj) {
+            eggObj.hatched = true;
+            const el = eggObj.el;
+            el.classList.add('mg-egg-hatching');
+            const shell = el.querySelector('.mg-egg-shell');
+            const num = el.querySelector('.mg-egg-num');
+            const dino = el.querySelector('.mg-egg-dino');
+            setTimeout(() => {
+                if (shell) shell.style.display = 'none';
+                if (num) num.style.display = 'none';
+                if (dino) {
+                    dino.style.display = '';
+                    dino.classList.add('mg-egg-dino-show');
+                }
+            }, 350);
+            hatched += 1;
+            status.textContent = `${hatched} / ${eggCount} hatched`;
+        }
+
+        function reset() {
+            eggs.forEach((e) => {
+                e.hatched = false;
+                e.val = 1 + Math.floor(Math.random() * 18);
+                e.el.classList.remove('mg-egg-hatching');
+                const shell = e.el.querySelector('.mg-egg-shell');
+                const num = e.el.querySelector('.mg-egg-num');
+                const dino = e.el.querySelector('.mg-egg-dino');
+                if (shell) shell.style.display = '';
+                if (num) { num.style.display = ''; num.textContent = String(e.val); }
+                if (dino) { dino.style.display = 'none'; dino.classList.remove('mg-egg-dino-show'); }
+            });
+            hatched = 0;
+            status.textContent = `0 / ${eggCount} hatched`;
+            nextProblem();
+        }
+
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
 // 22. ROCKET LAUNCH — Hakan fuels a rocket by solving math problems.
 // Each correct answer fills the fuel bar. Reach 100% → BLAST OFF!
 // =====================================================================
