@@ -14111,55 +14111,109 @@ html.theme-space .screen { position: relative; z-index: 1; }
     box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
 }
 
-/* ===== Iteration 28: counting song, skip chant, fingers ===== */
-.count-card { max-width: 480px; text-align: center; }
+/* ===== Counting Song, Skip Chant, Fingers ===== */
+.count-card {
+    max-width: 500px;
+    text-align: center;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border: 4px solid #2563eb;
+    border-radius: 22px;
+    padding: 20px 16px;
+    box-shadow: 0 14px 32px rgba(37, 99, 235, 0.25);
+}
+.count-card h2 {
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    margin: 0 0 4px;
+}
 .count-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
+    gap: 8px;
     max-height: 320px;
     overflow-y: auto;
-    margin: 10px 0;
+    margin: 12px 0;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 14px;
+    border: 2px dashed #93c5fd;
 }
 .count-row {
-    background: white;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 6px;
+    background: linear-gradient(135deg, #ffffff 0%, #dbeafe 100%);
+    border: 3px solid #93c5fd;
+    border-radius: 14px;
+    padding: 8px 6px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.15s ease, border-color 0.15s ease;
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 3px 0 #2563eb;
 }
-.count-row:hover { border-color: var(--primary); transform: translateY(-2px); }
+.count-row:hover {
+    border-color: #2563eb;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 0 #2563eb, 0 10px 14px rgba(37, 99, 235, 0.25);
+}
 .count-row.cr-active {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
     color: white;
     border-color: #d97706;
-    transform: scale(1.06);
+    transform: scale(1.1);
+    box-shadow: 0 6px 0 #b45309, 0 12px 22px rgba(217, 119, 6, 0.45);
+    animation: countActivePulse 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes countActivePulse {
+    0%   { transform: scale(1); }
+    100% { transform: scale(1.1); }
 }
 .cr-num {
     display: block;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 900;
-    color: var(--primary);
+    color: #1e3a8a;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.count-row.cr-active .cr-num { color: white; }
-.cr-dots { font-size: 0.75rem; line-height: 1.2; display: block; }
+.count-row.cr-active .cr-num {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.cr-dots {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    display: block;
+    margin-top: 2px;
+}
 .count-controls {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     justify-content: center;
-    margin: 8px 0;
+    margin: 12px 0;
     flex-wrap: wrap;
 }
 .count-play {
-    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
     color: white;
-    border: none;
-    border-radius: 14px;
-    padding: 10px 14px;
-    font-weight: 800;
+    border: 3px solid #1e40af;
+    border-radius: 16px;
+    padding: 12px 18px;
+    font-weight: 900;
     cursor: pointer;
+    box-shadow: 0 4px 0 #1e3a8a, 0 6px 14px rgba(37, 99, 235, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.count-play:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #1e3a8a, 0 10px 18px rgba(37, 99, 235, 0.5);
+}
+.count-play:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #1e3a8a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .count-row, .count-row.cr-active, .count-play { transition: none !important; animation: none !important; }
 }
 
 .chant-card { max-width: 460px; text-align: center; }
