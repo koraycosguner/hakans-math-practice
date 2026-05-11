@@ -2250,3 +2250,189 @@ GAME_IMPLS['tic-tac-toe'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 17. NUMBER GARDEN — big-box new game
+// Plot grid where each correct answer grows a plant through 4 stages.
+// Fill all plots to "harvest" the garden for a big bonus.
+// =====================================================================
+GAME_IMPLS['number-garden'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Difficulty: grid size + math range
+        const cols = diff === 'easy' ? 2 : diff === 'hard' ? 4 : 3;
+        const rows = diff === 'easy' ? 2 : diff === 'hard' ? 3 : 3;
+        const slotCount = rows * cols;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        // Plant stages and their emoji
+        const STAGES = ['🌱', '🌿', '🌸', '🌻'];
+        // Pool of "harvest" emoji at full bloom — variety so each plot looks unique
+        const HARVEST = ['🌻','🌷','🌹','🌺','🌼','🍓','🍎','🍅','🥕','🌽','🍇'];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-garden-wrap';
+
+        const header = document.createElement('div');
+        header.className = 'mg-garden-header';
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-garden-q';
+        qBox.textContent = '...';
+        const progLabel = document.createElement('div');
+        progLabel.className = 'mg-garden-prog';
+        progLabel.textContent = `0 / ${slotCount} plants grown`;
+        header.appendChild(qBox);
+        header.appendChild(progLabel);
+        wrap.appendChild(header);
+
+        // Garden grid
+        const garden = document.createElement('div');
+        garden.className = 'mg-garden-grid';
+        garden.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        const plots = [];
+        for (let i = 0; i < slotCount; i++) {
+            const plot = document.createElement('div');
+            plot.className = 'mg-garden-plot';
+            plot.dataset.stage = '0';
+            const dirt = document.createElement('div');
+            dirt.className = 'mg-garden-dirt';
+            const plant = document.createElement('div');
+            plant.className = 'mg-garden-plant';
+            plant.textContent = '';
+            const cap = document.createElement('div');
+            cap.className = 'mg-garden-cap';
+            cap.textContent = '0/4';
+            plot.appendChild(dirt);
+            plot.appendChild(plant);
+            plot.appendChild(cap);
+            garden.appendChild(plot);
+            plots.push({ el: plot, plantEl: plant, capEl: cap, stage: 0, harvest: HARVEST[Math.floor(Math.random() * HARVEST.length)] });
+        }
+        wrap.appendChild(garden);
+
+        // Options row
+        const optsRow = document.createElement('div');
+        optsRow.className = 'mg-garden-opts';
+        wrap.appendChild(optsRow);
+
+        // Watering can floats over to the active plot
+        const can = document.createElement('div');
+        can.className = 'mg-garden-can';
+        can.textContent = '💧';
+        wrap.appendChild(can);
+
+        ctx.area.appendChild(wrap);
+
+        let currentTarget = null; // {a, b, sum, type}
+        let activePlot = 0;
+        let totalGrown = 0;
+
+        function genProblem() {
+            // Mix of addition + subtraction at this level
+            const op = Math.random() < 0.5 ? 'add' : 'sub';
+            if (op === 'add') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op: '+' };
+            } else {
+                const a = 2 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * a);
+                return { a, b, ans: a - b, op: '−' };
+            }
+        }
+
+        function pickActivePlot() {
+            // Prefer a plot that's not fully grown; cycle through
+            for (let attempt = 0; attempt < plots.length; attempt++) {
+                const idx = (activePlot + attempt) % plots.length;
+                if (plots[idx].stage < STAGES.length) {
+                    activePlot = idx;
+                    plots.forEach((p, i) => p.el.classList.toggle('mg-garden-plot-active', i === idx));
+                    return idx;
+                }
+            }
+            return -1;
+        }
+
+        function nextProblem() {
+            currentTarget = genProblem();
+            qBox.textContent = `${currentTarget.a} ${currentTarget.op} ${currentTarget.b} = ?`;
+            // 3 options including correct
+            const set = new Set([currentTarget.ans]);
+            while (set.size < 3) {
+                const delta = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, currentTarget.ans + delta));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            optsRow.innerHTML = arr.map((v) =>
+                `<button class="mg-garden-opt" data-correct="${v === currentTarget.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            optsRow.querySelectorAll('.mg-garden-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+            pickActivePlot();
+            // Move watering can over the active plot
+            const plot = plots[activePlot].el;
+            const rect = plot.getBoundingClientRect();
+            const wrapRect = wrap.getBoundingClientRect();
+            can.style.transition = 'transform 0.5s ease';
+            can.style.transform = `translate(${rect.left - wrapRect.left + rect.width / 2 - 24}px, ${rect.top - wrapRect.top - 20}px)`;
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-garden-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                // Grow active plant
+                const slot = plots[activePlot];
+                slot.stage += 1;
+                slot.capEl.textContent = `${slot.stage}/4`;
+                const isFull = slot.stage >= STAGES.length;
+                slot.plantEl.classList.remove('mg-garden-grow');
+                void slot.plantEl.offsetWidth;
+                slot.plantEl.classList.add('mg-garden-grow');
+                slot.plantEl.textContent = isFull ? slot.harvest : STAGES[slot.stage - 1];
+                if (isFull) {
+                    slot.el.classList.add('mg-garden-plot-full');
+                    totalGrown += 1;
+                    progLabel.textContent = `${totalGrown} / ${slotCount} plants grown`;
+                    // Bonus for each full bloom
+                    ctx.onScore(2, { x: e.clientX, y: e.clientY });
+                    if (totalGrown >= slotCount) {
+                        // Harvest! Win the round
+                        qBox.textContent = '🌟 Garden full! Amazing harvest!';
+                        optsRow.innerHTML = '';
+                        ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                        ctx.onWin();
+                        // Reset for another round
+                        setTimeout(resetGarden, 2500);
+                        return;
+                    }
+                }
+                setTimeout(nextProblem, 450);
+            } else {
+                btn.classList.add('mg-garden-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-garden-wrong'), 400);
+            }
+        }
+
+        function resetGarden() {
+            plots.forEach((p) => {
+                p.stage = 0;
+                p.plantEl.textContent = '';
+                p.el.classList.remove('mg-garden-plot-full');
+                p.capEl.textContent = '0/4';
+                p.harvest = HARVEST[Math.floor(Math.random() * HARVEST.length)];
+            });
+            totalGrown = 0;
+            progLabel.textContent = `0 / ${slotCount} plants grown`;
+            activePlot = 0;
+            nextProblem();
+        }
+
+        nextProblem();
+        return { stop() {} };
+    }
+};

@@ -599,5 +599,28 @@
       "bonusForRecord": 6
     },
     "config": {}
+  },
+  {
+    "id": "number-garden",
+    "title": "Number Garden",
+    "emoji": "🌻",
+    "description": "Grow a garden! Each correct answer makes a plant grow.",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Fill every plot with a fully-grown plant by solving math problems.",
+    "rules": [
+      "A math problem appears at the top.",
+      "Pick the correct answer from 3 buttons.",
+      "Each correct answer grows the active plot one stage: 🌱 → 🌿 → 🌸 → bloom!",
+      "When a plot fully blooms it shows a flower or fruit and gives a +2 bonus.",
+      "Fill every plot to harvest the garden for a +5 jackpot."
+    ],
+    "rewards": {
+      "robuxPerWin": 4,
+      "bonusForRecord": 6
+    },
+    "config": {}
   }
 ]
