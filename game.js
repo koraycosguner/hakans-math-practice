@@ -1060,6 +1060,17 @@ const FUN_FACTS = [
     "Did you know? An ostrich's eye is bigger than its brain! 🦴",
     "Did you know? Octopuses can squeeze through ANY hole bigger than their beak! 🐙",
     "Did you know? Bees can recognize human faces! 🐝",
+    "Did you know? Butterflies taste with their feet! 🦋",
+    "Did you know? A group of owls is called a 'parliament'! 🦉",
+    "Did you know? Hummingbirds are the only birds that fly backwards! 🐦",
+    "Did you know? Frogs can't swallow with their eyes open! 🐸",
+    "Did you know? Pineapples take 2 years to grow! 🍍",
+    "Did you know? You're taller in the morning than at night! 📏",
+    "Did you know? A cloud can weigh 1 million pounds! ☁️",
+    "Did you know? Cats sleep 12-16 hours a day! 🐱",
+    "Did you know? Wombats poop in CUBES! 🟫",
+    "Did you know? Dolphins have names for each other! 🐬",
+    "Did you know? The Eiffel Tower grows 15cm taller in summer! 🗼",
 ];
 function todaysFunFact() {
     const dayKey = new Date().toISOString().slice(0, 10);
@@ -1144,6 +1155,11 @@ const AFFIRMATIONS = [
     "Hakan, your effort makes you AMAZING! 🌟",
     "Hakan, your family LOVES you so much! 💖",
     "Hakan, you make every day BRIGHTER! ☀️",
+    "Hakan, your CURIOSITY is your superpower! 🔍",
+    "Hakan, you are BRAVE to try new things! 🦁",
+    "Hakan, your patience makes you POWERFUL! 🧘",
+    "Hakan, you are a GOOD friend! 🤗",
+    "Hakan, every challenge is your CHANCE to grow! 🌳",
 ];
 function todaysAffirmation() {
     const dayKey = new Date().toISOString().slice(0, 10);
@@ -1165,6 +1181,14 @@ const BRAIN_TEASERS = [
     { q: "How many minutes are in half an hour?", a: "30" },
     { q: "Three friends each have 2 candies. Total candies?", a: "6" },
     { q: "I'm bigger than 19 but I'm only 2 tens. Who am I?", a: "20" },
+    { q: "What number has a 0 in it but is between 1 and 100?", a: "10" },
+    { q: "Bobby has 4 toes on each foot (silly!). How many toes total?", a: "8" },
+    { q: "There are 5 fingers on a hand. How many on TWO hands?", a: "10" },
+    { q: "If you skip-count by 5: 5, 10, 15... what's next?", a: "20" },
+    { q: "I have 1 ten and 5 ones. What number am I?", a: "15" },
+    { q: "What number is exactly half of 6?", a: "3" },
+    { q: "What number is exactly half of 20?", a: "10" },
+    { q: "What's the biggest number with just one digit?", a: "9" },
 ];
 function todaysBrainTeaser() {
     const dayKey = new Date().toISOString().slice(0, 10);
@@ -1290,6 +1314,48 @@ const STORIES = [
             { text: "Then a butterfly brought 3 more seeds.", art: '🦋' },
             { type: 'q', q: "Now Hakan has 2 + 3 seeds and 4 sunflowers. How many things total?", a: 9, hint: "2+3=5, then +4." },
             { text: "Hakan's garden was the best on the street! 🌻🌻🌻🌻", art: '🌻🦋🌻' },
+        ],
+        reward: 8,
+    },
+    {
+        id: 'lost-puppy',
+        title: 'The Lost Puppy',
+        emoji: '🐶',
+        pages: [
+            { text: "Hakan found a sad puppy in the park 🐶.", art: '🐶😢' },
+            { text: "The collar said: 'I live at house number 14.'", art: '🏠' },
+            { type: 'q', q: "Hakan is at house 8. How many houses to walk to 14?", a: 6, hint: "14 - 8 = ?" },
+            { text: "Hakan walked 6 houses and rang the bell 🔔!", art: '🚶🚶🚶🚶🚶🚶' },
+            { text: "The owner was SO happy and gave Hakan 5 dog treats for his pet.", art: '🦴🦴🦴🦴🦴' },
+            { text: "Best day ever! 🐶❤️", art: '🐶❤️' },
+        ],
+        reward: 8,
+    },
+    {
+        id: 'snow-day',
+        title: 'Snow Day Adventure',
+        emoji: '⛄',
+        pages: [
+            { text: "It snowed all night! Hakan built 3 snowmen ⛄⛄⛄.", art: '⛄⛄⛄' },
+            { text: "Each snowman needs 2 buttons.", art: '🔵🔵' },
+            { type: 'q', q: "How many buttons in total? (3 sets of 2)", a: 6, hint: "2+2+2 or 3 doubled." },
+            { text: "Hakan also made 4 snowballs.", art: '⚪⚪⚪⚪' },
+            { type: 'q', q: "He threw 1 at a tree. How many snowballs left?", a: 3, hint: "4 - 1." },
+            { text: "Then he made hot cocoa with 5 marshmallows! 🍫", art: '☕' },
+        ],
+        reward: 8,
+    },
+    {
+        id: 'robot-friend',
+        title: 'Hakan\'s Robot Friend',
+        emoji: '🤖',
+        pages: [
+            { text: "Hakan built a math robot named ZIP 🤖.", art: '🤖' },
+            { text: "ZIP can count, but only by 2s!", art: '2️⃣4️⃣6️⃣' },
+            { type: 'q', q: "If ZIP counts 2, 4, 6, what comes next?", a: 8, hint: "Skip count by 2s." },
+            { text: "ZIP fired 10 lasers! 5 hit the moon.", art: '🌝' },
+            { type: 'q', q: "How many missed?", a: 5, hint: "10 - 5." },
+            { text: "Hakan and ZIP became best friends. 🤖❤️", art: '🤖❤️' },
         ],
         reward: 8,
     },
@@ -2400,6 +2466,16 @@ const MATH_JOKES = [
     { q: "What do you call 2 friends who love math?", a: "Algeb-buddies! 👯" },
     { q: "What's a vampire's favorite fraction?", a: "TWO-thirds! 🧛" },
     { q: "Why did 9 break up with 10?", a: "9 was just too odd! 😄" },
+    { q: "Why is six scared of seven?", a: "Because 7 ATE 9 (and 6 was next)! 😱" },
+    { q: "What's the king of the school supplies?", a: "The ruler! 📏" },
+    { q: "What's a math teacher's favorite ice cream?", a: "Sum-thing tasty! 🍦" },
+    { q: "What do you call a math test that argues?", a: "A SUM problem! 🥊" },
+    { q: "Why was the equal sign so humble?", a: "It wasn't more, it wasn't less! ⚖️" },
+    { q: "What kind of dance do numbers do?", a: "The cha-cha-cha (3-3-3)! 💃" },
+    { q: "Why was 11 left out?", a: "Because 10, 12 was a pair! 👯" },
+    { q: "What do you get when you cross a math book and a poet?", a: "Lots of poetry-tics! 📖" },
+    { q: "What's a number's favorite vacation?", a: "Going on a sum-mer trip! ☀️" },
+    { q: "Why was the math student wet?", a: "Their work had so many problems, it rained! 🌧️" },
 ];
 
 function todaysMathJoke() {

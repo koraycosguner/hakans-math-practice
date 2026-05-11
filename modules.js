@@ -69378,6 +69378,16 @@ function renderHomeModules() {
             "A clock has 12 numbers. The little hand shows the hour.",
             "When you add, the number gets BIGGER. When you subtract, it gets SMALLER.",
             "Practice makes progress, not perfection!",
+            "Use your fingers to count — pros do too!",
+            "Read the problem TWICE before you answer.",
+            "If a number ends in 0, it's a multiple of 10.",
+            "Equal '=' means the same on both sides, like a seesaw.",
+            "Bigger numbers go on the LEFT in writing, but the right has more value.",
+            "12 inches = 1 foot. (Like 12 cookies = 1 dozen!)",
+            "Count by 5s on a clock: 5, 10, 15, 20...",
+            "1 quarter = 25 cents = 5 nickels = 25 pennies!",
+            "10 + anything ending in zero is easy: just stack the tens!",
+            "A circle has 0 sides and 0 corners. Tricky!",
         ];
         const dayKey = new Date().toISOString().slice(0, 10);
         const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
