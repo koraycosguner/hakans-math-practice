@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "ice-cream-stack",
+    "title": "Ice Cream Stack",
+    "emoji": "🍦",
+    "description": "Stack scoops one at a time — but don't let the tower topple!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each right answer adds a random-flavour scoop. Stack the full tower before 3 wrong answers topple it!",
+    "rules": [
+      "🍦 A cone sits at the bottom, empty.",
+      "Solve math → a scoop in a random flavour lands on top.",
+      "Wrong answer → tower wobbles + you lose 1 of 3 ❤️.",
+      "Tower toppled? Restart. Stack 4 / 6 / 8 scoops (by difficulty) to win (+5 💎)."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "bee-hive",
     "title": "Bee Hive",
     "emoji": "🐝",

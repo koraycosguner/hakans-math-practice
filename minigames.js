@@ -4459,3 +4459,181 @@ GAME_IMPLS['bee-hive'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 29. ICE CREAM STACK — Stack ice-cream scoops by solving math! 🍦
+// Each correct answer adds a scoop in a random colour/flavour on top of
+// the cone. Build a tower of 4 / 6 / 8 scoops without dropping it.
+// Wrong answer wobbles the tower — too many wrongs and it topples!
+// =====================================================================
+GAME_IMPLS['ice-cream-stack'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const targetScoops = diff === 'easy' ? 4 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+        const maxWobble = 3; // allowed wrongs before topple
+
+        const FLAVORS = [
+            { name: 'Vanilla',    color: '#fef3c7', dark: '#d6c189' },
+            { name: 'Strawberry', color: '#fda4af', dark: '#e11d48' },
+            { name: 'Chocolate',  color: '#92400e', dark: '#451a03' },
+            { name: 'Mint',       color: '#86efac', dark: '#16a34a' },
+            { name: 'Bubblegum',  color: '#f0abfc', dark: '#a21caf' },
+            { name: 'Blueberry',  color: '#93c5fd', dark: '#1e40af' },
+            { name: 'Lemon',      color: '#fde047', dark: '#a16207' },
+        ];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-ice-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-ice-q';
+        wrap.appendChild(qBox);
+
+        // Stack scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-ice-scene';
+        const stack = document.createElement('div');
+        stack.className = 'mg-ice-stack';
+        // Cone sits at the bottom
+        const cone = document.createElement('div');
+        cone.className = 'mg-ice-cone';
+        cone.textContent = '🍦';
+        // Scoops layer (we'll prepend scoops so the newest is on top)
+        const scoops = document.createElement('div');
+        scoops.className = 'mg-ice-scoops';
+        stack.appendChild(scoops);
+        stack.appendChild(cone);
+        scene.appendChild(stack);
+
+        // Wobble counter visual
+        const wobbleBar = document.createElement('div');
+        wobbleBar.className = 'mg-ice-wobble';
+        wrap.appendChild(scene);
+        wrap.appendChild(wobbleBar);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-ice-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-ice-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let stacked = 0;
+        let wobbles = 0;
+        const usedFlavors = [];
+
+        function renderWobble() {
+            wobbleBar.innerHTML = '';
+            for (let i = 0; i < maxWobble; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'mg-ice-wobble-dot' + (i < wobbles ? ' mg-ice-wobble-dot-on' : '');
+                dot.textContent = i < wobbles ? '💔' : '💖';
+                wobbleBar.appendChild(dot);
+            }
+        }
+
+        function addScoop() {
+            // Pick a flavour not used immediately above (for visual variety)
+            let f;
+            do { f = FLAVORS[Math.floor(Math.random() * FLAVORS.length)]; }
+            while (usedFlavors[usedFlavors.length - 1] && usedFlavors[usedFlavors.length - 1].name === f.name && FLAVORS.length > 1);
+            usedFlavors.push(f);
+            const scoop = document.createElement('div');
+            scoop.className = 'mg-ice-scoop';
+            scoop.style.background = `radial-gradient(circle at 30% 30%, ${f.color} 0%, ${f.dark} 100%)`;
+            scoop.style.boxShadow = `inset 0 -6px 0 ${f.dark}66, 0 4px 8px rgba(0,0,0,0.15)`;
+            scoop.title = f.name;
+            // Insert at top so newest is on top of the stack
+            scoops.insertBefore(scoop, scoops.firstChild);
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-ice-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-ice-eqs">=</span><span class="mg-ice-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-ice-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-ice-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-ice-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                addScoop();
+                stacked += 1;
+                prog.innerHTML = `<b>${stacked}</b> / ${targetScoops} scoops 🍨`;
+                if (stacked >= targetScoops) {
+                    qBox.innerHTML = `<div class="mg-ice-win">🍦 TOWER COMPLETE! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    stack.classList.add('mg-ice-stack-win');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2800);
+                    return;
+                }
+                setTimeout(nextProblem, 600);
+            } else {
+                btn.classList.add('mg-ice-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                wobbles += 1;
+                renderWobble();
+                stack.classList.add('mg-ice-stack-wobble');
+                setTimeout(() => stack.classList.remove('mg-ice-stack-wobble'), 700);
+                if (wobbles >= maxWobble) {
+                    // Topple!
+                    stack.classList.add('mg-ice-stack-topple');
+                    qBox.innerHTML = `<div class="mg-ice-lose">😵 Tower toppled! Try again…</div>`;
+                    opts.innerHTML = '';
+                    setTimeout(reset, 2200);
+                } else {
+                    setTimeout(() => btn.classList.remove('mg-ice-wrong'), 400);
+                }
+            }
+        }
+
+        function reset() {
+            stacked = 0;
+            wobbles = 0;
+            usedFlavors.length = 0;
+            scoops.innerHTML = '';
+            stack.classList.remove('mg-ice-stack-win', 'mg-ice-stack-topple');
+            renderWobble();
+            prog.innerHTML = `<b>0</b> / ${targetScoops} scoops 🍨`;
+            nextProblem();
+        }
+
+        renderWobble();
+        prog.innerHTML = `<b>0</b> / ${targetScoops} scoops 🍨`;
+        nextProblem();
+        return { stop() {} };
+    }
+};
