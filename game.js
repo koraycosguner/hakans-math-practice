@@ -1767,6 +1767,30 @@ function _generateDailyQuests() {
     return shuffled.slice(0, 3).map((q) => ({ ...q, progress: 0, claimed: false }));
 }
 
+// Reroll today's quests — Hakan gets one reroll per day.
+const QUEST_REROLL_KEY = 'hakans-math-quest-reroll';
+function _todayRerolled() {
+    try {
+        const last = localStorage.getItem(QUEST_REROLL_KEY);
+        return last === _todayKeyForBonus();
+    } catch (e) { return false; }
+}
+function rerollDailyQuests() {
+    if (_todayRerolled()) return;
+    if (!confirm("Reroll today's quests? You can only reroll once per day, Hakan!")) return;
+    const today = _todayKeyForBonus();
+    const fresh = { day: today, quests: _generateDailyQuests() };
+    // Slight randomization to actually pick different quests on reroll.
+    fresh.quests = fresh.quests.map((q) => ({ ...q, _r: Math.random() }))
+                               .sort((a, b) => a._r - b._r)
+                               .slice(0, 3)
+                               .map(({ _r, ...rest }) => rest);
+    saveDailyQuests(fresh);
+    try { localStorage.setItem(QUEST_REROLL_KEY, today); } catch (e) {}
+    if (typeof renderHomeModules === 'function') renderHomeModules();
+    playSound('click');
+}
+
 function loadDailyQuests() {
     let data = null;
     try { data = JSON.parse(localStorage.getItem(QUESTS_KEY)); } catch (e) {}
@@ -2074,6 +2098,18 @@ function selectUser(name) {
         adminSection.style.display = 'none';
         robuxDisplay.style.display = '';
         document.getElementById('robux-game').textContent = robux.toFixed(2);
+        // Quick stats row
+        const statsEl = document.getElementById('start-stats');
+        if (statsEl) {
+            const progress = loadAllProgress();
+            const totalStars = Object.values(progress).reduce((s, p) => s + (p.stars || 0), 0);
+            const earned = loadEarnedBadges();
+            const streak = loadStreak();
+            document.getElementById('ss-stars').textContent = totalStars;
+            document.getElementById('ss-badges').textContent = Object.keys(earned).length;
+            document.getElementById('ss-streak').textContent = (streak.current || 0);
+            statsEl.style.display = '';
+        }
     } else {
         // Koray: show admin section, hide Robux banner
         const robux = loadRobux();
@@ -2081,6 +2117,8 @@ function selectUser(name) {
         robuxBanner.style.display = 'none';
         adminSection.style.display = '';
         robuxDisplay.style.display = 'none';
+        const statsEl = document.getElementById('start-stats');
+        if (statsEl) statsEl.style.display = 'none';
     }
 
     showScreen('start-screen');
@@ -2831,6 +2869,15 @@ const HINT_COOLDOWN_MS = 6000;
 function startHintCooldown() {
     const hintBtn = document.getElementById('hint-btn');
     if (!hintBtn) return;
+    // Skip cooldown when Hakan re-read the lesson recently.
+    if (typeof lessonViewedRecently === 'function' && typeof moduleState !== 'undefined' &&
+        lessonViewedRecently(moduleState.moduleId)) {
+        state.hintCooldownAt = 0;
+        hintBtn.classList.remove('hint-cooling');
+        hintBtn.disabled = false;
+        hintBtn.textContent = '💡 Hint';
+        return;
+    }
     state.hintCooldownAt = Date.now() + HINT_COOLDOWN_MS;
     hintBtn.classList.add('hint-cooling');
     hintBtn.disabled = true;

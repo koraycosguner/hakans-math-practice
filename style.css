@@ -7082,6 +7082,78 @@ html.focus-mode .focus-btn { background: linear-gradient(135deg, #0c4a6e, #07598
     color: #334155;
 }
 
+/* ===== Iteration 12: quest reroll, start stats, sparkle, strategy chips ===== */
+.qp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.qp-reroll {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-weight: 800;
+    font-size: 0.78rem;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(139,92,246,0.35);
+}
+.qp-reroll-used, .qp-reroll[disabled] {
+    background: #e5e7eb;
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Start screen quick stats */
+.start-stats {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 6px 0 12px;
+    flex-wrap: wrap;
+}
+.ss-item {
+    background: rgba(255,255,255,0.92);
+    color: var(--primary);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 800;
+    font-size: 0.92rem;
+    box-shadow: var(--shadow-small);
+}
+.ss-icon { margin-right: 4px; }
+
+/* Sparkle ring on correct answer */
+.sparkle-ring {
+    animation: sparkleRing 0.9s ease-out;
+}
+@keyframes sparkleRing {
+    0%   { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.6); }
+    100% { box-shadow: 0 0 0 24px rgba(245, 158, 11, 0); }
+}
+
+/* Strategy chips above the problem */
+.strategy-chips {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 6px 0 10px;
+    flex-wrap: wrap;
+}
+.strategy-chip {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    color: #065f46;
+    border: 2px solid #6ee7b7;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 800;
+    font-size: 0.82rem;
+    box-shadow: 0 2px 6px rgba(16,185,129,0.18);
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

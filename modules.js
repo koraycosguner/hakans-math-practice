@@ -69219,8 +69219,12 @@ function renderHomeModules() {
     if (isHakan && typeof loadDailyQuests === 'function') {
         const qs = loadDailyQuests();
         if (qs && qs.quests && qs.quests.length) {
+            const rerollDone = (typeof _todayRerolled === 'function' && _todayRerolled());
             html += `<section class="quests-panel">
-                <div class="qp-label">📋 Today's Quests</div>
+                <div class="qp-header">
+                    <div class="qp-label">📋 Today's Quests</div>
+                    <button class="qp-reroll ${rerollDone ? 'qp-reroll-used' : ''}" onclick="rerollDailyQuests()" ${rerollDone ? 'disabled' : ''} title="${rerollDone ? 'Already rerolled today' : 'Reroll once per day'}">🎲 ${rerollDone ? 'Used' : 'Reroll'}</button>
+                </div>
                 <div class="qp-list">`;
             for (const q of qs.quests) {
                 const pct = Math.min(100, Math.round(((q.progress || 0) / q.target) * 100));
@@ -70051,6 +70055,26 @@ function showCategoryCertificate(catId) {
     if (typeof launchConfetti === 'function') launchConfetti();
 }
 
+// Tag time of last lesson viewed, used to grant a "no cooldown" hint window.
+const LESSON_RECENT_KEY = 'hakans-math-lesson-recent';
+function _recordLessonView(modId) {
+    if (!modId) return;
+    try {
+        const map = JSON.parse(localStorage.getItem(LESSON_RECENT_KEY)) || {};
+        map[modId] = Date.now();
+        localStorage.setItem(LESSON_RECENT_KEY, JSON.stringify(map));
+    } catch (e) {}
+}
+function lessonViewedRecently(modId) {
+    if (!modId) return false;
+    try {
+        const map = JSON.parse(localStorage.getItem(LESSON_RECENT_KEY)) || {};
+        const t = map[modId];
+        // 5 minutes
+        return t && (Date.now() - t < 5 * 60 * 1000);
+    } catch (e) { return false; }
+}
+
 // Replay the current lesson audio (kid-controlled — they can re-hear).
 function replayLessonAudio() {
     const mod = MODULES_BY_ID[moduleState.moduleId];
@@ -70072,6 +70096,7 @@ function nextLessonPage() {
     } else {
         // End of lesson — clear bookmark so next entry starts fresh.
         _clearLessonBookmark(mod.id);
+        _recordLessonView(mod.id);
         if (mod.kind === 'addsub' || mod.kind === 'factfamily') {
             // Delegated practice/quiz — return to module detail
             selectModule(mod.id);
@@ -70169,6 +70194,9 @@ function renderModuleProblem() {
     document.getElementById('mg-visual').innerHTML = renderVisual(p.visual);
     document.getElementById('mg-answer').textContent = '';
 
+    // Strategy hint chips for add/sub problems (practice + review only).
+    _renderStrategyChips(p);
+
     const phaseLabel =
         moduleState.activity === 'practice' ? '🎯 Practice' :
         moduleState.activity === 'review'   ? '🔁 Review'   : '⭐ Quiz';
@@ -70235,6 +70263,41 @@ function renderModuleProblem() {
     document.getElementById('mg-hint-text').textContent = '';
 
     if (typeof speak === 'function') speak(p.prompt);
+}
+
+// Strategy chips: gentle reminders of which mental-math strategy might fit.
+function _renderStrategyChips(p) {
+    let host = document.getElementById('mg-strategy-chips');
+    if (!host) {
+        const q = document.getElementById('mg-question');
+        if (!q) return;
+        host = document.createElement('div');
+        host.id = 'mg-strategy-chips';
+        host.className = 'strategy-chips';
+        q.parentElement.insertBefore(host, q.nextSibling);
+    }
+    host.innerHTML = '';
+    if (!p || (moduleState.activity !== 'practice' && moduleState.activity !== 'review')) return;
+    if (p.type !== 'addition' && p.type !== 'subtraction') return;
+    const a = p.a, b = p.b, ans = p.answer;
+    const tips = [];
+    if (p.type === 'addition') {
+        if (a === b)                     tips.push({ t: '🟰 Doubles!', label: 'Doubles' });
+        if (a + b === 10 || a + b === 20) tips.push({ t: '🔟 Friends of 10', label: 'Friends of 10' });
+        if (a + b > 10 && (a >= 5 || b >= 5)) tips.push({ t: '➕ Make 10 first', label: 'Make 10' });
+        if (Math.abs(a - b) === 1)       tips.push({ t: '⚡ Near doubles', label: 'Near doubles' });
+        if (a === 0 || b === 0)          tips.push({ t: '0️⃣ +0 is free', label: 'Add zero' });
+    } else if (p.type === 'subtraction') {
+        if (a === b)                     tips.push({ t: '0️⃣ Same makes 0', label: 'Same is 0' });
+        if (b === 0)                     tips.push({ t: '0️⃣ -0 stays put', label: 'Take zero' });
+        if (a === 10 || a === 20)        tips.push({ t: '🔟 Friends of 10', label: 'Friends of 10' });
+        if (a - b <= 3)                  tips.push({ t: '⬆️ Count up', label: 'Count up from ' + b });
+        if (b >= 5)                      tips.push({ t: '🔟 Subtract by tens', label: 'Use 10 facts' });
+    }
+    if (!tips.length) return;
+    host.innerHTML = tips.slice(0, 2).map((tip) =>
+        `<span class="strategy-chip" title="${tip.label}">${tip.t}</span>`
+    ).join('');
 }
 
 function mgReplayQuestion() {
@@ -70744,6 +70807,14 @@ function handleCorrect() {
     moduleState.correct++;
     moduleState.score += 10;
     moduleState._wrongInARow = 0;
+    // Sparkle ring around the answer box.
+    const ansBox = document.querySelector('#module-game-screen .pv-answer-box');
+    if (ansBox) {
+        ansBox.classList.remove('sparkle-ring');
+        void ansBox.offsetWidth;
+        ansBox.classList.add('sparkle-ring');
+        setTimeout(() => ansBox.classList.remove('sparkle-ring'), 1000);
+    }
 
     // High-five popup at every 3rd in-a-row (3, 6, 9...) — short and fun.
     if (moduleState.streak > 0 && moduleState.streak % 3 === 0 &&
