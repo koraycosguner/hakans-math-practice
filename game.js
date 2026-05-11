@@ -1012,6 +1012,80 @@ function _initKeyboardInput() {
 }
 _initKeyboardInput();
 
+// Pick a random splash sub-message on load.
+(function _randomSplashSub() {
+    const msgs = [
+        "Getting your numbers ready...",
+        "Polishing the stars...",
+        "Feeding your pet some math snacks...",
+        "Counting all the way to ten...",
+        "Sharpening pencils...",
+        "Warming up the calculator...",
+        "Waking up the mascot...",
+        "Stirring the Robux pot...",
+    ];
+    const el = document.getElementById('splash-sub');
+    if (el) el.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+})();
+
+// Day-of-week flair + seasonal flair.
+function dayOfWeekFlair() {
+    const d = new Date();
+    const day = d.getDay();
+    const tags = [
+        { emoji: '☀️', name: 'Sunday Fun-day!' },
+        { emoji: '💪', name: 'Marvelous Monday!' },
+        { emoji: '🌮', name: 'Terrific Tuesday!' },
+        { emoji: '🐺', name: 'Wonder Wednesday!' },
+        { emoji: '🌟', name: 'Thoughtful Thursday!' },
+        { emoji: '🎉', name: 'Fantastic Friday!' },
+        { emoji: '🌈', name: 'Super Saturday!' },
+    ];
+    return tags[day];
+}
+function seasonalEmoji() {
+    const m = new Date().getMonth();
+    return [
+        '⛄', '💕', '🌸', '🌷', '🌼', '☀️',
+        '🏖️', '🌻', '🍂', '🎃', '🦃', '🎄',
+    ][m] || '✨';
+}
+
+// Daily affirmation card content
+const AFFIRMATIONS = [
+    "Hakan, you are SMART! 🧠",
+    "Hakan, your brain GROWS every day! 🌱",
+    "Hakan, you are KIND and STRONG! 💪",
+    "Hakan, mistakes are how you LEARN! 🌈",
+    "Hakan, your math superpowers are GROWING! ⚡",
+    "Hakan, you can do HARD things! 🦁",
+    "Hakan, you are NUMBER ONE! 1️⃣",
+    "Hakan, your effort makes you AMAZING! 🌟",
+    "Hakan, your family LOVES you so much! 💖",
+    "Hakan, you make every day BRIGHTER! ☀️",
+];
+function todaysAffirmation() {
+    const dayKey = new Date().toISOString().slice(0, 10);
+    const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    return AFFIRMATIONS[seed % AFFIRMATIONS.length];
+}
+
+// Lucky color of the day
+const LUCKY_COLORS = [
+    { name: 'Sunny Yellow', hex: '#fbbf24', emoji: '💛' },
+    { name: 'Hero Red',     hex: '#ef4444', emoji: '❤️' },
+    { name: 'Ocean Blue',   hex: '#3b82f6', emoji: '💙' },
+    { name: 'Grass Green',  hex: '#10b981', emoji: '💚' },
+    { name: 'Royal Purple', hex: '#8b5cf6', emoji: '💜' },
+    { name: 'Bright Pink',  hex: '#ec4899', emoji: '💗' },
+    { name: 'Pumpkin Orange', hex: '#f97316', emoji: '🧡' },
+];
+function todaysLuckyColor() {
+    const dayKey = new Date().toISOString().slice(0, 10);
+    const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    return LUCKY_COLORS[seed % LUCKY_COLORS.length];
+}
+
 // ===== Story Mode — Grade 1 math adventures =====
 const STORIES = [
     {

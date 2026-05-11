@@ -69095,7 +69095,7 @@ function renderHomeModules() {
 
     let html = '';
 
-    // Time-based greeting
+    // Time-based greeting + day flair + seasonal
     if (isHakan) {
         const h = new Date().getHours();
         const greet = h < 5  ? '🌙 Late night math, Hakan?' :
@@ -69103,7 +69103,20 @@ function renderHomeModules() {
                       h < 17 ? '🌤️ Good afternoon, Hakan!' :
                       h < 21 ? '🌅 Good evening, Hakan!' :
                                '🌙 Time to wind down, Hakan!';
-        html += `<div class="home-greeting">${greet}</div>`;
+        const dow = (typeof dayOfWeekFlair === 'function') ? dayOfWeekFlair() : null;
+        const season = (typeof seasonalEmoji === 'function') ? seasonalEmoji() : '';
+        const dowStr = dow ? `<span class="dow-flair">${dow.emoji} ${dow.name} ${season}</span>` : '';
+        html += `<div class="home-greeting">${greet} ${dowStr}</div>`;
+
+        // Daily affirmation (Hakan only, big card)
+        if (typeof todaysAffirmation === 'function') {
+            html += `<div class="affirmation-card">${todaysAffirmation()}</div>`;
+        }
+        // Lucky color
+        if (typeof todaysLuckyColor === 'function') {
+            const c = todaysLuckyColor();
+            html += `<div class="lucky-color"><span class="lc-swatch" style="background:${c.hex}"></span> Today's lucky color: <b style="color:${c.hex}">${c.name}</b> ${c.emoji}</div>`;
+        }
 
         // Streak resilience reminder: if Hakan hasn't practiced today and the
         // hour is getting late, gently nudge him.

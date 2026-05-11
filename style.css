@@ -8583,6 +8583,58 @@ html.theme-space .screen { position: relative; z-index: 1; }
 }
 .finger-btn:hover { border-color: var(--primary); transform: translateY(-2px); }
 
+/* ===== Iteration 29: day flair, affirmation, lucky color ===== */
+.dow-flair {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 0.95rem;
+    background: rgba(255,255,255,0.95);
+    color: #1f2937;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 700;
+}
+
+.affirmation-card {
+    background: linear-gradient(135deg, #ddd6fe, #c4b5fd);
+    color: #4c1d95;
+    border-radius: 18px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    font-weight: 900;
+    font-size: 1.1rem;
+    text-align: center;
+    border: 2px solid #8b5cf6;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+    animation: affPulse 4s ease-in-out infinite;
+}
+@keyframes affPulse {
+    0%,100% { box-shadow: 0 4px 12px rgba(139,92,246,0.25); }
+    50%     { box-shadow: 0 6px 22px rgba(139,92,246,0.45); }
+}
+html.motion-reduced .affirmation-card { animation: none; }
+
+.lucky-color {
+    background: rgba(255,255,255,0.95);
+    color: #1f2937;
+    border-radius: 14px;
+    padding: 8px 14px;
+    margin: 6px 0;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+.lc-swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 8px;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;
