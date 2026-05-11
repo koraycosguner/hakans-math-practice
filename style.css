@@ -4182,6 +4182,30 @@ body::after {
 .mg-count-digit.right { animation: mgSACorrect 0.4s ease; }
 .mg-count-digit.wrong { animation: icShake 0.4s ease; }
 
+/* Counting Race: timer bar + combo */
+.mg-count-timerbar {
+    width: 100%;
+    max-width: 320px;
+    height: 8px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.mg-count-timerfill {
+    height: 100%;
+    width: 100%;
+    border-radius: 999px;
+}
+.mg-count-combo {
+    min-height: 22px;
+    font-weight: 900;
+    color: #b45309;
+    background: rgba(255,255,255,0.7);
+    padding: 4px 14px;
+    border-radius: 999px;
+}
+.mg-count-combo:empty { background: transparent; }
+
 /* ===== Home top row: streak + pet + trophies ===== */
 .home-top-row {
     display: flex;

@@ -1089,39 +1089,89 @@ GAME_IMPLS['shape-sorter'] = {
 };
 
 // 8. Counting Race — items pop in one at a time with a tiny stagger.
-// Bigger digit pad with per-number tints. Each round resets cleanly.
+// Difficulty-scaled max count + per-question speed timer.
+// easy: 1-5 items, 7s timer. normal: 1-12 items, 5s. hard: 1-20 items, 3.5s.
 GAME_IMPLS['counting-race'] = {
     start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const maxN  = diff === 'easy' ? 5  : diff === 'hard' ? 20 : 12;
+        const padN  = diff === 'easy' ? 6  : diff === 'hard' ? 20 : 12;
+        const timeBudget = diff === 'easy' ? 7000 : diff === 'hard' ? 3500 : 5000;
+
         const wrap = document.createElement('div');
         wrap.className = 'mg-count-wrap';
         const prompt = document.createElement('div');
         prompt.className = 'mg-count-prompt';
         prompt.textContent = 'How many?';
+        const timerBar = document.createElement('div');
+        timerBar.className = 'mg-count-timerbar';
+        const timerFill = document.createElement('div');
+        timerFill.className = 'mg-count-timerfill';
+        timerBar.appendChild(timerFill);
         const items = document.createElement('div');
         items.className = 'mg-count-items';
         const pad = document.createElement('div');
         pad.className = 'mg-count-pad';
+        const combo = document.createElement('div');
+        combo.className = 'mg-count-combo';
+        combo.textContent = '';
         wrap.appendChild(prompt);
+        wrap.appendChild(timerBar);
         wrap.appendChild(items);
         wrap.appendChild(pad);
+        wrap.appendChild(combo);
         ctx.area.appendChild(wrap);
 
-        const emojis = ['⭐','🍎','🐠','🐝','🍪','🦋','🚗','🎈','🌸','🐢','🪁','🍓'];
+        const emojis = ['⭐','🍎','🐠','🐝','🍪','🦋','🚗','🎈','🌸','🐢','🪁','🍓','🐞','🌻','🪐'];
         let correct = 0;
+        let lastN = 0, lastEmoji = '';
+        let timerId = null;
+        let timerStart = 0;
+        let streak = 0;
+
+        function killTimer() { if (timerId) { clearInterval(timerId); timerId = null; } }
+        function startTimer() {
+            killTimer();
+            timerStart = Date.now();
+            timerFill.style.transition = 'none';
+            timerFill.style.width = '100%';
+            timerFill.style.background = 'linear-gradient(90deg, #34d399, #10b981)';
+            void timerFill.offsetWidth;
+            timerFill.style.transition = `width ${timeBudget}ms linear, background ${timeBudget}ms linear`;
+            timerFill.style.width = '0%';
+            timerFill.style.background = 'linear-gradient(90deg, #ef4444, #b91c1c)';
+            timerId = setInterval(() => {
+                if (Date.now() - timerStart >= timeBudget) {
+                    killTimer();
+                    // Time's up — count as wrong
+                    streak = 0;
+                    combo.textContent = '⏱️ Too slow!';
+                    ctx.onPenalty(1, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    setTimeout(nextRound, 700);
+                }
+            }, 100);
+        }
+
         function nextRound() {
-            const n = Math.floor(Math.random() * 9) + 1;
-            const e = emojis[Math.floor(Math.random() * emojis.length)];
+            // Don't repeat the same count + emoji combo back-to-back
+            let n, e, tries = 0;
+            do {
+                n = Math.floor(Math.random() * maxN) + 1;
+                e = emojis[Math.floor(Math.random() * emojis.length)];
+            } while ((n === lastN && e === lastEmoji) && tries++ < 5);
+            lastN = n; lastEmoji = e;
             correct = n;
+
             items.innerHTML = '';
             for (let i = 0; i < n; i++) {
                 const s = document.createElement('span');
                 s.className = 'mg-count-item';
                 s.textContent = e;
-                s.style.animationDelay = (i * 0.06) + 's';
+                s.style.animationDelay = (i * 0.04) + 's';
                 items.appendChild(s);
             }
             pad.innerHTML = '';
-            for (let d = 1; d <= 10; d++) {
+            for (let d = 1; d <= padN; d++) {
                 const b = document.createElement('button');
                 b.className = 'mg-count-digit';
                 b.textContent = d;
@@ -1131,20 +1181,32 @@ GAME_IMPLS['counting-race'] = {
                 b.style.color = `hsl(${hue}, 80%, 25%)`;
                 b.addEventListener('click', (ev) => {
                     if (parseInt(b.textContent, 10) === correct) {
+                        killTimer();
                         b.classList.add('right');
-                        ctx.onScore(1, { x: ev.clientX, y: ev.clientY });
-                        setTimeout(nextRound, 220);
+                        streak += 1;
+                        // Speed bonus: more points if answered in first half
+                        const elapsed = Date.now() - timerStart;
+                        const fast = elapsed < timeBudget / 2;
+                        const pts = fast ? 2 : 1;
+                        if (streak >= 3) combo.textContent = `🔥 ${streak} in a row!`;
+                        else if (fast) combo.textContent = '⚡ Fast! +2';
+                        else combo.textContent = '';
+                        ctx.onScore(pts, { x: ev.clientX, y: ev.clientY });
+                        setTimeout(nextRound, 280);
                     } else {
                         b.classList.add('wrong');
+                        streak = 0;
+                        combo.textContent = '';
                         ctx.onPenalty(1, { x: ev.clientX, y: ev.clientY });
                         setTimeout(() => b.classList.remove('wrong'), 400);
                     }
                 });
                 pad.appendChild(b);
             }
+            startTimer();
         }
         nextRound();
-        return { stop() {} };
+        return { stop() { killTimer(); } };
     }
 };
 
