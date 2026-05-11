@@ -2504,7 +2504,7 @@ const MODULES = [
           "hour": 7,
           "minute": 30
         },
-        "prompt": "What time is this? Hakan, what do you think?",
+        "prompt": "Quiz: What time is this? Hakan, what do you think?",
         "choices": [
           "7 o'clock",
           "Half past 7",
@@ -2521,7 +2521,7 @@ const MODULES = [
           "hour": 10,
           "minute": 0
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "9 o'clock",
           "10 o'clock",
@@ -2538,7 +2538,7 @@ const MODULES = [
           "hour": 1,
           "minute": 30
         },
-        "prompt": "What time is this?",
+        "prompt": "Read the clock — what time is it?",
         "choices": [
           "1 o'clock",
           "Half past 1",
@@ -2606,7 +2606,7 @@ const MODULES = [
           "hour": 9,
           "minute": 30
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "9 o'clock",
           "Half past 9",
@@ -2623,7 +2623,7 @@ const MODULES = [
           "hour": 6,
           "minute": 0
         },
-        "prompt": "What time is this?",
+        "prompt": "Read the clock — what time is it?",
         "choices": [
           "5 o'clock",
           "6 o'clock",
@@ -2994,7 +2994,7 @@ const MODULES = [
           "parts": 2,
           "filled": 1
         },
-        "prompt": "Hakan, how many equal parts here?",
+        "prompt": "Quiz: Hakan, how many equal parts here?",
         "choices": [
           "Two",
           "Three",
@@ -6935,7 +6935,7 @@ const MODULES = [
           "a": 10,
           "b": 10
         },
-        "prompt": "Hakan: 10 + 10 = ?",
+        "prompt": "Quiz: Hakan: 10 + 10 = ?",
         "answer": 20,
         "hint": "Hakan, count on! 10 plus 10. Try counting up from the bigger one."
       }
@@ -9487,7 +9487,7 @@ const MODULES = [
           "a": 13,
           "b": 7
         },
-        "prompt": "Thirteen minus seven?",
+        "prompt": "Quiz: Thirteen minus seven?",
         "answer": 6,
         "hint": "Hakan, count on! 13 plus 7. Try counting up from the bigger one."
       },
@@ -10125,7 +10125,7 @@ const MODULES = [
           "a": 15,
           "b": 9
         },
-        "prompt": "Fifteen minus nine?",
+        "prompt": "Quiz: Fifteen minus nine?",
         "answer": 6,
         "hint": "Hakan, count on! 15 plus 9. Try counting up from the bigger one."
       },
@@ -19150,7 +19150,7 @@ const MODULES = [
           ],
           "missingIndex": -1
         },
-        "prompt": "Hakan: 10, 20, 30, ?",
+        "prompt": "Quiz: Hakan: 10, 20, 30, ?",
         "answer": 40,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -21173,7 +21173,7 @@ const MODULES = [
           "filled": 2,
           "color": "blue"
         },
-        "prompt": "How many?",
+        "prompt": "How many do you count, Hakan?",
         "answer": 2,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -22761,7 +22761,7 @@ const MODULES = [
           "colorA": "#3b82f6",
           "colorB": "#3b82f6"
         },
-        "prompt": "Hakan, compare these frames.",
+        "prompt": "Quiz: Hakan, compare these frames.",
         "choices": [
           "Left more",
           "Right more",
@@ -22833,7 +22833,7 @@ const MODULES = [
           "colorA": "#ef4444",
           "colorB": "#3b82f6"
         },
-        "prompt": "Hakan, which is bigger?",
+        "prompt": "Pick the bigger one, Hakan!",
         "choices": [
           "Left",
           "Right",
@@ -24354,7 +24354,7 @@ const MODULES = [
           "hour": 2,
           "minute": 30
         },
-        "prompt": "Half past what? (just the number)",
+        "prompt": "Quiz: Half past what? (just the number)",
         "answer": 2,
         "hint": "Hakan, read the small (hour) hand first, then the big (minute) hand."
       },
@@ -24931,7 +24931,7 @@ const MODULES = [
           "count": 2,
           "emoji": "🪙"
         },
-        "prompt": "Hakan has 2 nickels. How many cents?",
+        "prompt": "Quiz: Hakan has 2 nickels. How many cents?",
         "answer": 10,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -24942,7 +24942,7 @@ const MODULES = [
           "count": 3,
           "emoji": "🪙"
         },
-        "prompt": "How many cents in 3 nickels?",
+        "prompt": "Quiz: How many cents in 3 nickels?",
         "answer": 15,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -25236,7 +25236,7 @@ const MODULES = [
           "count": 2,
           "emoji": "🪙"
         },
-        "prompt": "Hakan has 2 dimes. How many cents?",
+        "prompt": "Quiz: Hakan has 2 dimes. How many cents?",
         "answer": 20,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -25247,7 +25247,7 @@ const MODULES = [
           "count": 3,
           "emoji": "🪙"
         },
-        "prompt": "How many cents in 3 dimes?",
+        "prompt": "Quiz: How many cents in 3 dimes?",
         "answer": 30,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -27650,7 +27650,7 @@ const MODULES = [
           ],
           "missingIndex": 5
         },
-        "prompt": "Pattern: 3, 3, 9, 9, 3, ?",
+        "prompt": "Quiz: Pattern: 3, 3, 9, 9, 3, ?",
         "answer": 3,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -37044,7 +37044,7 @@ const MODULES = [
           "count": 2,
           "emoji": "🟦"
         },
-        "prompt": "Hakan has 2 squares. Total sides?",
+        "prompt": "Quiz: Hakan has 2 squares. Total sides?",
         "answer": 8,
         "hint": "Hakan, count carefully. You got this!"
       },
@@ -37427,7 +37427,7 @@ const MODULES = [
           "count": 2,
           "emoji": "🔺"
         },
-        "prompt": "Hakan has 2 triangles. Total sides?",
+        "prompt": "Quiz: Hakan has 2 triangles. Total sides?",
         "answer": 6,
         "hint": "Hakan, count carefully. You got this!"
       },
@@ -39894,7 +39894,7 @@ const MODULES = [
           "count": 1,
           "emoji": "🧻"
         },
-        "prompt": "Hakan: a paper roll tube is a:",
+        "prompt": "Quiz: Hakan: a paper roll tube is a:",
         "choices": [
           "Cone",
           "Cylinder",
@@ -40926,7 +40926,7 @@ const MODULES = [
           "parts": 2,
           "filled": 1
         },
-        "prompt": "Hakan: 2 equal parts are called:",
+        "prompt": "Quiz: Hakan: 2 equal parts are called:",
         "choices": [
           "Halves",
           "Fourths",
@@ -42475,7 +42475,7 @@ const MODULES = [
           "parts": 2,
           "filled": 1
         },
-        "prompt": "Hakan: halves must be:",
+        "prompt": "Quiz: Hakan: halves must be:",
         "choices": [
           "Equal",
           "Unequal"
@@ -42491,7 +42491,7 @@ const MODULES = [
           "parts": 4,
           "filled": 1
         },
-        "prompt": "Hakan: fourths must be:",
+        "prompt": "Quiz: Hakan: fourths must be:",
         "choices": [
           "Equal",
           "Unequal"
@@ -42507,7 +42507,7 @@ const MODULES = [
           "parts": 2,
           "filled": 1
         },
-        "prompt": "Hakan: \"equal\" means:",
+        "prompt": "Quiz: Hakan: \"equal\" means:",
         "choices": [
           "Same size",
           "Different size"
@@ -43222,7 +43222,7 @@ const MODULES = [
           "emoji": "⬛",
           "count": 7
         },
-        "prompt": "Hakan: A=4 cubes, B=7 cubes. Which is longer?",
+        "prompt": "Quiz: Hakan: A=4 cubes, B=7 cubes. Which is longer?",
         "choices": [
           "4 cubes",
           "7 cubes",
@@ -43270,7 +43270,7 @@ const MODULES = [
           "emoji": "⬛",
           "count": 2
         },
-        "prompt": "Hakan: A=2 cubes, B=8 cubes. Which is shorter?",
+        "prompt": "Quiz: Hakan: A=2 cubes, B=8 cubes. Which is shorter?",
         "choices": [
           "A (2)",
           "B (8)",
@@ -43302,7 +43302,7 @@ const MODULES = [
           "emoji": "⬛",
           "count": 9
         },
-        "prompt": "Hakan: A=7 cubes, B=9 cubes. Which is longer?",
+        "prompt": "Quiz: Hakan: A=7 cubes, B=9 cubes. Which is longer?",
         "choices": [
           "7 cubes",
           "9 cubes",
@@ -44761,7 +44761,7 @@ const MODULES = [
           "emoji": "🟦",
           "count": 11
         },
-        "prompt": "Hakan, how many cubes long?",
+        "prompt": "Quiz: Hakan, how many cubes long?",
         "answer": 11,
         "hint": "Hakan, count carefully. You got this!"
       },
@@ -46858,7 +46858,7 @@ const MODULES = [
           "emoji": "🍎",
           "count": 8
         },
-        "prompt": "Hakan, how many apples?",
+        "prompt": "Quiz: Hakan, how many apples?",
         "answer": 8,
         "hint": "Hakan, count carefully. You got this!"
       },
@@ -47456,7 +47456,7 @@ const MODULES = [
           "a": 5,
           "b": 2
         },
-        "prompt": "Hakan: 5 balls, 2 bricks. How many bricks?",
+        "prompt": "Quiz: Hakan: 5 balls, 2 bricks. How many bricks?",
         "answer": 2,
         "hint": "Hakan, 5 is bigger than 2. Pick the right sign!"
       },
@@ -47522,7 +47522,7 @@ const MODULES = [
           "a": 8,
           "b": 2
         },
-        "prompt": "Hakan: 8 cars, 2 trucks. How many cars?",
+        "prompt": "Quiz: Hakan: 8 cars, 2 trucks. How many cars?",
         "answer": 8,
         "hint": "Hakan, 8 is bigger than 2. Pick the right sign!"
       },
@@ -47822,7 +47822,7 @@ const MODULES = [
           "a": 5,
           "b": 5
         },
-        "prompt": "Hakan: 5 stars, 5 hearts. More?",
+        "prompt": "Quiz: Hakan: 5 stars, 5 hearts. More?",
         "choices": [
           "stars",
           "hearts",
@@ -48235,7 +48235,7 @@ const MODULES = [
           ],
           "missingIndex": 4
         },
-        "prompt": "Hakan: 2, 7, 2, 7, ?",
+        "prompt": "Quiz: Hakan: 2, 7, 2, 7, ?",
         "answer": 2,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -48269,7 +48269,7 @@ const MODULES = [
           ],
           "missingIndex": 4
         },
-        "prompt": "Hakan: 6, 9, 6, 9, ?",
+        "prompt": "Quiz: Hakan: 6, 9, 6, 9, ?",
         "answer": 6,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -48305,7 +48305,7 @@ const MODULES = [
           ],
           "missingIndex": 5
         },
-        "prompt": "Hakan: 3, 7, 3, 7, 3, ?",
+        "prompt": "Quiz: Hakan: 3, 7, 3, 7, 3, ?",
         "answer": 7,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -48640,7 +48640,7 @@ const MODULES = [
           ],
           "missingIndex": 4
         },
-        "prompt": "Hakan: 1, 1, 2, 2, ?",
+        "prompt": "Quiz: Hakan: 1, 1, 2, 2, ?",
         "answer": 1,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -48674,7 +48674,7 @@ const MODULES = [
           ],
           "missingIndex": 4
         },
-        "prompt": "Hakan: 2, 2, 7, 7, ?",
+        "prompt": "Quiz: Hakan: 2, 2, 7, 7, ?",
         "answer": 2,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -48708,7 +48708,7 @@ const MODULES = [
           ],
           "missingIndex": 4
         },
-        "prompt": "Hakan: 6, 6, 9, 9, ?",
+        "prompt": "Quiz: Hakan: 6, 6, 9, 9, ?",
         "answer": 6,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -48744,7 +48744,7 @@ const MODULES = [
           ],
           "missingIndex": 5
         },
-        "prompt": "Hakan: 3, 3, 7, 7, 3, ?",
+        "prompt": "Quiz: Hakan: 3, 3, 7, 7, 3, ?",
         "answer": 3,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -49110,7 +49110,7 @@ const MODULES = [
           ],
           "missingIndex": 5
         },
-        "prompt": "Hakan: 1, 2, 3, 1, 2, ?",
+        "prompt": "Quiz: Hakan: 1, 2, 3, 1, 2, ?",
         "answer": 3,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -49182,7 +49182,7 @@ const MODULES = [
           ],
           "missingIndex": 4
         },
-        "prompt": "Hakan: 3, 6, 9, 3, ?, 9",
+        "prompt": "Quiz: Hakan: 3, 6, 9, 3, ?, 9",
         "answer": 6,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -49218,7 +49218,7 @@ const MODULES = [
           ],
           "missingIndex": 2
         },
-        "prompt": "Hakan: 5, 7, ?, 5, 7, 9",
+        "prompt": "Quiz: Hakan: 5, 7, ?, 5, 7, 9",
         "answer": 9,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -49571,7 +49571,7 @@ const MODULES = [
           ],
           "missingIndex": 3
         },
-        "prompt": "Hakan: 1, 2, 3, ?",
+        "prompt": "Quiz: Hakan: 1, 2, 3, ?",
         "answer": 4,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -49604,7 +49604,7 @@ const MODULES = [
           ],
           "missingIndex": 4
         },
-        "prompt": "Hakan: 2, 3, 4, 5, ?",
+        "prompt": "Quiz: Hakan: 2, 3, 4, 5, ?",
         "answer": 6,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -49636,7 +49636,7 @@ const MODULES = [
           ],
           "missingIndex": 2
         },
-        "prompt": "Hakan: 7, 8, ?, 10",
+        "prompt": "Quiz: Hakan: 7, 8, ?, 10",
         "answer": 9,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -49670,7 +49670,7 @@ const MODULES = [
           ],
           "missingIndex": 3
         },
-        "prompt": "Hakan: 15, 16, 17, ?",
+        "prompt": "Quiz: Hakan: 15, 16, 17, ?",
         "answer": 18,
         "hint": "Hakan, look at the neighbors — what number fits between them?"
       },
@@ -49989,7 +49989,7 @@ const MODULES = [
           "hour": 7,
           "minute": 0
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "6 o'clock",
           "7 o'clock",
@@ -50023,7 +50023,7 @@ const MODULES = [
           "hour": 5,
           "minute": 0
         },
-        "prompt": "What time is this?",
+        "prompt": "Read the clock — what time is it?",
         "choices": [
           "4 o'clock",
           "5 o'clock",
@@ -50057,7 +50057,7 @@ const MODULES = [
           "hour": 4,
           "minute": 0
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "3 o'clock",
           "4 o'clock",
@@ -50074,7 +50074,7 @@ const MODULES = [
           "hour": 8,
           "minute": 0
         },
-        "prompt": "What time is this?",
+        "prompt": "Read the clock — what time is it?",
         "choices": [
           "7 o'clock",
           "8 o'clock",
@@ -50108,7 +50108,7 @@ const MODULES = [
           "hour": 1,
           "minute": 0
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "12 o'clock",
           "1 o'clock",
@@ -50384,7 +50384,7 @@ const MODULES = [
           "hour": 3,
           "minute": 30
         },
-        "prompt": "What time is this, Hakan?",
+        "prompt": "Quiz: What time is this, Hakan?",
         "choices": [
           "3 o'clock",
           "Half past 3",
@@ -50401,7 +50401,7 @@ const MODULES = [
           "hour": 5,
           "minute": 30
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "5 o'clock",
           "Half past 5",
@@ -50418,7 +50418,7 @@ const MODULES = [
           "hour": 7,
           "minute": 30
         },
-        "prompt": "What time is this? Hakan, what do you think?",
+        "prompt": "Quiz: What time is this? Hakan, what do you think?",
         "choices": [
           "7 o'clock",
           "Half past 7",
@@ -50435,7 +50435,7 @@ const MODULES = [
           "hour": 9,
           "minute": 30
         },
-        "prompt": "What time is this?",
+        "prompt": "Read the clock — what time is it?",
         "choices": [
           "9 o'clock",
           "Half past 9",
@@ -50452,7 +50452,7 @@ const MODULES = [
           "hour": 4,
           "minute": 30
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "4 o'clock",
           "Half past 4",
@@ -50469,7 +50469,7 @@ const MODULES = [
           "hour": 6,
           "minute": 30
         },
-        "prompt": "What time is this, Hakan?",
+        "prompt": "Quiz: What time is this, Hakan?",
         "choices": [
           "6 o'clock",
           "Half past 6",
@@ -50503,7 +50503,7 @@ const MODULES = [
           "hour": 2,
           "minute": 30
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "2 o'clock",
           "Half past 2",
@@ -50520,7 +50520,7 @@ const MODULES = [
           "hour": 10,
           "minute": 30
         },
-        "prompt": "What time is this?",
+        "prompt": "Read the clock — what time is it?",
         "choices": [
           "10 o'clock",
           "Half past 10",
@@ -50537,7 +50537,7 @@ const MODULES = [
           "hour": 1,
           "minute": 30
         },
-        "prompt": "What time is this, Hakan?",
+        "prompt": "Quiz: What time is this, Hakan?",
         "choices": [
           "1 o'clock",
           "Half past 1",
@@ -50796,7 +50796,7 @@ const MODULES = [
           "hour": 2,
           "minute": 0
         },
-        "prompt": "What time is this, Hakan?",
+        "prompt": "Quiz: What time is this, Hakan?",
         "choices": [
           "1 o'clock",
           "2 o'clock",
@@ -50813,7 +50813,7 @@ const MODULES = [
           "hour": 7,
           "minute": 30
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "7 o'clock",
           "Half past 7",
@@ -50830,7 +50830,7 @@ const MODULES = [
           "hour": 10,
           "minute": 0
         },
-        "prompt": "What time is this?",
+        "prompt": "Read the clock — what time is it?",
         "choices": [
           "9 o'clock",
           "10 o'clock",
@@ -50847,7 +50847,7 @@ const MODULES = [
           "hour": 3,
           "minute": 30
         },
-        "prompt": "What time is this, Hakan?",
+        "prompt": "Quiz: What time is this, Hakan?",
         "choices": [
           "3 o'clock",
           "Half past 3",
@@ -50881,7 +50881,7 @@ const MODULES = [
           "hour": 8,
           "minute": 30
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "8 o'clock",
           "Half past 8",
@@ -50898,7 +50898,7 @@ const MODULES = [
           "hour": 1,
           "minute": 0
         },
-        "prompt": "What time is this?",
+        "prompt": "Read the clock — what time is it?",
         "choices": [
           "12 o'clock",
           "1 o'clock",
@@ -50915,7 +50915,7 @@ const MODULES = [
           "hour": 5,
           "minute": 30
         },
-        "prompt": "What time is this, Hakan?",
+        "prompt": "Quiz: What time is this, Hakan?",
         "choices": [
           "5 o'clock",
           "Half past 5",
@@ -50932,7 +50932,7 @@ const MODULES = [
           "hour": 9,
           "minute": 0
         },
-        "prompt": "What time is this on Hakan's clock?",
+        "prompt": "Quiz: What time is this on Hakan's clock?",
         "choices": [
           "8 o'clock",
           "9 o'clock",
@@ -50949,7 +50949,7 @@ const MODULES = [
           "hour": 11,
           "minute": 30
         },
-        "prompt": "What time is this, Hakan?",
+        "prompt": "Quiz: What time is this, Hakan?",
         "choices": [
           "11 o'clock",
           "Half past 11",
@@ -53169,7 +53169,7 @@ const MODULES = [
           "count": 1,
           "emoji": "🪙"
         },
-        "prompt": "Hakan, 1 nickel = how many cents?",
+        "prompt": "Quiz: Hakan, 1 nickel = how many cents?",
         "answer": 5,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -53180,7 +53180,7 @@ const MODULES = [
           "count": 2,
           "emoji": "🪙"
         },
-        "prompt": "How many cents in 2 nickels?",
+        "prompt": "Quiz: How many cents in 2 nickels?",
         "answer": 10,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -53191,7 +53191,7 @@ const MODULES = [
           "count": 3,
           "emoji": "🪙"
         },
-        "prompt": "Hakan has 3 nickels. How many cents?",
+        "prompt": "Quiz: Hakan has 3 nickels. How many cents?",
         "answer": 15,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -53491,7 +53491,7 @@ const MODULES = [
           "count": 1,
           "emoji": "🪙"
         },
-        "prompt": "Hakan, 1 dime = how many cents?",
+        "prompt": "Quiz: Hakan, 1 dime = how many cents?",
         "answer": 10,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -53502,7 +53502,7 @@ const MODULES = [
           "count": 2,
           "emoji": "🪙"
         },
-        "prompt": "How many cents in 2 dimes?",
+        "prompt": "Quiz: How many cents in 2 dimes?",
         "answer": 20,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       },
@@ -53826,7 +53826,7 @@ const MODULES = [
           "count": 1,
           "emoji": "🪙"
         },
-        "prompt": "Hakan, 1 quarter = how many cents?",
+        "prompt": "Quiz: Hakan, 1 quarter = how many cents?",
         "answer": 25,
         "hint": "Hakan, fourths means 4 equal parts!"
       },
@@ -54579,7 +54579,7 @@ const MODULES = [
           "count": 10,
           "emoji": "🪙"
         },
-        "prompt": "Hakan, 10 nickels = how many cents?",
+        "prompt": "Quiz: Hakan, 10 nickels = how many cents?",
         "answer": 50,
         "hint": "Hakan, remember: 1 penny=1¢, 1 nickel=5¢, 1 dime=10¢, 1 quarter=25¢."
       }
@@ -54784,7 +54784,7 @@ const MODULES = [
           "n": 6,
           "color": "silver"
         },
-        "prompt": "Hakan has 1 nickel and 1 penny. How many cents?",
+        "prompt": "Quiz: Hakan has 1 nickel and 1 penny. How many cents?",
         "answer": 6,
         "hint": "Hakan, this is the number 6! Say it out loud."
       },
@@ -55912,7 +55912,7 @@ const MODULES = [
           "type": "two-digit-num",
           "n": 89
         },
-        "prompt": "Hakan: 89 + 10 = ?",
+        "prompt": "Quiz: Hakan: 89 + 10 = ?",
         "answer": 99,
         "hint": "Hakan, count the tens, then count the ones, then put them together."
       },
@@ -56203,7 +56203,7 @@ const MODULES = [
           "type": "two-digit-num",
           "n": 99
         },
-        "prompt": "Hakan: 99 − 10 = ?",
+        "prompt": "Quiz: Hakan: 99 − 10 = ?",
         "answer": 89,
         "hint": "Hakan, count the tens, then count the ones, then put them together."
       },
@@ -56489,7 +56489,7 @@ const MODULES = [
           "colorA": "blue",
           "colorB": "red"
         },
-        "prompt": "Hakan: 10 + 1 = ?",
+        "prompt": "Quiz: Hakan: 10 + 1 = ?",
         "answer": 11,
         "hint": "Hakan, count each frame, then add them together."
       },
@@ -56528,7 +56528,7 @@ const MODULES = [
           "colorA": "blue",
           "colorB": "red"
         },
-        "prompt": "10 + 5 = ?",
+        "prompt": "Quiz: 10 + 5 = ?",
         "answer": 15,
         "hint": "Hakan, count each frame, then add them together."
       },
@@ -58980,7 +58980,7 @@ const MODULES = [
           "hour": 9,
           "minute": 0
         },
-        "prompt": "Hakan, what time is it?",
+        "prompt": "Quiz: Hakan, what time is it?",
         "choices": [
           "9:00",
           "12:00",
@@ -61179,7 +61179,7 @@ const MODULES = [
           "a": 9,
           "b": 2
         },
-        "prompt": "Hakan: 9 + 2 = ?",
+        "prompt": "Quiz: Hakan: 9 + 2 = ?",
         "answer": 11,
         "hint": "Hakan, count on! 9 plus 2. Try counting up from the bigger one."
       },
@@ -61190,7 +61190,7 @@ const MODULES = [
           "a": 9,
           "b": 3
         },
-        "prompt": "Hakan: 9 + 3 = ?",
+        "prompt": "Quiz: Hakan: 9 + 3 = ?",
         "answer": 12,
         "hint": "Hakan, count on! 9 plus 3. Try counting up from the bigger one."
       },
@@ -61223,7 +61223,7 @@ const MODULES = [
           "a": 9,
           "b": 6
         },
-        "prompt": "Hakan: 9 + 6 = ?",
+        "prompt": "Quiz: Hakan: 9 + 6 = ?",
         "answer": 15,
         "hint": "Hakan, count on! 9 plus 6. Try counting up from the bigger one."
       },
@@ -61234,7 +61234,7 @@ const MODULES = [
           "a": 9,
           "b": 7
         },
-        "prompt": "Hakan: 9 + 7 = ?",
+        "prompt": "Quiz: Hakan: 9 + 7 = ?",
         "answer": 16,
         "hint": "Hakan, count on! 9 plus 7. Try counting up from the bigger one."
       },
@@ -61261,7 +61261,7 @@ const MODULES = [
           "a": 9,
           "b": 9
         },
-        "prompt": "Hakan: 9 + 9 = ?",
+        "prompt": "Quiz: Hakan: 9 + 9 = ?",
         "answer": 18,
         "hint": "Hakan, count on! 9 plus 9. Try counting up from the bigger one."
       },
@@ -61495,7 +61495,7 @@ const MODULES = [
           "a": 8,
           "b": 2
         },
-        "prompt": "Hakan: 8 + 2 = ?",
+        "prompt": "Quiz: Hakan: 8 + 2 = ?",
         "answer": 10,
         "hint": "Hakan, count on! 8 plus 2. Try counting up from the bigger one."
       },
@@ -61506,7 +61506,7 @@ const MODULES = [
           "a": 8,
           "b": 3
         },
-        "prompt": "Hakan: 8 + 3 = ?",
+        "prompt": "Quiz: Hakan: 8 + 3 = ?",
         "answer": 11,
         "hint": "Hakan, count on! 8 plus 3. Try counting up from the bigger one."
       },
@@ -61539,7 +61539,7 @@ const MODULES = [
           "a": 8,
           "b": 6
         },
-        "prompt": "Hakan: 8 + 6 = ?",
+        "prompt": "Quiz: Hakan: 8 + 6 = ?",
         "answer": 14,
         "hint": "Hakan, count on! 8 plus 6. Try counting up from the bigger one."
       },
@@ -61550,7 +61550,7 @@ const MODULES = [
           "a": 8,
           "b": 7
         },
-        "prompt": "Hakan: 8 + 7 = ?",
+        "prompt": "Quiz: Hakan: 8 + 7 = ?",
         "answer": 15,
         "hint": "Hakan, count on! 8 plus 7. Try counting up from the bigger one."
       },
@@ -61577,7 +61577,7 @@ const MODULES = [
           "a": 8,
           "b": 8
         },
-        "prompt": "Hakan: 8 + 8 = ?",
+        "prompt": "Quiz: Hakan: 8 + 8 = ?",
         "answer": 16,
         "hint": "Hakan, count on! 8 plus 8. Try counting up from the bigger one."
       },
@@ -61799,7 +61799,7 @@ const MODULES = [
           "a": 11,
           "b": 9
         },
-        "prompt": "Hakan does 11 − 9. Answer?",
+        "prompt": "Quiz: Hakan does 11 − 9. Answer?",
         "answer": 2,
         "hint": "Hakan, count on! 11 plus 9. Try counting up from the bigger one."
       },
@@ -62166,7 +62166,7 @@ const MODULES = [
           "a": 8,
           "b": 9
         },
-        "prompt": "Hakan: 8 + 9 = ?",
+        "prompt": "Quiz: Hakan: 8 + 9 = ?",
         "answer": 17,
         "hint": "Hakan, count on! 8 plus 9. Try counting up from the bigger one."
       },
@@ -62177,7 +62177,7 @@ const MODULES = [
           "a": 9,
           "b": 3
         },
-        "prompt": "Hakan: 9 + 3 = ?",
+        "prompt": "Quiz: Hakan: 9 + 3 = ?",
         "answer": 12,
         "hint": "Hakan, count on! 9 plus 3. Try counting up from the bigger one."
       },
@@ -62215,7 +62215,7 @@ const MODULES = [
           "a": 9,
           "b": 6
         },
-        "prompt": "Hakan: 9 + 6 = ?",
+        "prompt": "Quiz: Hakan: 9 + 6 = ?",
         "answer": 15,
         "hint": "Hakan, count on! 9 plus 6. Try counting up from the bigger one."
       }
@@ -62458,7 +62458,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 2 + ? = 10",
+        "prompt": "Quiz: Hakan: 2 + ? = 10",
         "answer": 8,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -62498,7 +62498,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 6 + ? = 10",
+        "prompt": "Quiz: Hakan: 6 + ? = 10",
         "answer": 4,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -62508,7 +62508,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 7 + ? = 10",
+        "prompt": "Quiz: Hakan: 7 + ? = 10",
         "answer": 3,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -62533,7 +62533,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 8 + ? = 10",
+        "prompt": "Quiz: Hakan: 8 + ? = 10",
         "answer": 2,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -62543,7 +62543,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 9 + ? = 10",
+        "prompt": "Quiz: Hakan: 9 + ? = 10",
         "answer": 1,
         "hint": "Hakan, count the filled spots in the ten-frame."
       }
@@ -62826,7 +62826,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 13 + ? = 20",
+        "prompt": "Quiz: Hakan: 13 + ? = 20",
         "answer": 7,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -62836,7 +62836,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 14 + ? = 20",
+        "prompt": "Quiz: Hakan: 14 + ? = 20",
         "answer": 6,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -62866,7 +62866,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 17 + ? = 20",
+        "prompt": "Quiz: Hakan: 17 + ? = 20",
         "answer": 3,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -62891,7 +62891,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 19 + ? = 20",
+        "prompt": "Quiz: Hakan: 19 + ? = 20",
         "answer": 1,
         "hint": "Hakan, count the filled spots in the ten-frame."
       },
@@ -62901,7 +62901,7 @@ const MODULES = [
           "type": "ten-frame",
           "filled": 10
         },
-        "prompt": "Hakan: 10 + ? = 20",
+        "prompt": "Quiz: Hakan: 10 + ? = 20",
         "answer": 10,
         "hint": "Hakan, count the filled spots in the ten-frame."
       }
@@ -64193,7 +64193,7 @@ const MODULES = [
           "a": 1,
           "b": 3
         },
-        "prompt": "Hakan: 1 + 3 = ?",
+        "prompt": "Quiz: Hakan: 1 + 3 = ?",
         "answer": 4,
         "hint": "Hakan, count on! 1 plus 3. Try counting up from the bigger one."
       },
@@ -69002,7 +69002,7 @@ const MODULES = [
           "parts": 4,
           "filled": 1
         },
-        "prompt": "Hakan + 3 friends. Cake in how many equal pieces?",
+        "prompt": "Quiz: Hakan + 3 friends. Cake in how many equal pieces?",
         "answer": 4,
         "hint": "Hakan, 4 equal parts = fourths!"
       },
@@ -69509,7 +69509,7 @@ const MODULES = [
           "a": 67,
           "b": 76
         },
-        "prompt": "Hakan, which is bigger?",
+        "prompt": "Pick the bigger one, Hakan!",
         "choices": [
           "67",
           "76",
@@ -70242,7 +70242,7 @@ const MODULES = [
           "hour": 4,
           "minute": 30
         },
-        "prompt": "Hakan, what time is on the clock?",
+        "prompt": "Quiz: Hakan, what time is on the clock?",
         "choices": [
           "4:30",
           "4:00",
