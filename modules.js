@@ -71091,12 +71091,18 @@ function renderHomeModules() {
                     const starsHtml = isHakan && stars > 0
                         ? `<span class="m-card-stars">${'⭐'.repeat(stars)}</span>`
                         : '';
+                    // Mastered modules (3-star) get a small crown that shimmers.
+                    const crownHtml = isHakan && stars === 3
+                        ? `<span class="m-card-crown" title="Mastered!">👑</span>`
+                        : '';
                     const v = visits[m.id];
                     const visitCount = v ? v.count : 0;
                     const countHtml = isHakan && visitCount > 0
                         ? `<span class="m-card-count" title="Played ${visitCount} time${visitCount === 1 ? '' : 's'}">${visitCount}</span>`
                         : '';
-                    const doneCls = stars > 0 ? ' m-card-done' : (visitCount > 0 ? ' m-card-visited' : '');
+                    const doneCls = stars === 3 ? ' m-card-done m-card-mastered'
+                                  : stars > 0   ? ' m-card-done'
+                                  : visitCount > 0 ? ' m-card-visited' : '';
                     const newCls = (isHakan && visitCount === 0 && !p) ? ' m-card-new' : '';
                     const catCls = ` m-card-cat-${m.category || 'A'}`;
                     const newBadge = (isHakan && visitCount === 0 && !p)
@@ -71110,6 +71116,7 @@ function renderHomeModules() {
                     return `<button class="m-card${doneCls}${newCls}${catCls}" onclick="selectModule('${m.id}')">
                         ${countHtml}
                         ${starsHtml}
+                        ${crownHtml}
                         ${newBadge}
                         ${favBtn}
                         <span class="m-card-icon-wrap">

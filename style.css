@@ -2440,6 +2440,39 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     background: linear-gradient(135deg, #fffaeb 0%, #fff4d4 100%);
     border: 2px solid #f5c518;
 }
+/* Mastered (3-star) cards get a shimmer + golden glow halo */
+.m-card-mastered {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
+        linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 3px solid #fbbf24;
+    box-shadow:
+        0 0 0 3px rgba(251, 191, 36, 0.25),
+        0 6px 18px rgba(217, 119, 6, 0.3);
+    animation: mCardMasteredShimmer 4s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+.m-card-mastered::after {
+    /* Diagonal shimmer streak that periodically sweeps across the card */
+    content: '';
+    position: absolute;
+    top: 0; left: -120%;
+    width: 60%; height: 100%;
+    background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+    transform: skewX(-20deg);
+    animation: mCardShimmerSweep 4.5s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes mCardMasteredShimmer {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25), 0 6px 18px rgba(217, 119, 6, 0.3); }
+    50%      { box-shadow: 0 0 0 5px rgba(251, 191, 36, 0.4),  0 10px 28px rgba(217, 119, 6, 0.5); }
+}
+@keyframes mCardShimmerSweep {
+    0%   { left: -120%; }
+    35%  { left: 220%; }
+    100% { left: 220%; }
+}
 .m-card-visited {
     background: linear-gradient(135deg, #ffffff 0%, #f0eeff 100%);
     border: 2px solid #c4bff7;
@@ -2451,6 +2484,28 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     font-size: 0.85rem;
     letter-spacing: 1px;
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
+    z-index: 2;
+}
+/* Crown badge on mastered cards (shown above the stars) */
+.m-card-crown {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.6rem;
+    z-index: 3;
+    filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.7)) drop-shadow(0 2px 4px rgba(120, 53, 15, 0.4));
+    animation: mCardCrownBob 2.2s ease-in-out infinite alternate;
+}
+@keyframes mCardCrownBob {
+    0%   { transform: translateX(-50%) translateY(0) rotate(-5deg); }
+    100% { transform: translateX(-50%) translateY(-3px) rotate(5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .m-card-mastered, .m-card-mastered::after, .m-card-crown {
+        animation: none !important;
+    }
+    .m-card-mastered::after { display: none; }
 }
 .m-card-count {
     position: absolute;
