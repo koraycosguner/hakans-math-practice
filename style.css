@@ -5686,20 +5686,47 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     gap: 12px;
 }
 .glo-card {
-    background: white;
+    background: linear-gradient(180deg, white 0%, #fafbff 100%);
     border-radius: 18px;
-    padding: 14px;
-    box-shadow: var(--shadow-small);
-    border-left: 5px solid var(--primary);
+    padding: 16px;
+    box-shadow: 0 6px 18px rgba(108, 99, 255, 0.15);
+    border-left: 6px solid var(--primary);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    position: relative;
 }
-.glo-emoji { font-size: 2rem; line-height: 1; margin-bottom: 4px; }
-.glo-word { font-weight: 900; color: var(--primary); font-size: 1.15rem; margin-bottom: 4px; }
-.glo-meaning { color: var(--text-dark); font-size: 0.92rem; margin-bottom: 6px; }
+.glo-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(108, 99, 255, 0.25);
+    border-left-width: 8px;
+}
+.glo-emoji {
+    font-size: 2.2rem;
+    line-height: 1;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+}
+.glo-word {
+    font-weight: 900;
+    background: linear-gradient(135deg, #8b5cf6 0%, #4338ca 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+}
+.glo-meaning {
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    line-height: 1.45;
+}
 .glo-example {
     font-size: 0.85rem;
     color: var(--text-light);
-    background: #f8f7ff;
-    padding: 8px 10px;
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    border: 1px solid rgba(108, 99, 255, 0.2);
+    padding: 8px 12px;
     border-radius: 10px;
     font-style: italic;
 }
