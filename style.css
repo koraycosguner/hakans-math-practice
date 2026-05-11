@@ -2785,26 +2785,53 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     #minigames-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .mgs-card {
-    background: white;
+    background: linear-gradient(180deg, white 0%, #fafbff 100%);
     border: 3px solid transparent;
     border-radius: 22px;
-    padding: 18px 14px;
+    padding: 20px 16px;
     cursor: pointer;
     text-align: left;
     display: flex;
     flex-direction: column;
     gap: 6px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.1);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
     touch-action: manipulation;
     font-family: inherit;
+    position: relative;
+    overflow: hidden;
 }
-.mgs-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+.mgs-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    opacity: 0.6;
+}
+.mgs-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px rgba(108, 99, 255, 0.25);
+}
+.mgs-card:hover .mgs-card-icon { transform: scale(1.15) rotate(-5deg); }
 .mgs-card-easy   { border-color: #6ee7b7; }
+.mgs-card-easy::before   { background: linear-gradient(90deg, #6ee7b7, #10b981); }
 .mgs-card-medium { border-color: #fbbf24; }
+.mgs-card-medium::before { background: linear-gradient(90deg, #fbbf24, #f97316); }
 .mgs-card-hard   { border-color: #f87171; }
-.mgs-card-icon { font-size: 2.6rem; line-height: 1; }
-.mgs-card-title { font-size: 1.15rem; font-weight: 800; color: var(--primary); }
+.mgs-card-hard::before   { background: linear-gradient(90deg, #f87171, #dc2626); }
+.mgs-card-icon {
+    font-size: 2.8rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+}
+.mgs-card-title {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+}
 .mgs-card-desc { font-size: 0.85rem; color: var(--text-light); line-height: 1.4; }
 .mgs-card-meta {
     margin-top: 4px;
