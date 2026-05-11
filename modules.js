@@ -294,6 +294,7 @@ function renderVisual(visual) {
         case 'fill-ten-frame': return renderFillTenFrame(visual);
         case 'count-along':    return renderCountAlong(visual);
         case 'find-mistake':   return renderFindMistake(visual);
+        case 'tap-numberline': return renderTapNumberLine(visual);
     }
     return '';
 }
@@ -417,6 +418,23 @@ function renderCountAlong(visual) {
         <div class="ic-ca-row">${items}</div>
         <div class="ic-ca-num">0</div>
         <button class="ic-ca-replay">▶ Play Again</button>
+    </div>`;
+}
+
+// tap-numberline: shows a number line; kid taps the right number.
+// Use for "What's 2 more than 5?" — Hakan taps 7 on the line.
+function renderTapNumberLine(visual) {
+    const from = visual.from != null ? visual.from : 0;
+    const to   = visual.to   != null ? visual.to   : 10;
+    const target = visual.target;
+    const instr = visual.instruction || 'Tap the right number!';
+    const ticks = [];
+    for (let n = from; n <= to; n++) {
+        ticks.push(`<button class="ic-nl-tick" data-n="${n}" data-correct="${n === target ? '1' : '0'}">${n}</button>`);
+    }
+    return `<div class="ic-wrap" data-interactive="tap-numberline" data-target="${target}">
+        <div class="ic-instr">${instr}</div>
+        <div class="ic-nl-line">${ticks.join('')}</div>
     </div>`;
 }
 
@@ -69089,8 +69107,12 @@ function renderHomeModules() {
             </div>`;
         }
         if (petInfo && petInfo.stage) {
+            const outfits = (typeof loadPetOutfits === 'function') ? loadPetOutfits() : { equipped: {} };
+            const eq = outfits.equipped || {};
+            const hatStr = eq.hat ? (PET_OUTFITS.find((o) => o.id === eq.hat) || {}).emoji || '' : '';
+            const accStr = eq.acc ? (PET_OUTFITS.find((o) => o.id === eq.acc) || {}).emoji || '' : '';
             html += `<button class="pet-badge" onclick="openPetPicker()" title="Tap to change your buddy">
-                <span class="pet-badge-emoji">${petInfo.stage.emoji}</span>
+                <span class="pet-badge-emoji">${hatStr}${petInfo.stage.emoji}${accStr}</span>
                 <span class="pet-badge-name">${petInfo.pet.name.split(' ')[0]}</span>
             </button>`;
         }
@@ -69596,6 +69618,27 @@ function bindInteractivePrimitives(host) {
         if (replay) replay.addEventListener('click', play);
         // Auto-start on first render (kids don't need to find a button)
         setTimeout(play, 400);
+        return;
+    }
+
+    if (kind === 'tap-numberline') {
+        const buttons = wrap.querySelectorAll('.ic-nl-tick');
+        buttons.forEach((b) => {
+            b.addEventListener('click', () => {
+                if (b.classList.contains('ic-locked')) return;
+                const isCorrect = b.getAttribute('data-correct') === '1';
+                if (isCorrect) {
+                    b.classList.add('ic-correct', 'ic-locked');
+                    buttons.forEach((x) => x.classList.add('ic-locked'));
+                    wrap.classList.add('ic-done');
+                    if (typeof playSound === 'function') playSound('correct');
+                } else {
+                    b.classList.add('ic-wrong');
+                    if (typeof playSound === 'function') playSound('wrong');
+                    setTimeout(() => b.classList.remove('ic-wrong'), 500);
+                }
+            });
+        });
         return;
     }
 

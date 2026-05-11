@@ -462,6 +462,118 @@ function currentPetStage() {
     return { pet, stage: getPetStageForStars(pet, totalStars), totalStars };
 }
 
+// Pet Outfit Shop — buy accessories with Robux, equip onto your pet.
+const PET_OUTFITS = [
+    { id: 'hat-wizard',   slot: 'hat',  emoji: '🧙', name: 'Wizard Hat',   price: 20 },
+    { id: 'hat-crown',    slot: 'hat',  emoji: '👑', name: 'Crown',        price: 50 },
+    { id: 'hat-cap',      slot: 'hat',  emoji: '🧢', name: 'Baseball Cap', price: 15 },
+    { id: 'hat-grad',     slot: 'hat',  emoji: '🎓', name: 'Grad Cap',     price: 25 },
+    { id: 'hat-party',    slot: 'hat',  emoji: '🎉', name: 'Party Hat',    price: 30 },
+    { id: 'acc-glasses',  slot: 'acc',  emoji: '👓', name: 'Cool Glasses', price: 25 },
+    { id: 'acc-sunglasses', slot: 'acc', emoji: '😎', name: 'Sunglasses',  price: 35 },
+    { id: 'acc-bowtie',   slot: 'acc',  emoji: '🎀', name: 'Bow Tie',      price: 18 },
+    { id: 'acc-cape',     slot: 'acc',  emoji: '🦸', name: 'Hero Cape',    price: 60 },
+    { id: 'acc-star',     slot: 'acc',  emoji: '⭐', name: 'Star Sticker', price: 12 },
+];
+
+const PET_OUTFIT_KEY = 'hakans-math-pet-outfits';
+function loadPetOutfits() {
+    try { return JSON.parse(localStorage.getItem(PET_OUTFIT_KEY)) || { owned: [], equipped: {} }; }
+    catch (e) { return { owned: [], equipped: {} }; }
+}
+function savePetOutfits(data) {
+    try { localStorage.setItem(PET_OUTFIT_KEY, JSON.stringify(data)); } catch (e) {}
+}
+
+function buyPetOutfit(id) {
+    const item = PET_OUTFITS.find((o) => o.id === id);
+    if (!item) return;
+    const data = loadPetOutfits();
+    if (data.owned.indexOf(id) >= 0) return;
+    const balance = loadRobux();
+    if (balance < item.price) {
+        alert(`You need ${item.price} 💎 to buy ${item.name}. Keep playing to earn more!`);
+        return;
+    }
+    saveRobux(balance - item.price);
+    data.owned.push(id);
+    savePetOutfits(data);
+    if (typeof playSound === 'function') playSound('correct');
+    renderPetShop();
+    if (typeof updateRobuxDisplay === 'function') updateRobuxDisplay();
+}
+
+function equipPetOutfit(id) {
+    const item = PET_OUTFITS.find((o) => o.id === id);
+    if (!item) return;
+    const data = loadPetOutfits();
+    if (data.owned.indexOf(id) < 0) return;
+    // Toggle equip (tapping equipped = unequip)
+    if (data.equipped[item.slot] === id) {
+        delete data.equipped[item.slot];
+    } else {
+        data.equipped[item.slot] = id;
+    }
+    savePetOutfits(data);
+    if (typeof playSound === 'function') playSound('click');
+    renderPetShop();
+    if (typeof renderHomeModules === 'function') renderHomeModules();
+}
+
+function openPetShop() {
+    if (typeof playSound === 'function') playSound('click');
+    renderPetShop();
+    showScreen('pet-shop-screen');
+}
+
+function renderPetShop() {
+    const body = document.getElementById('pet-shop-body');
+    if (!body) return;
+    const data = loadPetOutfits();
+    const balance = loadRobux();
+    // Pet preview
+    const petInfo = (typeof currentPetStage === 'function') ? currentPetStage() : null;
+    const equipped = data.equipped || {};
+    const hatItem = equipped.hat ? PET_OUTFITS.find((o) => o.id === equipped.hat) : null;
+    const accItem = equipped.acc ? PET_OUTFITS.find((o) => o.id === equipped.acc) : null;
+    let html = `<div class="ps-balance">💎 ${balance.toFixed(0)} Robux</div>`;
+    html += `<div class="ps-preview">
+        ${hatItem ? `<div class="ps-preview-hat">${hatItem.emoji}</div>` : ''}
+        <div class="ps-preview-pet">${(petInfo && petInfo.stage && petInfo.stage.emoji) || '🐾'}</div>
+        ${accItem ? `<div class="ps-preview-acc">${accItem.emoji}</div>` : ''}
+        <div class="ps-preview-name">${(petInfo && petInfo.pet && petInfo.pet.name) || 'My Pet'}</div>
+    </div>`;
+    html += `<h3 class="ps-section">🎩 Hats</h3><div class="ps-grid">`;
+    PET_OUTFITS.filter((o) => o.slot === 'hat').forEach((o) => {
+        html += renderShopItem(o, data);
+    });
+    html += `</div><h3 class="ps-section">✨ Accessories</h3><div class="ps-grid">`;
+    PET_OUTFITS.filter((o) => o.slot === 'acc').forEach((o) => {
+        html += renderShopItem(o, data);
+    });
+    html += `</div>`;
+    body.innerHTML = html;
+    body.querySelectorAll('.ps-card').forEach((card) => {
+        const id = card.getAttribute('data-id');
+        const isOwned = data.owned.indexOf(id) >= 0;
+        card.addEventListener('click', () => {
+            if (isOwned) equipPetOutfit(id);
+            else buyPetOutfit(id);
+        });
+    });
+}
+function renderShopItem(o, data) {
+    const owned = data.owned.indexOf(o.id) >= 0;
+    const equipped = data.equipped && data.equipped[o.slot] === o.id;
+    const cls = equipped ? 'ps-card ps-equipped' : owned ? 'ps-card ps-owned' : 'ps-card';
+    const label = equipped ? '✓ Equipped' : owned ? 'Tap to equip' : `${o.price} 💎`;
+    return `<button class="${cls}" data-id="${o.id}">
+        <div class="ps-emoji">${o.emoji}</div>
+        <div class="ps-name">${o.name}</div>
+        <div class="ps-price">${label}</div>
+    </button>`;
+}
+
 function choosePet(id) {
     const s = loadPetState();
     s.petId = id;
@@ -488,6 +600,7 @@ function openPetPicker() {
         </button>`;
     }
     html += `</div>
+        <button class="pet-picker-shop" onclick="openPetShop()">🛍️ Pet Shop</button>
         <button class="pet-picker-close">Cancel</button>
     </div>`;
     overlay.innerHTML = html;
@@ -574,6 +687,15 @@ function adjustGoal(key, delta) {
 // First visit each calendar day awards a flat Robux bonus.
 const DAILY_BONUS_KEY = 'hakans-math-daily-bonus';
 const DAILY_BONUS_AMOUNT = 3;
+
+// Daily bonus scales with current streak length — rewards consistency.
+function _dailyBonusForStreak(streakDays) {
+    if (streakDays >= 30) return 20;
+    if (streakDays >= 14) return 12;
+    if (streakDays >= 7)  return 8;
+    if (streakDays >= 3)  return 5;
+    return DAILY_BONUS_AMOUNT;
+}
 
 function _todayKeyForBonus() {
     const d = new Date();
@@ -705,14 +827,41 @@ function openGlossary() {
     if (typeof playSound === 'function') playSound('click');
     const body = document.getElementById('glossary-body');
     if (body) {
-        body.innerHTML = GLOSSARY.map((g) => `
-            <div class="glo-card">
+        body.innerHTML = GLOSSARY.map((g, i) => `
+            <div class="glo-card" data-idx="${i}">
                 <div class="glo-emoji">${g.emoji}</div>
                 <div class="glo-word">${g.word}</div>
                 <div class="glo-meaning">${g.meaning}</div>
                 <div class="glo-example">${g.example}</div>
+                <button class="glo-speak-btn" data-idx="${i}" title="Hear it!">🔊</button>
             </div>
         `).join('');
+        // Wire speak buttons + whole-card tap
+        body.querySelectorAll('.glo-card').forEach((card) => {
+            const idx = parseInt(card.getAttribute('data-idx'), 10);
+            const g = GLOSSARY[idx];
+            const speak = () => {
+                if (typeof window.speechSynthesis === 'undefined') return;
+                try {
+                    window.speechSynthesis.cancel();
+                    const u = new SpeechSynthesisUtterance(`${g.word}. ${g.meaning}. ${g.example}`);
+                    u.rate = 0.92;
+                    u.pitch = 1.05;
+                    window.speechSynthesis.speak(u);
+                } catch (e) {}
+            };
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.glo-speak-btn')) return;  // button handles itself
+                if (typeof playSound === 'function') playSound('click');
+                speak();
+            });
+            const btn = card.querySelector('.glo-speak-btn');
+            if (btn) btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (typeof playSound === 'function') playSound('click');
+                speak();
+            });
+        });
     }
     showScreen('glossary-screen');
 }
@@ -752,13 +901,20 @@ function checkDailyBonus() {
     const today = _todayKeyForBonus();
     if (last === today) return;
     try { localStorage.setItem(DAILY_BONUS_KEY, today); } catch (e) {}
-    saveRobux(loadRobux() + DAILY_BONUS_AMOUNT);
-    showDailyBonusPopup();
+    // Daily streak determines reward size — incentive to come back.
+    const s = (typeof loadStreak === 'function') ? loadStreak() : { current: 0 };
+    const amount = _dailyBonusForStreak(s.current || 1);
+    saveRobux(loadRobux() + amount);
+    showDailyBonusPopup(amount, s.current || 1);
 }
 
-function showDailyBonusPopup() {
+function showDailyBonusPopup(amount, streakDays) {
     // Also award a daily sticker
     const sticker = (typeof checkDailyStickerBonus === 'function') ? checkDailyStickerBonus() : null;
+    const robux = (amount != null) ? amount : DAILY_BONUS_AMOUNT;
+    const streakLine = streakDays >= 3
+        ? `<div class="db-streak-bonus">🔥 ${streakDays}-day streak bonus!</div>`
+        : '';
     const overlay = document.createElement('div');
     overlay.className = 'daily-bonus-overlay';
     overlay.innerHTML = `
@@ -766,7 +922,8 @@ function showDailyBonusPopup() {
             <div class="db-emoji">${sticker ? sticker : '🎁'}</div>
             <div class="db-title">Welcome back, Hakan!</div>
             <div class="db-msg">${sticker ? "Today's sticker is yours!" : 'Daily bonus unlocked!'}</div>
-            <div class="db-amount">+${DAILY_BONUS_AMOUNT} 💎</div>
+            ${streakLine}
+            <div class="db-amount">+${robux} 💎</div>
             ${sticker ? '<div class="db-sticker-note">Find it in your Scrapbook!</div>' : ''}
             <button class="db-btn">Awesome!</button>
         </div>

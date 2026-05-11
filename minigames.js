@@ -149,6 +149,45 @@ function getDailyChallenge() {
     const seed = key.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
     return MINI_GAMES_CATALOG[seed % MINI_GAMES_CATALOG.length];
 }
+
+// Weekly Challenge — one harder game per week, 5x Robux reward.
+// Stable Mon-Sun (uses ISO week number).
+function _isoWeekKey() {
+    const d = new Date();
+    // Set to nearest Thursday: current date + 4 - current day number
+    const day = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - day);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    const weekNum = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+    return d.getUTCFullYear() + '-W' + weekNum;
+}
+function getWeeklyChallenge() {
+    if (!MINI_GAMES_CATALOG.length) return null;
+    const key = _isoWeekKey();
+    const seed = key.split('').reduce((s, c) => s + c.charCodeAt(0), 0) + 7;
+    // Prefer harder games (medium/hard) for the weekly
+    const pool = MINI_GAMES_CATALOG.filter((g) => g.difficulty === 'medium' || g.difficulty === 'hard');
+    const candidates = pool.length ? pool : MINI_GAMES_CATALOG;
+    return candidates[seed % candidates.length];
+}
+function isWeeklyChallenge(id) {
+    const wc = getWeeklyChallenge();
+    return !!wc && wc.id === id;
+}
+const MG_WEEKLY_KEY = 'hakans-math-game-weekly';
+function isWeeklyCompletedThisWeek(id) {
+    try {
+        const raw = localStorage.getItem(MG_WEEKLY_KEY);
+        if (!raw) return false;
+        const m = JSON.parse(raw);
+        return m && m.id === id && m.week === _isoWeekKey();
+    } catch (e) { return false; }
+}
+function markWeeklyCompleted(id) {
+    try {
+        localStorage.setItem(MG_WEEKLY_KEY, JSON.stringify({ id, week: _isoWeekKey() }));
+    } catch (e) {}
+}
 function isDailyChallenge(id) {
     const dc = getDailyChallenge();
     return !!dc && dc.id === id;
@@ -187,8 +226,26 @@ function openMiniGamesHub() {
     const dc = getDailyChallenge();
     const diff = loadDifficulty();
 
-    // Daily Challenge banner
     let html = '';
+
+    // Weekly Challenge banner (above daily — bigger prize)
+    const wc = getWeeklyChallenge();
+    if (wc) {
+        const wcDone = isWeeklyCompletedThisWeek(wc.id);
+        html += `<section class="mg-weekly" onclick="launchMiniGame('${wc.id}')">
+            <div class="mg-weekly-label">⚡ Weekly Challenge ⚡</div>
+            <div class="mg-weekly-row">
+                <span class="mg-weekly-icon">${wc.emoji || '🎮'}</span>
+                <div class="mg-weekly-info">
+                    <div class="mg-weekly-title">${wc.title}</div>
+                    <div class="mg-weekly-sub">${wcDone ? '✓ Conquered this week!' : 'Win it = 5× 💎 mega-bonus!'}</div>
+                </div>
+                <span class="mg-weekly-arrow">→</span>
+            </div>
+        </section>`;
+    }
+
+    // Daily Challenge banner
     if (dc) {
         const doneToday = isDailyCompletedToday(dc.id);
         html += `<section class="mg-daily" onclick="launchMiniGame('${dc.id}')">
@@ -219,7 +276,9 @@ function openMiniGamesHub() {
             ? `<div class="mgs-card-best">⭐ Best: ${best.score}</div>`
             : `<div class="mgs-card-best mgs-card-best-empty">Try it!</div>`;
         const dcBadge = (dc && dc.id === g.id) ? `<span class="mgs-card-daily">🎯 Daily!</span>` : '';
+        const wcBadge = (wc && wc.id === g.id) ? `<span class="mgs-card-weekly">⚡ Weekly!</span>` : '';
         return `<button class="mgs-card mgs-card-${g.difficulty || 'easy'}" onclick="launchMiniGame('${g.id}')">
+            ${wcBadge}
             ${dcBadge}
             <span class="mgs-card-icon">${g.emoji || '🎮'}</span>
             <span class="mgs-card-title">${g.title}</span>
@@ -337,6 +396,7 @@ function _endMiniGame(isWin) {
     const prev = bests[g.id];
     const isNewRecord = !prev || _gameScore > prev.score;
     const isDaily = isDailyChallenge(g.id) && !isDailyCompletedToday(g.id);
+    const isWeekly = isWeeklyChallenge(g.id) && !isWeeklyCompletedThisWeek(g.id);
     let robuxAwarded = 0;
 
     if (_gameScore > 0 && typeof currentUser !== 'undefined' && currentUser === 'hakan') {
@@ -345,6 +405,10 @@ function _endMiniGame(isWin) {
         if (isDaily) {
             robuxAwarded *= 2;            // 2x Robux for completing daily challenge
             markDailyCompleted(g.id);
+        }
+        if (isWeekly) {
+            robuxAwarded *= 5;            // 5x Robux for the weekly challenge
+            markWeeklyCompleted(g.id);
         }
         if (typeof saveRobux === 'function' && typeof loadRobux === 'function') {
             saveRobux(loadRobux() + robuxAwarded);

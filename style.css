@@ -4606,6 +4606,188 @@ body::after {
     margin-top: -10px;
     margin-bottom: 14px;
 }
+.db-streak-bonus {
+    font-size: 0.95rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fb7185, #f43f5e);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+/* ===== Weekly Challenge banner ===== */
+.mg-weekly {
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #db2777, #831843);
+    border-radius: 22px;
+    padding: 14px 18px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 10px 28px rgba(219, 39, 119, 0.45);
+    border: 3px solid #fbbf24;
+    transition: transform 0.2s ease;
+    animation: weeklyShimmer 3s ease-in-out infinite;
+}
+@keyframes weeklyShimmer {
+    0%,100% { box-shadow: 0 10px 28px rgba(219,39,119,0.45); }
+    50%     { box-shadow: 0 10px 32px rgba(251,191,36,0.5); }
+}
+.mg-weekly:hover { transform: translateY(-3px); }
+.mg-weekly-label {
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    color: #fde68a;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.mg-weekly-row { display: flex; align-items: center; gap: 14px; }
+.mg-weekly-icon { font-size: 2.8rem; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
+.mg-weekly-info { flex: 1; }
+.mg-weekly-title { font-size: 1.25rem; font-weight: 900; }
+.mg-weekly-sub { font-size: 0.95rem; opacity: 0.95; }
+.mg-weekly-arrow { font-size: 1.8rem; font-weight: 900; color: #fbbf24; }
+.mgs-card-weekly {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    background: linear-gradient(135deg, #fbbf24, #db2777);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    box-shadow: 0 3px 8px rgba(219,39,119,0.5);
+}
+
+/* ===== Glossary speak button ===== */
+.glo-card { position: relative; cursor: pointer; transition: transform 0.15s ease; }
+.glo-card:hover { transform: translateY(-3px); }
+.glo-speak-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(108, 99, 255, 0.12);
+    border: 2px solid rgba(108, 99, 255, 0.25);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+.glo-speak-btn:hover { background: rgba(108, 99, 255, 0.25); }
+
+/* ===== Tap-numberline primitive ===== */
+.ic-nl-line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #f8fafc, #e0e7ff);
+    border-radius: 14px;
+    padding: 14px 10px;
+}
+.ic-nl-tick {
+    min-width: 44px;
+    padding: 12px 0;
+    background: white;
+    border: 3px solid #c7d2fe;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.ic-nl-tick.ic-correct {
+    background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+    border-color: #43E97B;
+    color: #065f46;
+    animation: icPop 0.4s ease;
+}
+.ic-nl-tick.ic-wrong { animation: icShake 0.4s ease; border-color: #f87171; }
+.ic-nl-tick.ic-locked:not(.ic-correct) { opacity: 0.5; cursor: default; }
+
+/* ===== Pet Outfit Shop ===== */
+.pet-shop { width: 100%; max-width: 880px; padding: 16px; }
+.ps-title { color: white; text-align: center; margin: 12px 0 4px; }
+.ps-sub { text-align: center; color: white; opacity: 0.9; margin: 0 0 22px; }
+.ps-balance {
+    background: linear-gradient(135deg, #fef3c7, #fbbf24);
+    color: #92400e;
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0 auto 18px;
+    max-width: 300px;
+    box-shadow: var(--shadow-small);
+}
+.ps-preview {
+    background: linear-gradient(135deg, #f3e8ff, #c7d2fe);
+    border-radius: 22px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 22px;
+    position: relative;
+    box-shadow: var(--shadow-small);
+}
+.ps-preview-pet { font-size: 5rem; line-height: 1; }
+.ps-preview-hat { font-size: 2.4rem; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); }
+.ps-preview-acc { font-size: 2.2rem; position: absolute; bottom: 38px; right: 35%; }
+.ps-preview-name { margin-top: 12px; font-weight: 800; color: var(--primary); }
+.ps-section { color: white; margin: 16px 0 10px; font-weight: 800; }
+.ps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+}
+.ps-card {
+    background: white;
+    border: 3px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 14px 10px;
+    cursor: pointer;
+    text-align: center;
+    font-family: inherit;
+    transition: transform 0.15s ease;
+    box-shadow: var(--shadow-small);
+}
+.ps-card:hover { transform: translateY(-3px); }
+.ps-card.ps-owned {
+    border-color: #c4bff7;
+    background: linear-gradient(135deg, #f0eeff, #e0e7ff);
+}
+.ps-card.ps-equipped {
+    border-color: #f5c518;
+    background: linear-gradient(135deg, #fffaeb, #fef3c7);
+    box-shadow: 0 6px 20px rgba(245,197,24,0.35);
+}
+.ps-emoji { font-size: 2.4rem; line-height: 1; margin-bottom: 6px; }
+.ps-name { font-weight: 800; color: var(--primary); font-size: 0.9rem; }
+.ps-price { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; font-weight: 700; }
+.ps-card.ps-owned .ps-price { color: var(--primary); }
+.ps-card.ps-equipped .ps-price { color: #b45309; font-weight: 900; }
+
+.pet-picker-shop {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #fbbf24, #d97706);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(217,119,6,0.35);
+}
 
 /* ===== Onboarding tour ===== */
 .ob-overlay {
