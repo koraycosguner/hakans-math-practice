@@ -69325,6 +69325,54 @@ function renderHomeModules() {
         }
     }
 
+    // Category jump-links + filter chips (Hakan only)
+    if (isHakan) {
+        html += `<div class="filter-chips">
+            <button class="fc fc-active" data-filter="all" onclick="filterModulesByState('all')">All</button>
+            <button class="fc" data-filter="new" onclick="filterModulesByState('new')">✨ New</button>
+            <button class="fc" data-filter="started" onclick="filterModulesByState('started')">⏳ Started</button>
+            <button class="fc" data-filter="mastered" onclick="filterModulesByState('mastered')">🏆 Mastered</button>
+        </div>`;
+        html += `<div class="cat-jumplinks">`;
+        for (const cat of CATEGORIES) {
+            const mods = byCategory[cat.id];
+            if (!mods || !mods.length) continue;
+            html += `<button class="cat-jump cat-jump-cat-${cat.id}" onclick="jumpToCategory('${cat.id}')" title="${cat.title}">${cat.emoji}</button>`;
+        }
+        html += `</div>`;
+    }
+
+    // Daily snapshot: today's quick stats
+    if (isHakan) {
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const todayKey = `${todayStr}T`;
+        let todayProblems = 0;
+        const stats = (typeof loadProblemStats === 'function') ? loadProblemStats() : {};
+        for (const k of Object.keys(stats)) {
+            const s = stats[k];
+            if (s.last) {
+                const d = new Date(s.last);
+                if (d.toISOString().slice(0, 10) === todayStr) {
+                    todayProblems += (s.correct || 0);
+                }
+            }
+        }
+        let todayStars = 0;
+        for (const id of Object.keys(progress)) {
+            const p = progress[id];
+            if (p.lastCompleted) {
+                const d = new Date(p.lastCompleted);
+                if (d.toISOString().slice(0, 10) === todayStr) todayStars += (p.stars || 0);
+            }
+        }
+        if (todayProblems > 0 || todayStars > 0) {
+            html += `<div class="today-snapshot">
+                <span class="ts-emoji">📅</span>
+                <span class="ts-text">Today: <b>${todayProblems}</b> answers · <b>${todayStars}</b> ⭐ earned</span>
+            </div>`;
+        }
+    }
+
     let total = 0;
     for (const cat of CATEGORIES) {
         const mods = byCategory[cat.id];
@@ -69340,7 +69388,7 @@ function renderHomeModules() {
             ? ` <button class="cat-cert" onclick="event.stopPropagation();showCategoryCertificate('${cat.id}')" title="See certificate">🎓</button>`
             : '';
 
-        html += `<section class="m-category m-category-cat-${cat.id}${catCompleted && isHakan ? ' m-category-done' : ''}${catMastered && isHakan ? ' m-category-mastered' : ''}">
+        html += `<section id="cat-section-${cat.id}" class="m-category m-category-cat-${cat.id}${catCompleted && isHakan ? ' m-category-done' : ''}${catMastered && isHakan ? ' m-category-mastered' : ''}">
             <h3 class="m-category-heading">${cat.emoji} ${cat.title}
                 <span class="m-category-count">${mods.length}</span>${catBadge}${certBtn}
             </h3>
@@ -70894,6 +70942,37 @@ function showModuleResults() {
 // On page load, populate the module grid. Scripts are at the end of
 // body, so the DOM is already parsed by the time this runs.
 // ----------------------------------------------------------------------
+// Smooth-scroll to a category section on home.
+function jumpToCategory(catId) {
+    if (typeof playSound === 'function') playSound('click');
+    const el = document.getElementById(`cat-section-${catId}`);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Filter modules on home by state: all / new / started / mastered.
+function filterModulesByState(state) {
+    document.querySelectorAll('.fc').forEach((b) => {
+        b.classList.toggle('fc-active', b.getAttribute('data-filter') === state);
+    });
+    document.querySelectorAll('.m-card').forEach((card) => {
+        const isNew      = card.classList.contains('m-card-new');
+        const isDone     = card.classList.contains('m-card-done');
+        const isVisited  = card.classList.contains('m-card-visited');
+        const stars      = (card.querySelector('.m-card-stars') || {}).textContent || '';
+        const isMastered = stars.length >= 3;
+        let show = true;
+        if (state === 'new')      show = isNew;
+        else if (state === 'started') show = (isVisited || (isDone && !isMastered));
+        else if (state === 'mastered') show = isMastered;
+        card.style.display = show ? '' : 'none';
+    });
+    // Hide empty category sections.
+    document.querySelectorAll('.m-category').forEach((sec) => {
+        const visible = sec.querySelectorAll('.m-card:not([style*="display: none"])').length;
+        sec.style.display = visible ? '' : 'none';
+    });
+}
+
 function _hideAppSplash() {
     const el = document.getElementById('app-splash');
     if (!el) return;

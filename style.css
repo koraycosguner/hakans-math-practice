@@ -6617,6 +6617,131 @@ html.show-timer .timer-display { display: inline-flex; }
     color: white !important;
 }
 
+/* ===== Iteration 8: jumplinks, filter chips, snapshot, robux float, scrapbook hero ===== */
+.cat-jumplinks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 0;
+}
+.cat-jump {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.cat-jump:hover { transform: translateY(-2px); }
+.cat-jump:active { transform: scale(0.92); }
+
+.filter-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 4px 0 6px;
+}
+.fc {
+    background: rgba(255,255,255,0.75);
+    color: #475569;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+.fc.fc-active {
+    background: white;
+    color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: 0 4px 10px rgba(108,99,255,0.25);
+}
+
+.today-snapshot {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    border-radius: 14px;
+    padding: 8px 14px;
+    font-weight: 800;
+    color: #064e3b;
+    margin: 8px 0 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.ts-emoji { font-size: 1.3rem; }
+.ts-text { font-size: 0.92rem; }
+
+/* Robux floating popup */
+.robux-float {
+    position: fixed;
+    transform: translate(-50%, 0);
+    color: #ca8a04;
+    background: white;
+    font-weight: 900;
+    font-size: 1rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    box-shadow: 0 6px 14px rgba(202,138,4,0.35);
+    border: 2px solid #fde68a;
+    pointer-events: none;
+    z-index: 99900;
+    opacity: 0;
+    transition: transform 0.9s cubic-bezier(0.3, 1.4, 0.6, 1), opacity 0.9s ease;
+}
+.robux-float.rf-go {
+    opacity: 1;
+    transform: translate(-50%, -60px);
+}
+
+/* Scrapbook empty hero */
+.sb-empty-hero {
+    text-align: center;
+    padding: 40px 24px;
+    background: linear-gradient(135deg, #fdf4ff, #fce7f3);
+    border-radius: 24px;
+    margin: 12px auto;
+    max-width: 500px;
+}
+.sb-empty-emoji {
+    font-size: 4rem;
+    margin-bottom: 12px;
+    animation: sbEmpty 2.4s ease-in-out infinite;
+}
+@keyframes sbEmpty {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50%      { transform: rotate(-5deg) scale(1.08); }
+}
+.sb-empty-title {
+    font-weight: 900;
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+.sb-empty-sub {
+    color: #475569;
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+    line-height: 1.4;
+}
+.sb-empty-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    font-size: 1.8rem;
+    opacity: 0.45;
+    filter: blur(0.3px);
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

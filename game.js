@@ -16,7 +16,32 @@ function loadRobux() {
 }
 
 function saveRobux(amount) {
+    const prev = loadRobux();
     localStorage.setItem(ROBUX_STORAGE_KEY, JSON.stringify({ robux: amount }));
+    const delta = amount - prev;
+    if (delta > 0 && delta < 1000 && typeof _showRobuxFloat === 'function') {
+        _showRobuxFloat(delta);
+    }
+}
+
+function _showRobuxFloat(delta) {
+    // Anchor to whichever Robux display is currently visible.
+    const targets = ['robux-total', 'mg-robux-game', 'ff-robux-game'];
+    let anchor = null;
+    for (const id of targets) {
+        const el = document.getElementById(id);
+        if (el && el.offsetParent !== null) { anchor = el; break; }
+    }
+    if (!anchor) return;
+    const rect = anchor.getBoundingClientRect();
+    const f = document.createElement('div');
+    f.className = 'robux-float';
+    f.textContent = `+${(delta % 1 === 0 ? delta : delta.toFixed(1))} 💎`;
+    f.style.left = `${rect.left + rect.width / 2}px`;
+    f.style.top  = `${rect.top - 6}px`;
+    document.body.appendChild(f);
+    requestAnimationFrame(() => f.classList.add('rf-go'));
+    setTimeout(() => f.remove(), 1100);
 }
 
 // ===== Robux Savings Goal =====
@@ -1355,7 +1380,12 @@ function renderScrapbook() {
     if (!body) return;
     const arr = loadStickers();
     if (arr.length === 0) {
-        body.innerHTML = '<div class="sb-empty">No stickers yet, Hakan! Come back tomorrow for your first sticker! 🎁</div>';
+        body.innerHTML = `<div class="sb-empty-hero">
+            <div class="sb-empty-emoji">🎁</div>
+            <div class="sb-empty-title">No stickers yet!</div>
+            <div class="sb-empty-sub">Open the app every day to collect a new sticker, Hakan. They live forever on this page!</div>
+            <div class="sb-empty-preview">${['🐶','🐱','🦄','🌈','🚀','⭐','🍕','🎂','🌟','🎮'].map((e) => `<span>${e}</span>`).join('')}</div>
+        </div>`;
         return;
     }
     const unique = new Set(arr.map((x) => x.sticker)).size;
