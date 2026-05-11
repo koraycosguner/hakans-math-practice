@@ -148,6 +148,51 @@ function _pulseTimerIfLow() {
     }
 }
 
+// ===== Mid-game milestone toasts =====
+// Watch for score crossings of 5/10/20/30/50 and the moment Hakan beats
+// his previous best in this game. Each fires a small floating toast.
+let _bestBeatenFiredThisRound = false;
+function _checkMidGameMilestones(prev, now, g) {
+    const milestones = [
+        { at: 5,  text: 'NICE! 5 in the bag!',  emoji: '👏' },
+        { at: 10, text: 'GREAT! Halfway hero!', emoji: '🙌' },
+        { at: 20, text: 'AMAZING — 20 points!', emoji: '🤩' },
+        { at: 30, text: 'WOW, 30!',             emoji: '🌟' },
+        { at: 50, text: 'INCREDIBLE 50!',       emoji: '🏆' },
+    ];
+    for (const m of milestones) {
+        if (prev < m.at && now >= m.at) {
+            _showMidGameToast(m.emoji, m.text);
+            return;
+        }
+    }
+    // Beat your record — fires once per round when Hakan crosses prev best
+    try {
+        if (!_bestBeatenFiredThisRound && g && g.id) {
+            const bests = _loadBests();
+            const prevBest = bests[g.id] && bests[g.id].score;
+            if (prevBest != null && prev <= prevBest && now > prevBest) {
+                _bestBeatenFiredThisRound = true;
+                _showMidGameToast('🏆', 'NEW BEST! Keep going!');
+            }
+        }
+    } catch (e) {}
+}
+function _showMidGameToast(emoji, text) {
+    const host = document.getElementById('mg-play-area');
+    if (!host) return;
+    const t = document.createElement('div');
+    t.className = 'mg-mid-toast';
+    t.innerHTML = `<span class="mg-mid-toast-emoji">${emoji}</span><span class="mg-mid-toast-text">${text}</span>`;
+    host.appendChild(t);
+    setTimeout(() => t.classList.add('mg-mid-toast-show'), 20);
+    setTimeout(() => {
+        t.classList.remove('mg-mid-toast-show');
+        setTimeout(() => t.remove(), 400);
+    }, 1400);
+    if (typeof speak === 'function') speak(text);
+}
+
 // ===== First-time tutorial overlay =====
 // Shows once per game (per-user, persisted in localStorage). Lists the
 // game's rules with a friendly mascot + dismiss button. Designed for a
@@ -471,6 +516,7 @@ function launchMiniGame(id) {
     _gameScore = 0;
     _gameCombo = 0;
     _gamePaused = false;
+    _bestBeatenFiredThisRound = false;
     _clearPowerups();
     const pauseBtn = document.getElementById('mg-pause-btn');
     if (pauseBtn) pauseBtn.textContent = '⏸ Pause';
@@ -512,6 +558,7 @@ function launchMiniGame(id) {
             if (_gamePaused) return;
             // Apply active power-up multiplier
             const effective = (delta > 0) ? delta * _scoreMultiplier : delta;
+            const prevScore = _gameScore;
             _gameScore += effective;
             if (delta > 0) {
                 _gameCombo += 1;
@@ -529,6 +576,8 @@ function launchMiniGame(id) {
                 }
                 if (typeof playSound === 'function') playSound('correct');
                 mgVibrate(_gameCombo >= 3 ? [40, 20, 40] : 25);
+                // Mid-game milestone toasts
+                _checkMidGameMilestones(prevScore, _gameScore, g);
             } else {
                 document.getElementById('mg-play-score').textContent = 'Score: ' + _gameScore;
             }

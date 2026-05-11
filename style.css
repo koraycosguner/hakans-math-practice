@@ -4199,6 +4199,54 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     }
 }
 
+/* ===== Mid-game milestone toast (5/10/20/30/50 points + best-beaten) ===== */
+.mg-mid-toast {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -30px) scale(0.5);
+    background: linear-gradient(135deg, #fbbf24, #f97316);
+    color: white;
+    border: 3px solid white;
+    border-radius: 18px;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow:
+        0 0 0 4px rgba(251, 191, 36, 0.4),
+        0 10px 22px rgba(249, 115, 22, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 40;
+    transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.mg-mid-toast.mg-mid-toast-show {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+}
+.mg-mid-toast-emoji {
+    font-size: 1.8rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    animation: mgMidToastEmoji 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
+}
+@keyframes mgMidToastEmoji {
+    0%   { transform: rotate(-8deg) scale(1); }
+    100% { transform: rotate(8deg) scale(1.12); }
+}
+.mg-mid-toast-text {
+    font-weight: 900;
+    font-size: 1.05rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.01em;
+}
+@media (prefers-reduced-motion: reduce) {
+    .mg-mid-toast, .mg-mid-toast-emoji {
+        animation: none !important;
+        transition: opacity 0.2s !important;
+    }
+}
+
 .mg-shake {
     animation: mgAreaShake 0.4s ease-in-out;
 }
