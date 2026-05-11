@@ -514,7 +514,29 @@ body {
     flex-shrink: 0;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+}
+/* Hakan's quiz/practice header is intentionally minimal: only the Home
+   button, the progress bar, and a tiny sound toggle. Score, streak, and
+   robux are shown on the results screen so the play surface stays calm. */
+#game-screen .score-display,
+#game-screen .streak-display,
+#game-screen .robux-display { display: none !important; }
+#game-screen .game-header .progress-bar {
+    flex-grow: 1;
+    max-width: 520px;
+    height: 30px;
+}
+#game-screen .game-header #progress-text {
+    font-size: 0.95rem;
+}
+#game-screen .game-header .sound-btn {
+    padding: 6px 10px;
+    font-size: 1.1rem;
+}
+#game-screen .game-header .back-btn {
+    padding: 8px 14px;
+    font-size: 0.95rem;
 }
 
 .back-btn {
@@ -3334,8 +3356,8 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     max-width: 880px;
     padding: 16px;
 }
-.mgs-title { color: white; text-align: center; margin: 12px 0 4px; }
-.mgs-sub { text-align: center; color: white; opacity: 0.9; margin: 0 0 24px; }
+.mgs-title { color: white; text-align: center; margin: 10px 0 2px; font-size: 1.6rem; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); }
+.mgs-sub { text-align: center; color: white; opacity: 0.85; margin: 0 0 14px; font-size: 0.9rem; }
 #minigames-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -3426,68 +3448,67 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 .mgs-card { position: relative; }
 
-/* ===== Daily Challenge banner ===== */
+/* ===== Daily Challenge banner — slimmer ===== */
 .mg-daily {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     background: linear-gradient(135deg, #f59e0b, #d97706);
-    border-radius: 22px;
-    padding: 14px 18px;
+    border-radius: 18px;
+    padding: 10px 16px;
     cursor: pointer;
     color: white;
-    box-shadow: 0 8px 24px rgba(217, 119, 6, 0.35);
+    box-shadow: 0 6px 18px rgba(217, 119, 6, 0.3);
     transition: transform 0.2s ease;
 }
 .mg-daily:hover { transform: translateY(-3px); }
 .mg-daily-label {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
     opacity: 0.95;
 }
 .mg-daily-row {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
 }
-.mg-daily-icon {
-    font-size: 2.6rem;
-    line-height: 1;
-}
+.mg-daily-icon { font-size: 2rem; line-height: 1; }
 .mg-daily-info { flex: 1; }
-.mg-daily-title { font-size: 1.2rem; font-weight: 900; }
-.mg-daily-sub { font-size: 0.92rem; opacity: 0.95; }
-.mg-daily-arrow { font-size: 1.6rem; font-weight: 900; }
+.mg-daily-title { font-size: 1.05rem; font-weight: 900; line-height: 1.2; }
+.mg-daily-sub { font-size: 0.82rem; opacity: 0.95; }
+.mg-daily-arrow { font-size: 1.4rem; font-weight: 900; }
 
-/* ===== Difficulty selector ===== */
+/* ===== Difficulty selector — slim chips, no label, no card chrome ===== */
 .mg-diff-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
-    margin-bottom: 14px;
-    background: rgba(255,255,255,0.85);
-    padding: 8px 12px;
-    border-radius: 14px;
-    box-shadow: var(--shadow-small);
+    justify-content: center;
+    margin: 0 0 14px;
+    flex-wrap: wrap;
 }
-.mg-diff-label { font-weight: 700; color: var(--text-dark); margin-right: 4px; }
+.mg-diff-label {
+    display: none; /* "Difficulty:" label is noise for kids — chips are self-explanatory */
+}
 .mg-diff-btn {
-    padding: 6px 14px;
-    background: #f0f0f5;
+    padding: 5px 12px;
+    background: rgba(255, 255, 255, 0.65);
     border: 2px solid transparent;
     border-radius: 999px;
     font-weight: 700;
+    font-size: 0.85rem;
     color: var(--text-dark);
     cursor: pointer;
     touch-action: manipulation;
+    transition: background 0.15s ease, transform 0.12s ease;
 }
+.mg-diff-btn:hover { background: white; transform: translateY(-1px); }
 .mg-diff-btn.mg-diff-on {
     background: linear-gradient(135deg, #6c63ff, #5a52e0);
     border-color: #4338ca;
     color: white;
-    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+    box-shadow: 0 3px 8px rgba(108, 99, 255, 0.3);
 }
 
 /* The actual game cards are now inside .mg-grid */
@@ -10240,39 +10261,39 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     display: inline-block;
 }
 
-/* ===== Weekly Challenge banner ===== */
+/* ===== Weekly Challenge banner — slimmer to match Daily ===== */
 .mg-weekly {
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     background: linear-gradient(135deg, #db2777, #831843);
-    border-radius: 22px;
-    padding: 14px 18px;
+    border-radius: 18px;
+    padding: 10px 16px;
     cursor: pointer;
     color: white;
-    box-shadow: 0 10px 28px rgba(219, 39, 119, 0.45);
+    box-shadow: 0 8px 22px rgba(219, 39, 119, 0.4);
     border: 3px solid #fbbf24;
     transition: transform 0.2s ease;
     animation: weeklyShimmer 3s ease-in-out infinite;
 }
 @keyframes weeklyShimmer {
-    0%,100% { box-shadow: 0 10px 28px rgba(219,39,119,0.45); }
-    50%     { box-shadow: 0 10px 32px rgba(251,191,36,0.5); }
+    0%,100% { box-shadow: 0 8px 22px rgba(219, 39, 119, 0.4); }
+    50%     { box-shadow: 0 8px 26px rgba(251, 191, 36, 0.5); }
 }
 .mg-weekly:hover { transform: translateY(-3px); }
 .mg-weekly-label {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 3px;
     color: #fde68a;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
-.mg-weekly-row { display: flex; align-items: center; gap: 14px; }
-.mg-weekly-icon { font-size: 2.8rem; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
+.mg-weekly-row { display: flex; align-items: center; gap: 12px; }
+.mg-weekly-icon { font-size: 2rem; line-height: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
 .mg-weekly-info { flex: 1; }
-.mg-weekly-title { font-size: 1.25rem; font-weight: 900; }
-.mg-weekly-sub { font-size: 0.95rem; opacity: 0.95; }
-.mg-weekly-arrow { font-size: 1.8rem; font-weight: 900; color: #fbbf24; }
+.mg-weekly-title { font-size: 1.05rem; font-weight: 900; line-height: 1.2; }
+.mg-weekly-sub { font-size: 0.82rem; opacity: 0.95; }
+.mg-weekly-arrow { font-size: 1.4rem; font-weight: 900; color: #fbbf24; }
 .mgs-card-weekly {
     position: absolute;
     top: 10px;
@@ -13309,39 +13330,47 @@ html.show-timer .timer-display { display: inline-flex; }
     color: white !important;
 }
 
-/* ===== Iteration 8: jumplinks, filter chips, snapshot, robux float, scrapbook hero ===== */
+/* ===== Module discovery toolbar — single compact row ===== */
+/* Category jumplinks: smaller, scroll horizontally on one row, sit
+   immediately below the filter chips. */
 .cat-jumplinks {
     display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin: 8px 0;
+    flex-wrap: nowrap;
+    gap: 5px;
+    margin: 4px 0 14px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 4px 0;
+    padding: 4px 2px 8px;
+    scrollbar-width: thin;
 }
 .cat-jump {
     flex: 0 0 auto;
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    border: none;
-    font-size: 1.3rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    font-size: 1.15rem;
     cursor: pointer;
-    background: rgba(255,255,255,0.7);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
+    line-height: 1;
 }
-.cat-jump:hover { transform: translateY(-2px); }
+.cat-jump:hover { transform: translateY(-2px); background: white; }
 .cat-jump:active { transform: scale(0.92); }
 
 .filter-chips {
     display: flex;
     gap: 6px;
-    flex-wrap: wrap;
-    margin: 4px 0 6px;
+    flex-wrap: nowrap;
+    margin: 0 0 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 0;
 }
 .fc {
-    background: rgba(255,255,255,0.75);
+    flex: 0 0 auto;
+    background: rgba(255, 255, 255, 0.75);
     color: #475569;
     border: 2px solid transparent;
     border-radius: 999px;
@@ -13349,13 +13378,15 @@ html.show-timer .timer-display { display: inline-flex; }
     font-size: 0.85rem;
     font-weight: 800;
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: background 0.15s ease, transform 0.12s ease;
+    white-space: nowrap;
 }
+.fc:hover { background: white; transform: translateY(-1px); }
 .fc.fc-active {
     background: white;
     color: var(--primary);
     border-color: var(--primary);
-    box-shadow: 0 4px 10px rgba(108,99,255,0.25);
+    box-shadow: 0 3px 8px rgba(108, 99, 255, 0.25);
 }
 
 .today-snapshot {
@@ -13639,20 +13670,35 @@ html.show-timer .timer-display { display: inline-flex; }
     margin-top: 4px;
 }
 
-/* Sample problem overlay */
+/* Sample problem overlay — compact icon-only chip on module detail */
 .sample-btn {
-    background: rgba(255,255,255,0.85);
-    border: 2px dashed var(--primary);
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #c7d2fe;
     color: var(--primary);
-    border-radius: 14px;
-    padding: 10px 14px;
-    font-weight: 800;
-    font-size: 0.92rem;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    font-size: 1.2rem;
+    line-height: 1;
     cursor: pointer;
-    margin-top: 8px;
-    transition: background 0.15s ease;
+    margin-top: 0;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 3px 6px rgba(108, 99, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.sample-btn:hover { background: white; }
+.sample-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(108, 99, 255, 0.3);
+}
+.sample-btn:active { transform: translateY(1px); }
+.module-detail-card { position: relative; }
 .sp-card { max-width: 480px; }
 .sp-sub { color: var(--text-light); font-size: 0.9rem; margin-bottom: 12px; }
 .sp-prompt {
