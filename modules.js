@@ -71111,6 +71111,11 @@ function handleCorrect() {
     moduleState.correct++;
     moduleState.score += 10;
     moduleState._wrongInARow = 0;
+    // Speak the full equation for reinforcement
+    if (typeof _speakFullAnswer === 'function') {
+        const p = getCurrentProblems()[moduleState.problemIndex];
+        _speakFullAnswer(p);
+    }
     // Extra-juicy first-correct celebration once per session.
     if (moduleState.correct === 1 && typeof _firstCorrectCelebration === 'function') {
         _firstCorrectCelebration();

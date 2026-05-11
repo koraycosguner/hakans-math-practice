@@ -944,6 +944,38 @@ function petAgeDays() {
     } catch (e) { return 0; }
 }
 
+// Pet birthday party — at 7/30/60/100 day milestones, big celebration once.
+function checkPetBirthday() {
+    if (typeof currentUser === 'undefined' || currentUser !== 'hakan') return;
+    const age = petAgeDays();
+    const milestones = [7, 30, 60, 100, 365];
+    if (!milestones.includes(age)) return;
+    try {
+        const key = 'hakans-math-pet-birthdays';
+        const map = JSON.parse(localStorage.getItem(key) || '{}');
+        const ps = loadPetState();
+        const id = ps.petId || 'default';
+        const seen = (map[id] || []).includes(age);
+        if (seen) return;
+        map[id] = (map[id] || []).concat(age);
+        localStorage.setItem(key, JSON.stringify(map));
+    } catch (e) {}
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card">
+        <div style="font-size:4rem;">🎂🐾</div>
+        <h2>Pet Birthday!</h2>
+        <div class="qm-score">${age} days together!</div>
+        <div class="qm-reward">+${age} 💎 gift!</div>
+        <button class="potd-close">Yay!</button>
+    </div>`;
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+    saveRobux(loadRobux() + age);
+    if (typeof launchConfetti === 'function') launchConfetti();
+    if (typeof speak === 'function') speak("It's your pet's birthday, Hakan!");
+}
+
 // Toggle a focus mode that hides score/streak chips during practice.
 function toggleFocusMode() {
     document.documentElement.classList.toggle('focus-mode');
@@ -1799,6 +1831,61 @@ function openFingerCount() {
     overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
     overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
     document.body.appendChild(overlay);
+}
+
+// Speak the full equation for an add/sub correct answer.
+function _speakFullAnswer(p) {
+    if (!p || typeof speak !== 'function') return;
+    if (p.type === 'addition' && p.a != null && p.b != null && p.answer != null) {
+        // 50% chance to skip so it doesn't get spammy
+        if (Math.random() < 0.5) speak(`${p.a} plus ${p.b} is ${p.answer}`);
+    } else if (p.type === 'subtraction' && p.a != null && p.b != null && p.answer != null) {
+        if (Math.random() < 0.5) speak(`${p.a} minus ${p.b} is ${p.answer}`);
+    }
+}
+
+// Cookie easter egg button — adds a sticker
+function _initCookieEgg() {
+    if (window._cookieEggSet) return;
+    window._cookieEggSet = true;
+    // Cookies appear in console for the curious
+    if (typeof console !== 'undefined') console.log("🍪 Hakan, type the word 'cookie' for a treat!");
+    let buf = '';
+    document.addEventListener('keydown', (e) => {
+        const tag = (e.target && e.target.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+        if (e.key && e.key.length === 1) {
+            buf = (buf + e.key.toLowerCase()).slice(-6);
+            if (buf.endsWith('cookie')) {
+                buf = '';
+                if (typeof STICKER_POOL !== 'undefined') {
+                    const arr = loadStickers();
+                    arr.push({ sticker: '🍪', when: Date.now(), bonus: true });
+                    saveStickers(arr);
+                }
+                if (typeof emojiRain === 'function') emojiRain(['🍪','🥛','🧁'], 20);
+                if (typeof speak === 'function') speak('You found a secret cookie!');
+                playSound('sparkle');
+            }
+        }
+    });
+}
+_initCookieEgg();
+
+// First-of-day voice greeting on app open (Hakan only).
+function _firstOfDayGreeting() {
+    if (typeof currentUser === 'undefined' || currentUser !== 'hakan') return;
+    try {
+        const key = 'hakans-math-fod-voice';
+        const today = new Date().toISOString().slice(0, 10);
+        const last = localStorage.getItem(key);
+        if (last === today) return;
+        localStorage.setItem(key, today);
+        // Slight delay so audio doesn't collide with daily-bonus
+        setTimeout(() => {
+            if (typeof speak === 'function') speak("Hello Hakan! Ready to play math?");
+        }, 1800);
+    } catch (e) {}
 }
 
 // ===== Drawing Pad =====
@@ -4057,6 +4144,8 @@ function selectUser(name) {
         setTimeout(() => {
             if (typeof checkDailyBonus === 'function') checkDailyBonus();
             if (typeof checkWeeklyRecap === 'function') checkWeeklyRecap();
+            if (typeof _firstOfDayGreeting === 'function') _firstOfDayGreeting();
+            if (typeof checkPetBirthday === 'function') checkPetBirthday();
         }, 400);
         setTimeout(() => { if (typeof maybeStartOnboarding === 'function') maybeStartOnboarding(); }, 1600);
     }
