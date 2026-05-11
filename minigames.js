@@ -7021,3 +7021,265 @@ GAME_IMPLS['math-runner'] = {
         };
     }
 };
+
+// =====================================================================
+// 42. MATH DEFENDER — Galaga-style space shooter! 🚀
+// Hakan's spaceship at the bottom. Enemy invaders fly down in waves,
+// each labelled with a number. Math problem at the top. Tap (or use
+// arrows + spacebar) to fire at enemies. Hit the enemy whose number
+// matches the answer → BOOM, +2 pts. Wrong = laser passes through.
+// Enemy reaches the bottom = -1 life. 3 lives. Star field scrolls.
+// =====================================================================
+GAME_IMPLS['math-defender'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+        const startSpeed = diff === 'easy' ? 50 : diff === 'hard' ? 90 : 70;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-def-wrap';
+
+        const hud = document.createElement('div');
+        hud.className = 'mg-def-hud';
+        hud.innerHTML = `
+            <div class="mg-def-hud-item"><span class="mg-def-hud-label">❤️</span><span class="mg-def-hud-val" id="def-lives">3</span></div>
+            <div class="mg-def-hud-item"><span class="mg-def-hud-label">⚔️</span><span class="mg-def-hud-val" id="def-kills">0</span></div>
+            <div class="mg-def-hud-item"><span class="mg-def-hud-label">🌊</span><span class="mg-def-hud-val" id="def-wave">1</span></div>
+        `;
+        wrap.appendChild(hud);
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-def-q';
+        wrap.appendChild(qBox);
+
+        const scene = document.createElement('div');
+        scene.className = 'mg-def-scene';
+        scene.innerHTML = `
+            <div class="mg-def-stars"></div>
+            <div class="mg-def-stars mg-def-stars-2"></div>
+            <div class="mg-def-enemies" id="def-enemies"></div>
+            <div class="mg-def-lasers" id="def-lasers"></div>
+            <div class="mg-def-ship" id="def-ship">🚀</div>
+        `;
+        wrap.appendChild(scene);
+
+        ctx.area.appendChild(wrap);
+
+        const ship = scene.querySelector('#def-ship');
+        const enemiesEl = scene.querySelector('#def-enemies');
+        const lasersEl = scene.querySelector('#def-lasers');
+        const livesEl = hud.querySelector('#def-lives');
+        const killsEl = hud.querySelector('#def-kills');
+        const waveEl = hud.querySelector('#def-wave');
+
+        let lives = 3;
+        let kills = 0;
+        let wave = 1;
+        let speed = startSpeed;
+        let target = null;
+        let lastSpawnAt = 0;
+        let lastTs = 0;
+        let raf = null;
+        let stopped = false;
+        let shipX = 50; // percent of scene width
+        const enemies = [];   // { el, x, y, value, alive }
+        const lasers = [];    // { el, x, y, dir: -1 (up) }
+        let lastFireAt = 0;
+
+        function setShipX(pct) {
+            shipX = Math.max(8, Math.min(92, pct));
+            ship.style.left = shipX + '%';
+        }
+        setShipX(50);
+
+        // Controls: tap on scene to fire laser from current ship X.
+        // Keyboard: arrow keys move, space fires.
+        scene.addEventListener('click', (e) => {
+            const r = scene.getBoundingClientRect();
+            const pct = ((e.clientX - r.left) / r.width) * 100;
+            setShipX(pct);
+            fireLaser();
+        });
+        const keyHandler = (e) => {
+            if (e.key === 'ArrowLeft')  setShipX(shipX - 8);
+            if (e.key === 'ArrowRight') setShipX(shipX + 8);
+            if (e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); fireLaser(); }
+        };
+        document.addEventListener('keydown', keyHandler);
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+        function setProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<span class="mg-def-q-eq">⚔️ Target: ${target.a} ${target.op === '-' ? '−' : '+'} ${target.b} = ?</span>`;
+        }
+
+        function fireLaser() {
+            const now = performance.now();
+            if (now - lastFireAt < 220) return; // rate limit
+            lastFireAt = now;
+            const el = document.createElement('div');
+            el.className = 'mg-def-laser';
+            const r = scene.getBoundingClientRect();
+            el.style.left = shipX + '%';
+            // start laser just above ship
+            const startY = r.height - 80;
+            el.style.top = startY + 'px';
+            lasersEl.appendChild(el);
+            lasers.push({ el, x: shipX, y: startY });
+            if (typeof playSound === 'function') playSound('hop');
+        }
+
+        function spawnEnemy() {
+            // Wave 1: one enemy at a time. Each wave adds difficulty.
+            const xPct = 10 + Math.random() * 80;
+            const isTarget = !target ? false : (Math.random() < 0.55 || enemies.filter((e) => e.value === target.ans && e.alive).length === 0);
+            let value;
+            if (isTarget && target) {
+                value = target.ans;
+            } else {
+                // pick a wrong but plausible number
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                value = Math.max(0, (target ? target.ans : 5) + d);
+                if (value === (target && target.ans)) value += 1;
+            }
+            const el = document.createElement('div');
+            el.className = 'mg-def-enemy';
+            el.innerHTML = `<span class="mg-def-enemy-emoji">${['👾','👽','🛸','👻'][Math.floor(Math.random()*4)]}</span><span class="mg-def-enemy-num">${value}</span>`;
+            el.style.left = xPct + '%';
+            el.style.top = '-60px';
+            enemiesEl.appendChild(el);
+            enemies.push({ el, x: xPct, y: -60, value, alive: true });
+        }
+
+        function explode(el) {
+            const x = el.offsetLeft + el.offsetWidth / 2;
+            const y = el.offsetTop + el.offsetHeight / 2;
+            const boom = document.createElement('div');
+            boom.className = 'mg-def-boom';
+            boom.style.left = x + 'px';
+            boom.style.top = y + 'px';
+            boom.textContent = '💥';
+            scene.appendChild(boom);
+            setTimeout(() => boom.remove(), 500);
+            try { el.remove(); } catch {}
+        }
+
+        function loop(ts) {
+            if (stopped) return;
+            if (!lastTs) lastTs = ts;
+            const dt = Math.min(50, ts - lastTs) / 1000;
+            lastTs = ts;
+            // Slowly ramp speed
+            speed = Math.min(startSpeed * 2, speed + dt * 3);
+
+            // Spawn enemies
+            const interval = Math.max(800, 2000 - (wave - 1) * 200);
+            if (ts - lastSpawnAt > interval) {
+                lastSpawnAt = ts;
+                spawnEnemy();
+                // Every 8 kills, advance wave
+                if (kills > 0 && kills % 8 === 0 && parseInt(waveEl.textContent, 10) === wave) {
+                    wave += 1;
+                    waveEl.textContent = wave;
+                    _showMidGameToast('🌊', 'WAVE ' + wave + '!');
+                }
+            }
+
+            // Move enemies down
+            const sceneRect = scene.getBoundingClientRect();
+            for (const e of enemies) {
+                if (!e.alive) continue;
+                e.y += speed * dt;
+                e.el.style.top = e.y + 'px';
+                // Reached bottom?
+                if (e.y > sceneRect.height - 80) {
+                    e.alive = false;
+                    e.el.classList.add('mg-def-enemy-gone');
+                    setTimeout(() => { try { e.el.remove(); } catch {} }, 400);
+                    if (e.value === (target && target.ans)) {
+                        // Missed the right answer
+                        lives -= 1;
+                        livesEl.textContent = lives;
+                        ctx.onPenalty(2, { x: sceneRect.left + sceneRect.width / 2, y: sceneRect.top + sceneRect.height - 40 });
+                        ship.classList.add('mg-def-ship-hit');
+                        setTimeout(() => ship.classList.remove('mg-def-ship-hit'), 500);
+                        if (lives <= 0) {
+                            stopped = true;
+                            qBox.innerHTML = '<span class="mg-def-gameover">💀 GAME OVER!</span>';
+                            setTimeout(() => ctx.onWin(), 1400);
+                            return;
+                        }
+                        // Pick a new problem when an answer-enemy gets through
+                        setProblem();
+                    }
+                }
+            }
+
+            // Move lasers up + check hits
+            for (const L of lasers) {
+                L.y -= 600 * dt;
+                L.el.style.top = L.y + 'px';
+                if (L.y < -20) {
+                    try { L.el.remove(); } catch {}
+                    L.dead = true;
+                    continue;
+                }
+                // Hit detection: laser X close to enemy X, laser Y close to enemy Y
+                for (const e of enemies) {
+                    if (!e.alive) continue;
+                    const ePct = e.x;
+                    const dx = Math.abs(L.x - ePct);
+                    const eYpx = e.y + 28;
+                    const dy = Math.abs(L.y - eYpx);
+                    if (dx < 7 && dy < 30) {
+                        // Hit!
+                        e.alive = false;
+                        if (e.value === (target && target.ans)) {
+                            ctx.onScore(2, { x: sceneRect.left + (ePct / 100) * sceneRect.width, y: sceneRect.top + eYpx });
+                            kills += 1;
+                            killsEl.textContent = kills;
+                            setProblem();
+                        } else {
+                            ctx.onPenalty(1, { x: sceneRect.left + (ePct / 100) * sceneRect.width, y: sceneRect.top + eYpx });
+                        }
+                        explode(e.el);
+                        try { L.el.remove(); } catch {}
+                        L.dead = true;
+                        break;
+                    }
+                }
+            }
+            // Cull dead lasers
+            for (let i = lasers.length - 1; i >= 0; i--) {
+                if (lasers[i].dead) lasers.splice(i, 1);
+            }
+            // Cull off-screen enemies
+            for (let i = enemies.length - 1; i >= 0; i--) {
+                if (!enemies[i].alive && !document.body.contains(enemies[i].el)) enemies.splice(i, 1);
+            }
+
+            raf = requestAnimationFrame(loop);
+        }
+
+        setProblem();
+        raf = requestAnimationFrame(loop);
+
+        return {
+            stop() {
+                stopped = true;
+                if (raf) cancelAnimationFrame(raf);
+                document.removeEventListener('keydown', keyHandler);
+            }
+        };
+    }
+};

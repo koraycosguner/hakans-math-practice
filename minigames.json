@@ -601,6 +601,30 @@
     "config": {}
   },
   {
+    "id": "math-defender",
+    "title": "Math Defender",
+    "emoji": "🚀",
+    "description": "Space shooter! Blast the alien with the right answer before it reaches you.",
+    "category": "action",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Shoot the alien whose number matches the math answer. Don't let the answer-alien reach Earth!",
+    "rules": [
+      "🚀 Your spaceship sits at the bottom. Stars scroll behind you.",
+      "Aliens 👾 👽 🛸 fly down with numbers — only ONE has the right answer.",
+      "Tap (or use ⬅️➡️ + space) to fire a laser straight up.",
+      "Hit the right-number alien → BOOM, +2 pts. Hit a wrong one = -1s penalty.",
+      "Let the right-number alien reach Earth = lose 1 of 3 ❤️.",
+      "Every 8 kills = next wave (faster, harder)."
+    ],
+    "rewards": {
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
+    },
+    "config": {}
+  },
+  {
     "id": "math-runner",
     "title": "Math Runner",
     "emoji": "🏃",
