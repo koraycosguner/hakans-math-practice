@@ -70974,6 +70974,10 @@ function handleCorrect() {
     moduleState.correct++;
     moduleState.score += 10;
     moduleState._wrongInARow = 0;
+    // Extra-juicy first-correct celebration once per session.
+    if (moduleState.correct === 1 && typeof _firstCorrectCelebration === 'function') {
+        _firstCorrectCelebration();
+    }
     // Sparkle ring around the answer box.
     const ansBox = document.querySelector('#module-game-screen .pv-answer-box');
     if (ansBox) {
@@ -71256,7 +71260,18 @@ function showModuleResults() {
     document.getElementById('final-score').textContent = moduleState.score;
     document.getElementById('final-correct').textContent = `${moduleState.correct} / ${total}`;
     document.getElementById('final-streak').textContent = moduleState.bestStreak;
-    document.getElementById('star-rating').innerHTML = '⭐'.repeat(stars) + '<span class="dim-star">⭐</span>'.repeat(3 - stars);
+    // Animated star reveal: each earned star fades in with a small bounce.
+    const ratingEl = document.getElementById('star-rating');
+    if (ratingEl) {
+        let starsHtml = '';
+        for (let i = 0; i < stars; i++) {
+            starsHtml += `<span class="star-fly" style="animation-delay:${i * 0.25}s">⭐</span>`;
+        }
+        for (let i = 0; i < 3 - stars; i++) {
+            starsHtml += `<span class="dim-star">⭐</span>`;
+        }
+        ratingEl.innerHTML = starsHtml;
+    }
 
     if (isQuiz && typeof currentUser !== 'undefined' && currentUser === 'hakan' && moduleState.sessionRobux > 0) {
         document.getElementById('robux-results').style.display = '';

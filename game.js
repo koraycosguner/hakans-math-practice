@@ -22,6 +22,41 @@ function saveRobux(amount) {
     if (delta > 0 && delta < 1000 && typeof _showRobuxFloat === 'function') {
         _showRobuxFloat(delta);
     }
+    // Log today's earnings so Hakan can see his receipt.
+    if (delta > 0) {
+        try {
+            const today = new Date().toISOString().slice(0, 10);
+            const raw = localStorage.getItem('hakans-math-robux-log');
+            const log = raw ? JSON.parse(raw) : {};
+            if (log.day !== today) { log.day = today; log.amount = 0; }
+            log.amount = (log.amount || 0) + delta;
+            localStorage.setItem('hakans-math-robux-log', JSON.stringify(log));
+        } catch (e) {}
+    }
+}
+
+// Show today's earned Robux summary when banner is tapped.
+function openRobuxReceipt() {
+    try {
+        const raw = localStorage.getItem('hakans-math-robux-log');
+        const log = raw ? JSON.parse(raw) : {};
+        const today = new Date().toISOString().slice(0, 10);
+        const todayAmount = (log.day === today ? log.amount || 0 : 0);
+        const total = loadRobux();
+        playSound('click');
+        const overlay = document.createElement('div');
+        overlay.className = 'potd-overlay';
+        overlay.innerHTML = `<div class="potd-card">
+            <h2>💎 Your Robux</h2>
+            <div class="rr-total">${total.toFixed(2)}</div>
+            <div class="rr-today">Earned today: <b>+${todayAmount.toFixed(1)}</b></div>
+            <div class="potd-sub" style="margin-top:8px;font-size:0.85rem;color:#475569;">Keep saving for cool pet outfits, Hakan!</div>
+            <button class="potd-close">Close</button>
+        </div>`;
+        overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+        document.body.appendChild(overlay);
+    } catch (e) {}
 }
 
 function _showRobuxFloat(delta) {
@@ -590,6 +625,12 @@ function renderTrophyRoom() {
         <div class="tr-stat-num">${Object.keys(earned).length}</div>
         <div class="tr-stat-label">of ${BADGES_CATALOG.length} badges</div>
     </div>`;
+    // Hall of fame highlights
+    html += `<div class="tr-hof">
+        <div class="hof-tile"><div class="hof-num">${st.streak.longest || 0}</div><div class="hof-lbl">🔥 best streak</div></div>
+        <div class="hof-tile"><div class="hof-num">${st.totalStars}</div><div class="hof-lbl">⭐ stars total</div></div>
+        <div class="hof-tile"><div class="hof-num">${st.perfectModules || 0}</div><div class="hof-lbl">💯 perfect quizzes</div></div>
+    </div>`;
     // Closest badge to earn (highest progress %)
     let bestNext = null, bestPct = -1;
     for (const b of BADGES_CATALOG) {
@@ -1071,6 +1112,20 @@ function _generateQuickMathProblems(n) {
         out.push({ q, a: ans });
     }
     return out;
+}
+
+// First-correct-in-session celebration: a quick burst of stars
+function _firstCorrectCelebration() {
+    if (typeof spawnFloatingStars === 'function') spawnFloatingStars(6);
+    const el = document.createElement('div');
+    el.className = 'first-correct-toast';
+    el.innerHTML = `<div class="fc-emoji">🌟</div><div class="fc-text">Great start, Hakan!</div>`;
+    document.body.appendChild(el);
+    setTimeout(() => el.classList.add('fc-show'), 30);
+    setTimeout(() => {
+        el.classList.remove('fc-show');
+        setTimeout(() => el.remove(), 400);
+    }, 1500);
 }
 
 // "NEW BEST!" splash for mini-game records.
@@ -4315,6 +4370,22 @@ function goHome() {
     // Re-render the module grid so freshly-earned stars show up.
     if (typeof renderHomeModules === 'function') renderHomeModules();
     showScreen('start-screen');
+    // Tiny wave goodbye if Hakan did some work
+    if (currentUser === 'hakan' && typeof state !== 'undefined' && state.correctAnswers > 0) {
+        _waveGoodbye(state.correctAnswers);
+    }
+}
+
+function _waveGoodbye(correct) {
+    const el = document.createElement('div');
+    el.className = 'goodbye-toast';
+    el.innerHTML = `<div class="gb-emoji">👋</div><div class="gb-text">Nice work, Hakan! +${correct} correct this game.</div>`;
+    document.body.appendChild(el);
+    setTimeout(() => el.classList.add('gb-show'), 50);
+    setTimeout(() => {
+        el.classList.remove('gb-show');
+        setTimeout(() => el.remove(), 400);
+    }, 1800);
 }
 
 function playAgain() {

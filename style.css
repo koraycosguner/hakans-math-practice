@@ -7581,6 +7581,123 @@ html.feedback-gentle .feedback-content.fb-wrong {
 }
 .ar-next:hover { background: var(--primary); color: white; }
 
+/* ===== Iteration 18: HOF, first-correct, star fly, goodbye, robux receipt ===== */
+.tr-hof {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 8px 0 18px;
+}
+.hof-tile {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+    border-radius: 14px;
+    padding: 12px 6px;
+    text-align: center;
+}
+.hof-num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+}
+.hof-lbl {
+    font-size: 0.75rem;
+    color: #475569;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* First-correct toast */
+.first-correct-toast {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -16px);
+    background: linear-gradient(135deg, #fbcfe8, #f9a8d4);
+    color: #831843;
+    border-radius: 22px;
+    padding: 12px 22px;
+    font-weight: 900;
+    box-shadow: 0 12px 30px rgba(244,114,182,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 99700;
+    text-align: center;
+    pointer-events: none;
+}
+.first-correct-toast.fc-show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+.fc-emoji { font-size: 2rem; }
+.fc-text { font-size: 1rem; }
+
+/* Star fly-in on results */
+.star-fly {
+    display: inline-block;
+    font-size: 2.4rem;
+    opacity: 0;
+    transform: scale(0.4) rotate(-45deg);
+    animation: starFly 0.7s cubic-bezier(0.3, 1.4, 0.5, 1) forwards;
+    margin: 0 4px;
+}
+@keyframes starFly {
+    0%   { opacity: 0; transform: scale(0.2) rotate(-90deg); }
+    60%  { opacity: 1; transform: scale(1.2) rotate(10deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* Goodbye toast */
+.goodbye-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    color: #422006;
+    border-radius: 22px;
+    padding: 12px 22px;
+    font-weight: 800;
+    box-shadow: 0 12px 30px rgba(251,191,36,0.4);
+    opacity: 0;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    z-index: 99700;
+    text-align: center;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.goodbye-toast.gb-show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+.gb-emoji {
+    font-size: 1.8rem;
+    animation: gbWave 0.9s ease-in-out infinite;
+}
+@keyframes gbWave {
+    0%, 100% { transform: rotate(0deg); }
+    50%      { transform: rotate(15deg); }
+}
+
+/* Robux receipt extras */
+.rr-total {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 8px 0;
+}
+.rr-today {
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    color: #78350f;
+    border-radius: 14px;
+    padding: 6px 14px;
+    font-weight: 800;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;
