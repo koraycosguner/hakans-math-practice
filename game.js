@@ -1801,6 +1801,101 @@ function openFingerCount() {
     document.body.appendChild(overlay);
 }
 
+// ===== Drawing Pad =====
+let _doodleCount = 0;
+function openDrawPad() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card draw-card">
+        <h2>✏️ Drawing Pad</h2>
+        <div class="sound-sub">Draw whatever you want, Hakan!</div>
+        <div class="draw-tools">
+            <div class="draw-colors">
+                <button class="dc-color dc-on" data-c="#1f2937" style="background:#1f2937"></button>
+                <button class="dc-color" data-c="#ef4444" style="background:#ef4444"></button>
+                <button class="dc-color" data-c="#f97316" style="background:#f97316"></button>
+                <button class="dc-color" data-c="#fbbf24" style="background:#fbbf24"></button>
+                <button class="dc-color" data-c="#10b981" style="background:#10b981"></button>
+                <button class="dc-color" data-c="#3b82f6" style="background:#3b82f6"></button>
+                <button class="dc-color" data-c="#8b5cf6" style="background:#8b5cf6"></button>
+                <button class="dc-color" data-c="#ec4899" style="background:#ec4899"></button>
+            </div>
+            <div class="draw-sizes">
+                <button class="dc-size dc-on" data-s="3">·</button>
+                <button class="dc-size" data-s="6">•</button>
+                <button class="dc-size" data-s="12">●</button>
+                <button class="dc-size dc-eraser" data-s="20" data-c="#ffffff">🧽</button>
+            </div>
+        </div>
+        <canvas id="draw-canvas" width="340" height="320"></canvas>
+        <div class="draw-actions">
+            <button class="draw-clear">🗑️ Clear</button>
+            <button class="potd-close">Done</button>
+        </div>
+    </div>`;
+    document.body.appendChild(overlay);
+    const canvas = overlay.querySelector('#draw-canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    let drawing = false;
+    let color = '#1f2937';
+    let size = 3;
+    function pos(e) {
+        const r = canvas.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+        return { x: x * (canvas.width / r.width), y: y * (canvas.height / r.height) };
+    }
+    function start(e) { drawing = true; const p = pos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); e.preventDefault(); }
+    function move(e) {
+        if (!drawing) return;
+        const p = pos(e);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = size;
+        ctx.lineTo(p.x, p.y);
+        ctx.stroke();
+        e.preventDefault();
+    }
+    function end() { drawing = false; }
+    canvas.addEventListener('mousedown', start);
+    canvas.addEventListener('mousemove', move);
+    canvas.addEventListener('mouseup', end);
+    canvas.addEventListener('mouseleave', end);
+    canvas.addEventListener('touchstart', start, { passive: false });
+    canvas.addEventListener('touchmove', move,  { passive: false });
+    canvas.addEventListener('touchend', end);
+    overlay.querySelectorAll('.dc-color').forEach((b) => {
+        b.addEventListener('click', () => {
+            overlay.querySelectorAll('.dc-color').forEach((x) => x.classList.remove('dc-on'));
+            b.classList.add('dc-on');
+            color = b.getAttribute('data-c');
+        });
+    });
+    overlay.querySelectorAll('.dc-size').forEach((b) => {
+        b.addEventListener('click', () => {
+            overlay.querySelectorAll('.dc-size').forEach((x) => x.classList.remove('dc-on'));
+            b.classList.add('dc-on');
+            size = parseInt(b.getAttribute('data-s'), 10);
+            const c = b.getAttribute('data-c');
+            if (c) color = c;
+        });
+    });
+    overlay.querySelector('.draw-clear').addEventListener('click', () => {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    });
+    overlay.querySelector('.potd-close').addEventListener('click', () => {
+        _doodleCount++;
+        // Reward Hakan with a small thanks for creating
+        if (_doodleCount === 1) saveRobux(loadRobux() + 1);
+        overlay.remove();
+    });
+}
+
 // ===== Daily Spin Wheel — one spin per day for a bonus =====
 const SPIN_PRIZES = [
     { label: '+2 💎', kind: 'robux', val: 2,  color: '#fbbf24' },
@@ -2045,6 +2140,7 @@ function openMathToys() {
             <button class="sound-opt" onclick="openMusicMaker();closeSoundOverlay()"><div class="sound-emoji">🎼</div><div class="sound-name">Music Maker</div></button>
             <button class="sound-opt" onclick="openMathGenie();closeSoundOverlay()"><div class="sound-emoji">🔮</div><div class="sound-name">Math Genie</div></button>
             <button class="sound-opt" onclick="openDailySpin();closeSoundOverlay()"><div class="sound-emoji">🎡</div><div class="sound-name">Daily Spin</div></button>
+            <button class="sound-opt" onclick="openDrawPad();closeSoundOverlay()"><div class="sound-emoji">✏️</div><div class="sound-name">Drawing Pad</div></button>
         </div>
         <button class="sound-close">Close</button>
     </div>`;
