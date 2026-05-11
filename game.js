@@ -1168,6 +1168,13 @@ function saveShowTimer(on) {
     try { localStorage.setItem('hakans-math-timer', on ? 'on' : 'off'); } catch (e) {}
     applyComfortSettings();
 }
+function loadVoiceSpeed() {
+    try { return localStorage.getItem('hakans-math-voice-speed') || 'normal'; }
+    catch (e) { return 'normal'; }
+}
+function saveVoiceSpeed(s) {
+    try { localStorage.setItem('hakans-math-voice-speed', s); } catch (e) {}
+}
 
 function applyComfortSettings() {
     const root = document.documentElement;
@@ -1216,6 +1223,12 @@ function openComfortPicker() {
             <button class="sound-opt ${!tm?'sound-current':''}" data-tm="off"><div class="sound-emoji">⏱️</div><div class="sound-name">Off</div><div class="sound-desc">No clock</div></button>
             <button class="sound-opt ${tm?'sound-current':''}"  data-tm="on"><div class="sound-emoji">⏱️</div><div class="sound-name">On</div><div class="sound-desc">Show seconds</div></button>
         </div>
+        <div class="comfort-row-label">Voice speed</div>
+        <div class="sound-options">
+            <button class="sound-opt ${loadVoiceSpeed()==='slow'?'sound-current':''}"   data-vs="slow"><div class="sound-emoji">🐢</div><div class="sound-name">Slow</div></button>
+            <button class="sound-opt ${loadVoiceSpeed()==='normal'?'sound-current':''}" data-vs="normal"><div class="sound-emoji">🚶</div><div class="sound-name">Normal</div></button>
+            <button class="sound-opt ${loadVoiceSpeed()==='fast'?'sound-current':''}"   data-vs="fast"><div class="sound-emoji">🐇</div><div class="sound-name">Fast</div></button>
+        </div>
         <button class="sound-close">Done</button>
     </div>`;
     overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
@@ -1244,6 +1257,15 @@ function openComfortPicker() {
         b.addEventListener('click', () => {
             saveShowTimer(b.getAttribute('data-tm') === 'on');
             overlay.remove();
+            openComfortPicker();
+        });
+    });
+    overlay.querySelectorAll('[data-vs]').forEach((b) => {
+        b.addEventListener('click', () => {
+            saveVoiceSpeed(b.getAttribute('data-vs'));
+            overlay.remove();
+            // Demo the new speed.
+            if (typeof speak === 'function') speak("This is my voice now, Hakan!");
             openComfortPicker();
         });
     });
@@ -1286,7 +1308,11 @@ function openSoundProfilePicker() {
         btn.addEventListener('click', () => {
             const p = btn.getAttribute('data-p');
             saveSoundProfile(p);
-            if (p !== 'silent') playSound('correct');
+            // Preview: play a sample chime so Hakan hears the difference.
+            if (p !== 'silent') {
+                playSound('correct');
+                if (p === 'cheerful') setTimeout(() => playSound('win'), 300);
+            }
             overlay.remove();
         });
     });
@@ -2182,6 +2208,25 @@ function selectUser(name) {
             document.getElementById('ss-badges').textContent = Object.keys(earned).length;
             document.getElementById('ss-streak').textContent = (streak.current || 0);
             statsEl.style.display = '';
+            // Most recently earned badge.
+            const lb = document.getElementById('latest-badge');
+            if (lb && Object.keys(earned).length && BADGES_CATALOG.length) {
+                let mostRecent = null, mostRecentTs = 0;
+                for (const id of Object.keys(earned)) {
+                    const e = earned[id];
+                    const ts = (typeof e === 'number') ? e : (e && e.when) || 0;
+                    if (ts > mostRecentTs) {
+                        const b = BADGES_CATALOG.find((x) => x.id === id);
+                        if (b) { mostRecent = b; mostRecentTs = ts; }
+                    }
+                }
+                if (mostRecent) {
+                    lb.innerHTML = `<span class="lb-label">🏆 Most recent:</span>
+                        <span class="lb-emoji">${mostRecent.emoji || '🏅'}</span>
+                        <span class="lb-name">${mostRecent.name}</span>`;
+                    lb.style.display = '';
+                } else { lb.style.display = 'none'; }
+            } else if (lb) { lb.style.display = 'none'; }
         }
     } else {
         // Koray: show admin section, hide Robux banner
@@ -2420,7 +2465,9 @@ function speak(text) {
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.rate = 0.9;   // Slightly slower for kids
+    // Voice rate from Comfort settings (slow/normal/fast).
+    const speed = (typeof loadVoiceSpeed === 'function') ? loadVoiceSpeed() : 'normal';
+    utterance.rate = speed === 'slow' ? 0.75 : speed === 'fast' ? 1.05 : 0.9;
     utterance.pitch = 0.95; // Slightly lower for a deeper male sound
     utterance.volume = 0.85;
 

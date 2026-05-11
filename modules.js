@@ -69104,6 +69104,15 @@ function renderHomeModules() {
                       h < 21 ? '🌅 Good evening, Hakan!' :
                                '🌙 Time to wind down, Hakan!';
         html += `<div class="home-greeting">${greet}</div>`;
+
+        // Streak resilience reminder: if Hakan hasn't practiced today and the
+        // hour is getting late, gently nudge him.
+        const s = streak;
+        const today = new Date().toISOString().slice(0, 10);
+        const practicedToday = s && s.history && s.history.includes(today);
+        if (s && s.current >= 2 && !practicedToday && h >= 17) {
+            html += `<div class="streak-warn">⏰ Don't lose your ${s.current}-day streak, Hakan! Practice one module before bed!</div>`;
+        }
     }
 
     // Top row: streak, pet, trophies (Hakan only)
@@ -70108,6 +70117,11 @@ function nextLessonPage() {
         // End of lesson — clear bookmark so next entry starts fresh.
         _clearLessonBookmark(mod.id);
         _recordLessonView(mod.id);
+        // Confidence check before practice/quiz
+        if (typeof showConfidenceCheck === 'function') {
+            showConfidenceCheck(mod);
+            return;
+        }
         if (mod.kind === 'addsub' || mod.kind === 'factfamily') {
             // Delegated practice/quiz — return to module detail
             selectModule(mod.id);
@@ -70115,6 +70129,40 @@ function nextLessonPage() {
             startGenericProblems(mod, 'practice');
         }
     }
+}
+
+// Quick "How do you feel?" confidence check at end of lesson.
+function showConfidenceCheck(mod) {
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card cc-card">
+        <h2>Lesson done, Hakan!</h2>
+        <div class="cc-sub">How do you feel about this skill?</div>
+        <div class="cc-row">
+            <button class="cc-opt" data-c="3"><div class="cc-emoji">😀</div><div class="cc-label">Got it!</div></button>
+            <button class="cc-opt" data-c="2"><div class="cc-emoji">🤔</div><div class="cc-label">Kinda</div></button>
+            <button class="cc-opt" data-c="1"><div class="cc-emoji">😅</div><div class="cc-label">Tricky</div></button>
+        </div>
+    </div>`;
+    overlay.querySelectorAll('.cc-opt').forEach((b) => {
+        b.addEventListener('click', () => {
+            const conf = parseInt(b.getAttribute('data-c'), 10);
+            try {
+                const map = JSON.parse(localStorage.getItem('hakans-math-confidence')) || {};
+                map[mod.id] = { c: conf, when: Date.now() };
+                localStorage.setItem('hakans-math-confidence', JSON.stringify(map));
+            } catch (e) {}
+            overlay.remove();
+            // Less confident -> stay on detail screen for a slower entry,
+            // more confident -> go straight to practice.
+            if (conf <= 2 || mod.kind === 'addsub' || mod.kind === 'factfamily') {
+                selectModule(mod.id);
+            } else {
+                startGenericProblems(mod, 'practice');
+            }
+        });
+    });
+    document.body.appendChild(overlay);
 }
 
 function prevLessonPage() {

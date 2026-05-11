@@ -7247,6 +7247,63 @@ html.motion-reduced .lp-slide-in { animation: none !important; }
     50%      { transform: scale(1.06); }
 }
 
+/* ===== Iteration 14: latest badge, confidence check, streak warn ===== */
+.latest-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #78350f;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(251,191,36,0.3);
+    margin: 4px 0 8px;
+}
+.lb-emoji { font-size: 1.3rem; }
+.lb-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.lb-name { font-size: 1rem; }
+
+/* Confidence check */
+.cc-card { max-width: 420px; text-align: center; }
+.cc-sub { color: var(--text-light); margin-bottom: 12px; }
+.cc-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.cc-opt {
+    background: #f8fafc;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 14px 6px;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.cc-opt:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+.cc-emoji { font-size: 2.2rem; line-height: 1; }
+.cc-label { font-weight: 800; color: var(--primary); margin-top: 4px; font-size: 0.92rem; }
+
+/* Streak warning banner */
+.streak-warn {
+    background: linear-gradient(135deg, #fef3c7, #fbbf24);
+    color: #78350f;
+    border: 2px solid #f59e0b;
+    border-radius: 14px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-weight: 800;
+    font-size: 0.92rem;
+    animation: warnPulse 2.4s ease-in-out infinite;
+}
+@keyframes warnPulse {
+    0%, 100% { box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+    50%      { box-shadow: 0 6px 18px rgba(245,158,11,0.55); }
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;
