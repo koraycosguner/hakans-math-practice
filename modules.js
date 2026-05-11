@@ -132,10 +132,25 @@ function renderShape(name) {
 
 // Fraction visual: a circle/square divided into N equal parts, P filled.
 function renderFraction(shape, parts, filled) {
-    const cx = 90, cy = 90, r = 70;
+    const cx = 90, cy = 90, r = 72;
     const out = [];
+    // Gradient + filter defs for richer fills
+    out.push(`<defs>
+        <radialGradient id="fracFill" cx="40%" cy="40%">
+            <stop offset="0%" stop-color="#fb923c"/>
+            <stop offset="100%" stop-color="#dc2626"/>
+        </radialGradient>
+        <filter id="fracShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+            <feOffset dx="0" dy="3" result="off"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+    </defs>`);
     if (shape === 'circle') {
-        out.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="#2D3436" stroke-width="3"/>`);
+        // Outer ring + crust look
+        out.push(`<circle cx="${cx}" cy="${cy}" r="${r + 4}" fill="#fed7aa" stroke="#92400e" stroke-width="2"/>`);
+        out.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="white" stroke="#1f2937" stroke-width="2"/>`);
         const angle = 2 * Math.PI / parts;
         for (let i = 0; i < parts; i++) {
             const a1 = i * angle - Math.PI / 2;
@@ -143,22 +158,33 @@ function renderFraction(shape, parts, filled) {
             const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
             const x2 = cx + r * Math.cos(a2), y2 = cy + r * Math.sin(a2);
             const large = angle > Math.PI ? 1 : 0;
-            const fill = i < filled ? '#FF6B6B' : 'white';
-            out.push(`<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} Z" fill="${fill}" stroke="#2D3436" stroke-width="2"/>`);
+            if (parts === 1) {
+                out.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${filled >= 1 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
+            } else {
+                const fill = i < filled ? 'url(#fracFill)' : 'white';
+                out.push(`<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large} 1 ${x2},${y2} Z" fill="${fill}" stroke="#1f2937" stroke-width="2"/>`);
+            }
         }
     } else { // square / rectangle
-        out.push(`<rect x="20" y="20" width="140" height="140" fill="white" stroke="#2D3436" stroke-width="3"/>`);
+        out.push(`<rect x="20" y="20" width="140" height="140" fill="white" stroke="#1f2937" stroke-width="2" rx="8"/>`);
         if (parts === 2) {
-            out.push(`<rect x="20" y="20" width="70" height="140" fill="${filled >= 1 ? '#FF6B6B' : 'white'}" stroke="#2D3436" stroke-width="2"/>`);
-            out.push(`<rect x="90" y="20" width="70" height="140" fill="${filled >= 2 ? '#FF6B6B' : 'white'}" stroke="#2D3436" stroke-width="2"/>`);
+            out.push(`<rect x="20" y="20" width="70" height="140" fill="${filled >= 1 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
+            out.push(`<rect x="90" y="20" width="70" height="140" fill="${filled >= 2 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
         } else if (parts === 4) {
-            out.push(`<rect x="20" y="20"  width="70" height="70" fill="${filled >= 1 ? '#FF6B6B' : 'white'}" stroke="#2D3436" stroke-width="2"/>`);
-            out.push(`<rect x="90" y="20"  width="70" height="70" fill="${filled >= 2 ? '#FF6B6B' : 'white'}" stroke="#2D3436" stroke-width="2"/>`);
-            out.push(`<rect x="20" y="90"  width="70" height="70" fill="${filled >= 3 ? '#FF6B6B' : 'white'}" stroke="#2D3436" stroke-width="2"/>`);
-            out.push(`<rect x="90" y="90"  width="70" height="70" fill="${filled >= 4 ? '#FF6B6B' : 'white'}" stroke="#2D3436" stroke-width="2"/>`);
+            out.push(`<rect x="20" y="20"  width="70" height="70" fill="${filled >= 1 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
+            out.push(`<rect x="90" y="20"  width="70" height="70" fill="${filled >= 2 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
+            out.push(`<rect x="20" y="90"  width="70" height="70" fill="${filled >= 3 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
+            out.push(`<rect x="90" y="90"  width="70" height="70" fill="${filled >= 4 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
+        } else if (parts === 3) {
+            out.push(`<rect x="20" y="20" width="46.67" height="140" fill="${filled >= 1 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
+            out.push(`<rect x="66.67" y="20" width="46.67" height="140" fill="${filled >= 2 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
+            out.push(`<rect x="113.34" y="20" width="46.66" height="140" fill="${filled >= 3 ? 'url(#fracFill)' : 'white'}" stroke="#1f2937" stroke-width="2"/>`);
         }
     }
-    return `<svg viewBox="0 0 180 180" width="180" height="180" xmlns="http://www.w3.org/2000/svg" class="m-svg">${out.join('')}</svg>`;
+    // Caption below: e.g. "1/2" or "2/4"
+    const cap = filled + '/' + parts;
+    out.push(`<text x="${cx}" y="178" text-anchor="middle" font-family="Outfit,sans-serif" font-size="18" font-weight="900" fill="#dc2626">${cap}</text>`);
+    return `<svg viewBox="0 0 180 195" width="180" height="195" xmlns="http://www.w3.org/2000/svg" class="m-svg m-svg-fraction">${out.join('')}</svg>`;
 }
 
 // Repeated emoji for word problems / counting visuals.
