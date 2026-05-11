@@ -7500,6 +7500,87 @@ html.feedback-gentle .feedback-content.fb-wrong {
 .tip-of-day .tod-emoji { margin-right: 4px; }
 .tip-of-day .tod-label { font-weight: 900; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.5px; opacity: 0.7; }
 
+/* ===== Iteration 17: help, monthly, pet level, next-chip, skip-reveal ===== */
+.help-btn {
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+}
+.help-overlay { background: rgba(0,0,0,0.6); }
+.help-card {
+    max-width: 480px;
+    padding: 24px 22px !important;
+    text-align: left;
+}
+.help-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.help-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: #f8fafc;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+.help-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
+    line-height: 1;
+}
+.help-row > div:not(.help-icon) { color: #1f2937; font-size: 0.92rem; line-height: 1.4; }
+.help-close {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 12px 22px;
+    font-weight: 900;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 6px 14px rgba(108,99,255,0.35);
+}
+
+/* Pet level chip */
+.pet-level-chip {
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    color: #78350f;
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    font-weight: 900;
+    margin-left: 4px;
+    box-shadow: 0 2px 6px rgba(251, 191, 36, 0.3);
+}
+
+/* Next-up chip on module detail */
+.mdp-chip-next {
+    background: linear-gradient(135deg, #c7d2fe, #818cf8) !important;
+    color: white !important;
+    text-decoration: none;
+    font-weight: 800;
+}
+
+/* Skip-reveal button */
+.ar-next {
+    margin-top: 10px;
+    background: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 14px;
+    padding: 6px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.ar-next:hover { background: var(--primary); color: white; }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

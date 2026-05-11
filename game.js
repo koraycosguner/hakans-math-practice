@@ -921,6 +921,32 @@ function _initKeyboardInput() {
 }
 _initKeyboardInput();
 
+// Kid-friendly help screen showing what each button does.
+function openHelpScreen() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'cert-overlay help-overlay';
+    overlay.innerHTML = `<div class="cert-card help-card">
+        <h2 style="text-align:center;color:var(--primary);margin:0 0 12px;">❓ How to Play</h2>
+        <div class="help-list">
+            <div class="help-row"><span class="help-icon">🎯</span><div><b>Practice</b> — Try problems with hints! Make mistakes, that's how brains grow.</div></div>
+            <div class="help-row"><span class="help-icon">⭐</span><div><b>Quiz</b> — No hints, but you earn stars (1, 2, or 3) and 💎 Robux!</div></div>
+            <div class="help-row"><span class="help-icon">📚</span><div><b>Lesson</b> — Read or listen to the idea before practice. Tap 🔊 to hear it again.</div></div>
+            <div class="help-row"><span class="help-icon">💡</span><div><b>Hint</b> — Stuck? Wait a few seconds, then tap. Hints don't change your score.</div></div>
+            <div class="help-row"><span class="help-icon">🔥</span><div><b>Streak</b> — Practice each day to grow your streak. 🛡️ One free skip per week!</div></div>
+            <div class="help-row"><span class="help-icon">🐾</span><div><b>Pet</b> — Your math buddy grows as you earn stars. Tap to change.</div></div>
+            <div class="help-row"><span class="help-icon">🏆</span><div><b>Trophies</b> — Earn badges for big achievements. There are over 90!</div></div>
+            <div class="help-row"><span class="help-icon">🎮</span><div><b>Games</b> — Mini-games to make math fast and fun.</div></div>
+            <div class="help-row"><span class="help-icon">💎</span><div><b>Robux</b> — Earn them by doing quizzes, daily bonuses, and mini-games.</div></div>
+            <div class="help-row"><span class="help-icon">🅰️</span><div><b>Comfort</b> — Change text size, motion, voice speed, or use easy-read font.</div></div>
+        </div>
+        <button class="help-close">Got it!</button>
+    </div>`;
+    overlay.querySelector('.help-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+}
+
 // One-tap encouragement: speak a random Hakan-shoutout.
 function hakanSays() {
     const pool = MESSAGES.correct.concat(MESSAGES.start || []);
@@ -2145,6 +2171,32 @@ function renderParentDashboard() {
         <div class="pd-tile"><div class="pd-tile-num">${wkVisits}</div><div class="pd-tile-label">module plays</div></div>
         <div class="pd-tile"><div class="pd-tile-num">${wkStars}</div><div class="pd-tile-label">⭐ earned</div></div>
         <div class="pd-tile"><div class="pd-tile-num">${wkCorrect}</div><div class="pd-tile-label">correct answers</div></div>
+    </div>`;
+
+    // === Last 30 days snapshot ===
+    const moAgo = Date.now() - 30 * 86400000;
+    let moVisits = 0, moStars = 0, moCorrect = 0;
+    for (const id of Object.keys(visits)) {
+        if ((visits[id].lastVisited || 0) >= moAgo) moVisits += (visits[id].count || 1);
+    }
+    for (const id of Object.keys(progress)) {
+        if ((progress[id].lastCompleted || 0) >= moAgo) moStars += progress[id].stars || 0;
+    }
+    for (const k of Object.keys(stats)) {
+        const s = stats[k];
+        if ((s.last || 0) >= moAgo) moCorrect += (s.correct || 0);
+    }
+    const sHist = (streak.history || []);
+    const moActiveDays = sHist.filter((d) => {
+        const t = new Date(d + 'T00:00:00').getTime();
+        return t >= moAgo;
+    }).length;
+    html += `<h2 class="pd-section">Last 30 Days</h2>`;
+    html += `<div class="pd-stats-row">
+        <div class="pd-tile"><div class="pd-tile-num">${moVisits}</div><div class="pd-tile-label">module plays</div></div>
+        <div class="pd-tile"><div class="pd-tile-num">${moStars}</div><div class="pd-tile-label">⭐ earned</div></div>
+        <div class="pd-tile"><div class="pd-tile-num">${moCorrect}</div><div class="pd-tile-label">correct answers</div></div>
+        <div class="pd-tile"><div class="pd-tile-num">${moActiveDays}</div><div class="pd-tile-label">active days</div></div>
     </div>`;
 
     // === Daily activity chart (last 7 days) ===

@@ -69147,9 +69147,14 @@ function renderHomeModules() {
             const petName = (petState.nickname || petInfo.pet.name.split(' ')[0]);
             const mood = (typeof petMood === 'function') ? petMood() : null;
             const moodStr = mood ? `<span class="pet-mood-bubble">${mood.emoji} ${mood.text}</span>` : '';
+            // Pet level: based on stage index (1-based) within current pet.
+            const stages = petInfo.pet.stages || [];
+            const stageIdx = stages.findIndex((s) => s === petInfo.stage);
+            const lvl = Math.max(1, stageIdx + 1);
             html += `<button class="pet-badge pet-badge-mood-${mood ? mood.mood : ''}" onclick="openPetPicker()" title="${mood ? mood.text : 'Tap to change your buddy'}">
                 <span class="pet-badge-emoji">${hatStr}${petInfo.stage.emoji}${accStr}</span>
                 <span class="pet-badge-name">${petName}</span>
+                <span class="pet-level-chip">Lv${lvl}</span>
                 ${moodStr}
             </button>`;
         }
@@ -69163,6 +69168,7 @@ function renderHomeModules() {
         html += `<button class="sound-btn" onclick="openSoundProfilePicker()" title="Sound: ${sp}">${spEmoji} Sound</button>`;
         html += `<button class="comfort-btn" onclick="openComfortPicker()" title="Text &amp; motion">🅰️ Comfort</button>`;
         html += `<button class="hakansays-btn" onclick="hakanSays()" title="Hear an encouragement">🎤 Hakan Says</button>`;
+        html += `<button class="help-btn" onclick="openHelpScreen()" title="How to use the app">❓ Help</button>`;
         html += `</div>`;
         // Module search
         html += `<div class="module-search-wrap">
@@ -69711,6 +69717,18 @@ function selectModule(id) {
         }
         pill.innerHTML = bits.join('');
         pill.style.display = bits.length ? '' : 'none';
+    }
+
+    // "Up next in this world" — pointer to the next module in the same category
+    if (mod.category) {
+        const sameCat = MODULES.filter((m) => (m.category || 'A') === mod.category);
+        sameCat.sort((a, b) => (a.order || 999) - (b.order || 999));
+        const idx = sameCat.findIndex((m) => m.id === mod.id);
+        const next = (idx >= 0) ? sameCat[idx + 1] : null;
+        const upNextEl = document.getElementById('module-detail-pill');
+        if (upNextEl && next) {
+            upNextEl.innerHTML += `<a class="mdp-chip mdp-chip-next" href="#" onclick="event.preventDefault();selectModule('${next.id}')">⏭️ Next: ${next.emoji} ${next.title}</a>`;
+        }
     }
 
     // Problem-types preview: count types used in this module's practice/quiz.
@@ -71073,14 +71091,18 @@ function showCorrectAnswerReveal(p) {
         <div class="ar-label">The answer is</div>
         <div class="ar-value">${answerText}</div>
         <div class="ar-sub">Don't worry, Hakan — you'll get the next one! 💪</div>
+        <button class="ar-next">Next ▶</button>
     `;
     visualHost.appendChild(overlay);
-    setTimeout(() => {
+    const advance = () => {
         try { overlay.remove(); } catch (e) {}
         moduleState._answerRevealActive = false;
         moduleState.locked = false;
         advanceModuleProblem();
-    }, 2200);
+    };
+    const skipBtn = overlay.querySelector('.ar-next');
+    if (skipBtn) skipBtn.addEventListener('click', advance);
+    setTimeout(advance, 2600);
 }
 
 function showMGFeedback(kind, msg) {
