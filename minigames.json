@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "treasure-map",
+    "title": "Treasure Map",
+    "emoji": "🗺️",
+    "description": "Hop across the math stones to reach the treasure!",
+    "category": "adventure",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Hop from stone to stone by answering math problems. Reach the treasure chest!",
+    "rules": [
+      "🏴‍☠️ Pirate Hakan starts at the first stone.",
+      "Answer the math problem to hop forward one stone.",
+      "Wrong answer = pirate stays put (or steps back on Hard).",
+      "Reach the last stone to open the 💎 treasure chest (+5 bonus)."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "number-garden",
     "title": "Number Garden",
     "emoji": "🌻",

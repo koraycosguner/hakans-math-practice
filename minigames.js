@@ -2252,6 +2252,180 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 18. TREASURE MAP — pirate adventure on a path of math stones.
+// Hakan controls a pirate that hops along stepping stones. Each stone
+// has a math problem; correct = +1 step, wrong = stay. Reach the X to
+// open the treasure chest and harvest jewels.
+// =====================================================================
+GAME_IMPLS['treasure-map'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Path length scales with difficulty
+        const STONES = diff === 'easy' ? 5 : diff === 'hard' ? 9 : 7;
+        // Math range
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+        // Wrong = step back? Only on hard
+        const stepBackOnWrong = diff === 'hard';
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-tmap-wrap';
+
+        // Top: question + position indicator
+        const hud = document.createElement('div');
+        hud.className = 'mg-tmap-hud';
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-tmap-q';
+        const stepLbl = document.createElement('div');
+        stepLbl.className = 'mg-tmap-step';
+        hud.appendChild(qBox);
+        hud.appendChild(stepLbl);
+        wrap.appendChild(hud);
+
+        // The map path
+        const path = document.createElement('div');
+        path.className = 'mg-tmap-path';
+        // Render stones + pirate + chest
+        const stones = [];
+        for (let i = 0; i < STONES; i++) {
+            const s = document.createElement('div');
+            s.className = 'mg-tmap-stone';
+            s.style.left = `${(i / (STONES - 1)) * 100}%`;
+            s.textContent = String(i + 1);
+            path.appendChild(s);
+            stones.push(s);
+        }
+        const chest = document.createElement('div');
+        chest.className = 'mg-tmap-chest';
+        chest.textContent = '🟫';
+        chest.style.left = '100%';
+        path.appendChild(chest);
+
+        const pirate = document.createElement('div');
+        pirate.className = 'mg-tmap-pirate';
+        pirate.textContent = '🏴‍☠️';
+        pirate.style.left = '0%';
+        path.appendChild(pirate);
+
+        // Dotted line
+        const line = document.createElement('div');
+        line.className = 'mg-tmap-line';
+        path.appendChild(line);
+
+        wrap.appendChild(path);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-tmap-opts';
+        wrap.appendChild(opts);
+
+        const feedback = document.createElement('div');
+        feedback.className = 'mg-tmap-feedback';
+        wrap.appendChild(feedback);
+
+        ctx.area.appendChild(wrap);
+
+        let pos = 0;       // index of stone pirate is on (0 = start)
+        let target = null; // {a, b, op, ans}
+        let totalRuns = 0;
+
+        function genProblem(stepIdx) {
+            // Problems get slightly harder as Hakan progresses through the path
+            const range = Math.min(maxA, Math.max(3, maxA - 4 + Math.floor(stepIdx)));
+            const op = Math.random() < 0.5 ? 'add' : 'sub';
+            if (op === 'add') {
+                const a = 1 + Math.floor(Math.random() * range);
+                const b = 1 + Math.floor(Math.random() * range);
+                return { a, b, ans: a + b, op: '+' };
+            }
+            const a = 2 + Math.floor(Math.random() * range);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op: '−' };
+        }
+
+        function setPiratePos(idx) {
+            pos = Math.max(0, Math.min(STONES, idx));
+            const pct = (pos / (STONES - 1)) * 100;
+            pirate.style.left = Math.min(100, pct) + '%';
+            pirate.classList.remove('mg-tmap-hop');
+            void pirate.offsetWidth;
+            pirate.classList.add('mg-tmap-hop');
+            stones.forEach((s, i) => {
+                s.classList.toggle('mg-tmap-stone-done', i < pos);
+                s.classList.toggle('mg-tmap-stone-active', i === pos);
+            });
+        }
+
+        function nextProblem() {
+            stepLbl.textContent = `Step ${pos + 1} of ${STONES}`;
+            target = genProblem(pos);
+            qBox.textContent = `${target.a} ${target.op} ${target.b} = ?`;
+            // 3 options
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-tmap-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-tmap-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function openChest() {
+            chest.textContent = '💎';
+            chest.classList.add('mg-tmap-chest-open');
+            qBox.textContent = '🏆 TREASURE!';
+            opts.innerHTML = '';
+            feedback.textContent = '+5 💎 jackpot!';
+            ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+            ctx.onWin();
+            totalRuns += 1;
+            setTimeout(reset, 2500);
+        }
+
+        function reset() {
+            setPiratePos(0);
+            chest.classList.remove('mg-tmap-chest-open');
+            chest.textContent = '🟫';
+            feedback.textContent = '';
+            nextProblem();
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-tmap-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                setPiratePos(pos + 1);
+                feedback.textContent = '⛵ Onward!';
+                if (pos >= STONES - 1) {
+                    setTimeout(openChest, 600);
+                } else {
+                    setTimeout(nextProblem, 500);
+                }
+            } else {
+                btn.classList.add('mg-tmap-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                if (stepBackOnWrong && pos > 0) {
+                    setPiratePos(pos - 1);
+                    feedback.textContent = '🌊 Slipped back!';
+                } else {
+                    feedback.textContent = '🤔 Try the right step!';
+                }
+                setTimeout(() => btn.classList.remove('mg-tmap-wrong'), 400);
+            }
+        }
+
+        setPiratePos(0);
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
 // 17. NUMBER GARDEN — big-box new game
 // Plot grid where each correct answer grows a plant through 4 stages.
 // Fill all plots to "harvest" the garden for a big bonus.

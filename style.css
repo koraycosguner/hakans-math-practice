@@ -4261,6 +4261,172 @@ body::after {
     filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
 }
 
+/* ===== Game 18: Treasure Map ===== */
+.mg-theme-treasure-map {
+    background:
+        radial-gradient(ellipse at top, #fde68a 0%, #fbbf24 35%, #d97706 75%);
+}
+.mg-tmap-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    max-width: 540px;
+}
+.mg-tmap-hud {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+.mg-tmap-q {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #422006;
+    background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%);
+    padding: 10px 22px;
+    border-radius: 16px;
+    border: 3px solid #92400e;
+    box-shadow: 0 4px 14px rgba(146, 64, 14, 0.35);
+}
+.mg-tmap-step {
+    background: rgba(255,255,255,0.85);
+    color: #78350f;
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+.mg-tmap-path {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    background:
+        radial-gradient(ellipse at 30% 50%, #93c5fd 0%, transparent 60%),
+        linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+    border: 4px solid #78350f;
+    border-radius: 22px;
+    overflow: hidden;
+}
+.mg-tmap-line {
+    position: absolute;
+    left: 5%; right: 5%;
+    top: 50%;
+    height: 4px;
+    background-image: radial-gradient(circle, #92400e 1px, transparent 2px);
+    background-size: 10px 4px;
+    background-repeat: repeat-x;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+.mg-tmap-stone {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 38px;
+    height: 38px;
+    background: radial-gradient(circle at 30% 30%, #d6d3d1, #78716c);
+    color: #1c1917;
+    border: 2px solid #44403c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    z-index: 2;
+}
+.mg-tmap-stone-done {
+    background: radial-gradient(circle at 30% 30%, #34d399, #047857);
+    color: white;
+    border-color: #064e3b;
+}
+.mg-tmap-stone-active {
+    background: radial-gradient(circle at 30% 30%, #fbbf24, #d97706);
+    color: white;
+    box-shadow: 0 0 0 4px rgba(251,191,36,0.4), 0 4px 12px rgba(217,119,6,0.5);
+    animation: tmapStonePulse 1.4s ease-in-out infinite;
+}
+@keyframes tmapStonePulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50%      { transform: translate(-50%, -50%) scale(1.12); }
+}
+.mg-tmap-pirate {
+    position: absolute;
+    bottom: 50%;
+    transform: translate(-50%, 16px);
+    font-size: 2rem;
+    z-index: 4;
+    transition: left 0.5s cubic-bezier(0.5, -0.3, 0.5, 1.3);
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));
+}
+.mg-tmap-pirate.mg-tmap-hop {
+    animation: tmapHop 0.5s ease-out;
+}
+@keyframes tmapHop {
+    0%   { transform: translate(-50%, 16px); }
+    50%  { transform: translate(-50%, -10px); }
+    100% { transform: translate(-50%, 16px); }
+}
+.mg-tmap-chest {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+    z-index: 3;
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));
+}
+.mg-tmap-chest-open {
+    animation: tmapChestOpen 0.6s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+@keyframes tmapChestOpen {
+    0%   { transform: translate(-50%, -50%) scale(1); }
+    50%  { transform: translate(-50%, -50%) scale(1.4) rotate(-10deg); }
+    100% { transform: translate(-50%, -50%) scale(1.2) rotate(0); }
+}
+.mg-tmap-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 380px;
+}
+.mg-tmap-opt {
+    background: white;
+    color: #78350f;
+    border: 3px solid #92400e;
+    border-radius: 14px;
+    padding: 14px 4px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(146, 64, 14, 0.25);
+    transition: transform 0.15s ease;
+}
+.mg-tmap-opt:hover { transform: translateY(-2px); }
+.mg-tmap-opt.mg-tmap-right {
+    background: linear-gradient(135deg, #34d399, #059669);
+    color: white;
+    border-color: #047857;
+    animation: mgSACorrect 0.4s ease;
+}
+.mg-tmap-opt.mg-tmap-wrong {
+    background: #fee2e2;
+    border-color: #dc2626;
+    animation: icShake 0.4s ease;
+}
+.mg-tmap-feedback {
+    min-height: 22px;
+    font-weight: 800;
+    color: #78350f;
+    background: rgba(255,255,255,0.7);
+    padding: 4px 14px;
+    border-radius: 999px;
+}
+.mg-tmap-feedback:empty { background: transparent; }
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;
