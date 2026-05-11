@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "spaceship-repair",
+    "title": "Spaceship Repair",
+    "emoji": "🚀",
+    "description": "Repair the broken panels & launch the rocket into space!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each right answer fixes one broken panel (⚡ → ✅). Fix every panel to blast off!",
+    "rules": [
+      "🚀 Rocket sits on the launchpad with N broken panels.",
+      "Each right answer repairs one panel; visual goes 💥/⚡/🔥 → ✅.",
+      "Once all 5 / 8 / 10 panels are fixed, a countdown plays and the rocket blasts off.",
+      "Successful launch → +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 9
+    },
+    "config": {}
+  },
+  {
     "id": "mountain-climb",
     "title": "Mountain Climb",
     "emoji": "🏔️",

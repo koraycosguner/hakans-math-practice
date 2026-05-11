@@ -5756,3 +5756,165 @@ GAME_IMPLS['mountain-climb'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 37. SPACESHIP REPAIR — Fix the panels & launch! 🚀
+// Hakan repairs N broken panels on a spaceship by solving math. Each
+// right answer fixes one panel (broken → gold). When all panels are
+// fixed, countdown to launch → blast off + +5💎.
+// =====================================================================
+GAME_IMPLS['spaceship-repair'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const panelCount = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 8;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-ship-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-ship-q';
+        wrap.appendChild(qBox);
+
+        // Spaceship + panels
+        const scene = document.createElement('div');
+        scene.className = 'mg-ship-scene';
+        // Stars in the background
+        for (let i = 0; i < 14; i++) {
+            const star = document.createElement('span');
+            star.className = 'mg-ship-star';
+            star.textContent = '✦';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 3}s`;
+            scene.appendChild(star);
+        }
+        const ship = document.createElement('div');
+        ship.className = 'mg-ship-craft';
+        ship.innerHTML = '🚀';
+        scene.appendChild(ship);
+        // Panel grid laid out as a 2-wide column (could be the body of the ship)
+        const panelGrid = document.createElement('div');
+        panelGrid.className = 'mg-ship-panels';
+        const cols = Math.min(4, Math.ceil(panelCount / 2));
+        panelGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        const panels = [];
+        const BROKEN = ['💥', '⚡', '🔥', '⚙️'];
+        for (let i = 0; i < panelCount; i++) {
+            const panel = document.createElement('div');
+            panel.className = 'mg-ship-panel';
+            panel.textContent = BROKEN[i % BROKEN.length];
+            panelGrid.appendChild(panel);
+            panels.push(panel);
+        }
+        scene.appendChild(panelGrid);
+        wrap.appendChild(scene);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-ship-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-ship-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let repaired = 0;
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML =
+                `<div class="mg-ship-task">🔧 Fix the next panel!</div>` +
+                `<div class="mg-ship-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-ship-eqs">=</span><span class="mg-ship-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-ship-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-ship-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function repairNextPanel() {
+            const next = panels.find((p) => !p.classList.contains('mg-ship-panel-fixed'));
+            if (!next) return;
+            next.classList.add('mg-ship-panel-fixed');
+            next.textContent = '✅';
+            repaired += 1;
+        }
+
+        function launchCountdown(then) {
+            const seq = ['3…', '2…', '1…', '🚀 LIFTOFF! 🔥'];
+            let i = 0;
+            const interval = setInterval(() => {
+                qBox.innerHTML = `<div class="mg-ship-countdown">${seq[i]}</div>`;
+                i += 1;
+                if (i >= seq.length) {
+                    clearInterval(interval);
+                    setTimeout(then, 500);
+                }
+            }, 600);
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-ship-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                repairNextPanel();
+                prog.innerHTML = `🔧 <b>${repaired}</b> / ${panelCount} panels fixed`;
+                if (repaired >= panelCount) {
+                    opts.innerHTML = '';
+                    launchCountdown(() => {
+                        ship.classList.add('mg-ship-craft-launch');
+                        ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                        ctx.onWin();
+                        setTimeout(reset, 2200);
+                    });
+                    return;
+                }
+                setTimeout(nextProblem, 550);
+            } else {
+                btn.classList.add('mg-ship-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-ship-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            repaired = 0;
+            panels.forEach((p, i) => {
+                p.classList.remove('mg-ship-panel-fixed');
+                p.textContent = BROKEN[i % BROKEN.length];
+            });
+            ship.classList.remove('mg-ship-craft-launch');
+            prog.innerHTML = `🔧 <b>0</b> / ${panelCount} panels fixed`;
+            nextProblem();
+        }
+
+        prog.innerHTML = `🔧 <b>0</b> / ${panelCount} panels fixed`;
+        nextProblem();
+        return { stop() {} };
+    }
+};
