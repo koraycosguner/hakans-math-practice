@@ -69106,6 +69106,18 @@ function renderHomeModules() {
                 <span class="streak-label">day streak${streak.current === streak.longest ? ' — best!' : ''}</span>
             </div>`;
         }
+        // Last-7-days dot calendar
+        if (typeof lastSevenDays === 'function') {
+            const days = lastSevenDays();
+            html += `<div class="streak-week" title="Last 7 days">`;
+            for (const d of days) {
+                html += `<div class="sw-day ${d.practiced ? 'sw-on' : ''}">
+                    <div class="sw-label">${d.label}</div>
+                    <div class="sw-dot">${d.practiced ? '🔥' : '·'}</div>
+                </div>`;
+            }
+            html += `</div>`;
+        }
         if (petInfo && petInfo.stage) {
             const outfits = (typeof loadPetOutfits === 'function') ? loadPetOutfits() : { equipped: {} };
             const eq = outfits.equipped || {};
@@ -69133,6 +69145,30 @@ function renderHomeModules() {
             <input id="module-search" class="module-search" type="search"
                    placeholder="🔎 Search modules..." oninput="filterModules(this.value)" />
         </div>`;
+    }
+
+    // Quick Math + savings goal row
+    if (isHakan) {
+        html += `<div class="quick-row">`;
+        html += `<button class="quickmath-btn" onclick="openQuickMath()">⚡ Quick Math <span class="qm-reward-hint">+5 💎 max</span></button>`;
+        const goal = (typeof loadSavingsGoal === 'function') ? loadSavingsGoal() : null;
+        const balance = (typeof loadRobux === 'function') ? loadRobux() : 0;
+        if (goal && goal.target > 0) {
+            const pct = Math.min(100, Math.round((balance / goal.target) * 100));
+            const done = balance >= goal.target;
+            html += `<button class="savings-goal ${done ? 'savings-done' : ''}" onclick="openSavingsGoalPicker()">
+                <div class="sg-label">${done ? '🎉 Goal reached!' : '💰 Saving for'}</div>
+                <div class="sg-target">${goal.label}</div>
+                <div class="sg-bar"><div class="sg-fill" style="width:${pct}%"></div></div>
+                <div class="sg-progress">${Math.round(balance)} / ${goal.target} 💎</div>
+            </button>`;
+        } else {
+            html += `<button class="savings-goal savings-empty" onclick="openSavingsGoalPicker()">
+                <div class="sg-label">💰 Set a goal!</div>
+                <div class="sg-target">Pick something fun to save up for.</div>
+            </button>`;
+        }
+        html += `</div>`;
     }
 
     // Problem of the Day card
@@ -69513,9 +69549,34 @@ function startActivity(activity) {
 // ----------------------------------------------------------------------
 
 function startLesson(mod) {
-    moduleState.lessonIndex = 0;
+    // Auto-bookmark: resume where Hakan left off if he's been here before.
+    const bm = _loadLessonBookmark(mod && mod.id);
+    moduleState.lessonIndex = (bm && bm.page > 0 && bm.page < (mod.lesson || []).length) ? bm.page : 0;
     showScreen('lesson-screen');
     renderLessonPage();
+}
+
+const LESSON_BOOKMARK_KEY = 'hakans-math-lesson-bookmarks';
+function _loadLessonBookmarks() {
+    try { return JSON.parse(localStorage.getItem(LESSON_BOOKMARK_KEY)) || {}; }
+    catch (e) { return {}; }
+}
+function _loadLessonBookmark(modId) {
+    if (!modId) return null;
+    const all = _loadLessonBookmarks();
+    return all[modId] || null;
+}
+function _saveLessonBookmark(modId, page) {
+    if (!modId) return;
+    const all = _loadLessonBookmarks();
+    all[modId] = { page, at: Date.now() };
+    try { localStorage.setItem(LESSON_BOOKMARK_KEY, JSON.stringify(all)); } catch (e) {}
+}
+function _clearLessonBookmark(modId) {
+    if (!modId) return;
+    const all = _loadLessonBookmarks();
+    delete all[modId];
+    try { localStorage.setItem(LESSON_BOOKMARK_KEY, JSON.stringify(all)); } catch (e) {}
 }
 
 function renderLessonPage() {
@@ -69718,9 +69779,11 @@ function nextLessonPage() {
     if (!mod) return;
     if (moduleState.lessonIndex < mod.lesson.length - 1) {
         moduleState.lessonIndex++;
+        _saveLessonBookmark(mod.id, moduleState.lessonIndex);
         renderLessonPage();
     } else {
-        // End of lesson
+        // End of lesson — clear bookmark so next entry starts fresh.
+        _clearLessonBookmark(mod.id);
         if (mod.kind === 'addsub' || mod.kind === 'factfamily') {
             // Delegated practice/quiz — return to module detail
             selectModule(mod.id);
@@ -69734,6 +69797,7 @@ function prevLessonPage() {
     if (typeof playSound === 'function') playSound('click');
     if (moduleState.lessonIndex > 0) {
         moduleState.lessonIndex--;
+        _saveLessonBookmark(moduleState.moduleId, moduleState.lessonIndex);
         renderLessonPage();
     }
 }
@@ -70380,6 +70444,12 @@ function handleCorrect() {
     moduleState.bestStreak = Math.max(moduleState.bestStreak, moduleState.streak);
     moduleState.correct++;
     moduleState.score += 10;
+
+    // High-five popup at every 3rd in-a-row (3, 6, 9...) — short and fun.
+    if (moduleState.streak > 0 && moduleState.streak % 3 === 0 &&
+        typeof showHighFive === 'function') {
+        showHighFive(moduleState.streak);
+    }
 
     if (moduleState.activity === 'quiz' && typeof currentUser !== 'undefined' && currentUser === 'hakan') {
         moduleState.sessionRobux += ROBUX_PER_QUIZ_CORRECT;

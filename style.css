@@ -6059,3 +6059,174 @@ html.motion-reduced .m-card-new-pill {
     font-weight: 800;
     cursor: pointer;
 }
+
+/* ===== Iteration 4: streak calendar, savings goal, quick math, high-five ===== */
+.streak-week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    width: 100%;
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 8px;
+    margin-top: 4px;
+    border: 2px solid #e5e7eb;
+}
+.sw-day { text-align: center; padding: 4px 2px; border-radius: 10px; }
+.sw-day.sw-on {
+    background: linear-gradient(135deg, #fed7aa, #fdba74);
+    color: #7c2d12;
+}
+.sw-label { font-size: 0.7rem; font-weight: 700; color: var(--text-light); }
+.sw-day.sw-on .sw-label { color: #7c2d12; }
+.sw-dot { font-size: 1rem; line-height: 1; margin-top: 1px; }
+
+/* Quick Math + savings goal row */
+.quick-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+}
+@media (max-width: 520px) {
+    .quick-row { grid-template-columns: 1fr; }
+}
+.quickmath-btn {
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 16px 18px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(37,99,235,0.4);
+    text-align: left;
+    transition: transform 0.2s ease;
+}
+.quickmath-btn:hover { transform: translateY(-2px); }
+.qm-reward-hint {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    opacity: 0.85;
+    margin-top: 2px;
+}
+
+.savings-goal {
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    color: #78350f;
+    border: 2px solid #fbbf24;
+    border-radius: 18px;
+    padding: 12px 14px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.savings-goal:hover { transform: translateY(-2px); }
+.savings-goal.savings-done {
+    background: linear-gradient(135deg, #a7f3d0, #34d399);
+    color: #064e3b;
+    border-color: #10b981;
+    animation: savingsDone 1.8s ease-in-out infinite;
+}
+.savings-goal.savings-empty {
+    background: #f8fafc;
+    color: #475569;
+    border-style: dashed;
+    border-color: #cbd5e1;
+}
+@keyframes savingsDone {
+    0%,100% { box-shadow: 0 8px 18px rgba(16,185,129,0.3); }
+    50%     { box-shadow: 0 10px 24px rgba(52,211,153,0.5); }
+}
+.sg-label { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+.sg-target { font-size: 1rem; font-weight: 900; margin: 2px 0 6px; }
+.sg-bar {
+    height: 8px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.sg-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    border-radius: 999px;
+    transition: width 0.5s ease;
+}
+.savings-done .sg-fill { background: linear-gradient(90deg, #10b981, #059669); }
+.sg-progress { font-size: 0.78rem; margin-top: 4px; font-weight: 700; }
+
+/* High-five toast */
+.highfive-toast {
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -20px);
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #422006;
+    border-radius: 22px;
+    padding: 14px 22px;
+    font-weight: 900;
+    box-shadow: 0 16px 40px rgba(245, 158, 11, 0.5);
+    opacity: 0;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    z-index: 99800;
+    text-align: center;
+    pointer-events: none;
+}
+.highfive-toast.hf-show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+.hf-emoji { font-size: 2.4rem; margin-bottom: 4px; }
+.hf-text { font-size: 1.05rem; }
+
+/* Quick Math overlay variants */
+.qm-overlay .qm-card { max-width: 460px; }
+.qm-progress {
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 800;
+    display: inline-block;
+    font-size: 0.85rem;
+    margin: 6px 0;
+}
+.qm-skip {
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.qm-score {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 10px 0 4px;
+    color: #1f2937;
+}
+.qm-reward {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    font-weight: 900;
+    border-radius: 14px;
+    padding: 8px 16px;
+    display: inline-block;
+    margin: 4px 0 12px;
+}
+
+/* Savings goal "Remove" button */
+.goal-clear {
+    background: #fee2e2;
+    color: #991b1b;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 6px 4px 4px;
+}

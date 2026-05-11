@@ -19,6 +19,66 @@ function saveRobux(amount) {
     localStorage.setItem(ROBUX_STORAGE_KEY, JSON.stringify({ robux: amount }));
 }
 
+// ===== Robux Savings Goal =====
+// Hakan can pick a savings target (e.g., "100 💎 for a new outfit"). The home
+// shows a progress bar so the goal feels tangible.
+const SAVINGS_GOAL_KEY = 'hakans-math-savings-goal';
+const SAVINGS_PRESETS = [
+    { target: 25,  label: '🎩 New hat',        emoji: '🎩' },
+    { target: 50,  label: '🕶️ Cool shades',   emoji: '🕶️' },
+    { target: 100, label: '🪄 Magic outfit',   emoji: '🪄' },
+    { target: 200, label: '👑 Royal upgrade',  emoji: '👑' },
+];
+function loadSavingsGoal() {
+    try {
+        const raw = localStorage.getItem(SAVINGS_GOAL_KEY);
+        return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+}
+function saveSavingsGoal(goal) {
+    try { localStorage.setItem(SAVINGS_GOAL_KEY, JSON.stringify(goal)); } catch (e) {}
+}
+function openSavingsGoalPicker() {
+    playSound('click');
+    const current = loadSavingsGoal();
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    let opts = '';
+    SAVINGS_PRESETS.forEach((p) => {
+        const isCur = current && current.target === p.target;
+        opts += `<button class="sound-opt ${isCur ? 'sound-current' : ''}" data-t="${p.target}" data-l="${p.label}">
+            <div class="sound-emoji">${p.emoji}</div>
+            <div class="sound-name">${p.target} 💎</div>
+            <div class="sound-desc">${p.label.replace(p.emoji, '').trim()}</div>
+        </button>`;
+    });
+    overlay.innerHTML = `<div class="sound-card">
+        <h2>💰 Set a Goal</h2>
+        <div class="sound-sub">Save up Robux for something fun!</div>
+        <div class="sound-options" style="grid-template-columns: repeat(2, 1fr);">${opts}</div>
+        <button class="goal-clear">Remove goal</button>
+        <button class="sound-close">Done</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelectorAll('[data-t]').forEach((b) => {
+        b.addEventListener('click', () => {
+            saveSavingsGoal({
+                target: parseInt(b.getAttribute('data-t'), 10),
+                label: b.getAttribute('data-l'),
+            });
+            overlay.remove();
+            if (typeof renderHomeModules === 'function') renderHomeModules();
+        });
+    });
+    overlay.querySelector('.goal-clear').addEventListener('click', () => {
+        try { localStorage.removeItem(SAVINGS_GOAL_KEY); } catch (e) {}
+        overlay.remove();
+        if (typeof renderHomeModules === 'function') renderHomeModules();
+    });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
 // ===== Module progress (per-quiz best stars) =====
 const PROGRESS_STORAGE_KEY = 'hakans-math-progress';
 
@@ -111,7 +171,17 @@ function loadStreak() {
 function bumpDailyStreak() {
     const today = _todayKey();
     const s = loadStreak();
-    if (s.last === today) return s.current;       // already counted today
+    // Record the day in a rolling history so we can render a calendar.
+    s.history = s.history || [];
+    if (!s.history.includes(today)) {
+        s.history.push(today);
+        // Keep just the last 30 days worth.
+        if (s.history.length > 30) s.history = s.history.slice(-30);
+    }
+    if (s.last === today) {
+        try { localStorage.setItem(STREAK_STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+        return s.current;
+    }
     if (s.last == null) {
         s.current = 1;
     } else {
@@ -135,6 +205,24 @@ function bumpDailyStreak() {
     s.last = today;
     try { localStorage.setItem(STREAK_STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
     return s.current;
+}
+
+// Return last 7 days as [{date, key, practiced}, ...] from oldest to newest.
+function lastSevenDays() {
+    const s = loadStreak();
+    const hist = (s.history || []);
+    const out = [];
+    const now = new Date();
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        const key = `${yyyy}-${mm}-${dd}`;
+        const labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        out.push({ key, label: labels[d.getDay()].slice(0, 1), practiced: hist.includes(key) });
+    }
+    return out;
 }
 
 function _isoWeekTag() {
@@ -599,6 +687,114 @@ function choosePet(id) {
     s.petId = id;
     savePetState(s);
     if (typeof renderHomeModules === 'function') renderHomeModules();
+}
+
+// ===== Quick Math — 5 mixed problems in a focused overlay =====
+function openQuickMath() {
+    playSound('click');
+    const probs = _generateQuickMathProblems(5);
+    let idx = 0, correct = 0, attempts = 0;
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay qm-overlay';
+    function render() {
+        if (idx >= probs.length) {
+            const reward = correct * 1;  // 1 robux per right (5 max)
+            if (reward > 0 && typeof saveRobux === 'function' && typeof loadRobux === 'function') {
+                saveRobux(loadRobux() + reward);
+            }
+            overlay.innerHTML = `<div class="potd-card qm-card">
+                <h2>⚡ Quick Math done!</h2>
+                <div class="qm-score">You got <b>${correct} / ${probs.length}</b></div>
+                <div class="qm-reward">+${reward} 💎</div>
+                <button class="potd-close">Awesome</button>
+            </div>`;
+            overlay.querySelector('.potd-close').addEventListener('click', () => {
+                overlay.remove();
+                if (typeof renderHomeModules === 'function') renderHomeModules();
+            });
+            return;
+        }
+        const cur = probs[idx];
+        overlay.innerHTML = `<div class="potd-card qm-card">
+            <h2>⚡ Quick Math</h2>
+            <div class="qm-progress">Question ${idx + 1} of ${probs.length}</div>
+            <div class="potd-question">${cur.q}</div>
+            <input type="number" class="potd-input" autocomplete="off" inputmode="numeric" />
+            <div class="potd-actions">
+                <button class="potd-check">Check</button>
+                <button class="qm-skip">Skip</button>
+            </div>
+            <div class="potd-feedback"></div>
+        </div>`;
+        const input = overlay.querySelector('.potd-input');
+        const fb = overlay.querySelector('.potd-feedback');
+        const submit = () => {
+            const val = parseInt(input.value, 10);
+            if (Number.isNaN(val)) return;
+            attempts++;
+            if (val === cur.a) {
+                correct++;
+                fb.innerHTML = `<div class="potd-correct">✅ ${cur.q.replace('?', cur.a)}</div>`;
+                playSound('correct');
+                setTimeout(() => { idx++; render(); }, 700);
+            } else {
+                fb.innerHTML = `<div class="potd-wrong">Answer: ${cur.a}. Onward!</div>`;
+                playSound('wrong');
+                setTimeout(() => { idx++; render(); }, 1100);
+            }
+        };
+        overlay.querySelector('.potd-check').addEventListener('click', submit);
+        overlay.querySelector('.qm-skip').addEventListener('click', () => { idx++; render(); });
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+        setTimeout(() => input.focus(), 50);
+    }
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+    render();
+}
+
+function _generateQuickMathProblems(n) {
+    const out = [];
+    const types = ['add', 'sub', 'add', 'missing', 'sub'];
+    for (let i = 0; i < n; i++) {
+        const t = types[i % types.length];
+        let a, b, ans, q;
+        if (t === 'add') {
+            a = 1 + Math.floor(Math.random() * 10);
+            b = 1 + Math.floor(Math.random() * 10);
+            ans = a + b;
+            q = `${a} + ${b} = ?`;
+        } else if (t === 'sub') {
+            a = 5 + Math.floor(Math.random() * 14);
+            b = 1 + Math.floor(Math.random() * Math.min(a - 1, 9));
+            ans = a - b;
+            q = `${a} - ${b} = ?`;
+        } else {
+            // Missing addend: a + ? = c
+            a = 1 + Math.floor(Math.random() * 9);
+            ans = 1 + Math.floor(Math.random() * 9);
+            const c = a + ans;
+            q = `${a} + ? = ${c}`;
+        }
+        out.push({ q, a: ans });
+    }
+    return out;
+}
+
+// Floating high-five popup — fires every 3 in a row.
+function showHighFive(streak) {
+    const emojis = ['🙌', '🎯', '⚡', '🚀', '🌟'];
+    const e = emojis[Math.floor(Math.random() * emojis.length)];
+    const el = document.createElement('div');
+    el.className = 'highfive-toast';
+    el.innerHTML = `<div class="hf-emoji">${e}</div>
+                    <div class="hf-text">${streak} in a row, Hakan!</div>`;
+    document.body.appendChild(el);
+    setTimeout(() => el.classList.add('hf-show'), 30);
+    setTimeout(() => {
+        el.classList.remove('hf-show');
+        setTimeout(() => el.remove(), 400);
+    }, 1400);
 }
 
 // ===== Comfort settings (text size + motion) =====
