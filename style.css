@@ -8687,6 +8687,41 @@ html.motion-reduced .affirmation-card { animation: none; }
     box-shadow: 0 4px 10px rgba(109, 40, 217, 0.3);
 }
 
+/* ===== Iteration 32: soundboard ===== */
+.soundboard { max-width: 460px; text-align: center; }
+.sb-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 12px 0;
+}
+.sb-key {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #fbbf24;
+    border-radius: 16px;
+    padding: 14px 4px;
+    font-size: 2.4rem;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+    color: #78350f;
+}
+.sb-key:hover { transform: translateY(-2px); }
+.sb-key.sb-pop {
+    animation: sbPop 0.4s ease-out;
+}
+@keyframes sbPop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.25) rotate(-8deg); }
+    100% { transform: scale(1); }
+}
+.sb-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #78350f;
+    margin-top: 2px;
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

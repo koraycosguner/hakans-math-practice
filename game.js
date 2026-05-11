@@ -1801,6 +1801,44 @@ function openFingerCount() {
     document.body.appendChild(overlay);
 }
 
+// Soundboard: emojis Hakan can tap to hear sounds.
+function openSoundboard() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    const sounds = [
+        { e: '🐶', s: 'correct',  t: 'Woof!' },
+        { e: '🐱', s: 'hop',      t: 'Meow!' },
+        { e: '🐮', s: 'win',      t: 'Moo!' },
+        { e: '🐸', s: 'hop',      t: 'Ribbit!' },
+        { e: '🚗', s: 'click',    t: 'Beep!' },
+        { e: '🎺', s: 'win',      t: 'Toot!' },
+        { e: '🔔', s: 'correct',  t: 'Ding!' },
+        { e: '💥', s: 'wrong',    t: 'BOOM!' },
+    ];
+    overlay.innerHTML = `<div class="potd-card soundboard">
+        <h2>🎹 Soundboard</h2>
+        <div class="sound-sub">Tap each emoji to hear a sound!</div>
+        <div class="sb-row">
+            ${sounds.map((x) => `<button class="sb-key" data-s="${x.s}" data-t="${x.t}">${x.e}<span class="sb-label">${x.t}</span></button>`).join('')}
+        </div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.querySelectorAll('.sb-key').forEach((b) => {
+        b.addEventListener('click', () => {
+            const s = b.getAttribute('data-s');
+            const t = b.getAttribute('data-t');
+            playSound(s);
+            if (typeof speak === 'function') speak(t);
+            b.classList.add('sb-pop');
+            setTimeout(() => b.classList.remove('sb-pop'), 400);
+        });
+    });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+}
+
 // Math Toys hub picker
 function openMathToys() {
     playSound('click');
@@ -1818,6 +1856,7 @@ function openMathToys() {
             <button class="sound-opt" onclick="openCountingSong();closeSoundOverlay()"><div class="sound-emoji">🎵</div><div class="sound-name">Count Song</div></button>
             <button class="sound-opt" onclick="openSkipChant();closeSoundOverlay()"><div class="sound-emoji">⏭️</div><div class="sound-name">Skip Count</div></button>
             <button class="sound-opt" onclick="openFingerCount();closeSoundOverlay()"><div class="sound-emoji">✋</div><div class="sound-name">Fingers</div></button>
+            <button class="sound-opt" onclick="openSoundboard();closeSoundOverlay()"><div class="sound-emoji">🎹</div><div class="sound-name">Sounds</div></button>
         </div>
         <button class="sound-close">Close</button>
     </div>`;
@@ -2381,6 +2420,7 @@ function showHighFive(streak) {
                     <div class="hf-text">${streak} in a row, Hakan!</div>`;
     document.body.appendChild(el);
     setTimeout(() => el.classList.add('hf-show'), 30);
+    playSound('sparkle');
     setTimeout(() => {
         el.classList.remove('hf-show');
         setTimeout(() => el.remove(), 400);
@@ -3941,11 +3981,39 @@ function _soundGain(base) {
     return base;
 }
 
+// Win sound variants — picked at random for variety.
+function _playWinVariant(variant) {
+    const ctx = getAudioCtx();
+    const variants = {
+        cascade: [523, 587, 659, 698, 784, 880, 988, 1047],
+        arpeggio: [523, 659, 784, 1047],
+        triplet: [523, 659, 784, 523, 659, 784, 1047],
+        ladder: [392, 440, 494, 523, 587, 659, 784],
+    };
+    const notes = variants[variant] || variants.cascade;
+    notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.09);
+        gain.gain.setValueAtTime(_soundGain(0.12), ctx.currentTime + i * 0.09);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.09 + 0.3);
+        osc.start(ctx.currentTime + i * 0.09);
+        osc.stop(ctx.currentTime + i * 0.09 + 0.3);
+    });
+}
+
 function playSound(type) {
     if (loadSoundProfile() === 'silent') return;
     // Gentle mode: skip the multi-note win fanfare to keep things low-key.
     if (loadSoundProfile() === 'gentle' && type === 'win') return;
     try {
+        if (type === 'win') {
+            const variants = ['cascade', 'arpeggio', 'triplet', 'ladder'];
+            _playWinVariant(variants[Math.floor(Math.random() * variants.length)]);
+            return;
+        }
         const ctx = getAudioCtx();
         const oscillator = ctx.createOscillator();
         const gainNode = ctx.createGain();
@@ -3968,10 +4036,27 @@ function playSound(type) {
             oscillator.start(ctx.currentTime);
             oscillator.stop(ctx.currentTime + 0.3);
         } else if (type === 'click') {
-            oscillator.frequency.setValueAtTime(600, ctx.currentTime);
+            // Slight pitch variety for clicks (550-700Hz) so taps don't feel monotone.
+            const pitch = 550 + Math.floor(Math.random() * 150);
+            oscillator.frequency.setValueAtTime(pitch, ctx.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
             oscillator.start(ctx.currentTime);
             oscillator.stop(ctx.currentTime + 0.08);
+        } else if (type === 'whoosh') {
+            // Quick sweep for unique moments
+            oscillator.frequency.setValueAtTime(220, ctx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.25);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.25);
+        } else if (type === 'sparkle') {
+            // Light twinkle for special moments
+            const tone = 1200 + Math.floor(Math.random() * 400);
+            oscillator.frequency.setValueAtTime(tone, ctx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+            oscillator.type = 'triangle';
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.15);
         } else if (type === 'hop') {
             oscillator.frequency.setValueAtTime(440, ctx.currentTime);
             oscillator.frequency.setValueAtTime(587, ctx.currentTime + 0.05);
