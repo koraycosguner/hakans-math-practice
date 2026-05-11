@@ -689,6 +689,68 @@ function choosePet(id) {
     if (typeof renderHomeModules === 'function') renderHomeModules();
 }
 
+// ===== Per-problem timer (optional, via Comfort settings) =====
+let _problemTimerStart = 0;
+let _problemTimerId = null;
+function _startProblemTimer() {
+    if (_problemTimerId) { clearInterval(_problemTimerId); _problemTimerId = null; }
+    _problemTimerStart = Date.now();
+    const el = document.getElementById('mg-timer');
+    if (el) el.textContent = '0s';
+    _problemTimerId = setInterval(() => {
+        const t = Math.floor((Date.now() - _problemTimerStart) / 1000);
+        const e = document.getElementById('mg-timer');
+        if (e) e.textContent = `${t}s`;
+    }, 500);
+}
+function _stopProblemTimer() {
+    if (_problemTimerId) { clearInterval(_problemTimerId); _problemTimerId = null; }
+}
+
+// ===== Keyboard input — types numbers and submits across screens =====
+// Listens once globally. Each screen has its own numpad routing.
+function _activeScreenId() {
+    const s = document.querySelector('.screen.active');
+    return s ? s.id : null;
+}
+function _hasActiveOverlay() {
+    // Any open modal (POTD, sound, comfort, fact-family, quick math)
+    return !!document.querySelector('.potd-overlay, .sound-overlay, .pet-picker-overlay, .cert-overlay, .ff-overlay, .qm-overlay');
+}
+function _initKeyboardInput() {
+    if (window._kbInited) return;
+    window._kbInited = true;
+    document.addEventListener('keydown', (e) => {
+        // Ignore when user is typing in an input/textarea (our own overlays
+        // have their own listeners and shouldn't double-fire).
+        const tag = (e.target && e.target.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+        if (_hasActiveOverlay()) return;
+        const id = _activeScreenId();
+        const isDigit = /^[0-9]$/.test(e.key);
+        const isEnter = (e.key === 'Enter');
+        const isBack  = (e.key === 'Backspace' || e.key === 'Delete');
+        if (!isDigit && !isEnter && !isBack) return;
+        if (id === 'module-game-screen' && typeof mgTypeNumber === 'function') {
+            if (isDigit) mgTypeNumber(e.key);
+            else if (isEnter && typeof mgCheckAnswer === 'function') mgCheckAnswer();
+            else if (isBack && typeof mgDeleteNumber === 'function') mgDeleteNumber();
+        } else if (id === 'game-screen' && typeof typeNumber === 'function') {
+            if (isDigit) typeNumber(e.key);
+            else if (isEnter && typeof checkAnswer === 'function') checkAnswer();
+            else if (isBack && typeof deleteNumber === 'function') deleteNumber();
+        } else if (id === 'factfamily-screen' && typeof ffTypeNumber === 'function') {
+            if (isDigit) ffTypeNumber(e.key);
+            else if (isEnter && typeof ffCheckAnswer === 'function') ffCheckAnswer();
+            else if (isBack && typeof ffDeleteNumber === 'function') ffDeleteNumber();
+        } else {
+            return;
+        }
+        e.preventDefault();
+    });
+}
+_initKeyboardInput();
+
 // ===== Quick Math — 5 mixed problems in a focused overlay =====
 function openQuickMath() {
     playSound('click');
@@ -827,6 +889,23 @@ function saveMotion(m) {
     applyComfortSettings();
 }
 
+function loadFontStyle() {
+    try { return localStorage.getItem('hakans-math-font') || 'default'; }
+    catch (e) { return 'default'; }
+}
+function saveFontStyle(s) {
+    try { localStorage.setItem('hakans-math-font', s); } catch (e) {}
+    applyComfortSettings();
+}
+function loadShowTimer() {
+    try { return localStorage.getItem('hakans-math-timer') === 'on'; }
+    catch (e) { return false; }
+}
+function saveShowTimer(on) {
+    try { localStorage.setItem('hakans-math-timer', on ? 'on' : 'off'); } catch (e) {}
+    applyComfortSettings();
+}
+
 function applyComfortSettings() {
     const root = document.documentElement;
     const size = loadTextSize();
@@ -835,12 +914,19 @@ function applyComfortSettings() {
     const motion = loadMotion();
     root.classList.remove('motion-full', 'motion-reduced');
     root.classList.add(`motion-${motion}`);
+    const font = loadFontStyle();
+    root.classList.remove('font-default', 'font-dyslexic');
+    root.classList.add(`font-${font}`);
+    const timer = loadShowTimer();
+    root.classList.toggle('show-timer', timer);
 }
 
 function openComfortPicker() {
     playSound('click');
     const sz = loadTextSize();
     const mt = loadMotion();
+    const ft = loadFontStyle();
+    const tm = loadShowTimer();
     const overlay = document.createElement('div');
     overlay.className = 'sound-overlay';
     overlay.innerHTML = `<div class="sound-card">
@@ -857,6 +943,16 @@ function openComfortPicker() {
             <button class="sound-opt ${mt==='full'?'sound-current':''}"    data-mt="full"><div class="sound-emoji">🎉</div><div class="sound-name">Full</div><div class="sound-desc">Confetti &amp; bounce</div></button>
             <button class="sound-opt ${mt==='reduced'?'sound-current':''}" data-mt="reduced"><div class="sound-emoji">🧘</div><div class="sound-name">Calm</div><div class="sound-desc">Less wiggle</div></button>
         </div>
+        <div class="comfort-row-label">Reading</div>
+        <div class="sound-options">
+            <button class="sound-opt ${ft==='default'?'sound-current':''}"  data-ft="default"><div class="sound-emoji">Aa</div><div class="sound-name">Default</div></button>
+            <button class="sound-opt ${ft==='dyslexic'?'sound-current':''}" data-ft="dyslexic"><div class="sound-emoji" style="font-family:'Comic Sans MS','Verdana',sans-serif;">A b</div><div class="sound-name">Easy-read</div><div class="sound-desc">Verdana style</div></button>
+        </div>
+        <div class="comfort-row-label">Timer</div>
+        <div class="sound-options" style="grid-template-columns: repeat(2, 1fr);">
+            <button class="sound-opt ${!tm?'sound-current':''}" data-tm="off"><div class="sound-emoji">⏱️</div><div class="sound-name">Off</div><div class="sound-desc">No clock</div></button>
+            <button class="sound-opt ${tm?'sound-current':''}"  data-tm="on"><div class="sound-emoji">⏱️</div><div class="sound-name">On</div><div class="sound-desc">Show seconds</div></button>
+        </div>
         <button class="sound-close">Done</button>
     </div>`;
     overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
@@ -870,6 +966,20 @@ function openComfortPicker() {
     overlay.querySelectorAll('[data-mt]').forEach((b) => {
         b.addEventListener('click', () => {
             saveMotion(b.getAttribute('data-mt'));
+            overlay.remove();
+            openComfortPicker();
+        });
+    });
+    overlay.querySelectorAll('[data-ft]').forEach((b) => {
+        b.addEventListener('click', () => {
+            saveFontStyle(b.getAttribute('data-ft'));
+            overlay.remove();
+            openComfortPicker();
+        });
+    });
+    overlay.querySelectorAll('[data-tm]').forEach((b) => {
+        b.addEventListener('click', () => {
+            saveShowTimer(b.getAttribute('data-tm') === 'on');
             overlay.remove();
             openComfortPicker();
         });

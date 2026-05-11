@@ -6415,6 +6415,63 @@ html.motion-reduced .m-card-new-pill {
     .cert-actions { display: none; }
 }
 
+/* ===== Iteration 6: font, timer, last-seen pill ===== */
+/* Easy-read font: switch the body family + slight letter spacing. */
+html.font-dyslexic body,
+html.font-dyslexic .lesson-text,
+html.font-dyslexic .speech-bubble,
+html.font-dyslexic .m-card-title,
+html.font-dyslexic .m-card-desc,
+html.font-dyslexic .module-detail-desc,
+html.font-dyslexic .module-detail-title,
+html.font-dyslexic input,
+html.font-dyslexic button,
+html.font-dyslexic textarea {
+    font-family: 'Verdana', 'Comic Sans MS', 'Trebuchet MS', sans-serif !important;
+    letter-spacing: 0.02em;
+}
+html.font-dyslexic .lesson-text { line-height: 1.55; }
+
+/* Per-problem timer chip (only visible when Comfort opted in) */
+.timer-display {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+html.show-timer .timer-display { display: inline-flex; }
+
+/* Module detail "last played" pill */
+.module-detail-pill {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin: 8px 0 6px;
+}
+.mdp-chip {
+    background: #ede9fe;
+    color: #5b21b6;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+.mdp-chip-new {
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    color: #78350f;
+    animation: newChipPulse 1.8s ease-in-out infinite;
+}
+@keyframes newChipPulse {
+    0%,100% { transform: scale(1); }
+    50%     { transform: scale(1.05); }
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

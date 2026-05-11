@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=43">
+    <link rel="manifest" href="manifest.json?v=44">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=43">
+    <link rel="stylesheet" href="style.css?v=44">
 </head>
 <body>
     <!-- Loading splash: shown while the audio manifest + module data load.
@@ -86,6 +86,7 @@
                 <div id="module-detail-icon" class="module-detail-icon">🔢</div>
                 <h1 id="module-detail-title" class="module-detail-title">Module</h1>
                 <p id="module-detail-desc" class="module-detail-desc">Description.</p>
+                <div id="module-detail-pill" class="module-detail-pill" style="display:none;"></div>
 
                 <div class="activity-buttons">
                     <button id="mod-lesson-btn"   class="activity-btn act-lesson"   onclick="startActivity('lesson')">
@@ -323,6 +324,7 @@
                 <div class="streak-display">
                     <span id="mg-streak">🔥 0</span>
                 </div>
+                <div class="timer-display" id="mg-timer-display"><span>⏱️</span> <span id="mg-timer">0s</span></div>
                 <div id="mg-robux-display" class="robux-display" style="display:none;">
                     <span>💎</span>
                     <span id="mg-robux-game">0.0</span>
@@ -507,10 +509,10 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=43"></script>
-    <script src="modules.js?v=43"></script>
-    <script src="game.js?v=43"></script>
-    <script src="minigames.js?v=43"></script>
+    <script src="audio.js?v=44"></script>
+    <script src="modules.js?v=44"></script>
+    <script src="game.js?v=44"></script>
+    <script src="minigames.js?v=44"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->

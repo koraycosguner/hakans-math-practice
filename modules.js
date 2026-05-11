@@ -69488,6 +69488,30 @@ function selectModule(id) {
     document.getElementById('module-detail-title').textContent = mod.title;
     document.getElementById('module-detail-desc').textContent = mod.description;
 
+    // Last-seen pill and best-stars
+    const pill = document.getElementById('module-detail-pill');
+    if (pill) {
+        const visits = (typeof loadAllVisits === 'function') ? loadAllVisits() : {};
+        const prog = (typeof loadAllProgress === 'function') ? loadAllProgress() : {};
+        const v = visits[id], p = prog[id];
+        const bits = [];
+        if (v && v.lastVisited) {
+            const d = Math.floor((Date.now() - v.lastVisited) / 86400000);
+            const ago = d === 0 ? 'today' : d === 1 ? 'yesterday' : `${d} days ago`;
+            bits.push(`<span class="mdp-chip">⏱️ Last played: ${ago}</span>`);
+        } else {
+            bits.push(`<span class="mdp-chip mdp-chip-new">✨ First time!</span>`);
+        }
+        if (p && p.stars > 0) {
+            bits.push(`<span class="mdp-chip">${'⭐'.repeat(p.stars)} Best</span>`);
+        }
+        if (v && v.count > 0) {
+            bits.push(`<span class="mdp-chip">📈 Played ${v.count}x</span>`);
+        }
+        pill.innerHTML = bits.join('');
+        pill.style.display = bits.length ? '' : 'none';
+    }
+
     const hasPractice = !!mod.practice || mod.kind === 'addsub' || mod.kind === 'factfamily';
     const hasQuiz     = !!mod.quiz     || mod.kind === 'addsub' || mod.kind === 'factfamily';
     document.getElementById('mod-lesson-btn').style.display   = mod.lesson ? '' : 'none';
@@ -69946,6 +69970,8 @@ function renderModuleProblem() {
     document.getElementById('mg-progress-fill').style.width = `${(moduleState.problemIndex / total) * 100}%`;
     document.getElementById('mg-score').textContent = moduleState.score;
     document.getElementById('mg-streak').textContent = `🔥 ${moduleState.streak}`;
+
+    if (typeof _startProblemTimer === 'function') _startProblemTimer();
 
     // Robux
     const robuxDisplay = document.getElementById('mg-robux-display');
