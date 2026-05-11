@@ -11,7 +11,7 @@
  * Bump CACHE_VERSION whenever the app shell changes so old caches purge.
  */
 
-const CACHE_VERSION = 'hakans-math-v196';
+const CACHE_VERSION = 'hakans-math-v197';
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const AUDIO_CACHE = `${CACHE_VERSION}-audio`;
 
@@ -50,6 +50,11 @@ self.addEventListener('fetch', (event) => {
     if (req.method !== 'GET') return;
 
     const url = new URL(req.url);
+
+    // Cross-origin requests (e.g. Phaser from jsdelivr) — let the browser
+    // handle them directly. The SW doesn't try to cache them since opaque
+    // responses are complicated and not worth it for occasional CDN libs.
+    if (url.origin !== self.location.origin) return;
 
     // Audio: cache-first, lazily populated
     if (url.pathname.includes('/audio/')) {

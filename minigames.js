@@ -20,6 +20,24 @@ let _powerupTimers = [];
 let _scoreMultiplier = 1;
 let _powerupSpawnTimer = null;
 
+// ===== Phaser loader =====
+// Phaser is a ~1MB HTML5 game framework. We lazy-load it on first use of
+// a Phaser-based game (only the proper "console-style" games need it —
+// the CSS+emoji games don't).
+let _phaserLoading = null;
+function _ensurePhaser() {
+    if (window.Phaser) return Promise.resolve(window.Phaser);
+    if (_phaserLoading) return _phaserLoading;
+    _phaserLoading = new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js';
+        s.onload = () => resolve(window.Phaser);
+        s.onerror = () => reject(new Error('Failed to load Phaser'));
+        document.head.appendChild(s);
+    });
+    return _phaserLoading;
+}
+
 // ----------------------------------------------------------------------
 // "Juice" helpers — floating popups, particle bursts, pulse effects
 // ----------------------------------------------------------------------
@@ -7474,6 +7492,488 @@ GAME_IMPLS['dino-math-jump'] = {
                 stopped = true;
                 if (raf) cancelAnimationFrame(raf);
                 document.removeEventListener('keydown', dinoKey);
+            }
+        };
+    }
+};
+
+// =====================================================================
+// 44. MATH PLATFORMER PRO — Real game-engine platformer using Phaser! 🎮
+// Hand-coded animated character (no emoji), real arcade physics (gravity
+// + jumps + collisions), side-scrolling camera, tile-based ground.
+// Built as a proof-of-concept that CSS+emoji games hit a ceiling and
+// real-game look needs canvas + game-engine.
+// =====================================================================
+GAME_IMPLS['math-platformer-pro'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-pp-wrap';
+
+        // HUD (DOM overlay — drawn on top of the Phaser canvas)
+        const hud = document.createElement('div');
+        hud.className = 'mg-pp-hud';
+        hud.innerHTML = `
+            <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">❤️</span><span class="mg-pp-hud-val" id="pp-lives">3</span></div>
+            <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">🪙</span><span class="mg-pp-hud-val" id="pp-coins">0</span></div>
+            <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">📍</span><span class="mg-pp-hud-val" id="pp-dist">0m</span></div>
+        `;
+        wrap.appendChild(hud);
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-pp-q';
+        qBox.innerHTML = '<span id="pp-q-text">Loading…</span>';
+        wrap.appendChild(qBox);
+
+        const canvasHost = document.createElement('div');
+        canvasHost.className = 'mg-pp-canvas-host';
+        canvasHost.id = 'mg-pp-canvas-' + Date.now();
+        wrap.appendChild(canvasHost);
+
+        const ctrlBar = document.createElement('div');
+        ctrlBar.className = 'mg-pp-controls';
+        ctrlBar.innerHTML = `<button class="mg-pp-jump-btn">⬆️ JUMP</button>`;
+        wrap.appendChild(ctrlBar);
+
+        ctx.area.appendChild(wrap);
+
+        // Loading state while Phaser loads
+        const loadingEl = document.createElement('div');
+        loadingEl.className = 'mg-pp-loading';
+        loadingEl.textContent = '⚙️ Loading game engine…';
+        canvasHost.appendChild(loadingEl);
+
+        let game = null;
+        let sceneRef = null;
+        let stopped = false;
+
+        _ensurePhaser().then((Phaser) => {
+            if (stopped) return;
+            loadingEl.remove();
+
+            // ===== Phaser scene =====
+            class PlatformScene extends Phaser.Scene {
+                constructor() { super('platform'); }
+                init() {
+                    this.lives = 3;
+                    this.coins = 0;
+                    this.distance = 0;
+                    this.target = null;
+                    this.problemQ = '';
+                    this.acceptingHit = true;
+                }
+                preload() {
+                    // No external assets — we build everything procedurally.
+                }
+                create() {
+                    const W = this.scale.width;
+                    const H = this.scale.height;
+                    const WORLD_W = 4800; // very long level
+
+                    // === Sky gradient background ===
+                    const skyGfx = this.add.graphics();
+                    skyGfx.fillGradientStyle(0x7dd3fc, 0x7dd3fc, 0xc7d2fe, 0xc7d2fe, 1);
+                    skyGfx.fillRect(0, 0, WORLD_W, H);
+                    skyGfx.setScrollFactor(0.2); // slow parallax
+
+                    // === Sun ===
+                    const sun = this.add.circle(120, 80, 36, 0xfde047);
+                    sun.setScrollFactor(0.1);
+                    const sunHalo = this.add.circle(120, 80, 50, 0xfde047, 0.3);
+                    sunHalo.setScrollFactor(0.1);
+
+                    // === Background hills (parallax) ===
+                    const hillsGfx = this.add.graphics();
+                    hillsGfx.fillStyle(0x16a34a, 0.7);
+                    for (let x = 0; x < WORLD_W; x += 280) {
+                        hillsGfx.fillEllipse(x + 140, H - 60, 280, 120);
+                    }
+                    hillsGfx.setScrollFactor(0.4);
+
+                    // Mid hills
+                    const hillsMid = this.add.graphics();
+                    hillsMid.fillStyle(0x15803d, 0.85);
+                    for (let x = 0; x < WORLD_W; x += 240) {
+                        hillsMid.fillEllipse(x + 120, H - 30, 320, 140);
+                    }
+                    hillsMid.setScrollFactor(0.6);
+
+                    // Drifting clouds
+                    this.cloudsGroup = this.add.group();
+                    for (let i = 0; i < 6; i++) {
+                        const cx = 200 + Math.random() * (WORLD_W - 400);
+                        const cy = 60 + Math.random() * 80;
+                        const cloud = this.add.graphics();
+                        cloud.fillStyle(0xffffff, 0.9);
+                        cloud.fillCircle(0, 0, 18);
+                        cloud.fillCircle(15, -6, 14);
+                        cloud.fillCircle(28, 2, 16);
+                        cloud.fillCircle(-12, 4, 13);
+                        cloud.setPosition(cx, cy);
+                        cloud.setScrollFactor(0.3);
+                        cloud.driftSpeed = 0.1 + Math.random() * 0.15;
+                        this.cloudsGroup.add(cloud);
+                    }
+
+                    // === Ground (tilemap-style as a static physics group) ===
+                    this.ground = this.physics.add.staticGroup();
+                    const groundY = H - 60;
+                    for (let x = 0; x < WORLD_W; x += 40) {
+                        // Visible tile
+                        const t = this.add.rectangle(x + 20, groundY + 30, 40, 60, 0x8b4513);
+                        // Grass cap
+                        const g = this.add.rectangle(x + 20, groundY, 40, 8, 0x16a34a);
+                        // Brick stripes
+                        const stripe = this.add.rectangle(x + 20, groundY + 30, 38, 2, 0x6b3410);
+                        // Static body for collision
+                        this.physics.add.existing(t, true);
+                        this.ground.add(t);
+                    }
+
+                    // === Player Character (a "Container" of shapes) ===
+                    // Built from rectangles + a circle — animated as a true
+                    // run-cycle with leg/arm swings.
+                    const player = this.add.container(80, groundY - 40);
+                    const torso = this.add.rectangle(0, 0, 18, 22, 0x2563eb);
+                    const head  = this.add.circle(0, -18, 10, 0xfcd5b4);
+                    // Hair tuft
+                    const hair  = this.add.rectangle(0, -25, 18, 4, 0x4a2c1a);
+                    // Eyes
+                    const eyeL  = this.add.circle(-3, -19, 1.5, 0x000000);
+                    const eyeR  = this.add.circle( 3, -19, 1.5, 0x000000);
+                    // Limbs (origin at top so they swing from the shoulder/hip)
+                    const armL  = this.add.rectangle(-9, -6, 4, 14, 0xfcd5b4).setOrigin(0.5, 0);
+                    const armR  = this.add.rectangle( 9, -6, 4, 14, 0xfcd5b4).setOrigin(0.5, 0);
+                    const legL  = this.add.rectangle(-4, 10, 5, 14, 0x1e3a8a).setOrigin(0.5, 0);
+                    const legR  = this.add.rectangle( 4, 10, 5, 14, 0x1e3a8a).setOrigin(0.5, 0);
+                    player.add([armL, armR, torso, head, hair, eyeL, eyeR, legL, legR]);
+                    this.physics.world.enable(player);
+                    const body = player.body;
+                    body.setSize(22, 52);
+                    body.setOffset(-11, -28);
+                    body.setCollideWorldBounds(false);
+                    body.setMaxVelocity(280, 1200);
+                    this.physics.add.collider(player, this.ground);
+                    this.player = player;
+                    this.playerLimbs = { armL, armR, legL, legR, torso, head };
+
+                    // Run-cycle leg + arm swing (idle bobs slowly, runs swing fast)
+                    this.runTween = this.tweens.add({
+                        targets: [legL, armR],
+                        rotation: { from: -0.45, to: 0.45 },
+                        duration: 200,
+                        yoyo: true,
+                        repeat: -1,
+                    });
+                    this.runTween2 = this.tweens.add({
+                        targets: [legR, armL],
+                        rotation: { from: 0.45, to: -0.45 },
+                        duration: 200,
+                        yoyo: true,
+                        repeat: -1,
+                    });
+                    // Auto-run right (slow speed; jumps land them on math blocks)
+                    body.setVelocityX(150);
+
+                    // Camera follows the player horizontally
+                    this.cameras.main.setBounds(0, 0, WORLD_W, H);
+                    this.cameras.main.startFollow(player, true, 0.1, 0);
+
+                    // Input handlers
+                    this.input.keyboard.on('keydown-SPACE', () => this.tryJump());
+                    this.input.keyboard.on('keydown-UP', () => this.tryJump());
+                    this.input.on('pointerdown', () => this.tryJump());
+                    ctrlBar.querySelector('.mg-pp-jump-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.tryJump();
+                    });
+
+                    // === Math blocks (question blocks scattered along the path) ===
+                    this.qBlocks = this.physics.add.staticGroup();
+                    const blockY = groundY - 160;
+                    const blockPositions = [];
+                    for (let x = 400; x < WORLD_W - 200; x += 300) {
+                        blockPositions.push({ x, y: blockY });
+                    }
+                    blockPositions.forEach((p) => {
+                        // Visual: three brick blocks side-by-side, each with a number option
+                        const set = this.makeQuestionGroup(p.x, p.y);
+                        set.blocks.forEach((b) => this.qBlocks.add(b));
+                    });
+                    this.physics.add.collider(this.player, this.qBlocks, (player, block) => {
+                        if (!block._meta) return;
+                        if (!block._meta.canHit) return;
+                        // Only count a "hit" if player is moving upward (hit from below)
+                        if (player.body.velocity.y >= 0) return;
+                        this.handleBlockHit(block);
+                    });
+
+                    // === Coins floating in the air for collection ===
+                    this.coinsGroup = this.physics.add.staticGroup();
+                    for (let x = 200; x < WORLD_W - 100; x += 180) {
+                        if (Math.random() < 0.6) {
+                            const cx = x + (Math.random() - 0.5) * 80;
+                            const cy = groundY - 80 - Math.random() * 100;
+                            const coin = this.add.circle(cx, cy, 8, 0xfbbf24);
+                            const coinInner = this.add.circle(cx, cy, 5, 0xfde047);
+                            this.physics.add.existing(coin, true);
+                            coin._inner = coinInner;
+                            this.coinsGroup.add(coin);
+                            // Coin spin
+                            this.tweens.add({
+                                targets: coin,
+                                scaleX: { from: 1, to: 0.3 },
+                                duration: 600,
+                                yoyo: true,
+                                repeat: -1,
+                            });
+                        }
+                    }
+                    this.physics.add.overlap(this.player, this.coinsGroup, (player, coin) => {
+                        if (coin._collected) return;
+                        coin._collected = true;
+                        this.coins += 1;
+                        document.getElementById('pp-coins').textContent = this.coins;
+                        try { ctx.onScore(1, { x: 0, y: 0 }); } catch {}
+                        // Coin pop animation
+                        this.tweens.add({
+                            targets: [coin, coin._inner],
+                            scale: 2,
+                            alpha: 0,
+                            y: '-=24',
+                            duration: 350,
+                            onComplete: () => { try { coin.destroy(); coin._inner.destroy(); } catch {} }
+                        });
+                    });
+
+                    // === Flag at the end (goal post) ===
+                    this.flag = this.add.rectangle(WORLD_W - 80, groundY - 40, 6, 80, 0x4b5563);
+                    const flagBanner = this.add.triangle(
+                        WORLD_W - 60, groundY - 60,
+                        0, 0, 32, 10, 0, 20,
+                        0xef4444
+                    );
+                    this.physics.add.existing(this.flag, true);
+                    this.physics.add.overlap(this.player, this.flag, () => this.handleFlagReached(), null, this);
+
+                    // === First problem ===
+                    this.nextProblem();
+                }
+
+                makeQuestionGroup(cx, cy) {
+                    // 3 brick blocks side-by-side with numbers
+                    const blocks = [];
+                    const spacing = 50;
+                    for (let i = 0; i < 3; i++) {
+                        const bx = cx + (i - 1) * spacing;
+                        // Outer brick visual
+                        const b = this.add.rectangle(bx, cy, 44, 44, 0xf59e0b);
+                        b.setStrokeStyle(3, 0x7c2d12);
+                        // Number text
+                        const txt = this.add.text(bx, cy, '?', {
+                            fontFamily: 'Courier New, monospace',
+                            fontSize: '22px',
+                            fontStyle: 'bold',
+                            color: '#7c2d12',
+                        }).setOrigin(0.5);
+                        b._numText = txt;
+                        this.physics.add.existing(b, true);
+                        b._meta = { laneIdx: i, canHit: false, group: blocks, cx: bx, cy: cy };
+                        blocks.push(b);
+                    }
+                    return { blocks };
+                }
+
+                tryJump() {
+                    if (!this.player) return;
+                    const body = this.player.body;
+                    if (body.blocked.down || body.touching.down) {
+                        body.setVelocityY(-420);
+                        // Tuck legs / extend arms on jump
+                        this.tweens.add({
+                            targets: [this.playerLimbs.legL, this.playerLimbs.legR],
+                            rotation: 0,
+                            duration: 120,
+                            yoyo: true,
+                        });
+                    }
+                }
+
+                nextProblem() {
+                    const op = Math.random() < 0.5 ? '+' : '-';
+                    let a, b, ans;
+                    if (op === '+') {
+                        a = 1 + Math.floor(Math.random() * maxA);
+                        b = 1 + Math.floor(Math.random() * maxA);
+                        ans = a + b;
+                    } else {
+                        a = 2 + Math.floor(Math.random() * maxA);
+                        b = 1 + Math.floor(Math.random() * a);
+                        ans = a - b;
+                    }
+                    this.target = { a, b, op, ans };
+                    document.getElementById('pp-q-text').innerHTML =
+                        `Jump the brick that says <b>${a} ${op === '-' ? '−' : '+'} ${b}</b> = ?`;
+
+                    // Find the nearest unanswered question group to the right of the player
+                    const playerX = this.player ? this.player.x : 0;
+                    const nextGroup = this.findNextQuestionGroup(playerX);
+                    if (nextGroup) {
+                        // Assign numbers — one matches the answer, others are decoys
+                        const set = new Set([ans]);
+                        while (set.size < 3) {
+                            const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                            set.add(Math.max(0, ans + d));
+                        }
+                        const nums = Array.from(set).sort(() => Math.random() - 0.5);
+                        nextGroup.forEach((blk, i) => {
+                            blk._meta.canHit = true;
+                            blk._meta.value = nums[i];
+                            blk._meta.correct = nums[i] === ans;
+                            blk._numText.setText(String(nums[i]));
+                        });
+                    }
+                }
+
+                findNextQuestionGroup(playerX) {
+                    // Group blocks that share the same Y (a triplet)
+                    const all = this.qBlocks.getChildren();
+                    const groups = {};
+                    all.forEach((b) => {
+                        if (b._meta.canHit) return;
+                        const key = Math.round(b.y) + '_' + Math.round((b.x - 0) / 200);
+                        if (b._meta.cx > playerX + 60) {
+                            if (!groups[key]) groups[key] = [];
+                            groups[key].push(b);
+                        }
+                    });
+                    const keys = Object.keys(groups).sort((a, b) => {
+                        return Math.min(...groups[a].map(x => x.x)) - Math.min(...groups[b].map(x => x.x));
+                    });
+                    if (!keys.length) return null;
+                    const triplet = groups[keys[0]];
+                    return triplet.length === 3 ? triplet : null;
+                }
+
+                handleBlockHit(block) {
+                    if (block._meta.hit) return;
+                    block._meta.hit = true;
+                    // Mark all blocks in this group as no longer canHit
+                    if (block._meta.group) {
+                        block._meta.group.forEach((b) => { b._meta.canHit = false; });
+                    }
+                    if (block._meta.correct) {
+                        // Correct — turn brick gold + spawn a coin pop + score
+                        block.setFillStyle(0xfde047);
+                        block._numText.setColor('#16a34a');
+                        // Coin pop above the block
+                        const popCoin = this.add.circle(block.x, block.y - 30, 8, 0xfbbf24);
+                        this.tweens.add({
+                            targets: popCoin,
+                            y: block.y - 80,
+                            alpha: 0,
+                            scale: 1.6,
+                            duration: 600,
+                            onComplete: () => popCoin.destroy(),
+                        });
+                        try { ctx.onScore(3, { x: 0, y: 0 }); } catch {}
+                        this.nextProblem();
+                    } else {
+                        // Wrong — turn red, lose a life
+                        block.setFillStyle(0xef4444);
+                        block._numText.setColor('#ffffff');
+                        this.lives -= 1;
+                        document.getElementById('pp-lives').textContent = this.lives;
+                        try { ctx.onPenalty(2, { x: 0, y: 0 }); } catch {}
+                        if (this.lives <= 0) {
+                            this.handleGameOver();
+                            return;
+                        }
+                        this.nextProblem();
+                    }
+                }
+
+                handleFlagReached() {
+                    if (this.endHandled) return;
+                    this.endHandled = true;
+                    document.getElementById('pp-q-text').innerHTML = '<b>🏁 LEVEL CLEAR!</b>';
+                    try { ctx.onScore(10, { x: 0, y: 0 }); } catch {}
+                    try { ctx.onWin(); } catch {}
+                }
+                handleGameOver() {
+                    if (this.endHandled) return;
+                    this.endHandled = true;
+                    document.getElementById('pp-q-text').innerHTML = '<b>💀 GAME OVER!</b>';
+                    setTimeout(() => { try { ctx.onWin(); } catch {} }, 1400);
+                }
+
+                update(time, dt) {
+                    if (!this.player) return;
+                    const body = this.player.body;
+                    // Update distance HUD
+                    this.distance = Math.max(0, Math.floor(this.player.x / 32));
+                    const distEl = document.getElementById('pp-dist');
+                    if (distEl) distEl.textContent = this.distance + 'm';
+                    // Maintain forward speed
+                    if (body.velocity.x < 140) body.setVelocityX(150);
+                    // Adjust limb tween speed based on grounded state
+                    if (body.blocked.down) {
+                        if (this.runTween && this.runTween.timeScale !== 1) this.runTween.timeScale = 1;
+                        if (this.runTween2 && this.runTween2.timeScale !== 1) this.runTween2.timeScale = 1;
+                    } else {
+                        // In the air — slow limb cycle
+                        if (this.runTween && this.runTween.timeScale !== 0.2) this.runTween.timeScale = 0.2;
+                        if (this.runTween2 && this.runTween2.timeScale !== 0.2) this.runTween2.timeScale = 0.2;
+                    }
+                    // Drift clouds
+                    if (this.cloudsGroup) {
+                        this.cloudsGroup.children.iterate((c) => {
+                            if (c) c.x += c.driftSpeed * (dt / 16);
+                        });
+                    }
+                    // If player falls off the world, respawn at the start
+                    if (this.player.y > this.scale.height + 100) {
+                        this.player.setPosition(80, 100);
+                        body.setVelocity(0, 0);
+                        this.lives -= 1;
+                        document.getElementById('pp-lives').textContent = this.lives;
+                        try { ctx.onPenalty(3, { x: 0, y: 0 }); } catch {}
+                        if (this.lives <= 0) this.handleGameOver();
+                    }
+                }
+            }
+
+            const config = {
+                type: Phaser.AUTO,
+                parent: canvasHost.id,
+                width: 800,
+                height: 420,
+                backgroundColor: '#87ceeb',
+                scale: {
+                    mode: Phaser.Scale.FIT,
+                    autoCenter: Phaser.Scale.CENTER_BOTH,
+                },
+                physics: {
+                    default: 'arcade',
+                    arcade: { gravity: { y: 900 }, debug: false },
+                },
+                scene: PlatformScene,
+            };
+            game = new Phaser.Game(config);
+        }).catch((err) => {
+            loadingEl.innerHTML = '⚠️ Couldn\'t load game engine. Try refreshing.';
+            console.error('Phaser load failed:', err);
+        });
+
+        return {
+            stop() {
+                stopped = true;
+                if (game) {
+                    try { game.destroy(true); } catch {}
+                    game = null;
+                }
             }
         };
     }

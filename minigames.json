@@ -601,6 +601,30 @@
     "config": {}
   },
   {
+    "id": "math-platformer-pro",
+    "title": "Math Platformer PRO",
+    "emoji": "🎮",
+    "description": "Real game-engine platformer! Animated character, gravity, brick blocks, coins.",
+    "category": "action",
+    "skill": "addition",
+    "duration": 120,
+    "difficulty": "medium",
+    "objective": "Side-scrolling platformer: run, jump on brick blocks to hit the right answer, collect coins, reach the flag.",
+    "rules": [
+      "🎮 Real game-engine platformer (powered by Phaser).",
+      "Hero auto-runs right; tap (or SPACE) to jump.",
+      "3 question bricks float above the path — jump up to hit the one with the right answer.",
+      "Wrong brick = lose a heart. 3 hearts total.",
+      "Coins 🪙 float along the path — grab them all!",
+      "Reach the red flag at the end to clear the level."
+    ],
+    "rewards": {
+      "robuxPerWin": 3,
+      "bonusForRecord": 5
+    },
+    "config": {}
+  },
+  {
     "id": "dino-math-jump",
     "title": "Dino Math Jump",
     "emoji": "🦖",
