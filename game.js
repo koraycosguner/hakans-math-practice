@@ -1432,6 +1432,128 @@ function hopBy(d) {
     if (typeof speak === 'function') speak(String(window._hopPos));
 }
 
+// Counting Song: animated count 1-10 with voice.
+function openCountingSong() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card count-card">
+        <h2>🎵 Counting Song</h2>
+        <div class="sound-sub">Tap a row to hear it!</div>
+        <div class="count-grid" id="count-grid"></div>
+        <div class="count-controls">
+            <button class="count-play" onclick="playCountingSong(1, 10)">▶ 1 to 10</button>
+            <button class="count-play" onclick="playCountingSong(1, 20)">▶ 1 to 20</button>
+            <button class="count-play" onclick="playCountingSong(20, 1)">◀ 20 to 1</button>
+        </div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+    // Pre-render 1-20 dots
+    const grid = document.getElementById('count-grid');
+    let g = '';
+    for (let n = 1; n <= 20; n++) {
+        const dots = '🟡'.repeat(Math.min(n, 10)) + (n > 10 ? '<br>' + '🟡'.repeat(n - 10) : '');
+        g += `<button class="count-row" onclick="speak('${n}');playSound('hop')">
+            <span class="cr-num">${n}</span>
+            <span class="cr-dots">${dots}</span>
+        </button>`;
+    }
+    grid.innerHTML = g;
+}
+
+let _countingSongTimer = null;
+function playCountingSong(from, to) {
+    if (_countingSongTimer) clearTimeout(_countingSongTimer);
+    const dir = from < to ? 1 : -1;
+    let n = from;
+    const step = () => {
+        const row = document.querySelectorAll('.count-row')[n - 1];
+        if (row) {
+            row.classList.add('cr-active');
+            setTimeout(() => row && row.classList.remove('cr-active'), 700);
+        }
+        if (typeof speak === 'function') speak(String(n));
+        if (n === to) return;
+        n += dir;
+        _countingSongTimer = setTimeout(step, 850);
+    };
+    step();
+}
+
+// Skip-Count Chant: count by 2s, 5s, 10s with auto-play.
+function openSkipChant() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card chant-card">
+        <h2>⏭️ Skip Count!</h2>
+        <div class="sound-sub">Count by 2s, 5s, or 10s. Tap to play!</div>
+        <div class="chant-row" id="chant-row"></div>
+        <div class="count-controls">
+            <button class="count-play" onclick="playSkipChant(2)">By 2s</button>
+            <button class="count-play" onclick="playSkipChant(5)">By 5s</button>
+            <button class="count-play" onclick="playSkipChant(10)">By 10s</button>
+        </div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+function playSkipChant(by) {
+    const row = document.getElementById('chant-row');
+    if (!row) return;
+    row.innerHTML = '';
+    let n = by;
+    const max = 100;
+    const tick = () => {
+        const cell = document.createElement('span');
+        cell.className = 'chant-cell';
+        cell.textContent = n;
+        row.appendChild(cell);
+        if (typeof speak === 'function') speak(String(n));
+        playSound('hop');
+        n += by;
+        if (n <= max) setTimeout(tick, 700);
+    };
+    tick();
+}
+
+// Fingers visual: show N fingers (1-10) using emoji.
+function openFingerCount() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    const FINGER_LAYOUTS = {
+        1: '☝️', 2: '✌️', 3: '🤟', 4: '🖖', 5: '🖐️',
+        6: '🖐️☝️', 7: '🖐️✌️', 8: '🖐️🤟', 9: '🖐️🖖', 10: '🖐️🖐️',
+    };
+    overlay.innerHTML = `<div class="potd-card finger-card">
+        <h2>✋ Show Me Fingers!</h2>
+        <div class="sound-sub">Click a number to see fingers!</div>
+        <div class="finger-display" id="finger-display">5 = 🖐️</div>
+        <div class="finger-grid">
+            ${Array.from({ length: 10 }, (_, i) => i + 1).map((n) => `
+                <button class="finger-btn" data-n="${n}">${n}</button>
+            `).join('')}
+        </div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.querySelectorAll('.finger-btn').forEach((b) => {
+        b.addEventListener('click', () => {
+            const n = parseInt(b.getAttribute('data-n'), 10);
+            document.getElementById('finger-display').innerHTML = `${n} = ${FINGER_LAYOUTS[n] || '🖐️'.repeat(Math.floor(n / 5)) + '☝️'.repeat(n % 5)}`;
+            if (typeof speak === 'function') speak(String(n));
+        });
+    });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+}
+
 // Math Toys hub picker
 function openMathToys() {
     playSound('click');
@@ -1446,6 +1568,9 @@ function openMathToys() {
             <button class="sound-opt" onclick="openClockToy();closeSoundOverlay()"><div class="sound-emoji">🕐</div><div class="sound-name">Clock Toy</div></button>
             <button class="sound-opt" onclick="openCoinSorter();closeSoundOverlay()"><div class="sound-emoji">🪙</div><div class="sound-name">Coin Maker</div></button>
             <button class="sound-opt" onclick="openHopCounter();closeSoundOverlay()"><div class="sound-emoji">🐸</div><div class="sound-name">Hop Counter</div></button>
+            <button class="sound-opt" onclick="openCountingSong();closeSoundOverlay()"><div class="sound-emoji">🎵</div><div class="sound-name">Count Song</div></button>
+            <button class="sound-opt" onclick="openSkipChant();closeSoundOverlay()"><div class="sound-emoji">⏭️</div><div class="sound-name">Skip Count</div></button>
+            <button class="sound-opt" onclick="openFingerCount();closeSoundOverlay()"><div class="sound-emoji">✋</div><div class="sound-name">Fingers</div></button>
         </div>
         <button class="sound-close">Close</button>
     </div>`;

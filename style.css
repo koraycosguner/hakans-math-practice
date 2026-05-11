@@ -8472,6 +8472,117 @@ html.theme-space .screen { position: relative; z-index: 1; }
     box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
 }
 
+/* ===== Iteration 28: counting song, skip chant, fingers ===== */
+.count-card { max-width: 480px; text-align: center; }
+.count-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    max-height: 320px;
+    overflow-y: auto;
+    margin: 10px 0;
+}
+.count-row {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.count-row:hover { border-color: var(--primary); transform: translateY(-2px); }
+.count-row.cr-active {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border-color: #d97706;
+    transform: scale(1.06);
+}
+.cr-num {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+.count-row.cr-active .cr-num { color: white; }
+.cr-dots { font-size: 0.75rem; line-height: 1.2; display: block; }
+.count-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 8px 0;
+    flex-wrap: wrap;
+}
+.count-play {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.chant-card { max-width: 460px; text-align: center; }
+.chant-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+    min-height: 70px;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8fafc;
+    border-radius: 14px;
+}
+.chant-cell {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    animation: chantPop 0.4s ease-out;
+}
+@keyframes chantPop {
+    0%   { transform: scale(0); }
+    60%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.finger-card { max-width: 380px; text-align: center; }
+.finger-display {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 10px 0;
+    padding: 14px;
+    background: #f8fafc;
+    border-radius: 14px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.finger-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin: 10px 0;
+}
+.finger-btn {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px 0;
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--primary);
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.finger-btn:hover { border-color: var(--primary); transform: translateY(-2px); }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;
