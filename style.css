@@ -8087,6 +8087,217 @@ html.theme-space .screen { position: relative; z-index: 1; }
     color: var(--text-light);
 }
 
+/* ===== Iteration 25: math toys (hundred chart, number friend, clock, coin, hop) ===== */
+.toys-btn {
+    background: linear-gradient(135deg, #84cc16, #65a30d);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(101, 163, 13, 0.3);
+}
+
+.hc-card { max-width: 580px; }
+.hc-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 3px;
+    margin: 12px 0;
+}
+.hc-cell {
+    background: #f1f5f9;
+    border: 1px solid #e5e7eb;
+    color: #1f2937;
+    padding: 0;
+    aspect-ratio: 1;
+    font-weight: 800;
+    font-size: 0.78rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: transform 0.1s ease, background 0.1s ease;
+}
+.hc-cell:hover { background: #c7d2fe; transform: scale(1.06); }
+.hc-cell.hc-pick1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; }
+.hc-cell.hc-pick2 { background: linear-gradient(135deg, #34d399, #10b981); color: white; }
+.hc-info {
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: var(--primary);
+    margin: 8px 0;
+}
+
+.nf-card { max-width: 380px; text-align: center; }
+.nf-num {
+    font-size: 6rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+    text-shadow: 0 4px 12px rgba(108,99,255,0.3);
+    margin: 8px 0;
+}
+.nf-sub { color: var(--text-light); margin-bottom: 12px; }
+.nf-facts {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px;
+    text-align: left;
+}
+.nf-facts li {
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin: 4px 0;
+    color: #1f2937;
+}
+
+/* Clock Toy */
+.clock-card { max-width: 380px; text-align: center; }
+.clock-face {
+    width: 240px;
+    height: 240px;
+    margin: 0 auto 12px;
+    border: 6px solid var(--primary);
+    border-radius: 50%;
+    position: relative;
+    background: white;
+}
+.clock-num {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-weight: 900;
+    color: #1f2937;
+    font-size: 0.95rem;
+}
+.clock-hour-hand {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 6px;
+    height: 60px;
+    background: var(--primary);
+    border-radius: 4px;
+    transform-origin: bottom center;
+    transition: transform 0.4s ease;
+}
+.clock-minute-hand {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 4px;
+    height: 90px;
+    background: #8b5cf6;
+    border-radius: 4px;
+    transform-origin: bottom center;
+    transform: translate(-50%, -100%) rotate(0deg);
+    transition: transform 0.4s ease;
+}
+.clock-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    background: var(--primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+.clock-readout {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 8px 0;
+}
+.clock-controls {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin: 4px 0;
+}
+.clock-ctrl {
+    background: #ede9fe;
+    color: var(--primary);
+    border: none;
+    border-radius: 12px;
+    padding: 8px 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* Coin Sorter */
+.coin-card { max-width: 480px; text-align: center; }
+.coin-sum {
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 8px 0;
+}
+.coin-picker {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 8px 0;
+}
+.coin-btn {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 10px 4px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: 700;
+    color: #1f2937;
+}
+.coin-btn:hover { border-color: var(--primary); }
+.coin-actions { display: flex; gap: 8px; justify-content: center; margin: 8px 0; }
+.coin-reset {
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.coin-check {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* Hop Counter */
+.hop-card { max-width: 380px; text-align: center; }
+.hop-pos {
+    font-size: 6rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 16px 0;
+    text-shadow: 0 4px 12px rgba(108,99,255,0.3);
+}
+.hop-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 6px 0;
+}
+.hop-back, .hop-fwd {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-weight: 800;
+    cursor: pointer;
+    flex: 1;
+    max-width: 150px;
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

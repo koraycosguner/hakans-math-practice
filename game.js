@@ -1012,6 +1012,274 @@ function _initKeyboardInput() {
 }
 _initKeyboardInput();
 
+// ===== Math Toys — interactive sandboxes =====
+
+// Hundred Chart 1-100. Tap a number to hear it; tap two to see difference.
+function openHundredChart() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    let cells = '';
+    for (let n = 1; n <= 100; n++) {
+        cells += `<button class="hc-cell" data-n="${n}">${n}</button>`;
+    }
+    overlay.innerHTML = `<div class="potd-card hc-card">
+        <h2>💯 Hundred Chart</h2>
+        <div class="sound-sub">Tap a number to hear it. Tap two to see the difference!</div>
+        <div class="hc-grid">${cells}</div>
+        <div class="hc-info" id="hc-info">Tap any number, Hakan!</div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    let first = null;
+    overlay.querySelectorAll('.hc-cell').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const n = parseInt(btn.getAttribute('data-n'), 10);
+            if (typeof speak === 'function') speak(String(n));
+            if (first == null) {
+                first = n;
+                btn.classList.add('hc-pick1');
+                document.getElementById('hc-info').textContent = `${n} picked. Pick another to compare!`;
+            } else if (first === n) {
+                btn.classList.remove('hc-pick1');
+                first = null;
+                document.getElementById('hc-info').textContent = 'Tap any number, Hakan!';
+            } else {
+                btn.classList.add('hc-pick2');
+                const big = Math.max(first, n);
+                const small = Math.min(first, n);
+                const diff = big - small;
+                document.getElementById('hc-info').innerHTML = `${big} - ${small} = <b>${diff}</b>`;
+                setTimeout(() => {
+                    overlay.querySelectorAll('.hc-cell').forEach((c) => {
+                        c.classList.remove('hc-pick1', 'hc-pick2');
+                    });
+                    first = null;
+                    document.getElementById('hc-info').textContent = 'Tap any number, Hakan!';
+                }, 2200);
+            }
+        });
+    });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
+// Today's "Number Friend" — facts about a featured number 1-30.
+const NUMBER_FRIEND_FACTS = {
+    1: ['🌟 The smallest counting number!', 'You + me = team of 2, but each of us is 1.'],
+    2: ['👯 A pair! Two eyes, two hands.', '1 + 1 = 2 (smallest even)'],
+    3: ['📐 A triangle has 3 sides.', '3 is the first odd number after 1.'],
+    4: ['🟦 A square has 4 sides.', '2 + 2 = 4 (smallest double)'],
+    5: ['🖐️ Five fingers on one hand!', '5 + 5 = 10'],
+    6: ['🎲 Sides on a die!', '3 + 3 = 6 (double of 3)'],
+    7: ['🌈 Days in a week!', '7 days = 1 week'],
+    8: ['🐙 An octopus has 8 arms!', '4 + 4 = 8 (double of 4)'],
+    9: ['🐱 Some say cats have 9 lives!', '10 - 1 = 9'],
+    10: ['🔟 Ten fingers, ten toes!', '5 + 5 = 10'],
+    11: ['⚽ Players on a soccer team!', '10 + 1 = 11'],
+    12: ['🕐 Hours on a clock!', '6 + 6 = 12'],
+    13: ['🍪 A baker\'s dozen!', '10 + 3 = 13'],
+    15: ['🪙 Pennies in 3 nickels!', '5 + 5 + 5 = 15'],
+    20: ['🦶 Fingers + toes!', '10 + 10 = 20'],
+    25: ['🪙 A quarter is 25 cents!', '20 + 5 = 25'],
+    30: ['📅 Days in many months!', '10 + 10 + 10 = 30'],
+};
+
+function openNumberFriend() {
+    playSound('click');
+    const dayKey = new Date().toISOString().slice(0, 10);
+    const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    const keys = Object.keys(NUMBER_FRIEND_FACTS).map(Number);
+    const n = keys[seed % keys.length];
+    const facts = NUMBER_FRIEND_FACTS[n];
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card nf-card">
+        <div class="nf-num">${n}</div>
+        <h2>🤝 Number Friend</h2>
+        <div class="nf-sub">Today, let's get to know ${n}!</div>
+        <ul class="nf-facts">${facts.map((f) => `<li>${f}</li>`).join('')}</ul>
+        <button class="potd-close">Cool!</button>
+    </div>`;
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    if (typeof speak === 'function') speak(`Today's number is ${n}.`);
+    document.body.appendChild(overlay);
+}
+
+// Clock face: kid drags hour/minute hands to set a target.
+function openClockToy() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card clock-card">
+        <h2>🕐 Clock Toy</h2>
+        <div class="sound-sub">Tap the buttons to move the hour hand. Read the time!</div>
+        <div class="clock-face">
+            ${[12,1,2,3,4,5,6,7,8,9,10,11].map((h, i) => {
+                const ang = (i * 30) - 90;
+                const x = 50 + 42 * Math.cos(ang * Math.PI / 180);
+                const y = 50 + 42 * Math.sin(ang * Math.PI / 180);
+                return `<span class="clock-num" style="left:${x}%;top:${y}%;">${h}</span>`;
+            }).join('')}
+            <div class="clock-hour-hand" id="ch-hour" style="transform:translate(-50%,-100%) rotate(0deg)"></div>
+            <div class="clock-minute-hand" id="ch-min"></div>
+            <div class="clock-center"></div>
+        </div>
+        <div class="clock-readout" id="clock-readout">12 o'clock</div>
+        <div class="clock-controls">
+            <button class="clock-ctrl" onclick="bumpClock(-1)">⬅️ Hour-</button>
+            <button class="clock-ctrl" onclick="bumpClock(1)">Hour+ ➡️</button>
+            <button class="clock-ctrl" onclick="toggleHalf()">½ Toggle</button>
+        </div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    window._clockHr = 12;
+    window._clockHalf = false;
+    document.body.appendChild(overlay);
+}
+
+function bumpClock(delta) {
+    let h = (window._clockHr || 12) + delta;
+    if (h < 1) h = 12;
+    if (h > 12) h = 1;
+    window._clockHr = h;
+    _renderClock();
+}
+function toggleHalf() {
+    window._clockHalf = !window._clockHalf;
+    _renderClock();
+}
+function _renderClock() {
+    const h = window._clockHr || 12;
+    const half = !!window._clockHalf;
+    const hourEl = document.getElementById('ch-hour');
+    const minEl  = document.getElementById('ch-min');
+    const out    = document.getElementById('clock-readout');
+    if (!hourEl || !minEl || !out) return;
+    // Hour hand at h + (half ? 0.5 : 0).
+    const hourAng = ((h % 12) + (half ? 0.5 : 0)) * 30;
+    hourEl.style.transform = `translate(-50%, -100%) rotate(${hourAng}deg)`;
+    minEl.style.transform = `translate(-50%, -100%) rotate(${half ? 180 : 0}deg)`;
+    out.textContent = half ? `Half past ${h}` : `${h} o'clock`;
+    if (typeof speak === 'function') speak(out.textContent);
+}
+
+// Coin Sorter: drag coins to their value bin (no real drag — tap to assign).
+const COIN_VALUES = [
+    { id: 'penny',  emoji: '🟤', name: 'Penny',  value: 1 },
+    { id: 'nickel', emoji: '⚪', name: 'Nickel', value: 5 },
+    { id: 'dime',   emoji: '🪙', name: 'Dime',   value: 10 },
+    { id: 'quarter', emoji: '🥈', name: 'Quarter', value: 25 },
+];
+function openCoinSorter() {
+    playSound('click');
+    const target = [10, 25, 30, 50][Math.floor(Math.random() * 4)];
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card coin-card">
+        <h2>🪙 Make ${target}¢</h2>
+        <div class="sound-sub">Tap coins to add them up to ${target}¢!</div>
+        <div class="coin-sum" id="coin-sum">0¢</div>
+        <div class="coin-picker">
+            ${COIN_VALUES.map((c) => `<button class="coin-btn" onclick="addCoin(${c.value})">${c.emoji}<br><b>${c.value}¢</b><br>${c.name}</button>`).join('')}
+        </div>
+        <div class="coin-actions">
+            <button class="coin-reset" onclick="resetCoinSum()">↺ Reset</button>
+            <button class="coin-check" onclick="checkCoinSum(${target})">Check</button>
+        </div>
+        <div class="potd-feedback" id="coin-fb"></div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    window._coinSum = 0;
+    document.body.appendChild(overlay);
+}
+function addCoin(v) {
+    window._coinSum = (window._coinSum || 0) + v;
+    document.getElementById('coin-sum').textContent = window._coinSum + '¢';
+    playSound('hop');
+}
+function resetCoinSum() {
+    window._coinSum = 0;
+    document.getElementById('coin-sum').textContent = '0¢';
+    const fb = document.getElementById('coin-fb');
+    if (fb) fb.innerHTML = '';
+}
+function checkCoinSum(target) {
+    const fb = document.getElementById('coin-fb');
+    if (window._coinSum === target) {
+        fb.innerHTML = `<div class="potd-correct">✅ ${target}¢ exactly!</div>`;
+        playSound('correct');
+        saveRobux(loadRobux() + 2);
+        if (typeof launchConfetti === 'function') launchConfetti();
+    } else if (window._coinSum > target) {
+        fb.innerHTML = `<div class="potd-wrong">Too much! You have ${window._coinSum}¢, need ${target}¢. Try reset.</div>`;
+        playSound('wrong');
+    } else {
+        fb.innerHTML = `<div class="potd-wrong">Not yet! ${window._coinSum}¢ / ${target}¢.</div>`;
+    }
+}
+
+// Hop Counter: a quick number-line widget for counting on/back.
+function openHopCounter() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card hop-card">
+        <h2>🐸 Hop Counter</h2>
+        <div class="sound-sub">Hop forward and backward on the number line!</div>
+        <div class="hop-pos" id="hop-pos">5</div>
+        <div class="hop-controls">
+            <button class="hop-back" onclick="hopBy(-1)">⬅️ Back 1</button>
+            <button class="hop-fwd" onclick="hopBy(1)">Forward 1 ➡️</button>
+        </div>
+        <div class="hop-controls">
+            <button class="hop-back" onclick="hopBy(-5)">⬅️⬅️ Back 5</button>
+            <button class="hop-fwd" onclick="hopBy(5)">Forward 5 ➡️➡️</button>
+        </div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    window._hopPos = 5;
+    document.body.appendChild(overlay);
+}
+function hopBy(d) {
+    window._hopPos = Math.max(0, Math.min(100, (window._hopPos || 5) + d));
+    document.getElementById('hop-pos').textContent = window._hopPos;
+    playSound('hop');
+    if (typeof speak === 'function') speak(String(window._hopPos));
+}
+
+// Math Toys hub picker
+function openMathToys() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    overlay.innerHTML = `<div class="sound-card">
+        <h2>🧰 Math Toys</h2>
+        <div class="sound-sub">Pick a toy to play with!</div>
+        <div class="sound-options" style="grid-template-columns:repeat(2,1fr);">
+            <button class="sound-opt" onclick="openHundredChart();closeSoundOverlay()"><div class="sound-emoji">💯</div><div class="sound-name">Hundred Chart</div></button>
+            <button class="sound-opt" onclick="openNumberFriend();closeSoundOverlay()"><div class="sound-emoji">🤝</div><div class="sound-name">Number Friend</div></button>
+            <button class="sound-opt" onclick="openClockToy();closeSoundOverlay()"><div class="sound-emoji">🕐</div><div class="sound-name">Clock Toy</div></button>
+            <button class="sound-opt" onclick="openCoinSorter();closeSoundOverlay()"><div class="sound-emoji">🪙</div><div class="sound-name">Coin Maker</div></button>
+            <button class="sound-opt" onclick="openHopCounter();closeSoundOverlay()"><div class="sound-emoji">🐸</div><div class="sound-name">Hop Counter</div></button>
+        </div>
+        <button class="sound-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+function closeSoundOverlay() {
+    document.querySelectorAll('.sound-overlay').forEach((o) => o.remove());
+}
+
 // ===== Brain Drills — quick math drills via simple overlays =====
 function openBrainDrills() {
     playSound('click');
