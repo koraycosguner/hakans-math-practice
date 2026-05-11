@@ -812,59 +812,147 @@ GAME_IMPLS['speed-add'] = {
 // Card backs have a fun pattern; per-number color when revealed.
 GAME_IMPLS['memory-numbers'] = {
     start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Mode rotation: each round uses a different pairing concept
+        // - 'digit-word': 7 ↔ "seven"
+        // - 'sum-result': "3+2" ↔ "5"  (Grade-1 add)
+        // - 'tens-frame': "8" ↔ ten-frame with 8 dots
+        const modes = ['digit-word', 'sum-result', 'tens-frame'];
+        let modeIdx = Math.floor(Math.random() * modes.length);
+        // Pair count scales with difficulty: easy 4, normal 6, hard 8
+        const pairCount = diff === 'easy' ? 4 : diff === 'hard' ? 8 : 6;
+
+        const root = document.createElement('div');
+        root.className = 'mg-mem-root';
+        const modeBanner = document.createElement('div');
+        modeBanner.className = 'mg-mem-mode';
         const board = document.createElement('div');
         board.className = 'mg-mem-board';
-        ctx.area.appendChild(board);
-        const WORDS = ['one','two','three','four','five','six'];
-        const pairs = WORDS.map((w, i) => [
-            { kind: 'digit', val: i+1, n: i+1 },
-            { kind: 'word',  val: w,   n: i+1 },
-        ]).flat();
-        pairs.sort(() => Math.random() - 0.5);
+        board.dataset.size = String(pairCount);
+        root.appendChild(modeBanner);
+        root.appendChild(board);
+        ctx.area.appendChild(root);
+
+        const WORDS = ['one','two','three','four','five','six','seven','eight','nine','ten'];
+
+        function tenFrameSvg(n) {
+            const cell = 14, gap = 2, w = 5 * cell + 4 * gap, h = 2 * cell + gap;
+            const parts = [`<rect x="0" y="0" width="${w}" height="${h}" fill="white" stroke="#1f2937" stroke-width="1.5" rx="2"/>`];
+            for (let r = 0; r < 2; r++) {
+                for (let c = 0; c < 5; c++) {
+                    const idx = r * 5 + c;
+                    const x = c * (cell + gap), y = r * (cell + gap);
+                    parts.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="white" stroke="#1f2937" stroke-width="1"/>`);
+                    if (idx < n) parts.push(`<circle cx="${x + cell/2}" cy="${y + cell/2}" r="${cell/2 - 2}" fill="#ef4444"/>`);
+                }
+            }
+            return `<svg viewBox="-1 -1 ${w + 2} ${h + 2}" width="${w + 2}" height="${h + 2}">${parts.join('')}</svg>`;
+        }
+
+        function buildPairs(mode, count) {
+            // Returns array of {kind, val, key, display} where matching kinds key=val
+            const out = [];
+            if (mode === 'digit-word') {
+                for (let i = 1; i <= count; i++) {
+                    out.push({ kind: 'digit', key: i, display: String(i) });
+                    out.push({ kind: 'word',  key: i, display: WORDS[i-1] });
+                }
+            } else if (mode === 'sum-result') {
+                const used = new Set();
+                const pairs = [];
+                while (pairs.length < count) {
+                    const a = Math.floor(Math.random() * 9) + 1;
+                    const b = Math.floor(Math.random() * 9) + 1;
+                    const s = a + b;
+                    if (s > 18 || used.has(s)) continue;
+                    used.add(s);
+                    pairs.push({ a, b, s });
+                }
+                for (const p of pairs) {
+                    out.push({ kind: 'sum',   key: p.s, display: `${p.a}+${p.b}` });
+                    out.push({ kind: 'val',   key: p.s, display: String(p.s) });
+                }
+            } else { // tens-frame
+                const taken = new Set();
+                const nums = [];
+                while (nums.length < count) {
+                    const n = Math.floor(Math.random() * 10) + 1;
+                    if (!taken.has(n)) { taken.add(n); nums.push(n); }
+                }
+                for (const n of nums) {
+                    out.push({ kind: 'frame', key: n, display: tenFrameSvg(n), html: true });
+                    out.push({ kind: 'digit', key: n, display: String(n) });
+                }
+            }
+            return out;
+        }
+
         let flipped = [];
         let matched = 0;
-        pairs.forEach((p, i) => {
-            const c = document.createElement('button');
-            c.className = 'mg-mem-card';
-            c.dataset.kind = p.kind;
-            c.dataset.val = p.val;
-            const hue = (p.n * 47) % 360;
-            c.style.setProperty('--cardHue', hue);
-            c.innerHTML =
-                `<span class="face front"><span class="mg-mem-pattern">?</span></span>` +
-                `<span class="face back">${p.val}</span>`;
-            c.style.animationDelay = (i * 0.05) + 's';
-            c.addEventListener('click', () => {
-                if (c.classList.contains('matched') || c.classList.contains('flipped')) return;
-                if (flipped.length >= 2) return;
-                c.classList.add('flipped');
-                flipped.push(c);
-                if (flipped.length === 2) {
-                    const [a, b] = flipped;
-                    const av = a.dataset.val, bv = b.dataset.val;
-                    const norm = (x) => isNaN(parseInt(x, 10)) ? WORDS.indexOf(x) + 1 : parseInt(x, 10);
-                    if (norm(av) === norm(bv) && a.dataset.kind !== b.dataset.kind) {
-                        setTimeout(() => {
-                            a.classList.add('matched');
-                            b.classList.add('matched');
-                            const r = a.getBoundingClientRect();
-                            const r2 = b.getBoundingClientRect();
-                            ctx.onScore(1, { x: (r.x + r2.x) / 2 + 30, y: (r.y + r2.y) / 2 + 30 });
-                            flipped = [];
-                            matched += 1;
-                            if (matched >= WORDS.length) ctx.onWin();
-                        }, 300);
-                    } else {
-                        setTimeout(() => {
-                            a.classList.remove('flipped');
-                            b.classList.remove('flipped');
-                            flipped = [];
-                        }, 900);
+        let combo = 0;
+        let activePairs = [];
+
+        function setupRound() {
+            const mode = modes[modeIdx % modes.length];
+            modeBanner.textContent =
+                mode === 'digit-word' ? '🔢 Match number to word' :
+                mode === 'sum-result' ? '➕ Match sum to total' :
+                                        '🎯 Match number to ten-frame';
+            const pairs = buildPairs(mode, pairCount);
+            pairs.sort(() => Math.random() - 0.5);
+            activePairs = pairs;
+            flipped = [];
+            matched = 0;
+            board.innerHTML = '';
+            pairs.forEach((p, i) => {
+                const c = document.createElement('button');
+                c.className = 'mg-mem-card';
+                c.dataset.kind = p.kind;
+                c.dataset.key = String(p.key);
+                const hue = (p.key * 47) % 360;
+                c.style.setProperty('--cardHue', hue);
+                c.innerHTML =
+                    `<span class="face front"><span class="mg-mem-pattern">?</span></span>` +
+                    `<span class="face back">${p.display}</span>`;
+                c.style.animationDelay = (i * 0.04) + 's';
+                c.addEventListener('click', () => {
+                    if (c.classList.contains('matched') || c.classList.contains('flipped')) return;
+                    if (flipped.length >= 2) return;
+                    c.classList.add('flipped');
+                    flipped.push(c);
+                    if (flipped.length === 2) {
+                        const [a, b] = flipped;
+                        if (a.dataset.key === b.dataset.key && a.dataset.kind !== b.dataset.kind) {
+                            setTimeout(() => {
+                                a.classList.add('matched');
+                                b.classList.add('matched');
+                                const r = a.getBoundingClientRect();
+                                const r2 = b.getBoundingClientRect();
+                                combo += 1;
+                                const pts = combo >= 3 ? 2 : 1;
+                                ctx.onScore(pts, { x: (r.x + r2.x) / 2 + 30, y: (r.y + r2.y) / 2 + 30 });
+                                flipped = [];
+                                matched += 1;
+                                if (matched >= pairCount) {
+                                    // Round complete — next mode
+                                    modeIdx += 1;
+                                    setTimeout(setupRound, 800);
+                                }
+                            }, 300);
+                        } else {
+                            combo = 0;
+                            setTimeout(() => {
+                                a.classList.remove('flipped');
+                                b.classList.remove('flipped');
+                                flipped = [];
+                            }, 900);
+                        }
                     }
-                }
+                });
+                board.appendChild(c);
             });
-            board.appendChild(c);
-        });
+        }
+        setupRound();
         return { stop() {} };
     }
 };

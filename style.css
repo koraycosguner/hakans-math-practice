@@ -3175,12 +3175,35 @@ body::after {
 .mg-sa-opt.wrong { animation: icShake 0.4s ease; border-color: #f87171 !important; background: #fee2e2 !important; }
 
 /* ===== Game 5: Memory Numbers ===== */
+.mg-mem-root {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+.mg-mem-mode {
+    background: white;
+    color: var(--primary);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-weight: 900;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(108,99,255,0.25);
+    border: 2px solid var(--primary);
+}
 .mg-mem-board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    gap: 10px;
     max-width: 540px;
     margin: 0 auto;
+}
+.mg-mem-board[data-size="4"] { grid-template-columns: repeat(4, 1fr); max-width: 380px; }
+.mg-mem-board[data-size="6"] { grid-template-columns: repeat(4, 1fr); max-width: 480px; }
+.mg-mem-board[data-size="8"] { grid-template-columns: repeat(4, 1fr); max-width: 540px; }
+.mg-mem-card .back svg {
+    width: 80%;
+    height: auto;
 }
 .mg-mem-card {
     aspect-ratio: 3/4;
