@@ -601,6 +601,87 @@ function choosePet(id) {
     if (typeof renderHomeModules === 'function') renderHomeModules();
 }
 
+// ===== Comfort settings (text size + motion) =====
+const TEXT_SIZE_KEY = 'hakans-math-text-size';
+const MOTION_KEY    = 'hakans-math-motion';
+
+function loadTextSize() {
+    try { return localStorage.getItem(TEXT_SIZE_KEY) || 'medium'; }
+    catch (e) { return 'medium'; }
+}
+function saveTextSize(s) {
+    try { localStorage.setItem(TEXT_SIZE_KEY, s); } catch (e) {}
+    applyComfortSettings();
+}
+function loadMotion() {
+    try {
+        const v = localStorage.getItem(MOTION_KEY);
+        if (v) return v;
+    } catch (e) {}
+    // Default: honor the OS-level reduce-motion setting.
+    try {
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            return 'reduced';
+        }
+    } catch (e) {}
+    return 'full';
+}
+function saveMotion(m) {
+    try { localStorage.setItem(MOTION_KEY, m); } catch (e) {}
+    applyComfortSettings();
+}
+
+function applyComfortSettings() {
+    const root = document.documentElement;
+    const size = loadTextSize();
+    root.classList.remove('text-size-small', 'text-size-medium', 'text-size-large');
+    root.classList.add(`text-size-${size}`);
+    const motion = loadMotion();
+    root.classList.remove('motion-full', 'motion-reduced');
+    root.classList.add(`motion-${motion}`);
+}
+
+function openComfortPicker() {
+    playSound('click');
+    const sz = loadTextSize();
+    const mt = loadMotion();
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    overlay.innerHTML = `<div class="sound-card">
+        <h2>🅰️ Comfort</h2>
+        <div class="sound-sub">Pick what feels nice for you.</div>
+        <div class="comfort-row-label">Text size</div>
+        <div class="sound-options">
+            <button class="sound-opt ${sz==='small'?'sound-current':''}"  data-sz="small"><div class="sound-emoji">a</div><div class="sound-name">Small</div></button>
+            <button class="sound-opt ${sz==='medium'?'sound-current':''}" data-sz="medium"><div class="sound-emoji">A</div><div class="sound-name">Medium</div></button>
+            <button class="sound-opt ${sz==='large'?'sound-current':''}"  data-sz="large"><div class="sound-emoji" style="font-size:2.4rem;">A</div><div class="sound-name">Large</div></button>
+        </div>
+        <div class="comfort-row-label">Motion</div>
+        <div class="sound-options">
+            <button class="sound-opt ${mt==='full'?'sound-current':''}"    data-mt="full"><div class="sound-emoji">🎉</div><div class="sound-name">Full</div><div class="sound-desc">Confetti &amp; bounce</div></button>
+            <button class="sound-opt ${mt==='reduced'?'sound-current':''}" data-mt="reduced"><div class="sound-emoji">🧘</div><div class="sound-name">Calm</div><div class="sound-desc">Less wiggle</div></button>
+        </div>
+        <button class="sound-close">Done</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelectorAll('[data-sz]').forEach((b) => {
+        b.addEventListener('click', () => {
+            saveTextSize(b.getAttribute('data-sz'));
+            overlay.remove();
+            openComfortPicker();
+        });
+    });
+    overlay.querySelectorAll('[data-mt]').forEach((b) => {
+        b.addEventListener('click', () => {
+            saveMotion(b.getAttribute('data-mt'));
+            overlay.remove();
+            openComfortPicker();
+        });
+    });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
 // Sound profile picker — gentle / cheerful / silent. Tappable card on home.
 function openSoundProfilePicker() {
     playSound('click');
@@ -3456,6 +3537,11 @@ function _suggestNextModule(mod) {
 
 // ===== Confetti =====
 function launchConfetti() {
+    // Calm motion: skip the big particle storm; a few stars do the job.
+    if (typeof loadMotion === 'function' && loadMotion() === 'reduced') {
+        if (typeof spawnFloatingStars === 'function') spawnFloatingStars(6);
+        return;
+    }
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -3466,7 +3552,8 @@ function launchConfetti() {
                      '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F',
                      '#BB8FCE', '#85C1E9'];
 
-    for (let i = 0; i < 150; i++) {
+    const particleCount = 150;
+    for (let i = 0; i < particleCount; i++) {
         particles.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height - canvas.height,

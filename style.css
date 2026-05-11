@@ -5952,3 +5952,110 @@ body::after {
     transition: transform 0.15s ease;
 }
 .rn-btn:hover { transform: translateY(-2px); }
+
+/* ===== Iteration 3: NEW! pill, almost-there world, comfort settings, fact-family ===== */
+.m-card-new {
+    border-color: #fbbf24 !important;
+    box-shadow: 0 6px 18px rgba(251, 191, 36, 0.35);
+}
+.m-card-new-pill {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 900;
+    padding: 3px 8px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 3px 8px rgba(245, 158, 11, 0.45);
+    z-index: 5;
+    animation: newPillPulse 1.6s ease-in-out infinite;
+}
+@keyframes newPillPulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.08); }
+}
+
+/* Almost-mastered world tile (≥80% mastered) */
+.pm-island-almost {
+    border-color: #34d399;
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+}
+.pm-island-badge-almost {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+}
+
+/* Comfort button (home) */
+.comfort-btn {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+.comfort-btn:active { transform: scale(0.96); }
+.comfort-row-label {
+    font-weight: 800;
+    color: var(--text-light);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: left;
+    margin: 14px 4px 6px;
+}
+
+/* Text size: applied to <html> so it scales everything via rem */
+html.text-size-small  { font-size: 14px; }
+html.text-size-medium { font-size: 16px; }
+html.text-size-large  { font-size: 19px; }
+
+/* Reduced motion: kill the heavier loops & transitions */
+html.motion-reduced *,
+html.motion-reduced *::before,
+html.motion-reduced *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+}
+html.motion-reduced .splash-emoji,
+html.motion-reduced .splash-bar-fill,
+html.motion-reduced .potd-card-home,
+html.motion-reduced .pm-island-mastered,
+html.motion-reduced .pm-island-almost,
+html.motion-reduced .mg-weekly,
+html.motion-reduced .m-card-new-pill {
+    animation: none !important;
+}
+
+/* Fact-family review overlay (extends potd styles) */
+.ff-overlay .ff-card { max-width: 460px; }
+.ff-sub {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: -2px 0 8px;
+}
+.ff-progress {
+    background: #ede9fe;
+    color: #5b21b6;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 800;
+    display: inline-block;
+    font-size: 0.85rem;
+    margin: 8px 0;
+}
+.ff-skip {
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}

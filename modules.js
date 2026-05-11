@@ -69126,6 +69126,7 @@ function renderHomeModules() {
         const sp = (typeof loadSoundProfile === 'function') ? loadSoundProfile() : 'cheerful';
         const spEmoji = sp === 'silent' ? '🤫' : sp === 'gentle' ? '🍃' : '🎉';
         html += `<button class="sound-btn" onclick="openSoundProfilePicker()" title="Sound: ${sp}">${spEmoji} Sound</button>`;
+        html += `<button class="comfort-btn" onclick="openComfortPicker()" title="Text &amp; motion">🅰️ Comfort</button>`;
         html += `</div>`;
         // Module search
         html += `<div class="module-search-wrap">
@@ -69284,10 +69285,15 @@ function renderHomeModules() {
                         ? `<span class="m-card-count" title="Played ${visitCount} time${visitCount === 1 ? '' : 's'}">${visitCount}</span>`
                         : '';
                     const doneCls = stars > 0 ? ' m-card-done' : (visitCount > 0 ? ' m-card-visited' : '');
+                    const newCls = (isHakan && visitCount === 0 && !p) ? ' m-card-new' : '';
                     const catCls = ` m-card-cat-${m.category || 'A'}`;
-                    return `<button class="m-card${doneCls}${catCls}" onclick="selectModule('${m.id}')">
+                    const newBadge = (isHakan && visitCount === 0 && !p)
+                        ? '<span class="m-card-new-pill">NEW!</span>'
+                        : '';
+                    return `<button class="m-card${doneCls}${newCls}${catCls}" onclick="selectModule('${m.id}')">
                         ${countHtml}
                         ${starsHtml}
+                        ${newBadge}
                         <span class="m-card-icon-wrap">
                             <span class="m-card-icon">${m.emoji}</span>
                         </span>
@@ -69371,11 +69377,16 @@ function openProgressMap() {
         const startedPct = Math.round((c.started / c.total) * 100);
         const masteredPct = Math.round((c.mastered / c.total) * 100);
         const isMastered = c.mastered === c.total && c.total > 0;
+        const isAlmost = !isMastered && masteredPct >= 80;
         const isInProgress = c.started > 0;
         const stateCls = isMastered ? 'pm-island-mastered' :
+                         isAlmost ? 'pm-island-almost' :
                          isInProgress ? 'pm-island-progress' :
                          'pm-island-new';
         const world = WORLD_THEMES[cat.id] || { theme: cat.title, subtitle: '' };
+        const badgeHtml = isMastered
+            ? '<div class="pm-island-badge">🏆 Mastered!</div>'
+            : (isAlmost ? '<div class="pm-island-badge pm-island-badge-almost">⚡ Almost!</div>' : '');
         html += `<div class="pm-island ${stateCls}">
             <div class="pm-island-emoji">${cat.emoji}</div>
             <div class="pm-island-name">${world.theme}</div>
@@ -69385,7 +69396,7 @@ function openProgressMap() {
                 <div class="pm-island-bar-fill" style="width:${startedPct}%"></div>
                 <div class="pm-island-bar-mastered" style="width:${masteredPct}%"></div>
             </div>
-            ${isMastered ? '<div class="pm-island-badge">🏆 Mastered!</div>' : ''}
+            ${badgeHtml}
         </div>`;
         prevDone = isInProgress;
     }
@@ -70422,6 +70433,11 @@ function handleWrong() {
     if (isFirstWrong && (moduleState.activity === 'quiz' || moduleState.activity === 'review')) {
         const p = getCurrentProblems()[moduleState.problemIndex];
         if (p) showCorrectAnswerReveal(p);
+        // Capture for end-of-session fact-family review.
+        if (p && (p.type === 'addition' || p.type === 'subtraction')) {
+            moduleState._missedFamilies = moduleState._missedFamilies || [];
+            moduleState._missedFamilies.push({ type: p.type, a: p.a, b: p.b, answer: p.answer });
+        }
     }
 }
 
@@ -70478,6 +70494,78 @@ function advanceModuleProblem() {
     } else {
         renderModuleProblem();
     }
+}
+
+// Build a 3-step fact-family review from a missed add/sub problem and run
+// it as a guided popup. Each step asks one of the family's missing pieces.
+function offerFactFamilyReview(miss) {
+    if (!miss) return;
+    // Compute the three parts of the family (a, b, c=a+b).
+    const c = (miss.type === 'addition') ? miss.answer : miss.a;
+    const a = (miss.type === 'addition') ? miss.a : (miss.a - miss.b);
+    const b = (miss.type === 'addition') ? miss.b : miss.b;
+    if ([a, b, c].some((v) => !Number.isFinite(v) || v < 0)) return;
+    // Don't loop on the exact missed problem; pick the three siblings.
+    const family = [
+        { q: `${b} + ${a} = ?`, ans: c },
+        { q: `${c} - ${a} = ?`, ans: b },
+        { q: `${c} - ${b} = ?`, ans: a },
+    ];
+    let step = 0;
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay ff-overlay';
+    function render() {
+        const cur = family[step];
+        overlay.innerHTML = `<div class="potd-card ff-card">
+            <h2>🧩 Fact Family Boost</h2>
+            <div class="ff-sub">When you know one, you know them all!</div>
+            <div class="ff-progress">Step ${step + 1} of ${family.length}</div>
+            <div class="potd-question">${cur.q}</div>
+            <input type="number" class="potd-input" autocomplete="off" inputmode="numeric" />
+            <div class="potd-actions">
+                <button class="potd-check">Check</button>
+                <button class="ff-skip">Skip</button>
+            </div>
+            <div class="potd-feedback"></div>
+        </div>`;
+        const input = overlay.querySelector('.potd-input');
+        const fb = overlay.querySelector('.potd-feedback');
+        const submit = () => {
+            const val = parseInt(input.value, 10);
+            if (Number.isNaN(val)) return;
+            if (val === cur.ans) {
+                fb.innerHTML = `<div class="potd-correct">✨ Yes! ${cur.q.replace('?', cur.ans)}</div>`;
+                if (typeof playSound === 'function') playSound('correct');
+                setTimeout(() => {
+                    step++;
+                    if (step >= family.length) {
+                        // Reward Hakan: +3 robux for completing review.
+                        if (typeof saveRobux === 'function' && typeof loadRobux === 'function') {
+                            saveRobux(loadRobux() + 3);
+                        }
+                        overlay.innerHTML = `<div class="potd-card ff-card">
+                            <h2>🌟 Family Mastered!</h2>
+                            <div class="ff-sub">Great work, Hakan — +3 💎</div>
+                            <button class="potd-close">Done</button>
+                        </div>`;
+                        overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+                    } else {
+                        render();
+                    }
+                }, 900);
+            } else {
+                fb.innerHTML = `<div class="potd-wrong">Hint: ${cur.q.replace('?', cur.ans)}. Try entering ${cur.ans}.</div>`;
+                if (typeof playSound === 'function') playSound('wrong');
+            }
+        };
+        overlay.querySelector('.potd-check').addEventListener('click', submit);
+        overlay.querySelector('.ff-skip').addEventListener('click', () => overlay.remove());
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+        setTimeout(() => input.focus(), 50);
+    }
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+    render();
 }
 
 function showModuleResults() {
@@ -70543,11 +70631,19 @@ function showModuleResults() {
     }
 
     // Set state.currentModule for the recap/next-up panels rendered by showResults.
-    const mod = MODULES_BY_ID[moduleState.moduleId];
     if (typeof state !== 'undefined' && mod) state.currentModule = mod;
     if (typeof _renderResultsRecap === 'function') _renderResultsRecap();
 
     showScreen('results-screen');
+
+    // Fact-family auto-review: after the results land, if Hakan missed any
+    // add/sub problems, offer a quick family review.
+    if (typeof currentUser !== 'undefined' && currentUser === 'hakan' &&
+        moduleState._missedFamilies && moduleState._missedFamilies.length) {
+        const fam = moduleState._missedFamilies[0];
+        moduleState._missedFamilies = [];
+        setTimeout(() => offerFactFamilyReview(fam), 1800);
+    }
 
     // After Practice, the "Play Again" button becomes "Take the Quiz!" so
     // the natural progression is practice → quiz. After the Quiz it just
@@ -70577,6 +70673,7 @@ function _hideAppSplash() {
     setTimeout(() => { try { el.remove(); } catch (e) {} }, 500);
 }
 function _bootHome() {
+    if (typeof applyComfortSettings === 'function') applyComfortSettings();
     renderHomeModules();
     // Give the home screen one frame to paint, then fade splash out.
     requestAnimationFrame(() => requestAnimationFrame(_hideAppSplash));
