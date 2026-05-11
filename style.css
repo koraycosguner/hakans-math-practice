@@ -5591,35 +5591,70 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 .sb-title { color: white; text-align: center; margin: 12px 0 4px; }
 .sb-sub { text-align: center; color: white; opacity: 0.9; margin: 0 0 22px; }
 .sb-stats {
-    background: white;
-    border-radius: 18px;
-    padding: 16px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 20px;
+    padding: 20px;
     text-align: center;
-    margin-bottom: 18px;
-    box-shadow: var(--shadow-small);
+    margin-bottom: 20px;
+    box-shadow: 0 8px 22px rgba(245, 158, 11, 0.25);
+    position: relative;
+    overflow: hidden;
 }
-.sb-stat-num { font-size: 2.4rem; font-weight: 900; color: var(--primary); }
-.sb-stat-label { font-weight: 700; color: var(--text-light); }
+.sb-stats::before {
+    content: '📖';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 4rem;
+    opacity: 0.15;
+    transform: rotate(15deg);
+}
+.sb-stat-num {
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+}
+.sb-stat-label {
+    font-weight: 800;
+    color: #92400e;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
 .sb-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
     gap: 10px;
-    background: linear-gradient(135deg, #fef3c7, #fcd34d);
+    background:
+        radial-gradient(circle at 20% 30%, #fbbf24 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, #fcd34d 0%, transparent 40%),
+        linear-gradient(135deg, #fef3c7, #fcd34d);
     border-radius: 22px;
     padding: 18px;
-    box-shadow: inset 0 0 0 4px white;
+    box-shadow: inset 0 0 0 4px white, 0 6px 18px rgba(245, 158, 11, 0.3);
 }
 .sb-sticker {
     background: white;
-    border-radius: 12px;
-    padding: 8px 0;
+    border-radius: 14px;
+    padding: 10px 0;
     text-align: center;
-    font-size: 2rem;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-    transition: transform 0.2s ease;
-    cursor: default;
+    font-size: 2.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    border: 2px solid rgba(245, 158, 11, 0.3);
 }
-.sb-sticker:hover { transform: scale(1.2) rotate(0deg) !important; z-index: 2; }
+.sb-sticker:hover {
+    transform: scale(1.25) rotate(0deg) !important;
+    z-index: 2;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+}
 .sb-empty {
     background: white;
     color: var(--text-light);
