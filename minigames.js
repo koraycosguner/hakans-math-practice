@@ -618,13 +618,29 @@ GAME_IMPLS['bubble-pop-math'] = {
         let currentAns = null;
         const HUES = [10, 45, 110, 180, 220, 270, 320];
         const diff = (ctx.config && ctx.config.difficulty) || 'normal';
-        const bRange = _diffVal(diff, 5, 9, 14);
+        // Bubble-pop = SUBTRACTION focused (was duplicate of speed-add).
+        // easy: simple a-b. normal: a-b. hard: 3-operand a+b-c.
+        const bRange = _diffVal(diff, 5, 9, 12);
+        const hard3op = diff === 'hard';
 
         function nextProblem() {
-            const a = Math.floor(Math.random() * bRange) + 1;
-            const b = Math.floor(Math.random() * bRange) + 1;
-            currentAns = a + b;
-            target.innerHTML = `<span class="mg-b-op">${a}</span><span class="mg-b-plus">+</span><span class="mg-b-op">${b}</span><span class="mg-b-eq">=</span><span class="mg-b-q">?</span>`;
+            let a, b, c, equation;
+            if (hard3op && Math.random() < 0.6) {
+                // a + b - c on hard
+                a = Math.floor(Math.random() * bRange) + 1;
+                b = Math.floor(Math.random() * bRange) + 1;
+                const cMax = a + b;
+                c = Math.floor(Math.random() * Math.min(cMax, 9)) + 1;
+                currentAns = a + b - c;
+                equation = `<span class="mg-b-op">${a}</span><span class="mg-b-plus">+</span><span class="mg-b-op">${b}</span><span class="mg-b-plus mg-b-minus">−</span><span class="mg-b-op">${c}</span><span class="mg-b-eq">=</span><span class="mg-b-q">?</span>`;
+            } else {
+                // Subtraction: a - b with a >= b so answer >= 0
+                a = Math.floor(Math.random() * bRange) + 3;
+                b = Math.floor(Math.random() * a) + 1;
+                currentAns = a - b;
+                equation = `<span class="mg-b-op">${a}</span><span class="mg-b-plus mg-b-minus">−</span><span class="mg-b-op">${b}</span><span class="mg-b-eq">=</span><span class="mg-b-q">?</span>`;
+            }
+            target.innerHTML = equation;
             target.classList.remove('mg-b-pulse'); void target.offsetWidth;
             target.classList.add('mg-b-pulse');
             field.innerHTML = '';
@@ -760,18 +776,19 @@ GAME_IMPLS['speed-add'] = {
         ctx.area.appendChild(wrap);
 
         const diff = (ctx.config && ctx.config.difficulty) || 'normal';
-        const range = _diffVal(diff, 5, 9, 15);
+        const range = _diffVal(diff, 5, 9, 12);
+        // speed-add = ADDITION focused. easy 2 addends. normal 2-3. hard 2-4.
+        const minOps = 2;
+        const maxOps = diff === 'easy' ? 2 : diff === 'normal' ? 3 : 4;
         let answer = 0;
         function next() {
-            const a = Math.floor(Math.random() * range) + 1;
-            const b = Math.floor(Math.random() * range) + 1;
-            answer = a + b;
-            eq.innerHTML =
-                `<span class="mg-sa-a">${a}</span>` +
-                `<span class="mg-sa-op">+</span>` +
-                `<span class="mg-sa-b">${b}</span>` +
-                `<span class="mg-sa-eqs">=</span>` +
-                `<span class="mg-sa-q">?</span>`;
+            const k = minOps + Math.floor(Math.random() * (maxOps - minOps + 1));
+            const operands = Array.from({ length: k }, () => 1 + Math.floor(Math.random() * range));
+            answer = operands.reduce((s, v) => s + v, 0);
+            const eqHtml = operands.map((v, i) =>
+                (i ? '<span class="mg-sa-op">+</span>' : '') + `<span class="mg-sa-a">${v}</span>`
+            ).join('');
+            eq.innerHTML = eqHtml + `<span class="mg-sa-eqs">=</span><span class="mg-sa-q">?</span>`;
             eq.classList.remove('mg-sa-bump'); void eq.offsetWidth;
             eq.classList.add('mg-sa-bump');
             pad.innerHTML = '';

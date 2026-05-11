@@ -3006,6 +3006,7 @@ body::after {
     border-radius: 10px;
 }
 .mg-b-plus, .mg-b-eq { font-size: 1.8rem; color: var(--text-light); }
+.mg-b-minus { color: #dc2626; font-weight: 900; }
 .mg-b-q { font-size: 2.4rem; color: #f97316; }
 
 .mg-bubble-ambient {
