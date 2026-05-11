@@ -6765,3 +6765,259 @@ GAME_IMPLS['math-adventure'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 41. MATH RUNNER — Temple-Run-style auto-runner! 🏃
+// Hakan-character sprints down a 3-lane scrolling road. Coins fly past.
+// "Math gates" descend at speed, each gate is split into 3 lanes with
+// number signs. To pass the gate cleanly, Hakan has to be in the lane
+// with the right answer at the moment it arrives. Wrong lane = crash =
+// lose a heart. 3 hearts. Speed ramps up over time. Coins boost score.
+// =====================================================================
+GAME_IMPLS['math-runner'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+        const startSpeed = diff === 'easy' ? 90 : diff === 'hard' ? 160 : 120; // px/sec
+
+        // ===== UI: HUD, scene, controls =====
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-run-wrap';
+
+        const hud = document.createElement('div');
+        hud.className = 'mg-run-hud';
+        hud.innerHTML = `
+            <div class="mg-run-hud-item"><span class="mg-run-hud-label">❤️</span><span class="mg-run-hud-val" id="run-lives">3</span></div>
+            <div class="mg-run-hud-item"><span class="mg-run-hud-label">🪙</span><span class="mg-run-hud-val" id="run-coins">0</span></div>
+            <div class="mg-run-hud-item"><span class="mg-run-hud-label">⚡</span><span class="mg-run-hud-val" id="run-speed">1x</span></div>
+        `;
+        wrap.appendChild(hud);
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-run-q';
+        wrap.appendChild(qBox);
+
+        const scene = document.createElement('div');
+        scene.className = 'mg-run-scene';
+        scene.innerHTML = `
+            <div class="mg-run-sky">
+                <span class="mg-run-cloud mg-run-cloud-1">☁️</span>
+                <span class="mg-run-cloud mg-run-cloud-2">☁️</span>
+                <span class="mg-run-cloud mg-run-cloud-3">☁️</span>
+            </div>
+            <div class="mg-run-road">
+                <div class="mg-run-lane-divider mg-run-divider-1"></div>
+                <div class="mg-run-lane-divider mg-run-divider-2"></div>
+                <div class="mg-run-spawner" id="run-spawner"></div>
+                <div class="mg-run-hero" id="run-hero" data-lane="1">🏃</div>
+            </div>
+        `;
+        wrap.appendChild(scene);
+
+        const controls = document.createElement('div');
+        controls.className = 'mg-run-controls';
+        controls.innerHTML = `
+            <button class="mg-run-ctrl mg-run-ctrl-left">⬅️</button>
+            <button class="mg-run-ctrl mg-run-ctrl-right">➡️</button>
+        `;
+        wrap.appendChild(controls);
+
+        ctx.area.appendChild(wrap);
+
+        const heroEl = scene.querySelector('#run-hero');
+        const spawner = scene.querySelector('#run-spawner');
+        const livesEl = hud.querySelector('#run-lives');
+        const coinsEl = hud.querySelector('#run-coins');
+        const speedEl = hud.querySelector('#run-speed');
+
+        let lane = 1; // 0,1,2
+        let lives = 3;
+        let coins = 0;
+        let speed = startSpeed;
+        let lastSpawnAt = 0;
+        let lastTs = 0;
+        let raf = null;
+        let target = null;
+        let stopped = false;
+        // Active obstacles: { el, kind: 'gate' | 'coin', y, speed, value, lane, passed, gateGroup }
+        const objs = [];
+
+        function setLane(l) {
+            lane = Math.max(0, Math.min(2, l));
+            heroEl.dataset.lane = String(lane);
+        }
+        controls.querySelector('.mg-run-ctrl-left').addEventListener('click', () => setLane(lane - 1));
+        controls.querySelector('.mg-run-ctrl-right').addEventListener('click', () => setLane(lane + 1));
+        // Keyboard support (desktop play)
+        const keyHandler = (e) => {
+            if (e.key === 'ArrowLeft')  setLane(lane - 1);
+            if (e.key === 'ArrowRight') setLane(lane + 1);
+        };
+        document.addEventListener('keydown', keyHandler);
+        // Tap on lanes to switch
+        scene.addEventListener('click', (e) => {
+            const r = scene.getBoundingClientRect();
+            const x = e.clientX - r.left;
+            const w = r.width;
+            if (x < w / 3) setLane(0);
+            else if (x < 2 * w / 3) setLane(1);
+            else setLane(2);
+        });
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function setProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<span class="mg-run-q-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b} = ?</span>`;
+        }
+
+        function spawnGate() {
+            const correctLane = Math.floor(Math.random() * 3);
+            const ans = target.ans;
+            const distractors = new Set([ans]);
+            while (distractors.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                distractors.add(Math.max(0, ans + d));
+            }
+            const nums = Array.from(distractors).sort(() => Math.random() - 0.5);
+            // Make sure the answer lands on `correctLane`
+            const ansIdx = nums.indexOf(ans);
+            if (ansIdx !== correctLane) {
+                [nums[correctLane], nums[ansIdx]] = [nums[ansIdx], nums[correctLane]];
+            }
+            const gateGroup = {};
+            for (let i = 0; i < 3; i++) {
+                const el = document.createElement('div');
+                el.className = 'mg-run-gate mg-run-gate-l' + i + (nums[i] === ans ? ' mg-run-gate-correct' : '');
+                el.textContent = nums[i];
+                spawner.appendChild(el);
+                objs.push({ el, kind: 'gate', y: -20, lane: i, value: nums[i], correct: nums[i] === ans, passed: false, group: gateGroup });
+            }
+        }
+
+        function spawnCoin() {
+            const l = Math.floor(Math.random() * 3);
+            const el = document.createElement('div');
+            el.className = 'mg-run-coin mg-run-coin-l' + l;
+            el.textContent = '🪙';
+            spawner.appendChild(el);
+            objs.push({ el, kind: 'coin', y: -20, lane: l, collected: false });
+        }
+
+        function loop(ts) {
+            if (stopped) return;
+            if (!lastTs) lastTs = ts;
+            const dt = Math.min(50, ts - lastTs) / 1000;
+            lastTs = ts;
+
+            // Slowly ramp up speed
+            speed = Math.min(startSpeed * 2.2, speed + dt * 4);
+            speedEl.textContent = (speed / startSpeed).toFixed(1) + 'x';
+
+            // Spawn cadence: every ~1.4s minus speed factor
+            const interval = Math.max(900, 2200 - (speed - startSpeed) * 6);
+            if (ts - lastSpawnAt > interval) {
+                lastSpawnAt = ts;
+                // 60% chance of gate, 40% coin
+                if (Math.random() < 0.6) {
+                    if (!target) setProblem();
+                    spawnGate();
+                } else {
+                    spawnCoin();
+                }
+            }
+
+            // Move objects + check collisions
+            const sceneRect = scene.getBoundingClientRect();
+            const heroBottom = 16; // px from bottom
+            const collideY = sceneRect.height - heroBottom - 70; // hero is ~70px tall
+            for (const o of objs) {
+                o.y += speed * dt;
+                o.el.style.top = o.y + 'px';
+                if (!o.passed && o.y > collideY && o.y < collideY + 70) {
+                    if (o.lane === lane) {
+                        // Collision with hero
+                        if (o.kind === 'coin') {
+                            o.collected = true;
+                            coins += 1;
+                            coinsEl.textContent = coins;
+                            ctx.onScore(1, {
+                                x: sceneRect.left + (sceneRect.width / 3) * (lane + 0.5),
+                                y: sceneRect.top + collideY
+                            });
+                            o.el.classList.add('mg-run-coin-pop');
+                            o.passed = true;
+                            setTimeout(() => { try { o.el.remove(); } catch {} }, 300);
+                        } else if (o.kind === 'gate') {
+                            // Only score on the gate the hero hits.
+                            // Other gates of this group are skipped.
+                            const group = o.group;
+                            // Mark whole group as passed
+                            objs.forEach((x) => { if (x.group === group) x.passed = true; });
+                            if (o.correct) {
+                                ctx.onScore(2, {
+                                    x: sceneRect.left + (sceneRect.width / 3) * (lane + 0.5),
+                                    y: sceneRect.top + collideY
+                                });
+                                heroEl.classList.add('mg-run-hero-cheer');
+                                setTimeout(() => heroEl.classList.remove('mg-run-hero-cheer'), 500);
+                                objs.forEach((x) => { if (x.group === group) x.el.classList.add('mg-run-gate-pass'); });
+                                // After clearing this problem, set a new one
+                                setProblem();
+                            } else {
+                                lives -= 1;
+                                livesEl.textContent = lives;
+                                ctx.onPenalty(2, {
+                                    x: sceneRect.left + (sceneRect.width / 3) * (lane + 0.5),
+                                    y: sceneRect.top + collideY
+                                });
+                                heroEl.classList.add('mg-run-hero-crash');
+                                setTimeout(() => heroEl.classList.remove('mg-run-hero-crash'), 600);
+                                objs.forEach((x) => { if (x.group === group) x.el.classList.add('mg-run-gate-bad'); });
+                                if (lives <= 0) {
+                                    stopped = true;
+                                    qBox.innerHTML = '<span class="mg-run-gameover">💀 GAME OVER!</span>';
+                                    setTimeout(() => ctx.onWin(), 1400);
+                                    return;
+                                }
+                                setProblem();
+                            }
+                        }
+                    }
+                }
+            }
+            // Remove off-screen objects
+            for (let i = objs.length - 1; i >= 0; i--) {
+                const o = objs[i];
+                if (o.y > sceneRect.height + 40) {
+                    try { o.el.remove(); } catch {}
+                    objs.splice(i, 1);
+                }
+            }
+
+            raf = requestAnimationFrame(loop);
+        }
+
+        // Boot
+        setProblem();
+        raf = requestAnimationFrame(loop);
+
+        return {
+            stop() {
+                stopped = true;
+                if (raf) cancelAnimationFrame(raf);
+                document.removeEventListener('keydown', keyHandler);
+            }
+        };
+    }
+};

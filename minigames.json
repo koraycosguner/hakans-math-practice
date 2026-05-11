@@ -601,6 +601,30 @@
     "config": {}
   },
   {
+    "id": "math-runner",
+    "title": "Math Runner",
+    "emoji": "🏃",
+    "description": "Run down 3 lanes! Dodge to the gate with the right answer. Grab coins!",
+    "category": "action",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Auto-runner: gates fall toward you with answer numbers. Switch lanes (⬅️➡️ or tap) to land on the RIGHT answer. Hit wrong = lose a heart!",
+    "rules": [
+      "🏃 Hakan-character runs down a 3-lane road that scrolls toward you.",
+      "Math gates fall from the top — each gate has 3 numbers, one per lane.",
+      "Tap a side (or use ⬅️➡️ buttons) to switch lanes before the gate hits you.",
+      "Land on the right answer → +2 pts and a cheer; wrong → lose 1 of 3 ❤️.",
+      "Coins 🪙 fall too — grab them for +1 each.",
+      "Speed ramps up the longer you survive. Go far enough to win!"
+    ],
+    "rewards": {
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
+    },
+    "config": {}
+  },
+  {
     "id": "math-adventure",
     "title": "Math Adventure",
     "emoji": "🍄",
