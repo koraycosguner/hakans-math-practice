@@ -70915,7 +70915,7 @@ function renderHomeModules() {
     // All extras (POTD, daily spin, quick math, quests, lucky color/number,
     // joke, fact, tip) live behind the "🎁 Today" button.
 
-    // 1. Greeting + tiny streak chip
+    // 1. Greeting + tiny streak chip + balance chip
     if (isHakan) {
         const h = new Date().getHours();
         const greet = h < 5  ? '🌙 Hi, Hakan!' :
@@ -70926,9 +70926,13 @@ function renderHomeModules() {
         const streakChip = streak.current >= 2
             ? `<span class="home-streak-chip">🔥 ${streak.current}</span>`
             : '';
+        const balance = (typeof loadRobux === 'function') ? loadRobux() : 0;
+        const balanceChip = `<span class="home-balance-chip" onclick="event.stopPropagation(); openRobuxReceipt();" title="See today's earnings">💎 ${Math.round(balance)}</span>`;
         html += `<div class="home-greeting-row">
+            <span class="home-mascot" aria-hidden="true">🦊</span>
             <div class="home-greeting">${greet}</div>
             ${streakChip}
+            ${balanceChip}
         </div>`;
 
         // Streak resilience reminder: if Hakan hasn't practiced today and

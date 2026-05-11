@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=181">
+    <link rel="manifest" href="manifest.json?v=182">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=181">
+    <link rel="stylesheet" href="style.css?v=182">
 </head>
 <body>
     <!-- Loading splash: shown while the audio manifest + module data load.
@@ -51,6 +51,17 @@
 
     <!-- Start Screen -->
     <div id="start-screen" class="screen">
+        <!-- Ambient floating decorations (cosmetic only, behind content) -->
+        <div class="home-ambient" aria-hidden="true">
+            <span class="amb amb-1">✨</span>
+            <span class="amb amb-2">⭐</span>
+            <span class="amb amb-3">🌟</span>
+            <span class="amb amb-4">✨</span>
+            <span class="amb amb-5">⭐</span>
+            <span class="amb amb-6">🌟</span>
+            <span class="amb amb-7">✨</span>
+            <span class="amb amb-8">⭐</span>
+        </div>
         <div class="start-container">
             <h1 class="title bounce">🧮 <span id="start-title-name">Hakan's</span> Math Practice! 🌟</h1>
             <div class="mascot"><img src="hakan.jpg" alt="Hakan" class="mascot-photo"></div>
@@ -524,10 +535,10 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=181"></script>
-    <script src="modules.js?v=181"></script>
-    <script src="game.js?v=181"></script>
-    <script src="minigames.js?v=181"></script>
+    <script src="audio.js?v=182"></script>
+    <script src="modules.js?v=182"></script>
+    <script src="game.js?v=182"></script>
+    <script src="minigames.js?v=182"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->

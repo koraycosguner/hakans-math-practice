@@ -35,13 +35,56 @@ html, body {
 
 body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    background:
+        /* Subtle starfield + glow accents behind the main gradient */
+        radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.15) 0%, transparent 14%),
+        radial-gradient(circle at 88% 22%, rgba(255, 200, 87, 0.18) 0%, transparent 18%),
+        radial-gradient(circle at 18% 78%, rgba(236, 72, 153, 0.18) 0%, transparent 22%),
+        radial-gradient(circle at 82% 84%, rgba(99, 102, 241, 0.22) 0%, transparent 24%),
+        linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    background-attachment: fixed;
     color: var(--text-dark);
     touch-action: manipulation;
     -webkit-text-size-adjust: 100%;
     /* Safe area insets for notch/home bar */
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
+
+/* Ambient floating decorations on the home screen — purely cosmetic,
+   sit behind all content, ignore pointer events. */
+#start-screen .home-ambient {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+#start-screen .home-ambient .amb {
+    position: absolute;
+    font-size: 1.6rem;
+    opacity: 0.45;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
+    user-select: none;
+    will-change: transform;
+}
+#start-screen .home-ambient .amb-1 { top:  6%; left:   4%; font-size: 1.4rem; animation: ambFloat 14s ease-in-out infinite alternate; }
+#start-screen .home-ambient .amb-2 { top: 12%; left:  88%; font-size: 1.2rem; animation: ambFloat 18s ease-in-out -3s infinite alternate-reverse; }
+#start-screen .home-ambient .amb-3 { top: 28%; left:   2%; font-size: 1.1rem; animation: ambFloat 16s ease-in-out -7s infinite alternate; }
+#start-screen .home-ambient .amb-4 { top: 36%; left:  92%; font-size: 1.5rem; animation: ambFloat 20s ease-in-out -2s infinite alternate-reverse; }
+#start-screen .home-ambient .amb-5 { top: 58%; left:   5%; font-size: 1.3rem; animation: ambFloat 17s ease-in-out -5s infinite alternate; }
+#start-screen .home-ambient .amb-6 { top: 68%; left:  90%; font-size: 1.2rem; animation: ambFloat 22s ease-in-out -8s infinite alternate-reverse; }
+#start-screen .home-ambient .amb-7 { top: 82%; left:   3%; font-size: 1.4rem; animation: ambFloat 15s ease-in-out -4s infinite alternate; }
+#start-screen .home-ambient .amb-8 { top: 90%; left:  86%; font-size: 1.1rem; animation: ambFloat 19s ease-in-out -6s infinite alternate-reverse; }
+@keyframes ambFloat {
+    0%   { transform: translate(0, 0) rotate(-8deg); }
+    100% { transform: translate(14px, -18px) rotate(8deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    #start-screen .home-ambient .amb { animation: none !important; }
+}
+/* Make sure home content is above the ambient layer */
+#start-screen .modules-container,
+#start-screen #module-grid { position: relative; z-index: 1; }
 
 /* ===== Screens ===== */
 .screen {
@@ -10594,62 +10637,162 @@ html.motion-reduced .ps-preview-pet { animation: none; }
     color: #f5a020;
 }
 
-/* ===== Today's Adventure banner ===== */
+/* ===== Today's Adventure — the hero card on home ===== */
 .todays-adventure {
-    margin: 0 0 24px 0;
+    margin: 4px 0 22px 0;
     cursor: pointer;
     user-select: none;
+    position: relative;
 }
 .ta-label {
     text-align: center;
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: #f5a020;
-    letter-spacing: 0.06em;
-    margin-bottom: 8px;
+    font-size: 1rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #fbbf24 0%, #f97316 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
     text-transform: uppercase;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+}
+.ta-label::before {
+    content: '✨ ';
+    animation: taLabelSparkleL 2.4s ease-in-out infinite alternate;
+    display: inline-block;
+}
+.ta-label::after {
+    content: ' ✨';
+    animation: taLabelSparkleR 2.4s ease-in-out infinite alternate-reverse;
+    display: inline-block;
+}
+@keyframes taLabelSparkleL {
+    0%   { transform: rotate(-12deg) scale(1); }
+    100% { transform: rotate(12deg) scale(1.2); }
+}
+@keyframes taLabelSparkleR {
+    0%   { transform: rotate(12deg) scale(1); }
+    100% { transform: rotate(-12deg) scale(1.2); }
 }
 .ta-card {
     display: flex;
     align-items: center;
-    gap: 16px;
-    background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+    gap: 18px;
+    background:
+        radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.35) 0%, transparent 35%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
+        linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%);
     color: white;
-    border-radius: 20px;
-    padding: 18px 22px;
-    box-shadow: 0 8px 24px rgba(255,94,98,0.35);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 26px;
+    padding: 22px 26px;
+    border: 4px solid rgba(255, 255, 255, 0.4);
+    box-shadow:
+        0 8px 0 rgba(120, 53, 15, 0.4),
+        0 16px 40px rgba(236, 72, 153, 0.45),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+    transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease;
+    position: relative;
+    overflow: hidden;
+    animation: taCardShimmer 6s ease-in-out infinite;
+}
+@keyframes taCardShimmer {
+    0%, 100% { background-position: 0% 0%, 100% 100%, 0% 0%; }
+    50%      { background-position: 30% 20%, 70% 80%, 100% 0%; }
+}
+/* Twinkling sparkles overlay (decorative, behind content) */
+.ta-card::before {
+    content: '⭐';
+    position: absolute;
+    top: 12%;
+    left: 8%;
+    font-size: 1.1rem;
+    opacity: 0.6;
+    animation: taSparkle1 3s ease-in-out infinite;
+    pointer-events: none;
+}
+.ta-card::after {
+    content: '⭐';
+    position: absolute;
+    bottom: 18%;
+    right: 22%;
+    font-size: 0.9rem;
+    opacity: 0.5;
+    animation: taSparkle2 2.4s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes taSparkle1 {
+    0%, 100% { transform: scale(0.6) rotate(0); opacity: 0.3; }
+    50%      { transform: scale(1.2) rotate(180deg); opacity: 0.9; }
+}
+@keyframes taSparkle2 {
+    0%, 100% { transform: scale(0.7) rotate(0); opacity: 0.3; }
+    50%      { transform: scale(1.3) rotate(-180deg); opacity: 0.85; }
 }
 .todays-adventure:hover .ta-card {
     transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 12px 32px rgba(255,94,98,0.5);
+    box-shadow:
+        0 12px 0 rgba(120, 53, 15, 0.4),
+        0 22px 50px rgba(236, 72, 153, 0.55),
+        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+.todays-adventure:active .ta-card {
+    transform: translateY(3px) scale(0.99);
+    box-shadow:
+        0 4px 0 rgba(120, 53, 15, 0.4),
+        0 8px 18px rgba(236, 72, 153, 0.45);
 }
 .ta-icon {
-    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    font-size: clamp(3rem, 7vw, 4.4rem);
     line-height: 1;
     flex-shrink: 0;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+    animation: taIconFloat 3.2s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 1;
 }
-.ta-text { flex: 1; min-width: 0; }
+@keyframes taIconFloat {
+    0%   { transform: translateY(0) rotate(-3deg); }
+    100% { transform: translateY(-6px) rotate(3deg); }
+}
+.ta-text { flex: 1; min-width: 0; position: relative; z-index: 1; }
 .ta-title {
-    font-size: clamp(1.1rem, 2.4vw, 1.4rem);
-    font-weight: 800;
-    margin-bottom: 4px;
+    font-size: clamp(1.25rem, 2.6vw, 1.55rem);
+    font-weight: 900;
+    margin-bottom: 5px;
     line-height: 1.15;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.01em;
 }
 .ta-desc {
-    font-size: clamp(0.85rem, 1.7vw, 0.98rem);
+    font-size: clamp(0.9rem, 1.7vw, 1.02rem);
     opacity: 0.95;
-    line-height: 1.35;
+    line-height: 1.4;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 .ta-arrow {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 800;
     flex-shrink: 0;
-    opacity: 0.85;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    animation: taArrowBeckon 1.4s ease-in-out infinite alternate;
+    position: relative;
+    z-index: 1;
+}
+@keyframes taArrowBeckon {
+    0%   { transform: translateX(-3px); opacity: 0.85; }
+    100% { transform: translateX(3px); opacity: 1; }
 }
 @media (max-width: 600px) {
-    .ta-card { padding: 14px 16px; gap: 12px; }
-    .ta-arrow { font-size: 1.4rem; }
+    .ta-card { padding: 18px 18px; gap: 14px; }
+    .ta-arrow { font-size: 1.6rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ta-card, .ta-icon, .ta-arrow, .ta-card::before, .ta-card::after,
+    .ta-label::before, .ta-label::after {
+        animation: none !important;
+    }
 }
 
 /* ===== Module Detail Screen ===== */
@@ -11104,28 +11247,54 @@ html.motion-reduced .m-add-2d .m-add-q { animation: none; }
 }
 
 .m-category {
-    margin-bottom: 30px;
+    margin-bottom: 32px;
+    position: relative;
 }
 
 .m-category-heading {
     color: white;
-    font-size: clamp(1.05rem, 2.4vw, 1.45rem);
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    margin: 0 0 12px;
-    padding: 0 4px;
+    font-size: clamp(1.15rem, 2.6vw, 1.55rem);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    padding: 8px 14px;
     display: flex;
     align-items: center;
     gap: 10px;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
-}
-.m-category-count {
-    background: rgba(255, 255, 255, 0.22);
-    border-radius: 999px;
-    padding: 3px 12px;
-    font-size: 0.78rem;
-    font-weight: 700;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 100%);
     backdrop-filter: blur(8px);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-left: 6px solid var(--cat-accent, #fbbf24);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+/* Per-category left accent ribbon color */
+.m-category-cat-A .m-category-heading { --cat-accent: #60a5fa; }
+.m-category-cat-B .m-category-heading { --cat-accent: #4ade80; }
+.m-category-cat-C .m-category-heading { --cat-accent: #fb923c; }
+.m-category-cat-D .m-category-heading { --cat-accent: #c084fc; }
+.m-category-cat-E .m-category-heading { --cat-accent: #fbbf24; }
+.m-category-cat-F .m-category-heading { --cat-accent: #67e8f9; }
+.m-category-cat-G .m-category-heading { --cat-accent: #facc15; }
+.m-category-cat-H .m-category-heading { --cat-accent: #f472b6; }
+.m-category-cat-I .m-category-heading { --cat-accent: #fb7185; }
+.m-category-cat-J .m-category-heading { --cat-accent: #84cc16; }
+.m-category-cat-K .m-category-heading { --cat-accent: #a78bfa; }
+.m-category-cat-L .m-category-heading { --cat-accent: #ec4899; }
+.m-category-cat-M .m-category-heading { --cat-accent: #d97706; }
+.m-category-cat-N .m-category-heading { --cat-accent: #14b8a6; }
+.m-category-count {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 0.82rem;
+    font-weight: 900;
+    border: 2px solid white;
+    box-shadow: 0 3px 8px rgba(217, 119, 6, 0.4);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
+    margin-left: auto;
 }
 
 .m-category-grid {
@@ -12169,15 +12338,29 @@ html.motion-reduced .m-card-new-pill {
 .home-greeting-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin: 6px 4px 12px;
+    gap: 10px;
+    margin: 6px 4px 14px;
+    flex-wrap: wrap;
+}
+.home-mascot {
+    font-size: 2rem;
+    line-height: 1;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
+    animation: homeMascotWiggle 4s ease-in-out infinite alternate;
+    flex-shrink: 0;
+    cursor: default;
+}
+@keyframes homeMascotWiggle {
+    0%   { transform: rotate(-6deg) translateY(0); }
+    100% { transform: rotate(6deg) translateY(-3px); }
 }
 .home-greeting {
     font-size: 1.35rem;
     font-weight: 900;
     color: white;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     flex: 1;
+    min-width: 0;
     letter-spacing: -0.01em;
 }
 .home-streak-chip {
@@ -12191,6 +12374,33 @@ html.motion-reduced .m-card-new-pill {
     box-shadow: 0 3px 0 #9a3412, 0 5px 10px rgba(239, 68, 68, 0.3);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     letter-spacing: -0.02em;
+    flex-shrink: 0;
+}
+.home-balance-chip {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #78350f;
+    border: 2px solid #d97706;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.95rem;
+    font-weight: 900;
+    box-shadow: 0 3px 0 #b45309, 0 5px 10px rgba(245, 158, 11, 0.3);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+    letter-spacing: -0.02em;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    flex-shrink: 0;
+}
+.home-balance-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #b45309, 0 8px 14px rgba(245, 158, 11, 0.45);
+}
+.home-balance-chip:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #b45309;
+}
+@media (prefers-reduced-motion: reduce) {
+    .home-mascot, .home-balance-chip { animation: none !important; transition: none !important; }
 }
 
 /* "🎁 Today" button on the home top row */
