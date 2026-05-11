@@ -14,6 +14,11 @@ let _gameDeadlineMs = 0;
 let _gameScore = 0;
 let _activeGameId = null;
 let _gameCombo = 0;
+// Power-up state: while active, score gains are multiplied. Refreshed on
+// every game start.
+let _powerupTimers = [];
+let _scoreMultiplier = 1;
+let _powerupSpawnTimer = null;
 
 // ----------------------------------------------------------------------
 // "Juice" helpers — floating popups, particle bursts, pulse effects
@@ -95,6 +100,41 @@ function _flashCombo() {
     if (!el) return;
     el.classList.add('mg-combo-flash');
     setTimeout(() => el.classList.remove('mg-combo-flash'), 600);
+    // At milestone combos, show a big floating overlay — Mario-Kart style.
+    if ([3, 5, 7, 10, 15, 20].includes(_gameCombo)) {
+        _showComboOverlay(_gameCombo);
+    }
+}
+
+// Visible combo escalation overlay — a big floating chip that pops in
+// from the centre on streak milestones. Different tier = different vibe.
+function _showComboOverlay(n) {
+    const host = document.getElementById('mg-play-area');
+    if (!host) return;
+    const tiers = {
+        3:  { text: 'COMBO x3!',     emoji: '🔥', tier: 'bronze'    },
+        5:  { text: 'COMBO x5!',     emoji: '⚡', tier: 'silver'    },
+        7:  { text: 'AWESOME x7!',   emoji: '🌟', tier: 'gold'      },
+        10: { text: 'ON FIRE x10!',  emoji: '🤩', tier: 'fire'      },
+        15: { text: 'MEGA x15!',     emoji: '🚀', tier: 'mega'      },
+        20: { text: 'LEGENDARY x20!', emoji: '👑', tier: 'legendary' },
+    };
+    const t = tiers[n];
+    if (!t) return;
+    const chip = document.createElement('div');
+    chip.className = 'mg-combo-overlay mg-combo-tier-' + t.tier;
+    chip.innerHTML = `
+        <span class="mg-combo-overlay-emoji">${t.emoji}</span>
+        <span class="mg-combo-overlay-text">${t.text}</span>
+    `;
+    host.appendChild(chip);
+    setTimeout(() => chip.classList.add('mg-combo-overlay-show'), 20);
+    setTimeout(() => {
+        chip.classList.remove('mg-combo-overlay-show');
+        setTimeout(() => chip.remove(), 400);
+    }, 1200);
+    if (typeof speak === 'function') speak(t.text);
+    mgVibrate([40, 30, 40, 30, 60]);
 }
 
 function _pulseTimerIfLow() {
@@ -106,6 +146,105 @@ function _pulseTimerIfLow() {
     } else {
         timerEl.classList.remove('mg-timer-low');
     }
+}
+
+// ===== First-time tutorial overlay =====
+// Shows once per game (per-user, persisted in localStorage). Lists the
+// game's rules with a friendly mascot + dismiss button. Designed for a
+// Grade-1 reader: short rules, big buttons.
+const MG_TUTORIAL_KEY = 'hakans-math-game-tutorial-seen';
+function _seenGameTutorial(id) {
+    try {
+        const raw = localStorage.getItem(MG_TUTORIAL_KEY);
+        if (!raw) return false;
+        const seen = JSON.parse(raw);
+        return !!seen[id];
+    } catch (e) { return false; }
+}
+function _markGameTutorialSeen(id) {
+    try {
+        const raw = localStorage.getItem(MG_TUTORIAL_KEY);
+        const seen = raw ? JSON.parse(raw) : {};
+        seen[id] = Date.now();
+        localStorage.setItem(MG_TUTORIAL_KEY, JSON.stringify(seen));
+    } catch (e) {}
+}
+function _maybeShowFirstTimeTutorial(g) {
+    if (!g || !g.id) return;
+    if (_seenGameTutorial(g.id)) return;
+    if (!g.rules || !g.rules.length) { _markGameTutorialSeen(g.id); return; }
+    // Pause the game while the overlay shows
+    if (typeof pauseMiniGame === 'function' && !_gamePaused) pauseMiniGame();
+    const overlay = document.createElement('div');
+    overlay.className = 'mg-tutorial-overlay';
+    overlay.innerHTML = `
+        <div class="mg-tutorial-card">
+            <div class="mg-tutorial-icon">${g.emoji || '🎮'}</div>
+            <div class="mg-tutorial-title">How to play</div>
+            <div class="mg-tutorial-subtitle">${g.title || ''}</div>
+            <ul class="mg-tutorial-rules">
+                ${g.rules.slice(0, 5).map((r) => `<li>${r}</li>`).join('')}
+            </ul>
+            <button class="mg-tutorial-btn">Got it! Let's play 🚀</button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    overlay.querySelector('.mg-tutorial-btn').addEventListener('click', () => {
+        _markGameTutorialSeen(g.id);
+        overlay.remove();
+        if (typeof resumeMiniGame === 'function' && _gamePaused) resumeMiniGame();
+    });
+}
+
+// ===== Power-up pickups =====
+// Random rare drops that float across the play area. Tap to collect for
+// an in-game bonus. Spawned by a background timer started in launchMiniGame.
+const POWERUPS = [
+    { id: 'time',  emoji: '⏰', label: '+5s',     color: '#3b82f6', apply: () => { _gameDeadlineMs += 5000; }},
+    { id: 'mult',  emoji: '⭐', label: '2x for 5s', color: '#fbbf24', apply: () => { _scoreMultiplier = 2; setTimeout(() => { _scoreMultiplier = 1; }, 5000); }},
+    { id: 'coin',  emoji: '💎', label: '+5 pts',  color: '#10b981', apply: () => { _gameScore += 5; const el = document.getElementById('mg-play-score'); if (el) el.textContent = 'Score: ' + _gameScore; }},
+    { id: 'freeze', emoji: '❄️', label: 'Freeze 3s', color: '#06b6d4', apply: () => { _gameDeadlineMs += 3000; }},
+];
+function _clearPowerups() {
+    if (_powerupSpawnTimer) { clearTimeout(_powerupSpawnTimer); _powerupSpawnTimer = null; }
+    _powerupTimers.forEach((t) => clearTimeout(t));
+    _powerupTimers = [];
+    _scoreMultiplier = 1;
+    const host = document.getElementById('mg-play-area');
+    if (host) host.querySelectorAll('.mg-powerup').forEach((p) => p.remove());
+}
+function _schedulePowerupSpawn() {
+    if (_powerupSpawnTimer) clearTimeout(_powerupSpawnTimer);
+    // Wait 10-22 seconds between drops — rare so they feel special.
+    const delay = 10000 + Math.random() * 12000;
+    _powerupSpawnTimer = setTimeout(_spawnPowerup, delay);
+}
+function _spawnPowerup() {
+    const host = document.getElementById('mg-play-area');
+    if (!host || _gamePaused || !_gameTimer) { _schedulePowerupSpawn(); return; }
+    const pu = POWERUPS[Math.floor(Math.random() * POWERUPS.length)];
+    const r = host.getBoundingClientRect();
+    const el = document.createElement('button');
+    el.className = 'mg-powerup';
+    el.style.setProperty('--pu-color', pu.color);
+    el.innerHTML = `<span class="mg-powerup-emoji">${pu.emoji}</span><span class="mg-powerup-label">${pu.label}</span>`;
+    // Random vertical, drift left-to-right
+    el.style.top = (30 + Math.random() * 40) + '%';
+    el.style.left = '-12%';
+    host.appendChild(el);
+    // After 8s, remove if not collected
+    const removeTimer = setTimeout(() => { try { el.remove(); } catch {} }, 8400);
+    _powerupTimers.push(removeTimer);
+    el.addEventListener('click', (e) => {
+        if (el.classList.contains('mg-powerup-claimed')) return;
+        el.classList.add('mg-powerup-claimed');
+        pu.apply();
+        try { mgScorePopup(pu.label, e.clientX, e.clientY, 'mg-popup-good'); } catch {}
+        try { mgConfettiBurst(e.clientX, e.clientY, 14); } catch {}
+        if (typeof playSound === 'function') playSound('correct');
+        setTimeout(() => el.remove(), 400);
+    });
+    _schedulePowerupSpawn();
 }
 
 // Haptic feedback — short pulse on most browsers/devices that support it.
@@ -332,6 +471,7 @@ function launchMiniGame(id) {
     _gameScore = 0;
     _gameCombo = 0;
     _gamePaused = false;
+    _clearPowerups();
     const pauseBtn = document.getElementById('mg-pause-btn');
     if (pauseBtn) pauseBtn.textContent = '⏸ Pause';
     document.getElementById('mg-play-over').style.display = 'none';
@@ -355,22 +495,33 @@ function launchMiniGame(id) {
     _gameDeadlineMs = Date.now() + duration * 1000;
     _updateTimer();
     _gameTimer = setInterval(_updateTimer, 200);
+    // Schedule the first power-up drop. Subsequent drops are scheduled
+    // from inside _spawnPowerup after each spawn.
+    _schedulePowerupSpawn();
 
     // Effective config = game config plus current difficulty preference
     const effectiveConfig = Object.assign({}, g.config || {}, { difficulty: loadDifficulty() });
+
+    // First-time tutorial: on Hakan's very first launch of a game, show a
+    // friendly "How to play" overlay sourced from the game's `rules` array.
+    _maybeShowFirstTimeTutorial(g);
 
     _activeGame = impl.start({
         area,
         onScore: (delta, opts) => {
             if (_gamePaused) return;
-            _gameScore += delta;
+            // Apply active power-up multiplier
+            const effective = (delta > 0) ? delta * _scoreMultiplier : delta;
+            _gameScore += effective;
             if (delta > 0) {
                 _gameCombo += 1;
                 _flashCombo();
+                const multiplierText = _scoreMultiplier > 1 ? ' ⭐2x' : '';
                 const comboText = _gameCombo >= 3 ? ` 🔥${_gameCombo}` : '';
-                document.getElementById('mg-play-score').textContent = 'Score: ' + _gameScore + comboText;
+                document.getElementById('mg-play-score').textContent = 'Score: ' + _gameScore + comboText + multiplierText;
                 const opt = opts || {};
-                mgScorePopup('+' + delta, opt.x, opt.y, 'mg-popup-good');
+                const showDelta = effective !== delta ? effective : delta;
+                mgScorePopup('+' + showDelta, opt.x, opt.y, 'mg-popup-good');
                 if (opt.x != null && opt.y != null) {
                     // Scale burst size by combo: 10 normal / 16 hot streak / 22 on fire
                     const burstCount = _gameCombo >= 5 ? 22 : _gameCombo >= 3 ? 16 : 10;
@@ -430,6 +581,7 @@ function _updateTimer() {
 
 function _endMiniGame(isWin) {
     if (_gameTimer) { clearInterval(_gameTimer); _gameTimer = null; }
+    _clearPowerups();
     if (_activeGame && _activeGame.stop) {
         try { _activeGame.stop(); } catch (e) {}
     }
@@ -510,11 +662,49 @@ function _endMiniGame(isWin) {
             _showNewBestSplash(g.name || 'Mini-Game', _gameScore, prev ? prev.score : 0);
         }
     }
-    document.getElementById('mg-over-score-text').textContent = `Score: ${_gameScore}${prev ? `  (best ${Math.max(_gameScore, prev.score)})` : ''}`;
-    document.getElementById('mg-over-robux').textContent = robuxAwarded > 0
-        ? `+${robuxAwarded} 💎 Robux earned!`
+
+    // Animated stats reveal — each stat counts up / pops in over ~1.5s so the
+    // result screen feels like a real video-game results card.
+    const scoreEl = document.getElementById('mg-over-score-text');
+    const robuxEl = document.getElementById('mg-over-robux');
+    const bestScore = prev ? Math.max(_gameScore, prev.score) : _gameScore;
+    scoreEl.innerHTML = `<span class="mg-over-stat-label">SCORE</span><span class="mg-over-stat-num" id="mg-over-score-num">0</span>${prev ? `<span class="mg-over-stat-best">best ${bestScore}</span>` : ''}`;
+    robuxEl.innerHTML = robuxAwarded > 0
+        ? `<span class="mg-over-stat-label">💎 EARNED</span><span class="mg-over-stat-num mg-over-stat-robux" id="mg-over-robux-num">+0</span>`
         : '';
     document.getElementById('mg-play-over').style.display = '';
+
+    // Count up the score
+    const scoreNumEl = document.getElementById('mg-over-score-num');
+    if (scoreNumEl) {
+        const targetScore = _gameScore;
+        const startTs = performance.now();
+        const dur = 900;
+        const step = (now) => {
+            const t = Math.min(1, (now - startTs) / dur);
+            const eased = 1 - Math.pow(1 - t, 3);
+            scoreNumEl.textContent = Math.round(targetScore * eased);
+            if (t < 1) requestAnimationFrame(step);
+            else scoreNumEl.classList.add('mg-over-stat-pop');
+        };
+        requestAnimationFrame(step);
+    }
+    // Count up robux after a short delay
+    const robuxNumEl = document.getElementById('mg-over-robux-num');
+    if (robuxNumEl && robuxAwarded > 0) {
+        setTimeout(() => {
+            const startTs = performance.now();
+            const dur = 700;
+            const step = (now) => {
+                const t = Math.min(1, (now - startTs) / dur);
+                const eased = 1 - Math.pow(1 - t, 3);
+                robuxNumEl.textContent = '+' + Math.round(robuxAwarded * eased);
+                if (t < 1) requestAnimationFrame(step);
+                else robuxNumEl.classList.add('mg-over-stat-pop');
+            };
+            requestAnimationFrame(step);
+        }, 1000);
+    }
 
     // Quest bumps: any positive score = mini-game win toward quest
     if (_gameScore > 0 && typeof bumpQuests === 'function') {
