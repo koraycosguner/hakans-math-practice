@@ -160,7 +160,13 @@ function renderFraction(shape, parts, filled) {
 
 // Repeated emoji for word problems / counting visuals.
 function renderObjects(count, emoji) {
-    return `<div class="m-objects">${(emoji + ' ').repeat(count).trim()}</div>`;
+    // Wrap each item in a span so we can use CSS grid for clean spacing,
+    // pop-in animation, and per-item drop shadow.
+    const items = [];
+    for (let i = 0; i < count; i++) {
+        items.push(`<span class="m-object" style="animation-delay:${i * 0.04}s">${emoji}</span>`);
+    }
+    return `<div class="m-objects">${items.join('')}</div>`;
 }
 
 // Subtraction visual: N objects total, first K marked with a strike-through ❌
