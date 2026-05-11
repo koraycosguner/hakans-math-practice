@@ -1976,32 +1976,43 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     max-width: 480px;
     margin: 0 auto;
     padding: 14px 16px;
-    background: #fafafa;
-    border: 2px solid #e5e7eb;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 2px dashed #6c63ff;
     border-radius: 18px;
     font-size: 0.95rem;
+    box-shadow: 0 4px 14px rgba(108,99,255,0.12);
 }
 .bar-model-part-whole .bar-total-row {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    padding: 0 4px;
 }
 .bar-total-label {
     font-weight: 700;
     color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.78rem;
 }
 .bar-total-value {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     font-weight: 900;
     color: var(--primary);
+    background: white;
+    border-radius: 12px;
+    padding: 2px 16px;
+    box-shadow: 0 3px 8px rgba(108,99,255,0.2);
+    border: 2px solid var(--primary);
 }
 .bar-segments {
     display: flex;
-    height: 56px;
-    border-radius: 12px;
+    height: 64px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.06);
+    box-shadow: inset 0 0 0 3px rgba(255,255,255,0.7), 0 4px 12px rgba(0,0,0,0.15);
+    border: 2px solid rgba(0,0,0,0.15);
 }
 .bar-part {
     display: flex;
@@ -2012,16 +2023,19 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     font-weight: 800;
     text-align: center;
     padding: 4px 6px;
-    min-width: 30px;
-    border-right: 2px solid rgba(255,255,255,0.5);
+    min-width: 32px;
+    border-right: 3px solid rgba(255,255,255,0.55);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    transition: filter 0.2s ease;
 }
+.bar-part:hover { filter: brightness(1.08); }
 .bar-part:last-child { border-right: none; }
-.bar-part-value { font-size: 1.05rem; line-height: 1.1; }
+.bar-part-value { font-size: 1.15rem; line-height: 1.1; }
 .bar-part-label { font-size: 0.72rem; opacity: 0.95; }
-.bar-part-0 { background: #6c63ff; }
-.bar-part-1 { background: #ff7e57; }
-.bar-part-2 { background: #43E97B; }
-.bar-part-3 { background: #f5c518; }
+.bar-part-0 { background: linear-gradient(180deg, #818cf8, #4338ca); }
+.bar-part-1 { background: linear-gradient(180deg, #fb923c, #c2410c); }
+.bar-part-2 { background: linear-gradient(180deg, #4ade80, #15803d); }
+.bar-part-3 { background: linear-gradient(180deg, #fbbf24, #b45309); }
 
 .bar-model-compare .bar-row {
     display: grid;
