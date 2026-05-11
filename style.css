@@ -13693,35 +13693,84 @@ html.feedback-gentle .feedback-content.fb-wrong {
     .continue-btn, .cb-icon { animation: none !important; transition: none !important; }
 }
 
-/* Robux milestone popup */
+/* Robux milestone popup — coin-toss celebration */
 .robux-milestone {
     position: fixed;
     top: 25%;
     left: 50%;
-    transform: translate(-50%, -20px);
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    transform: translate(-50%, -40px) scale(0.7) rotate(-10deg);
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
     color: #422006;
     border-radius: 24px;
-    padding: 20px 28px;
+    padding: 22px 32px;
     text-align: center;
-    box-shadow: 0 24px 56px rgba(245, 158, 11, 0.55);
-    border: 4px solid white;
+    box-shadow:
+        0 28px 60px rgba(245, 158, 11, 0.65),
+        inset 0 -4px 0 rgba(146, 64, 14, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.5);
+    border: 5px solid white;
     opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 99900;
     pointer-events: none;
+    overflow: hidden;
+}
+.robux-milestone::before {
+    content: '💰';
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    font-size: 2.2rem;
+    transform: rotate(20deg);
+    animation: rmCoinSpin 2.4s ease-in-out infinite;
+}
+.robux-milestone::after {
+    content: '✨';
+    position: absolute;
+    top: -10px;
+    left: -8px;
+    font-size: 1.8rem;
+    animation: rmSparkle 2s ease-in-out infinite alternate;
+}
+@keyframes rmCoinSpin {
+    0%, 100% { transform: rotate(20deg) translateY(0); }
+    50%      { transform: rotate(-15deg) translateY(-6px); }
+}
+@keyframes rmSparkle {
+    0%   { transform: scale(0.8) rotate(0); opacity: 0.5; }
+    100% { transform: scale(1.2) rotate(20deg); opacity: 1; }
 }
 .robux-milestone.rm-show {
     opacity: 1;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 0) scale(1) rotate(0);
 }
-.rm-emoji { font-size: 3rem; animation: rmBounce 1s ease-in-out infinite; }
+.rm-emoji {
+    font-size: 3.4rem;
+    animation: rmBounce 0.9s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(146, 64, 14, 0.4));
+}
 @keyframes rmBounce {
     0%, 100% { transform: scale(1) rotate(0deg); }
-    50%      { transform: scale(1.15) rotate(8deg); }
+    50%      { transform: scale(1.2) rotate(10deg); }
 }
-.rm-text { font-size: 2.4rem; font-weight: 900; letter-spacing: 0.05em; }
-.rm-sub { font-size: 0.95rem; margin-top: 4px; font-weight: 700; }
+.rm-text {
+    font-size: 2.6rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.4), 0 -1px 1px rgba(0, 0, 0, 0.15);
+}
+.rm-sub {
+    font-size: 1rem;
+    margin-top: 6px;
+    font-weight: 800;
+    color: #78350f;
+}
+@media (prefers-reduced-motion: reduce) {
+    .robux-milestone, .robux-milestone::before, .robux-milestone::after, .rm-emoji {
+        animation: none !important;
+        transition: opacity 0.2s !important;
+    }
+}
 
 /* Pet age in picker */
 .pp-age {
