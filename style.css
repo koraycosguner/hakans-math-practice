@@ -9017,18 +9017,34 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 
 /* ===== Module search ===== */
-.module-search-wrap { margin: 0 0 14px; }
+.module-search-wrap { margin: 0 0 16px; position: relative; }
 .module-search {
     width: 100%;
-    padding: 10px 14px;
-    border: 2px solid #c7d2fe;
+    padding: 12px 18px;
+    border: 3px solid rgba(255, 255, 255, 0.6);
     border-radius: 999px;
     font-size: 1rem;
-    background: white;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     color: var(--text-dark);
     outline: none;
+    box-shadow:
+        0 6px 14px rgba(108, 99, 255, 0.18),
+        inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.18s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.module-search:focus { border-color: var(--primary); }
+.module-search::placeholder { color: #94a3b8; font-weight: 600; }
+.module-search:focus {
+    border-color: #6c63ff;
+    transform: scale(1.01);
+    box-shadow:
+        0 10px 22px rgba(108, 99, 255, 0.3),
+        inset 0 2px 4px rgba(0, 0, 0, 0.05),
+        0 0 0 4px rgba(108, 99, 255, 0.2);
+}
+@media (prefers-reduced-motion: reduce) {
+    .module-search { transition: none !important; }
+}
 
 /* ===== Trophy room ===== */
 .trophy-room { width: 100%; max-width: 900px; padding: 16px; }
