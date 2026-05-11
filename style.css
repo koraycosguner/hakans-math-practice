@@ -3654,14 +3654,14 @@ body::after {
 .mg-clock-face svg { display: block; width: 100%; }
 .mg-clock-opts {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
     width: 100%;
-    max-width: 320px;
+    max-width: 380px;
 }
 .mg-clock-opt {
     padding: 14px;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 800;
     background: white;
     color: var(--primary);
@@ -3669,10 +3669,33 @@ body::after {
     border-radius: 14px;
     cursor: pointer;
     touch-action: manipulation;
+    transition: transform 0.15s ease, border-color 0.15s ease;
 }
-.mg-clock-opt:hover { transform: translateY(-2px); }
-.mg-clock-opt.mg-clock-right { animation: mgSACorrect 0.4s ease; }
-.mg-clock-opt.mg-clock-wrong { animation: icShake 0.4s ease; border-color: #ef4444; }
+.mg-clock-opt:hover { transform: translateY(-2px); border-color: var(--primary); }
+.mg-clock-opt.mg-clock-right {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-color: #047857;
+    animation: mgSACorrect 0.4s ease;
+}
+.mg-clock-opt.mg-clock-wrong { animation: icShake 0.4s ease; border-color: #ef4444; background: #fee2e2; }
+.mg-clock-combo {
+    min-height: 22px;
+    font-weight: 900;
+    color: #d97706;
+    margin-top: 6px;
+    transition: transform 0.2s ease;
+}
+.mg-clock-combo-pulse {
+    transform: scale(1.15);
+}
+.mg-clock-fallback {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--primary);
+    padding: 20px;
+    text-align: center;
+}
 
 /* ===== Game 14: Coin Counter ===== */
 .mg-theme-coin-counter { background: radial-gradient(ellipse at top, #fef9c3, #fbbf24 60%, #d97706); }

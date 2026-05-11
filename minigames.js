@@ -1519,55 +1519,97 @@ GAME_IMPLS['math-battle'] = {
 // 13. Clock Quiz — analog clock face, pick the right time string.
 GAME_IMPLS['clock-quiz'] = {
     start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Easy: o'clock + half-past only (1-12 hours)
+        // Normal: + quarter past / quarter to
+        // Hard: any minute multiple of 5
         const wrap = document.createElement('div');
         wrap.className = 'mg-clock-wrap';
         const prompt = document.createElement('div');
         prompt.className = 'mg-clock-prompt';
-        prompt.textContent = 'What time is it?';
+        prompt.textContent = '🕐 Read the clock!';
         const face = document.createElement('div');
         face.className = 'mg-clock-face';
         const opts = document.createElement('div');
         opts.className = 'mg-clock-opts';
+        const combo = document.createElement('div');
+        combo.className = 'mg-clock-combo';
+        combo.textContent = '';
         wrap.appendChild(prompt);
         wrap.appendChild(face);
         wrap.appendChild(opts);
+        wrap.appendChild(combo);
         ctx.area.appendChild(wrap);
 
+        let streak = 0;
+
+        function pickMinute() {
+            if (diff === 'easy')   return Math.random() < 0.5 ? 0 : 30;
+            if (diff === 'normal') return [0, 15, 30, 45][Math.floor(Math.random() * 4)];
+            // hard: every 5 minutes
+            return Math.floor(Math.random() * 12) * 5;
+        }
+
         function timeLabel(h, m) {
-            if (m === 0) return h + " o'clock";
-            return "half past " + h;
+            if (m === 0)  return h + ":00";
+            if (m === 30) return h + ":30";
+            return h + ":" + String(m).padStart(2, '0');
+        }
+        function wordLabel(h, m) {
+            if (m === 0)  return h + " o'clock";
+            if (m === 15) return "quarter past " + h;
+            if (m === 30) return "half past " + h;
+            if (m === 45) {
+                const next = h === 12 ? 1 : h + 1;
+                return "quarter to " + next;
+            }
+            return timeLabel(h, m);
         }
 
         function nextProblem() {
             const h = Math.floor(Math.random() * 12) + 1;
-            const m = Math.random() < 0.5 ? 0 : 30;
-            const correct = timeLabel(h, m);
-            // Wrong options
+            const m = pickMinute();
+            const showWords = diff !== 'hard' && Math.random() < 0.5;
+            const correct = showWords ? wordLabel(h, m) : timeLabel(h, m);
+
+            // Build wrong options that are plausible
             const wrongs = new Set();
-            while (wrongs.size < 2) {
+            let tries = 0;
+            while (wrongs.size < 3 && tries++ < 30) {
                 const wh = Math.floor(Math.random() * 12) + 1;
-                const wm = Math.random() < 0.5 ? 0 : 30;
-                const wlabel = timeLabel(wh, wm);
+                const wm = pickMinute();
+                const wlabel = showWords ? wordLabel(wh, wm) : timeLabel(wh, wm);
                 if (wlabel !== correct) wrongs.add(wlabel);
             }
-            // Render clock using shared renderClock if available
+            // Render clock with the minute hand visible
             if (typeof renderClock === 'function') {
                 face.innerHTML = renderClock(h, m);
             } else {
-                face.innerHTML = '<div>' + correct + '</div>';
+                face.innerHTML = '<div class="mg-clock-fallback">' + timeLabel(h, m) + '</div>';
             }
             const arr = [correct, ...Array.from(wrongs)].sort(() => Math.random() - 0.5);
-            opts.innerHTML = arr.map((o, i) =>
+            opts.innerHTML = arr.map((o) =>
                 `<button class="mg-clock-opt" data-correct="${o === correct ? '1' : '0'}">${o}</button>`
             ).join('');
             opts.querySelectorAll('.mg-clock-opt').forEach((b) => {
                 b.addEventListener('click', (e) => {
                     if (b.getAttribute('data-correct') === '1') {
                         b.classList.add('mg-clock-right');
-                        ctx.onScore(1, { x: e.clientX, y: e.clientY });
-                        setTimeout(nextProblem, 350);
+                        streak += 1;
+                        // Combo multiplier: +1 base, +1 bonus every 3 in a row
+                        const bonus = Math.floor(streak / 3);
+                        const pts = 1 + bonus;
+                        ctx.onScore(pts, { x: e.clientX, y: e.clientY });
+                        if (streak >= 3) {
+                            combo.textContent = `🔥 ${streak} streak! +${bonus} bonus`;
+                            combo.classList.add('mg-clock-combo-pulse');
+                            setTimeout(() => combo.classList.remove('mg-clock-combo-pulse'), 400);
+                        }
+                        setTimeout(nextProblem, 380);
                     } else {
                         b.classList.add('mg-clock-wrong');
+                        streak = 0;
+                        combo.textContent = '';
                         ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
                         setTimeout(() => b.classList.remove('mg-clock-wrong'), 400);
                     }
