@@ -8321,6 +8321,181 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     }
 }
 
+/* ===== Mini-game 38 · Music Note Match ===== */
+.mg-mus-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 14px;
+}
+.mg-mus-q {
+    background: linear-gradient(135deg, #fdf4ff 0%, #fae8ff 100%);
+    border: 3px dashed #c026d3;
+    border-radius: 24px;
+    padding: 12px 22px;
+    box-shadow: 0 8px 22px rgba(192, 38, 211, 0.18);
+    text-align: center;
+    min-width: 240px;
+}
+.mg-mus-task {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #581c87;
+    margin-bottom: 4px;
+}
+.mg-mus-eq {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: #581c87;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.mg-mus-eqs { color: #c026d3; }
+.mg-mus-qmark { color: #f59e0b; font-size: 2.1rem; }
+
+.mg-mus-piano {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+    padding: 10px 8px 16px;
+    border-radius: 12px;
+    border: 3px solid #374151;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.3);
+}
+.mg-mus-key {
+    background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 90%, #cbd5e1 100%);
+    border-radius: 4px 4px 10px 10px;
+    height: 130px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    border: 2px solid #94a3b8;
+    box-shadow: 0 4px 0 #94a3b8, inset 0 0 0 1px rgba(255,255,255,0.7);
+}
+.mg-mus-key-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #475569;
+}
+.mg-mus-key:hover {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #94a3b8;
+}
+.mg-mus-key-lit {
+    background: linear-gradient(180deg, #fef3c7 0%, #fde047 60%, #facc15 100%);
+    border-color: #d97706;
+    box-shadow: 0 4px 0 #d97706, 0 0 14px rgba(252, 211, 77, 0.6), inset 0 0 0 1px rgba(255,255,255,0.9);
+    animation: musKeyLitPulse 1.5s ease-in-out infinite alternate;
+}
+@keyframes musKeyLitPulse {
+    0%   { box-shadow: 0 4px 0 #d97706, 0 0 8px rgba(252, 211, 77, 0.5), inset 0 0 0 1px rgba(255,255,255,0.9); }
+    100% { box-shadow: 0 4px 0 #d97706, 0 0 20px rgba(252, 211, 77, 0.95), inset 0 0 0 1px rgba(255,255,255,0.9); }
+}
+.mg-mus-key-correct {
+    background: linear-gradient(180deg, #bbf7d0 0%, #4ade80 100%);
+    border-color: #16a34a;
+    animation: musKeyCorrect 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes musKeyCorrect {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(8px) scale(0.95); }
+    100% { transform: translateY(0) scale(1); }
+}
+.mg-mus-key-wrong {
+    background: linear-gradient(180deg, #fecaca 0%, #f87171 100%);
+    border-color: #dc2626;
+    animation: musKeyWrong 0.4s ease;
+}
+@keyframes musKeyWrong {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-4px); }
+    75%      { transform: translateX(4px); }
+}
+.mg-mus-key-num {
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #7c2d12;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    animation: musKeyNumPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes musKeyNumPop {
+    0%   { transform: translateX(-50%) scale(0); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+.mg-mus-piano-cheer {
+    animation: musPianoCheer 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
+}
+@keyframes musPianoCheer {
+    0%   { transform: rotate(-1deg); }
+    100% { transform: rotate(1deg); }
+}
+
+.mg-mus-seq {
+    min-height: 32px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 360px;
+}
+.mg-mus-seq-note {
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+    color: #fff;
+    font-weight: 900;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    animation: musSeqLand 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes musSeqLand {
+    0%   { transform: translateY(-20px) scale(0.5); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.mg-mus-prog {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #581c87;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 14px;
+    border-radius: 16px;
+}
+.mg-mus-win {
+    font-size: 1.55rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #c026d3 0%, #f59e0b 50%, #16a34a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: musWinPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes musWinPop {
+    0%   { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-mus-key-lit, .mg-mus-key-correct, .mg-mus-key-wrong,
+    .mg-mus-key-num, .mg-mus-piano-cheer, .mg-mus-seq-note, .mg-mus-win {
+        animation: none !important;
+    }
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;

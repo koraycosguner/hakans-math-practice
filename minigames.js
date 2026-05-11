@@ -5918,3 +5918,206 @@ GAME_IMPLS['spaceship-repair'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 38. MUSIC NOTE MATCH — Play the song one note at a time! 🎹
+// Piano keyboard (C major: C D E F G A B C). Each round shows a math
+// problem and 3 keys lit with numbers; tap the right key to play that
+// note. Build up 8 notes to play the full scale & win.
+// =====================================================================
+GAME_IMPLS['music-note-match'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const totalNotes = diff === 'easy' ? 5 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        // C major scale frequencies (Hz)
+        const SCALE = [
+            { name: 'C', freq: 261.63 },
+            { name: 'D', freq: 293.66 },
+            { name: 'E', freq: 329.63 },
+            { name: 'F', freq: 349.23 },
+            { name: 'G', freq: 392.00 },
+            { name: 'A', freq: 440.00 },
+            { name: 'B', freq: 493.88 },
+            { name: 'C2', freq: 523.25 },
+        ];
+
+        // Lazy-init audio context (browsers need a gesture)
+        let audioCtx = null;
+        function playNote(freq, dur = 0.45) {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.25, audioCtx.currentTime + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+                osc.connect(gain).connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + dur);
+            } catch {}
+        }
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-mus-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-mus-q';
+        wrap.appendChild(qBox);
+
+        // Piano
+        const piano = document.createElement('div');
+        piano.className = 'mg-mus-piano';
+        const noteSlots = [];
+        SCALE.forEach((note, i) => {
+            const key = document.createElement('div');
+            key.className = 'mg-mus-key';
+            key.dataset.idx = i;
+            const label = document.createElement('span');
+            label.className = 'mg-mus-key-label';
+            label.textContent = note.name;
+            key.appendChild(label);
+            piano.appendChild(key);
+            noteSlots.push(key);
+        });
+        wrap.appendChild(piano);
+
+        // Sequence of notes played so far
+        const seq = document.createElement('div');
+        seq.className = 'mg-mus-seq';
+        wrap.appendChild(seq);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-mus-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-mus-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let played = 0;
+        let currentLitKey = null;
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            // The current "song position" maps to one of the scale keys.
+            // Light up that key with the correct answer, plus 2 distractors elsewhere.
+            const currentNote = Math.min(played, SCALE.length - 1);
+            // Reset all keys
+            noteSlots.forEach((k) => {
+                k.classList.remove('mg-mus-key-lit', 'mg-mus-key-correct');
+                const oldLabel = k.querySelector('.mg-mus-key-num');
+                if (oldLabel) oldLabel.remove();
+            });
+
+            // Pick 2 distractor positions
+            const taken = new Set([currentNote]);
+            while (taken.size < 3) {
+                taken.add(Math.floor(Math.random() * SCALE.length));
+            }
+            const positions = Array.from(taken);
+
+            // Build the numbers to display
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const nums = Array.from(set).sort(() => Math.random() - 0.5);
+            // Make sure the answer is on `currentNote`
+            if (nums[0] !== target.ans) {
+                const idx = nums.indexOf(target.ans);
+                [nums[0], nums[idx]] = [nums[idx], nums[0]];
+            }
+            currentLitKey = currentNote;
+
+            positions.forEach((pos, j) => {
+                const key = noteSlots[pos];
+                key.classList.add('mg-mus-key-lit');
+                const num = document.createElement('span');
+                num.className = 'mg-mus-key-num';
+                num.textContent = nums[j];
+                num.dataset.correct = (pos === currentNote && nums[j] === target.ans) ? '1' : '0';
+                num.dataset.note = pos;
+                key.appendChild(num);
+                key.onclick = (e) => onKeyTap(key, num, e);
+            });
+
+            qBox.innerHTML =
+                `<div class="mg-mus-task">🎼 Tap the right key to play the next note</div>` +
+                `<div class="mg-mus-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-mus-eqs">=</span><span class="mg-mus-qmark">?</span></div>`;
+            opts.innerHTML = '';
+        }
+
+        function onKeyTap(key, num, e) {
+            const correct = num.dataset.correct === '1';
+            const noteIdx = parseInt(num.dataset.note, 10);
+            if (correct) {
+                playNote(SCALE[noteIdx].freq);
+                key.classList.add('mg-mus-key-correct');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                // Add to song sequence
+                const tag = document.createElement('span');
+                tag.className = 'mg-mus-seq-note';
+                tag.textContent = SCALE[noteIdx].name;
+                seq.appendChild(tag);
+                played += 1;
+                prog.innerHTML = `🎼 <b>${played}</b> / ${totalNotes} notes played`;
+                if (played >= totalNotes) {
+                    qBox.innerHTML = `<div class="mg-mus-win">🎵 SONG COMPLETE! +5 💎</div>`;
+                    // Play the scale as celebration
+                    for (let i = 0; i < SCALE.length; i++) {
+                        setTimeout(() => playNote(SCALE[i].freq, 0.35), i * 200);
+                    }
+                    piano.classList.add('mg-mus-piano-cheer');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2800);
+                    return;
+                }
+                setTimeout(nextProblem, 650);
+            } else {
+                key.classList.add('mg-mus-key-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => key.classList.remove('mg-mus-key-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            played = 0;
+            seq.innerHTML = '';
+            piano.classList.remove('mg-mus-piano-cheer');
+            noteSlots.forEach((k) => {
+                k.classList.remove('mg-mus-key-lit', 'mg-mus-key-correct', 'mg-mus-key-wrong');
+                const oldNum = k.querySelector('.mg-mus-key-num');
+                if (oldNum) oldNum.remove();
+            });
+            prog.innerHTML = `🎼 <b>0</b> / ${totalNotes} notes played`;
+            nextProblem();
+        }
+
+        prog.innerHTML = `🎼 <b>0</b> / ${totalNotes} notes played`;
+        nextProblem();
+        return { stop() {} };
+    }
+};

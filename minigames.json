@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "music-note-match",
+    "title": "Music Note Match",
+    "emoji": "🎹",
+    "description": "Tap the right piano key to play each note of the song!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each round, 3 piano keys light up with numbers. Tap the one matching the math answer to play that note. Build the full melody to win!",
+    "rules": [
+      "🎹 C-major piano keyboard (C D E F G A B C).",
+      "Each correct answer plays a real audio note (triangle oscillator).",
+      "Complete 5 / 6 / 8 notes (by difficulty) → full scale plays + +5 💎.",
+      "Notes you've played accumulate in a song-sequence strip below the keys."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 9
+    },
+    "config": {}
+  },
+  {
     "id": "spaceship-repair",
     "title": "Spaceship Repair",
     "emoji": "🚀",
