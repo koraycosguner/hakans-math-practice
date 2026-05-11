@@ -2370,6 +2370,182 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 24. MATH RACE — Hakan races a computer car. Each correct math
+// answer pushes his car forward. Computer car moves at a steady pace.
+// First to finish wins.
+// =====================================================================
+GAME_IMPLS['math-race'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const trackSteps = diff === 'easy' ? 6 : diff === 'hard' ? 10 : 8;
+        // Computer pace: ms per step. Lower = faster.
+        const cpuMs = diff === 'easy' ? 5000 : diff === 'hard' ? 2800 : 4000;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-race-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-race-q';
+        wrap.appendChild(qBox);
+
+        const track = document.createElement('div');
+        track.className = 'mg-race-track';
+
+        // Two lanes
+        const laneHakan = document.createElement('div');
+        laneHakan.className = 'mg-race-lane mg-race-lane-h';
+        const carHakan = document.createElement('div');
+        carHakan.className = 'mg-race-car mg-race-car-h';
+        carHakan.textContent = '🟪';  // placeholder, replaced by emoji
+        carHakan.innerHTML = '🏎️<span class="mg-race-label">YOU</span>';
+        laneHakan.appendChild(carHakan);
+        track.appendChild(laneHakan);
+
+        const laneCpu = document.createElement('div');
+        laneCpu.className = 'mg-race-lane mg-race-lane-c';
+        const carCpu = document.createElement('div');
+        carCpu.className = 'mg-race-car mg-race-car-c';
+        carCpu.innerHTML = '🚗<span class="mg-race-label">CPU</span>';
+        laneCpu.appendChild(carCpu);
+        track.appendChild(laneCpu);
+
+        // Finish line
+        const finish = document.createElement('div');
+        finish.className = 'mg-race-finish';
+        finish.textContent = '🏁';
+        track.appendChild(finish);
+
+        wrap.appendChild(track);
+
+        const opts = document.createElement('div');
+        opts.className = 'mg-race-opts';
+        wrap.appendChild(opts);
+
+        const status = document.createElement('div');
+        status.className = 'mg-race-status';
+        wrap.appendChild(status);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let hakanPos = 0;
+        let cpuPos = 0;
+        let raceOver = false;
+        let cpuTimer = null;
+        const startedAt = Date.now();
+
+        function placeCars() {
+            const hPct = (hakanPos / trackSteps) * 88;
+            const cPct = (cpuPos / trackSteps) * 88;
+            carHakan.style.left = hPct + '%';
+            carCpu.style.left = cPct + '%';
+        }
+
+        function updateStatus() {
+            status.textContent = `YOU: ${hakanPos}/${trackSteps}  ·  CPU: ${cpuPos}/${trackSteps}`;
+        }
+
+        function tickCpu() {
+            if (raceOver) return;
+            cpuPos += 1;
+            placeCars();
+            updateStatus();
+            if (cpuPos >= trackSteps) {
+                endRace(false);
+                return;
+            }
+            cpuTimer = setTimeout(tickCpu, cpuMs);
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            if (raceOver) return;
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-race-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-race-eqs">=</span><span class="mg-race-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-race-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-race-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            if (raceOver) return;
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-race-right');
+                hakanPos += 1;
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                placeCars();
+                updateStatus();
+                carHakan.classList.add('mg-race-vroom');
+                setTimeout(() => carHakan.classList.remove('mg-race-vroom'), 350);
+                if (hakanPos >= trackSteps) {
+                    endRace(true);
+                    return;
+                }
+                setTimeout(nextProblem, 420);
+            } else {
+                btn.classList.add('mg-race-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-race-wrong'), 400);
+            }
+        }
+
+        function endRace(youWon) {
+            raceOver = true;
+            if (cpuTimer) { clearTimeout(cpuTimer); cpuTimer = null; }
+            if (youWon) {
+                qBox.innerHTML = `<div class="mg-race-win">🏁 YOU WIN! +5 💎</div>`;
+                opts.innerHTML = '';
+                ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                ctx.onWin();
+            } else {
+                qBox.innerHTML = `<div class="mg-race-lose">🚗 CPU got there first... rematch!</div>`;
+                opts.innerHTML = '';
+            }
+            setTimeout(reset, 2400);
+        }
+
+        function reset() {
+            raceOver = false;
+            hakanPos = 0;
+            cpuPos = 0;
+            placeCars();
+            updateStatus();
+            nextProblem();
+            cpuTimer = setTimeout(tickCpu, cpuMs);
+        }
+
+        placeCars();
+        updateStatus();
+        nextProblem();
+        cpuTimer = setTimeout(tickCpu, cpuMs);
+
+        return { stop() { if (cpuTimer) clearTimeout(cpuTimer); } };
+    }
+};
+
+// =====================================================================
 // 23. DINO EGG HATCH — Hakan helps eggs hatch by solving math.
 // Each egg shows a number. The math problem's answer matches one egg.
 // Tap that egg → it cracks open → a baby dino emerges.

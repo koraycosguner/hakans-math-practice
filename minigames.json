@@ -601,6 +601,29 @@
     "config": {}
   },
   {
+    "id": "math-race",
+    "title": "Math Race",
+    "emoji": "🏁",
+    "description": "Race the CPU car! Solve math to zoom forward.",
+    "category": "fluency",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each correct math answer moves your car forward one step. CPU moves at a steady pace. Race to the finish line!",
+    "rules": [
+      "🏎️ YOU and 🚗 CPU start side by side at the left.",
+      "Solve a math problem to move forward one step.",
+      "CPU ticks forward every 3-5s depending on difficulty.",
+      "First to finish wins +5 💎.",
+      "Lose → rematch starts after 2.4s."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "dino-eggs",
     "title": "Dino Egg Hatch",
     "emoji": "🦖",

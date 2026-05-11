@@ -5539,6 +5539,142 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     color: #14532d;
 }
 
+/* ===== Game 24: Math Race ===== */
+.mg-theme-math-race {
+    background:
+        linear-gradient(180deg, #60a5fa 0%, #93c5fd 30%, #d1d5db 60%, #6b7280 100%);
+}
+.mg-race-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    width: 100%;
+    max-width: 580px;
+}
+.mg-race-q {
+    background: white;
+    padding: 10px 22px;
+    border-radius: 16px;
+    border: 3px solid #1f2937;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+.mg-race-eq {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #1f2937;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.mg-race-eqs { color: #4338ca; }
+.mg-race-qmark { color: #dc2626; }
+.mg-race-track {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    background:
+        linear-gradient(180deg, #1f2937 0%, #374151 100%);
+    border: 4px solid #1f2937;
+    border-radius: 14px;
+    overflow: hidden;
+}
+.mg-race-lane {
+    position: relative;
+    height: 50%;
+    border-bottom: 3px dashed #fde047;
+    overflow: hidden;
+}
+.mg-race-lane:last-of-type { border-bottom: none; }
+.mg-race-car {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    font-size: 2.4rem;
+    line-height: 1;
+    transition: left 0.5s cubic-bezier(0.3, 0.7, 0.4, 1);
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.45));
+}
+.mg-race-car.mg-race-vroom {
+    animation: raceVroom 0.35s ease;
+}
+@keyframes raceVroom {
+    0%   { transform: translateY(0) scale(1); }
+    40%  { transform: translateY(-6px) scale(1.1); }
+    100% { transform: translateY(0) scale(1); }
+}
+.mg-race-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: #fde047;
+    text-shadow: 0 1px 2px black;
+    text-align: center;
+    margin-top: -8px;
+}
+.mg-race-finish {
+    position: absolute;
+    right: 2%;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background:
+        repeating-conic-gradient(#000 0% 25%, #fff 25% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+.mg-race-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 380px;
+}
+.mg-race-opt {
+    background: white;
+    color: #1f2937;
+    border: 3px solid #4338ca;
+    border-radius: 14px;
+    padding: 14px 4px;
+    font-size: 1.4rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(67, 56, 202, 0.3);
+}
+.mg-race-opt:hover { transform: translateY(-2px); }
+.mg-race-opt.mg-race-right {
+    background: linear-gradient(135deg, #34d399, #059669);
+    color: white;
+    border-color: #064e3b;
+    animation: mgSACorrect 0.4s ease;
+}
+.mg-race-opt.mg-race-wrong {
+    background: #fee2e2;
+    border-color: #dc2626;
+    animation: icShake 0.4s ease;
+}
+.mg-race-status {
+    background: rgba(255,255,255,0.92);
+    color: #1f2937;
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+.mg-race-win {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #15803d;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.mg-race-lose {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #991b1b;
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;
