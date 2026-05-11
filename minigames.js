@@ -4155,3 +4155,167 @@ GAME_IMPLS['number-garden'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 27. PIZZA MAKER — Top the pizza with the right number of ingredients!
+// Each round shows a topping (pepperoni, olive, mushroom, etc.) and
+// asks how many to put on the pizza. Solve math → toppings drop onto
+// the pizza slice-by-slice. Complete the pizza → +5 💎 + chef cheer.
+// =====================================================================
+GAME_IMPLS['pizza-maker'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const roundsToWin = diff === 'easy' ? 3 : diff === 'hard' ? 6 : 4;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 8;
+
+        const TOPPINGS = [
+            { name: 'Pepperoni', emoji: '🍕', dot: '🔴' },
+            { name: 'Olive',     emoji: '🫒', dot: '🫒' },
+            { name: 'Mushroom',  emoji: '🍄', dot: '🍄' },
+            { name: 'Pepper',    emoji: '🫑', dot: '🫑' },
+            { name: 'Tomato',    emoji: '🍅', dot: '🍅' },
+            { name: 'Cheese',    emoji: '🧀', dot: '🧀' },
+        ];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-pizza-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-pizza-q';
+        wrap.appendChild(qBox);
+
+        // Chef + pizza scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-pizza-scene';
+        const chef = document.createElement('div');
+        chef.className = 'mg-pizza-chef';
+        chef.textContent = '👨‍🍳';
+        scene.appendChild(chef);
+        const pizzaBase = document.createElement('div');
+        pizzaBase.className = 'mg-pizza-base';
+        const crust = document.createElement('div');
+        crust.className = 'mg-pizza-crust';
+        pizzaBase.appendChild(crust);
+        const sauce = document.createElement('div');
+        sauce.className = 'mg-pizza-sauce';
+        pizzaBase.appendChild(sauce);
+        const toppingsLayer = document.createElement('div');
+        toppingsLayer.className = 'mg-pizza-toppings';
+        pizzaBase.appendChild(toppingsLayer);
+        scene.appendChild(pizzaBase);
+        wrap.appendChild(scene);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-pizza-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-pizza-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let currentTopping = null;
+        let roundsDone = 0;
+
+        function dropToppings(topping, count) {
+            // Drop `count` topping emojis at randomized positions in toppingsLayer
+            for (let i = 0; i < count; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'mg-pizza-drop';
+                drop.textContent = topping.emoji;
+                // Random angle + radius within pizza circle
+                const angle = Math.random() * Math.PI * 2;
+                const radius = Math.random() * 50 + 10;
+                const x = 50 + Math.cos(angle) * radius;
+                const y = 50 + Math.sin(angle) * radius;
+                drop.style.left = `${x}%`;
+                drop.style.top = `${y}%`;
+                drop.style.animationDelay = `${i * 80}ms`;
+                toppingsLayer.appendChild(drop);
+            }
+        }
+
+        function clearToppings() {
+            toppingsLayer.innerHTML = '';
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * Math.min(maxA, 6));
+                return { a, b, ans: a + b, op };
+            }
+            const a = 3 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * Math.min(a - 1, 5));
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            currentTopping = TOPPINGS[Math.floor(Math.random() * TOPPINGS.length)];
+            target = genProblem();
+            qBox.innerHTML =
+                `<div class="mg-pizza-task">Add ${currentTopping.emoji} <b>${currentTopping.name}</b></div>` +
+                `<div class="mg-pizza-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-pizza-eqs">=</span><span class="mg-pizza-qmark">?</span></div>`;
+            // Build 3 options
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-pizza-opt" data-correct="${v === target.ans ? '1' : '0'}" data-val="${v}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-pizza-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-pizza-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                // Drop the answer-many toppings onto the pizza
+                const count = parseInt(btn.getAttribute('data-val'), 10);
+                dropToppings(currentTopping, Math.min(count, 12));
+                roundsDone += 1;
+                prog.innerHTML = `<b>${roundsDone}</b> / ${roundsToWin} toppings added 🍕`;
+
+                if (roundsDone >= roundsToWin) {
+                    qBox.innerHTML = `<div class="mg-pizza-win">🍕 PIZZA READY! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    chef.classList.add('mg-pizza-chef-cheer');
+                    pizzaBase.classList.add('mg-pizza-base-done');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2800);
+                    return;
+                }
+                setTimeout(nextProblem, 700);
+            } else {
+                btn.classList.add('mg-pizza-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-pizza-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            roundsDone = 0;
+            clearToppings();
+            chef.classList.remove('mg-pizza-chef-cheer');
+            pizzaBase.classList.remove('mg-pizza-base-done');
+            prog.innerHTML = `<b>0</b> / ${roundsToWin} toppings added 🍕`;
+            nextProblem();
+        }
+
+        prog.innerHTML = `<b>0</b> / ${roundsToWin} toppings added 🍕`;
+        nextProblem();
+        return { stop() {} };
+    }
+};

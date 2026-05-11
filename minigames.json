@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "pizza-maker",
+    "title": "Pizza Maker",
+    "emoji": "🍕",
+    "description": "Top the pizza! Solve math to drop the right toppings.",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each correct answer drops that many toppings on the pizza. Finish the pizza to make the chef cheer!",
+    "rules": [
+      "👨‍🍳 Chef stands beside an empty pizza.",
+      "Round prompts a topping (pepperoni, olive, mushroom…) and a math problem.",
+      "Solve right → that many toppings rain onto the pizza.",
+      "Complete 3 / 4 / 6 rounds (by difficulty) → pizza ready + +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "rainbow-builder",
     "title": "Rainbow Builder",
     "emoji": "🌈",
