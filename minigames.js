@@ -1979,6 +1979,15 @@ GAME_IMPLS['coin-counter'] = {
 // 15. Place Value Builder — target number, tap tens-bars and ones-blocks.
 GAME_IMPLS['place-value-builder'] = {
     start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // easy: 10-29 (mostly small tens, easy to build)
+        // normal: 11-89
+        // hard: 11-99 + auto-check (no Check button — must be exact)
+        const range = diff === 'easy' ? [10, 29]
+                    : diff === 'hard' ? [11, 99]
+                    : [11, 89];
+        const autoCheck = diff === 'hard';
+
         const wrap = document.createElement('div');
         wrap.className = 'mg-pv-wrap';
         const prompt = document.createElement('div');
@@ -1987,54 +1996,94 @@ GAME_IMPLS['place-value-builder'] = {
         built.className = 'mg-pv-built';
         const pad = document.createElement('div');
         pad.className = 'mg-pv-pad';
+        const removeRow = document.createElement('div');
+        removeRow.className = 'mg-pv-remove-row';
         pad.innerHTML = `
             <button class="mg-pv-btn mg-pv-tens" data-add="10"><span>+10</span><span class="mg-pv-block-bar"></span></button>
             <button class="mg-pv-btn mg-pv-ones" data-add="1"><span>+1</span><span class="mg-pv-block-dot"></span></button>
-            <button class="mg-pv-btn mg-pv-clear">Clear</button>
-            <button class="mg-pv-btn mg-pv-check">Check ✓</button>
+            <button class="mg-pv-btn mg-pv-clear">↺ Clear</button>
+            ${autoCheck ? '' : '<button class="mg-pv-btn mg-pv-check">Check ✓</button>'}
         `;
+        removeRow.innerHTML = `
+            <button class="mg-pv-rem mg-pv-rem-tens">− Ten</button>
+            <button class="mg-pv-rem mg-pv-rem-ones">− One</button>
+        `;
+        const hint = document.createElement('div');
+        hint.className = 'mg-pv-hint';
+
         wrap.appendChild(prompt);
         wrap.appendChild(built);
         wrap.appendChild(pad);
+        wrap.appendChild(removeRow);
+        wrap.appendChild(hint);
         ctx.area.appendChild(wrap);
 
         let target = 0;
         let current = 0;
         let tens = 0, ones = 0;
+        let streak = 0;
 
         function render() {
             built.innerHTML = `
                 <div class="mg-pv-stack mg-pv-stack-tens">${'<span class="mg-pv-bar"></span>'.repeat(tens)}</div>
                 <div class="mg-pv-stack mg-pv-stack-ones">${'<span class="mg-pv-dot"></span>'.repeat(ones)}</div>
-                <div class="mg-pv-current">Current: ${current}</div>
+                <div class="mg-pv-current">Built: <b>${current}</b> ${current === target ? '✅' : current > target ? '😬 too big' : ''}</div>
             `;
+            // Update hint
+            const diffNeeded = target - current;
+            if (diffNeeded > 0) {
+                const t = Math.floor(diffNeeded / 10);
+                const o = diffNeeded % 10;
+                hint.textContent = `Need ${diffNeeded} more (${t} ten${t!==1?'s':''} + ${o} one${o!==1?'s':''})`;
+            } else if (diffNeeded < 0) {
+                hint.textContent = `Too many! Remove some.`;
+            } else {
+                hint.textContent = `Perfect! ✨`;
+            }
+            // Auto-check on hard
+            if (autoCheck && current === target) {
+                streak += 1;
+                ctx.onScore(streak >= 3 ? 2 : 1);
+                setTimeout(nextProblem, 600);
+            }
         }
 
         function nextProblem() {
-            target = Math.floor(Math.random() * 89) + 11;  // 11-99
-            tens = 0; ones = 0;
-            current = 0;
+            target = range[0] + Math.floor(Math.random() * (range[1] - range[0] + 1));
+            tens = 0; ones = 0; current = 0;
+            const targetT = Math.floor(target / 10), targetO = target % 10;
             prompt.innerHTML = `Build <span class="mg-pv-target">${target}</span> with tens & ones!`;
             render();
         }
 
-        pad.querySelector('.mg-pv-tens').addEventListener('click', (e) => {
-            if (tens < 9) { tens += 1; current = tens * 10 + ones; render(); ctx.onScore(0); }
+        pad.querySelector('.mg-pv-tens').addEventListener('click', () => {
+            if (tens < 9) { tens += 1; current = tens * 10 + ones; render(); }
         });
-        pad.querySelector('.mg-pv-ones').addEventListener('click', (e) => {
-            if (ones < 9) { ones += 1; current = tens * 10 + ones; render(); ctx.onScore(0); }
+        pad.querySelector('.mg-pv-ones').addEventListener('click', () => {
+            if (ones < 9) { ones += 1; current = tens * 10 + ones; render(); }
+        });
+        removeRow.querySelector('.mg-pv-rem-tens').addEventListener('click', () => {
+            if (tens > 0) { tens -= 1; current = tens * 10 + ones; render(); }
+        });
+        removeRow.querySelector('.mg-pv-rem-ones').addEventListener('click', () => {
+            if (ones > 0) { ones -= 1; current = tens * 10 + ones; render(); }
         });
         pad.querySelector('.mg-pv-clear').addEventListener('click', () => {
             tens = 0; ones = 0; current = 0; render();
         });
-        pad.querySelector('.mg-pv-check').addEventListener('click', (e) => {
-            if (current === target) {
-                ctx.onScore(1, { x: e.clientX, y: e.clientY });
-                setTimeout(nextProblem, 400);
-            } else {
-                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
-            }
-        });
+        const checkBtn = pad.querySelector('.mg-pv-check');
+        if (checkBtn) {
+            checkBtn.addEventListener('click', (e) => {
+                if (current === target) {
+                    streak += 1;
+                    ctx.onScore(streak >= 3 ? 2 : 1, { x: e.clientX, y: e.clientY });
+                    setTimeout(nextProblem, 500);
+                } else {
+                    streak = 0;
+                    ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                }
+            });
+        }
 
         nextProblem();
         return { stop() {} };

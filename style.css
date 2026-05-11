@@ -4007,6 +4007,32 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 .mg-pv-check { background: linear-gradient(135deg, #43E97B, #22c55e); }
 .mg-pv-block-bar { display: inline-block; width: 8px; height: 24px; background: rgba(255,255,255,0.7); border-radius: 2px; }
 .mg-pv-block-dot { display: inline-block; width: 16px; height: 16px; background: rgba(255,255,255,0.7); border-radius: 3px; }
+.mg-pv-remove-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 6px;
+}
+.mg-pv-rem {
+    background: rgba(255,255,255,0.7);
+    color: #4c1d95;
+    border: 2px solid #c4b5fd;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.mg-pv-rem:hover { background: white; }
+.mg-pv-hint {
+    background: rgba(255,255,255,0.85);
+    color: #4c1d95;
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
 
 /* ===== Game 16: Pattern Catcher ===== */
 .mg-theme-pattern-catcher { background: radial-gradient(ellipse at top, #fdf4ff, #f0abfc 60%, #c026d3); }
