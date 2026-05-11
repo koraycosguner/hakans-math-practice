@@ -5794,8 +5794,11 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     z-index: 4;
     line-height: 1.2;
 }
-.mg-fish-swim-r { animation: fishSwimR linear; }
-.mg-fish-swim-l { animation: fishSwimL linear; }
+/* Fish swim infinitely across the pond. Without `infinite`, fish would
+   swim once and stop at left: 110% (off-screen) — leaving Hakan with
+   no fish to catch once they all swam past. */
+.mg-fish-swim-r { animation: fishSwimR linear infinite; }
+.mg-fish-swim-l { animation: fishSwimL linear infinite; }
 @keyframes fishSwimR {
     0%   { left: -15%; }
     100% { left: 110%; }
