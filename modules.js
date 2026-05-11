@@ -65,21 +65,24 @@ function renderBigNumber(n, color) {
 }
 
 // Two numbers side by side for comparison: "5  ?  8"
+// Use color hints: bigger number gets a gold accent
 function renderComparePair(a, b) {
+    const big = a > b ? 'a' : b > a ? 'b' : 'tie';
     return `<div class="m-compare-row">
-        <span class="m-compare-num">${a}</span>
+        <span class="m-compare-num ${big === 'a' ? 'm-compare-big' : ''}">${a}</span>
         <span class="m-compare-q">?</span>
-        <span class="m-compare-num">${b}</span>
+        <span class="m-compare-num ${big === 'b' ? 'm-compare-big' : ''}">${b}</span>
     </div>`;
 }
 
 // Sequence with a missing number, e.g. "5, 6, ?, 8"
 function renderSequence(numbers, missingIndex) {
     const items = numbers.map((n, i) => {
-        if (i === missingIndex) return `<span class="m-seq-blank">?</span>`;
-        return `<span class="m-seq-num">${n}</span>`;
+        const delay = (i * 0.07) + 's';
+        if (i === missingIndex) return `<span class="m-seq-blank" style="animation-delay:${delay}">?</span>`;
+        return `<span class="m-seq-num" style="animation-delay:${delay}">${n}</span>`;
     });
-    return `<div class="m-sequence">${items.join('<span class="m-seq-comma">,</span>')}</div>`;
+    return `<div class="m-sequence">${items.join('<span class="m-seq-arrow">→</span>')}</div>`;
 }
 
 // Clock face (analog). Hour 1..12, minute 0..59 (we use 0 or 30).
