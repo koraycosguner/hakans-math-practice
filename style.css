@@ -11366,34 +11366,85 @@ html.motion-reduced .potd-card { animation: none; }
 }
 .potd-input {
     width: 80%;
-    max-width: 220px;
-    font-size: 1.6rem;
-    font-weight: 800;
+    max-width: 240px;
+    font-size: 1.8rem;
+    font-weight: 900;
     text-align: center;
-    padding: 10px;
-    border-radius: 14px;
-    border: 3px solid var(--primary);
-    margin: 6px 0 10px;
+    padding: 12px 14px;
+    border-radius: 16px;
+    border: 4px dashed var(--primary);
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #b45309;
+    margin: 10px 0 14px;
     outline: none;
+    box-shadow:
+        inset 0 4px 8px rgba(0,0,0,0.06),
+        0 4px 14px rgba(108, 99, 255, 0.18);
+    transition: transform 0.18s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    -moz-appearance: textfield;
+}
+.potd-input:focus {
+    transform: scale(1.04);
+    border-color: #6d28d9;
+    box-shadow:
+        inset 0 4px 8px rgba(0,0,0,0.06),
+        0 0 0 4px rgba(139, 92, 246, 0.25),
+        0 10px 20px rgba(139, 92, 246, 0.35);
+}
+.potd-input::-webkit-outer-spin-button,
+.potd-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 .potd-actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     justify-content: center;
     margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 .potd-hint-btn, .potd-check {
-    border: none;
+    border: 3px solid;
     border-radius: 14px;
-    padding: 10px 16px;
-    font-weight: 800;
+    padding: 12px 20px;
+    font-weight: 900;
     cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    font-size: 1rem;
 }
-.potd-hint-btn { background: #fef3c7; color: #78350f; }
+.potd-hint-btn {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #78350f;
+    border-color: #fbbf24;
+    box-shadow: 0 3px 0 #d97706;
+}
+.potd-hint-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 #d97706, 0 8px 14px rgba(217, 119, 6, 0.3);
+}
+.potd-hint-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #d97706;
+}
 .potd-check {
-    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    background: linear-gradient(135deg, #6c63ff 0%, #8b5cf6 100%);
     color: white;
-    box-shadow: 0 4px 12px rgba(108,99,255,0.35);
+    border-color: #5b21b6;
+    box-shadow: 0 4px 0 #5b21b6, 0 6px 14px rgba(108, 99, 255, 0.35);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.potd-check:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #5b21b6, 0 10px 18px rgba(108, 99, 255, 0.5);
+}
+.potd-check:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #5b21b6;
+}
+@media (prefers-reduced-motion: reduce) {
+    .potd-input, .potd-hint-btn, .potd-check {
+        transition: none !important;
+    }
 }
 .potd-feedback { min-height: 28px; margin: 6px 0; }
 .potd-correct {
