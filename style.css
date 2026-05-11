@@ -5903,6 +5903,22 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     background:
         radial-gradient(ellipse at top, #fce7f3 0%, #f9a8d4 40%, #ec4899 100%);
 }
+
+/* ===== Themed backgrounds for the 14 newest big-box games ===== */
+.mg-theme-rainbow-builder  { background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 60%, #d9f99d 100%); }
+.mg-theme-pizza-maker      { background: radial-gradient(ellipse at top, #fff7ed 0%, #fed7aa 60%, #f97316 100%); }
+.mg-theme-bee-hive         { background: radial-gradient(ellipse at top, #fef9c3 0%, #fde047 60%, #ca8a04 100%); }
+.mg-theme-ice-cream-stack  { background: radial-gradient(ellipse at top, #fdf2f8 0%, #fbcfe8 60%, #ec4899 100%); }
+.mg-theme-tortoise-hare    { background: linear-gradient(180deg, #67e8f9 0%, #a5f3fc 50%, #bbf7d0 100%); }
+.mg-theme-submarine-dive   { background: linear-gradient(180deg, #38bdf8 0%, #1e3a8a 50%, #0c0a09 100%); }
+.mg-theme-bullseye-darts   { background: radial-gradient(circle at center, #fef2f2 0%, #fecaca 40%, #dc2626 100%); }
+.mg-theme-hot-air-balloon  { background: linear-gradient(180deg, #93c5fd 0%, #fef9c3 50%, #bef264 100%); }
+.mg-theme-cookie-baker     { background: radial-gradient(ellipse at top, #fef3c7 0%, #fbbf24 50%, #92400e 100%); }
+.mg-theme-dino-dig         { background: radial-gradient(ellipse at top, #fef3c7 0%, #fbbf24 50%, #78350f 100%); }
+.mg-theme-mountain-climb   { background: linear-gradient(180deg, #7dd3fc 0%, #dbeafe 40%, #cbd5e1 70%, #57534e 100%); }
+.mg-theme-spaceship-repair { background: radial-gradient(circle at 50% 30%, #1e1b4b 0%, #020617 100%); }
+.mg-theme-music-note-match { background: radial-gradient(ellipse at top, #fdf4ff 0%, #f5d0fe 50%, #a21caf 100%); }
+.mg-theme-frog-pond        { background: linear-gradient(180deg, #166534 0%, #4ade80 50%, #166534 100%); }
 .mg-cake-wrap {
     display: flex;
     flex-direction: column;
