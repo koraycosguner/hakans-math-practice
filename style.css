@@ -8298,6 +8298,96 @@ html.theme-space .screen { position: relative; z-index: 1; }
     max-width: 150px;
 }
 
+/* ===== Iteration 26: stories ===== */
+.stories-btn {
+    background: linear-gradient(135deg, #f97316, #c2410c);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(194, 65, 12, 0.3);
+}
+.story-hub { max-width: 480px; }
+.story-opt { padding: 14px 8px; }
+.story-opt.story-done { background: linear-gradient(135deg, #d1fae5, #a7f3d0); border-color: #34d399; }
+
+.story-overlay { background: rgba(0,0,0,0.65); }
+.story-card {
+    max-width: 460px;
+    text-align: center;
+    padding: 22px 20px !important;
+}
+.story-pages {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 800;
+}
+.story-card h2 { margin: 4px 0 12px; color: var(--primary); }
+.story-art {
+    font-size: 3rem;
+    margin: 16px 0;
+    letter-spacing: 0.1em;
+}
+.story-text {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 8px 0 16px;
+    line-height: 1.4;
+}
+.story-q {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #1f2937;
+    margin: 12px 0;
+}
+.story-hint {
+    background: #fef3c7;
+    color: #78350f;
+    border-radius: 10px;
+    padding: 6px 12px;
+    margin: 6px 0;
+}
+.story-hint-btn {
+    background: #fef3c7;
+    color: #78350f;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.story-nav {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+.story-nav-back, .story-nav-next {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 18px;
+    font-weight: 800;
+    cursor: pointer;
+    flex: 1;
+}
+.story-nav-back { background: #f1f5f9; color: #334155; }
+.story-end-emoji {
+    font-size: 4rem;
+    animation: storyEnd 1.6s ease-in-out infinite;
+}
+@keyframes storyEnd {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50%      { transform: scale(1.1) rotate(8deg); }
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

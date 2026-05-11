@@ -69171,6 +69171,7 @@ function renderHomeModules() {
         html += `<button class="surprise-btn" onclick="surpriseMe()" title="Pick a random module">🎲 Surprise!</button>`;
         html += `<button class="drills-btn" onclick="openBrainDrills()" title="Quick math drills">🧠 Drills</button>`;
         html += `<button class="toys-btn" onclick="openMathToys()" title="Play with math toys">🧰 Toys</button>`;
+        html += `<button class="stories-btn" onclick="openStoryHub()" title="Read short math stories">📚 Stories</button>`;
         html += `<button class="theme-btn" onclick="openThemePicker()" title="Change theme">🎨 Theme</button>`;
         html += `<button class="help-btn" onclick="openHelpScreen()" title="How to use the app">❓ Help</button>`;
         html += `</div>`;

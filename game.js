@@ -1012,6 +1012,183 @@ function _initKeyboardInput() {
 }
 _initKeyboardInput();
 
+// ===== Story Mode — Grade 1 math adventures =====
+const STORIES = [
+    {
+        id: 'pirate-treasure',
+        title: 'Captain Hakan and the Treasure',
+        emoji: '🏴‍☠️',
+        pages: [
+            { text: "Captain Hakan sailed the seas in his red boat ⛵!", art: '⛵🌊' },
+            { text: "He found a treasure map with 3 X marks. 'Treasure!' he shouted!", art: '🗺️❌❌❌' },
+            { text: "At the first X, he dug up 5 gold coins.", art: '🟡🟡🟡🟡🟡' },
+            { type: 'q', q: "At the second X, he found 4 more. How many coins total?", a: 9, hint: "5 + 4 = ?" },
+            { text: "He had 9 coins! At the last X, he found 2 more.", art: '🟡🟡' },
+            { type: 'q', q: "9 + 2 = ?", a: 11, hint: "Count up 2 from 9." },
+            { text: "11 coins! Captain Hakan, you're rich! 🏆", art: '🏆💰' },
+        ],
+        reward: 8,
+    },
+    {
+        id: 'pizza-party',
+        title: 'Hakan\'s Pizza Party',
+        emoji: '🍕',
+        pages: [
+            { text: "Hakan invited 6 friends to his pizza party 🎉!", art: '🎉👦👧👦👧👦👧' },
+            { text: "Mom ordered 2 pizzas. Each had 8 slices.", art: '🍕🍕' },
+            { type: 'q', q: "How many slices total? (Hint: 8 + 8)", a: 16, hint: "Double 8 is 16." },
+            { text: "Each friend ate 2 slices. Hakan ate 2 too.", art: '🍕🍕' },
+            { type: 'q', q: "Hakan + 6 friends = 7 kids. 7 × 2 is the same as 7 + 7. How many slices eaten?", a: 14, hint: "Double 7." },
+            { text: "Two slices left! Hakan saved them for tomorrow. Smart kid!", art: '🍕🍕' },
+        ],
+        reward: 8,
+    },
+    {
+        id: 'space-rocket',
+        title: 'Hakan in Space',
+        emoji: '🚀',
+        pages: [
+            { text: "Astronaut Hakan blasted off in his rocket 🚀!", art: '🚀⭐⭐⭐' },
+            { text: "He counted 10 stars on the way to the moon.", art: '⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐' },
+            { type: 'q', q: "Halfway there, 5 stars zoomed by. How many stars left?", a: 5, hint: "10 - 5." },
+            { text: "On the moon, he met 3 friendly aliens 👽👽👽.", art: '👽👽👽' },
+            { text: "Each alien gave him 2 moon rocks.", art: '🪨🪨🪨🪨🪨🪨' },
+            { type: 'q', q: "3 aliens × 2 rocks = same as 2+2+2. How many rocks?", a: 6, hint: "Three 2s." },
+            { text: "Hakan flew home with 6 moon rocks. What a day! 🌙", art: '🌙' },
+        ],
+        reward: 8,
+    },
+];
+
+function openStoryHub() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    const progress = (typeof loadStoryProgress === 'function') ? loadStoryProgress() : {};
+    let opts = '';
+    STORIES.forEach((s) => {
+        const sp = progress[s.id] || {};
+        const done = sp.completed;
+        opts += `<button class="sound-opt story-opt ${done?'story-done':''}" onclick="openStory('${s.id}')">
+            <div class="sound-emoji" style="font-size:2.4rem;">${s.emoji}</div>
+            <div class="sound-name">${s.title}</div>
+            <div class="sound-desc">${done ? '✓ Done · ' + s.pages.length + ' pages' : s.pages.length + ' pages · +' + s.reward + ' 💎'}</div>
+        </button>`;
+    });
+    overlay.innerHTML = `<div class="sound-card story-hub">
+        <h2>📚 Hakan's Stories</h2>
+        <div class="sound-sub">Short adventures with math sprinkled in!</div>
+        <div class="sound-options">${opts}</div>
+        <button class="sound-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
+const STORY_PROG_KEY = 'hakans-math-stories';
+function loadStoryProgress() {
+    try { return JSON.parse(localStorage.getItem(STORY_PROG_KEY)) || {}; }
+    catch (e) { return {}; }
+}
+function saveStoryProgress(map) {
+    try { localStorage.setItem(STORY_PROG_KEY, JSON.stringify(map)); } catch (e) {}
+}
+
+function openStory(id) {
+    document.querySelectorAll('.sound-overlay').forEach((o) => o.remove());
+    const story = STORIES.find((s) => s.id === id);
+    if (!story) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay story-overlay';
+    const progress = loadStoryProgress();
+    let idx = (progress[id] && progress[id].page && !progress[id].completed) ? progress[id].page : 0;
+    function render() {
+        if (idx >= story.pages.length) {
+            // Done
+            const sp = progress;
+            sp[id] = { completed: true, page: 0, at: Date.now() };
+            saveStoryProgress(sp);
+            saveRobux(loadRobux() + story.reward);
+            overlay.innerHTML = `<div class="potd-card story-card">
+                <div class="story-end-emoji">🎉</div>
+                <h2>The End!</h2>
+                <div class="qm-score">${story.title}</div>
+                <div class="qm-reward">+${story.reward} 💎</div>
+                <button class="potd-close">Awesome</button>
+            </div>`;
+            overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+            if (typeof launchConfetti === 'function') launchConfetti();
+            return;
+        }
+        const p = story.pages[idx];
+        const navBtns = idx > 0
+            ? `<button class="story-nav-back" onclick="this.parentElement.parentElement.dispatchEvent(new CustomEvent('story-prev'))">⬅️ Back</button>`
+            : '';
+        if (p.type === 'q') {
+            overlay.innerHTML = `<div class="potd-card story-card">
+                <div class="story-pages">📖 Page ${idx + 1} / ${story.pages.length}</div>
+                <h2>${story.emoji} ${story.title}</h2>
+                <div class="story-q">${p.q}</div>
+                <input type="number" class="potd-input" autocomplete="off" inputmode="numeric" />
+                <div class="potd-actions">
+                    <button class="story-hint-btn">💡 Hint</button>
+                    <button class="potd-check">Check</button>
+                </div>
+                <div class="story-hint" style="display:none;">${p.hint}</div>
+                <div class="potd-feedback"></div>
+                <div class="story-nav">${navBtns}</div>
+            </div>`;
+            const input = overlay.querySelector('.potd-input');
+            const fb = overlay.querySelector('.potd-feedback');
+            overlay.querySelector('.story-hint-btn').addEventListener('click', () => {
+                overlay.querySelector('.story-hint').style.display = '';
+            });
+            const submit = () => {
+                const val = parseInt(input.value, 10);
+                if (Number.isNaN(val)) return;
+                if (val === p.a) {
+                    fb.innerHTML = `<div class="potd-correct">✨ Yes!</div>`;
+                    playSound('correct');
+                    setTimeout(() => { idx++; saveStoryProgress({ ...loadStoryProgress(), [id]: { page: idx } }); render(); }, 900);
+                } else {
+                    fb.innerHTML = `<div class="potd-wrong">Try once more!</div>`;
+                    playSound('wrong');
+                    input.value = '';
+                }
+            };
+            overlay.querySelector('.potd-check').addEventListener('click', submit);
+            input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+            setTimeout(() => input.focus(), 50);
+        } else {
+            overlay.innerHTML = `<div class="potd-card story-card">
+                <div class="story-pages">📖 Page ${idx + 1} / ${story.pages.length}</div>
+                <h2>${story.emoji} ${story.title}</h2>
+                <div class="story-art">${p.art || ''}</div>
+                <div class="story-text">${p.text}</div>
+                <div class="story-nav">
+                    ${navBtns}
+                    <button class="story-nav-next">Next ➡️</button>
+                </div>
+            </div>`;
+            overlay.querySelector('.story-nav-next').addEventListener('click', () => {
+                idx++;
+                saveStoryProgress({ ...loadStoryProgress(), [id]: { page: idx } });
+                render();
+            });
+            if (typeof speak === 'function') speak(p.text);
+        }
+        overlay.addEventListener('story-prev', () => {
+            idx = Math.max(0, idx - 1);
+            saveStoryProgress({ ...loadStoryProgress(), [id]: { page: idx } });
+            render();
+        }, { once: true });
+    }
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+    render();
+}
+
 // ===== Math Toys — interactive sandboxes =====
 
 // Hundred Chart 1-100. Tap a number to hear it; tap two to see difference.
