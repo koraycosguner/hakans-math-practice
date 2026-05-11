@@ -6245,17 +6245,40 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 
 .module-detail-card {
-    background: var(--card-bg);
+    background: linear-gradient(180deg, var(--card-bg) 0%, #fafbff 100%);
     border-radius: 28px;
     padding: clamp(28px, 4vw, 48px) clamp(20px, 3vw, 40px);
-    box-shadow: var(--shadow);
+    box-shadow: 0 16px 40px rgba(108, 99, 255, 0.18);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(108, 99, 255, 0.1);
+}
+.module-detail-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 6px;
+    background: linear-gradient(90deg, #8b5cf6, #f97316);
+    border-radius: 0 0 999px 999px;
 }
 
 .module-detail-icon {
-    font-size: clamp(3rem, 7vw, 5rem);
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
     margin-bottom: 10px;
+    display: inline-block;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.2));
+    animation: detailIconWiggle 4s ease-in-out infinite;
 }
+@keyframes detailIconWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25%      { transform: rotate(-4deg); }
+    75%      { transform: rotate(4deg); }
+}
+html.motion-reduced .module-detail-icon { animation: none; }
 
 .module-detail-title {
     font-size: clamp(1.6rem, 4vw, 2.4rem);
