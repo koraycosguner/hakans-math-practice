@@ -5887,6 +5887,190 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     100% { transform: scale(1); opacity: 1; }
 }
 
+/* ===== Game 26: Birthday Candles ===== */
+.mg-theme-birthday-candles {
+    background:
+        radial-gradient(ellipse at top, #fce7f3 0%, #f9a8d4 40%, #ec4899 100%);
+}
+.mg-cake-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    width: 100%;
+    max-width: 540px;
+}
+.mg-cake-q {
+    background: white;
+    padding: 10px 22px;
+    border-radius: 16px;
+    border: 3px solid #be185d;
+    box-shadow: 0 4px 14px rgba(190, 24, 93, 0.45);
+}
+.mg-cake-eq {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #1f2937;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.mg-cake-eqs { color: #be185d; }
+.mg-cake-qmark { color: #fbbf24; }
+.mg-cake-scene {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    background:
+        linear-gradient(180deg, #fce7f3 0%, #fbcfe8 50%, #f9a8d4 100%);
+    border: 3px solid #be185d;
+    border-radius: 18px;
+    overflow: hidden;
+    padding: 14px 14px 0;
+}
+.mg-cake-streamers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+.mg-cake-streamer {
+    position: absolute;
+    top: 8px;
+    font-size: 1.4rem;
+    animation: cakeStreamer 4s ease-in-out infinite;
+}
+@keyframes cakeStreamer {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50%      { transform: translateY(4px) rotate(5deg); }
+}
+.mg-cake {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: filter 0.4s ease;
+}
+.mg-cake.mg-cake-glow {
+    filter: drop-shadow(0 0 24px gold);
+    animation: cakeGlow 1s ease-in-out infinite;
+}
+@keyframes cakeGlow {
+    0%, 100% { filter: drop-shadow(0 0 20px gold); }
+    50%      { filter: drop-shadow(0 0 36px gold); }
+}
+.mg-cake-candles {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+.mg-cake-candle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.mg-cake-flame {
+    font-size: 1.4rem;
+    line-height: 1;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1);
+    filter: drop-shadow(0 0 8px #fde047);
+}
+.mg-cake-candle-lit .mg-cake-flame {
+    opacity: 1;
+    transform: scale(1);
+    animation: candleFlicker 0.8s ease-in-out infinite alternate;
+}
+@keyframes candleFlicker {
+    from { transform: scale(0.95) rotate(-3deg); }
+    to   { transform: scale(1.05) rotate(3deg); }
+}
+.mg-cake-stick {
+    width: 8px;
+    height: 18px;
+    background: linear-gradient(180deg, #f9a8d4 0%, #ec4899 100%);
+    border-radius: 2px;
+    border: 1px solid #831843;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
+}
+.mg-cake-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: drop-shadow(0 4px 8px rgba(190, 24, 93, 0.4));
+}
+.mg-cake-tier-top, .mg-cake-tier-mid, .mg-cake-tier-bot {
+    background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #92400e;
+    border-radius: 6px;
+}
+.mg-cake-tier-top { width: 60px; height: 24px; background: linear-gradient(180deg, #fbcfe8, #f9a8d4); border-color: #be185d; }
+.mg-cake-tier-mid { width: 100px; height: 30px; background: linear-gradient(180deg, #fde68a, #fbbf24); border-color: #92400e; margin-top: -2px; }
+.mg-cake-tier-bot { width: 140px; height: 36px; background: linear-gradient(180deg, #fdba74, #ea580c); border-color: #9a3412; margin-top: -2px; border-radius: 6px 6px 12px 12px; }
+
+.mg-cake-status {
+    background: rgba(255, 255, 255, 0.92);
+    color: #be185d;
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-weight: 900;
+    font-size: 0.92rem;
+}
+.mg-cake-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 380px;
+}
+.mg-cake-opt {
+    background: white;
+    color: #831843;
+    border: 3px solid #be185d;
+    border-radius: 14px;
+    padding: 14px 4px;
+    font-size: 1.4rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(190, 24, 93, 0.3);
+}
+.mg-cake-opt:hover { transform: translateY(-2px); }
+.mg-cake-opt.mg-cake-right {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border-color: #92400e;
+    animation: mgSACorrect 0.4s ease;
+}
+.mg-cake-opt.mg-cake-wrong {
+    background: #fee2e2;
+    border-color: #dc2626;
+    animation: icShake 0.4s ease;
+}
+.mg-cake-win {
+    font-size: 1.6rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.mg-cake-confetti {
+    position: absolute;
+    top: 0;
+    font-size: 1.6rem;
+    animation: cakeConfetti 2.5s cubic-bezier(0.3, 0.7, 0.5, 1) forwards;
+    pointer-events: none;
+}
+@keyframes cakeConfetti {
+    0%   { transform: translateY(-10px) rotate(0); opacity: 1; }
+    100% { transform: translateY(260px) rotate(540deg); opacity: 0; }
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;

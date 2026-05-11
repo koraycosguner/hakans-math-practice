@@ -2370,6 +2370,174 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 26. BIRTHDAY CANDLES — Light all the candles by solving math!
+// Each correct answer lights one candle. All candles lit → cake glows
+// + sparkles + happy-birthday celebration.
+// =====================================================================
+GAME_IMPLS['birthday-candles'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const candleCount = diff === 'easy' ? 4 : diff === 'hard' ? 10 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-cake-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-cake-q';
+        wrap.appendChild(qBox);
+
+        // Cake scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-cake-scene';
+        // Streamers
+        const streamers = document.createElement('div');
+        streamers.className = 'mg-cake-streamers';
+        for (let i = 0; i < 5; i++) {
+            const c = document.createElement('span');
+            c.className = 'mg-cake-streamer';
+            c.style.left = (10 + i * 20) + '%';
+            c.style.color = ['#fbbf24', '#ec4899', '#3b82f6', '#10b981', '#f97316'][i];
+            c.textContent = '🎉';
+            streamers.appendChild(c);
+        }
+        scene.appendChild(streamers);
+
+        // Cake
+        const cake = document.createElement('div');
+        cake.className = 'mg-cake';
+
+        // Candle row (sits on top of cake)
+        const candleRow = document.createElement('div');
+        candleRow.className = 'mg-cake-candles';
+        const candles = [];
+        for (let i = 0; i < candleCount; i++) {
+            const c = document.createElement('div');
+            c.className = 'mg-cake-candle';
+            c.innerHTML = `<span class="mg-cake-flame">🔥</span><span class="mg-cake-stick"></span>`;
+            candleRow.appendChild(c);
+            candles.push({ el: c, lit: false });
+        }
+        cake.appendChild(candleRow);
+
+        // Cake body
+        const body = document.createElement('div');
+        body.className = 'mg-cake-body';
+        body.innerHTML = `
+            <div class="mg-cake-tier-top"></div>
+            <div class="mg-cake-tier-mid"></div>
+            <div class="mg-cake-tier-bot"></div>
+        `;
+        cake.appendChild(body);
+        scene.appendChild(cake);
+        wrap.appendChild(scene);
+
+        const status = document.createElement('div');
+        status.className = 'mg-cake-status';
+        status.textContent = `0 / ${candleCount} candles lit`;
+        wrap.appendChild(status);
+
+        const opts = document.createElement('div');
+        opts.className = 'mg-cake-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let lit = 0;
+        let target = null;
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-cake-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-cake-eqs">=</span><span class="mg-cake-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-cake-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-cake-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function lightCandle() {
+            const c = candles.find((x) => !x.lit);
+            if (!c) return;
+            c.lit = true;
+            c.el.classList.add('mg-cake-candle-lit');
+            lit += 1;
+            status.textContent = `${lit} / ${candleCount} candles lit`;
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-cake-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                lightCandle();
+                if (lit >= candleCount) {
+                    happyBirthday();
+                    return;
+                }
+                setTimeout(nextProblem, 500);
+            } else {
+                btn.classList.add('mg-cake-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-cake-wrong'), 400);
+            }
+        }
+
+        function happyBirthday() {
+            qBox.innerHTML = `<div class="mg-cake-win">🎂 HAPPY BIRTHDAY, HAKAN! +5 💎</div>`;
+            opts.innerHTML = '';
+            cake.classList.add('mg-cake-glow');
+            // Burst of confetti emojis
+            for (let i = 0; i < 14; i++) {
+                const sp = document.createElement('div');
+                sp.className = 'mg-cake-confetti';
+                sp.textContent = ['🎊', '🎉', '⭐', '✨', '🎈'][Math.floor(Math.random() * 5)];
+                sp.style.left = (Math.random() * 100) + '%';
+                sp.style.animationDelay = (Math.random() * 0.4) + 's';
+                scene.appendChild(sp);
+                setTimeout(() => { try { sp.remove(); } catch (e) {} }, 2500);
+            }
+            ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+            ctx.onWin();
+            setTimeout(reset, 2800);
+        }
+
+        function reset() {
+            lit = 0;
+            candles.forEach((c) => {
+                c.lit = false;
+                c.el.classList.remove('mg-cake-candle-lit');
+            });
+            status.textContent = `0 / ${candleCount} candles lit`;
+            cake.classList.remove('mg-cake-glow');
+            nextProblem();
+        }
+
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
 // 25. WIZARD SPELL — Hakan is a wizard! Cast a spell by collecting
 // magical ingredients. Each correct math answer adds one ingredient
 // to the cauldron. Fill the cauldron → spell casts with sparkles!

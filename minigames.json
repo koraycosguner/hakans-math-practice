@@ -601,6 +601,27 @@
     "config": {}
   },
   {
+    "id": "birthday-candles",
+    "title": "Birthday Candles",
+    "emoji": "🎂",
+    "description": "Light all the birthday candles by solving math!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each correct answer lights a candle on the cake. Light them all to celebrate!",
+    "rules": [
+      "🎂 cake sits in a party-decorated room.",
+      "Solve a math problem → light one candle 🔥.",
+      "Light all 4 / 6 / 10 candles to win the party (+5 💎)."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 7
+    },
+    "config": {}
+  },
+  {
     "id": "wizard-spell",
     "title": "Wizard Spell",
     "emoji": "🧙",
