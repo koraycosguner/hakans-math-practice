@@ -601,6 +601,29 @@
     "config": {}
   },
   {
+    "id": "math-adventure",
+    "title": "Math Adventure",
+    "emoji": "🍄",
+    "description": "Side-scroller platformer! Jump across brick blocks to the flag.",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 120,
+    "difficulty": "medium",
+    "objective": "Pick the platform with the right answer. Jump across the world to the flag. 3 lives. Collect coins!",
+    "rules": [
+      "🧒 Hero stands on the grass at the left. Sky + clouds + hills behind.",
+      "Each round shows a math problem and 3 brick-block platforms with numbers.",
+      "Tap the right block → hero jumps onto it, a 🪙 coin spins out.",
+      "Wrong → hero bumps back and loses 1 of 3 ❤️.",
+      "Reach the 🚩 flag at the end of the level for +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
+    },
+    "config": {}
+  },
+  {
     "id": "frog-pond",
     "title": "Frog Pond",
     "emoji": "🐸",

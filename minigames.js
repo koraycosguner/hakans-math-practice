@@ -55,6 +55,16 @@ function mgConfettiBurst(x, y, count) {
         host.appendChild(p);
         setTimeout(() => p.remove(), 1100);
     }
+
+    // Mario-style coin pop alongside the confetti — gives every right answer
+    // in every game that satisfying "pop a brick, get a coin" feedback.
+    const coin = document.createElement('span');
+    coin.className = 'mg-mario-pickup-coin';
+    coin.textContent = '🪙';
+    coin.style.left = cx + 'px';
+    coin.style.top = cy + 'px';
+    host.appendChild(coin);
+    setTimeout(() => coin.remove(), 1000);
 }
 
 // Full-screen confetti shower for game wins. Spawns 36 particles across the
@@ -6318,6 +6328,201 @@ GAME_IMPLS['frog-pond'] = {
         placeFrog();
         prog.innerHTML = `🐸 Hops: <b>0</b> / ${totalHops}`;
         nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
+// 40. MATH ADVENTURE — Mario-style side-scroller platformer! 🍄
+// Hakan-character stands at left on a grassy platform. Sky + clouds +
+// distant hills behind, brick-block ground in front. To advance, tap
+// the platform with the right math answer. Character jumps up, arcs to
+// the platform, lands with a thud. Reach the 🚩 flagpole at the far
+// right to clear the level. Wrong = bumps back. Coins spin out of the
+// platform on a hit. Lives counter (3 ❤). Game world world: "1-1".
+// =====================================================================
+GAME_IMPLS['math-adventure'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const totalLevels = diff === 'easy' ? 5 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-mario-wrap';
+
+        // ===== Mario-style HUD on top =====
+        const hud = document.createElement('div');
+        hud.className = 'mg-mario-hud';
+        hud.innerHTML = `
+            <div class="mg-mario-hud-item"><span class="mg-mario-hud-label">WORLD</span><span class="mg-mario-hud-val" id="mario-world">1-1</span></div>
+            <div class="mg-mario-hud-item"><span class="mg-mario-hud-label">🪙 COINS</span><span class="mg-mario-hud-val" id="mario-coins">0</span></div>
+            <div class="mg-mario-hud-item"><span class="mg-mario-hud-label">❤️ LIVES</span><span class="mg-mario-hud-val" id="mario-lives">3</span></div>
+        `;
+        wrap.appendChild(hud);
+
+        // ===== Question chip =====
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-mario-q';
+        wrap.appendChild(qBox);
+
+        // ===== Side-scrolling scene =====
+        const scene = document.createElement('div');
+        scene.className = 'mg-mario-scene';
+        scene.innerHTML = `
+            <div class="mg-mario-sky">
+                <div class="mg-mario-sun">☀️</div>
+                <div class="mg-mario-cloud mg-mario-cloud-1">☁️</div>
+                <div class="mg-mario-cloud mg-mario-cloud-2">☁️</div>
+                <div class="mg-mario-cloud mg-mario-cloud-3">☁️</div>
+            </div>
+            <div class="mg-mario-hills"></div>
+            <div class="mg-mario-bushes">
+                <span class="mg-mario-bush" style="left:18%">🌳</span>
+                <span class="mg-mario-bush" style="left:48%">🌲</span>
+                <span class="mg-mario-bush" style="left:78%">🌳</span>
+            </div>
+            <div class="mg-mario-track">
+                <div class="mg-mario-character" id="mario-hero">🧒</div>
+                <div class="mg-mario-platforms" id="mario-platforms"></div>
+                <div class="mg-mario-flag">
+                    <div class="mg-mario-flag-pole"></div>
+                    <div class="mg-mario-flag-banner">🚩</div>
+                </div>
+            </div>
+            <div class="mg-mario-ground"></div>
+        `;
+        wrap.appendChild(scene);
+
+        ctx.area.appendChild(wrap);
+
+        const hero = scene.querySelector('#mario-hero');
+        const platformsEl = scene.querySelector('#mario-platforms');
+        const coinsEl = hud.querySelector('#mario-coins');
+        const livesEl = hud.querySelector('#mario-lives');
+        const worldEl = hud.querySelector('#mario-world');
+
+        let target = null;
+        let level = 0;
+        let lives = 3;
+        let coins = 0;
+        let busy = false;
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function buildPlatforms() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-mario-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-mario-eqs">=</span><span class="mg-mario-qmark">?</span></div>`;
+
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const opts = Array.from(set).sort(() => Math.random() - 0.5);
+            platformsEl.innerHTML = opts.map((v, i) =>
+                `<button class="mg-mario-platform" data-correct="${v === target.ans ? '1' : '0'}" data-val="${v}" style="--p-i: ${i}">
+                    <span class="mg-mario-block">${v}</span>
+                </button>`
+            ).join('');
+            platformsEl.querySelectorAll('.mg-mario-platform').forEach((b) => {
+                b.addEventListener('click', (e) => onPick(b, e));
+            });
+        }
+
+        function spawnCoin(fromEl) {
+            const r = fromEl.getBoundingClientRect();
+            const sr = scene.getBoundingClientRect();
+            const x = r.left + r.width / 2 - sr.left;
+            const y = r.top - sr.top;
+            const c = document.createElement('span');
+            c.className = 'mg-mario-coin';
+            c.textContent = '🪙';
+            c.style.left = x + 'px';
+            c.style.top = y + 'px';
+            scene.appendChild(c);
+            setTimeout(() => c.remove(), 900);
+        }
+
+        function updateHud() {
+            coinsEl.textContent = coins;
+            livesEl.textContent = lives;
+            worldEl.textContent = `1-${level + 1}`;
+        }
+
+        function onPick(btn, e) {
+            if (busy) return;
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                busy = true;
+                btn.classList.add('mg-mario-platform-hit');
+                hero.classList.add('mg-mario-hero-jump');
+                spawnCoin(btn);
+                coins += 1;
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => hero.classList.remove('mg-mario-hero-jump'), 700);
+                setTimeout(() => {
+                    level += 1;
+                    updateHud();
+                    if (level >= totalLevels) {
+                        // Reached the flag!
+                        scene.classList.add('mg-mario-scene-clear');
+                        const heroSlide = document.createElement('div');
+                        heroSlide.className = 'mg-mario-hero-slide';
+                        heroSlide.textContent = '🧒';
+                        scene.appendChild(heroSlide);
+                        hero.style.opacity = '0';
+                        qBox.innerHTML = `<div class="mg-mario-win">🚩 LEVEL CLEAR! +5 💎</div>`;
+                        platformsEl.innerHTML = '';
+                        ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                        ctx.onWin();
+                        setTimeout(reset, 3000);
+                        return;
+                    }
+                    busy = false;
+                    buildPlatforms();
+                }, 800);
+            } else {
+                btn.classList.add('mg-mario-platform-wrong');
+                hero.classList.add('mg-mario-hero-bump');
+                lives -= 1;
+                updateHud();
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => {
+                    btn.classList.remove('mg-mario-platform-wrong');
+                    hero.classList.remove('mg-mario-hero-bump');
+                }, 500);
+                if (lives <= 0) {
+                    qBox.innerHTML = `<div class="mg-mario-lose">💀 GAME OVER — try again!</div>`;
+                    platformsEl.innerHTML = '';
+                    setTimeout(reset, 2200);
+                }
+            }
+        }
+
+        function reset() {
+            level = 0;
+            lives = 3;
+            coins = 0;
+            busy = false;
+            scene.classList.remove('mg-mario-scene-clear');
+            scene.querySelectorAll('.mg-mario-hero-slide').forEach((e) => e.remove());
+            hero.style.opacity = '';
+            updateHud();
+            buildPlatforms();
+        }
+
+        updateHud();
+        buildPlatforms();
         return { stop() {} };
     }
 };

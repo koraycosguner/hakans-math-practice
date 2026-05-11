@@ -3874,6 +3874,26 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 80px)) scale(0.4) rotate(540deg); opacity: 0; }
 }
 
+/* Mario-style coin pickup that fires alongside every confetti burst.
+   Spins up and out from the scoring location. */
+.mg-mario-pickup-coin {
+    position: absolute;
+    font-size: 1.8rem;
+    pointer-events: none;
+    z-index: 8;
+    transform: translate(-50%, -50%);
+    animation: mgMarioPickupPop 0.95s cubic-bezier(0.3, 0.7, 0.5, 1) forwards;
+    filter: drop-shadow(0 0 10px rgba(252, 211, 77, 0.8));
+}
+@keyframes mgMarioPickupPop {
+    0%   { opacity: 0; transform: translate(-50%, 0) rotate(0) scale(0.5); }
+    20%  { opacity: 1; transform: translate(-50%, -10px) rotate(180deg) scale(1.4); }
+    100% { opacity: 0; transform: translate(-50%, -90px) rotate(720deg) scale(0.8); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .mg-mario-pickup-coin { animation: none !important; opacity: 0; }
+}
+
 /* Full-screen win-shower confetti for games */
 .mg-victory-confetti {
     position: absolute;
@@ -9576,6 +9596,402 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 @media (prefers-reduced-motion: reduce) {
     .mg-frog-pad, .mg-frog-pad-wrong .mg-frog-pad-num, .mg-frog-ripple,
     .mg-frog-frog, .mg-frog-frog-hop, .mg-frog-frog-cheer, .mg-frog-win {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ===== Mini-game 40 · Math Adventure (Mario-style platformer) ===== */
+.mg-theme-math-adventure.mg-play-area {
+    background: linear-gradient(180deg, #93c5fd 0%, #60a5fa 65%, #1e40af 100%);
+    padding: 12px;
+}
+.mg-mario-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+/* HUD — Mario-style stat strip */
+.mg-mario-hud {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    border: 3px solid #fbbf24;
+    border-radius: 14px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35), 0 6px 14px rgba(0, 0, 0, 0.25);
+    font-family: 'Courier New', monospace;
+}
+.mg-mario-hud-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    gap: 1px;
+}
+.mg-mario-hud-label {
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #fde047;
+    text-shadow: 0 1px 0 #000;
+}
+.mg-mario-hud-val {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 2px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000;
+    letter-spacing: 0.04em;
+}
+
+/* Question chip */
+.mg-mario-q {
+    background: linear-gradient(135deg, #fde047 0%, #facc15 100%);
+    border: 3px solid #ca8a04;
+    border-radius: 16px;
+    padding: 10px 18px;
+    text-align: center;
+    box-shadow: 0 4px 0 #92400e, 0 6px 14px rgba(146, 64, 14, 0.4);
+    align-self: center;
+    min-width: 240px;
+}
+.mg-mario-eq {
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: #7c2d12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.mg-mario-eqs { color: #b45309; }
+.mg-mario-qmark { color: #dc2626; font-size: 1.9rem; }
+.mg-mario-win {
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ef4444 0%, #fbbf24 50%, #16a34a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: mgMarioWinPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes mgMarioWinPop {
+    0%   { transform: scale(0.6) rotate(-10deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.mg-mario-lose {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #7f1d1d;
+    text-shadow: 0 2px 0 white;
+}
+
+/* Side-scrolling scene */
+.mg-mario-scene {
+    position: relative;
+    flex: 1;
+    min-height: 280px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 3px solid #1e40af;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2), 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.mg-mario-sky {
+    position: absolute;
+    inset: 0;
+}
+.mg-mario-sun {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 2.4rem;
+    animation: marioSunSpin 22s linear infinite;
+    filter: drop-shadow(0 0 12px rgba(252, 211, 77, 0.7));
+}
+@keyframes marioSunSpin {
+    0%   { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+.mg-mario-cloud {
+    position: absolute;
+    font-size: 1.8rem;
+    animation: marioCloudDrift 24s linear infinite;
+    will-change: transform;
+}
+.mg-mario-cloud-1 { top: 8%;  left: -10%; }
+.mg-mario-cloud-2 { top: 22%; left: -10%; animation-delay: -8s; }
+.mg-mario-cloud-3 { top: 36%; left: -10%; animation-delay: -16s; }
+@keyframes marioCloudDrift {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(540px); }
+}
+
+/* Distant hills layer (parallax) */
+.mg-mario-hills {
+    position: absolute;
+    bottom: 22%;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background:
+        radial-gradient(ellipse 80px 50px at 20% 100%, #16a34a 0%, #16a34a 50%, transparent 50.5%),
+        radial-gradient(ellipse 100px 60px at 55% 100%, #15803d 0%, #15803d 50%, transparent 50.5%),
+        radial-gradient(ellipse 70px 45px at 85% 100%, #16a34a 0%, #16a34a 50%, transparent 50.5%);
+    pointer-events: none;
+}
+/* Bushes / trees on the ground */
+.mg-mario-bushes {
+    position: absolute;
+    bottom: 19%;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+}
+.mg-mario-bush {
+    position: absolute;
+    font-size: 1.8rem;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* The track holds the hero, platforms, and flag */
+.mg-mario-track {
+    position: absolute;
+    bottom: 19%;
+    left: 0;
+    right: 0;
+    height: 45%;
+    pointer-events: none;
+}
+.mg-mario-track > * { pointer-events: auto; }
+
+.mg-mario-character {
+    position: absolute;
+    bottom: 0;
+    left: 6%;
+    font-size: 2.6rem;
+    line-height: 1;
+    animation: marioHeroBob 1.2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+    z-index: 3;
+}
+@keyframes marioHeroBob {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-3px); }
+}
+.mg-mario-hero-jump {
+    animation: marioHeroJump 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+@keyframes marioHeroJump {
+    0%   { transform: translate(0, 0) rotate(0); }
+    35%  { transform: translate(40px, -70px) rotate(-12deg); }
+    70%  { transform: translate(80px, -30px) rotate(8deg); }
+    100% { transform: translate(0, 0) rotate(0); }
+}
+.mg-mario-hero-bump {
+    animation: marioHeroBump 0.4s ease;
+}
+@keyframes marioHeroBump {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-8px) rotate(-6deg); }
+    75%      { transform: translateX(4px) rotate(4deg); }
+}
+
+/* Brick-block platforms with answer numbers — Mario ? blocks vibe */
+.mg-mario-platforms {
+    position: absolute;
+    bottom: 8%;
+    left: 26%;
+    right: 18%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+}
+.mg-mario-platform {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+    animation: marioPlatformIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    animation-delay: calc(var(--p-i, 0) * 70ms);
+}
+@keyframes marioPlatformIn {
+    0%   { transform: translateY(-30px) scale(0.5); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.mg-mario-block {
+    display: block;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #f59e0b 0px, #f59e0b 18px,
+            #b45309 18px, #b45309 20px
+        ),
+        linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+    background-blend-mode: multiply, normal;
+    color: white;
+    font-size: 1.7rem;
+    font-weight: 900;
+    text-align: center;
+    padding: 18px 6px;
+    border: 3px solid #7c2d12;
+    border-radius: 4px;
+    box-shadow:
+        inset 0 -6px 0 rgba(0, 0, 0, 0.25),
+        inset 0 4px 0 rgba(255, 255, 255, 0.3),
+        0 6px 0 #7c2d12,
+        0 8px 14px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 2px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.mg-mario-platform:hover .mg-mario-block {
+    transform: translateY(-3px);
+    box-shadow:
+        inset 0 -6px 0 rgba(0, 0, 0, 0.25),
+        inset 0 4px 0 rgba(255, 255, 255, 0.4),
+        0 9px 0 #7c2d12,
+        0 12px 18px rgba(0, 0, 0, 0.45);
+}
+.mg-mario-platform:active .mg-mario-block {
+    transform: translateY(4px);
+    box-shadow:
+        inset 0 -6px 0 rgba(0, 0, 0, 0.25),
+        inset 0 4px 0 rgba(255, 255, 255, 0.3),
+        0 2px 0 #7c2d12;
+}
+.mg-mario-platform-hit .mg-mario-block {
+    animation: marioBlockHit 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    background:
+        radial-gradient(circle, #fef9c3 0%, #fde047 70%, #facc15 100%);
+    border-color: #ca8a04;
+}
+@keyframes marioBlockHit {
+    0%   { transform: translateY(0); }
+    35%  { transform: translateY(-26px) scale(1.08); filter: brightness(1.3) drop-shadow(0 0 20px #fef08a); }
+    100% { transform: translateY(0) scale(1); }
+}
+.mg-mario-platform-wrong .mg-mario-block {
+    animation: icShake 0.4s ease;
+    background: linear-gradient(180deg, #f87171, #b91c1c);
+    border-color: #7f1d1d;
+}
+
+/* Coin pickup spawning out of a hit block */
+.mg-mario-coin {
+    position: absolute;
+    font-size: 2rem;
+    pointer-events: none;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    animation: marioCoinPop 0.9s cubic-bezier(0.3, 0.7, 0.5, 1) forwards;
+    filter: drop-shadow(0 0 8px rgba(252, 211, 77, 0.7));
+}
+@keyframes marioCoinPop {
+    0%   { opacity: 1; transform: translate(-50%, 0) rotate(0) scale(0.6); }
+    35%  { opacity: 1; transform: translate(-50%, -70px) rotate(360deg) scale(1.2); }
+    100% { opacity: 0; transform: translate(-50%, -110px) rotate(720deg) scale(1); }
+}
+
+/* Flag at the end of the level */
+.mg-mario-flag {
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+    width: 28px;
+    height: 100%;
+}
+.mg-mario-flag-pole {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(90deg, #d1d5db 0%, #9ca3af 50%, #6b7280 100%);
+    border-radius: 2px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+}
+.mg-mario-flag-banner {
+    position: absolute;
+    top: 4px;
+    left: 100%;
+    font-size: 1.8rem;
+    transform-origin: left center;
+    animation: marioFlagWave 1.4s ease-in-out infinite alternate;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+@keyframes marioFlagWave {
+    0%   { transform: rotate(-4deg) scale(0.95); }
+    100% { transform: rotate(6deg) scale(1.05); }
+}
+.mg-mario-scene-clear .mg-mario-flag-banner {
+    animation: marioFlagSlide 1.4s ease-out forwards;
+}
+@keyframes marioFlagSlide {
+    0%   { transform: translateY(0) rotate(-4deg); }
+    100% { transform: translateY(180px) rotate(20deg); }
+}
+.mg-mario-hero-slide {
+    position: absolute;
+    bottom: 8%;
+    right: 6%;
+    font-size: 2.6rem;
+    z-index: 4;
+    animation: marioHeroSlide 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+@keyframes marioHeroSlide {
+    0%   { transform: translateX(-180px) translateY(-100px); }
+    50%  { transform: translateX(-20px) translateY(0); }
+    100% { transform: translateX(0) translateY(0); }
+}
+
+/* Ground / brick path at the bottom of the scene */
+.mg-mario-ground {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 18%;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #92400e 0px, #92400e 30px,
+            #7c2d12 30px, #7c2d12 32px
+        ),
+        linear-gradient(180deg, #92400e 0%, #78350f 100%);
+    background-blend-mode: multiply, normal;
+    border-top: 4px solid #16a34a;
+    box-shadow: inset 0 4px 0 rgba(255, 255, 255, 0.18), inset 0 -4px 0 rgba(0, 0, 0, 0.25);
+}
+.mg-mario-ground::before {
+    /* Grass tufts on the top edge of the ground */
+    content: '🌱  🌱  🌱  🌱  🌱  🌱  🌱';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    font-size: 0.9rem;
+    letter-spacing: 24px;
+    line-height: 1;
+    text-align: center;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-mario-sun, .mg-mario-cloud, .mg-mario-character,
+    .mg-mario-hero-jump, .mg-mario-hero-bump,
+    .mg-mario-platform, .mg-mario-block, .mg-mario-coin,
+    .mg-mario-flag-banner, .mg-mario-scene-clear .mg-mario-flag-banner,
+    .mg-mario-hero-slide, .mg-mario-win {
         animation: none !important;
         transition: none !important;
     }
