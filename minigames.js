@@ -5294,3 +5294,158 @@ GAME_IMPLS['hot-air-balloon'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 34. COOKIE BAKER — Bake the right number of cookies! 🍪
+// Each round, a baking sheet pre-shows a row of N cookies. Hakan has
+// to recognize how many are on the sheet AND match that to the math
+// answer. Bake 4/6/8 sheets to fill the bakery shelf. Concrete counting!
+// =====================================================================
+GAME_IMPLS['cookie-baker'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const trayCount = diff === 'easy' ? 4 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-cook-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-cook-q';
+        wrap.appendChild(qBox);
+
+        // Bakery scene: oven + tray + shelf
+        const scene = document.createElement('div');
+        scene.className = 'mg-cook-scene';
+        // Shelf at top — gets filled with baked trays
+        const shelf = document.createElement('div');
+        shelf.className = 'mg-cook-shelf';
+        for (let i = 0; i < trayCount; i++) {
+            const slot = document.createElement('div');
+            slot.className = 'mg-cook-shelf-slot';
+            slot.textContent = '·';
+            shelf.appendChild(slot);
+        }
+        scene.appendChild(shelf);
+        // Tray
+        const tray = document.createElement('div');
+        tray.className = 'mg-cook-tray';
+        scene.appendChild(tray);
+        // Oven below tray (decorative)
+        const oven = document.createElement('div');
+        oven.className = 'mg-cook-oven';
+        oven.innerHTML = '<span class="mg-cook-oven-fire">🔥</span><span class="mg-cook-oven-door">🚪</span>';
+        scene.appendChild(oven);
+
+        wrap.appendChild(scene);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-cook-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-cook-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let trays = 0;
+        const slots = shelf.querySelectorAll('.mg-cook-shelf-slot');
+
+        function showCookies(n) {
+            tray.innerHTML = '';
+            for (let i = 0; i < n; i++) {
+                const c = document.createElement('span');
+                c.className = 'mg-cook-cookie';
+                c.textContent = '🍪';
+                c.style.animationDelay = `${i * 60}ms`;
+                tray.appendChild(c);
+            }
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * Math.min(maxA, 6));
+                const b = 1 + Math.floor(Math.random() * Math.min(maxA, 6));
+                return { a, b, ans: a + b, op };
+            }
+            const a = 3 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * Math.min(a - 1, 5));
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            showCookies(target.ans);
+            qBox.innerHTML =
+                `<div class="mg-cook-task">Count the cookies & pick the math problem 🍪</div>` +
+                `<div class="mg-cook-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-cook-eqs">=</span><span class="mg-cook-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-cook-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-cook-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-cook-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                tray.classList.add('mg-cook-tray-bake');
+                oven.classList.add('mg-cook-oven-burn');
+                setTimeout(() => {
+                    tray.classList.remove('mg-cook-tray-bake');
+                    oven.classList.remove('mg-cook-oven-burn');
+                    // Place a baked tray on the shelf
+                    if (trays < slots.length) {
+                        slots[trays].classList.add('mg-cook-shelf-slot-full');
+                        slots[trays].textContent = '🍪';
+                    }
+                    trays += 1;
+                    prog.innerHTML = `<b>${trays}</b> / ${trayCount} trays baked 🍞`;
+                    if (trays >= trayCount) {
+                        qBox.innerHTML = `<div class="mg-cook-win">🍞 BAKERY OPEN! +5 💎</div>`;
+                        opts.innerHTML = '';
+                        scene.classList.add('mg-cook-scene-cheer');
+                        ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                        ctx.onWin();
+                        setTimeout(reset, 2700);
+                        return;
+                    }
+                    nextProblem();
+                }, 700);
+            } else {
+                btn.classList.add('mg-cook-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-cook-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            trays = 0;
+            slots.forEach((s) => {
+                s.classList.remove('mg-cook-shelf-slot-full');
+                s.textContent = '·';
+            });
+            scene.classList.remove('mg-cook-scene-cheer');
+            prog.innerHTML = `<b>0</b> / ${trayCount} trays baked 🍞`;
+            nextProblem();
+        }
+
+        prog.innerHTML = `<b>0</b> / ${trayCount} trays baked 🍞`;
+        nextProblem();
+        return { stop() {} };
+    }
+};

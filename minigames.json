@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "cookie-baker",
+    "title": "Cookie Baker",
+    "emoji": "🍪",
+    "description": "Count the cookies on the tray, match the math, bake the batch!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "The tray shows N cookies (the answer). Pick the math problem that gives N. Bake 4 / 6 / 8 trays to fill the bakery!",
+    "rules": [
+      "🍪 Each round, the tray pre-loads with N cookies — count them.",
+      "Pick the math option that equals N to bake the tray.",
+      "Right → tray bakes (fire flares), then lands on the shelf.",
+      "Fill the shelf (4 / 6 / 8 trays by difficulty) to win (+5 💎)."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "hot-air-balloon",
     "title": "Hot Air Balloon",
     "emoji": "🎈",
