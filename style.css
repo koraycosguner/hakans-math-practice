@@ -12578,69 +12578,104 @@ html.show-timer .timer-display { display: inline-flex; }
     .glo-search { transition: none !important; }
 }
 
-/* Milestone celebration overlay */
+/* Milestone celebration overlay — big "you did it!" moment */
 .milestone-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.65);
+    background:
+        radial-gradient(ellipse at center, rgba(108, 99, 255, 0.3) 0%, rgba(0,0,0,0.75) 60%);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 99800;
     padding: 20px;
+    backdrop-filter: blur(6px);
 }
 .milestone-card {
-    background: white;
+    background: linear-gradient(135deg, #ffffff 0%, #f0eeff 100%);
+    border: 5px solid #8b5cf6;
     border-radius: 28px;
-    padding: 30px 26px;
+    padding: 34px 28px;
     text-align: center;
     max-width: 380px;
     width: 100%;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-    animation: milestonePop 0.5s cubic-bezier(0.3, 1.5, 0.6, 1);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 0 8px rgba(139, 92, 246, 0.25);
+    animation: milestonePop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+.milestone-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #fbbf24, #ec4899, #6c63ff, #16a34a, #fbbf24);
 }
 @keyframes milestonePop {
-    0%   { transform: scale(0.7); opacity: 0; }
-    60%  { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+    0%   { transform: scale(0.4) rotate(-15deg); opacity: 0; }
+    50%  { transform: scale(1.1) rotate(8deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
 }
 .milestone-emoji {
-    font-size: 4rem;
+    font-size: 5rem;
     margin-bottom: 6px;
-    animation: milestoneEmoji 1.8s ease-in-out infinite;
+    animation: milestoneEmoji 1.6s ease-in-out infinite;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.25));
 }
 @keyframes milestoneEmoji {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-12deg); }
-    75% { transform: rotate(12deg); }
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(-15deg) scale(1.08); }
+    75% { transform: rotate(15deg) scale(1.08); }
 }
 .milestone-num {
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 900;
-    color: var(--primary);
+    background: linear-gradient(135deg, #6c63ff 0%, #ec4899 50%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     line-height: 1;
+    text-shadow: 0 6px 18px rgba(108, 99, 255, 0.35);
+    letter-spacing: -0.04em;
 }
 .milestone-text {
-    font-size: 1.15rem;
-    font-weight: 800;
-    margin: 4px 0 8px;
+    font-size: 1.25rem;
+    font-weight: 900;
+    margin: 8px 0 8px;
     color: #1f2937;
 }
 .milestone-sub {
     color: #475569;
-    font-size: 0.95rem;
-    margin-bottom: 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 22px;
 }
 .milestone-close {
-    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    background: linear-gradient(135deg, #6c63ff 0%, #8b5cf6 100%);
     color: white;
-    border: none;
+    border: 3px solid #5b21b6;
     border-radius: 18px;
-    padding: 12px 24px;
+    padding: 14px 30px;
     font-weight: 900;
-    font-size: 1rem;
+    font-size: 1.05rem;
     cursor: pointer;
-    box-shadow: 0 8px 18px rgba(108,99,255,0.4);
+    box-shadow: 0 5px 0 #5b21b6, 0 10px 22px rgba(108, 99, 255, 0.45);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+.milestone-close:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 #5b21b6, 0 14px 28px rgba(108, 99, 255, 0.6);
+}
+.milestone-close:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #5b21b6;
+}
+@media (prefers-reduced-motion: reduce) {
+    .milestone-card, .milestone-emoji, .milestone-close {
+        animation: none !important;
+        transition: none !important;
+    }
 }
 
 /* Mascot mood emoji overlay */
