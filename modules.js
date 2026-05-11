@@ -69174,20 +69174,9 @@ function renderHomeModules() {
         html += `<button class="trophy-btn" onclick="openTrophyRoom()">🏆 Trophies</button>`;
         html += `<button class="minigames-btn" onclick="openMiniGamesHub()">🎮 Games</button>`;
         html += `<button class="journey-btn" onclick="openProgressMap()">🗺️ Journey</button>`;
-        html += `<button class="scrapbook-btn" onclick="openScrapbook()">📖 Stickers</button>`;
-        html += `<button class="glossary-btn" onclick="openGlossary()">📚 Words</button>`;
-        const sp = (typeof loadSoundProfile === 'function') ? loadSoundProfile() : 'cheerful';
-        const spEmoji = sp === 'silent' ? '🤫' : sp === 'gentle' ? '🍃' : '🎉';
-        html += `<button class="sound-btn" onclick="openSoundProfilePicker()" title="Sound: ${sp}">${spEmoji} Sound</button>`;
-        html += `<button class="comfort-btn" onclick="openComfortPicker()" title="Text &amp; motion">🅰️ Comfort</button>`;
-        html += `<button class="hakansays-btn" onclick="hakanSays()" title="Hear an encouragement">🎤 Hakan Says</button>`;
-        html += `<button class="surprise-btn" onclick="surpriseMe()" title="Pick a random module">🎲 Surprise!</button>`;
-        html += `<button class="drills-btn" onclick="openBrainDrills()" title="Quick math drills">🧠 Drills</button>`;
-        html += `<button class="toys-btn" onclick="openMathToys()" title="Play with math toys">🧰 Toys</button>`;
-        html += `<button class="stories-btn" onclick="openStoryHub()" title="Read short math stories">📚 Stories</button>`;
-        html += `<button class="teaser-btn" onclick="openBrainTeaser()" title="Today's brain teaser">🧩 Teaser</button>`;
-        html += `<button class="theme-btn" onclick="openThemePicker()" title="Change theme">🎨 Theme</button>`;
-        html += `<button class="help-btn" onclick="openHelpScreen()" title="How to use the app">❓ Help</button>`;
+        html += `<button class="stories-btn" onclick="openStoryHub()">📚 Stories</button>`;
+        html += `<button class="toys-btn" onclick="openMathToys()">🧰 Toys</button>`;
+        html += `<button class="more-btn" onclick="openMoreMenu()" title="More">⋯ More</button>`;
         html += `</div>`;
         // Module search
         html += `<div class="module-search-wrap">

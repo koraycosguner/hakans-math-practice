@@ -2282,23 +2282,69 @@ function openMathToys() {
     playSound('click');
     const overlay = document.createElement('div');
     overlay.className = 'sound-overlay';
-    overlay.innerHTML = `<div class="sound-card">
+    overlay.innerHTML = `<div class="sound-card hub-card">
         <h2>🧰 Math Toys</h2>
-        <div class="sound-sub">Pick a toy to play with!</div>
-        <div class="sound-options" style="grid-template-columns:repeat(2,1fr);">
+        <div class="sound-sub">Play, explore, and have fun with numbers!</div>
+        <div class="hub-section-label">🎯 Quick Practice</div>
+        <div class="sound-options" style="grid-template-columns:repeat(3,1fr);">
+            <button class="sound-opt" onclick="openBrainDrills();closeSoundOverlay()"><div class="sound-emoji">🧠</div><div class="sound-name">Brain Drills</div></button>
+            <button class="sound-opt" onclick="openBrainTeaser();closeSoundOverlay()"><div class="sound-emoji">🧩</div><div class="sound-name">Teaser</div></button>
+            <button class="sound-opt" onclick="openDailySpin();closeSoundOverlay()"><div class="sound-emoji">🎡</div><div class="sound-name">Daily Spin</div></button>
+        </div>
+        <div class="hub-section-label">🔢 Number Tools</div>
+        <div class="sound-options" style="grid-template-columns:repeat(3,1fr);">
             <button class="sound-opt" onclick="openHundredChart();closeSoundOverlay()"><div class="sound-emoji">💯</div><div class="sound-name">Hundred Chart</div></button>
             <button class="sound-opt" onclick="openNumberFriend();closeSoundOverlay()"><div class="sound-emoji">🤝</div><div class="sound-name">Number Friend</div></button>
-            <button class="sound-opt" onclick="openClockToy();closeSoundOverlay()"><div class="sound-emoji">🕐</div><div class="sound-name">Clock Toy</div></button>
-            <button class="sound-opt" onclick="openCoinSorter();closeSoundOverlay()"><div class="sound-emoji">🪙</div><div class="sound-name">Coin Maker</div></button>
             <button class="sound-opt" onclick="openHopCounter();closeSoundOverlay()"><div class="sound-emoji">🐸</div><div class="sound-name">Hop Counter</div></button>
             <button class="sound-opt" onclick="openCountingSong();closeSoundOverlay()"><div class="sound-emoji">🎵</div><div class="sound-name">Count Song</div></button>
             <button class="sound-opt" onclick="openSkipChant();closeSoundOverlay()"><div class="sound-emoji">⏭️</div><div class="sound-name">Skip Count</div></button>
             <button class="sound-opt" onclick="openFingerCount();closeSoundOverlay()"><div class="sound-emoji">✋</div><div class="sound-name">Fingers</div></button>
-            <button class="sound-opt" onclick="openSoundboard();closeSoundOverlay()"><div class="sound-emoji">🎹</div><div class="sound-name">Sounds</div></button>
-            <button class="sound-opt" onclick="openMusicMaker();closeSoundOverlay()"><div class="sound-emoji">🎼</div><div class="sound-name">Music Maker</div></button>
+        </div>
+        <div class="hub-section-label">🕐 Real Life</div>
+        <div class="sound-options" style="grid-template-columns:repeat(3,1fr);">
+            <button class="sound-opt" onclick="openClockToy();closeSoundOverlay()"><div class="sound-emoji">🕐</div><div class="sound-name">Clock Toy</div></button>
+            <button class="sound-opt" onclick="openCoinSorter();closeSoundOverlay()"><div class="sound-emoji">🪙</div><div class="sound-name">Coin Maker</div></button>
             <button class="sound-opt" onclick="openMathGenie();closeSoundOverlay()"><div class="sound-emoji">🔮</div><div class="sound-name">Math Genie</div></button>
-            <button class="sound-opt" onclick="openDailySpin();closeSoundOverlay()"><div class="sound-emoji">🎡</div><div class="sound-name">Daily Spin</div></button>
+        </div>
+        <div class="hub-section-label">🎨 Creative</div>
+        <div class="sound-options" style="grid-template-columns:repeat(3,1fr);">
             <button class="sound-opt" onclick="openDrawPad();closeSoundOverlay()"><div class="sound-emoji">✏️</div><div class="sound-name">Drawing Pad</div></button>
+            <button class="sound-opt" onclick="openMusicMaker();closeSoundOverlay()"><div class="sound-emoji">🎼</div><div class="sound-name">Music Maker</div></button>
+            <button class="sound-opt" onclick="openSoundboard();closeSoundOverlay()"><div class="sound-emoji">🎹</div><div class="sound-name">Sounds</div></button>
+        </div>
+        <button class="sound-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
+// Consolidated "More" menu for less-used controls
+function openMoreMenu() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    const sp = (typeof loadSoundProfile === 'function') ? loadSoundProfile() : 'cheerful';
+    const spEmoji = sp === 'silent' ? '🤫' : sp === 'gentle' ? '🍃' : '🎉';
+    overlay.innerHTML = `<div class="sound-card hub-card">
+        <h2>⋯ More</h2>
+        <div class="sound-sub">Collections, settings, and surprises.</div>
+        <div class="hub-section-label">📦 My Stuff</div>
+        <div class="sound-options" style="grid-template-columns:repeat(3,1fr);">
+            <button class="sound-opt" onclick="openScrapbook();closeSoundOverlay()"><div class="sound-emoji">📖</div><div class="sound-name">Stickers</div></button>
+            <button class="sound-opt" onclick="openGlossary();closeSoundOverlay()"><div class="sound-emoji">📚</div><div class="sound-name">Words</div></button>
+            <button class="sound-opt" onclick="surpriseMe();closeSoundOverlay()"><div class="sound-emoji">🎲</div><div class="sound-name">Surprise</div></button>
+        </div>
+        <div class="hub-section-label">💬 Voice</div>
+        <div class="sound-options" style="grid-template-columns:repeat(2,1fr);">
+            <button class="sound-opt" onclick="hakanSays();closeSoundOverlay()"><div class="sound-emoji">🎤</div><div class="sound-name">Hakan Says</div></button>
+            <button class="sound-opt" onclick="openSoundProfilePicker();closeSoundOverlay()"><div class="sound-emoji">${spEmoji}</div><div class="sound-name">Sound</div></button>
+        </div>
+        <div class="hub-section-label">⚙️ Settings</div>
+        <div class="sound-options" style="grid-template-columns:repeat(3,1fr);">
+            <button class="sound-opt" onclick="openComfortPicker();closeSoundOverlay()"><div class="sound-emoji">🅰️</div><div class="sound-name">Comfort</div></button>
+            <button class="sound-opt" onclick="openThemePicker();closeSoundOverlay()"><div class="sound-emoji">🎨</div><div class="sound-name">Theme</div></button>
+            <button class="sound-opt" onclick="openHelpScreen();closeSoundOverlay()"><div class="sound-emoji">❓</div><div class="sound-name">Help</div></button>
         </div>
         <button class="sound-close">Close</button>
     </div>`;
