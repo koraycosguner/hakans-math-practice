@@ -69095,6 +69095,17 @@ function renderHomeModules() {
 
     let html = '';
 
+    // Time-based greeting
+    if (isHakan) {
+        const h = new Date().getHours();
+        const greet = h < 5  ? '🌙 Late night math, Hakan?' :
+                      h < 12 ? '☀️ Good morning, Hakan!' :
+                      h < 17 ? '🌤️ Good afternoon, Hakan!' :
+                      h < 21 ? '🌅 Good evening, Hakan!' :
+                               '🌙 Time to wind down, Hakan!';
+        html += `<div class="home-greeting">${greet}</div>`;
+    }
+
     // Top row: streak, pet, trophies (Hakan only)
     if (isHakan) {
         const petInfo = (typeof currentPetStage === 'function') ? currentPetStage() : null;
@@ -69302,11 +69313,16 @@ function renderHomeModules() {
 
         // Category completion: all modules with ≥1 star
         const catCompleted = mods.every((m) => progress[m.id]);
+        // 3-star mastery of every module in the category.
+        const catMastered = mods.every((m) => (progress[m.id] && progress[m.id].stars === 3));
         const catBadge = (catCompleted && isHakan) ? ' <span class="cat-badge">🏆</span>' : '';
+        const certBtn = (catMastered && isHakan)
+            ? ` <button class="cat-cert" onclick="event.stopPropagation();showCategoryCertificate('${cat.id}')" title="See certificate">🎓</button>`
+            : '';
 
-        html += `<section class="m-category${catCompleted && isHakan ? ' m-category-done' : ''}">
+        html += `<section class="m-category m-category-cat-${cat.id}${catCompleted && isHakan ? ' m-category-done' : ''}${catMastered && isHakan ? ' m-category-mastered' : ''}">
             <h3 class="m-category-heading">${cat.emoji} ${cat.title}
-                <span class="m-category-count">${mods.length}</span>${catBadge}
+                <span class="m-category-count">${mods.length}</span>${catBadge}${certBtn}
             </h3>
             <div class="m-category-grid">
                 ${mods.map((m) => {
@@ -69771,6 +69787,48 @@ function bindInteractivePrimitives(host) {
         });
         return;
     }
+}
+
+// Show a mastery certificate for a category Hakan has 3-starred fully.
+function showCategoryCertificate(catId) {
+    const cat = CATEGORIES.find((c) => c.id === catId);
+    if (!cat) return;
+    if (typeof playSound === 'function') playSound('correct');
+    const dt = new Date();
+    const dateStr = dt.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    const overlay = document.createElement('div');
+    overlay.className = 'cert-overlay';
+    overlay.innerHTML = `<div class="cert-card">
+        <div class="cert-border">
+            <div class="cert-emoji">${cat.emoji}</div>
+            <div class="cert-top">🏆 Certificate of Mastery 🏆</div>
+            <div class="cert-presented">Presented to</div>
+            <div class="cert-name">Hakan</div>
+            <div class="cert-line">for mastering</div>
+            <div class="cert-skill">${cat.title}</div>
+            <div class="cert-line">with three stars on every module.</div>
+            <div class="cert-stars">⭐ ⭐ ⭐</div>
+            <div class="cert-date">${dateStr}</div>
+        </div>
+        <div class="cert-actions">
+            <button class="cert-print" onclick="window.print()">🖨️ Print</button>
+            <button class="cert-close">Close</button>
+        </div>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.cert-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+    if (typeof launchConfetti === 'function') launchConfetti();
+}
+
+// Replay the current lesson audio (kid-controlled — they can re-hear).
+function replayLessonAudio() {
+    const mod = MODULES_BY_ID[moduleState.moduleId];
+    if (!mod || !mod.lesson) return;
+    const page = mod.lesson[moduleState.lessonIndex];
+    if (!page) return;
+    if (typeof playSound === 'function') playSound('click');
+    if (typeof speak === 'function') speak(page.text);
 }
 
 function nextLessonPage() {

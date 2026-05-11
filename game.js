@@ -3475,7 +3475,16 @@ function updateProgress() {
 }
 
 function setMascotMessage(msg, alsoSpeak = true) {
-    document.getElementById('mascot-message').textContent = msg;
+    const el = document.getElementById('mascot-message');
+    if (!el) return;
+    el.textContent = msg;
+    const bubble = el.closest('.speech-bubble');
+    if (bubble) {
+        bubble.classList.remove('bubble-pop');
+        // Force reflow so the animation re-triggers reliably.
+        void bubble.offsetWidth;
+        bubble.classList.add('bubble-pop');
+    }
     if (alsoSpeak) speak(msg);
 }
 
