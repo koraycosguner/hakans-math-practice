@@ -7979,6 +7979,75 @@ html.motion-reduced .pet-happy-heart { display: none; }
 }
 html.motion-reduced .pet-badge-emoji { animation: none; }
 
+/* ===== Iteration 23: theme picker ===== */
+.theme-btn {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
+}
+.theme-btn:active { transform: scale(0.96); }
+
+html.theme-sky body    { background: linear-gradient(180deg, #7dd3fc, #38bdf8, #0ea5e9); }
+html.theme-ocean body  { background: linear-gradient(180deg, #06b6d4, #0891b2, #155e75); }
+html.theme-jungle body { background: linear-gradient(180deg, #4ade80, #16a34a, #14532d); }
+html.theme-space body  { background: linear-gradient(180deg, #1e1b4b, #312e81, #4338ca); }
+html.theme-candy body  { background: linear-gradient(180deg, #f9a8d4, #ec4899, #be185d); }
+
+/* Theme previews on picker */
+.theme-preview-default { background: linear-gradient(135deg, #ede9fe, #ddd6fe) !important; }
+.theme-preview-sky     { background: linear-gradient(135deg, #e0f2fe, #7dd3fc) !important; }
+.theme-preview-ocean   { background: linear-gradient(135deg, #a5f3fc, #06b6d4) !important; }
+.theme-preview-jungle  { background: linear-gradient(135deg, #bbf7d0, #22c55e) !important; }
+.theme-preview-space   { background: linear-gradient(135deg, #c7d2fe, #4338ca) !important; color: white !important; }
+.theme-preview-candy   { background: linear-gradient(135deg, #fbcfe8, #ec4899) !important; }
+
+/* Click ripple effect on buttons */
+.click-ripple {
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple 0.6s ease-out forwards;
+    z-index: 99000;
+}
+@keyframes ripple {
+    0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+}
+html.motion-reduced .click-ripple { display: none; }
+
+/* Themed greeting (overlay slight) */
+html.theme-space .home-greeting { color: #fde68a; text-shadow: 0 2px 6px rgba(0,0,0,0.5); }
+html.theme-jungle .home-greeting { color: #ecfdf5; }
+html.theme-candy .home-greeting { color: white; text-shadow: 0 2px 6px rgba(190,24,93,0.5); }
+
+/* Stars background for space theme */
+html.theme-space body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, white, transparent 50%),
+        radial-gradient(2px 2px at 80% 60%, white, transparent 50%),
+        radial-gradient(1.5px 1.5px at 50% 20%, white, transparent 50%),
+        radial-gradient(2px 2px at 30% 80%, white, transparent 50%),
+        radial-gradient(1.5px 1.5px at 70% 40%, white, transparent 50%),
+        radial-gradient(2.5px 2.5px at 10% 60%, white, transparent 50%),
+        radial-gradient(1px 1px at 60% 90%, white, transparent 50%);
+    background-size: 200% 200%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.7;
+}
+html.theme-space .screen { position: relative; z-index: 1; }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

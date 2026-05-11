@@ -1071,6 +1071,26 @@ function _wrapMascotForWink() {
 }
 _wrapMascotForWink();
 
+// Click ripple effect on important buttons (gentle visual response).
+function _initClickRipple() {
+    if (window._rippleSetup) return;
+    window._rippleSetup = true;
+    document.addEventListener('click', (e) => {
+        const t = e.target.closest('button');
+        if (!t) return;
+        if (t.classList.contains('back-btn') || t.classList.contains('num-key')) return;
+        const r = document.createElement('span');
+        r.className = 'click-ripple';
+        r.style.left = e.clientX + 'px';
+        r.style.top = e.clientY + 'px';
+        r.style.width = '20px';
+        r.style.height = '20px';
+        document.body.appendChild(r);
+        setTimeout(() => r.remove(), 700);
+    });
+}
+_initClickRipple();
+
 function _triggerRainbowMode() {
     document.documentElement.classList.add('rainbow-mode');
     if (typeof launchConfetti === 'function') launchConfetti();
@@ -1437,6 +1457,51 @@ function loadVoiceSpeed() {
 function saveVoiceSpeed(s) {
     try { localStorage.setItem('hakans-math-voice-speed', s); } catch (e) {}
 }
+function loadTheme() {
+    try { return localStorage.getItem('hakans-math-theme') || 'default'; }
+    catch (e) { return 'default'; }
+}
+function saveTheme(t) {
+    try { localStorage.setItem('hakans-math-theme', t); } catch (e) {}
+    applyComfortSettings();
+}
+
+function openThemePicker() {
+    playSound('click');
+    const cur = loadTheme();
+    const themes = [
+        { id: 'default', emoji: '🟣', name: 'Classic' },
+        { id: 'sky',     emoji: '☁️',  name: 'Sky' },
+        { id: 'ocean',   emoji: '🌊', name: 'Ocean' },
+        { id: 'jungle',  emoji: '🌴', name: 'Jungle' },
+        { id: 'space',   emoji: '🚀', name: 'Space' },
+        { id: 'candy',   emoji: '🍬', name: 'Candy' },
+    ];
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    overlay.innerHTML = `<div class="sound-card">
+        <h2>🎨 Theme</h2>
+        <div class="sound-sub">Pick how the app looks.</div>
+        <div class="sound-options" style="grid-template-columns:repeat(3,1fr);">
+            ${themes.map((t) => `<button class="sound-opt ${cur===t.id?'sound-current':''} theme-preview-${t.id}" data-t="${t.id}">
+                <div class="sound-emoji">${t.emoji}</div>
+                <div class="sound-name">${t.name}</div>
+            </button>`).join('')}
+        </div>
+        <button class="sound-close">Done</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelectorAll('[data-t]').forEach((b) => {
+        b.addEventListener('click', () => {
+            saveTheme(b.getAttribute('data-t'));
+            overlay.remove();
+            if (typeof renderHomeModules === 'function') renderHomeModules();
+        });
+    });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
 function loadFeedbackIntensity() {
     try { return localStorage.getItem('hakans-math-feedback') || 'normal'; }
     catch (e) { return 'normal'; }
@@ -1462,6 +1527,9 @@ function applyComfortSettings() {
     const fb = loadFeedbackIntensity();
     root.classList.remove('feedback-normal', 'feedback-gentle');
     root.classList.add(`feedback-${fb}`);
+    const th = loadTheme();
+    root.classList.remove('theme-default','theme-sky','theme-ocean','theme-jungle','theme-space','theme-candy');
+    root.classList.add(`theme-${th}`);
 }
 
 function openComfortPicker() {

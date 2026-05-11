@@ -69169,6 +69169,7 @@ function renderHomeModules() {
         html += `<button class="comfort-btn" onclick="openComfortPicker()" title="Text &amp; motion">🅰️ Comfort</button>`;
         html += `<button class="hakansays-btn" onclick="hakanSays()" title="Hear an encouragement">🎤 Hakan Says</button>`;
         html += `<button class="surprise-btn" onclick="surpriseMe()" title="Pick a random module">🎲 Surprise!</button>`;
+        html += `<button class="theme-btn" onclick="openThemePicker()" title="Change theme">🎨 Theme</button>`;
         html += `<button class="help-btn" onclick="openHelpScreen()" title="How to use the app">❓ Help</button>`;
         html += `</div>`;
         // Module search
