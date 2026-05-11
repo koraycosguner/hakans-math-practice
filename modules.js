@@ -8,30 +8,52 @@
 // Visual helpers (SVG; iOS Safari needs explicit width/height attrs).
 // ----------------------------------------------------------------------
 
+// Place-value blocks (base-10): tall blue bars = tens, small orange
+// squares = ones. Polished: gradient fills, drop shadow, labels.
 function renderBlocks(tens, ones) {
-    const tenW = 26, tenH = 110, oneSz = 20, tenGap = 6, oneGap = 4, groupGap = 28;
+    const tenW = 28, tenH = 110, oneSz = 22, tenGap = 8, oneGap = 4, groupGap = 30;
     const tensW = tens > 0 ? tens * tenW + (tens - 1) * tenGap : 0;
     const onesPerRow = Math.min(ones || 1, 5);
     const onesW = ones > 0 ? onesPerRow * oneSz + (onesPerRow - 1) * oneGap : 0;
     const onesStart = (tens > 0 && ones > 0) ? tensW + groupGap : 0;
     const totalW = (tens > 0 || ones > 0) ? Math.max(onesStart + onesW, tensW) : 60;
     const parts = [];
+    // Gradient + shadow defs
+    parts.push(`<defs>
+        <linearGradient id="blockTen" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#818cf8"/>
+            <stop offset="50%" stop-color="#6366f1"/>
+            <stop offset="100%" stop-color="#3730a3"/>
+        </linearGradient>
+        <linearGradient id="blockOne" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fed7aa"/>
+            <stop offset="100%" stop-color="#ea580c"/>
+        </linearGradient>
+        <filter id="blkShadow" x="-15%" y="-15%" width="130%" height="130%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+            <feOffset dx="0" dy="2"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.4"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+    </defs>`);
     for (let i = 0; i < tens; i++) {
         const x = i * (tenW + tenGap);
-        parts.push(`<rect x="${x}" y="0" width="${tenW}" height="${tenH}" rx="3" fill="#5B6BFF" stroke="#3D49C9" stroke-width="2"/>`);
+        parts.push(`<rect x="${x}" y="0" width="${tenW}" height="${tenH}" rx="4" fill="url(#blockTen)" stroke="#1e1b4b" stroke-width="2" filter="url(#blkShadow)"/>`);
         for (let j = 1; j < 10; j++) {
             const y = j * (tenH / 10);
-            parts.push(`<line x1="${x}" y1="${y}" x2="${x + tenW}" y2="${y}" stroke="#3D49C9" stroke-width="1"/>`);
+            parts.push(`<line x1="${x + 1}" y1="${y}" x2="${x + tenW - 1}" y2="${y}" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>`);
         }
+        // "10" label on top of each tens bar
+        parts.push(`<text x="${x + tenW / 2}" y="-3" text-anchor="middle" font-family="Outfit,sans-serif" font-size="11" font-weight="900" fill="#1e1b4b">10</text>`);
     }
     for (let i = 0; i < ones; i++) {
         const col = i % 5, row = Math.floor(i / 5);
         const x = onesStart + col * (oneSz + oneGap);
         const y = row * (oneSz + oneGap);
-        parts.push(`<rect x="${x}" y="${y}" width="${oneSz}" height="${oneSz}" rx="2" fill="#FFB74D" stroke="#E69100" stroke-width="2"/>`);
+        parts.push(`<rect x="${x}" y="${y}" width="${oneSz}" height="${oneSz}" rx="3" fill="url(#blockOne)" stroke="#7c2d12" stroke-width="2" filter="url(#blkShadow)"/>`);
     }
-    const vbW = totalW + 10, vbH = tenH + 10;
-    return `<svg viewBox="-5 -5 ${vbW} ${vbH}" width="${vbW}" height="${vbH}" xmlns="http://www.w3.org/2000/svg" class="m-svg pv-blocks" preserveAspectRatio="xMidYMid meet">${parts.join('')}</svg>`;
+    const vbW = totalW + 10, vbH = tenH + 20;
+    return `<svg viewBox="-5 -16 ${vbW} ${vbH}" width="${vbW}" height="${vbH}" xmlns="http://www.w3.org/2000/svg" class="m-svg pv-blocks" preserveAspectRatio="xMidYMid meet">${parts.join('')}</svg>`;
 }
 
 function renderTwoDigitNumber(n, highlight) {
