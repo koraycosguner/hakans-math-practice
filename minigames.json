@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "frog-pond",
+    "title": "Frog Pond",
+    "emoji": "🐸",
+    "description": "Hop the frog across lily pads to the far shore!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Tap the lily pad with the right answer. The frog hops forward, leaving a water ripple behind. Reach the far shore!",
+    "rules": [
+      "🐸 Frog sits on the home shore (rocks + reeds).",
+      "Each round, 3 lily pads 🪷 float with numbers.",
+      "Right tap → frog hops forward with water ripples.",
+      "Reach the far shore (trees + flowers) after 5 / 6 / 8 hops → +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "music-note-match",
     "title": "Music Note Match",
     "emoji": "🎹",

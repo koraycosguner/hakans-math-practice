@@ -6121,3 +6121,164 @@ GAME_IMPLS['music-note-match'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 39. FROG POND — Hop across lily pads to the other side! 🐸
+// Frog stands on one shore of a pond. Several lily pads float across,
+// each with a number. Tap the lily pad with the right answer → frog
+// hops to it (water ripple). Reach the far shore (5/6/8 hops) → win.
+// =====================================================================
+GAME_IMPLS['frog-pond'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const totalHops = diff === 'easy' ? 5 : diff === 'hard' ? 8 : 6;
+        const padsPerRow = 3;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-frog-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-frog-q';
+        wrap.appendChild(qBox);
+
+        // Pond scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-frog-scene';
+        // Shore (top)
+        const farShore = document.createElement('div');
+        farShore.className = 'mg-frog-shore mg-frog-shore-far';
+        farShore.innerHTML = '🌳 🌷 🌳 🌷 🌳';
+        scene.appendChild(farShore);
+        // Pond water
+        const pond = document.createElement('div');
+        pond.className = 'mg-frog-pond';
+        scene.appendChild(pond);
+        // Home shore (bottom)
+        const homeShore = document.createElement('div');
+        homeShore.className = 'mg-frog-shore mg-frog-shore-home';
+        homeShore.innerHTML = '🪨 🌿 🪨 🌿 🪨';
+        scene.appendChild(homeShore);
+        // Frog
+        const frog = document.createElement('div');
+        frog.className = 'mg-frog-frog';
+        frog.textContent = '🐸';
+        scene.appendChild(frog);
+
+        wrap.appendChild(scene);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-frog-prog';
+        wrap.appendChild(prog);
+
+        // (Options live as lily pads inside the pond)
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let hops = 0;
+
+        function placeFrog() {
+            // hops 0 = home shore (bottom), hops totalHops = far shore (top)
+            const t = hops / totalHops;
+            const bottomPct = 4 + t * 84; // 4% above home → 88% near far shore
+            frog.style.bottom = `${bottomPct}%`;
+            frog.style.left = '50%';
+        }
+
+        function clearPads() {
+            pond.querySelectorAll('.mg-frog-pad').forEach((p) => p.remove());
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML =
+                `<div class="mg-frog-task">🐸 Hop to the next lily pad!</div>` +
+                `<div class="mg-frog-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-frog-eqs">=</span><span class="mg-frog-qmark">?</span></div>`;
+            // Build pads
+            clearPads();
+            const set = new Set([target.ans]);
+            while (set.size < padsPerRow) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const nums = Array.from(set).sort(() => Math.random() - 0.5);
+            nums.forEach((n, i) => {
+                const pad = document.createElement('div');
+                pad.className = 'mg-frog-pad';
+                pad.innerHTML = `<span class="mg-frog-pad-lily">🪷</span><span class="mg-frog-pad-num">${n}</span>`;
+                pad.style.left = `${15 + i * 32}%`;
+                pad.style.animationDelay = `${i * 400}ms`;
+                pad.dataset.correct = (n === target.ans) ? '1' : '0';
+                pad.onclick = (e) => onPadTap(pad, e);
+                pond.appendChild(pad);
+            });
+        }
+
+        function makeRipple(x, y) {
+            const ripple = document.createElement('span');
+            ripple.className = 'mg-frog-ripple';
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            pond.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 1100);
+        }
+
+        function onPadTap(pad, e) {
+            const correct = pad.dataset.correct === '1';
+            const padRect = pad.getBoundingClientRect();
+            const pondRect = pond.getBoundingClientRect();
+            const rx = padRect.left - pondRect.left + padRect.width / 2;
+            const ry = padRect.top - pondRect.top + padRect.height / 2;
+            if (correct) {
+                pad.classList.add('mg-frog-pad-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                makeRipple(rx, ry);
+                hops += 1;
+                frog.classList.add('mg-frog-frog-hop');
+                placeFrog();
+                setTimeout(() => frog.classList.remove('mg-frog-frog-hop'), 600);
+                prog.innerHTML = `🐸 Hops: <b>${hops}</b> / ${totalHops}`;
+                if (hops >= totalHops) {
+                    qBox.innerHTML = `<div class="mg-frog-win">🌳 FAR SHORE! +5 💎</div>`;
+                    clearPads();
+                    frog.classList.add('mg-frog-frog-cheer');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2700);
+                    return;
+                }
+                setTimeout(nextProblem, 700);
+            } else {
+                pad.classList.add('mg-frog-pad-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => pad.classList.remove('mg-frog-pad-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            hops = 0;
+            placeFrog();
+            frog.classList.remove('mg-frog-frog-cheer');
+            prog.innerHTML = `🐸 Hops: <b>0</b> / ${totalHops}`;
+            nextProblem();
+        }
+
+        placeFrog();
+        prog.innerHTML = `🐸 Hops: <b>0</b> / ${totalHops}`;
+        nextProblem();
+        return { stop() {} };
+    }
+};
