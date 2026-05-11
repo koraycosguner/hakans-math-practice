@@ -7942,24 +7942,57 @@ html.motion-reduced .m-take-item { animation: none; }
 .sound-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.55);
+    background: radial-gradient(ellipse at center, rgba(67, 56, 202, 0.4) 0%, rgba(0, 0, 0, 0.7) 70%);
+    backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 99000;
     padding: 20px;
+    animation: overlayFade 0.25s ease-out;
+}
+@keyframes overlayFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 .sound-card {
-    background: white;
-    border-radius: 24px;
-    padding: 24px 22px;
-    max-width: 420px;
+    background: linear-gradient(180deg, white 0%, #fafbff 100%);
+    border-radius: 28px;
+    padding: 28px 24px;
+    max-width: 440px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.35),
+        0 0 0 4px rgba(108, 99, 255, 0.1);
+    border: 2px solid rgba(108, 99, 255, 0.12);
+    position: relative;
+    overflow: hidden;
+    animation: cardPop 0.35s cubic-bezier(0.3, 1.4, 0.5, 1);
 }
-.sound-card h2 { color: var(--primary); margin: 0 0 6px; }
-.sound-sub { color: var(--text-light); font-size: 0.92rem; margin-bottom: 14px; }
+.sound-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    border-radius: 0 0 999px 999px;
+}
+@keyframes cardPop {
+    0%   { transform: scale(0.85); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+html.motion-reduced .sound-card, html.motion-reduced .sound-overlay { animation: none; }
+.sound-card h2 {
+    color: var(--primary);
+    margin: 0 0 6px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+}
+.sound-sub { color: var(--text-light); font-size: 0.95rem; margin-bottom: 16px; }
 .sound-options {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -8034,23 +8067,48 @@ html.motion-reduced .m-take-item { animation: none; }
 .potd-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.55);
+    background: radial-gradient(ellipse at center, rgba(67, 56, 202, 0.45) 0%, rgba(0, 0, 0, 0.7) 70%);
+    backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 99500;
     padding: 20px;
+    animation: overlayFade 0.25s ease-out;
 }
 .potd-card {
-    background: white;
-    border-radius: 24px;
-    padding: 24px 22px;
+    background: linear-gradient(180deg, white 0%, #fafbff 100%);
+    border-radius: 28px;
+    padding: 28px 24px;
     max-width: 480px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+    box-shadow:
+        0 30px 70px rgba(0,0,0,0.4),
+        0 0 0 4px rgba(108, 99, 255, 0.1);
+    border: 2px solid rgba(108, 99, 255, 0.12);
+    position: relative;
+    overflow: hidden;
+    animation: cardPop 0.35s cubic-bezier(0.3, 1.4, 0.5, 1);
 }
-.potd-card h2 { color: var(--primary); margin: 0 0 8px; }
+.potd-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 5px;
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    border-radius: 0 0 999px 999px;
+}
+html.motion-reduced .potd-card { animation: none; }
+.potd-card h2 {
+    color: var(--primary);
+    margin: 0 0 8px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+}
 .potd-question {
     font-size: 1.8rem;
     font-weight: 900;
