@@ -7283,3 +7283,198 @@ GAME_IMPLS['math-defender'] = {
         };
     }
 };
+
+// =====================================================================
+// 43. DINO MATH JUMP — Chrome-dinosaur-style endless runner! 🦖
+// Hakan-character runs across a desert. Obstacles approach from the
+// right, each labelled with a number. The math problem at the top picks
+// ONE correct answer — Hakan must jump over THAT obstacle. Missing it
+// = bump + lose heart. Speed ramps up; distance is the score.
+// =====================================================================
+GAME_IMPLS['dino-math-jump'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+        const startSpeed = diff === 'easy' ? 110 : diff === 'hard' ? 200 : 150;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-dino2-wrap';
+
+        const hud = document.createElement('div');
+        hud.className = 'mg-dino2-hud';
+        hud.innerHTML = `
+            <div class="mg-dino2-hud-item"><span class="mg-dino2-hud-label">❤️</span><span class="mg-dino2-hud-val" id="d2-lives">3</span></div>
+            <div class="mg-dino2-hud-item"><span class="mg-dino2-hud-label">🏆</span><span class="mg-dino2-hud-val" id="d2-distance">0m</span></div>
+            <div class="mg-dino2-hud-item"><span class="mg-dino2-hud-label">⚡</span><span class="mg-dino2-hud-val" id="d2-speed">1x</span></div>
+        `;
+        wrap.appendChild(hud);
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-dino2-q';
+        wrap.appendChild(qBox);
+
+        const scene = document.createElement('div');
+        scene.className = 'mg-dino2-scene';
+        scene.innerHTML = `
+            <div class="mg-dino2-sky">
+                <span class="mg-dino2-sun">☀️</span>
+                <span class="mg-dino2-cloud mg-dino2-cloud-1">☁️</span>
+                <span class="mg-dino2-cloud mg-dino2-cloud-2">☁️</span>
+            </div>
+            <div class="mg-dino2-mountains"></div>
+            <div class="mg-dino2-ground"></div>
+            <div class="mg-dino2-obstacles" id="d2-obstacles"></div>
+            <div class="mg-dino2-dino" id="d2-dino">🦖</div>
+        `;
+        wrap.appendChild(scene);
+
+        const ctrl = document.createElement('div');
+        ctrl.className = 'mg-dino2-controls';
+        ctrl.innerHTML = `<button class="mg-dino2-jump">⬆️ JUMP</button>`;
+        wrap.appendChild(ctrl);
+
+        ctx.area.appendChild(wrap);
+
+        const dino = scene.querySelector('#d2-dino');
+        const obsEl = scene.querySelector('#d2-obstacles');
+        const livesEl = hud.querySelector('#d2-lives');
+        const distEl = hud.querySelector('#d2-distance');
+        const speedEl = hud.querySelector('#d2-speed');
+
+        let lives = 3;
+        let distance = 0;
+        let speed = startSpeed;
+        let lastSpawnAt = 0;
+        let lastTs = 0;
+        let raf = null;
+        let stopped = false;
+        let target = null;
+        let isJumping = false;
+        const obs = [];
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+        function setProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<span class="mg-dino2-q-eq">Jump over: <b>${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}</b></span>`;
+        }
+
+        function jump() {
+            if (isJumping) return;
+            isJumping = true;
+            dino.classList.add('mg-dino2-dino-jump');
+            setTimeout(() => {
+                dino.classList.remove('mg-dino2-dino-jump');
+                isJumping = false;
+            }, 700);
+        }
+        scene.addEventListener('click', jump);
+        ctrl.querySelector('.mg-dino2-jump').addEventListener('click', (e) => { e.stopPropagation(); jump(); });
+        const dinoKey = (e) => {
+            if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'Spacebar') {
+                e.preventDefault();
+                jump();
+            }
+        };
+        document.addEventListener('keydown', dinoKey);
+
+        const OBSTACLE_EMOJI = ['🌵', '🪨', '🦂', '🌵'];
+        function spawnObstacle() {
+            const ans = target ? target.ans : 5;
+            const isAnswer = Math.random() < 0.5;
+            const value = isAnswer ? ans : Math.max(0, ans + (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1));
+            const el = document.createElement('div');
+            el.className = 'mg-dino2-obstacle';
+            el.innerHTML = `<span class="mg-dino2-obs-emoji">${OBSTACLE_EMOJI[Math.floor(Math.random() * OBSTACLE_EMOJI.length)]}</span><span class="mg-dino2-obs-num">${value}</span>`;
+            el.style.right = '-60px';
+            obsEl.appendChild(el);
+            obs.push({ el, x: 0, value, passed: false, isAnswer: value === ans });
+        }
+
+        function loop2(ts) {
+            if (stopped) return;
+            if (!lastTs) lastTs = ts;
+            const dt = Math.min(50, ts - lastTs) / 1000;
+            lastTs = ts;
+            speed = Math.min(startSpeed * 2.5, speed + dt * 5);
+            distance += speed * dt * 0.1;
+            distEl.textContent = Math.round(distance) + 'm';
+            speedEl.textContent = (speed / startSpeed).toFixed(1) + 'x';
+
+            const interval = Math.max(900, 2100 - (speed - startSpeed) * 4);
+            if (ts - lastSpawnAt > interval) {
+                lastSpawnAt = ts;
+                spawnObstacle();
+            }
+
+            const sceneRect = scene.getBoundingClientRect();
+            const dinoLeft = 14;
+            const dinoWidth = 10;
+            for (const o of obs) {
+                o.x += speed * dt;
+                o.el.style.right = (o.x - 60) + 'px';
+                const obsRightPx = sceneRect.width - (o.x - 60);
+                const obsRightPct = (obsRightPx / sceneRect.width) * 100;
+                if (!o.passed && obsRightPct < dinoLeft + dinoWidth && obsRightPct > dinoLeft - 4) {
+                    o.passed = true;
+                    if (o.isAnswer) {
+                        if (isJumping) {
+                            ctx.onScore(2, {
+                                x: sceneRect.left + (dinoLeft / 100) * sceneRect.width,
+                                y: sceneRect.top + sceneRect.height - 80,
+                            });
+                            o.el.classList.add('mg-dino2-obs-cleared');
+                            setProblem();
+                        } else {
+                            lives -= 1;
+                            livesEl.textContent = lives;
+                            ctx.onPenalty(2, {
+                                x: sceneRect.left + (dinoLeft / 100) * sceneRect.width,
+                                y: sceneRect.top + sceneRect.height - 80,
+                            });
+                            dino.classList.add('mg-dino2-dino-hit');
+                            setTimeout(() => dino.classList.remove('mg-dino2-dino-hit'), 600);
+                            o.el.classList.add('mg-dino2-obs-hit');
+                            if (lives <= 0) {
+                                stopped = true;
+                                qBox.innerHTML = '<span class="mg-dino2-gameover">💀 GAME OVER — ' + Math.round(distance) + 'm</span>';
+                                setTimeout(() => ctx.onWin(), 1400);
+                                return;
+                            }
+                            setProblem();
+                        }
+                    } else {
+                        if (isJumping) o.el.classList.add('mg-dino2-obs-cleared');
+                    }
+                }
+            }
+            for (let i = obs.length - 1; i >= 0; i--) {
+                if (obs[i].x > sceneRect.width + 100) {
+                    try { obs[i].el.remove(); } catch {}
+                    obs.splice(i, 1);
+                }
+            }
+            raf = requestAnimationFrame(loop2);
+        }
+
+        setProblem();
+        raf = requestAnimationFrame(loop2);
+
+        return {
+            stop() {
+                stopped = true;
+                if (raf) cancelAnimationFrame(raf);
+                document.removeEventListener('keydown', dinoKey);
+            }
+        };
+    }
+};

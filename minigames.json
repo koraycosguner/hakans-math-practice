@@ -601,6 +601,29 @@
     "config": {}
   },
   {
+    "id": "dino-math-jump",
+    "title": "Dino Math Jump",
+    "emoji": "🦖",
+    "description": "Endless runner! Jump over the obstacle with the right answer.",
+    "category": "action",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Run forever! Jump over the obstacle with the right answer. Wrong = crash. Go for max distance!",
+    "rules": [
+      "🦖 Hakan-dino runs across a desert. Obstacles (🌵 🪨 🦂) charge from the right.",
+      "Each obstacle has a number. Math problem at the top picks the answer.",
+      "Tap (or press SPACE/⬆️) to jump JUST OVER the right-answer obstacle.",
+      "Miss it = crash + lose 1 of 3 ❤️.",
+      "Distance score climbs the longer you survive. Speed ramps up to 2.5x."
+    ],
+    "rewards": {
+      "robuxPerWin": 2,
+      "bonusForRecord": 4
+    },
+    "config": {}
+  },
+  {
     "id": "math-defender",
     "title": "Math Defender",
     "emoji": "🚀",

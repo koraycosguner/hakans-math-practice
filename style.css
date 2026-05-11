@@ -4717,6 +4717,228 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     }
 }
 
+/* ===== Mini-game 43 · Dino Math Jump (Chrome dinosaur endless runner) ===== */
+.mg-theme-dino-math-jump.mg-play-area {
+    background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 60%, #b45309 100%);
+    padding: 10px;
+}
+.mg-dino2-wrap { display: flex; flex-direction: column; gap: 8px; height: 100%; }
+.mg-dino2-hud {
+    display: flex;
+    justify-content: space-around;
+    background: linear-gradient(180deg, #7c2d12, #431407);
+    border: 3px solid #fbbf24;
+    border-radius: 14px;
+    padding: 6px 10px;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4);
+    font-family: 'Courier New', monospace;
+}
+.mg-dino2-hud-item { display: flex; align-items: center; gap: 6px; color: white; }
+.mg-dino2-hud-label { font-size: 1.2rem; }
+.mg-dino2-hud-val {
+    font-size: 1.1rem;
+    font-weight: 900;
+    text-shadow: 0 2px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000;
+}
+
+.mg-dino2-q {
+    background: linear-gradient(135deg, #fde047 0%, #facc15 100%);
+    border: 3px solid #ca8a04;
+    border-radius: 14px;
+    padding: 8px 16px;
+    text-align: center;
+    box-shadow: 0 4px 0 #92400e;
+    align-self: center;
+    min-width: 220px;
+}
+.mg-dino2-q-eq {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #7c2d12;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+.mg-dino2-q-eq b {
+    background: linear-gradient(135deg, #f97316, #dc2626);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 8px;
+    margin-left: 6px;
+}
+.mg-dino2-gameover {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #7f1d1d;
+    text-shadow: 0 2px 0 white;
+}
+
+.mg-dino2-scene {
+    position: relative;
+    flex: 1;
+    min-height: 320px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 3px solid #7c2d12;
+    background: linear-gradient(180deg, #fbbf24 0%, #f97316 80%);
+}
+.mg-dino2-sky { position: absolute; inset: 0 0 50% 0; pointer-events: none; }
+.mg-dino2-sun {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    font-size: 2.2rem;
+    filter: drop-shadow(0 0 14px rgba(252, 211, 77, 0.8));
+    animation: mgDino2Sun 18s linear infinite;
+}
+@keyframes mgDino2Sun {
+    0%   { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+.mg-dino2-cloud {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: mgDino2Cloud 22s linear infinite;
+}
+.mg-dino2-cloud-1 { top: 12%; left: -10%; }
+.mg-dino2-cloud-2 { top: 28%; left: -10%; animation-delay: -8s; }
+@keyframes mgDino2Cloud {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(540px); }
+}
+.mg-dino2-mountains {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 24%;
+    height: 90px;
+    background:
+        radial-gradient(ellipse 120px 80px at 20% 100%, #7c2d12 0%, #7c2d12 50%, transparent 50.5%),
+        radial-gradient(ellipse 140px 100px at 55% 100%, #92400e 0%, #92400e 50%, transparent 50.5%),
+        radial-gradient(ellipse 100px 70px at 85% 100%, #7c2d12 0%, #7c2d12 50%, transparent 50.5%);
+    pointer-events: none;
+    opacity: 0.7;
+}
+.mg-dino2-ground {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 24%;
+    background:
+        repeating-linear-gradient(90deg,
+            #b45309 0px, #b45309 12px,
+            #92400e 12px, #92400e 14px),
+        linear-gradient(180deg, #b45309, #78350f);
+    background-blend-mode: multiply, normal;
+    border-top: 3px solid #fbbf24;
+    box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.15);
+    animation: mgDino2GroundScroll 0.4s linear infinite;
+}
+@keyframes mgDino2GroundScroll {
+    0%   { background-position: 0 0, 0 0; }
+    100% { background-position: 26px 0, 0 0; }
+}
+.mg-dino2-obstacles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+.mg-dino2-obstacle {
+    position: absolute;
+    bottom: 18%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.45));
+}
+.mg-dino2-obs-emoji { font-size: 2.4rem; line-height: 1; }
+.mg-dino2-obs-num {
+    font-size: 1rem;
+    font-weight: 900;
+    color: white;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    padding: 2px 10px;
+    border-radius: 999px;
+    border: 2px solid #fbbf24;
+    text-shadow: 0 1px 0 #000;
+    margin-top: -4px;
+}
+.mg-dino2-obs-cleared { animation: mgDino2ObsCleared 0.4s ease forwards; }
+@keyframes mgDino2ObsCleared {
+    0%   { transform: scale(1); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.45)); }
+    50%  { transform: scale(1.2); filter: drop-shadow(0 0 12px gold); }
+    100% { transform: scale(0.6); opacity: 0.5; }
+}
+.mg-dino2-obs-hit {
+    animation: mgDino2ObsHit 0.4s ease forwards;
+}
+@keyframes mgDino2ObsHit {
+    0%   { transform: scale(1) rotate(0); }
+    100% { transform: scale(0.7) rotate(45deg); opacity: 0.4; }
+}
+.mg-dino2-dino {
+    position: absolute;
+    bottom: 24%;
+    left: 14%;
+    font-size: 3rem;
+    line-height: 1;
+    z-index: 5;
+    filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.45));
+    animation: mgDino2DinoRun 0.18s steps(2, end) infinite;
+}
+@keyframes mgDino2DinoRun {
+    0%   { transform: translateY(0) rotate(-2deg); }
+    100% { transform: translateY(-2px) rotate(2deg); }
+}
+.mg-dino2-dino-jump {
+    animation: mgDino2DinoJump 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+@keyframes mgDino2DinoJump {
+    0%   { transform: translateY(0) rotate(0); }
+    40%  { transform: translateY(-120px) rotate(-12deg); }
+    70%  { transform: translateY(-80px) rotate(8deg); }
+    100% { transform: translateY(0) rotate(0); }
+}
+.mg-dino2-dino-hit {
+    animation: mgDino2DinoHit 0.6s ease !important;
+}
+@keyframes mgDino2DinoHit {
+    0%, 100% { filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.45)); }
+    25%      { transform: translateX(-8px) rotate(-12deg); filter: drop-shadow(0 0 14px #ef4444); }
+    75%      { transform: translateX(8px) rotate(12deg); }
+}
+
+.mg-dino2-controls { display: flex; justify-content: center; padding: 0 4px; }
+.mg-dino2-jump {
+    width: 100%;
+    background: linear-gradient(135deg, #16a34a, #14532d);
+    color: white;
+    border: 3px solid #15803d;
+    border-radius: 16px;
+    padding: 14px 0;
+    font-size: 1.4rem;
+    font-weight: 900;
+    cursor: pointer;
+    touch-action: manipulation;
+    box-shadow: 0 5px 0 #14532d, 0 8px 18px rgba(20, 83, 45, 0.4);
+    transition: transform 0.12s ease, box-shadow 0.15s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.04em;
+}
+.mg-dino2-jump:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 #14532d, 0 12px 22px rgba(20, 83, 45, 0.55);
+}
+.mg-dino2-jump:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #14532d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-dino2-sun, .mg-dino2-cloud, .mg-dino2-ground, .mg-dino2-dino,
+    .mg-dino2-dino-jump, .mg-dino2-dino-hit, .mg-dino2-obs-cleared,
+    .mg-dino2-obs-hit {
+        animation: none !important;
+    }
+}
+
 .mg-shake {
     animation: mgAreaShake 0.4s ease-in-out;
 }
