@@ -122,10 +122,39 @@ function saveModuleProgress(moduleId, stars) {
     const prev = all[moduleId];
     // Only upgrade — never downgrade a previous best score.
     const best = prev && prev.stars > stars ? prev.stars : stars;
+    const beforeCount = Object.keys(all).length;
+    const wasNewModule = !prev;
     all[moduleId] = { stars: best, lastCompleted: Date.now() };
     try {
         localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(all));
     } catch (e) {}
+    // Milestone confetti at 10 / 25 / 50 / 100 / 150 modules.
+    if (wasNewModule) {
+        const after = beforeCount + 1;
+        const milestones = [10, 25, 50, 100, 150, 200];
+        if (milestones.includes(after) && typeof _milestoneConfetti === 'function') {
+            _milestoneConfetti(after);
+        }
+    }
+}
+
+function _milestoneConfetti(count) {
+    // Schedule slightly after the results screen settles.
+    setTimeout(() => {
+        const overlay = document.createElement('div');
+        overlay.className = 'milestone-overlay';
+        overlay.innerHTML = `<div class="milestone-card">
+            <div class="milestone-emoji">🎊</div>
+            <div class="milestone-num">${count}</div>
+            <div class="milestone-text">modules visited, Hakan!</div>
+            <div class="milestone-sub">Look how far you've come 🌟</div>
+            <button class="milestone-close">Awesome!</button>
+        </div>`;
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+        overlay.querySelector('.milestone-close').addEventListener('click', () => overlay.remove());
+        document.body.appendChild(overlay);
+        if (typeof launchConfetti === 'function') launchConfetti();
+    }, 1200);
 }
 
 function resetProgress() {
@@ -1324,6 +1353,18 @@ function showOnboardingStep(steps, idx) {
         target.classList.remove('ob-highlighted');
         overlay.remove();
         showOnboardingStep(steps, idx + 1);
+    });
+}
+
+function filterGlossary(q) {
+    const term = (q || '').toLowerCase().trim();
+    document.querySelectorAll('#glossary-body .glo-card').forEach((card) => {
+        if (!term) { card.style.display = ''; return; }
+        const word = (card.querySelector('.glo-word') || {}).textContent || '';
+        const meaning = (card.querySelector('.glo-meaning') || {}).textContent || '';
+        const example = (card.querySelector('.glo-example') || {}).textContent || '';
+        const hit = (word + ' ' + meaning + ' ' + example).toLowerCase().includes(term);
+        card.style.display = hit ? '' : 'none';
     });
 }
 
@@ -3640,7 +3681,33 @@ function setMascotMessage(msg, alsoSpeak = true) {
         void bubble.offsetWidth;
         bubble.classList.add('bubble-pop');
     }
+    // Add a mood emoji overlay near the mascot photo, picked from the message.
+    _setMascotMood(_inferMood(msg));
     if (alsoSpeak) speak(msg);
+}
+
+function _inferMood(msg) {
+    if (!msg) return '';
+    const m = msg.toLowerCase();
+    if (/wrong|try again|almost|oops|hmm|don't give up|keep trying/.test(m)) return '🤔';
+    if (/streak|fire|on a roll|hot|in a row/.test(m)) return '🔥';
+    if (/win|perfect|amazing|wow|champion|wizard|genius|aced/.test(m)) return '🎉';
+    if (/think|hint|let me help|figure out/.test(m)) return '💡';
+    if (/welcome|hello|hi |good morning|good afternoon|evening/.test(m)) return '👋';
+    return '😄';
+}
+
+function _setMascotMood(emoji) {
+    const mascotEls = document.querySelectorAll('.game-mascot, .results-mascot, .mascot');
+    mascotEls.forEach((mascot) => {
+        let mood = mascot.querySelector('.mascot-mood');
+        if (!mood) {
+            mood = document.createElement('span');
+            mood.className = 'mascot-mood';
+            mascot.appendChild(mood);
+        }
+        mood.textContent = emoji;
+    });
 }
 
 // ===== Feedback Popup =====

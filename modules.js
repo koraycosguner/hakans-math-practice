@@ -69580,6 +69580,27 @@ function selectModule(id) {
         pill.style.display = bits.length ? '' : 'none';
     }
 
+    // Problem-types preview: count types used in this module's practice/quiz.
+    const allProbs = ((mod.practice || []).concat(mod.quiz || []));
+    const typeCounts = {};
+    for (const p of allProbs) {
+        if (!p || !p.type) continue;
+        typeCounts[p.type] = (typeCounts[p.type] || 0) + 1;
+    }
+    const typeLabels = {
+        addition: '➕ Add', subtraction: '➖ Subtract',
+        choice: '🔘 Multiple choice', numeric: '🔢 Type number',
+        ordering: '↕️ Order', matching: '🔗 Match',
+        'fill-blanks': '🟦 Fill blanks',
+    };
+    const typeChips = Object.keys(typeCounts).map((t) =>
+        `<span class="mdp-chip">${typeLabels[t] || t}</span>`
+    );
+    if (typeChips.length) {
+        const existing = document.getElementById('module-detail-pill');
+        if (existing) existing.innerHTML += typeChips.join('');
+    }
+
     const hasPractice = !!mod.practice || mod.kind === 'addsub' || mod.kind === 'factfamily';
     const hasQuiz     = !!mod.quiz     || mod.kind === 'addsub' || mod.kind === 'factfamily';
     document.getElementById('mod-lesson-btn').style.display   = mod.lesson ? '' : 'none';

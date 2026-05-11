@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=46">
+    <link rel="manifest" href="manifest.json?v=47">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=46">
+    <link rel="stylesheet" href="style.css?v=47">
 </head>
 <body>
     <!-- Loading splash: shown while the audio manifest + module data load.
@@ -461,6 +461,9 @@
             <button class="back-btn" onclick="goHome()">🏠 Home</button>
             <h1 class="glo-title">📚 Math Words</h1>
             <p class="glo-sub">Words that math friends use!</p>
+            <div class="glo-search-wrap">
+                <input id="glo-search" class="glo-search" type="search" placeholder="🔎 Search words..." oninput="filterGlossary(this.value)" />
+            </div>
             <div id="glossary-body" class="glo-grid"></div>
         </div>
     </div>
@@ -511,10 +514,10 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=46"></script>
-    <script src="modules.js?v=46"></script>
-    <script src="game.js?v=46"></script>
-    <script src="minigames.js?v=46"></script>
+    <script src="audio.js?v=47"></script>
+    <script src="modules.js?v=47"></script>
+    <script src="game.js?v=47"></script>
+    <script src="minigames.js?v=47"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->

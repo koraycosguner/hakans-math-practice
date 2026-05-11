@@ -6742,6 +6742,101 @@ html.show-timer .timer-display { display: inline-flex; }
     filter: blur(0.3px);
 }
 
+/* ===== Iteration 9: glossary search, milestone, mascot mood, type chips ===== */
+.glo-search-wrap {
+    max-width: 480px;
+    margin: 8px auto 14px;
+}
+.glo-search {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    border: 2px solid #e5e7eb;
+    font-size: 1rem;
+    background: white;
+    outline: none;
+}
+.glo-search:focus { border-color: var(--primary); }
+
+/* Milestone celebration overlay */
+.milestone-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99800;
+    padding: 20px;
+}
+.milestone-card {
+    background: white;
+    border-radius: 28px;
+    padding: 30px 26px;
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    animation: milestonePop 0.5s cubic-bezier(0.3, 1.5, 0.6, 1);
+}
+@keyframes milestonePop {
+    0%   { transform: scale(0.7); opacity: 0; }
+    60%  { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.milestone-emoji {
+    font-size: 4rem;
+    margin-bottom: 6px;
+    animation: milestoneEmoji 1.8s ease-in-out infinite;
+}
+@keyframes milestoneEmoji {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-12deg); }
+    75% { transform: rotate(12deg); }
+}
+.milestone-num {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+}
+.milestone-text {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin: 4px 0 8px;
+    color: #1f2937;
+}
+.milestone-sub {
+    color: #475569;
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+}
+.milestone-close {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 12px 24px;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(108,99,255,0.4);
+}
+
+/* Mascot mood emoji overlay */
+.mascot-mood {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: white;
+    border-radius: 999px;
+    padding: 2px 6px;
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    line-height: 1;
+}
+.game-mascot, .results-mascot, .mascot { position: relative; }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;
