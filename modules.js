@@ -69226,6 +69226,13 @@ function renderHomeModules() {
         </div>`;
     }
 
+    // Daily spin promo when not used today
+    if (isHakan && typeof _spinUsedToday === 'function' && !_spinUsedToday()) {
+        html += `<button class="spin-promo" onclick="openDailySpin()">
+            🎡 <b>Daily Spin Ready!</b> Tap to win a prize!
+        </button>`;
+    }
+
     // Quick Math + savings goal row
     if (isHakan) {
         html += `<div class="quick-row">`;

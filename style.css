@@ -8722,6 +8722,174 @@ html.motion-reduced .affirmation-card { animation: none; }
     margin-top: 2px;
 }
 
+/* ===== Iteration 33: spin wheel, genie, music maker ===== */
+.spin-card { max-width: 380px; text-align: center; }
+.spin-wheel-wrap {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 12px auto;
+}
+.spin-pointer {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: var(--primary);
+    z-index: 5;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.spin-wheel {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 8px solid var(--primary);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    transform: rotate(0deg);
+    transform-origin: center;
+}
+.spin-slice {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 50%;
+    clip-path: polygon(50% 50%, 100% 0, 100% 100%);
+}
+.spin-label {
+    position: absolute;
+    top: 18%;
+    left: 64%;
+    color: white;
+    font-weight: 900;
+    font-size: 0.78rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    white-space: nowrap;
+}
+.spin-go {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 12px 28px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+    margin: 6px 0;
+}
+.spin-go[disabled] {
+    background: #e5e7eb;
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.spin-result {
+    background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+    color: #064e3b;
+    border-radius: 14px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    animation: spinResultPop 0.5s ease-out;
+}
+@keyframes spinResultPop {
+    0%   { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.spin-promo {
+    background: linear-gradient(135deg, #f97316, #dc2626);
+    color: white;
+    border: 3px solid #fbbf24;
+    border-radius: 22px;
+    padding: 14px;
+    width: 100%;
+    font-weight: 800;
+    font-size: 1.05rem;
+    cursor: pointer;
+    margin: 8px 0;
+    box-shadow: 0 8px 22px rgba(220, 38, 38, 0.35);
+    animation: spinPromoPulse 1.8s ease-in-out infinite;
+}
+@keyframes spinPromoPulse {
+    0%, 100% { box-shadow: 0 8px 22px rgba(220, 38, 38, 0.35); }
+    50%      { box-shadow: 0 12px 32px rgba(251, 191, 36, 0.55); }
+}
+
+/* Math Genie */
+.genie-card { max-width: 360px; text-align: center; }
+.genie-ball {
+    width: 180px;
+    height: 180px;
+    margin: 12px auto;
+    background: radial-gradient(circle at 30% 30%, #4b5563, #1f2937);
+    border-radius: 50%;
+    color: white;
+    font-size: 5rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s ease;
+}
+.genie-ball:hover { transform: scale(1.05); }
+.genie-ball.genie-shake { animation: genieShake 1s ease-out; }
+@keyframes genieShake {
+    0%, 100% { transform: rotate(0deg) translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: rotate(-8deg) translateX(-4px); }
+    20%, 40%, 60%, 80%      { transform: rotate(8deg) translateX(4px); }
+}
+.genie-answer {
+    background: #1f2937;
+    color: #fde68a;
+    border-radius: 14px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-weight: 800;
+    font-size: 1.1rem;
+    min-height: 40px;
+}
+
+/* Music maker */
+.music-card { max-width: 460px; text-align: center; }
+.music-keys {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    margin: 12px 0;
+}
+.mk-key {
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 26px 4px;
+    font-weight: 900;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: transform 0.1s ease;
+}
+.mk-key.mk-press { transform: translateY(4px) scale(0.92); }
+.music-tunes {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 8px 0;
+}
+.mk-tune {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 8px 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

@@ -1801,6 +1801,191 @@ function openFingerCount() {
     document.body.appendChild(overlay);
 }
 
+// ===== Daily Spin Wheel — one spin per day for a bonus =====
+const SPIN_PRIZES = [
+    { label: '+2 💎', kind: 'robux', val: 2,  color: '#fbbf24' },
+    { label: '+5 💎', kind: 'robux', val: 5,  color: '#34d399' },
+    { label: '🌟 Bonus sticker', kind: 'sticker', color: '#a78bfa' },
+    { label: '+10 💎', kind: 'robux', val: 10, color: '#f97316' },
+    { label: '+3 💎', kind: 'robux', val: 3,  color: '#60a5fa' },
+    { label: '🎉 Try again tomorrow!', kind: 'msg', color: '#94a3b8' },
+    { label: '+15 💎', kind: 'robux', val: 15, color: '#ec4899' },
+    { label: '+1 💎', kind: 'robux', val: 1,  color: '#cbd5e1' },
+];
+function _spinUsedToday() {
+    try { return localStorage.getItem('hakans-math-spin') === new Date().toISOString().slice(0, 10); }
+    catch (e) { return false; }
+}
+function _markSpinUsed() {
+    try { localStorage.setItem('hakans-math-spin', new Date().toISOString().slice(0, 10)); } catch (e) {}
+}
+
+function openDailySpin() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    const used = _spinUsedToday();
+    const slices = SPIN_PRIZES.map((p, i) => {
+        const angle = (i / SPIN_PRIZES.length) * 360;
+        return `<div class="spin-slice" style="background:${p.color};transform:rotate(${angle}deg) skewY(${90 - 360 / SPIN_PRIZES.length}deg);">
+            <span class="spin-label" style="transform:skewY(${360 / SPIN_PRIZES.length - 90}deg) rotate(${360 / SPIN_PRIZES.length / 2}deg);">${p.label}</span>
+        </div>`;
+    }).join('');
+    overlay.innerHTML = `<div class="potd-card spin-card">
+        <h2>🎡 Daily Spin</h2>
+        <div class="sound-sub">${used ? "You already spun today, Hakan!" : "Spin for a prize!"}</div>
+        <div class="spin-wheel-wrap">
+            <div class="spin-pointer">▼</div>
+            <div class="spin-wheel" id="spin-wheel">${slices}</div>
+        </div>
+        <button class="spin-go" id="spin-go" ${used ? 'disabled' : ''}>${used ? 'Come back tomorrow' : 'SPIN!'}</button>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+    if (used) return;
+    const spinBtn = overlay.querySelector('#spin-go');
+    spinBtn.addEventListener('click', () => {
+        spinBtn.disabled = true;
+        const idx = Math.floor(Math.random() * SPIN_PRIZES.length);
+        const stops = 5;  // full rotations
+        const baseDeg = stops * 360;
+        const sliceDeg = 360 / SPIN_PRIZES.length;
+        const targetDeg = baseDeg + (360 - idx * sliceDeg) - sliceDeg / 2;
+        const wheel = overlay.querySelector('#spin-wheel');
+        wheel.style.transition = 'transform 3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        wheel.style.transform = `rotate(${targetDeg}deg)`;
+        playSound('whoosh');
+        _markSpinUsed();
+        setTimeout(() => {
+            const prize = SPIN_PRIZES[idx];
+            const fb = document.createElement('div');
+            fb.className = 'spin-result';
+            fb.textContent = '🎉 ' + prize.label;
+            overlay.querySelector('.spin-card').appendChild(fb);
+            if (prize.kind === 'robux') saveRobux(loadRobux() + prize.val);
+            else if (prize.kind === 'sticker' && typeof STICKER_POOL !== 'undefined') {
+                const arr = loadStickers();
+                const s = STICKER_POOL[Math.floor(Math.random() * STICKER_POOL.length)];
+                arr.push({ sticker: s, when: Date.now(), bonus: true });
+                saveStickers(arr);
+            }
+            playSound('win');
+            if (typeof launchConfetti === 'function') launchConfetti();
+        }, 3100);
+    });
+}
+
+// ===== Math Genie — magic 8-ball with kid-friendly answers =====
+const GENIE_ANSWERS = [
+    "YES, Hakan! ✅", "Definitely! 🌟", "Without a doubt! 💯",
+    "I think so! 🤔", "Maybe! Try it! 🚀", "Ask again later! 🔮",
+    "Hmm, not today! 🌧️", "Probably not! ❌", "You'll find out soon! ⭐",
+    "Your guess is right! 🎯", "The stars say yes! ✨", "Sleep on it! 😴",
+];
+function openMathGenie() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card genie-card">
+        <h2>🔮 Math Genie</h2>
+        <div class="sound-sub">Ask a yes/no question. Tap the ball!</div>
+        <div class="genie-ball" id="genie-ball">8</div>
+        <div class="genie-answer" id="genie-answer">Tap the ball, Hakan!</div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    const ball = overlay.querySelector('#genie-ball');
+    const ans = overlay.querySelector('#genie-answer');
+    ball.addEventListener('click', () => {
+        ball.classList.remove('genie-shake');
+        void ball.offsetWidth;
+        ball.classList.add('genie-shake');
+        playSound('whoosh');
+        ans.textContent = '...';
+        setTimeout(() => {
+            ans.textContent = GENIE_ANSWERS[Math.floor(Math.random() * GENIE_ANSWERS.length)];
+            playSound('sparkle');
+        }, 1000);
+    });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+}
+
+// ===== Music Maker — tap notes to play a tune =====
+function openMusicMaker() {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    const notes = [
+        { name: 'C', freq: 261.63, color: '#fbbf24' },
+        { name: 'D', freq: 293.66, color: '#f97316' },
+        { name: 'E', freq: 329.63, color: '#ef4444' },
+        { name: 'F', freq: 349.23, color: '#ec4899' },
+        { name: 'G', freq: 391.99, color: '#8b5cf6' },
+        { name: 'A', freq: 440.00, color: '#3b82f6' },
+        { name: 'B', freq: 493.88, color: '#10b981' },
+        { name: "C'", freq: 523.25, color: '#fde047' },
+    ];
+    overlay.innerHTML = `<div class="potd-card music-card">
+        <h2>🎼 Music Maker</h2>
+        <div class="sound-sub">Tap the keys! Make your own tune.</div>
+        <div class="music-keys">
+            ${notes.map((n) => `<button class="mk-key" data-f="${n.freq}" style="background:${n.color}">${n.name}</button>`).join('')}
+        </div>
+        <div class="music-tunes">
+            <button class="mk-tune" data-t="twinkle">⭐ Twinkle</button>
+            <button class="mk-tune" data-t="happy">🎂 Birthday</button>
+            <button class="mk-tune" data-t="mary">🐑 Mary</button>
+        </div>
+        <button class="potd-close">Close</button>
+    </div>`;
+    overlay.querySelectorAll('.mk-key').forEach((b) => {
+        b.addEventListener('click', () => {
+            const f = parseFloat(b.getAttribute('data-f'));
+            _playNote(f, 0.4);
+            b.classList.add('mk-press');
+            setTimeout(() => b.classList.remove('mk-press'), 300);
+        });
+    });
+    overlay.querySelectorAll('.mk-tune').forEach((b) => {
+        b.addEventListener('click', () => _playTune(b.getAttribute('data-t')));
+    });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+}
+function _playNote(freq, dur) {
+    try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.type = 'triangle';
+        gain.gain.setValueAtTime(_soundGain(0.15), ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+        osc.start();
+        osc.stop(ctx.currentTime + dur);
+    } catch (e) {}
+}
+function _playTune(name) {
+    const tunes = {
+        twinkle: [[262, 0.4], [262, 0.4], [392, 0.4], [392, 0.4], [440, 0.4], [440, 0.4], [392, 0.8]],
+        happy:   [[262, 0.3], [262, 0.3], [294, 0.5], [262, 0.5], [349, 0.5], [330, 1.0]],
+        mary:    [[330, 0.4], [294, 0.4], [262, 0.4], [294, 0.4], [330, 0.4], [330, 0.4], [330, 0.8]],
+    };
+    const seq = tunes[name];
+    if (!seq) return;
+    let t = 0;
+    for (const [freq, dur] of seq) {
+        setTimeout(() => _playNote(freq, dur), t * 1000);
+        t += dur;
+    }
+}
+
 // Soundboard: emojis Hakan can tap to hear sounds.
 function openSoundboard() {
     playSound('click');
@@ -1857,6 +2042,9 @@ function openMathToys() {
             <button class="sound-opt" onclick="openSkipChant();closeSoundOverlay()"><div class="sound-emoji">⏭️</div><div class="sound-name">Skip Count</div></button>
             <button class="sound-opt" onclick="openFingerCount();closeSoundOverlay()"><div class="sound-emoji">✋</div><div class="sound-name">Fingers</div></button>
             <button class="sound-opt" onclick="openSoundboard();closeSoundOverlay()"><div class="sound-emoji">🎹</div><div class="sound-name">Sounds</div></button>
+            <button class="sound-opt" onclick="openMusicMaker();closeSoundOverlay()"><div class="sound-emoji">🎼</div><div class="sound-name">Music Maker</div></button>
+            <button class="sound-opt" onclick="openMathGenie();closeSoundOverlay()"><div class="sound-emoji">🔮</div><div class="sound-name">Math Genie</div></button>
+            <button class="sound-opt" onclick="openDailySpin();closeSoundOverlay()"><div class="sound-emoji">🎡</div><div class="sound-name">Daily Spin</div></button>
         </div>
         <button class="sound-close">Close</button>
     </div>`;
