@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=39">
+    <link rel="manifest" href="manifest.json?v=40">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=39">
+    <link rel="stylesheet" href="style.css?v=40">
 </head>
 <body>
     <!-- Loading splash: shown while the audio manifest + module data load.
@@ -404,6 +404,8 @@
                 <div class="robux-earned">💎 +<span id="robux-session">0.0</span> Robux this game!</div>
                 <div class="robux-total-result">Total: 💎 <span id="robux-total-result">0.0</span></div>
             </div>
+            <div id="results-recap" class="results-recap" style="display:none;"></div>
+            <div id="results-next" class="results-next" style="display:none;"></div>
             <div class="results-buttons">
                 <button class="play-again-btn" onclick="playAgain()">🔄 Play Again</button>
                 <button class="home-btn" onclick="goHome()">🏠 Home</button>
@@ -504,10 +506,10 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=39"></script>
-    <script src="modules.js?v=39"></script>
-    <script src="game.js?v=39"></script>
-    <script src="minigames.js?v=39"></script>
+    <script src="audio.js?v=40"></script>
+    <script src="modules.js?v=40"></script>
+    <script src="game.js?v=40"></script>
+    <script src="minigames.js?v=40"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->

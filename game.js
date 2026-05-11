@@ -601,6 +601,49 @@ function choosePet(id) {
     if (typeof renderHomeModules === 'function') renderHomeModules();
 }
 
+// Sound profile picker — gentle / cheerful / silent. Tappable card on home.
+function openSoundProfilePicker() {
+    playSound('click');
+    const current = loadSoundProfile();
+    const overlay = document.createElement('div');
+    overlay.className = 'sound-overlay';
+    overlay.innerHTML = `<div class="sound-card">
+        <h2>🔊 Sound</h2>
+        <div class="sound-sub">Pick how loud the app should be.</div>
+        <div class="sound-options">
+            <button class="sound-opt ${current==='cheerful'?'sound-current':''}" data-p="cheerful">
+                <div class="sound-emoji">🎉</div>
+                <div class="sound-name">Cheerful</div>
+                <div class="sound-desc">Full sound &amp; chimes</div>
+            </button>
+            <button class="sound-opt ${current==='gentle'?'sound-current':''}" data-p="gentle">
+                <div class="sound-emoji">🍃</div>
+                <div class="sound-name">Gentle</div>
+                <div class="sound-desc">Quieter, no fanfare</div>
+            </button>
+            <button class="sound-opt ${current==='silent'?'sound-current':''}" data-p="silent">
+                <div class="sound-emoji">🤫</div>
+                <div class="sound-name">Silent</div>
+                <div class="sound-desc">No sound effects</div>
+            </button>
+        </div>
+        <button class="sound-close">Close</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.remove();
+    });
+    overlay.querySelectorAll('.sound-opt').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const p = btn.getAttribute('data-p');
+            saveSoundProfile(p);
+            if (p !== 'silent') playSound('correct');
+            overlay.remove();
+        });
+    });
+    overlay.querySelector('.sound-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+}
+
 // Pet nickname — Hakan can rename his buddy.
 function renamePet() {
     const s = loadPetState();
@@ -985,6 +1028,125 @@ function showDailyBonusPopup(amount, streakDays, comebackBonus, usedInsurance) {
     setTimeout(() => overlay.classList.add('db-show'), 50);
 }
 
+// ===== Problem of the Day =====
+// One bite-sized Grade-1 problem per day. Click the home card → modal →
+// pick an answer → +5 Robux if correct. Resets at midnight.
+const POTD_KEY = 'hakans-math-potd';
+const POTD_POOL = [
+    { q: '5 + 3 = ?',     a: 8,  hint: 'Count up from 5: 6, 7, 8.' },
+    { q: '9 - 4 = ?',     a: 5,  hint: 'Count back 4 from 9.' },
+    { q: '6 + 6 = ?',     a: 12, hint: 'Doubles! 6 and 6 make a dozen.' },
+    { q: '10 - 7 = ?',    a: 3,  hint: 'How many to add to 7 to make 10?' },
+    { q: '4 + 7 = ?',     a: 11, hint: 'Make 10 first: 4+6=10, then +1.' },
+    { q: '8 + 2 = ?',     a: 10, hint: '8 needs 2 more friends to be 10.' },
+    { q: '12 - 5 = ?',    a: 7,  hint: 'Break 5 into 2 and 3: 12-2-3.' },
+    { q: '3 + 3 + 3 = ?', a: 9,  hint: 'Three 3s make 9.' },
+    { q: 'How many sides does a triangle have?', a: 3, hint: 'Tri means 3!' },
+    { q: '20 + 5 = ?',    a: 25, hint: 'Add to the ones place.' },
+    { q: 'Half of 10 is...', a: 5, hint: 'Split 10 fairly into 2 groups.' },
+    { q: 'What comes after 19?', a: 20, hint: 'Twenty!' },
+    { q: '7 + 0 = ?',     a: 7,  hint: 'Adding zero changes nothing.' },
+    { q: '15 - 10 = ?',   a: 5,  hint: 'Take away one ten from 15.' },
+    { q: '6 + 5 = ?',     a: 11, hint: 'Make 10: 6+4=10, then +1.' },
+    { q: 'Sides on a square?', a: 4, hint: 'Four equal sides!' },
+    { q: '9 + 9 = ?',     a: 18, hint: 'Double 9.' },
+    { q: '13 - 6 = ?',    a: 7,  hint: 'Count back 6 from 13.' },
+    { q: '4 + 4 + 2 = ?', a: 10, hint: '4+4=8, then +2.' },
+    { q: '5 dimes = ? cents', a: 50, hint: 'Each dime is 10 cents.' },
+    { q: 'Sides on a hexagon?', a: 6, hint: 'Hex means 6.' },
+    { q: '11 + 11 = ?',   a: 22, hint: 'Double 11.' },
+    { q: '50 + 50 = ?',   a: 100, hint: 'Two halves of 100.' },
+    { q: '17 - 9 = ?',    a: 8,  hint: 'Take 9 from 17.' },
+    { q: '2 + 2 + 2 + 2 = ?', a: 8, hint: 'Four twos.' },
+    { q: '8 + 7 = ?',     a: 15, hint: 'Make 10: 8+2=10, then +5.' },
+    { q: 'Hours on a clock face?', a: 12, hint: '1 through 12.' },
+    { q: '30 - 10 = ?',   a: 20, hint: 'Take one ten away from 30.' },
+    { q: '7 + 7 = ?',     a: 14, hint: 'Doubles!' },
+    { q: '1 + 9 = ?',     a: 10, hint: 'Friends of 10.' },
+];
+
+function _potdToday() {
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem(POTD_KEY)); } catch (e) {}
+    const today = _todayKeyForBonus();
+    if (saved && saved.day === today) return saved;
+    // Seed by date
+    const seed = today.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    const idx = seed % POTD_POOL.length;
+    const fresh = { day: today, idx, solved: false };
+    try { localStorage.setItem(POTD_KEY, JSON.stringify(fresh)); } catch (e) {}
+    return fresh;
+}
+
+function openProblemOfTheDay() {
+    playSound('click');
+    const today = _potdToday();
+    const prob = POTD_POOL[today.idx];
+    if (!prob) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    if (today.solved) {
+        overlay.innerHTML = `<div class="potd-card">
+            <h2>🎯 Problem of the Day</h2>
+            <div class="potd-question">${prob.q}</div>
+            <div class="potd-answer">Answer: ${prob.a}</div>
+            <div class="potd-done">✅ You solved it today, Hakan!</div>
+            <button class="potd-close">Awesome</button>
+        </div>`;
+    } else {
+        overlay.innerHTML = `<div class="potd-card">
+            <h2>🎯 Problem of the Day</h2>
+            <div class="potd-question">${prob.q}</div>
+            <div class="potd-hint" style="display:none;">💡 ${prob.hint}</div>
+            <input type="number" class="potd-input" placeholder="Your answer" autocomplete="off" inputmode="numeric" />
+            <div class="potd-actions">
+                <button class="potd-hint-btn">💡 Hint</button>
+                <button class="potd-check">Check (+5 💎)</button>
+            </div>
+            <div class="potd-feedback"></div>
+            <button class="potd-close">Maybe later</button>
+        </div>`;
+    }
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    if (!today.solved) {
+        const input = overlay.querySelector('.potd-input');
+        const fb = overlay.querySelector('.potd-feedback');
+        const check = overlay.querySelector('.potd-check');
+        const hintBtn = overlay.querySelector('.potd-hint-btn');
+        hintBtn.addEventListener('click', () => {
+            overlay.querySelector('.potd-hint').style.display = '';
+        });
+        const submit = () => {
+            const val = parseInt(input.value, 10);
+            if (Number.isNaN(val)) return;
+            if (val === prob.a) {
+                today.solved = true;
+                try { localStorage.setItem(POTD_KEY, JSON.stringify(today)); } catch (e) {}
+                if (typeof saveRobux === 'function' && typeof loadRobux === 'function') {
+                    saveRobux(loadRobux() + 5);
+                }
+                fb.innerHTML = `<div class="potd-correct">🎉 Yes! +5 💎</div>`;
+                playSound('correct');
+                if (typeof launchConfetti === 'function') launchConfetti();
+                setTimeout(() => {
+                    overlay.remove();
+                    if (typeof renderHomeModules === 'function') renderHomeModules();
+                }, 1500);
+            } else {
+                fb.innerHTML = `<div class="potd-wrong">Try once more, Hakan!</div>`;
+                playSound('wrong');
+                input.value = '';
+                input.focus();
+            }
+        };
+        check.addEventListener('click', submit);
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+        setTimeout(() => input.focus(), 50);
+    }
+    document.body.appendChild(overlay);
+}
+
 // ===== Daily Quests =====
 // Three daily goals. Reroll each day. Completing = Robux reward.
 const QUESTS_KEY = 'hakans-math-quests';
@@ -1352,9 +1514,12 @@ const state = {
     attempts: 0,             // attempts for current problem
     hintStep: 0,             // current hint step shown (0 = none)
     hintSteps: [],           // array of hint strings for current problem
+    hintCooldownAt: 0,       // ms timestamp when hint button unlocks
+    problemShownAt: 0,       // ms timestamp when current problem was rendered
     sessionRobux: 0,         // Robux earned this game session
     usedNumberLine: false,   // whether number line was used for current problem
     usedTenFrames: false,    // whether ten frames was used for current problem
+    sessionMessagesUsed: [], // praise indices used in current session (avoid repeat)
 };
 
 // ===== Difficulty Ranges =====
@@ -1401,6 +1566,33 @@ const MESSAGES = {
         "Hakan, you've got this! 💯", "Show 'em what you know, Hakan! 🧠",
         "Hakan the smart, let's start! ⭐",
     ],
+    // Skill-specific praise — picks based on the problem operation when known.
+    addition: [
+        "Great adding, Hakan! ➕", "Perfect plus, Hakan! ✨",
+        "You added it like a pro, Hakan! 🎯", "Smart sum, Hakan! 🧠",
+        "That's how we add, Hakan! 🌟",
+    ],
+    subtraction: [
+        "Subtract champ, Hakan! ➖", "Take-away wizard, Hakan! 🧙",
+        "Crisp subtraction, Hakan! ⚡", "You found the difference, Hakan! 🎯",
+        "Smart minus, Hakan! 🌟",
+    ],
+    counting: [
+        "Super counting, Hakan! 🔢", "One, two, you knew, Hakan! 🎯",
+        "Counted just right, Hakan! 🌟", "Eagle eyes, Hakan! 👀",
+    ],
+    shapes: [
+        "Shape expert, Hakan! 🔷", "You see shapes everywhere, Hakan! 👁️",
+        "Geometry star, Hakan! ⭐",
+    ],
+    time: [
+        "On time, Hakan! 🕐", "Clock master, Hakan! ⏰",
+        "Time wizard, Hakan! 🧙‍♂️",
+    ],
+    money: [
+        "Coin pro, Hakan! 🪙", "Money smart, Hakan! 💰",
+        "Cha-ching, Hakan! 🤑",
+    ],
 };
 
 // ===== Sound Effects (Web Audio API) =====
@@ -1414,7 +1606,27 @@ function getAudioCtx() {
     return audioCtx;
 }
 
+// ===== Sound profile (cheerful / gentle / silent) =====
+const SOUND_PROFILE_KEY = 'hakans-math-sound-profile';
+function loadSoundProfile() {
+    try { return localStorage.getItem(SOUND_PROFILE_KEY) || 'cheerful'; }
+    catch (e) { return 'cheerful'; }
+}
+function saveSoundProfile(p) {
+    try { localStorage.setItem(SOUND_PROFILE_KEY, p); } catch (e) {}
+    if (typeof renderHomeModules === 'function') renderHomeModules();
+}
+function _soundGain(base) {
+    const p = loadSoundProfile();
+    if (p === 'silent') return 0;
+    if (p === 'gentle') return base * 0.4;
+    return base;
+}
+
 function playSound(type) {
+    if (loadSoundProfile() === 'silent') return;
+    // Gentle mode: skip the multi-note win fanfare to keep things low-key.
+    if (loadSoundProfile() === 'gentle' && type === 'win') return;
     try {
         const ctx = getAudioCtx();
         const oscillator = ctx.createOscillator();
@@ -1422,7 +1634,7 @@ function playSound(type) {
         oscillator.connect(gainNode);
         gainNode.connect(ctx.destination);
 
-        gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+        gainNode.gain.setValueAtTime(_soundGain(0.15), ctx.currentTime);
 
         if (type === 'correct') {
             oscillator.frequency.setValueAtTime(523, ctx.currentTime);     // C5
@@ -1666,6 +1878,23 @@ function randomInt(min, max) {
 
 function randomChoice(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Pick praise that avoids the last few used in this session, and mixes in
+// operation-specific messages when an op hint is provided.
+function pickPraise(op) {
+    const recent = state.sessionMessagesUsed || [];
+    let pool = MESSAGES.correct.slice();
+    // If we have op-specific praise, mix in with a 35% chance.
+    if (op && MESSAGES[op] && Math.random() < 0.35) {
+        pool = MESSAGES[op];
+    }
+    // Filter recents
+    let avail = pool.filter((m) => !recent.includes(m));
+    if (avail.length === 0) avail = pool;
+    const choice = avail[Math.floor(Math.random() * avail.length)];
+    state.sessionMessagesUsed = (recent.concat([choice])).slice(-8);
+    return choice;
 }
 
 // ===== Mental Math Strategy Hints =====
@@ -1989,7 +2218,37 @@ function getSubtractionHints(a, b, answer) {
 }
 
 // ===== Hint UI =====
+// Hint cooldown: encourages "think first" before peeking at help. The
+// button is disabled for HINT_COOLDOWN_MS after each problem is shown,
+// with a countdown clock so Hakan knows it's coming.
+const HINT_COOLDOWN_MS = 6000;
+
+function startHintCooldown() {
+    const hintBtn = document.getElementById('hint-btn');
+    if (!hintBtn) return;
+    state.hintCooldownAt = Date.now() + HINT_COOLDOWN_MS;
+    hintBtn.classList.add('hint-cooling');
+    hintBtn.disabled = true;
+    _tickHintCooldown();
+}
+
+function _tickHintCooldown() {
+    const hintBtn = document.getElementById('hint-btn');
+    if (!hintBtn) return;
+    const remaining = state.hintCooldownAt - Date.now();
+    if (remaining <= 0) {
+        hintBtn.classList.remove('hint-cooling');
+        hintBtn.disabled = false;
+        hintBtn.textContent = '💡 Hint';
+        return;
+    }
+    const secs = Math.ceil(remaining / 1000);
+    hintBtn.textContent = `🤔 Think first (${secs})`;
+    setTimeout(_tickHintCooldown, 250);
+}
+
 function showHint() {
+    if (state.hintCooldownAt && Date.now() < state.hintCooldownAt) return;
     if (state.hintStep >= state.hintSteps.length) return;
 
     playSound('click');
@@ -2023,11 +2282,13 @@ function showHint() {
 
 function resetHints() {
     state.hintStep = 0;
+    state.problemShownAt = Date.now();
     const stepsContainer = document.getElementById('hint-steps');
     stepsContainer.innerHTML = '';
     const hintBtn = document.getElementById('hint-btn');
     hintBtn.textContent = '💡 Hint';
     hintBtn.classList.remove('exhausted');
+    startHintCooldown();
 }
 
 // ===== Interactive Number Line =====
@@ -2874,7 +3135,8 @@ function checkAnswer() {
         if (state.streak >= 3 && state.streak % 3 === 0) {
             message = randomChoice(MESSAGES.streak) + ` (${state.streak} in a row!)`;
         } else {
-            message = randomChoice(MESSAGES.correct);
+            const op = state.currentProblem && state.currentProblem.type;
+            message = pickPraise(op);
         }
         setMascotMessage(message);
 
@@ -3118,12 +3380,78 @@ function showResults() {
     // Update progress to 100%
     document.getElementById('progress-fill').style.width = '100%';
 
+    _renderResultsRecap();
+
     showScreen('results-screen');
 
     // Confetti!
     if (pct >= 0.5) {
         launchConfetti();
     }
+}
+
+// Populate "skills practiced" + "what's next" on the results screen. Pulls
+// the current module from state (set by startGenericProblems) when available
+// and otherwise falls back to a generic recap.
+function _renderResultsRecap() {
+    const recap = document.getElementById('results-recap');
+    const nextEl = document.getElementById('results-next');
+    if (!recap || !nextEl) return;
+    const mod = state.currentModule || null;
+    if (mod) {
+        const skill = mod.title || 'math';
+        // Prefer game state, but fall back to moduleState (which the module path uses).
+        const ms = (typeof moduleState !== 'undefined') ? moduleState : null;
+        const correct = state.totalQuestions ? state.correctAnswers : (ms ? ms.correct : 0);
+        const total = state.totalQuestions || (ms && ms.activity ? ((ms.activity === 'quiz' ? (mod.quiz || []).length : (mod.practice || []).length)) : 0);
+        const accuracy = total ? Math.round((correct / total) * 100) : 0;
+        let line = `<div class="rr-row"><span class="rr-icon">${mod.emoji || '📚'}</span><span class="rr-text">You practiced <b>${skill}</b> — ${accuracy}% accuracy.</span></div>`;
+        if (accuracy === 100) line += `<div class="rr-row rr-good">🌟 You aced it, Hakan!</div>`;
+        else if (accuracy >= 80) line += `<div class="rr-row rr-good">💪 Great progress on this skill!</div>`;
+        else line += `<div class="rr-row rr-coach">🌱 Practice this one again — you'll get it!</div>`;
+        recap.innerHTML = line;
+        recap.style.display = '';
+        // Next module suggestion: pick next module in the same category
+        // that hasn't earned 3 stars yet.
+        const next = _suggestNextModule(mod);
+        if (next) {
+            nextEl.innerHTML = `<div class="rn-label">Up next:</div>
+                <button class="rn-btn" onclick="selectModule('${next.id}')">${next.emoji || '➡️'} ${next.title}</button>`;
+            nextEl.style.display = '';
+        } else {
+            nextEl.style.display = 'none';
+        }
+    } else {
+        recap.style.display = 'none';
+        nextEl.style.display = 'none';
+    }
+}
+
+function _suggestNextModule(mod) {
+    if (typeof MODULES === 'undefined' || !mod) return null;
+    const progress = (typeof loadAllProgress === 'function') ? loadAllProgress() : {};
+    const sameCat = MODULES.filter((m) => (m.category || 'A') === (mod.category || 'A'));
+    const idx = sameCat.findIndex((m) => m.id === mod.id);
+    if (idx < 0) return null;
+    // First, try a module after the current one in the same category.
+    for (let i = idx + 1; i < sameCat.length; i++) {
+        const cand = sameCat[i];
+        const p = progress[cand.id];
+        if (!p || p.stars < 3) return cand;
+    }
+    // Then, try one before that's not yet mastered.
+    for (let i = 0; i < idx; i++) {
+        const cand = sameCat[i];
+        const p = progress[cand.id];
+        if (!p || p.stars < 3) return cand;
+    }
+    // Otherwise look across all modules.
+    for (const cand of MODULES) {
+        if (cand.id === mod.id) continue;
+        const p = progress[cand.id];
+        if (!p) return cand;
+    }
+    return null;
 }
 
 // ===== Confetti =====
@@ -3488,7 +3816,7 @@ function ffCheckAnswer() {
         if (ffGameState.streak >= 3 && ffGameState.streak % 3 === 0) {
             message = randomChoice(MESSAGES.streak) + ` (${ffGameState.streak} in a row!)`;
         } else {
-            message = randomChoice(MESSAGES.correct);
+            message = pickPraise('addition');
         }
         ffSetMascotMessage(message);
         spawnFloatingStars(2);

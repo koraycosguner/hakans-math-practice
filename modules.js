@@ -69123,12 +69123,28 @@ function renderHomeModules() {
         html += `<button class="journey-btn" onclick="openProgressMap()">🗺️ Journey</button>`;
         html += `<button class="scrapbook-btn" onclick="openScrapbook()">📖 Stickers</button>`;
         html += `<button class="glossary-btn" onclick="openGlossary()">📚 Words</button>`;
+        const sp = (typeof loadSoundProfile === 'function') ? loadSoundProfile() : 'cheerful';
+        const spEmoji = sp === 'silent' ? '🤫' : sp === 'gentle' ? '🍃' : '🎉';
+        html += `<button class="sound-btn" onclick="openSoundProfilePicker()" title="Sound: ${sp}">${spEmoji} Sound</button>`;
         html += `</div>`;
         // Module search
         html += `<div class="module-search-wrap">
             <input id="module-search" class="module-search" type="search"
                    placeholder="🔎 Search modules..." oninput="filterModules(this.value)" />
         </div>`;
+    }
+
+    // Problem of the Day card
+    if (isHakan && typeof _potdToday === 'function') {
+        const potd = _potdToday();
+        const prob = POTD_POOL[potd.idx];
+        if (prob) {
+            html += `<button class="potd-card-home ${potd.solved ? 'potd-solved' : ''}" onclick="openProblemOfTheDay()">
+                <div class="potd-card-label">🎯 Problem of the Day</div>
+                <div class="potd-card-q">${potd.solved ? '✅ Solved! ' + prob.q : prob.q}</div>
+                <div class="potd-card-prize">${potd.solved ? 'Come back tomorrow!' : 'Solve it for +5 💎'}</div>
+            </button>`;
+        }
     }
 
     // Daily quests panel
@@ -70525,6 +70541,11 @@ function showModuleResults() {
     } else {
         document.getElementById('robux-results').style.display = 'none';
     }
+
+    // Set state.currentModule for the recap/next-up panels rendered by showResults.
+    const mod = MODULES_BY_ID[moduleState.moduleId];
+    if (typeof state !== 'undefined' && mod) state.currentModule = mod;
+    if (typeof _renderResultsRecap === 'function') _renderResultsRecap();
 
     showScreen('results-screen');
 
