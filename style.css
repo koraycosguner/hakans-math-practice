@@ -7980,6 +7980,158 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     }
 }
 
+/* ===== Mini-game 36 · Mountain Climb ===== */
+.mg-mc-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 14px;
+}
+.mg-mc-q {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 3px dashed #0284c7;
+    border-radius: 24px;
+    padding: 12px 22px;
+    box-shadow: 0 8px 22px rgba(2, 132, 199, 0.18);
+    text-align: center;
+    min-width: 240px;
+}
+.mg-mc-task {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #0c4a6e;
+    margin-bottom: 4px;
+}
+.mg-mc-eq {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: #0c4a6e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.mg-mc-eqs { color: #0284c7; }
+.mg-mc-qmark { color: #ea580c; font-size: 2.1rem; }
+
+.mg-mc-scene {
+    position: relative;
+    width: 280px;
+    height: 340px;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 3px solid #57534e;
+    box-shadow: 0 10px 28px rgba(87, 83, 78, 0.4);
+}
+.mg-mc-svg {
+    width: 100%;
+    height: 100%;
+}
+.mg-mc-climber {
+    position: absolute;
+    font-size: 2rem;
+    transform: translate(-50%, -50%);
+    transition: top 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.4));
+    z-index: 2;
+}
+.mg-mc-climber-hop {
+    animation: mcHop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes mcHop {
+    0%   { transform: translate(-50%, -50%) scale(1); }
+    50%  { transform: translate(-50%, -75%) scale(1.18); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+.mg-mc-climber-cheer {
+    animation: mcCheer 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
+}
+@keyframes mcCheer {
+    0%   { transform: translate(-50%, -50%) rotate(-12deg) scale(1.1); }
+    100% { transform: translate(-50%, -50%) rotate(12deg) scale(1.3); }
+}
+
+.mg-mc-prog {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0c4a6e;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 14px;
+    border-radius: 16px;
+}
+.mg-mc-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+}
+.mg-mc-opt {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 3px solid #7dd3fc;
+    border-radius: 18px;
+    padding: 14px 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #0c4a6e;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 0 #0284c7, 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+.mg-mc-opt:hover {
+    transform: translateY(-2px);
+    border-color: #0284c7;
+    box-shadow: 0 6px 0 #0284c7, 0 10px 18px rgba(2, 132, 199, 0.3);
+}
+.mg-mc-opt:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #0284c7;
+}
+.mg-mc-opt.mg-mc-right {
+    border-color: #16a34a;
+    background: linear-gradient(135deg, #bbf7d0 0%, #86efac 100%);
+    color: #14532d;
+    animation: mcRightFlash 0.5s ease;
+}
+.mg-mc-opt.mg-mc-wrong {
+    border-color: #ef4444;
+    background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+    color: #7f1d1d;
+    animation: mcWrongShake 0.4s ease;
+}
+@keyframes mcRightFlash {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.1); }
+}
+@keyframes mcWrongShake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+}
+.mg-mc-win {
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fbbf24 0%, #0284c7 50%, #0c4a6e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: mcWinPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes mcWinPop {
+    0%   { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-mc-climber, .mg-mc-climber-hop, .mg-mc-climber-cheer,
+    .mg-mc-win, .mg-mc-opt.mg-mc-right, .mg-mc-opt.mg-mc-wrong {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;

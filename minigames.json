@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "mountain-climb",
+    "title": "Mountain Climb",
+    "emoji": "🏔️",
+    "description": "Climb the mountain — solve math to scale each ledge!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Zigzag up the mountain — each right answer climbs one ledge. Reach the flag at the summit!",
+    "rules": [
+      "🏔️ Snowy mountain with eagles 🦅 and goats 🐐.",
+      "Climber zigzags left → right → left up alternating ledges.",
+      "Each right answer climbs one ledge (5 / 7 / 9 by difficulty).",
+      "Reach the 🏁 at the summit → +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "dino-dig",
     "title": "Dino Dig",
     "emoji": "🦖",

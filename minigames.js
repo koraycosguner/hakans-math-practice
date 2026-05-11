@@ -5604,3 +5604,155 @@ GAME_IMPLS['dino-dig'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 36. MOUNTAIN CLIMB — Climb to the summit! 🏔️
+// Climber zigzags up mountain ledges by solving math. Each right answer
+// scales one ledge (alternating left/right). Pass alpine creatures along
+// the way (goats, eagles). Reach the flag at the summit → +5💎.
+// =====================================================================
+GAME_IMPLS['mountain-climb'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const totalLedges = diff === 'easy' ? 5 : diff === 'hard' ? 9 : 7;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-mc-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-mc-q';
+        wrap.appendChild(qBox);
+
+        // Mountain scene — SVG triangle silhouette + ledges
+        const scene = document.createElement('div');
+        scene.className = 'mg-mc-scene';
+        scene.innerHTML = `
+            <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" class="mg-mc-svg" preserveAspectRatio="xMidYMid meet">
+                <defs>
+                    <linearGradient id="mc-sky" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#7dd3fc"/>
+                        <stop offset="100%" stop-color="#dbeafe"/>
+                    </linearGradient>
+                    <linearGradient id="mc-rock" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#fafaf9"/>
+                        <stop offset="40%" stop-color="#a8a29e"/>
+                        <stop offset="100%" stop-color="#57534e"/>
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="200" height="240" fill="url(#mc-sky)"/>
+                <polygon points="100,20 175,210 25,210" fill="url(#mc-rock)"/>
+                <polygon points="100,20 130,75 70,75" fill="#fff"/>
+                <text x="100" y="14" text-anchor="middle" font-size="14">🏁</text>
+                <text x="40" y="60" font-size="14">☁️</text>
+                <text x="160" y="80" font-size="14">☁️</text>
+                <text x="150" y="120" font-size="16">🦅</text>
+                <text x="60" y="160" font-size="16">🐐</text>
+            </svg>
+            <div class="mg-mc-climber">🧗</div>
+        `;
+        wrap.appendChild(scene);
+
+        const climber = scene.querySelector('.mg-mc-climber');
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-mc-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-mc-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let ledge = 0;
+
+        function placeClimber() {
+            // Ledge 0 = base (bottom), ledge totalLedges = summit
+            const t = ledge / totalLedges; // 0 → 1
+            // bottom edge: y=87%, top edge: y=8%
+            const yPct = 87 - t * 79;
+            // Alternate left-right as we climb
+            const zigzag = (ledge % 2 === 0) ? -1 : 1;
+            // The mountain narrows toward the top; horizontal range decreases too
+            const horizRange = (1 - t) * 35; // 35% at bottom, 0% at top
+            const xPct = 50 + zigzag * horizRange;
+            climber.style.top = `${yPct}%`;
+            climber.style.left = `${xPct}%`;
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML =
+                `<div class="mg-mc-task">⛰️ Climb up to the next ledge!</div>` +
+                `<div class="mg-mc-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-mc-eqs">=</span><span class="mg-mc-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-mc-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-mc-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-mc-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                ledge += 1;
+                climber.classList.add('mg-mc-climber-hop');
+                placeClimber();
+                setTimeout(() => climber.classList.remove('mg-mc-climber-hop'), 600);
+                prog.innerHTML = `⛰️ Ledge: <b>${ledge}</b> / ${totalLedges}`;
+                if (ledge >= totalLedges) {
+                    qBox.innerHTML = `<div class="mg-mc-win">🏁 SUMMIT REACHED! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    climber.classList.add('mg-mc-climber-cheer');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2800);
+                    return;
+                }
+                setTimeout(nextProblem, 700);
+            } else {
+                btn.classList.add('mg-mc-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-mc-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            ledge = 0;
+            placeClimber();
+            climber.classList.remove('mg-mc-climber-cheer');
+            prog.innerHTML = `⛰️ Ledge: <b>0</b> / ${totalLedges}`;
+            nextProblem();
+        }
+
+        placeClimber();
+        prog.innerHTML = `⛰️ Ledge: <b>0</b> / ${totalLedges}`;
+        nextProblem();
+        return { stop() {} };
+    }
+};
