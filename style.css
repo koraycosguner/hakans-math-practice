@@ -7698,6 +7698,84 @@ html.feedback-gentle .feedback-content.fb-wrong {
     margin-bottom: 8px;
 }
 
+/* ===== Iteration 19: feed pet, sticker zoom, surprise, dot tap, swipe ===== */
+.pet-picker-feed {
+    background: linear-gradient(135deg, #fb923c, #ea580c);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 18px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin: 6px 8px 0;
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+}
+.pet-picker-feed:active { transform: scale(0.96); }
+
+.feed-pet-heart {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0) scale(1);
+    font-size: 4rem;
+    z-index: 99800;
+    pointer-events: none;
+    opacity: 0;
+    transition: transform 1.2s ease-out, opacity 1.2s ease-out;
+}
+.feed-pet-heart.fp-go {
+    transform: translate(-50%, -160px) scale(1.6);
+    opacity: 1;
+}
+
+/* Sticker zoom overlay */
+.sb-zoom-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99700;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    cursor: pointer;
+}
+.sb-zoom-overlay.sbz-show { opacity: 1; }
+.sb-zoom {
+    font-size: 16rem;
+    line-height: 1;
+    transform: scale(0.5);
+    transition: transform 0.4s cubic-bezier(0.3, 1.4, 0.5, 1);
+    text-shadow: 0 16px 40px rgba(0,0,0,0.4);
+}
+.sb-zoom-overlay.sbz-show .sb-zoom { transform: scale(1); }
+
+/* Surprise button */
+.surprise-btn {
+    background: linear-gradient(135deg, #c084fc, #9333ea);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(147, 51, 234, 0.3);
+}
+.surprise-btn:active {
+    transform: rotate(10deg) scale(0.96);
+    transition: transform 0.15s ease;
+}
+
+/* Lesson dot tap affordance */
+.lesson-dots .dot {
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+.lesson-dots .dot:hover { transform: scale(1.4); }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

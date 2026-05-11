@@ -69168,6 +69168,7 @@ function renderHomeModules() {
         html += `<button class="sound-btn" onclick="openSoundProfilePicker()" title="Sound: ${sp}">${spEmoji} Sound</button>`;
         html += `<button class="comfort-btn" onclick="openComfortPicker()" title="Text &amp; motion">🅰️ Comfort</button>`;
         html += `<button class="hakansays-btn" onclick="hakanSays()" title="Hear an encouragement">🎤 Hakan Says</button>`;
+        html += `<button class="surprise-btn" onclick="surpriseMe()" title="Pick a random module">🎲 Surprise!</button>`;
         html += `<button class="help-btn" onclick="openHelpScreen()" title="How to use the app">❓ Help</button>`;
         html += `</div>`;
         // Module search
@@ -69940,6 +69941,8 @@ function renderLessonPage() {
         void card.offsetWidth;
         card.classList.add('lp-slide-in');
     }
+    // Attach swipe handlers once
+    _attachLessonSwipe();
 
     document.getElementById('lesson-title').textContent = page.title;
     const visualHost = document.getElementById('lesson-visual');
@@ -69953,7 +69956,7 @@ function renderLessonPage() {
 
     const dots = [];
     for (let i = 0; i < total; i++) {
-        dots.push(`<span class="dot ${i === moduleState.lessonIndex ? 'active' : (i < moduleState.lessonIndex ? 'done' : '')}"></span>`);
+        dots.push(`<span class="dot ${i === moduleState.lessonIndex ? 'active' : (i < moduleState.lessonIndex ? 'done' : '')}" onclick="jumpToLessonPage(${i})" title="Page ${i + 1}"></span>`);
     }
     document.getElementById('lesson-dots').innerHTML = dots.join('');
 
@@ -70183,6 +70186,30 @@ function showCategoryCertificate(catId) {
     if (typeof launchConfetti === 'function') launchConfetti();
 }
 
+// Attach swipe gestures on the lesson screen once. Swipe left = next page,
+// swipe right = previous page.
+function _attachLessonSwipe() {
+    if (window._lessonSwipeAttached) return;
+    window._lessonSwipeAttached = true;
+    const screen = document.getElementById('lesson-screen');
+    if (!screen) return;
+    let startX = null;
+    screen.addEventListener('touchstart', (e) => {
+        if (!e.touches || !e.touches.length) return;
+        startX = e.touches[0].clientX;
+    }, { passive: true });
+    screen.addEventListener('touchend', (e) => {
+        if (startX === null || !e.changedTouches || !e.changedTouches.length) return;
+        const dx = e.changedTouches[0].clientX - startX;
+        startX = null;
+        if (Math.abs(dx) < 60) return;
+        // Don't trigger if the swipe started on an interactive element.
+        if (e.target && e.target.closest('button, input, textarea, a')) return;
+        if (dx < 0) nextLessonPage();
+        else        prevLessonPage();
+    }, { passive: true });
+}
+
 // Tag time of last lesson viewed, used to grant a "no cooldown" hint window.
 const LESSON_RECENT_KEY = 'hakans-math-lesson-recent';
 function _recordLessonView(modId) {
@@ -70271,6 +70298,18 @@ function showConfidenceCheck(mod) {
         });
     });
     document.body.appendChild(overlay);
+}
+
+// Jump to a specific lesson page by clicking a dot.
+function jumpToLessonPage(idx) {
+    const mod = MODULES_BY_ID[moduleState.moduleId];
+    if (!mod || !mod.lesson) return;
+    if (idx < 0 || idx >= mod.lesson.length) return;
+    if (idx === moduleState.lessonIndex) return;
+    moduleState.lessonIndex = idx;
+    _saveLessonBookmark(mod.id, idx);
+    renderLessonPage();
+    if (typeof playSound === 'function') playSound('click');
 }
 
 function prevLessonPage() {
@@ -71330,6 +71369,19 @@ function showModuleResults() {
 // On page load, populate the module grid. Scripts are at the end of
 // body, so the DOM is already parsed by the time this runs.
 // ----------------------------------------------------------------------
+// Surprise me! — pick a random module Hakan hasn't 3-starred yet.
+function surpriseMe() {
+    if (typeof playSound === 'function') playSound('click');
+    const progress = (typeof loadAllProgress === 'function') ? loadAllProgress() : {};
+    const candidates = MODULES.filter((m) => {
+        const p = progress[m.id];
+        return !p || p.stars < 3;
+    });
+    const pool = candidates.length ? candidates : MODULES;
+    const mod = pool[Math.floor(Math.random() * pool.length)];
+    if (mod) selectModule(mod.id);
+}
+
 // Smooth-scroll to a category section on home.
 function jumpToCategory(catId) {
     if (typeof playSound === 'function') playSound('click');

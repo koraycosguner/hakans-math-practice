@@ -738,6 +738,11 @@ function savePetState(state) {
 
 // Pet mood based on time since last app open. Pure read — no side effects.
 function petMood() {
+    // If recently fed, override with happy.
+    const ps = loadPetState();
+    if (ps && ps.lastFed && (Date.now() - ps.lastFed < 30 * 60 * 1000)) {
+        return { mood: 'fed', emoji: '😋', text: 'Yum, thank you!' };
+    }
     const visits = loadAllVisits();
     let lastVisit = 0;
     for (const id of Object.keys(visits)) {
@@ -1460,6 +1465,31 @@ function openSoundProfilePicker() {
     document.body.appendChild(overlay);
 }
 
+// Feed your pet for 5 Robux — resets mood and shows a happy animation.
+function feedPet() {
+    const balance = loadRobux();
+    const cost = 5;
+    if (balance < cost) {
+        alert(`Need ${cost} 💎 to feed your pet, Hakan!`);
+        return;
+    }
+    if (!confirm(`Feed your buddy for ${cost} 💎?`)) return;
+    saveRobux(balance - cost);
+    // Reset mood: bump pet "last fed" so mood logic shows happy
+    const s = loadPetState();
+    s.lastFed = Date.now();
+    savePetState(s);
+    // Floating heart animation
+    const heart = document.createElement('div');
+    heart.className = 'feed-pet-heart';
+    heart.textContent = '❤️';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.classList.add('fp-go'), 30);
+    setTimeout(() => heart.remove(), 1500);
+    playSound('correct');
+    if (typeof renderHomeModules === 'function') renderHomeModules();
+}
+
 // Pet nickname — Hakan can rename his buddy.
 function renamePet() {
     const s = loadPetState();
@@ -1494,6 +1524,7 @@ function openPetPicker() {
     html += `</div>
         <button class="pet-picker-shop" onclick="openPetShop()">🛍️ Pet Shop</button>
         <button class="pet-picker-rename" onclick="renamePet()">✏️ Rename Pet</button>
+        <button class="pet-picker-feed" onclick="feedPet()">🍎 Feed (5 💎)</button>
         <button class="pet-picker-close">Cancel</button>
     </div>`;
     overlay.innerHTML = html;
@@ -1798,10 +1829,20 @@ function renderScrapbook() {
     arr.slice().reverse().forEach((s, i) => {
         // Random tilt for sticker-board feel
         const tilt = ((i * 47) % 14) - 7;
-        html += `<div class="sb-sticker" style="transform: rotate(${tilt}deg)">${s.sticker}</div>`;
+        html += `<div class="sb-sticker" style="transform: rotate(${tilt}deg)" onclick="zoomSticker('${s.sticker}')">${s.sticker}</div>`;
     });
     html += '</div>';
     body.innerHTML = html;
+}
+
+function zoomSticker(emoji) {
+    playSound('click');
+    const overlay = document.createElement('div');
+    overlay.className = 'sb-zoom-overlay';
+    overlay.innerHTML = `<div class="sb-zoom">${emoji}</div>`;
+    overlay.addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+    setTimeout(() => overlay.classList.add('sbz-show'), 30);
 }
 
 // Weekly recap: Monday morning summary of last week's wins.
