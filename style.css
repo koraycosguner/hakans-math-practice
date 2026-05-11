@@ -7399,6 +7399,186 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     }
 }
 
+/* ===== Mini-game 33 · Hot Air Balloon ===== */
+.mg-bal-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 14px;
+}
+.mg-bal-q {
+    background: linear-gradient(135deg, #fef9c3 0%, #fde047 100%);
+    border: 3px dashed #eab308;
+    border-radius: 24px;
+    padding: 12px 22px;
+    box-shadow: 0 8px 22px rgba(234, 179, 8, 0.2);
+    text-align: center;
+    min-width: 240px;
+}
+.mg-bal-task {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #713f12;
+    margin-bottom: 4px;
+}
+.mg-bal-eq {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: #713f12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.mg-bal-eqs { color: #eab308; }
+.mg-bal-qmark { color: #ea580c; font-size: 2.1rem; }
+
+.mg-bal-scene {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    height: 360px;
+    border-radius: 22px;
+    border: 3px solid #f59e0b;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(245, 158, 11, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+.mg-bal-layer {
+    position: relative;
+    flex-grow: 1;
+    overflow: hidden;
+}
+.mg-bal-dec {
+    position: absolute;
+    font-size: 1.3rem;
+    animation: balDecDrift 6s ease-in-out infinite;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+}
+@keyframes balDecDrift {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(20px); }
+}
+.mg-bal-trophy {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    z-index: 3;
+    filter: drop-shadow(0 0 8px rgba(252, 211, 77, 0.5));
+}
+.mg-bal-trophy-glow {
+    animation: balTrophyGlow 1.4s ease-in-out infinite alternate;
+}
+@keyframes balTrophyGlow {
+    0%   { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 8px rgba(252, 211, 77, 0.5)); }
+    100% { transform: translateX(-50%) scale(1.25); filter: drop-shadow(0 0 18px rgba(252, 211, 77, 1)); }
+}
+.mg-bal-balloon {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    font-size: 2.6rem;
+    z-index: 4;
+    transition: top 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+    animation: balBalloonSway 3s ease-in-out infinite alternate;
+}
+@keyframes balBalloonSway {
+    0%   { transform: translate(-58%, -100%) rotate(-3deg); }
+    100% { transform: translate(-42%, -100%) rotate(3deg); }
+}
+.mg-bal-balloon-dance {
+    animation: balBalloonDance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
+}
+@keyframes balBalloonDance {
+    0%   { transform: translate(-58%, -100%) rotate(-12deg) scale(1); }
+    100% { transform: translate(-42%, -100%) rotate(12deg) scale(1.18); }
+}
+
+.mg-bal-prog {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #713f12;
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 16px;
+    border-radius: 16px;
+}
+.mg-bal-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+}
+.mg-bal-opt {
+    background: linear-gradient(135deg, #fef9c3 0%, #fef08a 100%);
+    border: 3px solid #facc15;
+    border-radius: 18px;
+    padding: 14px 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #713f12;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 0 #ca8a04, 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+.mg-bal-opt:hover {
+    transform: translateY(-2px);
+    border-color: #eab308;
+    box-shadow: 0 6px 0 #ca8a04, 0 10px 18px rgba(234, 179, 8, 0.3);
+}
+.mg-bal-opt:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #ca8a04;
+}
+.mg-bal-opt.mg-bal-right {
+    border-color: #16a34a;
+    background: linear-gradient(135deg, #bbf7d0 0%, #86efac 100%);
+    color: #14532d;
+    animation: balRightFlash 0.5s ease;
+}
+.mg-bal-opt.mg-bal-wrong {
+    border-color: #ef4444;
+    background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+    color: #7f1d1d;
+    animation: balWrongShake 0.4s ease;
+}
+@keyframes balRightFlash {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.1); }
+}
+@keyframes balWrongShake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+}
+.mg-bal-win {
+    font-size: 1.55rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fbbf24 0%, #ec4899 50%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: balWinPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes balWinPop {
+    0%   { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-bal-dec, .mg-bal-trophy-glow, .mg-bal-balloon, .mg-bal-balloon-dance,
+    .mg-bal-win, .mg-bal-opt.mg-bal-right, .mg-bal-opt.mg-bal-wrong {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;

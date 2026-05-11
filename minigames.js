@@ -5134,3 +5134,163 @@ GAME_IMPLS['bullseye-darts'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 33. HOT AIR BALLOON — Ride high through the sky! 🎈
+// Balloon starts on the meadow. Each right answer rises through one
+// atmospheric layer (treetops → birds → clouds → mountain peaks →
+// space). Reach the rainbow at the top → +5 💎 + balloon dances.
+// =====================================================================
+GAME_IMPLS['hot-air-balloon'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const totalLayers = diff === 'easy' ? 5 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        // Layers top → bottom, each describes the scene at this altitude
+        const SKY_LAYERS = [
+            { name: 'space',     gradient: 'linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%)', deco: '⭐🪐🌙' },
+            { name: 'rainbow',   gradient: 'linear-gradient(180deg, #f9a8d4 0%, #93c5fd 100%)', deco: '🌈' },
+            { name: 'peaks',     gradient: 'linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%)', deco: '⛰️🦅' },
+            { name: 'high sky',  gradient: 'linear-gradient(180deg, #bfdbfe 0%, #93c5fd 100%)', deco: '☁️☁️' },
+            { name: 'clouds',    gradient: 'linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%)', deco: '☁️🐦' },
+            { name: 'birds',     gradient: 'linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%)', deco: '🐦🦜' },
+            { name: 'treetops',  gradient: 'linear-gradient(180deg, #d9f99d 0%, #86efac 100%)', deco: '🌳🌲' },
+            { name: 'meadow',    gradient: 'linear-gradient(180deg, #bef264 0%, #84cc16 100%)', deco: '🌻🌷' },
+        ];
+        // Use the last N layers (bottom-anchored), reversed for top → bottom order
+        const layers = SKY_LAYERS.slice(-Math.min(totalLayers + 1, SKY_LAYERS.length));
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-bal-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-bal-q';
+        wrap.appendChild(qBox);
+
+        // Sky scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-bal-scene';
+        layers.forEach((l, i) => {
+            const layer = document.createElement('div');
+            layer.className = 'mg-bal-layer';
+            layer.style.background = l.gradient;
+            layer.dataset.name = l.name;
+            // Spread the decorations
+            const decs = l.deco.split('');
+            decs.forEach((d, j) => {
+                const dec = document.createElement('span');
+                dec.className = 'mg-bal-dec';
+                dec.textContent = d;
+                dec.style.left = `${10 + (j * 28) % 80}%`;
+                dec.style.top = `${20 + (j % 2) * 30}%`;
+                dec.style.animationDelay = `${j * 700}ms`;
+                layer.appendChild(dec);
+            });
+            scene.appendChild(layer);
+        });
+        // Trophy at the very top
+        const trophy = document.createElement('div');
+        trophy.className = 'mg-bal-trophy';
+        trophy.textContent = '🏆';
+        scene.appendChild(trophy);
+        // Balloon (positioned absolutely, animates between bottom and top)
+        const balloon = document.createElement('div');
+        balloon.className = 'mg-bal-balloon';
+        balloon.textContent = '🎈';
+        scene.appendChild(balloon);
+
+        wrap.appendChild(scene);
+
+        const prog = document.createElement('div');
+        prog.className = 'mg-bal-prog';
+        wrap.appendChild(prog);
+
+        const opts = document.createElement('div');
+        opts.className = 'mg-bal-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let altitude = 0;
+
+        function placeBalloon() {
+            // bottom: 100% (lowest), top: 0%
+            const pct = 100 - (altitude / totalLayers) * 95;
+            balloon.style.top = `${pct}%`;
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            const nextLayer = layers[Math.max(0, layers.length - 1 - altitude - 1)];
+            qBox.innerHTML =
+                (nextLayer ? `<div class="mg-bal-task">Rise up to the ${nextLayer.name}</div>` : '') +
+                `<div class="mg-bal-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-bal-eqs">=</span><span class="mg-bal-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-bal-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-bal-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-bal-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                altitude += 1;
+                placeBalloon();
+                prog.innerHTML = `🎈 Altitude: <b>${altitude}</b> / ${totalLayers}`;
+                if (altitude >= totalLayers) {
+                    qBox.innerHTML = `<div class="mg-bal-win">🏆 TOP REACHED! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    balloon.classList.add('mg-bal-balloon-dance');
+                    trophy.classList.add('mg-bal-trophy-glow');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2800);
+                    return;
+                }
+                setTimeout(nextProblem, 650);
+            } else {
+                btn.classList.add('mg-bal-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-bal-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            altitude = 0;
+            placeBalloon();
+            balloon.classList.remove('mg-bal-balloon-dance');
+            trophy.classList.remove('mg-bal-trophy-glow');
+            prog.innerHTML = `🎈 Altitude: <b>0</b> / ${totalLayers}`;
+            nextProblem();
+        }
+
+        placeBalloon();
+        prog.innerHTML = `🎈 Altitude: <b>0</b> / ${totalLayers}`;
+        nextProblem();
+        return { stop() {} };
+    }
+};

@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "hot-air-balloon",
+    "title": "Hot Air Balloon",
+    "emoji": "🎈",
+    "description": "Ride a balloon up through trees, clouds, and mountains to the trophy!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Solve math to rise one sky layer. Reach the trophy at the top!",
+    "rules": [
+      "🎈 Balloon starts on the meadow.",
+      "Each right answer rises through one sky layer.",
+      "Pass trees → birds → clouds → mountain peaks → rainbow → space.",
+      "Reach the 🏆 at the top (5 / 6 / 8 layers) for +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "bullseye-darts",
     "title": "Bullseye Darts",
     "emoji": "🎯",
