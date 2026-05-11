@@ -8893,22 +8893,36 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     font-weight: 700;
 }
 
-/* ===== Pause + minor polish ===== */
+/* ===== Mini-game pause control + paused state ===== */
 .mg-pause-btn {
-    padding: 6px 14px;
-    background: rgba(255,255,255,0.2);
+    padding: 8px 16px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.18) 100%);
     color: white;
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgba(255, 255, 255, 0.55);
     border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 0.92rem;
+    font-weight: 900;
     cursor: pointer;
     backdrop-filter: blur(8px);
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.18), 0 5px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
+.mg-pause-btn:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.25) 100%);
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.mg-pause-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+}
+
 .mg-paused {
     position: relative;
-    filter: blur(2px) grayscale(0.4);
+    filter: blur(3px) grayscale(0.5);
     pointer-events: none;
+    transition: filter 0.3s ease;
 }
 .mg-paused::after {
     content: '⏸ Paused';
@@ -8917,13 +8931,24 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-weight: 900;
     color: white;
-    background: rgba(108, 99, 255, 0.55);
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.7) 0%, rgba(139, 92, 246, 0.7) 100%);
+    backdrop-filter: blur(4px);
     border-radius: 22px;
     pointer-events: none;
     filter: blur(0) grayscale(0);
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.02em;
+    animation: mgPausedBreathe 2.4s ease-in-out infinite alternate;
+}
+@keyframes mgPausedBreathe {
+    0%   { background: linear-gradient(135deg, rgba(108, 99, 255, 0.7) 0%, rgba(139, 92, 246, 0.7) 100%); }
+    100% { background: linear-gradient(135deg, rgba(124, 58, 237, 0.8) 0%, rgba(168, 85, 247, 0.8) 100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .mg-pause-btn, .mg-paused::after { transition: none !important; animation: none !important; }
 }
 
 /* ===== Game 8: Counting Race ===== */
