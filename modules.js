@@ -176,30 +176,37 @@ function renderTakeAway(total, taken, emoji) {
     const items = [];
     for (let i = 0; i < total; i++) {
         if (i < taken) {
-            items.push(`<span class="m-take-item m-take-removed">
+            items.push(`<span class="m-take-item m-take-removed" style="animation-delay:${i * 0.04}s">
                 <span class="m-take-emoji">${emoji}</span>
                 <span class="m-take-x">✖</span>
             </span>`);
         } else {
-            items.push(`<span class="m-take-item">
+            items.push(`<span class="m-take-item" style="animation-delay:${i * 0.04}s">
                 <span class="m-take-emoji">${emoji}</span>
             </span>`);
         }
     }
-    return `<div class="m-take-row">${items.join('')}</div>`;
+    return `<div class="m-take-row">${items.join('')}<div class="m-take-equation">${total} − ${taken} = ${total - taken}</div></div>`;
 }
 
 // Two-group "joining" visual for addition: shows group A + group B.
 // renderAddGroups(3, 2, '🍎') -> 🍎🍎🍎  ➕  🍎🍎
 function renderAddGroups(a, b, emoji) {
     const left = [];
-    for (let i = 0; i < a; i++) left.push(`<span class="m-take-emoji">${emoji}</span>`);
+    for (let i = 0; i < a; i++) left.push(`<span class="m-take-emoji" style="animation-delay:${i * 0.04}s">${emoji}</span>`);
     const right = [];
-    for (let i = 0; i < b; i++) right.push(`<span class="m-take-emoji">${emoji}</span>`);
+    for (let i = 0; i < b; i++) right.push(`<span class="m-take-emoji" style="animation-delay:${(a + i) * 0.04}s">${emoji}</span>`);
     return `<div class="m-addgroups-row">
-        <div class="m-addgroups-side">${left.join('')}</div>
+        <div class="m-addgroups-side">
+            <div class="m-addgroups-count">${a}</div>
+            <div class="m-addgroups-items">${left.join('')}</div>
+        </div>
         <div class="m-addgroups-plus">➕</div>
-        <div class="m-addgroups-side">${right.join('')}</div>
+        <div class="m-addgroups-side">
+            <div class="m-addgroups-count">${b}</div>
+            <div class="m-addgroups-items">${right.join('')}</div>
+        </div>
+        <div class="m-addgroups-equals">= <b>${a + b}</b></div>
     </div>`;
 }
 
@@ -208,13 +215,20 @@ function renderAddGroups(a, b, emoji) {
 // `+` sign of add-groups would be misleading there.
 function renderCompareGroups(a, b, emoji) {
     const left = [];
-    for (let i = 0; i < a; i++) left.push(`<span class="m-take-emoji">${emoji}</span>`);
+    for (let i = 0; i < a; i++) left.push(`<span class="m-take-emoji" style="animation-delay:${i * 0.04}s">${emoji}</span>`);
     const right = [];
-    for (let i = 0; i < b; i++) right.push(`<span class="m-take-emoji">${emoji}</span>`);
-    return `<div class="m-addgroups-row">
-        <div class="m-addgroups-side">${left.join('')}</div>
+    for (let i = 0; i < b; i++) right.push(`<span class="m-take-emoji" style="animation-delay:${(a + i) * 0.04}s">${emoji}</span>`);
+    const winner = a > b ? 'left' : b > a ? 'right' : 'tie';
+    return `<div class="m-addgroups-row m-comparegroups-row">
+        <div class="m-addgroups-side ${winner === 'left' ? 'm-compare-winner' : ''}">
+            <div class="m-addgroups-count">${a}</div>
+            <div class="m-addgroups-items">${left.join('')}</div>
+        </div>
         <div class="m-comparegroups-vs">vs</div>
-        <div class="m-addgroups-side">${right.join('')}</div>
+        <div class="m-addgroups-side ${winner === 'right' ? 'm-compare-winner' : ''}">
+            <div class="m-addgroups-count">${b}</div>
+            <div class="m-addgroups-items">${right.join('')}</div>
+        </div>
     </div>`;
 }
 
