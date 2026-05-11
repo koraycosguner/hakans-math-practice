@@ -60,25 +60,49 @@ function renderTwoDigitNumber(n, highlight) {
     const tens = Math.floor(n / 10), ones = n % 10;
     const tC = 'pv-digit pv-digit-tens' + (highlight === 'tens' ? ' pv-highlight' : '');
     const oC = 'pv-digit pv-digit-ones' + (highlight === 'ones' ? ' pv-highlight' : '');
-    return `<div class="pv-number"><span class="${tC}">${tens}</span><span class="${oC}">${ones}</span></div>`;
+    return `<div class="pv-number">
+        <div class="pv-number-row">
+            <span class="${tC}">${tens}</span><span class="${oC}">${ones}</span>
+        </div>
+        <div class="pv-number-labels">
+            <span class="pv-label pv-label-tens">tens</span>
+            <span class="pv-label pv-label-ones">ones</span>
+        </div>
+    </div>`;
 }
 
 // Number line from..to with optional markedNumber. Used in Counting + hints.
+// Polished: arrow-tipped line, mark uses target circle + glow, even number
+// labels are bold.
 function renderNumberLine(from, to, mark) {
-    const stepX = 36, padL = 24, padR = 24, baseY = 50;
+    const stepX = 36, padL = 30, padR = 30, baseY = 50;
     const count = to - from + 1;
     const w = padL + padR + (count - 1) * stepX;
     const h = 80;
     const parts = [];
-    parts.push(`<line x1="${padL}" y1="${baseY}" x2="${padL + (count - 1) * stepX}" y2="${baseY}" stroke="#9aa1b3" stroke-width="2"/>`);
+    parts.push(`<defs>
+        <marker id="nlArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+        </marker>
+        <radialGradient id="nlMark" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="#fca5a5"/>
+            <stop offset="100%" stop-color="#dc2626"/>
+        </radialGradient>
+    </defs>`);
+    // Main line with arrow ends
+    parts.push(`<line x1="${padL - 12}" y1="${baseY}" x2="${padL + (count - 1) * stepX + 12}" y2="${baseY}" stroke="#475569" stroke-width="3" marker-end="url(#nlArrow)" marker-start="url(#nlArrow)"/>`);
     for (let i = 0; i < count; i++) {
         const x = padL + i * stepX, n = from + i;
         const isMark = (mark === n);
-        parts.push(`<line x1="${x}" y1="${baseY - 6}" x2="${x}" y2="${baseY + 6}" stroke="#9aa1b3" stroke-width="2"/>`);
-        parts.push(`<text x="${x}" y="${baseY + 24}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="16" font-weight="700" fill="${isMark ? '#FF6B6B' : '#2D3436'}">${n}</text>`);
-        if (isMark) parts.push(`<circle cx="${x}" cy="${baseY}" r="9" fill="#FF6B6B" stroke="white" stroke-width="3"/>`);
+        parts.push(`<line x1="${x}" y1="${baseY - 8}" x2="${x}" y2="${baseY + 8}" stroke="#1f2937" stroke-width="${isMark ? 3 : 2}"/>`);
+        parts.push(`<text x="${x}" y="${baseY + 26}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="16" font-weight="${isMark ? 900 : 700}" fill="${isMark ? '#dc2626' : '#1f2937'}">${n}</text>`);
+        if (isMark) {
+            parts.push(`<circle cx="${x}" cy="${baseY}" r="11" fill="url(#nlMark)" stroke="white" stroke-width="3"/>`);
+            // Pointer triangle above the mark
+            parts.push(`<polygon points="${x},${baseY - 16} ${x - 6},${baseY - 26} ${x + 6},${baseY - 26}" fill="#dc2626"/>`);
+        }
     }
-    return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" class="m-svg" preserveAspectRatio="xMidYMid meet">${parts.join('')}</svg>`;
+    return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" class="m-svg m-svg-numberline" preserveAspectRatio="xMidYMid meet">${parts.join('')}</svg>`;
 }
 
 // Big bold number (e.g. for "what comes after 5?")
