@@ -8674,6 +8674,19 @@ html.motion-reduced .affirmation-card { animation: none; }
 .sbk-title { font-weight: 900; font-size: 1.3rem; margin: 4px 0; }
 .sbk-tip { font-size: 0.95rem; font-weight: 700; }
 
+/* ===== Iteration 31: teaser button + more stories already inline ===== */
+.teaser-btn {
+    background: linear-gradient(135deg, #a78bfa, #6d28d9);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(109, 40, 217, 0.3);
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

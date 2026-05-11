@@ -1119,6 +1119,89 @@ function todaysAffirmation() {
     return AFFIRMATIONS[seed % AFFIRMATIONS.length];
 }
 
+// Brain teasers (Grade 1 friendly)
+const BRAIN_TEASERS = [
+    { q: "I'm a number bigger than 5 and smaller than 7. Who am I?", a: "6" },
+    { q: "What number do you get if you double 4?", a: "8" },
+    { q: "I have 2 ones and 1 ten. What number am I?", a: "12" },
+    { q: "What's the next number after 9?", a: "10" },
+    { q: "If I have 3 apples and you give me 2 more, how many?", a: "5" },
+    { q: "How many sides does a triangle have?", a: "3" },
+    { q: "I'm an even number between 6 and 10. Who am I?", a: "8" },
+    { q: "If you take 4 away from 10, what's left?", a: "6" },
+    { q: "What number comes right BEFORE 15?", a: "14" },
+    { q: "How many minutes are in half an hour?", a: "30" },
+    { q: "Three friends each have 2 candies. Total candies?", a: "6" },
+    { q: "I'm bigger than 19 but I'm only 2 tens. Who am I?", a: "20" },
+];
+function todaysBrainTeaser() {
+    const dayKey = new Date().toISOString().slice(0, 10);
+    const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    return BRAIN_TEASERS[(seed * 11) % BRAIN_TEASERS.length];
+}
+
+function openBrainTeaser() {
+    playSound('click');
+    const t = todaysBrainTeaser();
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    overlay.innerHTML = `<div class="potd-card">
+        <h2>🧩 Brain Teaser</h2>
+        <div class="potd-question">${t.q}</div>
+        <input type="text" class="potd-input" autocomplete="off" />
+        <div class="potd-actions">
+            <button class="potd-check">Check</button>
+            <button class="qm-skip">Show Answer</button>
+        </div>
+        <div class="potd-feedback"></div>
+    </div>`;
+    const input = overlay.querySelector('.potd-input');
+    const fb = overlay.querySelector('.potd-feedback');
+    const submit = () => {
+        const val = (input.value || '').trim();
+        if (!val) return;
+        if (val === t.a) {
+            fb.innerHTML = `<div class="potd-correct">🎉 Got it!</div>`;
+            playSound('correct');
+            saveRobux(loadRobux() + 3);
+            if (typeof launchConfetti === 'function') launchConfetti();
+            setTimeout(() => overlay.remove(), 1200);
+        } else {
+            fb.innerHTML = `<div class="potd-wrong">Try again!</div>`;
+            playSound('wrong');
+        }
+    };
+    overlay.querySelector('.potd-check').addEventListener('click', submit);
+    overlay.querySelector('.qm-skip').addEventListener('click', () => {
+        fb.innerHTML = `<div class="potd-correct">Answer: ${t.a}</div>`;
+    });
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submit(); });
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+    setTimeout(() => input.focus(), 50);
+}
+
+// Secret "hakan" keyword: type the letters anywhere on the keyboard to fire a celebration.
+let _typedBuffer = '';
+function _initSecretWord() {
+    if (window._secretWordSetup) return;
+    window._secretWordSetup = true;
+    document.addEventListener('keydown', (e) => {
+        const tag = (e.target && e.target.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+        if (e.key && e.key.length === 1) {
+            _typedBuffer = (_typedBuffer + e.key.toLowerCase()).slice(-10);
+            if (_typedBuffer.endsWith('hakan')) {
+                _typedBuffer = '';
+                if (typeof launchConfetti === 'function') launchConfetti();
+                if (typeof emojiRain === 'function') emojiRain(['🌟','💎','🎉','🚀','⭐'], 30);
+                if (typeof speak === 'function') speak("Yes! It's Hakan time!");
+            }
+        }
+    });
+}
+_initSecretWord();
+
 // Lucky color of the day
 const LUCKY_COLORS = [
     { name: 'Sunny Yellow', hex: '#fbbf24', emoji: '💛' },
@@ -1137,6 +1220,47 @@ function todaysLuckyColor() {
 
 // ===== Story Mode — Grade 1 math adventures =====
 const STORIES = [
+    {
+        id: 'birthday-party',
+        title: 'Hakan\'s Birthday Party',
+        emoji: '🎂',
+        pages: [
+            { text: "It's Hakan's birthday! Mom invited 4 friends over.", art: '🎂🎈🎈' },
+            { type: 'q', q: "Hakan + 4 friends = how many kids at the party?", a: 5, hint: "Don't forget to count Hakan!" },
+            { text: "Mom got 12 cupcakes for the party!", art: '🧁🧁🧁🧁🧁🧁' },
+            { type: 'q', q: "If 5 kids each take 2 cupcakes, how many cupcakes? (5+5)", a: 10, hint: "Double 5." },
+            { text: "2 cupcakes left! Hakan gave them to Mom and Dad. 💕", art: '🧁🧁' },
+        ],
+        reward: 8,
+    },
+    {
+        id: 'cookie-jar',
+        title: 'The Cookie Jar',
+        emoji: '🍪',
+        pages: [
+            { text: "Hakan found a cookie jar with 10 cookies! 🍪", art: '🍪🍪🍪🍪🍪🍪🍪🍪🍪🍪' },
+            { text: "He ate 3 for snack.", art: '😋' },
+            { type: 'q', q: "How many cookies are left? (10 - 3)", a: 7, hint: "Count back 3 from 10." },
+            { text: "Later he shared 2 with his little sister.", art: '🤝' },
+            { type: 'q', q: "Now how many left? (7 - 2)", a: 5, hint: "Count back 2 from 7." },
+            { text: "5 cookies left for tomorrow's lunch box. Smart kid! 📦", art: '🍪🍪🍪🍪🍪' },
+        ],
+        reward: 8,
+    },
+    {
+        id: 'magic-garden',
+        title: 'The Magic Garden',
+        emoji: '🌻',
+        pages: [
+            { text: "Hakan planted 6 sunflower seeds in the garden 🌱.", art: '🌱🌱🌱🌱🌱🌱' },
+            { text: "After many days, 4 grew tall and bloomed! 🌻", art: '🌻🌻🌻🌻🌱🌱' },
+            { type: 'q', q: "How many seeds still haven't bloomed?", a: 2, hint: "6 - 4." },
+            { text: "Then a butterfly brought 3 more seeds.", art: '🦋' },
+            { type: 'q', q: "Now Hakan has 2 + 3 seeds and 4 sunflowers. How many things total?", a: 9, hint: "2+3=5, then +4." },
+            { text: "Hakan's garden was the best on the street! 🌻🌻🌻🌻", art: '🌻🦋🌻' },
+        ],
+        reward: 8,
+    },
     {
         id: 'pirate-treasure',
         title: 'Captain Hakan and the Treasure',
