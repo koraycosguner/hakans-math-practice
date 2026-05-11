@@ -685,11 +685,17 @@ GAME_IMPLS['bubble-pop-math'] = {
 // pair sets so the puzzle never feels stale.
 GAME_IMPLS['make-10-match'] = {
     start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Difficulty scales the target sum + pair count
+        // easy: make 10 (5 pairs), normal: make 10 (6 pairs), hard: make 20 (6 pairs)
+        const TARGET = diff === 'hard' ? 20 : 10;
+        const PAIRS = diff === 'easy' ? 5 : 6;
+
         const wrap = document.createElement('div');
         wrap.className = 'mg-m10-wrap';
         const header = document.createElement('div');
         header.className = 'mg-m10-header';
-        header.textContent = '🎯 Find pairs that make 10';
+        header.textContent = `🎯 Find pairs that make ${TARGET}`;
         const board = document.createElement('div');
         board.className = 'mg-m10-board';
         wrap.appendChild(header);
@@ -697,17 +703,25 @@ GAME_IMPLS['make-10-match'] = {
         ctx.area.appendChild(wrap);
 
         let selected = null;
-        const POOL_SETS = [
-            [[1,9],[2,8],[3,7],[4,6],[5,5],[1,9]],
-            [[2,8],[3,7],[4,6],[1,9],[5,5],[2,8]],
-            [[3,7],[6,4],[1,9],[5,5],[8,2],[7,3]],
-        ];
-        let poolIdx = 0;
+
+        function genPairs() {
+            // Generate fresh pair pool every round so the same set never repeats
+            const out = [];
+            const seen = new Set();
+            while (out.length < PAIRS) {
+                const a = 1 + Math.floor(Math.random() * (TARGET - 1));
+                const b = TARGET - a;
+                const key = Math.min(a, b) + ':' + Math.max(a, b);
+                if (seen.has(key) && out.length < PAIRS - 1) continue;
+                seen.add(key);
+                out.push([a, b]);
+            }
+            return out;
+        }
 
         function refill() {
             board.innerHTML = '';
-            const pairs = POOL_SETS[poolIdx % POOL_SETS.length];
-            poolIdx += 1;
+            const pairs = genPairs();
             const cards = [];
             pairs.forEach((p) => { cards.push(p[0]); cards.push(p[1]); });
             cards.sort(() => Math.random() - 0.5);
@@ -731,7 +745,7 @@ GAME_IMPLS['make-10-match'] = {
                     }
                     const a = parseInt(selected.dataset.val, 10);
                     const b = parseInt(c.dataset.val, 10);
-                    if (a + b === 10) {
+                    if (a + b === TARGET) {
                         selected.classList.add('done');
                         c.classList.add('done');
                         selected.classList.remove('selected');
@@ -2030,34 +2044,67 @@ GAME_IMPLS['place-value-builder'] = {
 // 16. Pattern Catcher — sequence with a missing slot, pick the answer.
 GAME_IMPLS['pattern-catcher'] = {
     start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Difficulty: which step sizes appear, where the blank lands, and
+        // whether decreasing patterns are mixed in.
+        const STEPS = diff === 'easy' ? [1, 2]
+                    : diff === 'normal' ? [1, 2, 5]
+                    : [1, 2, 5, 10];
+        const allowDescending = diff !== 'easy';
+
         const wrap = document.createElement('div');
         wrap.className = 'mg-pat-wrap';
         const prompt = document.createElement('div');
         prompt.className = 'mg-pat-prompt';
-        prompt.textContent = 'What number is missing?';
+        prompt.textContent = '🔢 What number fits the pattern?';
         const seq = document.createElement('div');
         seq.className = 'mg-pat-seq';
         const opts = document.createElement('div');
         opts.className = 'mg-pat-opts';
+        const combo = document.createElement('div');
+        combo.className = 'mg-pat-combo';
+        combo.textContent = '';
         wrap.appendChild(prompt);
         wrap.appendChild(seq);
         wrap.appendChild(opts);
+        wrap.appendChild(combo);
         ctx.area.appendChild(wrap);
 
+        let streak = 0;
+
+        function genPattern() {
+            const step = STEPS[Math.floor(Math.random() * STEPS.length)];
+            const dir = (allowDescending && Math.random() < 0.35) ? -1 : 1;
+            // Pick start so the sequence stays in 0-100
+            const stepAbs = step * dir;
+            const need = 4 * Math.abs(stepAbs);
+            const start = dir > 0
+                ? Math.floor(Math.random() * Math.max(1, 100 - need))
+                : Math.max(need, Math.floor(Math.random() * (99 - need)) + need);
+            const nums = [];
+            for (let i = 0; i < 5; i++) nums.push(start + stepAbs * i);
+            // Don't put blank at first or last (gives clearer pattern cue)
+            const missingIdx = 1 + Math.floor(Math.random() * 3);
+            return { nums, missingIdx, step, dir };
+        }
+
         function nextProblem() {
-            // Pick step: 1, 2, 5, or 10
-            const step = [1, 2, 2, 5, 5, 10][Math.floor(Math.random() * 6)];
-            const start = Math.floor(Math.random() * 8) + 1;
-            const nums = [start, start + step, start + step * 2, start + step * 3, start + step * 4];
-            const missingIdx = 1 + Math.floor(Math.random() * 3);  // not first or last
-            const correct = nums[missingIdx];
-            seq.innerHTML = nums.map((n, i) =>
-                i === missingIdx ? `<span class="mg-pat-slot">?</span>` : `<span class="mg-pat-num">${n}</span>`
-            ).join('<span class="mg-pat-comma">,</span>');
-            // Options
+            const p = genPattern();
+            const correct = p.nums[p.missingIdx];
+            // Hint chip about direction + step
+            const arrow = p.dir > 0 ? '↑' : '↓';
+            seq.innerHTML =
+                `<div class="mg-pat-row">` +
+                p.nums.map((n, i) =>
+                    i === p.missingIdx ? `<span class="mg-pat-slot">?</span>` : `<span class="mg-pat-num">${n}</span>`
+                ).join('<span class="mg-pat-arrow">' + (p.dir > 0 ? '→' : '←') + '</span>') +
+                `</div>` +
+                `<div class="mg-pat-hint">${arrow} ${Math.abs(p.step) === 1 ? 'count by 1' : 'skip by ' + Math.abs(p.step)}</div>`;
+            // Options: 4 plausible distractors
             const set = new Set([correct]);
-            while (set.size < 3) {
-                set.add(Math.max(0, correct + Math.floor(Math.random() * 5) - 2));
+            while (set.size < 4) {
+                const off = (Math.floor(Math.random() * 4) + 1) * (Math.random() < 0.5 ? 1 : -1) * Math.max(1, Math.floor(Math.abs(p.step) / 2));
+                set.add(Math.max(0, correct + off));
             }
             const arr = Array.from(set).sort(() => Math.random() - 0.5);
             opts.innerHTML = arr.map((v) =>
@@ -2067,10 +2114,15 @@ GAME_IMPLS['pattern-catcher'] = {
                 b.addEventListener('click', (e) => {
                     if (b.getAttribute('data-correct') === '1') {
                         b.classList.add('mg-pat-right');
-                        ctx.onScore(1, { x: e.clientX, y: e.clientY });
-                        setTimeout(nextProblem, 350);
+                        streak += 1;
+                        const pts = streak >= 3 ? 2 : 1;
+                        ctx.onScore(pts, { x: e.clientX, y: e.clientY });
+                        combo.textContent = streak >= 3 ? `🔥 ${streak} streak · +${pts}` : '';
+                        setTimeout(nextProblem, 380);
                     } else {
                         b.classList.add('mg-pat-wrong');
+                        streak = 0;
+                        combo.textContent = '';
                         ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
                         setTimeout(() => b.classList.remove('mg-pat-wrong'), 400);
                     }

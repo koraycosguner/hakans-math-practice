@@ -4032,12 +4032,40 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     border-radius: 10px;
 }
 .mg-pat-comma { color: var(--text-light); font-weight: 700; }
+.mg-pat-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.mg-pat-arrow {
+    color: #a855f7;
+    font-weight: 900;
+    font-size: 1.4rem;
+    opacity: 0.7;
+}
+.mg-pat-hint {
+    margin-top: 8px;
+    background: rgba(255,255,255,0.85);
+    color: #6d28d9;
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+.mg-pat-combo {
+    min-height: 22px;
+    font-weight: 900;
+    color: #b45309;
+    margin-top: 6px;
+}
 .mg-pat-opts {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     width: 100%;
-    max-width: 360px;
+    max-width: 460px;
 }
 .mg-pat-opt {
     padding: 18px;
