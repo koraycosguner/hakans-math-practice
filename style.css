@@ -2387,45 +2387,62 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     border-radius: 999px;
     letter-spacing: 0.04em;
 }
-/* Icon wrap — a soft colored disc behind the emoji so it pops out
-   instead of floating on plain white. Each category gets its own tint
-   via the .m-card-cat-X classes below. */
+/* Icon wrap — a bigger, more vibrant colored disc behind the emoji.
+   Each category gets its own gradient tint via the .m-card-cat-X classes
+   below. The disc has a dashed accent ring + gloss highlight for a
+   playful, sticker-like feel. */
 .m-card-icon-wrap {
-    width: 64px;
-    height: 64px;
+    width: 78px;
+    height: 78px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #f0eeff, #e0e7ff);
+    background: linear-gradient(135deg, #c7d2fe, #818cf8);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 4px;
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5),
-                0 4px 10px rgba(108, 99, 255, 0.15);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 8px;
+    box-shadow:
+        inset 0 -4px 0 rgba(0, 0, 0, 0.1),
+        inset 0 0 0 3px rgba(255, 255, 255, 0.6),
+        0 6px 14px rgba(108, 99, 255, 0.25);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
 }
-.m-card-icon-wrap::after {
-    /* Subtle highlight gloss */
+.m-card-icon-wrap::before {
+    /* Outer dashed-ring decoration to give icons a sticker-album feel */
     content: '';
     position: absolute;
-    top: 4px; left: 8px; right: 8px;
-    height: 16px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0));
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.55);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+.m-card:hover .m-card-icon-wrap::before { opacity: 1; }
+.m-card-icon-wrap::after {
+    /* Glossy crescent highlight on the top of the disc */
+    content: '';
+    position: absolute;
+    top: 6px; left: 10px; right: 10px;
+    height: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0));
     border-radius: 50%;
     pointer-events: none;
 }
 .m-card:hover .m-card-icon-wrap {
-    transform: scale(1.08) rotate(-3deg);
+    transform: scale(1.1) rotate(-4deg);
 }
 .m-card-icon {
-    font-size: clamp(2rem, 4vw, 2.4rem);
+    font-size: clamp(2.4rem, 5vw, 3rem);
     line-height: 1;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.2));
     position: relative;
     z-index: 1;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+.m-card:hover .m-card-icon { transform: scale(1.08) rotate(3deg); }
 .m-card-title {
     font-size: clamp(1rem, 2vw, 1.15rem);
     font-weight: 800;
@@ -2440,22 +2457,23 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     line-height: 1.4;
 }
 
-/* Per-category color tints for the icon disc — based on each category's
-   theme (counting=blue, addition=green, subtraction=orange, etc.) */
-.m-card-cat-A .m-card-icon-wrap { background: linear-gradient(135deg, #dbeafe, #93c5fd); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(59, 130, 246, 0.25); }
-.m-card-cat-B .m-card-icon-wrap { background: linear-gradient(135deg, #d1fae5, #6ee7b7); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(67, 233, 123, 0.25); }
-.m-card-cat-C .m-card-icon-wrap { background: linear-gradient(135deg, #fed7aa, #fb923c); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(251, 146, 60, 0.25); }
-.m-card-cat-D .m-card-icon-wrap { background: linear-gradient(135deg, #e9d5ff, #c084fc); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(192, 132, 252, 0.25); }
-.m-card-cat-E .m-card-icon-wrap { background: linear-gradient(135deg, #fef3c7, #fbbf24); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(251, 191, 36, 0.25); }
-.m-card-cat-F .m-card-icon-wrap { background: linear-gradient(135deg, #cffafe, #67e8f9); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(103, 232, 249, 0.3); }
-.m-card-cat-G .m-card-icon-wrap { background: linear-gradient(135deg, #fef08a, #facc15); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(250, 204, 21, 0.3); }
-.m-card-cat-H .m-card-icon-wrap { background: linear-gradient(135deg, #fce7f3, #f472b6); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(244, 114, 182, 0.25); }
-.m-card-cat-I .m-card-icon-wrap { background: linear-gradient(135deg, #ffe4e6, #fb7185); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(251, 113, 133, 0.25); }
-.m-card-cat-J .m-card-icon-wrap { background: linear-gradient(135deg, #d9f99d, #84cc16); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(132, 204, 22, 0.25); }
-.m-card-cat-K .m-card-icon-wrap { background: linear-gradient(135deg, #ddd6fe, #a78bfa); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(167, 139, 250, 0.25); }
-.m-card-cat-L .m-card-icon-wrap { background: linear-gradient(135deg, #fbcfe8, #ec4899); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(236, 72, 153, 0.25); }
-.m-card-cat-M .m-card-icon-wrap { background: linear-gradient(135deg, #fde68a, #d97706); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(217, 119, 6, 0.25); }
-.m-card-cat-N .m-card-icon-wrap { background: linear-gradient(135deg, #99f6e4, #14b8a6); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5), 0 4px 10px rgba(20, 184, 166, 0.25); }
+/* Per-category color tints for the icon disc — each category gets its
+   own bright duotone gradient (deeper saturation for a sticker-like
+   pop). Inner highlight + outer halo shadow stay consistent. */
+.m-card-cat-A .m-card-icon-wrap { background: linear-gradient(135deg, #60a5fa, #2563eb); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(37, 99, 235, 0.35); }
+.m-card-cat-B .m-card-icon-wrap { background: linear-gradient(135deg, #4ade80, #16a34a); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(22, 163, 74, 0.35); }
+.m-card-cat-C .m-card-icon-wrap { background: linear-gradient(135deg, #fb923c, #ea580c); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(234, 88, 12, 0.35); }
+.m-card-cat-D .m-card-icon-wrap { background: linear-gradient(135deg, #c084fc, #9333ea); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(147, 51, 234, 0.35); }
+.m-card-cat-E .m-card-icon-wrap { background: linear-gradient(135deg, #fbbf24, #d97706); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(217, 119, 6, 0.35); }
+.m-card-cat-F .m-card-icon-wrap { background: linear-gradient(135deg, #22d3ee, #0891b2); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(8, 145, 178, 0.35); }
+.m-card-cat-G .m-card-icon-wrap { background: linear-gradient(135deg, #facc15, #ca8a04); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(202, 138, 4, 0.35); }
+.m-card-cat-H .m-card-icon-wrap { background: linear-gradient(135deg, #f472b6, #db2777); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(219, 39, 119, 0.35); }
+.m-card-cat-I .m-card-icon-wrap { background: linear-gradient(135deg, #fb7185, #e11d48); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(225, 29, 72, 0.35); }
+.m-card-cat-J .m-card-icon-wrap { background: linear-gradient(135deg, #84cc16, #4d7c0f); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(77, 124, 15, 0.35); }
+.m-card-cat-K .m-card-icon-wrap { background: linear-gradient(135deg, #a78bfa, #6d28d9); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(109, 40, 217, 0.35); }
+.m-card-cat-L .m-card-icon-wrap { background: linear-gradient(135deg, #ec4899, #be185d); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(190, 24, 93, 0.35); }
+.m-card-cat-M .m-card-icon-wrap { background: linear-gradient(135deg, #f59e0b, #92400e); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(146, 64, 14, 0.35); }
+.m-card-cat-N .m-card-icon-wrap { background: linear-gradient(135deg, #2dd4bf, #0d9488); box-shadow: inset 0 -4px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.6), 0 6px 14px rgba(13, 148, 136, 0.35); }
 
 /* ===== Progress: stars on completed modules ===== */
 .m-card-done {
@@ -3358,16 +3376,11 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 .mgs-title { color: white; text-align: center; margin: 10px 0 2px; font-size: 1.6rem; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25); }
 .mgs-sub { text-align: center; color: white; opacity: 0.85; margin: 0 0 14px; font-size: 0.9rem; }
+/* The outer #minigames-grid is just a block container for the banners +
+   diff picker + .mg-grid. The actual card grid is .mg-grid (declared
+   later in this file). */
 #minigames-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-}
-@media (min-width: 520px) {
-    #minigames-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 900px) {
-    #minigames-grid { grid-template-columns: repeat(3, 1fr); }
+    width: 100%;
 }
 .mgs-card {
     background: linear-gradient(180deg, white 0%, #fafbff 100%);
@@ -3405,12 +3418,31 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 .mgs-card-medium::before { background: linear-gradient(90deg, #fbbf24, #f97316); }
 .mgs-card-hard   { border-color: #f87171; }
 .mgs-card-hard::before   { background: linear-gradient(90deg, #f87171, #dc2626); }
+/* Game card icon sits in a soft gradient disc — same sticker-album
+   treatment as module icons, sized for the slightly larger mgs-card. */
 .mgs-card-icon {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     line-height: 1;
-    transition: transform 0.3s ease;
-    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c7d2fe, #818cf8);
+    box-shadow:
+        inset 0 -3px 0 rgba(0, 0, 0, 0.12),
+        inset 0 0 0 3px rgba(255, 255, 255, 0.5),
+        0 5px 12px rgba(108, 99, 255, 0.35);
+    margin-bottom: 4px;
+    align-self: flex-start;
 }
+.mgs-card-easy .mgs-card-icon   { background: linear-gradient(135deg, #6ee7b7, #10b981); box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.5), 0 5px 12px rgba(16, 185, 129, 0.4); }
+.mgs-card-medium .mgs-card-icon { background: linear-gradient(135deg, #fbbf24, #f97316); box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.5), 0 5px 12px rgba(249, 115, 22, 0.4); }
+.mgs-card-hard .mgs-card-icon   { background: linear-gradient(135deg, #f87171, #dc2626); box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12), inset 0 0 0 3px rgba(255,255,255,0.5), 0 5px 12px rgba(220, 38, 38, 0.4); }
+.mgs-card:hover .mgs-card-icon { transform: scale(1.1) rotate(-5deg); }
 .mgs-card-title {
     font-size: 1.2rem;
     font-weight: 900;
