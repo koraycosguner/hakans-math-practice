@@ -6837,6 +6837,139 @@ html.show-timer .timer-display { display: inline-flex; }
 }
 .game-mascot, .results-mascot, .mascot { position: relative; }
 
+/* ===== Iteration 10: trophy next-badge, sample problem, focus mode, heatmap ===== */
+.tr-next {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #fbbf24;
+    border-radius: 18px;
+    padding: 14px 16px;
+    margin: 8px 0 18px;
+    box-shadow: 0 6px 16px rgba(251, 191, 36, 0.3);
+}
+.tr-next-label {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #78350f;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.tr-next-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 6px;
+}
+.tr-next-emoji {
+    font-size: 2.6rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+.tr-next-body { flex: 1; }
+.tr-next-name {
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: #78350f;
+}
+.tr-next-desc {
+    font-size: 0.9rem;
+    color: #92400e;
+    margin-bottom: 6px;
+}
+.tr-next-bar {
+    height: 8px;
+    background: rgba(146, 64, 14, 0.18);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.tr-next-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f59e0b, #d97706);
+    border-radius: 999px;
+    transition: width 0.6s ease;
+}
+.tr-next-progress {
+    font-size: 0.78rem;
+    color: #78350f;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+/* Sample problem overlay */
+.sample-btn {
+    background: rgba(255,255,255,0.85);
+    border: 2px dashed var(--primary);
+    color: var(--primary);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-weight: 800;
+    font-size: 0.92rem;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.15s ease;
+}
+.sample-btn:hover { background: white; }
+.sp-card { max-width: 480px; }
+.sp-sub { color: var(--text-light); font-size: 0.9rem; margin-bottom: 12px; }
+.sp-prompt {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1f2937;
+    margin: 10px 0;
+}
+.sp-visual { margin: 10px 0; min-height: 60px; }
+.sp-answer {
+    background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+    color: #064e3b;
+    font-weight: 800;
+    border-radius: 12px;
+    padding: 8px 14px;
+    display: inline-block;
+    margin: 6px 0 12px;
+}
+
+/* Focus mode */
+.focus-btn {
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 8px 12px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+html.focus-mode .score-display,
+html.focus-mode .streak-display,
+html.focus-mode #mg-robux-display,
+html.focus-mode .timer-display {
+    display: none !important;
+}
+html.focus-mode .focus-btn { background: linear-gradient(135deg, #0c4a6e, #075985); }
+
+/* Streak heatmap */
+.pd-heatmap {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 4px;
+    margin: 8px 0 24px;
+}
+.pd-hm-cell {
+    aspect-ratio: 1;
+    background: #f1f5f9;
+    color: #94a3b8;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+.pd-hm-cell.pd-hm-on {
+    background: linear-gradient(135deg, #fb923c, #ea580c);
+    color: white;
+    box-shadow: 0 2px 6px rgba(234,88,12,0.3);
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

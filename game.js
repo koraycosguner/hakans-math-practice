@@ -261,6 +261,23 @@ function bumpDailyStreak() {
     return s.current;
 }
 
+// Return last 30 days as [{date, key, practiced}, ...] from oldest to newest.
+function lastThirtyDays() {
+    const s = loadStreak();
+    const hist = (s.history || []);
+    const out = [];
+    const now = new Date();
+    for (let i = 29; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+        const yyyy = d.getFullYear();
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const dd = String(d.getDate()).padStart(2, '0');
+        const key = `${yyyy}-${mm}-${dd}`;
+        out.push({ key, day: d.getDate(), practiced: hist.includes(key) });
+    }
+    return out;
+}
+
 // Return last 7 days as [{date, key, practiced}, ...] from oldest to newest.
 function lastSevenDays() {
     const s = loadStreak();
@@ -538,6 +555,27 @@ function renderTrophyRoom() {
         <div class="tr-stat-num">${Object.keys(earned).length}</div>
         <div class="tr-stat-label">of ${BADGES_CATALOG.length} badges</div>
     </div>`;
+    // Closest badge to earn (highest progress %)
+    let bestNext = null, bestPct = -1;
+    for (const b of BADGES_CATALOG) {
+        if (earned[b.id]) continue;
+        const pct = _badgeProgressPct(b, st);
+        if (pct > bestPct && pct < 100) { bestPct = pct; bestNext = b; }
+    }
+    if (bestNext) {
+        html += `<div class="tr-next">
+            <div class="tr-next-label">🎯 Closest to earning</div>
+            <div class="tr-next-row">
+                <div class="tr-next-emoji">${bestNext.emoji || '🏅'}</div>
+                <div class="tr-next-body">
+                    <div class="tr-next-name">${bestNext.name}</div>
+                    <div class="tr-next-desc">${bestNext.description || ''}</div>
+                    <div class="tr-next-bar"><div class="tr-next-fill" style="width:${Math.round(bestPct)}%"></div></div>
+                    <div class="tr-next-progress">${badgeProgressString(bestNext, st)} (${Math.round(bestPct)}%)</div>
+                </div>
+            </div>
+        </div>`;
+    }
     for (const t of order) {
         const tierBadges = byTier[t] || [];
         if (!tierBadges.length) continue;
@@ -557,6 +595,25 @@ function renderTrophyRoom() {
         html += `</div>`;
     }
     body.innerHTML = html;
+}
+
+function _badgeProgressPct(b, st) {
+    const c = b.criteria || {};
+    if (!c.threshold) return 0;
+    let cur = 0;
+    switch (c.type) {
+        case 'quiz-completed':     cur = st.quizzes; break;
+        case 'streak':             cur = st.streak.current || 0; break;
+        case 'total-stars':        cur = st.totalStars; break;
+        case 'modules-completed':  cur = st.modulesCompleted; break;
+        case 'perfect-quiz':       cur = st.perfectModules; break;
+        case 'correct-answers':    cur = st.correctTotal; break;
+        case 'robux-earned-total': cur = st.robux; break;
+        case 'play-count':         cur = st.plays; break;
+        case 'lesson-completed':   cur = st.lessons; break;
+        default:                   return 0;
+    }
+    return Math.min(100, Math.round((cur / c.threshold) * 100));
 }
 
 function badgeProgressString(b, st) {
@@ -741,6 +798,12 @@ function choosePet(id) {
     s.petId = id;
     savePetState(s);
     if (typeof renderHomeModules === 'function') renderHomeModules();
+}
+
+// Toggle a focus mode that hides score/streak chips during practice.
+function toggleFocusMode() {
+    document.documentElement.classList.toggle('focus-mode');
+    playSound('click');
 }
 
 // ===== Per-problem timer (optional, via Comfort settings) =====
@@ -1833,6 +1896,17 @@ function renderParentDashboard() {
         </div>`;
     }
     html += `</div></div>`;
+
+    // === Streak heatmap (last 30 days) ===
+    const days30 = (typeof lastThirtyDays === 'function') ? lastThirtyDays() : [];
+    if (days30.length) {
+        html += `<h2 class="pd-section">Streak Heatmap (Last 30 Days)</h2>`;
+        html += `<div class="pd-heatmap">`;
+        for (const d of days30) {
+            html += `<div class="pd-hm-cell ${d.practiced ? 'pd-hm-on' : ''}" title="${d.key}">${d.day}</div>`;
+        }
+        html += `</div>`;
+    }
 
     // === Goals (Koray-settable) ===
     const goal = loadGoals();
@@ -3941,6 +4015,12 @@ function _renderResultsRecap() {
         if (accuracy === 100) line += `<div class="rr-row rr-good">🌟 You aced it, Hakan!</div>`;
         else if (accuracy >= 80) line += `<div class="rr-row rr-good">💪 Great progress on this skill!</div>`;
         else line += `<div class="rr-row rr-coach">🌱 Practice this one again — you'll get it!</div>`;
+        const hintsUsed = ms && ms.hintsUsed;
+        if (hintsUsed > 0) {
+            line += `<div class="rr-row"><span class="rr-icon">💡</span><span class="rr-text">Hints used: ${hintsUsed} — smart move to ask!</span></div>`;
+        } else if (total > 0) {
+            line += `<div class="rr-row"><span class="rr-icon">🧠</span><span class="rr-text">No hints needed — independent thinking!</span></div>`;
+        }
         recap.innerHTML = line;
         recap.style.display = '';
         // Next module suggestion: pick next module in the same category

@@ -69627,6 +69627,36 @@ function selectModule(id) {
     showScreen('module-screen');
 }
 
+// Show a single random sample problem from the current module so Hakan
+// knows what to expect (no scoring, no answer required).
+function showSampleProblem() {
+    const mod = MODULES_BY_ID[moduleState.moduleId];
+    if (!mod) return;
+    const pool = (mod.practice || []).concat(mod.quiz || []);
+    if (!pool.length) return;
+    if (typeof playSound === 'function') playSound('click');
+    const p = pool[Math.floor(Math.random() * pool.length)];
+    const overlay = document.createElement('div');
+    overlay.className = 'potd-overlay';
+    let answerLabel = '';
+    if (p.type === 'numeric') answerLabel = `<div class="sp-answer">Answer: ${p.answer}</div>`;
+    else if (p.type === 'choice') answerLabel = `<div class="sp-answer">Answer: ${(p.choices && p.choices[p.answerIndex]) || ''}</div>`;
+    overlay.innerHTML = `<div class="potd-card sp-card">
+        <h2>👀 Sample Problem</h2>
+        <div class="sp-sub">Here's what problems will look like</div>
+        <div class="sp-prompt">${p.prompt || ''}</div>
+        <div class="sp-visual">${renderVisual(p.visual)}</div>
+        ${answerLabel}
+        <button class="potd-close">Got it!</button>
+    </div>`;
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    overlay.querySelector('.potd-close').addEventListener('click', () => overlay.remove());
+    document.body.appendChild(overlay);
+    if (typeof bindInteractivePrimitives === 'function') {
+        bindInteractivePrimitives(overlay.querySelector('.sp-visual'));
+    }
+}
+
 function startActivity(activity) {
     if (typeof playSound === 'function') playSound('click');
     const mod = MODULES_BY_ID[moduleState.moduleId];
@@ -70023,6 +70053,7 @@ function startGenericProblems(mod, activity) {
     moduleState.correct = 0;
     moduleState.sessionRobux = 0;
     moduleState.hintShown = false;
+    moduleState.hintsUsed = 0;
     moduleState.locked = false;
     showScreen('module-game-screen');
     renderModuleProblem();
@@ -70167,6 +70198,7 @@ function mgShowHint() {
     const p = getCurrentProblems()[moduleState.problemIndex];
     if (!p.hint) return;
     moduleState.hintShown = true;
+    moduleState.hintsUsed = (moduleState.hintsUsed || 0) + 1;
     document.getElementById('mg-hint-btn').classList.add('exhausted');
     if (typeof speak === 'function') speak(p.hint);
     if (typeof playSound === 'function') playSound('click');
