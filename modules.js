@@ -336,46 +336,83 @@ function renderCompareGroups(a, b, emoji) {
 
 // Ten-frame: 10 cells in a 2x5 grid, the first N filled.
 // Crucial visual for first-grade composing/decomposing tens.
+// Polished: gradient dot fills, soft shadow, divider line between
+// top and bottom row (the "5 friends" cue), count badge below.
 function renderTenFrame(filled, color) {
-    const cell = 38, gap = 4, w = 5 * cell + 4 * gap, h = 2 * cell + gap;
-    const fill = color || '#FF6B6B';
+    const cell = 40, gap = 4, w = 5 * cell + 4 * gap, h = 2 * cell + gap;
+    const fill = color || '#ef4444';
     const parts = [];
-    parts.push(`<rect x="0" y="0" width="${w}" height="${h}" fill="white" stroke="#2D3436" stroke-width="3" rx="4"/>`);
+    parts.push(`<defs>
+        <radialGradient id="tfDot${filled}" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="white" stop-opacity="0.55"/>
+            <stop offset="40%" stop-color="${fill}"/>
+            <stop offset="100%" stop-color="${fill}"/>
+        </radialGradient>
+        <filter id="tfShadow" x="-15%" y="-15%" width="130%" height="130%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1.5"/>
+            <feOffset dx="0" dy="2"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+    </defs>`);
+    parts.push(`<rect x="0" y="0" width="${w}" height="${h}" fill="white" stroke="#1f2937" stroke-width="3" rx="6"/>`);
     for (let r = 0; r < 2; r++) {
         for (let c = 0; c < 5; c++) {
             const idx = r * 5 + c;
             const x = c * (cell + gap), y = r * (cell + gap);
-            parts.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="white" stroke="#2D3436" stroke-width="1.5"/>`);
+            parts.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="white" stroke="#9ca3af" stroke-width="1.5"/>`);
             if (idx < filled) {
-                parts.push(`<circle cx="${x + cell/2}" cy="${y + cell/2}" r="${cell/2 - 5}" fill="${fill}" stroke="#9B2C2C" stroke-width="2"/>`);
+                parts.push(`<circle cx="${x + cell/2}" cy="${y + cell/2}" r="${cell/2 - 5}" fill="url(#tfDot${filled})" stroke="#7f1d1d" stroke-width="1.5" filter="url(#tfShadow)"/>`);
             }
         }
     }
-    return `<svg viewBox="-2 -2 ${w + 4} ${h + 4}" width="${w + 4}" height="${h + 4}" xmlns="http://www.w3.org/2000/svg" class="m-svg">${parts.join('')}</svg>`;
+    // "5 friends" mid-divider — slightly darker line between rows
+    parts.push(`<line x1="-2" y1="${cell + gap / 2}" x2="${w + 2}" y2="${cell + gap / 2}" stroke="#1f2937" stroke-width="2" stroke-opacity="0.55"/>`);
+    // Count caption
+    parts.push(`<text x="${w / 2}" y="${h + 18}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="16" font-weight="900" fill="${fill}">${filled} of 10</text>`);
+    return `<svg viewBox="-3 -3 ${w + 6} ${h + 28}" width="${w + 6}" height="${h + 28}" xmlns="http://www.w3.org/2000/svg" class="m-svg m-svg-tenframe">${parts.join('')}</svg>`;
 }
 
 // Two ten-frames side by side: useful for sums >10 or for showing "make 10" strategy.
 function renderTwoTenFrames(filledA, filledB, colorA, colorB) {
-    const cell = 32, gap = 3, oneW = 5 * cell + 4 * gap, h = 2 * cell + gap, sep = 16;
+    const cell = 34, gap = 3, oneW = 5 * cell + 4 * gap, h = 2 * cell + gap, sep = 18;
     const w = 2 * oneW + sep;
-    const fillA = colorA || '#FF6B6B', fillB = colorB || '#43E97B';
+    const fillA = colorA || '#ef4444', fillB = colorB || '#16a34a';
     const parts = [];
-    function frame(offsetX, filled, fill) {
-        parts.push(`<rect x="${offsetX}" y="0" width="${oneW}" height="${h}" fill="white" stroke="#2D3436" stroke-width="2.5" rx="3"/>`);
+    parts.push(`<defs>
+        <radialGradient id="tf2DotA" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="white" stop-opacity="0.5"/>
+            <stop offset="40%" stop-color="${fillA}"/>
+            <stop offset="100%" stop-color="${fillA}"/>
+        </radialGradient>
+        <radialGradient id="tf2DotB" cx="35%" cy="35%">
+            <stop offset="0%" stop-color="white" stop-opacity="0.5"/>
+            <stop offset="40%" stop-color="${fillB}"/>
+            <stop offset="100%" stop-color="${fillB}"/>
+        </radialGradient>
+    </defs>`);
+    function frame(offsetX, filled, dotGrad, strokeC) {
+        parts.push(`<rect x="${offsetX}" y="0" width="${oneW}" height="${h}" fill="white" stroke="#1f2937" stroke-width="2.5" rx="4"/>`);
         for (let r = 0; r < 2; r++) {
             for (let c = 0; c < 5; c++) {
                 const idx = r * 5 + c;
                 const x = offsetX + c * (cell + gap), y = r * (cell + gap);
-                parts.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="white" stroke="#2D3436" stroke-width="1"/>`);
+                parts.push(`<rect x="${x}" y="${y}" width="${cell}" height="${cell}" fill="white" stroke="#9ca3af" stroke-width="1"/>`);
                 if (idx < filled) {
-                    parts.push(`<circle cx="${x + cell/2}" cy="${y + cell/2}" r="${cell/2 - 4}" fill="${fill}" stroke="#1a1a1a" stroke-width="1.5"/>`);
+                    parts.push(`<circle cx="${x + cell/2}" cy="${y + cell/2}" r="${cell/2 - 4}" fill="url(#${dotGrad})" stroke="${strokeC}" stroke-width="1.5"/>`);
                 }
             }
         }
+        // mid divider
+        parts.push(`<line x1="${offsetX - 1}" y1="${cell + gap / 2}" x2="${offsetX + oneW + 1}" y2="${cell + gap / 2}" stroke="#1f2937" stroke-width="1.5" stroke-opacity="0.55"/>`);
+        // count below frame
+        parts.push(`<text x="${offsetX + oneW / 2}" y="${h + 16}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="14" font-weight="900" fill="${strokeC}">${filled}</text>`);
     }
-    frame(0, filledA, fillA);
-    frame(oneW + sep, filledB, fillB);
-    return `<svg viewBox="-2 -2 ${w + 4} ${h + 4}" width="${w + 4}" height="${h + 4}" xmlns="http://www.w3.org/2000/svg" class="m-svg">${parts.join('')}</svg>`;
+    frame(0, filledA, 'tf2DotA', fillA);
+    frame(oneW + sep, filledB, 'tf2DotB', fillB);
+    // Plus sign in middle gap
+    parts.push(`<text x="${oneW + sep / 2}" y="${h / 2 + 8}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="22" font-weight="900" fill="#f97316">+</text>`);
+    return `<svg viewBox="-3 -3 ${w + 6} ${h + 26}" width="${w + 6}" height="${h + 26}" xmlns="http://www.w3.org/2000/svg" class="m-svg m-svg-tenframe">${parts.join('')}</svg>`;
 }
 
 // 2-digit add visual: "23 + 5" with the ones boxed.
