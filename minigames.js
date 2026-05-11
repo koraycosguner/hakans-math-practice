@@ -4975,3 +4975,162 @@ GAME_IMPLS['submarine-dive'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 32. BULLSEYE — Throw the dart at the right answer! 🎯
+// Classic dartboard with 4 segments around a bullseye. Each segment has
+// a number — Hakan picks the right one. Bullseye on streak 3 = perfect
+// throw → +5💎. Combo system: consecutive bullseyes multiply score.
+// =====================================================================
+GAME_IMPLS['bullseye-darts'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const targetStreak = diff === 'easy' ? 4 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-dart-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-dart-q';
+        wrap.appendChild(qBox);
+
+        // Dartboard scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-dart-scene';
+        // Dartboard SVG
+        const boardSvg = document.createElement('div');
+        boardSvg.className = 'mg-dart-board';
+        boardSvg.innerHTML = `
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="95" fill="#0a0a0a" stroke="#1f2937" stroke-width="2"/>
+                <circle cx="100" cy="100" r="85" fill="#1e3a8a"/>
+                <circle cx="100" cy="100" r="70" fill="#dc2626"/>
+                <circle cx="100" cy="100" r="55" fill="#fbbf24"/>
+                <circle cx="100" cy="100" r="38" fill="#15803d"/>
+                <circle cx="100" cy="100" r="22" fill="#dc2626"/>
+                <circle cx="100" cy="100" r="10" fill="#fff"/>
+                <circle cx="100" cy="100" r="4" fill="#dc2626"/>
+            </svg>
+        `;
+        scene.appendChild(boardSvg);
+        // Dart, hidden until thrown
+        const dart = document.createElement('div');
+        dart.className = 'mg-dart-dart';
+        dart.textContent = '🎯';
+        scene.appendChild(dart);
+        wrap.appendChild(scene);
+
+        // Streak HUD
+        const streakBar = document.createElement('div');
+        streakBar.className = 'mg-dart-streak';
+        wrap.appendChild(streakBar);
+
+        // Options (4 segments — corresponding to colour zones)
+        const opts = document.createElement('div');
+        opts.className = 'mg-dart-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let bullseyes = 0;
+        let combo = 0;
+
+        function renderStreak() {
+            streakBar.innerHTML = '';
+            for (let i = 0; i < targetStreak; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'mg-dart-dot' + (i < bullseyes ? ' mg-dart-dot-on' : '');
+                dot.textContent = i < bullseyes ? '🎯' : '⚪';
+                streakBar.appendChild(dot);
+            }
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML =
+                `<div class="mg-dart-task">Throw the dart at the right answer!</div>` +
+                `<div class="mg-dart-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-dart-eqs">=</span><span class="mg-dart-qmark">?</span></div>`;
+
+            // 4 options — bullseye, red ring, green ring, blue ring (visual hint via class)
+            const ZONES = ['mg-dart-zone-bullseye', 'mg-dart-zone-red', 'mg-dart-zone-green', 'mg-dart-zone-blue'];
+            const set = new Set([target.ans]);
+            while (set.size < 4) {
+                const d = (Math.floor(Math.random() * 4) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v, i) =>
+                `<button class="mg-dart-opt ${ZONES[i]}" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-dart-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function throwDart(success) {
+            // Animate dart from off-screen to centre (success) or somewhere off (miss)
+            dart.classList.remove('mg-dart-fly-in', 'mg-dart-miss');
+            void dart.offsetWidth; // restart animation
+            dart.classList.add(success ? 'mg-dart-fly-in' : 'mg-dart-miss');
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-dart-right');
+                ctx.onScore(1 + Math.floor(combo / 3), { x: e.clientX, y: e.clientY });
+                throwDart(true);
+                bullseyes += 1;
+                combo += 1;
+                renderStreak();
+                if (combo >= 3) {
+                    qBox.innerHTML += `<div class="mg-dart-combo">🔥 Combo x${combo}!</div>`;
+                }
+                if (bullseyes >= targetStreak) {
+                    setTimeout(() => {
+                        qBox.innerHTML = `<div class="mg-dart-win">🎯 PERFECT STREAK! +5 💎</div>`;
+                        opts.innerHTML = '';
+                        boardSvg.classList.add('mg-dart-board-spin');
+                        ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                        ctx.onWin();
+                        setTimeout(reset, 2700);
+                    }, 500);
+                    return;
+                }
+                setTimeout(nextProblem, 700);
+            } else {
+                btn.classList.add('mg-dart-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                combo = 0;
+                throwDart(false);
+                setTimeout(() => btn.classList.remove('mg-dart-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            bullseyes = 0;
+            combo = 0;
+            boardSvg.classList.remove('mg-dart-board-spin');
+            renderStreak();
+            nextProblem();
+        }
+
+        renderStreak();
+        nextProblem();
+        return { stop() {} };
+    }
+};

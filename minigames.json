@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "bullseye-darts",
+    "title": "Bullseye Darts",
+    "emoji": "🎯",
+    "description": "Throw the dart at the right answer — build a perfect bullseye streak!",
+    "category": "fluency",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Pick the right answer to throw the dart at the bullseye. Build a streak of 4 / 6 / 8 bullseyes to win!",
+    "rules": [
+      "🎯 Classic concentric-ring dartboard.",
+      "Solve math → dart flies to the bullseye.",
+      "Wrong → dart misses & combo resets.",
+      "3+ combo = bonus per hit. Reach the streak goal to win (+5 💎)."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 9
+    },
+    "config": {}
+  },
+  {
     "id": "submarine-dive",
     "title": "Submarine Dive",
     "emoji": "🚢",

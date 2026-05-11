@@ -7211,6 +7211,194 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     }
 }
 
+/* ===== Mini-game 32 · Bullseye Darts ===== */
+.mg-dart-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 14px;
+}
+.mg-dart-q {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 3px dashed #dc2626;
+    border-radius: 24px;
+    padding: 12px 22px;
+    box-shadow: 0 8px 22px rgba(220, 38, 38, 0.18);
+    text-align: center;
+    min-width: 240px;
+}
+.mg-dart-task {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #7f1d1d;
+    margin-bottom: 4px;
+}
+.mg-dart-eq {
+    font-size: 1.9rem;
+    font-weight: 900;
+    color: #7f1d1d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.mg-dart-eqs { color: #dc2626; }
+.mg-dart-qmark { color: #f59e0b; font-size: 2.1rem; }
+.mg-dart-combo {
+    margin-top: 6px;
+    font-size: 1rem;
+    font-weight: 900;
+    color: #f97316;
+    animation: dartComboPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes dartComboPop {
+    0%   { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.mg-dart-scene {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mg-dart-board {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease;
+    filter: drop-shadow(0 10px 26px rgba(0,0,0,0.3));
+}
+.mg-dart-board svg {
+    width: 100%;
+    height: 100%;
+}
+.mg-dart-board-spin {
+    animation: dartBoardSpin 2.5s linear;
+}
+@keyframes dartBoardSpin {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(360deg) scale(1.1); }
+    100% { transform: rotate(720deg) scale(1); }
+}
+.mg-dart-dart {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+}
+.mg-dart-fly-in {
+    animation: dartFlyIn 0.5s cubic-bezier(0.7, 0.2, 0.5, 1) forwards;
+}
+@keyframes dartFlyIn {
+    0%   { transform: translate(120px, -120px) scale(0.4) rotate(-30deg); opacity: 0; }
+    60%  { opacity: 1; }
+    100% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+}
+.mg-dart-miss {
+    animation: dartMiss 0.55s cubic-bezier(0.7, 0.2, 0.5, 1) forwards;
+}
+@keyframes dartMiss {
+    0%   { transform: translate(120px, -120px) scale(0.4) rotate(-30deg); opacity: 0; }
+    60%  { transform: translate(60px, 70px) scale(0.9) rotate(20deg); opacity: 1; }
+    100% { transform: translate(80px, 110px) scale(0.7) rotate(50deg); opacity: 0; }
+}
+
+.mg-dart-streak {
+    display: flex;
+    gap: 6px;
+}
+.mg-dart-dot {
+    font-size: 1.2rem;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+}
+.mg-dart-dot-on {
+    opacity: 1;
+    animation: dartDotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes dartDotPop {
+    0%   { transform: scale(0.4); }
+    100% { transform: scale(1); }
+}
+
+.mg-dart-opts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+}
+.mg-dart-opt {
+    border: 3px solid #6b7280;
+    border-radius: 18px;
+    padding: 14px 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3), 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+.mg-dart-zone-bullseye {
+    background: radial-gradient(circle at 40% 30%, #fef2f2 0%, #dc2626 60%, #7f1d1d 100%);
+    border-color: #fff;
+}
+.mg-dart-zone-red { background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); }
+.mg-dart-zone-green { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); }
+.mg-dart-zone-blue { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); }
+
+.mg-dart-opt:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 rgba(0,0,0,0.3), 0 10px 18px rgba(0,0,0,0.2);
+}
+.mg-dart-opt:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+}
+.mg-dart-opt.mg-dart-right {
+    animation: dartRightPulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 0 4px #16a34a, 0 4px 0 rgba(0,0,0,0.3);
+}
+.mg-dart-opt.mg-dart-wrong {
+    animation: dartWrongShake 0.4s ease;
+}
+@keyframes dartRightPulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.12); }
+}
+@keyframes dartWrongShake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+}
+
+.mg-dart-win {
+    font-size: 1.55rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fbbf24 0%, #dc2626 50%, #7f1d1d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: dartWinPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes dartWinPop {
+    0%   { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-dart-board-spin, .mg-dart-fly-in, .mg-dart-miss,
+    .mg-dart-dot-on, .mg-dart-combo, .mg-dart-win,
+    .mg-dart-opt.mg-dart-right, .mg-dart-opt.mg-dart-wrong {
+        animation: none !important;
+    }
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;
