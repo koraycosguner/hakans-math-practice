@@ -954,22 +954,35 @@ GAME_IMPLS['falling-numbers'] = {
 // Bucket fills with a mini shape on each correct match (counter).
 GAME_IMPLS['shape-sorter'] = {
     start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        // Difficulty: pool of shapes + spawn cadence
+        // easy: 2 shapes (circle, square)
+        // normal: 4 shapes (all basic)
+        // hard: 6 shapes (+ pentagon, hexagon) — exposes Hakan to less-common ones
+        const POOL = diff === 'easy' ? ['circle','square']
+                   : diff === 'hard' ? ['circle','square','triangle','rectangle','pentagon','hexagon']
+                   : ['circle','square','triangle','rectangle'];
+
         const wrap = document.createElement('div');
         wrap.className = 'mg-shape-wrap';
-        const shapesRow = document.createElement('div');
-        shapesRow.className = 'mg-shape-shapes';
+        const header = document.createElement('div');
+        header.className = 'mg-shape-header';
         const prompt = document.createElement('div');
         prompt.className = 'mg-shape-prompt';
-        prompt.textContent = 'Tap the right bucket!';
+        prompt.textContent = 'Sort the shape!';
+        const comboEl = document.createElement('div');
+        comboEl.className = 'mg-shape-combo';
+        comboEl.textContent = 'Combo x1';
+        header.appendChild(prompt);
+        header.appendChild(comboEl);
+        const shapesRow = document.createElement('div');
+        shapesRow.className = 'mg-shape-shapes';
         const buckets = document.createElement('div');
         buckets.className = 'mg-shape-buckets';
-        wrap.appendChild(prompt);
+        wrap.appendChild(header);
         wrap.appendChild(shapesRow);
         wrap.appendChild(buckets);
         ctx.area.appendChild(wrap);
-
-        const shapes = ['circle','square','triangle','rectangle'];
-        const counts = { circle: 0, square: 0, triangle: 0, rectangle: 0 };
 
         function shapeSvg(kind, size, color) {
             const c = color || '#6c63ff';
@@ -986,6 +999,12 @@ GAME_IMPLS['shape-sorter'] = {
             if (kind === 'rectangle') {
                 return `<svg width="${s}" height="${s * 0.7}" viewBox="0 0 64 44"><rect x="4" y="6" width="56" height="32" rx="4" fill="${c}" stroke="#fff" stroke-width="3"/></svg>`;
             }
+            if (kind === 'pentagon') {
+                return `<svg width="${s}" height="${s}" viewBox="0 0 64 64"><polygon points="32,8 58,28 48,58 16,58 6,28" fill="${c}" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>`;
+            }
+            if (kind === 'hexagon') {
+                return `<svg width="${s}" height="${s}" viewBox="0 0 64 64"><polygon points="32,8 56,22 56,42 32,56 8,42 8,22" fill="${c}" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>`;
+            }
             return '';
         }
         const shapeColors = {
@@ -993,16 +1012,40 @@ GAME_IMPLS['shape-sorter'] = {
             square:    '#f59e0b',
             triangle:  '#ef4444',
             rectangle: '#10b981',
+            pentagon:  '#8b5cf6',
+            hexagon:   '#ec4899',
         };
 
+        const counts = {};
+        POOL.forEach((s) => counts[s] = 0);
         let active = null;
+        let combo = 0;
+
+        // Randomized non-repeating spawn so Hakan can't memorize sequence
+        let lastKind = null;
         function spawn() {
-            const kind = shapes[Math.floor(Math.random() * shapes.length)];
+            let kind;
+            for (let tries = 0; tries < 5; tries++) {
+                kind = POOL[Math.floor(Math.random() * POOL.length)];
+                if (kind !== lastKind) break;
+            }
+            lastKind = kind;
             active = { kind };
-            shapesRow.innerHTML = `<div class="mg-shape-piece" data-kind="${kind}">${shapeSvg(kind, 80, shapeColors[kind])}</div>`;
+            shapesRow.innerHTML = `<div class="mg-shape-piece mg-shape-piece-spawn" data-kind="${kind}">${shapeSvg(kind, 80, shapeColors[kind])}</div>`;
         }
+
+        function updateCombo() {
+            const mult = 1 + Math.floor(combo / 3);
+            comboEl.textContent = combo > 0 ? `🔥 Combo ${combo} · x${mult}` : 'Combo x1';
+            if (combo > 0 && combo % 3 === 0) {
+                comboEl.classList.remove('mg-shape-combo-bump');
+                void comboEl.offsetWidth;
+                comboEl.classList.add('mg-shape-combo-bump');
+            }
+        }
+
         // Render buckets
-        shapes.forEach((s) => {
+        POOL.forEach((s) => {
             const b = document.createElement('button');
             b.className = 'mg-shape-bucket';
             b.dataset.kind = s;
@@ -1018,13 +1061,23 @@ GAME_IMPLS['shape-sorter'] = {
                     if (cntEl) cntEl.textContent = counts[s];
                     b.classList.remove('right'); void b.offsetWidth;
                     b.classList.add('right');
-                    ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                    combo += 1;
+                    const mult = 1 + Math.floor(combo / 3);
+                    ctx.onScore(mult, { x: e.clientX, y: e.clientY });
+                    updateCombo();
+                    // Bucket-tipover celebration when bucket reaches 5
+                    if (counts[s] === 5) {
+                        b.classList.add('mg-shape-bucket-tip');
+                        setTimeout(() => b.classList.remove('mg-shape-bucket-tip'), 800);
+                    }
                     active = null;
                     shapesRow.innerHTML = '';
                     setTimeout(spawn, 250);
                 } else {
                     b.classList.add('wrong');
                     setTimeout(() => b.classList.remove('wrong'), 400);
+                    combo = 0;
+                    updateCombo();
                     ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
                 }
             });

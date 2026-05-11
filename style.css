@@ -3354,6 +3354,49 @@ body::after {
 }
 .mg-shape-bucket.wrong { animation: icShake 0.4s ease; }
 
+.mg-shape-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    max-width: 480px;
+}
+.mg-shape-combo {
+    background: white;
+    border: 2px solid #fbbf24;
+    color: #92400e;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 900;
+    font-size: 0.85rem;
+    transition: transform 0.18s ease;
+}
+.mg-shape-combo-bump {
+    transform: scale(1.18);
+    background: linear-gradient(135deg, #fbbf24, #f97316);
+    color: white;
+    border-color: #ea580c;
+}
+.mg-shape-piece-spawn {
+    animation: mgShapeSpawn 0.45s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+@keyframes mgShapeSpawn {
+    0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+    60%  { transform: scale(1.15) rotate(8deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); }
+}
+.mg-shape-bucket-tip {
+    animation: mgBucketTip 0.7s cubic-bezier(0.3, 1.5, 0.5, 1);
+    z-index: 5;
+}
+@keyframes mgBucketTip {
+    0%   { transform: rotate(0); }
+    30%  { transform: rotate(-15deg) translateY(-6px); }
+    60%  { transform: rotate(20deg); }
+    100% { transform: rotate(0); }
+}
+
 /* ===== Game 10: Math Maze ===== */
 .mg-theme-math-maze { background: radial-gradient(ellipse at top, #fef3c7, #fed7aa 50%, #fb923c); }
 .mg-maze-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
