@@ -5053,6 +5053,52 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
 }
 
+/* Fullscreen toggle button (corner of HUD) */
+.mg-pp-fs-btn {
+    margin-left: auto;
+    background: linear-gradient(135deg, #475569, #1e293b);
+    color: white;
+    border: 2px solid #fbbf24;
+    border-radius: 10px;
+    padding: 4px 10px;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #0f172a;
+    transition: transform 0.12s ease, box-shadow 0.15s ease;
+}
+.mg-pp-fs-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 0 #0f172a;
+}
+.mg-pp-fs-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 0 #0f172a;
+}
+
+/* Fullscreen state: the canvas takes the whole screen, HUD overlays
+   stay on top. */
+.mg-pp-canvas-host:fullscreen {
+    background: #0c4a6e;
+    padding: 0;
+    border: 0;
+}
+.mg-pp-canvas-host:fullscreen canvas {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0;
+}
+.mg-pp-wrap.mg-pp-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 99000;
+}
+.mg-pp-wrap.mg-pp-fullscreen .mg-pp-canvas-host {
+    flex: 1;
+    border-radius: 0;
+    border-width: 0;
+}
+
 .mg-shake {
     animation: mgAreaShake 0.4s ease-in-out;
 }

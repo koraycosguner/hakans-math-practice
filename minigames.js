@@ -7519,6 +7519,7 @@ GAME_IMPLS['math-platformer-pro'] = {
             <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">❤️</span><span class="mg-pp-hud-val" id="pp-lives">3</span></div>
             <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">🪙</span><span class="mg-pp-hud-val" id="pp-coins">0</span></div>
             <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">📍</span><span class="mg-pp-hud-val" id="pp-dist">0m</span></div>
+            <button class="mg-pp-fs-btn" id="pp-fs-btn" title="Fullscreen">⛶</button>
         `;
         wrap.appendChild(hud);
 
@@ -7538,6 +7539,69 @@ GAME_IMPLS['math-platformer-pro'] = {
         wrap.appendChild(ctrlBar);
 
         ctx.area.appendChild(wrap);
+
+        // Web Audio synth for game SFX — short generated tones, no asset files.
+        let _audioCtx = null;
+        function _ac() {
+            if (!_audioCtx) {
+                try { _audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch {}
+            }
+            return _audioCtx;
+        }
+        function _sfx(type) {
+            const ac = _ac();
+            if (!ac) return;
+            const t0 = ac.currentTime;
+            const osc = ac.createOscillator();
+            const gain = ac.createGain();
+            osc.connect(gain).connect(ac.destination);
+            gain.gain.setValueAtTime(0.0001, t0);
+            if (type === 'jump') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(280, t0);
+                osc.frequency.exponentialRampToValueAtTime(540, t0 + 0.15);
+                gain.gain.exponentialRampToValueAtTime(0.18, t0 + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.18);
+                osc.start(t0); osc.stop(t0 + 0.2);
+            } else if (type === 'coin') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(880, t0);
+                osc.frequency.exponentialRampToValueAtTime(1320, t0 + 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.18, t0 + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.22);
+                osc.start(t0); osc.stop(t0 + 0.24);
+            } else if (type === 'bonk') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(160, t0);
+                osc.frequency.exponentialRampToValueAtTime(80, t0 + 0.12);
+                gain.gain.exponentialRampToValueAtTime(0.22, t0 + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.18);
+                osc.start(t0); osc.stop(t0 + 0.2);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, t0);
+                osc.frequency.exponentialRampToValueAtTime(80, t0 + 0.3);
+                gain.gain.exponentialRampToValueAtTime(0.18, t0 + 0.01);
+                gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.32);
+                osc.start(t0); osc.stop(t0 + 0.34);
+            } else if (type === 'win') {
+                // ascending arpeggio
+                const notes = [523, 659, 784, 1046];
+                notes.forEach((f, i) => {
+                    const o2 = ac.createOscillator();
+                    const g2 = ac.createGain();
+                    o2.connect(g2).connect(ac.destination);
+                    o2.type = 'square';
+                    o2.frequency.value = f;
+                    const start = t0 + i * 0.12;
+                    g2.gain.setValueAtTime(0.0001, start);
+                    g2.gain.exponentialRampToValueAtTime(0.16, start + 0.01);
+                    g2.gain.exponentialRampToValueAtTime(0.0001, start + 0.18);
+                    o2.start(start); o2.stop(start + 0.2);
+                });
+                osc.stop(t0);
+            }
+        }
 
         // Loading state while Phaser loads
         const loadingEl = document.createElement('div');
@@ -7570,118 +7634,178 @@ GAME_IMPLS['math-platformer-pro'] = {
                 create() {
                     const W = this.scale.width;
                     const H = this.scale.height;
-                    const WORLD_W = 4800; // very long level
+                    const WORLD_W = 4800;
 
-                    // === Sky gradient background ===
+                    // === Sky gradient (the camera scroll-factors below give parallax) ===
                     const skyGfx = this.add.graphics();
-                    skyGfx.fillGradientStyle(0x7dd3fc, 0x7dd3fc, 0xc7d2fe, 0xc7d2fe, 1);
+                    skyGfx.fillGradientStyle(0x60a5fa, 0x60a5fa, 0xa5b4fc, 0xa5b4fc, 1);
                     skyGfx.fillRect(0, 0, WORLD_W, H);
-                    skyGfx.setScrollFactor(0.2); // slow parallax
+                    skyGfx.setScrollFactor(0);
 
                     // === Sun ===
-                    const sun = this.add.circle(120, 80, 36, 0xfde047);
+                    const sun = this.add.circle(140, 90, 32, 0xfde047);
                     sun.setScrollFactor(0.1);
-                    const sunHalo = this.add.circle(120, 80, 50, 0xfde047, 0.3);
+                    const sunHalo = this.add.circle(140, 90, 48, 0xfde047, 0.3);
                     sunHalo.setScrollFactor(0.1);
 
-                    // === Background hills (parallax) ===
-                    const hillsGfx = this.add.graphics();
-                    hillsGfx.fillStyle(0x16a34a, 0.7);
+                    // Subtle distant mountains
+                    const farHills = this.add.graphics();
+                    farHills.fillStyle(0x64748b, 0.55);
+                    for (let x = 0; x < WORLD_W; x += 360) {
+                        farHills.fillTriangle(x, H - 90, x + 180, H - 200, x + 360, H - 90);
+                    }
+                    farHills.setScrollFactor(0.3);
+
+                    // Mid hills (green)
+                    const midHills = this.add.graphics();
+                    midHills.fillStyle(0x16a34a, 0.85);
                     for (let x = 0; x < WORLD_W; x += 280) {
-                        hillsGfx.fillEllipse(x + 140, H - 60, 280, 120);
+                        midHills.fillEllipse(x + 140, H - 70, 280, 130);
                     }
-                    hillsGfx.setScrollFactor(0.4);
+                    midHills.setScrollFactor(0.5);
 
-                    // Mid hills
-                    const hillsMid = this.add.graphics();
-                    hillsMid.fillStyle(0x15803d, 0.85);
-                    for (let x = 0; x < WORLD_W; x += 240) {
-                        hillsMid.fillEllipse(x + 120, H - 30, 320, 140);
-                    }
-                    hillsMid.setScrollFactor(0.6);
-
-                    // Drifting clouds
+                    // Drifting clouds (manual movement so they always face forward)
                     this.cloudsGroup = this.add.group();
-                    for (let i = 0; i < 6; i++) {
+                    for (let i = 0; i < 10; i++) {
                         const cx = 200 + Math.random() * (WORLD_W - 400);
-                        const cy = 60 + Math.random() * 80;
+                        const cy = 50 + Math.random() * 80;
                         const cloud = this.add.graphics();
-                        cloud.fillStyle(0xffffff, 0.9);
-                        cloud.fillCircle(0, 0, 18);
-                        cloud.fillCircle(15, -6, 14);
-                        cloud.fillCircle(28, 2, 16);
-                        cloud.fillCircle(-12, 4, 13);
+                        cloud.fillStyle(0xffffff, 0.92);
+                        cloud.fillCircle(0, 0, 20);
+                        cloud.fillCircle(18, -7, 16);
+                        cloud.fillCircle(32, 3, 18);
+                        cloud.fillCircle(-14, 5, 14);
                         cloud.setPosition(cx, cy);
-                        cloud.setScrollFactor(0.3);
-                        cloud.driftSpeed = 0.1 + Math.random() * 0.15;
+                        cloud.setScrollFactor(0.4);
+                        cloud.driftSpeed = 0.08 + Math.random() * 0.12;
                         this.cloudsGroup.add(cloud);
                     }
 
-                    // === Ground (tilemap-style as a static physics group) ===
-                    this.ground = this.physics.add.staticGroup();
+                    // === Decorative bushes + mushrooms on the grass line ===
+                    const decor = this.add.graphics();
+                    decor.setScrollFactor(1);
                     const groundY = H - 60;
+                    // Bushes (rounded green clumps)
+                    decor.fillStyle(0x14532d);
+                    for (let x = 120; x < WORLD_W; x += 200 + Math.random() * 160) {
+                        const bx = x;
+                        const by = groundY - 16;
+                        decor.fillCircle(bx, by, 14);
+                        decor.fillCircle(bx + 12, by - 3, 12);
+                        decor.fillCircle(bx + 24, by, 14);
+                    }
+                    // Mushrooms (red caps)
+                    decor.fillStyle(0xdc2626);
+                    decor.lineStyle(2, 0x7f1d1d, 1);
+                    for (let x = 90; x < WORLD_W; x += 320 + Math.random() * 200) {
+                        const mx = x;
+                        const my = groundY - 6;
+                        decor.fillTriangle(mx - 10, my, mx + 10, my, mx, my - 16);
+                    }
+
+                    // === Ground tiles (visual + physics) ===
+                    this.ground = this.physics.add.staticGroup();
                     for (let x = 0; x < WORLD_W; x += 40) {
-                        // Visible tile
-                        const t = this.add.rectangle(x + 20, groundY + 30, 40, 60, 0x8b4513);
-                        // Grass cap
-                        const g = this.add.rectangle(x + 20, groundY, 40, 8, 0x16a34a);
-                        // Brick stripes
-                        const stripe = this.add.rectangle(x + 20, groundY + 30, 38, 2, 0x6b3410);
-                        // Static body for collision
+                        // Dirt body
+                        const t = this.add.rectangle(x + 20, groundY + 30, 40, 60, 0x92400e);
+                        t.setStrokeStyle(2, 0x78350f);
+                        // Random lighter dirt blotch for texture
+                        if (Math.random() < 0.35) {
+                            this.add.circle(x + 20 + (Math.random() - 0.5) * 20, groundY + 30 + (Math.random() - 0.5) * 30, 3, 0xb45309, 0.55);
+                        }
+                        // Grass top cap
+                        this.add.rectangle(x + 20, groundY, 40, 10, 0x16a34a);
+                        // Grass tufts
+                        if (Math.random() < 0.3) {
+                            this.add.triangle(x + 10 + Math.random() * 20, groundY - 4, 0, 0, 4, -8, 8, 0, 0x166534);
+                        }
                         this.physics.add.existing(t, true);
                         this.ground.add(t);
                     }
 
-                    // === Player Character (a "Container" of shapes) ===
-                    // Built from rectangles + a circle — animated as a true
-                    // run-cycle with leg/arm swings.
+                    // === Player Character (Mario-style: cap, mustache, overalls) ===
                     const player = this.add.container(80, groundY - 40);
-                    const torso = this.add.rectangle(0, 0, 18, 22, 0x2563eb);
+
+                    // Order matters for layering (back to front)
+                    // Arms behind body
+                    const armL  = this.add.rectangle(-10, -6, 5, 14, 0xef4444).setOrigin(0.5, 0);
+                    const armR  = this.add.rectangle( 10, -6, 5, 14, 0xef4444).setOrigin(0.5, 0);
+                    // Body (shirt)
+                    const shirt = this.add.rectangle(0, -4, 20, 12, 0xef4444);
+                    // Overalls (blue) covering bottom half of body + small straps
+                    const overalls = this.add.rectangle(0, 6, 20, 20, 0x2563eb);
+                    const strapL = this.add.rectangle(-5, -4, 4, 14, 0x2563eb);
+                    const strapR = this.add.rectangle( 5, -4, 4, 14, 0x2563eb);
+                    const buttonL = this.add.circle(-5, 2, 1.6, 0xfbbf24);
+                    const buttonR = this.add.circle( 5, 2, 1.6, 0xfbbf24);
+                    // Hands (white gloves)
+                    const handL = this.add.circle(-10, 8, 3.5, 0xffffff);
+                    const handR = this.add.circle( 10, 8, 3.5, 0xffffff);
+                    // Head (skin tone)
                     const head  = this.add.circle(0, -18, 10, 0xfcd5b4);
-                    // Hair tuft
-                    const hair  = this.add.rectangle(0, -25, 18, 4, 0x4a2c1a);
+                    // Mustache
+                    const mustache = this.add.rectangle(0, -15, 12, 3, 0x4a2c1a);
                     // Eyes
-                    const eyeL  = this.add.circle(-3, -19, 1.5, 0x000000);
-                    const eyeR  = this.add.circle( 3, -19, 1.5, 0x000000);
-                    // Limbs (origin at top so they swing from the shoulder/hip)
-                    const armL  = this.add.rectangle(-9, -6, 4, 14, 0xfcd5b4).setOrigin(0.5, 0);
-                    const armR  = this.add.rectangle( 9, -6, 4, 14, 0xfcd5b4).setOrigin(0.5, 0);
-                    const legL  = this.add.rectangle(-4, 10, 5, 14, 0x1e3a8a).setOrigin(0.5, 0);
-                    const legR  = this.add.rectangle( 4, 10, 5, 14, 0x1e3a8a).setOrigin(0.5, 0);
-                    player.add([armL, armR, torso, head, hair, eyeL, eyeR, legL, legR]);
+                    const eyeL = this.add.circle(-3, -19, 1.6, 0x000000);
+                    const eyeR = this.add.circle( 3, -19, 1.6, 0x000000);
+                    // Nose
+                    const nose = this.add.circle(0, -17, 2.5, 0xf9a474);
+                    // Cap (red with brim)
+                    const cap = this.add.rectangle(0, -26, 20, 8, 0xdc2626);
+                    const capBrim = this.add.rectangle(4, -22, 12, 3, 0xdc2626);
+                    const capLogo = this.add.text(0, -27, 'M', {
+                        fontFamily: 'Courier New, monospace',
+                        fontSize: '10px',
+                        fontStyle: 'bold',
+                        color: '#dc2626',
+                        backgroundColor: '#ffffff',
+                        padding: { left: 2, right: 2, top: 0, bottom: 0 },
+                    }).setOrigin(0.5);
+                    // Legs (blue, overalls continue) with shoes
+                    const legL = this.add.rectangle(-4, 12, 6, 12, 0x1e3a8a).setOrigin(0.5, 0);
+                    const legR = this.add.rectangle( 4, 12, 6, 12, 0x1e3a8a).setOrigin(0.5, 0);
+                    const shoeL = this.add.rectangle(-4, 24, 8, 4, 0x4a2c1a).setOrigin(0.5, 0);
+                    const shoeR = this.add.rectangle( 4, 24, 8, 4, 0x4a2c1a).setOrigin(0.5, 0);
+
+                    player.add([
+                        armL, armR,
+                        shirt, overalls, strapL, strapR, buttonL, buttonR,
+                        legL, legR, shoeL, shoeR,
+                        handL, handR,
+                        head, mustache, eyeL, eyeR, nose,
+                        cap, capBrim, capLogo,
+                    ]);
+
                     this.physics.world.enable(player);
                     const body = player.body;
-                    body.setSize(22, 52);
-                    body.setOffset(-11, -28);
+                    body.setSize(22, 56);
+                    body.setOffset(-11, -32);
                     body.setCollideWorldBounds(false);
                     body.setMaxVelocity(280, 1200);
                     this.physics.add.collider(player, this.ground);
                     this.player = player;
-                    this.playerLimbs = { armL, armR, legL, legR, torso, head };
+                    this.playerLimbs = { armL, armR, legL, legR, shoeL, shoeR };
 
-                    // Run-cycle leg + arm swing (idle bobs slowly, runs swing fast)
+                    // Run-cycle: legs and arms swing in opposite phases
                     this.runTween = this.tweens.add({
-                        targets: [legL, armR],
+                        targets: [legL, shoeL, armR],
                         rotation: { from: -0.45, to: 0.45 },
-                        duration: 200,
-                        yoyo: true,
-                        repeat: -1,
+                        duration: 200, yoyo: true, repeat: -1,
                     });
                     this.runTween2 = this.tweens.add({
-                        targets: [legR, armL],
+                        targets: [legR, shoeR, armL],
                         rotation: { from: 0.45, to: -0.45 },
-                        duration: 200,
-                        yoyo: true,
-                        repeat: -1,
+                        duration: 200, yoyo: true, repeat: -1,
                     });
-                    // Auto-run right (slow speed; jumps land them on math blocks)
-                    body.setVelocityX(150);
 
-                    // Camera follows the player horizontally
+                    // Auto-run right at a comfortable pace
+                    body.setVelocityX(140);
+
+                    // Camera follows
                     this.cameras.main.setBounds(0, 0, WORLD_W, H);
                     this.cameras.main.startFollow(player, true, 0.1, 0);
 
-                    // Input handlers
+                    // Input
                     this.input.keyboard.on('keydown-SPACE', () => this.tryJump());
                     this.input.keyboard.on('keydown-UP', () => this.tryJump());
                     this.input.on('pointerdown', () => this.tryJump());
@@ -7690,54 +7814,56 @@ GAME_IMPLS['math-platformer-pro'] = {
                         this.tryJump();
                     });
 
-                    // === Math blocks (question blocks scattered along the path) ===
+                    // === Math blocks — Mario ? blocks, low enough to comfortably reach ===
                     this.qBlocks = this.physics.add.staticGroup();
-                    const blockY = groundY - 160;
+                    // Lower than before so the head bump actually connects.
+                    // Jump peak ≈ 90px; block bottom needs to be within that.
+                    const blockY = groundY - 110;
                     const blockPositions = [];
-                    for (let x = 400; x < WORLD_W - 200; x += 300) {
+                    for (let x = 360; x < WORLD_W - 200; x += 320) {
                         blockPositions.push({ x, y: blockY });
                     }
                     blockPositions.forEach((p) => {
-                        // Visual: three brick blocks side-by-side, each with a number option
                         const set = this.makeQuestionGroup(p.x, p.y);
                         set.blocks.forEach((b) => this.qBlocks.add(b));
                     });
-                    this.physics.add.collider(this.player, this.qBlocks, (player, block) => {
+                    this.physics.add.collider(this.player, this.qBlocks, (playerObj, block) => {
                         if (!block._meta) return;
+                        if (block._meta.done) return;
                         if (!block._meta.canHit) return;
-                        // Only count a "hit" if player is moving upward (hit from below)
-                        if (player.body.velocity.y >= 0) return;
+                        // Only count as a head-bump if the player is moving upward
+                        if (playerObj.body.velocity.y >= 0) return;
                         this.handleBlockHit(block);
                     });
 
-                    // === Coins floating in the air for collection ===
+                    // === Coins floating in the air ===
                     this.coinsGroup = this.physics.add.staticGroup();
-                    for (let x = 200; x < WORLD_W - 100; x += 180) {
-                        if (Math.random() < 0.6) {
-                            const cx = x + (Math.random() - 0.5) * 80;
-                            const cy = groundY - 80 - Math.random() * 100;
-                            const coin = this.add.circle(cx, cy, 8, 0xfbbf24);
-                            const coinInner = this.add.circle(cx, cy, 5, 0xfde047);
+                    for (let x = 220; x < WORLD_W - 100; x += 180) {
+                        if (Math.random() < 0.65) {
+                            const cx = x + (Math.random() - 0.5) * 60;
+                            const cy = groundY - 60 - Math.random() * 60;
+                            const coin = this.add.circle(cx, cy, 9, 0xfbbf24);
+                            coin.setStrokeStyle(2, 0xb45309);
+                            const inner = this.add.circle(cx, cy, 5, 0xfde047);
                             this.physics.add.existing(coin, true);
-                            coin._inner = coinInner;
+                            coin._inner = inner;
                             this.coinsGroup.add(coin);
-                            // Coin spin
+                            // Coin spin (flat then full)
                             this.tweens.add({
-                                targets: coin,
-                                scaleX: { from: 1, to: 0.3 },
-                                duration: 600,
-                                yoyo: true,
-                                repeat: -1,
+                                targets: [coin, inner],
+                                scaleX: { from: 1, to: 0.25 },
+                                duration: 500, yoyo: true, repeat: -1,
                             });
                         }
                     }
-                    this.physics.add.overlap(this.player, this.coinsGroup, (player, coin) => {
+                    this.physics.add.overlap(this.player, this.coinsGroup, (playerObj, coin) => {
                         if (coin._collected) return;
                         coin._collected = true;
                         this.coins += 1;
-                        document.getElementById('pp-coins').textContent = this.coins;
+                        const el = document.getElementById('pp-coins');
+                        if (el) el.textContent = this.coins;
                         try { ctx.onScore(1, { x: 0, y: 0 }); } catch {}
-                        // Coin pop animation
+                        _sfx('coin');
                         this.tweens.add({
                             targets: [coin, coin._inner],
                             scale: 2,
@@ -7748,40 +7874,82 @@ GAME_IMPLS['math-platformer-pro'] = {
                         });
                     });
 
-                    // === Flag at the end (goal post) ===
-                    this.flag = this.add.rectangle(WORLD_W - 80, groundY - 40, 6, 80, 0x4b5563);
-                    const flagBanner = this.add.triangle(
-                        WORLD_W - 60, groundY - 60,
-                        0, 0, 32, 10, 0, 20,
+                    // === Flag at the end ===
+                    const flagX = WORLD_W - 80;
+                    // Tall metal pole
+                    const pole = this.add.rectangle(flagX, groundY - 60, 4, 120, 0xcbd5e1);
+                    pole.setStrokeStyle(1, 0x64748b);
+                    // Ball on top
+                    this.add.circle(flagX, groundY - 122, 6, 0xfbbf24);
+                    // Triangle banner
+                    const banner = this.add.triangle(
+                        flagX + 16, groundY - 110,
+                        0, 0,  28, 10,  0, 22,
                         0xef4444
                     );
+                    banner.setStrokeStyle(1, 0x991b1b);
+                    this.tweens.add({
+                        targets: banner,
+                        scaleX: { from: 1, to: 0.7 },
+                        duration: 700, yoyo: true, repeat: -1,
+                    });
+                    // Trigger zone — a wider invisible rect just in front of the pole
+                    this.flag = this.add.rectangle(flagX, groundY - 60, 12, 120, 0xffffff, 0);
                     this.physics.add.existing(this.flag, true);
                     this.physics.add.overlap(this.player, this.flag, () => this.handleFlagReached(), null, this);
 
-                    // === First problem ===
+                    // First problem
                     this.nextProblem();
                 }
 
                 makeQuestionGroup(cx, cy) {
-                    // 3 brick blocks side-by-side with numbers
+                    // 3 Mario ? blocks side-by-side. Each block is composed of:
+                    //  - Gold square with brown stroke (Phaser Rectangle)
+                    //  - Inner inset for 3D depth
+                    //  - 4 stud rivets in the corners
+                    //  - Big "?" centered (becomes the answer number when live)
                     const blocks = [];
-                    const spacing = 50;
+                    const spacing = 56;
+                    const SIZE = 46;
+                    const group = []; // shared array reference for the triplet
                     for (let i = 0; i < 3; i++) {
                         const bx = cx + (i - 1) * spacing;
-                        // Outer brick visual
-                        const b = this.add.rectangle(bx, cy, 44, 44, 0xf59e0b);
-                        b.setStrokeStyle(3, 0x7c2d12);
-                        // Number text
+                        // The "block" itself — a Container of layered shapes.
+                        // The Rectangle that gets the physics body is the outer
+                        // brick; we hang the visual decorations off it.
+                        const outer = this.add.rectangle(bx, cy, SIZE, SIZE, 0xfbbf24);
+                        outer.setStrokeStyle(3, 0x7c2d12);
+                        const inset = this.add.rectangle(bx, cy, SIZE - 8, SIZE - 8, 0xf59e0b, 1);
+                        inset.setStrokeStyle(1, 0xb45309, 0.8);
+                        // Corner studs
+                        const studs = [
+                            this.add.circle(bx - SIZE / 2 + 6, cy - SIZE / 2 + 6, 2, 0x7c2d12),
+                            this.add.circle(bx + SIZE / 2 - 6, cy - SIZE / 2 + 6, 2, 0x7c2d12),
+                            this.add.circle(bx - SIZE / 2 + 6, cy + SIZE / 2 - 6, 2, 0x7c2d12),
+                            this.add.circle(bx + SIZE / 2 - 6, cy + SIZE / 2 - 6, 2, 0x7c2d12),
+                        ];
                         const txt = this.add.text(bx, cy, '?', {
                             fontFamily: 'Courier New, monospace',
-                            fontSize: '22px',
+                            fontSize: '24px',
                             fontStyle: 'bold',
                             color: '#7c2d12',
+                            stroke: '#fde047',
+                            strokeThickness: 2,
                         }).setOrigin(0.5);
-                        b._numText = txt;
-                        this.physics.add.existing(b, true);
-                        b._meta = { laneIdx: i, canHit: false, group: blocks, cx: bx, cy: cy };
-                        blocks.push(b);
+                        // Subtle pulse animation while alive
+                        const pulse = this.tweens.add({
+                            targets: outer,
+                            scale: { from: 1, to: 1.04 },
+                            duration: 700, yoyo: true, repeat: -1,
+                        });
+                        this.physics.add.existing(outer, true);
+                        outer._numText = txt;
+                        outer._inset = inset;
+                        outer._studs = studs;
+                        outer._pulse = pulse;
+                        outer._meta = { laneIdx: i, canHit: false, group, cx: bx, cy: cy, done: false };
+                        group.push(outer);
+                        blocks.push(outer);
                     }
                     return { blocks };
                 }
@@ -7790,10 +7958,11 @@ GAME_IMPLS['math-platformer-pro'] = {
                     if (!this.player) return;
                     const body = this.player.body;
                     if (body.blocked.down || body.touching.down) {
-                        body.setVelocityY(-420);
-                        // Tuck legs / extend arms on jump
+                        body.setVelocityY(-460);
+                        _sfx('jump');
+                        // Tuck legs on jump
                         this.tweens.add({
-                            targets: [this.playerLimbs.legL, this.playerLimbs.legR],
+                            targets: [this.playerLimbs.legL, this.playerLimbs.legR, this.playerLimbs.shoeL, this.playerLimbs.shoeR],
                             rotation: 0,
                             duration: 120,
                             yoyo: true,
@@ -7814,14 +7983,12 @@ GAME_IMPLS['math-platformer-pro'] = {
                         ans = a - b;
                     }
                     this.target = { a, b, op, ans };
-                    document.getElementById('pp-q-text').innerHTML =
-                        `Jump the brick that says <b>${a} ${op === '-' ? '−' : '+'} ${b}</b> = ?`;
+                    const qEl = document.getElementById('pp-q-text');
+                    if (qEl) qEl.innerHTML = `Hit the brick that says <b>${a} ${op === '-' ? '−' : '+'} ${b}</b> = ?`;
 
-                    // Find the nearest unanswered question group to the right of the player
                     const playerX = this.player ? this.player.x : 0;
                     const nextGroup = this.findNextQuestionGroup(playerX);
                     if (nextGroup) {
-                        // Assign numbers — one matches the answer, others are decoys
                         const set = new Set([ans]);
                         while (set.size < 3) {
                             const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
@@ -7833,64 +8000,99 @@ GAME_IMPLS['math-platformer-pro'] = {
                             blk._meta.value = nums[i];
                             blk._meta.correct = nums[i] === ans;
                             blk._numText.setText(String(nums[i]));
+                            blk._numText.setColor('#7c2d12');
+                            // Reset visuals (in case a wrong-hit recolour stuck around)
+                            blk.setFillStyle(0xfbbf24);
+                            if (blk._inset) blk._inset.setFillStyle(0xf59e0b);
                         });
+                    } else {
+                        // No more brick groups left — just keep running to the flag.
+                        if (qEl) qEl.innerHTML = '<b>🏁 Run to the flag!</b>';
                     }
                 }
 
                 findNextQuestionGroup(playerX) {
-                    // Group blocks that share the same Y (a triplet)
+                    // A "group" is the array reference stored in each block's
+                    // _meta.group. We want the leftmost group whose blocks all
+                    // are not done AND whose cx is to the right of the player.
                     const all = this.qBlocks.getChildren();
-                    const groups = {};
-                    all.forEach((b) => {
-                        if (b._meta.canHit) return;
-                        const key = Math.round(b.y) + '_' + Math.round((b.x - 0) / 200);
-                        if (b._meta.cx > playerX + 60) {
-                            if (!groups[key]) groups[key] = [];
-                            groups[key].push(b);
+                    const seenGroups = new Set();
+                    const candidates = [];
+                    for (const b of all) {
+                        if (!b._meta) continue;
+                        if (b._meta.done) continue;
+                        if (b._meta.canHit) continue; // already active in a current problem
+                        const g = b._meta.group;
+                        if (!g || seenGroups.has(g)) continue;
+                        seenGroups.add(g);
+                        // All three must be not-done
+                        if (g.some((x) => x._meta.done)) continue;
+                        const minX = Math.min(...g.map((x) => x.x));
+                        if (minX > playerX + 80) {
+                            candidates.push({ g, minX });
                         }
-                    });
-                    const keys = Object.keys(groups).sort((a, b) => {
-                        return Math.min(...groups[a].map(x => x.x)) - Math.min(...groups[b].map(x => x.x));
-                    });
-                    if (!keys.length) return null;
-                    const triplet = groups[keys[0]];
-                    return triplet.length === 3 ? triplet : null;
+                    }
+                    if (!candidates.length) return null;
+                    candidates.sort((a, b) => a.minX - b.minX);
+                    return candidates[0].g;
                 }
 
                 handleBlockHit(block) {
-                    if (block._meta.hit) return;
-                    block._meta.hit = true;
-                    // Mark all blocks in this group as no longer canHit
-                    if (block._meta.group) {
-                        block._meta.group.forEach((b) => { b._meta.canHit = false; });
-                    }
+                    if (!block._meta || block._meta.done) return;
+                    // Mark the ENTIRE group as done so future nextProblem() calls
+                    // skip them. (This was the question-mark bug — we only marked
+                    // canHit=false but didn't track "this triplet has been used".)
+                    const group = block._meta.group;
+                    if (group) group.forEach((b) => { b._meta.done = true; b._meta.canHit = false; if (b._pulse) b._pulse.stop(); });
+
+                    // Mario block-bump animation: the entire block (and decorations)
+                    // tween up ~16px then come back down with a subtle squash.
+                    const targets = [block, block._inset, block._numText, ...(block._studs || [])];
+                    const origY = block.y;
+                    this.tweens.add({
+                        targets,
+                        y: origY - 18,
+                        duration: 110,
+                        ease: 'Quad.easeOut',
+                        yoyo: true,
+                    });
+
                     if (block._meta.correct) {
-                        // Correct — turn brick gold + spawn a coin pop + score
-                        block.setFillStyle(0xfde047);
-                        block._numText.setColor('#16a34a');
+                        _sfx('bonk');
+                        _sfx('coin');
+                        // Turn the block into a "used" brown brick after the bump
+                        this.time.delayedCall(220, () => {
+                            block.setFillStyle(0x92400e);
+                            if (block._inset) block._inset.setFillStyle(0x78350f);
+                            block._numText.setText('✓');
+                            block._numText.setColor('#fde047');
+                        });
                         // Coin pop above the block
-                        const popCoin = this.add.circle(block.x, block.y - 30, 8, 0xfbbf24);
+                        const popCoin = this.add.circle(block.x, origY - 28, 9, 0xfbbf24);
+                        popCoin.setStrokeStyle(2, 0xb45309);
+                        const popInner = this.add.circle(block.x, origY - 28, 5, 0xfde047);
                         this.tweens.add({
-                            targets: popCoin,
-                            y: block.y - 80,
-                            alpha: 0,
-                            scale: 1.6,
-                            duration: 600,
-                            onComplete: () => popCoin.destroy(),
+                            targets: [popCoin, popInner],
+                            y: origY - 90, alpha: 0, scale: 1.4,
+                            duration: 700, ease: 'Quad.easeOut',
+                            onComplete: () => { try { popCoin.destroy(); popInner.destroy(); } catch {} }
                         });
                         try { ctx.onScore(3, { x: 0, y: 0 }); } catch {}
                         this.nextProblem();
                     } else {
-                        // Wrong — turn red, lose a life
-                        block.setFillStyle(0xef4444);
-                        block._numText.setColor('#ffffff');
+                        _sfx('bonk');
+                        _sfx('wrong');
+                        this.time.delayedCall(220, () => {
+                            block.setFillStyle(0xb91c1c);
+                            if (block._inset) block._inset.setFillStyle(0x7f1d1d);
+                            block._numText.setText('✕');
+                            block._numText.setColor('#ffffff');
+                        });
                         this.lives -= 1;
-                        document.getElementById('pp-lives').textContent = this.lives;
+                        const livesEl = document.getElementById('pp-lives');
+                        if (livesEl) livesEl.textContent = this.lives;
                         try { ctx.onPenalty(2, { x: 0, y: 0 }); } catch {}
-                        if (this.lives <= 0) {
-                            this.handleGameOver();
-                            return;
-                        }
+                        if (this.lives <= 0) { this.handleGameOver(); return; }
                         this.nextProblem();
                     }
                 }
@@ -7898,14 +8100,18 @@ GAME_IMPLS['math-platformer-pro'] = {
                 handleFlagReached() {
                     if (this.endHandled) return;
                     this.endHandled = true;
-                    document.getElementById('pp-q-text').innerHTML = '<b>🏁 LEVEL CLEAR!</b>';
+                    const qEl = document.getElementById('pp-q-text');
+                    if (qEl) qEl.innerHTML = '<b>🏁 LEVEL CLEAR!</b>';
+                    _sfx('win');
                     try { ctx.onScore(10, { x: 0, y: 0 }); } catch {}
-                    try { ctx.onWin(); } catch {}
+                    setTimeout(() => { try { ctx.onWin(); } catch {} }, 1200);
                 }
                 handleGameOver() {
                     if (this.endHandled) return;
                     this.endHandled = true;
-                    document.getElementById('pp-q-text').innerHTML = '<b>💀 GAME OVER!</b>';
+                    const qEl = document.getElementById('pp-q-text');
+                    if (qEl) qEl.innerHTML = '<b>💀 GAME OVER!</b>';
+                    _sfx('wrong');
                     setTimeout(() => { try { ctx.onWin(); } catch {} }, 1400);
                 }
 
@@ -7962,6 +8168,29 @@ GAME_IMPLS['math-platformer-pro'] = {
                 scene: PlatformScene,
             };
             game = new Phaser.Game(config);
+
+            // Fullscreen button (wired after Phaser boots so the canvas exists)
+            const fsBtn = document.getElementById('pp-fs-btn');
+            if (fsBtn) {
+                fsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const target = canvasHost; // request fullscreen on the canvas host
+                    const isFs = document.fullscreenElement === target;
+                    if (isFs) {
+                        if (document.exitFullscreen) document.exitFullscreen();
+                        wrap.classList.remove('mg-pp-fullscreen');
+                    } else {
+                        if (target.requestFullscreen) target.requestFullscreen();
+                        else if (target.webkitRequestFullscreen) target.webkitRequestFullscreen();
+                        wrap.classList.add('mg-pp-fullscreen');
+                    }
+                });
+                document.addEventListener('fullscreenchange', () => {
+                    if (!document.fullscreenElement) {
+                        wrap.classList.remove('mg-pp-fullscreen');
+                    }
+                });
+            }
         }).catch((err) => {
             loadingEl.innerHTML = '⚠️ Couldn\'t load game engine. Try refreshing.';
             console.error('Phaser load failed:', err);
