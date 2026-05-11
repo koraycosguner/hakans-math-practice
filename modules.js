@@ -60,8 +60,10 @@ function renderNumberLine(from, to, mark) {
 }
 
 // Big bold number (e.g. for "what comes after 5?")
+// Now: gradient text, soft glow halo, optional theme color
 function renderBigNumber(n, color) {
-    return `<div class="m-big-number" style="${color ? 'color:' + color : ''}">${n}</div>`;
+    const themed = color ? ` m-big-number-${String(color).replace(/[^a-z]/gi, '')}` : '';
+    return `<div class="m-big-number${themed}">${n}</div>`;
 }
 
 // Two numbers side by side for comparison: "5  ?  8"
@@ -135,15 +137,48 @@ function renderClock(hour, minute) {
 }
 
 // Simple shape SVG for shape lessons & quiz.
+// Now with: gradient fills, soft drop shadow, corner highlight, and
+// support for more shapes (pentagon, hexagon, oval, star, diamond).
 function renderShape(name) {
+    const defs = `<defs>
+        <filter id="shapeShadow" x="-15%" y="-15%" width="130%" height="130%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+            <feOffset dx="0" dy="4" result="off"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="grad-yellow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFE873"/><stop offset="100%" stop-color="#FFB300"/>
+        </linearGradient>
+        <linearGradient id="grad-green" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#86EFAC"/><stop offset="100%" stop-color="#16A34A"/>
+        </linearGradient>
+        <linearGradient id="grad-red" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FCA5A5"/><stop offset="100%" stop-color="#DC2626"/>
+        </linearGradient>
+        <linearGradient id="grad-purple" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#C4B5FD"/><stop offset="100%" stop-color="#6D28D9"/>
+        </linearGradient>
+        <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#93C5FD"/><stop offset="100%" stop-color="#1D4ED8"/>
+        </linearGradient>
+        <linearGradient id="grad-pink" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#BE185D"/>
+        </linearGradient>
+    </defs>`;
     const svgs = {
-        circle:    '<circle cx="80" cy="80" r="65" fill="#FFD93D" stroke="#B8860B" stroke-width="4"/>',
-        square:    '<rect x="20" y="20" width="120" height="120" fill="#43E97B" stroke="#1A8C42" stroke-width="4"/>',
-        triangle:  '<polygon points="80,15 145,140 15,140" fill="#FF6B6B" stroke="#9B2C2C" stroke-width="4"/>',
-        rectangle: '<rect x="10" y="35" width="140" height="90" fill="#6C63FF" stroke="#3A36A0" stroke-width="4"/>',
+        circle:    '<circle cx="80" cy="80" r="65" fill="url(#grad-yellow)" stroke="#92400e" stroke-width="3" filter="url(#shapeShadow)"/>',
+        square:    '<rect x="20" y="20" width="120" height="120" rx="6" fill="url(#grad-green)" stroke="#14532D" stroke-width="3" filter="url(#shapeShadow)"/>',
+        triangle:  '<polygon points="80,15 145,140 15,140" fill="url(#grad-red)" stroke="#7F1D1D" stroke-width="3" stroke-linejoin="round" filter="url(#shapeShadow)"/>',
+        rectangle: '<rect x="10" y="35" width="140" height="90" rx="6" fill="url(#grad-purple)" stroke="#4C1D95" stroke-width="3" filter="url(#shapeShadow)"/>',
+        pentagon:  '<polygon points="80,12 145,55 122,135 38,135 15,55" fill="url(#grad-blue)" stroke="#1E3A8A" stroke-width="3" stroke-linejoin="round" filter="url(#shapeShadow)"/>',
+        hexagon:   '<polygon points="80,15 140,50 140,110 80,145 20,110 20,50" fill="url(#grad-pink)" stroke="#831843" stroke-width="3" stroke-linejoin="round" filter="url(#shapeShadow)"/>',
+        oval:      '<ellipse cx="80" cy="80" rx="70" ry="48" fill="url(#grad-yellow)" stroke="#92400e" stroke-width="3" filter="url(#shapeShadow)"/>',
+        star:      '<polygon points="80,12 96,55 142,55 105,82 119,127 80,98 41,127 55,82 18,55 64,55" fill="url(#grad-yellow)" stroke="#92400e" stroke-width="3" stroke-linejoin="round" filter="url(#shapeShadow)"/>',
+        diamond:   '<polygon points="80,15 145,80 80,145 15,80" fill="url(#grad-blue)" stroke="#1E3A8A" stroke-width="3" stroke-linejoin="round" filter="url(#shapeShadow)"/>',
     };
     const path = svgs[name] || '';
-    return `<svg viewBox="0 0 160 160" width="160" height="160" xmlns="http://www.w3.org/2000/svg" class="m-svg">${path}</svg>`;
+    return `<svg viewBox="0 0 160 160" width="160" height="160" xmlns="http://www.w3.org/2000/svg" class="m-svg">${defs}${path}</svg>`;
 }
 
 // Fraction visual: a circle/square divided into N equal parts, P filled.

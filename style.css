@@ -5906,12 +5906,52 @@ body::after {
     display: block;
 }
 .m-big-number {
-    font-size: clamp(4rem, 11vw, 7.5rem);
+    font-size: clamp(4rem, 12vw, 8rem);
     font-weight: 900;
-    color: var(--primary);
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #4c1d95 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     letter-spacing: -0.04em;
     line-height: 1;
     text-align: center;
+    filter: drop-shadow(0 4px 10px rgba(108, 99, 255, 0.3));
+    padding: 8px 0;
+}
+.m-big-number-purple {
+    background: linear-gradient(135deg, #c4b5fd 0%, #7c3aed 50%, #4c1d95 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 10px rgba(124, 58, 237, 0.35));
+}
+.m-big-number-blue {
+    background: linear-gradient(135deg, #93c5fd 0%, #2563eb 50%, #1e3a8a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 10px rgba(37, 99, 235, 0.35));
+}
+.m-big-number-green {
+    background: linear-gradient(135deg, #86efac 0%, #16a34a 50%, #14532d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 10px rgba(22, 163, 74, 0.35));
+}
+.m-big-number-red {
+    background: linear-gradient(135deg, #fca5a5 0%, #dc2626 50%, #7f1d1d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 10px rgba(220, 38, 38, 0.35));
+}
+.m-big-number-orange {
+    background: linear-gradient(135deg, #fdba74 0%, #ea580c 50%, #7c2d12 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 10px rgba(234, 88, 12, 0.35));
 }
 .m-compare-row {
     display: inline-flex;
