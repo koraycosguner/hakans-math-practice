@@ -2370,6 +2370,154 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 22. ROCKET LAUNCH — Hakan fuels a rocket by solving math problems.
+// Each correct answer fills the fuel bar. Reach 100% → BLAST OFF!
+// =====================================================================
+GAME_IMPLS['rocket-launch'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const fuelTarget = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 8;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-rocket-wrap';
+
+        // Launchpad scene
+        const stage = document.createElement('div');
+        stage.className = 'mg-rocket-stage';
+        // Stars background
+        const stars = document.createElement('div');
+        stars.className = 'mg-rocket-stars';
+        for (let i = 0; i < 24; i++) {
+            const s = document.createElement('span');
+            s.style.left = (Math.random() * 100) + '%';
+            s.style.top = (Math.random() * 60) + '%';
+            s.style.animationDelay = (Math.random() * 3) + 's';
+            s.style.fontSize = (0.5 + Math.random() * 0.5) + 'rem';
+            s.textContent = '⭐';
+            s.className = 'mg-rocket-star';
+            stars.appendChild(s);
+        }
+        stage.appendChild(stars);
+        // Ground
+        const ground = document.createElement('div');
+        ground.className = 'mg-rocket-ground';
+        stage.appendChild(ground);
+        // Rocket
+        const rocket = document.createElement('div');
+        rocket.className = 'mg-rocket';
+        rocket.textContent = '🚀';
+        // Flames (hidden until launch)
+        const flames = document.createElement('div');
+        flames.className = 'mg-rocket-flames';
+        flames.textContent = '🔥';
+        rocket.appendChild(flames);
+        stage.appendChild(rocket);
+        wrap.appendChild(stage);
+
+        // Fuel meter
+        const fuelWrap = document.createElement('div');
+        fuelWrap.className = 'mg-rocket-fuel-wrap';
+        fuelWrap.innerHTML = `
+            <span class="mg-rocket-fuel-label">⛽ FUEL</span>
+            <div class="mg-rocket-fuel-track"><div class="mg-rocket-fuel-fill"></div></div>
+            <span class="mg-rocket-fuel-pct">0%</span>
+        `;
+        wrap.appendChild(fuelWrap);
+
+        // Question + options
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-rocket-q';
+        wrap.appendChild(qBox);
+        const opts = document.createElement('div');
+        opts.className = 'mg-rocket-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        const fuelFill = wrap.querySelector('.mg-rocket-fuel-fill');
+        const fuelPct = wrap.querySelector('.mg-rocket-fuel-pct');
+        let fuel = 0;
+        let target = null;
+
+        function updateFuel() {
+            const pct = Math.round((fuel / fuelTarget) * 100);
+            fuelFill.style.width = pct + '%';
+            fuelPct.textContent = pct + '%';
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-rocket-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-rocket-eqs">=</span><span class="mg-rocket-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-rocket-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-rocket-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-rocket-right');
+                fuel += 1;
+                updateFuel();
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                if (fuel >= fuelTarget) {
+                    launch();
+                    return;
+                }
+                setTimeout(nextProblem, 420);
+            } else {
+                btn.classList.add('mg-rocket-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-rocket-wrong'), 400);
+            }
+        }
+
+        function launch() {
+            qBox.innerHTML = `<div class="mg-rocket-launch-text">3... 2... 1... 🚀 LIFTOFF!</div>`;
+            opts.innerHTML = '';
+            rocket.classList.add('mg-rocket-blast');
+            flames.classList.add('mg-rocket-flames-on');
+            ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+            ctx.onWin();
+            setTimeout(reset, 3000);
+        }
+
+        function reset() {
+            fuel = 0;
+            updateFuel();
+            rocket.classList.remove('mg-rocket-blast');
+            flames.classList.remove('mg-rocket-flames-on');
+            nextProblem();
+        }
+
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
 // 21. MATH EXPRESS — Hakan builds a train! Each correct math answer
 // connects a new car to the engine. Build a full train to win.
 // =====================================================================

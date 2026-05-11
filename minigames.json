@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "rocket-launch",
+    "title": "Rocket Launch",
+    "emoji": "🚀",
+    "description": "Fuel up the rocket and blast off!",
+    "category": "adventure",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each correct answer fuels the rocket. Reach 100% fuel to launch!",
+    "rules": [
+      "🚀 rocket sits on the launchpad, fuel at 0%.",
+      "Solve math problems to fill the fuel meter.",
+      "Each correct answer = +1 fuel tick (out of 5/8/10).",
+      "100% fuel → 3, 2, 1, LIFTOFF! Bonus +5 points."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "math-express",
     "title": "Math Express",
     "emoji": "🚂",
