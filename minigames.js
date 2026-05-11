@@ -378,7 +378,17 @@ function launchMiniGame(id) {
             _gameDeadlineMs -= seconds * 1000;
             _gameCombo = 0;
             const o = opts || {};
+            // Show BOTH the time loss AND a quick encouraging chip
             mgScorePopup('-' + seconds + 's', o.x, o.y, 'mg-popup-bad');
+            const encouragePool = ['Try again!', 'Almost!', 'Keep going!', 'Hmm…', 'You got this!'];
+            const msg = encouragePool[Math.floor(Math.random() * encouragePool.length)];
+            // Floats from a little above the tap point so it doesn't overlap
+            // the time-loss chip
+            mgScorePopup(msg,
+                o.x != null ? o.x : null,
+                o.y != null ? o.y - 36 : null,
+                'mg-popup-encourage'
+            );
             if (typeof playSound === 'function') playSound('wrong');
             mgVibrate(80);
             // brief area shake
