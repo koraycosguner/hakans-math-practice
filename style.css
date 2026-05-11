@@ -6358,30 +6358,54 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 .ps-title { color: white; text-align: center; margin: 12px 0 4px; }
 .ps-sub { text-align: center; color: white; opacity: 0.9; margin: 0 0 22px; }
 .ps-balance {
-    background: linear-gradient(135deg, #fef3c7, #fbbf24);
-    color: #92400e;
-    padding: 10px 22px;
-    border-radius: 14px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbbf24 100%);
+    color: #78350f;
+    padding: 12px 24px;
+    border-radius: 16px;
     font-weight: 900;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     text-align: center;
     margin: 0 auto 18px;
-    max-width: 300px;
-    box-shadow: var(--shadow-small);
+    max-width: 320px;
+    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.35);
+    border: 2px solid #f59e0b;
 }
 .ps-preview {
-    background: linear-gradient(135deg, #f3e8ff, #c7d2fe);
-    border-radius: 22px;
-    padding: 24px;
+    background:
+        radial-gradient(circle at 20% 30%, #ddd6fe 0%, transparent 60%),
+        radial-gradient(circle at 80% 70%, #fce7f3 0%, transparent 60%),
+        linear-gradient(135deg, #f3e8ff 0%, #c7d2fe 100%);
+    border-radius: 24px;
+    padding: 28px;
     text-align: center;
     margin-bottom: 22px;
     position: relative;
-    box-shadow: var(--shadow-small);
+    box-shadow: 0 10px 28px rgba(108, 99, 255, 0.25);
+    border: 3px solid #8b5cf6;
 }
-.ps-preview-pet { font-size: 5rem; line-height: 1; }
-.ps-preview-hat { font-size: 2.4rem; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); }
-.ps-preview-acc { font-size: 2.2rem; position: absolute; bottom: 38px; right: 35%; }
-.ps-preview-name { margin-top: 12px; font-weight: 800; color: var(--primary); }
+.ps-preview-pet {
+    font-size: 5.5rem;
+    line-height: 1;
+    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.2));
+    animation: psPetBob 3s ease-in-out infinite;
+}
+@keyframes psPetBob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+}
+html.motion-reduced .ps-preview-pet { animation: none; }
+.ps-preview-hat { font-size: 2.4rem; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); filter: drop-shadow(0 3px 6px rgba(0,0,0,0.25)); }
+.ps-preview-acc { font-size: 2.2rem; position: absolute; bottom: 50px; right: 30%; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.25)); }
+.ps-preview-name {
+    margin-top: 14px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #6d28d9 0%, #4338ca 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+}
 .ps-section { color: white; margin: 16px 0 10px; font-weight: 800; }
 .ps-grid {
     display: grid;
@@ -6389,31 +6413,75 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     gap: 10px;
 }
 .ps-card {
-    background: white;
+    background: linear-gradient(180deg, white 0%, #fafbff 100%);
     border: 3px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 14px 10px;
+    border-radius: 18px;
+    padding: 16px 10px;
     cursor: pointer;
     text-align: center;
     font-family: inherit;
-    transition: transform 0.15s ease;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
     box-shadow: var(--shadow-small);
 }
-.ps-card:hover { transform: translateY(-3px); }
+.ps-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(108, 99, 255, 0.25);
+    border-color: var(--primary);
+}
 .ps-card.ps-owned {
     border-color: #c4bff7;
-    background: linear-gradient(135deg, #f0eeff, #e0e7ff);
+    background: linear-gradient(135deg, #f0eeff 0%, #e0e7ff 100%);
 }
 .ps-card.ps-equipped {
-    border-color: #f5c518;
-    background: linear-gradient(135deg, #fffaeb, #fef3c7);
-    box-shadow: 0 6px 20px rgba(245,197,24,0.35);
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, #fffaeb 0%, #fde68a 100%);
+    box-shadow: 0 8px 22px rgba(245, 158, 11, 0.45);
+    position: relative;
 }
-.ps-emoji { font-size: 2.4rem; line-height: 1; margin-bottom: 6px; }
-.ps-name { font-weight: 800; color: var(--primary); font-size: 0.9rem; }
-.ps-price { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; font-weight: 700; }
-.ps-card.ps-owned .ps-price { color: var(--primary); }
-.ps-card.ps-equipped .ps-price { color: #b45309; font-weight: 900; }
+.ps-card.ps-equipped::after {
+    content: '✓';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    font-weight: 900;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(217, 119, 6, 0.45);
+    border: 2px solid white;
+}
+.ps-emoji {
+    font-size: 2.6rem;
+    line-height: 1;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
+    transition: transform 0.25s ease;
+}
+.ps-card:hover .ps-emoji { transform: scale(1.18) rotate(-6deg); }
+.ps-name { font-weight: 900; color: var(--primary); font-size: 0.9rem; line-height: 1.2; }
+.ps-price {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 6px;
+    font-weight: 900;
+    background: rgba(108, 99, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 999px;
+    display: inline-block;
+}
+.ps-card.ps-owned .ps-price {
+    color: white;
+    background: linear-gradient(135deg, #6c63ff, #4338ca);
+}
+.ps-card.ps-equipped .ps-price {
+    color: white;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
 
 .pet-picker-shop {
     width: 100%;
