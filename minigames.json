@@ -601,6 +601,27 @@
     "config": {}
   },
   {
+    "id": "bee-hive",
+    "title": "Bee Hive",
+    "emoji": "🐝",
+    "description": "Fill the honeycombs! Solve math so the bees can store the honey.",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each right answer fills one honeycomb. Fill them all to complete the hive!",
+    "rules": [
+      "🐝 Bees buzz around an empty honeycomb.",
+      "Solve a math problem → one cell fills with honey + bee.",
+      "Fill all 6 / 9 / 12 cells (by difficulty) to complete the hive (+5 💎)."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "pizza-maker",
     "title": "Pizza Maker",
     "emoji": "🍕",

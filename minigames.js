@@ -4319,3 +4319,143 @@ GAME_IMPLS['pizza-maker'] = {
         return { stop() {} };
     }
 };
+
+// =====================================================================
+// 28. BEE HIVE — Fill the honeycombs! 🐝
+// Bees zip out one by one as Hakan solves math; correct answer fills
+// one honeycomb cell. Fill all cells → hive complete + bee swarm
+// celebration + +5💎.
+// =====================================================================
+GAME_IMPLS['bee-hive'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const cellCount = diff === 'easy' ? 6 : diff === 'hard' ? 12 : 9;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-bee-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-bee-q';
+        wrap.appendChild(qBox);
+
+        // Hive scene
+        const scene = document.createElement('div');
+        scene.className = 'mg-bee-scene';
+        // Flying bees decoration
+        for (let i = 0; i < 3; i++) {
+            const bee = document.createElement('div');
+            bee.className = `mg-bee-fly mg-bee-fly-${i + 1}`;
+            bee.textContent = '🐝';
+            scene.appendChild(bee);
+        }
+        // Honeycomb grid
+        const comb = document.createElement('div');
+        comb.className = 'mg-bee-comb';
+        // Pick grid columns by count
+        const cols = cellCount <= 6 ? 3 : cellCount <= 9 ? 3 : 4;
+        comb.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        const cells = [];
+        for (let i = 0; i < cellCount; i++) {
+            const cell = document.createElement('div');
+            cell.className = 'mg-bee-cell';
+            cell.innerHTML = '<div class="mg-bee-hex"></div>';
+            comb.appendChild(cell);
+            cells.push(cell);
+        }
+        scene.appendChild(comb);
+        wrap.appendChild(scene);
+
+        // Progress
+        const prog = document.createElement('div');
+        prog.className = 'mg-bee-prog';
+        wrap.appendChild(prog);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-bee-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let filled = 0;
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-bee-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-bee-eqs">=</span><span class="mg-bee-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-bee-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-bee-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function fillNextCell() {
+            // Find first non-filled cell and fill it with honey + bee
+            const next = cells.find((c) => !c.classList.contains('mg-bee-cell-full'));
+            if (!next) return;
+            next.classList.add('mg-bee-cell-full');
+            next.innerHTML = '<div class="mg-bee-hex mg-bee-hex-honey"></div><div class="mg-bee-cell-bee">🐝</div>';
+            filled += 1;
+            prog.innerHTML = `<b>${filled}</b> / ${cellCount} honeycombs filled 🍯`;
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-bee-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                fillNextCell();
+                if (filled >= cellCount) {
+                    qBox.innerHTML = `<div class="mg-bee-win">🍯 HIVE COMPLETE! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    scene.classList.add('mg-bee-scene-buzz');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2700);
+                    return;
+                }
+                setTimeout(nextProblem, 600);
+            } else {
+                btn.classList.add('mg-bee-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-bee-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            filled = 0;
+            cells.forEach((c) => {
+                c.classList.remove('mg-bee-cell-full');
+                c.innerHTML = '<div class="mg-bee-hex"></div>';
+            });
+            scene.classList.remove('mg-bee-scene-buzz');
+            prog.innerHTML = `<b>0</b> / ${cellCount} honeycombs filled 🍯`;
+            nextProblem();
+        }
+
+        prog.innerHTML = `<b>0</b> / ${cellCount} honeycombs filled 🍯`;
+        nextProblem();
+        return { stop() {} };
+    }
+};
