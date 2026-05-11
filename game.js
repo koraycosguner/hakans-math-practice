@@ -1007,6 +1007,90 @@ function _initKeyboardInput() {
 }
 _initKeyboardInput();
 
+// ===== Math jokes (Grade 1 friendly) =====
+const MATH_JOKES = [
+    { q: "Why was 6 afraid of 7?", a: "Because 7, 8, 9! 😂" },
+    { q: "What did 0 say to 8?", a: "Nice belt! 🎀" },
+    { q: "Why don't math books smile?", a: "They have too many problems! 📚" },
+    { q: "What's a math teacher's favorite snack?", a: "Pi! 🥧" },
+    { q: "How do you make 7 even?", a: "Take away the S! ✨" },
+    { q: "What did 5 say to 10?", a: "Wow, you're TWICE me! 🙌" },
+    { q: "Why was the math book sad?", a: "It had too many problems to solve!" },
+    { q: "What goes up but never comes down?", a: "Your age! 🎂" },
+    { q: "What did 2 say to 4?", a: "I'm half the kid you are! 🤝" },
+    { q: "Why did the triangle play sports?", a: "It had the best angles! 📐" },
+    { q: "How does a math teacher say goodbye?", a: "See you 'later'-al! 👋" },
+    { q: "What's a number's favorite drink?", a: "Eight juice (juice of 8s)! 🧃" },
+    { q: "What kind of tree do math kids climb?", a: "A geome-TREE! 🌳" },
+    { q: "What do you call 2 friends who love math?", a: "Algeb-buddies! 👯" },
+    { q: "What's a vampire's favorite fraction?", a: "TWO-thirds! 🧛" },
+    { q: "Why did 9 break up with 10?", a: "9 was just too odd! 😄" },
+];
+
+function todaysMathJoke() {
+    const dayKey = new Date().toISOString().slice(0, 10);
+    const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    return MATH_JOKES[seed % MATH_JOKES.length];
+}
+
+// ===== Lucky number of the day =====
+function todaysLuckyNumber() {
+    const dayKey = new Date().toISOString().slice(0, 10);
+    const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    return (seed % 20) + 1;  // 1-20
+}
+
+// ===== Mascot wink + tap-counter for rainbow easter egg =====
+let _mascotTapCount = 0;
+let _mascotTapTimer = null;
+function _wrapMascotForWink() {
+    if (window._mascotWinkSetup) return;
+    window._mascotWinkSetup = true;
+    document.addEventListener('click', (e) => {
+        const m = e.target.closest('.game-mascot, .mascot');
+        if (!m) return;
+        // Wink animation
+        m.classList.remove('mascot-wink');
+        void m.offsetWidth;
+        m.classList.add('mascot-wink');
+        setTimeout(() => m.classList.remove('mascot-wink'), 600);
+        // Tap counter for rainbow easter egg
+        _mascotTapCount++;
+        if (_mascotTapTimer) clearTimeout(_mascotTapTimer);
+        _mascotTapTimer = setTimeout(() => { _mascotTapCount = 0; }, 2000);
+        if (_mascotTapCount >= 5) {
+            _mascotTapCount = 0;
+            _triggerRainbowMode();
+        }
+    });
+}
+_wrapMascotForWink();
+
+function _triggerRainbowMode() {
+    document.documentElement.classList.add('rainbow-mode');
+    if (typeof launchConfetti === 'function') launchConfetti();
+    if (typeof speak === 'function') speak("Rainbow mode, Hakan!");
+    setTimeout(() => {
+        document.documentElement.classList.remove('rainbow-mode');
+    }, 8000);
+}
+
+// ===== Emoji rain for big moments =====
+function emojiRain(emojis, count) {
+    const list = emojis || ['🌟', '✨', '💫', '🎉', '🎊'];
+    count = count || 20;
+    for (let i = 0; i < count; i++) {
+        const e = document.createElement('div');
+        e.className = 'emoji-rain';
+        e.textContent = list[Math.floor(Math.random() * list.length)];
+        e.style.left = (Math.random() * 100) + '%';
+        e.style.animationDelay = (Math.random() * 0.8) + 's';
+        e.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), 4000);
+    }
+}
+
 // Kid-friendly help screen showing what each button does.
 function openHelpScreen() {
     playSound('click');

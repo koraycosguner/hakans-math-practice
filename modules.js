@@ -69314,6 +69314,23 @@ function renderHomeModules() {
         }
     }
 
+    // Math joke of the day (Hakan only)
+    if (isHakan && typeof todaysMathJoke === 'function') {
+        const joke = todaysMathJoke();
+        html += `<div class="joke-card" onclick="this.classList.toggle('joke-open')">
+            <div class="joke-label">😂 Math Joke of the Day</div>
+            <div class="joke-q">${joke.q}</div>
+            <div class="joke-a">${joke.a}</div>
+            <div class="joke-hint">Tap to flip</div>
+        </div>`;
+    }
+
+    // Lucky number of the day (Hakan only)
+    if (isHakan && typeof todaysLuckyNumber === 'function') {
+        const ln = todaysLuckyNumber();
+        html += `<div class="lucky-num"><span class="ln-label">🍀 Today's lucky number:</span> <span class="ln-val">${ln}</span></div>`;
+    }
+
     // Tip of the day: rotating math tip for Hakan
     if (isHakan) {
         const TIPS = [
@@ -71066,6 +71083,10 @@ function handleCorrect() {
     // Hot-streak banner: at 5+ in a row, persistent banner appears.
     if (moduleState.streak >= 5 && typeof showHotStreakBanner === 'function') {
         showHotStreakBanner(moduleState.streak);
+        // Emoji rain on the milestone of exactly 5 (once)
+        if (moduleState.streak === 5 && typeof emojiRain === 'function') {
+            emojiRain(['🔥', '⭐', '🎉', '💫'], 24);
+        }
     }
 
     if (moduleState.activity === 'quiz' && typeof currentUser !== 'undefined' && currentUser === 'hakan') {

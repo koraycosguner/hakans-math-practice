@@ -7857,6 +7857,95 @@ html.feedback-gentle .feedback-content.fb-wrong {
     font-style: italic;
 }
 
+/* ===== Iteration 21: jokes, lucky number, mascot wink, rainbow, emoji rain ===== */
+.joke-card {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 2px solid #f59e0b;
+    border-radius: 16px;
+    padding: 12px 16px;
+    margin: 8px 0;
+    cursor: pointer;
+    color: #78350f;
+    transition: transform 0.15s ease;
+}
+.joke-card:hover { transform: translateY(-2px); }
+.joke-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.85;
+}
+.joke-q {
+    font-weight: 800;
+    font-size: 1rem;
+    margin: 4px 0 2px;
+}
+.joke-a {
+    display: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-top: 2px;
+    color: #b45309;
+}
+.joke-card.joke-open .joke-a { display: block; }
+.joke-card.joke-open .joke-hint { display: none; }
+.joke-hint { font-size: 0.72rem; opacity: 0.6; font-style: italic; margin-top: 4px; }
+
+.lucky-num {
+    background: linear-gradient(135deg, #d1fae5, #6ee7b7);
+    color: #065f46;
+    border-radius: 14px;
+    padding: 8px 14px;
+    margin: 6px 0;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-align: center;
+}
+.ln-label { font-size: 0.85rem; opacity: 0.85; }
+.ln-val {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #064e3b;
+    margin-left: 6px;
+    text-shadow: 0 2px 4px rgba(6,78,59,0.2);
+}
+
+/* Mascot wink */
+.mascot-wink, .game-mascot.mascot-wink {
+    animation: mascotWink 0.6s ease-out;
+}
+@keyframes mascotWink {
+    0%   { transform: scale(1) rotate(0deg); }
+    30%  { transform: scale(1.1) rotate(-8deg); }
+    60%  { transform: scale(1.05) rotate(6deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Rainbow mode (easter egg) */
+html.rainbow-mode body {
+    animation: rainbowBg 4s linear infinite;
+}
+@keyframes rainbowBg {
+    0%   { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+/* Emoji rain */
+.emoji-rain {
+    position: fixed;
+    top: -40px;
+    font-size: 2rem;
+    pointer-events: none;
+    z-index: 99000;
+    animation: emojiFall 2.5s linear forwards;
+}
+@keyframes emojiFall {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0.4; }
+}
+html.motion-reduced .emoji-rain { display: none; }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;
