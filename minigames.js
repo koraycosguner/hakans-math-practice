@@ -2370,6 +2370,169 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 25. WIZARD SPELL — Hakan is a wizard! Cast a spell by collecting
+// magical ingredients. Each correct math answer adds one ingredient
+// to the cauldron. Fill the cauldron → spell casts with sparkles!
+// =====================================================================
+GAME_IMPLS['wizard-spell'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const ingredientCount = diff === 'easy' ? 4 : diff === 'hard' ? 8 : 6;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+        const INGREDIENTS = ['🍄', '🦴', '🌿', '🦎', '🕷️', '🌶️', '🦋', '⭐', '🌙', '🦇'];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-wizard-wrap';
+
+        // Spell recipe card
+        const recipe = document.createElement('div');
+        recipe.className = 'mg-wizard-recipe';
+        recipe.innerHTML = `<div class="mg-wizard-recipe-label">📜 Spell Recipe</div><div class="mg-wizard-recipe-line">Cauldron needs <b>${ingredientCount}</b> magic items!</div>`;
+        wrap.appendChild(recipe);
+
+        // Scene: wizard + cauldron
+        const scene = document.createElement('div');
+        scene.className = 'mg-wizard-scene';
+        // Stars in the background
+        const stars = document.createElement('div');
+        stars.className = 'mg-wizard-stars';
+        for (let i = 0; i < 18; i++) {
+            const s = document.createElement('span');
+            s.style.left = (Math.random() * 100) + '%';
+            s.style.top = (Math.random() * 75) + '%';
+            s.style.animationDelay = (Math.random() * 3) + 's';
+            s.textContent = '✨';
+            s.className = 'mg-wizard-twinkle';
+            stars.appendChild(s);
+        }
+        scene.appendChild(stars);
+        // Wizard character
+        const wizard = document.createElement('div');
+        wizard.className = 'mg-wizard-char';
+        wizard.textContent = '🧙';
+        scene.appendChild(wizard);
+        // Cauldron
+        const cauldron = document.createElement('div');
+        cauldron.className = 'mg-wizard-cauldron';
+        cauldron.innerHTML = `
+            <div class="mg-wizard-cauldron-body">🍯</div>
+            <div class="mg-wizard-bubbles"></div>
+            <div class="mg-wizard-cauldron-label">${0} / ${ingredientCount}</div>
+        `;
+        scene.appendChild(cauldron);
+        wrap.appendChild(scene);
+
+        // Question + options
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-wizard-q';
+        wrap.appendChild(qBox);
+        const opts = document.createElement('div');
+        opts.className = 'mg-wizard-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let added = 0;
+        let target = null;
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-wizard-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-wizard-eqs">=</span><span class="mg-wizard-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-wizard-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-wizard-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function addIngredient() {
+            // Floating ingredient drops from the wizard's wand into the cauldron
+            const ing = INGREDIENTS[Math.floor(Math.random() * INGREDIENTS.length)];
+            const flyer = document.createElement('div');
+            flyer.className = 'mg-wizard-flyer';
+            flyer.textContent = ing;
+            scene.appendChild(flyer);
+            requestAnimationFrame(() => flyer.classList.add('mg-wizard-flyer-go'));
+            setTimeout(() => { try { flyer.remove(); } catch (e) {} }, 900);
+            // Bubble in the cauldron
+            const b = document.createElement('span');
+            b.className = 'mg-wizard-bubble';
+            b.style.left = (40 + Math.random() * 30) + '%';
+            b.style.animationDelay = '0s';
+            cauldron.querySelector('.mg-wizard-bubbles').appendChild(b);
+            setTimeout(() => { try { b.remove(); } catch (e) {} }, 1500);
+            added += 1;
+            cauldron.querySelector('.mg-wizard-cauldron-label').textContent = `${added} / ${ingredientCount}`;
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-wizard-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                addIngredient();
+                if (added >= ingredientCount) {
+                    castSpell();
+                    return;
+                }
+                setTimeout(nextProblem, 720);
+            } else {
+                btn.classList.add('mg-wizard-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-wizard-wrong'), 400);
+            }
+        }
+
+        function castSpell() {
+            qBox.innerHTML = `<div class="mg-wizard-cast">✨🪄 SPELL CAST! ✨</div>`;
+            opts.innerHTML = '';
+            // Burst of sparkle emojis
+            for (let i = 0; i < 18; i++) {
+                const sp = document.createElement('div');
+                sp.className = 'mg-wizard-sparkle';
+                sp.textContent = ['✨', '🌟', '💫', '⚡', '🪄'][Math.floor(Math.random() * 5)];
+                sp.style.left = (Math.random() * 100) + '%';
+                sp.style.animationDelay = (Math.random() * 0.4) + 's';
+                scene.appendChild(sp);
+                setTimeout(() => { try { sp.remove(); } catch (e) {} }, 2200);
+            }
+            ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+            ctx.onWin();
+            setTimeout(reset, 2400);
+        }
+
+        function reset() {
+            added = 0;
+            cauldron.querySelector('.mg-wizard-cauldron-label').textContent = `0 / ${ingredientCount}`;
+            cauldron.querySelector('.mg-wizard-bubbles').innerHTML = '';
+            nextProblem();
+        }
+
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
 // 24. MATH RACE — Hakan races a computer car. Each correct math
 // answer pushes his car forward. Computer car moves at a steady pace.
 // First to finish wins.

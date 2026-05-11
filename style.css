@@ -5675,6 +5675,218 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     color: #991b1b;
 }
 
+/* ===== Game 25: Wizard Spell ===== */
+.mg-theme-wizard-spell {
+    background:
+        radial-gradient(ellipse at top, #1e1b4b 0%, #312e81 30%, #4c1d95 70%, #7c3aed 100%);
+}
+.mg-wizard-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    width: 100%;
+    max-width: 540px;
+}
+.mg-wizard-recipe {
+    background: linear-gradient(135deg, #fde68a 0%, #fbbf24 100%);
+    color: #78350f;
+    padding: 10px 22px;
+    border-radius: 14px;
+    border: 2px solid #92400e;
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.45);
+    text-align: center;
+}
+.mg-wizard-recipe-label {
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.8;
+}
+.mg-wizard-recipe-line {
+    font-weight: 900;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+.mg-wizard-recipe-line b {
+    font-size: 1.4rem;
+    color: #b45309;
+}
+.mg-wizard-scene {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    background:
+        linear-gradient(180deg, #312e81 0%, #4c1d95 70%, #581c87 100%);
+    border: 3px solid #1e1b4b;
+    border-radius: 18px;
+    overflow: hidden;
+}
+.mg-wizard-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+.mg-wizard-twinkle {
+    position: absolute;
+    color: #fde047;
+    font-size: 0.8rem;
+    animation: wizTwinkle 3s ease-in-out infinite;
+}
+@keyframes wizTwinkle {
+    0%, 100% { opacity: 0.4; transform: scale(0.9); }
+    50%      { opacity: 1; transform: scale(1.2); }
+}
+.mg-wizard-char {
+    position: absolute;
+    bottom: 20px;
+    left: 15%;
+    font-size: 4rem;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    animation: wizBob 2.5s ease-in-out infinite;
+}
+@keyframes wizBob {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50%      { transform: translateY(-4px) rotate(2deg); }
+}
+.mg-wizard-cauldron {
+    position: absolute;
+    bottom: 14px;
+    right: 18%;
+    width: 90px;
+    height: 90px;
+}
+.mg-wizard-cauldron-body {
+    font-size: 4.5rem;
+    text-align: center;
+    line-height: 1;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+}
+.mg-wizard-bubbles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+.mg-wizard-bubble {
+    position: absolute;
+    bottom: 30%;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #fef08a 0%, transparent 70%);
+    border-radius: 50%;
+    animation: wizBubble 1.5s ease-out forwards;
+}
+@keyframes wizBubble {
+    0%   { transform: translateY(0) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-50px) scale(1.4); opacity: 0; }
+}
+.mg-wizard-cauldron-label {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: #1f2937;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 0.8rem;
+    border: 2px solid #1f2937;
+    white-space: nowrap;
+}
+.mg-wizard-flyer {
+    position: absolute;
+    bottom: 70px;
+    left: 18%;
+    font-size: 1.6rem;
+    transition: all 0.85s cubic-bezier(0.4, 0, 0.6, 1);
+    z-index: 5;
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4));
+}
+.mg-wizard-flyer.mg-wizard-flyer-go {
+    left: 65%;
+    bottom: 30px;
+    transform: rotate(360deg) scale(0.5);
+    opacity: 0.6;
+}
+.mg-wizard-sparkle {
+    position: absolute;
+    top: 50%;
+    font-size: 1.5rem;
+    animation: wizSparkle 2s cubic-bezier(0.3, 0.7, 0.5, 1) forwards;
+    pointer-events: none;
+    z-index: 8;
+}
+@keyframes wizSparkle {
+    0%   { transform: translateY(0) scale(0); opacity: 1; }
+    50%  { transform: translateY(-80px) scale(1.4); opacity: 1; }
+    100% { transform: translateY(-160px) scale(0.4); opacity: 0; }
+}
+.mg-wizard-q {
+    background: white;
+    padding: 10px 22px;
+    border-radius: 16px;
+    border: 3px solid #fde047;
+    box-shadow: 0 4px 14px rgba(253, 224, 71, 0.45);
+}
+.mg-wizard-eq {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #1f2937;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.mg-wizard-eqs { color: #8b5cf6; }
+.mg-wizard-qmark { color: #dc2626; }
+.mg-wizard-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 380px;
+}
+.mg-wizard-opt {
+    background: white;
+    color: #4c1d95;
+    border: 3px solid #8b5cf6;
+    border-radius: 14px;
+    padding: 14px 4px;
+    font-size: 1.4rem;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+}
+.mg-wizard-opt:hover { transform: translateY(-2px); }
+.mg-wizard-opt.mg-wizard-right {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border-color: #92400e;
+    animation: mgSACorrect 0.4s ease;
+}
+.mg-wizard-opt.mg-wizard-wrong {
+    background: #fee2e2;
+    border-color: #dc2626;
+    animation: icShake 0.4s ease;
+}
+.mg-wizard-cast {
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fde047 0%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 16px rgba(253, 224, 71, 0.6);
+    animation: wizCast 0.6s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+@keyframes wizCast {
+    0%   { transform: scale(0.5) rotate(-15deg); opacity: 0; }
+    60%  { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;

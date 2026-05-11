@@ -601,6 +601,28 @@
     "config": {}
   },
   {
+    "id": "wizard-spell",
+    "title": "Wizard Spell",
+    "emoji": "🧙",
+    "description": "Cast a spell by collecting magic ingredients!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each correct math answer adds one ingredient to the cauldron. Fill it to cast the spell with sparkles!",
+    "rules": [
+      "🧙 Wizard waves a wand. Cauldron sits to the right.",
+      "Solve math → ingredient flies into the cauldron with a bubble.",
+      "Fill the cauldron (4/6/8 by difficulty) to cast the spell.",
+      "Spell cast → 18 sparkles burst + +5 💎."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "math-race",
     "title": "Math Race",
     "emoji": "🏁",
