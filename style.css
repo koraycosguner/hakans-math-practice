@@ -290,10 +290,14 @@ body {
 }
 
 .title {
-    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-size: clamp(2rem, 5.5vw, 3.4rem);
     color: white;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
-    margin-bottom: 8px;
+    text-shadow:
+        2px 2px 0 rgba(0, 0, 0, 0.15),
+        4px 4px 12px rgba(0, 0, 0, 0.35);
+    margin-bottom: 12px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
 }
 
 .mascot {
@@ -308,8 +312,10 @@ body {
     border-radius: 50%;
     object-fit: cover;
     object-position: center 15%;
-    border: 4px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 5px solid rgba(255, 255, 255, 0.95);
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.3),
+        0 8px 28px rgba(0, 0, 0, 0.4);
 }
 
 .mascot-photo-small {
@@ -330,10 +336,11 @@ body {
 }
 
 .subtitle {
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
-    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1.15rem, 3vw, 1.6rem);
+    color: rgba(255, 255, 255, 0.95);
     margin-bottom: 24px;
-    font-weight: 500;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
 @keyframes bounce {
