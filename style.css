@@ -3622,13 +3622,85 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 .mg-play-area {
     flex: 1;
-    background: rgba(255,255,255,0.95);
-    border-radius: 22px;
-    padding: 16px;
-    min-height: 420px;
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 24px;
+    padding: 18px;
+    min-height: 460px;
     position: relative;
-    box-shadow: var(--shadow);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
     color: var(--text-dark);
+    border: 4px solid rgba(255, 255, 255, 0.55);
+    overflow: hidden;
+    /* Every play area now gets a soft radial vignette + corner highlights so
+       it reads as a real "stage" rather than a flat white card. */
+    background-image:
+        radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
+        radial-gradient(circle at 82% 88%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.92) 100%);
+}
+
+/* ===== Ambient scene decorations behind older games =====
+   Many of the older simple games used to render only their game pieces on
+   top of a flat white card. We add per-theme decorative emoji that float
+   gently in the background to make each game feel like a real "world". */
+.mg-play-area::before,
+.mg-play-area::after {
+    position: absolute;
+    font-size: 2.4rem;
+    pointer-events: none;
+    opacity: 0.22;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18));
+    animation: mgStageDriftA 18s ease-in-out infinite alternate;
+    z-index: 0;
+}
+.mg-play-area::before { content: ''; top: 6%;   left: 4%; }
+.mg-play-area::after  { content: ''; bottom: 8%; right: 5%; animation-name: mgStageDriftB; animation-duration: 22s; }
+@keyframes mgStageDriftA {
+    0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+    50%      { transform: translate(20px, -14px) rotate(8deg); }
+}
+@keyframes mgStageDriftB {
+    0%, 100% { transform: translate(0, 0) rotate(8deg); }
+    50%      { transform: translate(-18px, -10px) rotate(-6deg); }
+}
+/* Per-theme decorations: each game gets two ambient emoji that fit its
+   subject. The pseudo-elements live behind the actual game content. */
+.mg-theme-number-tap-rush::before  { content: '🪐'; }
+.mg-theme-number-tap-rush::after   { content: '🌟'; }
+.mg-theme-bubble-pop-math::before  { content: '🫧'; }
+.mg-theme-bubble-pop-math::after   { content: '🐠'; }
+.mg-theme-make-10-match::before    { content: '🔟'; }
+.mg-theme-make-10-match::after     { content: '✨'; }
+.mg-theme-speed-add::before        { content: '⚡'; }
+.mg-theme-speed-add::after         { content: '➕'; }
+.mg-theme-memory-numbers::before   { content: '🃏'; }
+.mg-theme-memory-numbers::after    { content: '🧠'; }
+.mg-theme-falling-numbers::before  { content: '☔'; }
+.mg-theme-falling-numbers::after   { content: '🌧️'; }
+.mg-theme-shape-sorter::before     { content: '🔺'; }
+.mg-theme-shape-sorter::after      { content: '🟦'; }
+.mg-theme-counting-race::before    { content: '🏁'; }
+.mg-theme-counting-race::after     { content: '🏃'; }
+.mg-theme-tic-tac-toe::before      { content: '⭕'; }
+.mg-theme-tic-tac-toe::after       { content: '❌'; }
+.mg-theme-math-maze::before        { content: '🗺️'; }
+.mg-theme-math-maze::after         { content: '🧭'; }
+.mg-theme-math-snake::before       { content: '🐍'; }
+.mg-theme-math-snake::after        { content: '🍎'; }
+.mg-theme-math-battle::before      { content: '⚔️'; }
+.mg-theme-math-battle::after       { content: '🛡️'; }
+.mg-theme-clock-quiz::before       { content: '🕐'; }
+.mg-theme-clock-quiz::after        { content: '⏰'; }
+.mg-theme-coin-counter::before     { content: '💰'; }
+.mg-theme-coin-counter::after      { content: '🪙'; }
+.mg-theme-place-value-builder::before { content: '🏗️'; }
+.mg-theme-place-value-builder::after  { content: '🧱'; }
+.mg-theme-pattern-catcher::before  { content: '🌀'; }
+.mg-theme-pattern-catcher::after   { content: '🎀'; }
+/* Keep game content above the ambient layer */
+.mg-play-area > * { position: relative; z-index: 1; }
+@media (prefers-reduced-motion: reduce) {
+    .mg-play-area::before, .mg-play-area::after { animation: none !important; }
 }
 .mg-instr-line {
     text-align: center;
@@ -3856,90 +3928,171 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 .mg-theme-shape-sorter     { background: radial-gradient(ellipse at center, #d1fae5, #6ee7b7 70%, #34d399); }
 .mg-theme-counting-race    { background: linear-gradient(135deg, #cffafe, #67e8f9); }
 
-/* ===== Game 1: Number Tap Rush ===== */
+/* ===== Game 1: Number Tap Rush — space rocket theme ===== */
+.mg-theme-number-tap-rush.mg-play-area {
+    background:
+        radial-gradient(circle at 20% 30%, rgba(255, 200, 87, 0.15), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.12), transparent 50%),
+        radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%);
+    color: white;
+}
+/* Tiny starfield overlay inside the play area */
+.mg-theme-number-tap-rush.mg-play-area > .mg-ntr-board {
+    background-image:
+        radial-gradient(circle, rgba(255,255,255,0.85) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 1.5px);
+    background-size: 60px 60px, 90px 90px;
+    background-position: 0 0, 30px 45px;
+}
 .mg-ntr-target {
     text-align: center;
-    margin-bottom: 12px;
-    background: white;
-    border-radius: 16px;
-    padding: 12px 18px;
-    box-shadow: var(--shadow-small);
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+    border-radius: 18px;
+    padding: 12px 22px;
+    box-shadow: 0 6px 0 rgba(76, 29, 149, 0.4), 0 10px 22px rgba(108, 99, 255, 0.45);
     display: inline-flex;
     align-items: center;
     gap: 10px;
     align-self: center;
+    border: 3px solid #fbbf24;
 }
-.mg-ntr-prefix { color: var(--text-light); font-weight: 700; font-size: 1.1rem; }
+.mg-ntr-prefix {
+    color: #475569;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
 .mg-ntr-target-num {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-weight: 900;
-    color: var(--primary);
-    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    background: linear-gradient(135deg, #fde68a, #f97316);
     color: #92400e;
-    padding: 2px 16px;
-    border-radius: 12px;
+    padding: 2px 22px;
+    border-radius: 14px;
+    border: 2px solid #d97706;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    box-shadow: 0 3px 0 #b45309;
 }
-.mg-ntr-target.mg-ntr-bump { animation: mgNTRBump 0.4s ease; }
+.mg-ntr-target.mg-ntr-bump { animation: mgNTRBump 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes mgNTRBump {
     0%   { transform: scale(1); }
-    50%  { transform: scale(1.12); }
-    100% { transform: scale(1); }
+    50%  { transform: scale(1.18) rotate(-3deg); }
+    100% { transform: scale(1) rotate(0); }
 }
 .mg-ntr-board {
     position: relative;
     width: 100%;
     height: 380px;
-    border-radius: 16px;
+    border-radius: 18px;
     overflow: hidden;
+    border: 2px dashed rgba(255, 255, 255, 0.25);
 }
 .mg-ntr-num {
     position: absolute;
-    width: 64px;
-    height: 64px;
-    border: none;
+    width: 70px;
+    height: 70px;
+    border: 3px solid rgba(255, 255, 255, 0.85);
     border-radius: 50%;
     color: white;
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 900;
     cursor: pointer;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
-    transition: transform 0.15s ease;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     animation: mgNTRFloat 3.5s ease-in-out infinite;
+    /* Crater gloss highlight on the top of each planet */
+}
+.mg-ntr-num::before {
+    content: '';
+    position: absolute;
+    top: 8px; left: 14px;
+    width: 18px; height: 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    filter: blur(2px);
+    pointer-events: none;
 }
 @keyframes mgNTRFloat {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-6px); }
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50%      { transform: translateY(-8px) rotate(2deg); }
 }
-.mg-ntr-num:hover { transform: scale(1.12); }
-.mg-ntr-num.done  { opacity: 0.25; transform: scale(0.7); animation: none; }
+.mg-ntr-num:hover { transform: scale(1.18) rotate(0); }
+.mg-ntr-num.done  {
+    opacity: 0;
+    transform: scale(0.3);
+    animation: mgNTRBlast 0.6s ease-out forwards;
+    pointer-events: none;
+}
+@keyframes mgNTRBlast {
+    0%   { opacity: 1; transform: scale(1.4) rotate(0); }
+    40%  { opacity: 1; transform: scale(1.6) rotate(180deg); filter: drop-shadow(0 0 16px #fbbf24); }
+    100% { opacity: 0; transform: scale(0.2) rotate(360deg); }
+}
 .mg-ntr-num.wrong { animation: icShake 0.4s ease; }
 
-/* ===== Game 2: Bubble Pop ===== */
-.mg-bubble-wrap { width: 100%; height: 100%; display: flex; flex-direction: column; }
+/* ===== Game 2: Bubble Pop — underwater aquarium theme ===== */
+.mg-theme-bubble-pop-math.mg-play-area {
+    background:
+        radial-gradient(ellipse at 30% 10%, rgba(255, 255, 255, 0.2), transparent 35%),
+        linear-gradient(180deg, #38bdf8 0%, #0284c7 50%, #0c4a6e 100%);
+    color: white;
+}
+/* Wave ripple at top of the aquarium */
+.mg-theme-bubble-pop-math.mg-play-area .mg-bubble-wrap::before {
+    content: '〰️〰️〰️〰️〰️〰️〰️';
+    position: absolute;
+    top: 8px; left: 0; right: 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.4rem;
+    letter-spacing: -8px;
+    pointer-events: none;
+    z-index: 0;
+}
+/* Sandy ocean floor */
+.mg-theme-bubble-pop-math.mg-play-area .mg-bubble-field::after {
+    content: '🌿  🐚  🌿  🪨  🌿  🐚  🌿';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    text-align: center;
+    font-size: 1.4rem;
+    letter-spacing: 6px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.7;
+}
+.mg-bubble-wrap { width: 100%; height: 100%; display: flex; flex-direction: column; position: relative; }
 .mg-bubble-target {
     text-align: center;
-    padding: 12px 20px;
-    background: white;
+    padding: 12px 22px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.86));
     border-radius: 18px;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow-small);
+    margin-bottom: 14px;
+    box-shadow: 0 6px 0 rgba(2, 132, 199, 0.4), 0 10px 20px rgba(8, 145, 178, 0.45);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     font-weight: 900;
+    border: 3px solid #67e8f9;
+    z-index: 2;
+    color: var(--text-dark);
 }
-.mg-bubble-target.mg-b-pulse { animation: mgBPulse 0.5s ease; }
+.mg-bubble-target.mg-b-pulse { animation: mgBPulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes mgBPulse {
     0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.06); }
+    50%      { transform: scale(1.08) rotate(-2deg); }
 }
 .mg-b-op {
     font-size: 2.2rem;
-    color: var(--primary);
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    padding: 2px 14px;
+    background: linear-gradient(135deg, #fef3c7, #fbbf24);
+    color: #92400e;
+    padding: 2px 16px;
     border-radius: 10px;
+    border: 2px solid #d97706;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 .mg-b-plus, .mg-b-eq { font-size: 1.8rem; color: var(--text-light); }
 .mg-b-minus { color: #dc2626; font-weight: 900; }
@@ -3970,19 +4123,35 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 .mg-bubble {
     position: absolute;
     bottom: 0;
-    width: 80px;
-    height: 80px;
+    width: 84px;
+    height: 84px;
     border-radius: 50%;
     color: white;
     font-size: 2rem;
     font-weight: 900;
-    border: none;
+    border: 3px solid rgba(255, 255, 255, 0.7);
     cursor: pointer;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
     animation: bubbleRise 5s linear forwards;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow:
+        inset 0 0 0 4px rgba(255, 255, 255, 0.25),
+        inset -8px -10px 16px rgba(0, 0, 0, 0.2),
+        0 8px 18px rgba(0, 0, 0, 0.25);
+    position: absolute;
 }
-.mg-bubble:hover { transform: scale(1.1); }
+/* Glossy highlight crescent on each bubble */
+.mg-bubble::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 18px;
+    width: 22px; height: 14px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    filter: blur(2px);
+    pointer-events: none;
+}
+.mg-bubble:hover { transform: scale(1.12) rotate(3deg); }
 .mg-bubble.wrong { animation: bubblePop 0.4s ease forwards; }
 .mg-bubble.mg-b-done { animation: bubblePop 0.4s ease forwards; }
 @keyframes bubbleRise {
@@ -3995,7 +4164,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     100% { transform: scale(0); opacity: 0; }
 }
 
-/* ===== Game 3: Make 10 Match ===== */
+/* ===== Game 3: Make 10 Match — friendly-pair theme ===== */
+.mg-theme-make-10-match.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.4), transparent 35%),
+        radial-gradient(circle at 75% 80%, rgba(255, 255, 255, 0.3), transparent 40%),
+        linear-gradient(135deg, #c4b5fd 0%, #a78bfa 50%, #7c3aed 100%);
+}
 .mg-m10-wrap { display: flex; flex-direction: column; gap: 12px; height: 100%; }
 .mg-m10-header {
     text-align: center;
@@ -4046,7 +4221,12 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 .mg-m10-card.wrong { animation: icShake 0.4s ease; }
 
-/* ===== Game 4: Speed Add ===== */
+/* ===== Game 4: Speed Add — golden arcade theme ===== */
+.mg-theme-speed-add.mg-play-area {
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.45), transparent 35%),
+        linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #f59e0b 100%);
+}
 .mg-sa-wrap { display: flex; flex-direction: column; align-items: center; gap: 24px; padding-top: 8px; }
 .mg-sa-eq {
     display: flex;
@@ -4111,7 +4291,12 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 .mg-sa-opt.wrong { animation: icShake 0.4s ease; border-color: #f87171 !important; background: #fee2e2 !important; }
 
-/* ===== Game 5: Memory Numbers ===== */
+/* ===== Game 5: Memory Numbers — card-table theme ===== */
+.mg-theme-memory-numbers.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.45), transparent 35%),
+        linear-gradient(135deg, #fce7f3 0%, #f9a8d4 50%, #be185d 100%);
+}
 .mg-mem-root {
     display: flex;
     flex-direction: column;
@@ -4199,7 +4384,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     50%      { box-shadow: 0 0 0 4px gold, 0 0 28px rgba(245, 197, 24, 0.9); }
 }
 
-/* ===== Game 6: Falling Numbers ===== */
+/* ===== Game 6: Falling Numbers — rainy-sky theme ===== */
+.mg-theme-falling-numbers.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.4), transparent 40%),
+        linear-gradient(180deg, #c7d2fe 0%, #818cf8 50%, #4338ca 100%);
+}
+
 .mg-falling-wrap { width: 100%; height: 100%; display: flex; flex-direction: column; }
 .mg-falling-rule {
     text-align: center;
@@ -4240,7 +4431,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     100% { transform: scale(1.6); opacity: 0; }
 }
 
-/* ===== Game 7: Shape Sorter ===== */
+/* ===== Game 7: Shape Sorter — shape-factory mint theme ===== */
+.mg-theme-shape-sorter.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.45), transparent 35%),
+        linear-gradient(135deg, #d1fae5 0%, #6ee7b7 50%, #14b8a6 100%);
+}
+
 .mg-shape-wrap { display: flex; flex-direction: column; gap: 18px; align-items: center; }
 .mg-shape-prompt {
     background: linear-gradient(135deg, #d1fae5, #6ee7b7);
@@ -4357,7 +4554,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     100% { transform: rotate(0); }
 }
 
-/* ===== Game 10: Math Maze ===== */
+/* ===== Game 10: Math Maze — desert canyon theme ===== */
+.mg-theme-math-maze.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.4), transparent 35%),
+        linear-gradient(135deg, #fed7aa 0%, #fb923c 50%, #c2410c 100%);
+}
+
 .mg-theme-math-maze { background: radial-gradient(ellipse at top, #fef3c7, #fed7aa 50%, #fb923c); }
 .mg-maze-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
 .mg-maze-status {
@@ -4453,7 +4656,14 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 .mg-maze-opt-wrong { animation: icShake 0.4s ease; background: linear-gradient(135deg, #fca5a5, #ef4444); border-color: #b91c1c; }
 
-/* ===== Game 11: Math Snake ===== */
+/* ===== Game 11: Math Snake — grass garden theme ===== */
+.mg-theme-math-snake.mg-play-area {
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3), transparent 35%),
+        linear-gradient(135deg, #065f46 0%, #064e3b 100%);
+    color: white;
+}
+
 .mg-theme-math-snake { background: linear-gradient(135deg, #064e3b, #065f46); }
 .mg-snake-wrap { display: flex; flex-direction: column; gap: 12px; align-items: center; color: white; }
 .mg-snake-prob {
@@ -4532,7 +4742,14 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 .mg-snake-btn:active { background: rgba(255,255,255,0.3); transform: scale(0.95); }
 
-/* ===== Game 12: Math Battle ===== */
+/* ===== Game 12: Math Battle — wizard duel theme ===== */
+.mg-theme-math-battle.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.2), transparent 35%),
+        linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #831843 100%);
+    color: white;
+}
+
 .mg-theme-math-battle { background: linear-gradient(135deg, #1e1b4b, #4c1d95 60%, #831843); }
 .mg-battle-wrap {
     display: flex;
@@ -4636,7 +4853,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     min-height: 1.3em;
 }
 
-/* ===== Game 13: Clock Quiz ===== */
+/* ===== Game 13: Clock Quiz — tower-clock theme ===== */
+.mg-theme-clock-quiz.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.45), transparent 35%),
+        linear-gradient(180deg, #ecfeff 0%, #67e8f9 60%, #0891b2 100%);
+}
+
 .mg-theme-clock-quiz { background: radial-gradient(ellipse at top, #ecfeff, #67e8f9 60%, #06b6d4); }
 .mg-clock-wrap {
     display: flex;
@@ -4700,7 +4923,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     text-align: center;
 }
 
-/* ===== Game 14: Coin Counter ===== */
+/* ===== Game 14: Coin Counter — gold treasure theme ===== */
+.mg-theme-coin-counter.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.5), transparent 35%),
+        linear-gradient(135deg, #fef9c3 0%, #fbbf24 50%, #d97706 100%);
+}
+
 .mg-theme-coin-counter { background: radial-gradient(ellipse at top, #fef9c3, #fbbf24 60%, #d97706); }
 .mg-coin-wrap {
     display: flex;
@@ -4821,7 +5050,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 }
 .mg-coin-feedback:empty { background: transparent; }
 
-/* ===== Game 15: Place Value Builder ===== */
+/* ===== Game 15: Place Value Builder — block-builder theme ===== */
+.mg-theme-place-value-builder.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.4), transparent 35%),
+        linear-gradient(135deg, #ede9fe 0%, #c4b5fd 50%, #7c3aed 100%);
+}
+
 .mg-theme-place-value-builder { background: radial-gradient(ellipse at top, #ede9fe, #c4b5fd 60%, #7c3aed); }
 .mg-pv-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
 .mg-pv-prompt {
@@ -4922,7 +5157,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     margin-top: 4px;
 }
 
-/* ===== Game 16: Pattern Catcher ===== */
+/* ===== Game 16: Pattern Catcher — magenta conveyor theme ===== */
+.mg-theme-pattern-catcher.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.4), transparent 35%),
+        linear-gradient(135deg, #fdf4ff 0%, #f0abfc 50%, #c026d3 100%);
+}
+
 .mg-theme-pattern-catcher { background: radial-gradient(ellipse at top, #fdf4ff, #f0abfc 60%, #c026d3); }
 .mg-pat-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
 .mg-pat-prompt {
@@ -5009,7 +5250,14 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 .mg-pat-opt.mg-pat-right { animation: mgSACorrect 0.4s ease; background: linear-gradient(135deg, #d1fae5, #6ee7b7); color: #065f46; border-color: #43E97B; }
 .mg-pat-opt.mg-pat-wrong { animation: icShake 0.4s ease; }
 
-/* ===== Game 9: Tic Tac Toe ===== */
+/* ===== Game 9: Tic Tac Toe — chalkboard theme ===== */
+.mg-theme-tic-tac-toe.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.18), transparent 40%),
+        linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+}
+
 .mg-theme-tic-tac-toe { background: radial-gradient(ellipse at top, #fef3c7, #fde68a 50%, #f5c518); }
 .mg-ttt-wrap {
     display: flex;
@@ -9438,7 +9686,13 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     .mg-pause-btn, .mg-paused::after { transition: none !important; animation: none !important; }
 }
 
-/* ===== Game 8: Counting Race ===== */
+/* ===== Game 8: Counting Race — sky racetrack theme ===== */
+.mg-theme-counting-race.mg-play-area {
+    background:
+        radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.45), transparent 35%),
+        linear-gradient(180deg, #cffafe 0%, #67e8f9 60%, #0891b2 100%);
+}
+
 .mg-count-wrap { display: flex; flex-direction: column; gap: 14px; align-items: center; }
 .mg-count-prompt {
     background: linear-gradient(135deg, #cffafe, #67e8f9);
