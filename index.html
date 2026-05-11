@@ -11,10 +11,10 @@
     <meta name="apple-mobile-web-app-title" content="Math Practice">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#6c63ff">
-    <link rel="manifest" href="manifest.json?v=44">
+    <link rel="manifest" href="manifest.json?v=45">
     <link rel="apple-touch-icon" href="hakan.jpg">
 
-    <link rel="stylesheet" href="style.css?v=44">
+    <link rel="stylesheet" href="style.css?v=45">
 </head>
 <body>
     <!-- Loading splash: shown while the audio manifest + module data load.
@@ -349,6 +349,7 @@
                     <div class="hint-area">
                         <div class="hint-buttons-row">
                             <button id="mg-hint-btn" class="hint-btn" onclick="mgShowHint()">💡 Hint</button>
+                            <button id="mg-replay-btn" class="hint-btn replay-btn" onclick="mgReplayQuestion()">🔊 Hear again</button>
                         </div>
                         <div id="mg-hint-text" class="hint-steps"></div>
                     </div>
@@ -407,6 +408,7 @@
                 <div class="robux-earned">💎 +<span id="robux-session">0.0</span> Robux this game!</div>
                 <div class="robux-total-result">Total: 💎 <span id="robux-total-result">0.0</span></div>
             </div>
+            <div id="results-quote" class="results-quote" style="display:none;"></div>
             <div id="results-recap" class="results-recap" style="display:none;"></div>
             <div id="results-next" class="results-next" style="display:none;"></div>
             <div class="results-buttons">
@@ -509,10 +511,10 @@
     <!-- Confetti canvas -->
     <canvas id="confetti-canvas"></canvas>
 
-    <script src="audio.js?v=44"></script>
-    <script src="modules.js?v=44"></script>
-    <script src="game.js?v=44"></script>
-    <script src="minigames.js?v=44"></script>
+    <script src="audio.js?v=45"></script>
+    <script src="modules.js?v=45"></script>
+    <script src="game.js?v=45"></script>
+    <script src="minigames.js?v=45"></script>
 
     <!-- Service worker registration: enables offline use and installs the app
          to the home screen on iPad/Mac/Android. -->

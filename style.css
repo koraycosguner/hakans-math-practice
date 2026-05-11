@@ -6472,6 +6472,151 @@ html.show-timer .timer-display { display: inline-flex; }
     50%     { transform: scale(1.05); }
 }
 
+/* ===== Iteration 7: overall progress, hot streak, growth quote, lesson preview ===== */
+.overall-progress {
+    background: rgba(255,255,255,0.92);
+    border-radius: 18px;
+    padding: 12px 16px;
+    margin: 8px 0 14px;
+    box-shadow: var(--shadow-small);
+}
+.op-line {
+    font-weight: 800;
+    color: var(--primary);
+    font-size: 0.92rem;
+    margin-bottom: 6px;
+}
+.op-bar {
+    height: 14px;
+    background: #f0f0f5;
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+}
+.op-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6c63ff, #a78bfa);
+    position: absolute;
+    top: 0; left: 0;
+    transition: width 0.6s ease;
+}
+.op-fill-mastered {
+    height: 100%;
+    background: linear-gradient(90deg, #fbbf24, #f59e0b);
+    position: absolute;
+    top: 0; left: 0;
+    z-index: 2;
+    transition: width 0.6s ease;
+}
+.op-pct {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-top: 4px;
+    text-align: right;
+    font-weight: 700;
+}
+
+/* Hot streak banner */
+.hot-streak-banner {
+    position: fixed;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #f97316, #dc2626);
+    color: white;
+    font-weight: 900;
+    padding: 8px 18px;
+    border-radius: 999px;
+    box-shadow: 0 10px 24px rgba(220, 38, 38, 0.45);
+    z-index: 200;
+    font-size: 0.95rem;
+    pointer-events: none;
+}
+.hot-streak-banner.hsb-pulse {
+    animation: hsbPulse 0.4s ease;
+}
+@keyframes hsbPulse {
+    0% { transform: translateX(-50%) scale(0.94); }
+    50%{ transform: translateX(-50%) scale(1.07); }
+    100%{ transform: translateX(-50%) scale(1); }
+}
+.hsb-flame { margin-right: 4px; }
+
+/* Growth-mindset quote on results screen */
+.results-quote {
+    background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+    border-radius: 18px;
+    padding: 12px 18px;
+    margin: 10px auto;
+    max-width: 460px;
+    color: #5b21b6;
+    font-weight: 700;
+    font-style: italic;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(108,99,255,0.18);
+}
+
+/* Lesson preview overlay */
+.lp-overlay { background: rgba(0,0,0,0.6); }
+.lp-card {
+    background: white;
+    max-width: 460px;
+    padding: 24px 22px !important;
+    text-align: center;
+}
+.lp-emoji { font-size: 3.4rem; margin-bottom: 8px; }
+.lp-title {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.lp-mod-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 4px 0 6px;
+}
+.lp-desc {
+    color: #475569;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+.lp-meta {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+.lp-meta-item {
+    background: #f1f5f9;
+    color: #334155;
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-weight: 800;
+    font-size: 0.85rem;
+}
+.lp-start {
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    padding: 14px 22px;
+    font-weight: 900;
+    font-size: 1.05rem;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(108,99,255,0.4);
+    transition: transform 0.15s ease;
+}
+.lp-start:hover { transform: translateY(-2px); }
+
+/* Replay button next to hint */
+.replay-btn {
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6) !important;
+    color: white !important;
+}
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

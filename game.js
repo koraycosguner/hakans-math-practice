@@ -843,6 +843,21 @@ function _generateQuickMathProblems(n) {
     return out;
 }
 
+// Persistent hot-streak banner during the current session.
+function showHotStreakBanner(streak) {
+    let el = document.getElementById('hot-streak-banner');
+    if (!el) {
+        el = document.createElement('div');
+        el.id = 'hot-streak-banner';
+        el.className = 'hot-streak-banner';
+        document.body.appendChild(el);
+    }
+    el.innerHTML = `<span class="hsb-flame">🔥</span> Hot streak — <b>${streak}</b> in a row, Hakan!`;
+    el.classList.remove('hsb-pulse');
+    void el.offsetWidth;
+    el.classList.add('hsb-pulse');
+}
+
 // Floating high-five popup — fires every 3 in a row.
 function showHighFive(streak) {
     const emojis = ['🙌', '🎯', '⚡', '🚀', '🌟'];
@@ -3786,12 +3801,36 @@ function showResults() {
     }
 }
 
+// Growth-mindset quotes for end-of-session encouragement.
+const GROWTH_QUOTES = [
+    "Mistakes mean your brain is growing! 🧠",
+    "Practice today makes easy tomorrow! 🌱",
+    "Every try makes you stronger, Hakan! 💪",
+    "Smart kids ask questions — keep going! ❓",
+    "You're not done — you're just getting started! 🚀",
+    "When it's hard, that's when you're learning most! 🌟",
+    "Champions try, fail, and try again! 🏆",
+    "You can do hard things, Hakan! 🦁",
+    "The brain LOVES a challenge! 🧠",
+    "Brave brains make mistakes — keep going! 🦸",
+    "Every problem you solve adds to your math superpower! ⚡",
+    "I'm proud of you for trying, Hakan! 🥰",
+];
+function pickGrowthQuote() {
+    return GROWTH_QUOTES[Math.floor(Math.random() * GROWTH_QUOTES.length)];
+}
+
 // Populate "skills practiced" + "what's next" on the results screen. Pulls
 // the current module from state (set by startGenericProblems) when available
 // and otherwise falls back to a generic recap.
 function _renderResultsRecap() {
     const recap = document.getElementById('results-recap');
     const nextEl = document.getElementById('results-next');
+    const quoteEl = document.getElementById('results-quote');
+    if (quoteEl) {
+        quoteEl.textContent = pickGrowthQuote();
+        quoteEl.style.display = '';
+    }
     if (!recap || !nextEl) return;
     const mod = state.currentModule || null;
     if (mod) {

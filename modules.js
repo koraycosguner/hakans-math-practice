@@ -69158,6 +69158,26 @@ function renderHomeModules() {
         </div>`;
     }
 
+    // Overall mastery progress
+    if (isHakan) {
+        const totalMods = MODULES.length;
+        let stars3 = 0, started = 0;
+        Object.values(progress).forEach((p) => {
+            if (p && p.stars > 0) started++;
+            if (p && p.stars === 3) stars3++;
+        });
+        const pctStarted = totalMods ? Math.round((started / totalMods) * 100) : 0;
+        const pctMastered = totalMods ? Math.round((stars3 / totalMods) * 100) : 0;
+        html += `<div class="overall-progress">
+            <div class="op-line">📈 ${started} / ${totalMods} started · ${stars3} mastered (3⭐)</div>
+            <div class="op-bar">
+                <div class="op-fill" style="width:${pctStarted}%"></div>
+                <div class="op-fill-mastered" style="width:${pctMastered}%"></div>
+            </div>
+            <div class="op-pct">${pctMastered}% mastered</div>
+        </div>`;
+    }
+
     // Quick Math + savings goal row
     if (isHakan) {
         html += `<div class="quick-row">`;
@@ -69592,8 +69612,44 @@ function startLesson(mod) {
     // Auto-bookmark: resume where Hakan left off if he's been here before.
     const bm = _loadLessonBookmark(mod && mod.id);
     moduleState.lessonIndex = (bm && bm.page > 0 && bm.page < (mod.lesson || []).length) ? bm.page : 0;
+    // First-time preview: show a quick "what you'll learn" before the lesson.
+    const visits = (typeof loadAllVisits === 'function') ? loadAllVisits() : {};
+    const isFirstTime = !visits[mod.id] && moduleState.lessonIndex === 0;
+    if (isFirstTime && typeof showLessonPreview === 'function') {
+        showLessonPreview(mod, () => {
+            showScreen('lesson-screen');
+            renderLessonPage();
+        });
+        return;
+    }
     showScreen('lesson-screen');
     renderLessonPage();
+}
+
+// Quick "what you'll learn" preview shown the first time Hakan opens a
+// module's lesson. One-tap dismiss.
+function showLessonPreview(mod, onContinue) {
+    if (!mod) { if (onContinue) onContinue(); return; }
+    const overlay = document.createElement('div');
+    overlay.className = 'cert-overlay lp-overlay';
+    const pages = (mod.lesson || []).length;
+    const totalQ = ((mod.practice || []).length) + ((mod.quiz || []).length);
+    overlay.innerHTML = `<div class="cert-card lp-card">
+        <div class="lp-emoji">${mod.emoji || '📚'}</div>
+        <div class="lp-title">What you'll learn</div>
+        <div class="lp-mod-title">${mod.title}</div>
+        <div class="lp-desc">${mod.description || ''}</div>
+        <div class="lp-meta">
+            <div class="lp-meta-item">📖 ${pages} ${pages === 1 ? 'page' : 'pages'}</div>
+            <div class="lp-meta-item">🎯 ${totalQ} problems</div>
+        </div>
+        <button class="lp-start">Let's go, Hakan! ▶️</button>
+    </div>`;
+    overlay.querySelector('.lp-start').addEventListener('click', () => {
+        overlay.remove();
+        if (onContinue) onContinue();
+    });
+    document.body.appendChild(overlay);
 }
 
 const LESSON_BOOKMARK_KEY = 'hakans-math-lesson-bookmarks';
@@ -70027,6 +70083,13 @@ function renderModuleProblem() {
     }
     document.getElementById('mg-hint-text').textContent = '';
 
+    if (typeof speak === 'function') speak(p.prompt);
+}
+
+function mgReplayQuestion() {
+    const p = getCurrentProblems()[moduleState.problemIndex];
+    if (!p) return;
+    if (typeof playSound === 'function') playSound('click');
     if (typeof speak === 'function') speak(p.prompt);
 }
 
@@ -70534,6 +70597,10 @@ function handleCorrect() {
         typeof showHighFive === 'function') {
         showHighFive(moduleState.streak);
     }
+    // Hot-streak banner: at 5+ in a row, persistent banner appears.
+    if (moduleState.streak >= 5 && typeof showHotStreakBanner === 'function') {
+        showHotStreakBanner(moduleState.streak);
+    }
 
     if (moduleState.activity === 'quiz' && typeof currentUser !== 'undefined' && currentUser === 'hakan') {
         moduleState.sessionRobux += ROBUX_PER_QUIZ_CORRECT;
@@ -70562,7 +70629,14 @@ function handleCorrect() {
     setTimeout(() => advanceModuleProblem(), 1500);
 }
 
+// Reset the hot-streak banner when streak breaks.
+function _hideHotStreakBanner() {
+    const el = document.getElementById('hot-streak-banner');
+    if (el) el.remove();
+}
+
 function handleWrong() {
+    _hideHotStreakBanner();
     if (typeof playSound === 'function') playSound('wrong');
     moduleState.streak = 0;
 
