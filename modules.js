@@ -69297,6 +69297,30 @@ function renderHomeModules() {
         }
     }
 
+    // Tip of the day: rotating math tip for Hakan
+    if (isHakan) {
+        const TIPS = [
+            "Doubles are your friends! 2+2=4, 3+3=6, 4+4=8.",
+            "When adding 9, take 1 from the other number and add it to 9 to make 10.",
+            "Subtract by counting up! 8-5? Count from 5: 6, 7, 8 — that's 3 jumps.",
+            "Anything plus zero stays the same.",
+            "Anything minus zero stays the same.",
+            "Even numbers end in 0, 2, 4, 6, or 8.",
+            "Odd numbers end in 1, 3, 5, 7, or 9.",
+            "Squares have 4 equal sides. Rectangles have 4 sides, too — but two pairs.",
+            "A triangle has 3 sides. A pentagon has 5 sides. Count the corners!",
+            "Half of 10 is 5. Half of 20 is 10. Half means split into 2 equal groups.",
+            "1 dime = 10 cents. 1 nickel = 5 cents. 1 quarter = 25 cents.",
+            "A clock has 12 numbers. The little hand shows the hour.",
+            "When you add, the number gets BIGGER. When you subtract, it gets SMALLER.",
+            "Practice makes progress, not perfection!",
+        ];
+        const dayKey = new Date().toISOString().slice(0, 10);
+        const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+        const tip = TIPS[seed % TIPS.length];
+        html += `<div class="tip-of-day"><span class="tod-emoji">💡</span><span class="tod-label">Today's Tip:</span> ${tip}</div>`;
+    }
+
     // "I'm best at!" — top 3 modules by accuracy (min 5 attempts)
     if (isHakan && typeof loadProblemStats === 'function') {
         const stats = loadProblemStats();
