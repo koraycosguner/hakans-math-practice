@@ -2370,6 +2370,160 @@ GAME_IMPLS['tic-tac-toe'] = {
 };
 
 // =====================================================================
+// 27. RAINBOW BUILDER — Build a rainbow ROYGBIV stripe by stripe!
+// Each correct math answer adds the next stripe to the rainbow.
+// =====================================================================
+GAME_IMPLS['rainbow-builder'] = {
+    start(ctx) {
+        const diff = (ctx.config && ctx.config.difficulty) || 'normal';
+        const colors = diff === 'easy'
+            ? [['Red','#ef4444'], ['Yellow','#fbbf24'], ['Green','#16a34a'], ['Blue','#2563eb'], ['Purple','#8b5cf6']]
+            : [
+                ['Red',    '#ef4444'],
+                ['Orange', '#f97316'],
+                ['Yellow', '#fbbf24'],
+                ['Green',  '#16a34a'],
+                ['Blue',   '#2563eb'],
+                ['Indigo', '#4338ca'],
+                ['Violet', '#8b5cf6'],
+              ];
+        const totalStripes = colors.length;
+        const maxA = diff === 'easy' ? 5 : diff === 'hard' ? 10 : 9;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'mg-rainbow-wrap';
+
+        const qBox = document.createElement('div');
+        qBox.className = 'mg-rainbow-q';
+        wrap.appendChild(qBox);
+
+        // Scene: sky + sun + rainbow arc
+        const scene = document.createElement('div');
+        scene.className = 'mg-rainbow-scene';
+        const sun = document.createElement('div');
+        sun.className = 'mg-rainbow-sun';
+        sun.textContent = '☀️';
+        scene.appendChild(sun);
+        const cloud1 = document.createElement('div');
+        cloud1.className = 'mg-rainbow-cloud mg-rainbow-cloud-l';
+        cloud1.textContent = '☁️';
+        scene.appendChild(cloud1);
+        const cloud2 = document.createElement('div');
+        cloud2.className = 'mg-rainbow-cloud mg-rainbow-cloud-r';
+        cloud2.textContent = '☁️';
+        scene.appendChild(cloud2);
+        // The rainbow itself — SVG with N concentric arcs
+        const rainbowSvg = document.createElement('div');
+        rainbowSvg.className = 'mg-rainbow-arc';
+        rainbowSvg.innerHTML = buildRainbowSvg(colors, 0);
+        scene.appendChild(rainbowSvg);
+        wrap.appendChild(scene);
+
+        // Status + next color cue
+        const cue = document.createElement('div');
+        cue.className = 'mg-rainbow-cue';
+        wrap.appendChild(cue);
+
+        // Options
+        const opts = document.createElement('div');
+        opts.className = 'mg-rainbow-opts';
+        wrap.appendChild(opts);
+
+        ctx.area.appendChild(wrap);
+
+        let target = null;
+        let stripes = 0;
+
+        function buildRainbowSvg(colors, stripesShown) {
+            const cx = 200, cy = 150, base = 130;
+            const stripeWidth = 16;
+            let svgInner = '';
+            for (let i = 0; i < colors.length; i++) {
+                const r = base - i * stripeWidth;
+                const visible = i < stripesShown;
+                const color = visible ? colors[i][1] : 'rgba(255,255,255,0.15)';
+                const strokeWidth = visible ? stripeWidth : 1;
+                svgInner += `<path d="M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}" stroke="${color}" stroke-width="${stripeWidth}" fill="none" stroke-linecap="round" opacity="${visible ? 1 : 0.3}"/>`;
+            }
+            return `<svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">${svgInner}</svg>`;
+        }
+
+        function updateRainbow() {
+            rainbowSvg.innerHTML = buildRainbowSvg(colors, stripes);
+            if (stripes < totalStripes) {
+                const nextColor = colors[stripes];
+                cue.innerHTML = `Solve to add the <b style="color:${nextColor[1]}">${nextColor[0]}</b> stripe! (${stripes} / ${totalStripes})`;
+            }
+        }
+
+        function genProblem() {
+            const op = Math.random() < 0.5 ? '+' : '-';
+            if (op === '+') {
+                const a = 1 + Math.floor(Math.random() * maxA);
+                const b = 1 + Math.floor(Math.random() * maxA);
+                return { a, b, ans: a + b, op };
+            }
+            const a = 2 + Math.floor(Math.random() * maxA);
+            const b = 1 + Math.floor(Math.random() * a);
+            return { a, b, ans: a - b, op };
+        }
+
+        function nextProblem() {
+            target = genProblem();
+            qBox.innerHTML = `<div class="mg-rainbow-eq">${target.a} ${target.op === '-' ? '−' : '+'} ${target.b}<span class="mg-rainbow-eqs">=</span><span class="mg-rainbow-qmark">?</span></div>`;
+            const set = new Set([target.ans]);
+            while (set.size < 3) {
+                const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                set.add(Math.max(0, target.ans + d));
+            }
+            const arr = Array.from(set).sort(() => Math.random() - 0.5);
+            opts.innerHTML = arr.map((v) =>
+                `<button class="mg-rainbow-opt" data-correct="${v === target.ans ? '1' : '0'}">${v}</button>`
+            ).join('');
+            opts.querySelectorAll('.mg-rainbow-opt').forEach((b) => {
+                b.addEventListener('click', (e) => onAnswer(b, e));
+            });
+        }
+
+        function onAnswer(btn, e) {
+            const correct = btn.getAttribute('data-correct') === '1';
+            if (correct) {
+                btn.classList.add('mg-rainbow-right');
+                ctx.onScore(1, { x: e.clientX, y: e.clientY });
+                stripes += 1;
+                updateRainbow();
+                if (stripes >= totalStripes) {
+                    qBox.innerHTML = `<div class="mg-rainbow-win">🌈 FULL RAINBOW! +5 💎</div>`;
+                    opts.innerHTML = '';
+                    cue.textContent = '';
+                    rainbowSvg.classList.add('mg-rainbow-shine');
+                    ctx.onScore(5, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+                    ctx.onWin();
+                    setTimeout(reset, 2600);
+                    return;
+                }
+                setTimeout(nextProblem, 600);
+            } else {
+                btn.classList.add('mg-rainbow-wrong');
+                ctx.onPenalty(1, { x: e.clientX, y: e.clientY });
+                setTimeout(() => btn.classList.remove('mg-rainbow-wrong'), 400);
+            }
+        }
+
+        function reset() {
+            stripes = 0;
+            updateRainbow();
+            rainbowSvg.classList.remove('mg-rainbow-shine');
+            nextProblem();
+        }
+
+        updateRainbow();
+        nextProblem();
+        return { stop() {} };
+    }
+};
+
+// =====================================================================
 // 26. BIRTHDAY CANDLES — Light all the candles by solving math!
 // Each correct answer lights one candle. All candles lit → cake glows
 // + sparkles + happy-birthday celebration.

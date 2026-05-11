@@ -601,6 +601,27 @@
     "config": {}
   },
   {
+    "id": "rainbow-builder",
+    "title": "Rainbow Builder",
+    "emoji": "🌈",
+    "description": "Build a rainbow stripe by stripe — solve math to add each color!",
+    "category": "puzzle",
+    "skill": "addition",
+    "duration": 90,
+    "difficulty": "medium",
+    "objective": "Each correct answer adds a stripe to the rainbow. Complete the full ROYGBIV rainbow to win!",
+    "rules": [
+      "☀️ Sun and clouds set the scene; a faded rainbow waits to be coloured.",
+      "Solve math → the next colour stripe paints in (Red → Violet).",
+      "Complete the rainbow (5 stripes easy, 7 stripes normal) for +5 💎 shimmer."
+    ],
+    "rewards": {
+      "robuxPerWin": 5,
+      "bonusForRecord": 8
+    },
+    "config": {}
+  },
+  {
     "id": "birthday-candles",
     "title": "Birthday Candles",
     "emoji": "🎂",

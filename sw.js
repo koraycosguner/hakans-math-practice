@@ -11,7 +11,7 @@
  * Bump CACHE_VERSION whenever the app shell changes so old caches purge.
  */
 
-const CACHE_VERSION = 'hakans-math-v132';
+const CACHE_VERSION = 'hakans-math-v133';
 const SHELL_CACHE = `${CACHE_VERSION}-shell`;
 const AUDIO_CACHE = `${CACHE_VERSION}-audio`;
 

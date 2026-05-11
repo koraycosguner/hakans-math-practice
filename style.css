@@ -6082,6 +6082,177 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     100% { transform: translateY(260px) rotate(540deg); opacity: 0; }
 }
 
+/* ===== Mini-game 26 · Rainbow Builder ===== */
+.mg-rainbow-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 14px;
+}
+.mg-rainbow-q {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
+    border: 3px dashed #38bdf8;
+    border-radius: 24px;
+    padding: 14px 26px;
+    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.18);
+    min-width: 200px;
+    text-align: center;
+}
+.mg-rainbow-eq {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #0c4a6e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.mg-rainbow-eqs {
+    color: #38bdf8;
+    margin-left: 4px;
+}
+.mg-rainbow-qmark {
+    color: #f97316;
+    font-size: 2.2rem;
+}
+.mg-rainbow-win {
+    font-size: 1.6rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ef4444 0%, #f97316 16%, #fbbf24 32%, #16a34a 50%, #2563eb 68%, #4338ca 84%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rbWinPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes rbWinPop {
+    0%   { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.mg-rainbow-scene {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 200px;
+    background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 70%, #d9f99d 100%);
+    border-radius: 20px;
+    border: 3px solid #7dd3fc;
+    overflow: hidden;
+    box-shadow: 0 10px 28px rgba(56, 189, 248, 0.25);
+}
+.mg-rainbow-sun {
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    font-size: 2rem;
+    animation: rbSunSpin 14s linear infinite;
+}
+@keyframes rbSunSpin {
+    0%   { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+.mg-rainbow-cloud {
+    position: absolute;
+    top: 12px;
+    font-size: 1.7rem;
+    opacity: 0.92;
+    animation: rbCloudDrift 18s ease-in-out infinite;
+}
+.mg-rainbow-cloud-l { left: 16px; }
+.mg-rainbow-cloud-r { left: 50%; top: 30px; animation-duration: 22s; animation-direction: reverse; }
+@keyframes rbCloudDrift {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(18px); }
+}
+.mg-rainbow-arc {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: none;
+}
+.mg-rainbow-arc svg {
+    width: 100%;
+    height: 100%;
+}
+.mg-rainbow-arc path {
+    transition: stroke 0.5s ease, opacity 0.5s ease;
+}
+.mg-rainbow-arc.mg-rainbow-shine {
+    animation: rbShineFlash 1.6s ease-in-out 3;
+}
+@keyframes rbShineFlash {
+    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+    50%      { filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9)); }
+}
+
+.mg-rainbow-cue {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #475569;
+    text-align: center;
+    min-height: 1.4em;
+}
+.mg-rainbow-opts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    max-width: 360px;
+}
+.mg-rainbow-opt {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 3px solid #cbd5e1;
+    border-radius: 18px;
+    padding: 14px 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #0f172a;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 0 #94a3b8, 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+.mg-rainbow-opt:hover {
+    transform: translateY(-2px);
+    border-color: #38bdf8;
+    box-shadow: 0 6px 0 #94a3b8, 0 10px 18px rgba(56, 189, 248, 0.25);
+}
+.mg-rainbow-opt:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #94a3b8, 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+.mg-rainbow-opt.mg-rainbow-right {
+    border-color: #16a34a;
+    background: linear-gradient(135deg, #bbf7d0 0%, #86efac 100%);
+    color: #14532d;
+    animation: rbRightFlash 0.5s ease;
+}
+.mg-rainbow-opt.mg-rainbow-wrong {
+    border-color: #ef4444;
+    background: linear-gradient(135deg, #fecaca 0%, #fca5a5 100%);
+    color: #7f1d1d;
+    animation: rbWrongShake 0.4s ease;
+}
+@keyframes rbRightFlash {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.1); }
+}
+@keyframes rbWrongShake {
+    0%, 100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mg-rainbow-sun, .mg-rainbow-cloud,
+    .mg-rainbow-win, .mg-rainbow-arc.mg-rainbow-shine,
+    .mg-rainbow-opt.mg-rainbow-right, .mg-rainbow-opt.mg-rainbow-wrong {
+        animation: none !important;
+    }
+}
+
 /* ===== Parent Dashboard: weekly activity chart ===== */
 .pd-chart {
     background: white;
