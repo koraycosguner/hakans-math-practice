@@ -6185,7 +6185,10 @@ function checkAnswer() {
         updateStreakDisplay();
 
         setMascotMessage(randomChoice(MESSAGES.wrong));
-        showFeedback('❌');
+        // Mix in encouraging emojis with the X so wrong doesn't feel
+        // harsh — 6 of 10 times Hakan sees a "keep trying" face.
+        const wrongFeedback = ['❌', '🤔', '💪', '🙃', '😅', '🌱', '❌', '🤔', '💪', '❌'];
+        showFeedback(randomChoice(wrongFeedback));
 
         // Clear input for retry
         setTimeout(() => {
