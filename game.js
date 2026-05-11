@@ -6269,8 +6269,13 @@ function checkAnswer() {
         }
         setMascotMessage(message);
 
-        // Floating stars
-        spawnFloatingStars(3);
+        // Floating stars (varied count for streak tier)
+        spawnFloatingStars(state.streak >= 5 ? 6 : 3);
+
+        // Streak milestone celebration — fires once each at 3/5/10/15/20.
+        if ([3, 5, 10, 15, 20].includes(state.streak)) {
+            celebrateStreakMilestone(state.streak);
+        }
 
         // Show the correct answer celebration underneath the problem
         showCorrectAnswer(state.currentProblem, points);
@@ -6413,6 +6418,70 @@ function showCorrectAnswer(problem, points) {
     display.classList.remove('show');
     void display.offsetWidth;
     display.classList.add('show');
+
+    // Confetti burst from the revealed answer position
+    burstConfettiAt(answerNum);
+}
+
+// Spawn a 14-piece emoji burst at the center of `el`. Decorative; particles
+// auto-remove after 1.2s. Used on right answer + streak milestones.
+function burstConfettiAt(el, opts) {
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const emojis = (opts && opts.emojis) || ['🎉','⭐','✨','💎','🌟','🎊'];
+    const count = (opts && opts.count) || 14;
+    for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.className = 'celeb-burst-particle';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = cx + 'px';
+        p.style.top = cy + 'px';
+        const angle = (Math.PI * 2 / count) * i + (Math.random() - 0.5) * 0.4;
+        const speed = 80 + Math.random() * 80;
+        const dx = Math.cos(angle) * speed;
+        const dy = Math.sin(angle) * speed - 20;
+        p.style.setProperty('--cb-dx', dx + 'px');
+        p.style.setProperty('--cb-dy', dy + 'px');
+        p.style.setProperty('--cb-rot', (Math.random() * 720 - 360) + 'deg');
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1200);
+    }
+}
+
+// Streak milestone toast. Fires when Hakan hits 3, 5, 10, 15, 20 in a row.
+// Bigger overlay + screen-wide confetti shower for big streaks.
+function celebrateStreakMilestone(n) {
+    const tiers = {
+        3:  { emoji: '🔥', text: '3 in a row!',      sub: "You're on fire, Hakan!"  },
+        5:  { emoji: '🎉', text: 'STREAK x5!',       sub: 'Five perfect answers!'    },
+        10: { emoji: '🤩', text: 'AMAZING x10!',     sub: 'Ten in a row, Hakan!'     },
+        15: { emoji: '👑', text: 'CHAMPION x15!',    sub: 'Fifteen perfect — wow!'   },
+        20: { emoji: '🌟', text: 'LEGENDARY x20!',   sub: "You're a math wizard!"    },
+    };
+    const tier = tiers[n];
+    if (!tier) return;
+    const toast = document.createElement('div');
+    toast.className = 'streak-toast';
+    toast.innerHTML = `
+        <div class="streak-toast-emoji">${tier.emoji}</div>
+        <div class="streak-toast-text">${tier.text}</div>
+        <div class="streak-toast-sub">${tier.sub}</div>
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.classList.add('streak-toast-show'), 20);
+    // Spawn a 24-piece confetti shower from the toast center
+    setTimeout(() => burstConfettiAt(toast, { count: 24 }), 280);
+    if (n >= 10 && typeof launchConfetti === 'function') {
+        launchConfetti();
+        setTimeout(launchConfetti, 600);
+    }
+    setTimeout(() => {
+        toast.classList.remove('streak-toast-show');
+        setTimeout(() => toast.remove(), 400);
+    }, 2200);
+    if (typeof speak === 'function') speak(tier.text);
 }
 
 function hideCorrectAnswer() {

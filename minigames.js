@@ -38,8 +38,8 @@ function mgConfettiBurst(x, y, count) {
     const r = host.getBoundingClientRect();
     const cx = (x - r.left) || (r.width / 2);
     const cy = (y - r.top)  || (r.height / 2);
-    const emojis = ['🎉','⭐','✨','💎','🌟'];
-    const n = count || 8;
+    const emojis = ['🎉','⭐','✨','💎','🌟','🎊','💫'];
+    const n = count || 10;
     for (let i = 0; i < n; i++) {
         const p = document.createElement('span');
         p.className = 'mg-confetti';
@@ -47,13 +47,35 @@ function mgConfettiBurst(x, y, count) {
         p.style.left = cx + 'px';
         p.style.top = cy + 'px';
         const angle = (Math.PI * 2 / n) * i + (Math.random() - 0.5) * 0.5;
-        const speed = 60 + Math.random() * 60;
+        const speed = 80 + Math.random() * 80;
         const dx = Math.cos(angle) * speed;
         const dy = Math.sin(angle) * speed;
         p.style.setProperty('--dx', dx + 'px');
         p.style.setProperty('--dy', dy + 'px');
         host.appendChild(p);
-        setTimeout(() => p.remove(), 1000);
+        setTimeout(() => p.remove(), 1100);
+    }
+}
+
+// Full-screen confetti shower for game wins. Spawns 36 particles across the
+// top of the play area that rain down with varied speeds.
+function mgVictoryShower() {
+    const host = document.getElementById('mg-play-area');
+    if (!host) return;
+    const r = host.getBoundingClientRect();
+    const emojis = ['🎉','🎊','⭐','🌟','✨','💎','🏆','🥳'];
+    for (let i = 0; i < 36; i++) {
+        const p = document.createElement('span');
+        p.className = 'mg-victory-confetti';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = (Math.random() * r.width) + 'px';
+        p.style.top = '-30px';
+        p.style.setProperty('--vy', (r.height + 80) + 'px');
+        p.style.setProperty('--vrot', (Math.random() * 720 - 360) + 'deg');
+        p.style.animationDelay = (Math.random() * 600) + 'ms';
+        p.style.animationDuration = (1800 + Math.random() * 800) + 'ms';
+        host.appendChild(p);
+        setTimeout(() => p.remove(), 3000);
     }
 }
 
@@ -340,7 +362,9 @@ function launchMiniGame(id) {
                 const opt = opts || {};
                 mgScorePopup('+' + delta, opt.x, opt.y, 'mg-popup-good');
                 if (opt.x != null && opt.y != null) {
-                    mgConfettiBurst(opt.x, opt.y, _gameCombo >= 3 ? 12 : 6);
+                    // Scale burst size by combo: 10 normal / 16 hot streak / 22 on fire
+                    const burstCount = _gameCombo >= 5 ? 22 : _gameCombo >= 3 ? 16 : 10;
+                    mgConfettiBurst(opt.x, opt.y, burstCount);
                 }
                 if (typeof playSound === 'function') playSound('correct');
                 mgVibrate(_gameCombo >= 3 ? [40, 20, 40] : 25);
@@ -364,7 +388,12 @@ function launchMiniGame(id) {
                 area.classList.add('mg-shake');
             }
         },
-        onWin: () => _endMiniGame(true),
+        onWin: () => {
+            // Visual reward: full-screen confetti shower over the play area
+            // before the game-over modal appears.
+            mgVictoryShower();
+            _endMiniGame(true);
+        },
         config: effectiveConfig,
     });
 }

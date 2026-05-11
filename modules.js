@@ -71545,6 +71545,21 @@ function toggleStoryMode() {
 // ----------------------------------------------------------------------
 // Interactive lesson primitive event handling
 // ----------------------------------------------------------------------
+// Per-tap sparkle helper: spawns a single sparkle next to `el` showing the
+// current count. Used by tap-to-count + fill-ten-frame so each tap feels
+// celebratory rather than mechanical.
+function _spawnTapSparkle(el, n) {
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const sparkle = document.createElement('span');
+    sparkle.className = 'ic-tap-sparkle';
+    sparkle.innerHTML = `<span class="ic-tap-sparkle-num">${n}</span><span class="ic-tap-sparkle-emoji">${n % 2 === 0 ? '✨' : '⭐'}</span>`;
+    sparkle.style.left = (r.left + r.width / 2) + 'px';
+    sparkle.style.top  = (r.top  + r.height / 2) + 'px';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 1000);
+}
+
 function bindInteractivePrimitives(host) {
     if (!host) return;
     const wrap = host.querySelector('[data-interactive]');
@@ -71566,12 +71581,18 @@ function bindInteractivePrimitives(host) {
                 if (typeof playSound === 'function') playSound('hop');
                 // Speak each count aloud — auditory pairing reinforces number-sense
                 if (typeof speak === 'function') speak(String(tapped));
+                // Spawn a sparkle at the tap so each count feels rewarding.
+                _spawnTapSparkle(b, tapped);
                 if (tapped === target) {
                     wrap.classList.add('ic-done');
                     if (counter) counter.textContent = `Done! 🎉 ${target} total!`;
                     if (typeof playSound === 'function') playSound('correct');
                     if (typeof speak === 'function') {
                         setTimeout(() => speak(`Total: ${target}!`), 400);
+                    }
+                    // Burst confetti from the wrap when complete
+                    if (typeof burstConfettiAt === 'function') {
+                        setTimeout(() => burstConfettiAt(wrap, { count: 18 }), 200);
                     }
                 }
             });
