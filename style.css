@@ -5759,30 +5759,76 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     margin-bottom: 18px;
 }
 .pet-picker-card {
-    padding: 16px 10px;
-    background: #f8f7ff;
+    padding: 18px 10px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f7ff 100%);
     border: 3px solid #c7d2fe;
-    border-radius: 16px;
+    border-radius: 18px;
     cursor: pointer;
     text-align: center;
     touch-action: manipulation;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    box-shadow: 0 4px 14px rgba(108, 99, 255, 0.15);
+}
+.pet-picker-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(108, 99, 255, 0.3);
+    border-color: var(--primary);
+}
+.pet-picker-card:hover .pp-emoji {
+    transform: scale(1.15) rotate(-5deg);
 }
 .pet-picker-card.pp-current {
-    border-color: #f5c518;
-    background: linear-gradient(135deg, #fffaeb, #fef3c7);
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, #fffaeb 0%, #fde68a 100%);
+    box-shadow: 0 8px 22px rgba(245, 158, 11, 0.4);
 }
-.pp-emoji { font-size: 3rem; line-height: 1; margin-bottom: 8px; }
-.pp-name { font-weight: 800; color: var(--primary); font-size: 0.95rem; }
-.pp-desc { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; }
+.pet-picker-card.pp-current::after {
+    content: '⭐ Active';
+    position: absolute;
+    top: -10px;
+    right: 8px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 900;
+    padding: 3px 10px;
+    border-radius: 999px;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4);
+}
+.pet-picker-card { position: relative; }
+.pp-emoji {
+    font-size: 3.4rem;
+    line-height: 1;
+    margin-bottom: 8px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+.pp-name {
+    font-weight: 900;
+    background: linear-gradient(135deg, #6c63ff 0%, #4338ca 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1rem;
+}
+.pet-picker-card.pp-current .pp-name {
+    background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.pp-desc { font-size: 0.78rem; color: var(--text-light); margin-top: 4px; line-height: 1.3; }
 .pet-picker-close {
     width: 100%;
     padding: 12px;
     background: #f0f0f5;
     border: none;
     border-radius: 14px;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
+    transition: background 0.2s ease;
 }
+.pet-picker-close:hover { background: #e5e7eb; }
 
 /* ===== Parent Dashboard (Koray view) ===== */
 .parent-dashboard {
