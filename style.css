@@ -8635,6 +8635,45 @@ html.motion-reduced .affirmation-card { animation: none; }
     box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
 
+/* ===== Iteration 30: fun fact ===== */
+.funfact {
+    background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+    color: #831843;
+    border-radius: 14px;
+    padding: 10px 14px;
+    margin: 8px 0;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border: 2px solid #f9a8d4;
+    box-shadow: 0 3px 10px rgba(244, 114, 182, 0.2);
+}
+
+/* Snack break */
+.snack-break {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -20px);
+    background: linear-gradient(135deg, #a7f3d0, #34d399);
+    color: #064e3b;
+    border-radius: 22px;
+    padding: 18px 22px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 99700;
+    max-width: 320px;
+    pointer-events: none;
+}
+.snack-break.sbk-show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+.sbk-emoji { font-size: 3rem; }
+.sbk-title { font-weight: 900; font-size: 1.3rem; margin: 4px 0; }
+.sbk-tip { font-size: 0.95rem; font-weight: 700; }
+
 /* Savings goal "Remove" button */
 .goal-clear {
     background: #fee2e2;

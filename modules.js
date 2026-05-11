@@ -69331,6 +69331,11 @@ function renderHomeModules() {
         }
     }
 
+    // Fun fact of the day
+    if (isHakan && typeof todaysFunFact === 'function') {
+        html += `<div class="funfact">🧠 ${todaysFunFact()}</div>`;
+    }
+
     // Math joke of the day (Hakan only)
     if (isHakan && typeof todaysMathJoke === 'function') {
         const joke = todaysMathJoke();
@@ -70496,6 +70501,7 @@ function renderModuleProblem() {
     document.getElementById('mg-streak').textContent = `🔥 ${moduleState.streak}`;
 
     if (typeof _startProblemTimer === 'function') _startProblemTimer();
+    if (typeof _startIdleCoach === 'function') _startIdleCoach();
 
     // Robux
     const robuxDisplay = document.getElementById('mg-robux-display');
@@ -70809,6 +70815,7 @@ function playSolutionWalkthrough(p) {
 
 function mgTypeNumber(d) {
     if (moduleState.locked) return;
+    if (typeof _stopIdleCoach === 'function') _stopIdleCoach();
     if (moduleState.answer.length < 3) {
         moduleState.answer += d;
         document.getElementById('mg-answer').textContent = moduleState.answer;
@@ -71102,6 +71109,11 @@ function handleCorrect() {
     }
     // Pet happy heart floats up
     if (typeof _petHappyHeart === 'function') _petHappyHeart();
+    // Snack break every 15 correct in a session
+    if (moduleState.correct > 0 && moduleState.correct % 15 === 0 &&
+        typeof _showSnackBreak === 'function') {
+        _showSnackBreak();
+    }
     // Sparkle ring around the answer box.
     const ansBox = document.querySelector('#module-game-screen .pv-answer-box');
     if (ansBox) {

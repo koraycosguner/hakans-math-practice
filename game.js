@@ -1012,6 +1012,55 @@ function _initKeyboardInput() {
 }
 _initKeyboardInput();
 
+// Fun facts (kid-friendly mix of math + nature)
+const FUN_FACTS = [
+    "Did you know? Octopuses have 3 hearts! 🐙",
+    "Did you know? A baby kangaroo is the size of a jelly bean! 🦘",
+    "Did you know? Honey never goes bad! 🍯",
+    "Did you know? Cows have BEST FRIENDS! 🐮",
+    "Did you know? A snail can sleep for 3 years! 🐌",
+    "Did you know? Bananas grow upside down! 🍌",
+    "Did you know? Penguins propose with a pebble! 🐧",
+    "Did you know? Your tongue print is unique like your fingerprint! 👅",
+    "Did you know? A group of flamingos is called a 'flamboyance'! 🦩",
+    "Did you know? The shortest war in history lasted 38 minutes! ⚔️",
+    "Did you know? Sharks are older than trees! 🦈",
+    "Did you know? An ostrich's eye is bigger than its brain! 🦴",
+    "Did you know? Octopuses can squeeze through ANY hole bigger than their beak! 🐙",
+    "Did you know? Bees can recognize human faces! 🐝",
+];
+function todaysFunFact() {
+    const dayKey = new Date().toISOString().slice(0, 10);
+    const seed = dayKey.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+    return FUN_FACTS[(seed * 7) % FUN_FACTS.length];
+}
+
+// Idle encouragement: if Hakan hasn't entered an answer in 12 seconds during
+// a module problem, the mascot offers a friendly nudge.
+let _idleCoachTimer = null;
+function _startIdleCoach() {
+    if (_idleCoachTimer) clearTimeout(_idleCoachTimer);
+    _idleCoachTimer = setTimeout(() => {
+        const screen = document.querySelector('.screen.active');
+        if (!screen || (screen.id !== 'module-game-screen' && screen.id !== 'game-screen')) return;
+        // Skip if locked, an overlay is up, or hint has been seen
+        if (typeof moduleState !== 'undefined' && moduleState.locked) return;
+        if (_hasActiveOverlay()) return;
+        const msgs = [
+            "Take your time, Hakan! 🧠",
+            "You can think this one through!",
+            "Try counting on your fingers, Hakan!",
+            "What number comes next? You got this!",
+            "Look at the picture for a clue! 👀",
+        ];
+        const msg = msgs[Math.floor(Math.random() * msgs.length)];
+        if (typeof setMascotMessage === 'function') setMascotMessage(msg, true);
+    }, 12000);
+}
+function _stopIdleCoach() {
+    if (_idleCoachTimer) { clearTimeout(_idleCoachTimer); _idleCoachTimer = null; }
+}
+
 // Pick a random splash sub-message on load.
 (function _randomSplashSub() {
     const msgs = [
@@ -2053,6 +2102,29 @@ function _generateQuickMathProblems(n) {
         out.push({ q, a: ans });
     }
     return out;
+}
+
+// Snack-break suggestion after long sessions.
+function _showSnackBreak() {
+    const tips = [
+        "Take a sip of water, Hakan! 💧",
+        "Look out the window for 10 seconds — let your eyes rest! 👀",
+        "Stand up and stretch! 🙆",
+        "Do 5 jumping jacks! 🦘",
+        "Take 3 deep breaths! 🌬️",
+    ];
+    const tip = tips[Math.floor(Math.random() * tips.length)];
+    const el = document.createElement('div');
+    el.className = 'snack-break';
+    el.innerHTML = `<div class="sbk-emoji">🧃</div>
+                    <div class="sbk-title">Snack break!</div>
+                    <div class="sbk-tip">${tip}</div>`;
+    document.body.appendChild(el);
+    setTimeout(() => el.classList.add('sbk-show'), 50);
+    setTimeout(() => {
+        el.classList.remove('sbk-show');
+        setTimeout(() => el.remove(), 400);
+    }, 3500);
 }
 
 // Tiny pet-happy heart that floats up briefly when Hakan gets an answer right.
