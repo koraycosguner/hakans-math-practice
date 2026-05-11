@@ -71730,11 +71730,16 @@ function bindInteractivePrimitives(host) {
                 b.classList.add('ic-tapped');
                 tapped += 1;
                 if (counter) counter.textContent = `${tapped} / ${target}`;
-                if (typeof playSound === 'function') playSound('click');
+                if (typeof playSound === 'function') playSound('hop');
+                // Speak each count aloud — auditory pairing reinforces number-sense
+                if (typeof speak === 'function') speak(String(tapped));
                 if (tapped === target) {
                     wrap.classList.add('ic-done');
-                    if (counter) counter.textContent = `Done! 🎉`;
+                    if (counter) counter.textContent = `Done! 🎉 ${target} total!`;
                     if (typeof playSound === 'function') playSound('correct');
+                    if (typeof speak === 'function') {
+                        setTimeout(() => speak(`Total: ${target}!`), 400);
+                    }
                 }
             });
         });
@@ -71777,13 +71782,18 @@ function bindInteractivePrimitives(host) {
                     clearInterval(timer); timer = null;
                     wrap.classList.add('ic-done');
                     if (typeof playSound === 'function') playSound('correct');
+                    if (typeof speak === 'function') {
+                        setTimeout(() => speak(`Total: ${target}!`), 250);
+                    }
                     return;
                 }
                 items[i].classList.add('ic-ca-lit');
                 i += 1;
                 if (counter) counter.textContent = String(i);
-                if (typeof playSound === 'function') playSound('click');
-            }, 700);
+                if (typeof playSound === 'function') playSound('hop');
+                // Speak each number — turn count-along into a true counting song
+                if (typeof speak === 'function') speak(String(i));
+            }, 850);
         }
         if (replay) replay.addEventListener('click', play);
         // Auto-start on first render (kids don't need to find a button)
