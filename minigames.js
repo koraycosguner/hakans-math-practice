@@ -7550,7 +7550,9 @@ GAME_IMPLS['math-platformer-pro'] = {
         ctx.area.appendChild(wrap);
 
         // Heart HUD renderer: visualises lives as ❤️ + 🤍 placeholders. Adds
-        // pop classes for the most-recently-changed slot.
+        // pop classes for the most-recently-changed slot. On 'gain' also
+        // flashes the entire HUD gold so the change is unmissable, even when
+        // Hakan's eyes are on the bricks.
         function _renderHearts(current, max, change) {
             const wrap = document.getElementById('pp-hearts');
             if (!wrap) return;
@@ -7565,6 +7567,16 @@ GAME_IMPLS['math-platformer-pro'] = {
                 }
             }
             wrap.innerHTML = html;
+            // Whole-HUD gold pulse on gain (force animation restart by
+            // toggling the class with a reflow in between)
+            if (change === 'gain' || change === 'max') {
+                const hud = wrap.closest('.mg-pp-hud');
+                if (hud) {
+                    hud.classList.remove('mg-pp-hud-flash');
+                    void hud.offsetWidth;
+                    hud.classList.add('mg-pp-hud-flash');
+                }
+            }
         }
 
         // Web Audio synth for game SFX — short generated tones, no asset files.
@@ -7998,12 +8010,13 @@ GAME_IMPLS['math-platformer-pro'] = {
                             _renderHearts(this.lives, this.maxLives, 'gain');
                         }
                         _sfx('coin');
-                        // Floating "+1 ❤️" (or "❤️ FULL" if we're capped)
+                        // Floating "+1 ❤️" (or "❤️ MAX" if we're capped) — use
+                        // a system font that can fall back to emoji glyphs.
                         const gainText = this.add.text(hbox.x, hbox.y - 12, gained ? '+1 ❤️' : '❤️ MAX', {
-                            fontFamily: 'Courier New, monospace',
-                            fontSize: '22px', fontStyle: 'bold',
+                            fontFamily: '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",Arial,sans-serif',
+                            fontSize: '24px', fontStyle: 'bold',
                             color: gained ? '#ec4899' : '#fbbf24',
-                            stroke: '#ffffff', strokeThickness: 4,
+                            stroke: '#ffffff', strokeThickness: 5,
                         }).setOrigin(0.5).setDepth(200);
                         this.tweens.add({
                             targets: gainText,
@@ -8293,10 +8306,12 @@ GAME_IMPLS['math-platformer-pro'] = {
 
                     if (isCorrect) {
                         // === HUGE GREEN CELEBRATION ===
-                        // 0. Gain a heart (capped at maxLives)
+                        // 0. Gain a heart (capped at maxLives). Even when
+                        // capped we flash the HUD gold + show "❤️ MAX!" so
+                        // Hakan can see the system did respond.
                         const heartGained = this.lives < this.maxLives;
                         if (heartGained) this.lives = Math.min(this.maxLives, this.lives + 1);
-                        _renderHearts(this.lives, this.maxLives, heartGained ? 'gain' : null);
+                        _renderHearts(this.lives, this.maxLives, heartGained ? 'gain' : 'max');
 
                         // 1. Block instantly flashes BRIGHT GREEN
                         block.setFillStyle(0x22c55e);
@@ -8325,15 +8340,45 @@ GAME_IMPLS['math-platformer-pro'] = {
                             duration: 100, yoyo: true,
                             onComplete: () => { try { block.setScale(1); } catch {} }
                         });
-                        // 3. Big floating "+3" GREEN text rising up; if a
-                        // heart was gained, include "+1 ❤️" beneath it.
-                        const plusLabel = heartGained ? '+3 ✓  +1 ❤️' : '+3 ✓';
-                        const plus = this.add.text(block.x, origY - 30, plusLabel, {
+                        // 3. Big floating green text rising up. We split it
+                        // so the "+1 ❤️" half uses a system sans-serif (which
+                        // *can* render emoji); the "+3 ✓" half can stay in
+                        // monospace for game feel.
+                        const plus = this.add.text(block.x, origY - 30, '+3 ✓', {
                             fontFamily: 'Courier New, monospace',
                             fontSize: '24px', fontStyle: 'bold',
                             color: '#22c55e',
                             stroke: '#ffffff', strokeThickness: 5,
                         }).setOrigin(0.5).setDepth(200);
+                        let heartFloater = null;
+                        if (heartGained) {
+                            heartFloater = this.add.text(block.x, origY - 4, '+1 ❤️', {
+                                fontFamily: '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",Arial,sans-serif',
+                                fontSize: '26px', fontStyle: 'bold',
+                                color: '#ec4899',
+                                stroke: '#ffffff', strokeThickness: 6,
+                            }).setOrigin(0.5).setDepth(200);
+                            this.tweens.add({
+                                targets: heartFloater,
+                                y: origY - 90, alpha: 0, scale: 1.6,
+                                duration: 1100, ease: 'Quad.easeOut',
+                                onComplete: () => { try { heartFloater.destroy(); } catch {} }
+                            });
+                        } else if (this.lives === this.maxLives) {
+                            // Capped: explain why hearts didn't grow
+                            const maxLabel = this.add.text(block.x, origY - 4, '❤️ MAX!', {
+                                fontFamily: '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",Arial,sans-serif',
+                                fontSize: '22px', fontStyle: 'bold',
+                                color: '#fbbf24',
+                                stroke: '#7c2d12', strokeThickness: 5,
+                            }).setOrigin(0.5).setDepth(200);
+                            this.tweens.add({
+                                targets: maxLabel,
+                                y: origY - 80, alpha: 0, scale: 1.4,
+                                duration: 900, ease: 'Quad.easeOut',
+                                onComplete: () => { try { maxLabel.destroy(); } catch {} }
+                            });
+                        }
                         this.tweens.add({
                             targets: plus,
                             y: origY - 110, alpha: 0, scale: 1.5,
