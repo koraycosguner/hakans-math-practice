@@ -7519,7 +7519,6 @@ GAME_IMPLS['math-platformer-pro'] = {
             <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">❤️</span><span class="mg-pp-hud-val" id="pp-lives">3</span></div>
             <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">🪙</span><span class="mg-pp-hud-val" id="pp-coins">0</span></div>
             <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">📍</span><span class="mg-pp-hud-val" id="pp-dist">0m</span></div>
-            <button class="mg-pp-fs-btn" id="pp-fs-btn" title="Fullscreen">⛶</button>
         `;
         wrap.appendChild(hud);
 
@@ -7531,11 +7530,14 @@ GAME_IMPLS['math-platformer-pro'] = {
         const canvasHost = document.createElement('div');
         canvasHost.className = 'mg-pp-canvas-host';
         canvasHost.id = 'mg-pp-canvas-' + Date.now();
+        // Fullscreen button — absolutely positioned in the top-right of the
+        // canvas host so it's always visible, never hidden by HUD layout.
+        canvasHost.innerHTML = `<button class="mg-pp-fs-btn" id="pp-fs-btn" title="Fullscreen">⛶ Fullscreen</button>`;
         wrap.appendChild(canvasHost);
 
         const ctrlBar = document.createElement('div');
         ctrlBar.className = 'mg-pp-controls';
-        ctrlBar.innerHTML = `<button class="mg-pp-jump-btn">⬆️ JUMP</button>`;
+        ctrlBar.innerHTML = `<button class="mg-pp-jump-btn">⬆️ JUMP / DOUBLE-JUMP</button>`;
         wrap.appendChild(ctrlBar);
 
         ctx.area.appendChild(wrap);
@@ -7627,6 +7629,8 @@ GAME_IMPLS['math-platformer-pro'] = {
                     this.target = null;
                     this.problemQ = '';
                     this.acceptingHit = true;
+                    this.jumpsRemaining = 0; // ground jump sets to 1 for double-jump
+                    this.endHandled = false;
                 }
                 preload() {
                     // No external assets — we build everything procedurally.
@@ -7723,63 +7727,107 @@ GAME_IMPLS['math-platformer-pro'] = {
                         this.ground.add(t);
                     }
 
-                    // === Player Character (Mario-style: cap, mustache, overalls) ===
-                    const player = this.add.container(80, groundY - 40);
+                    // === Player Character (Mario-style: bigger, cuter, more detail) ===
+                    const player = this.add.container(80, groundY - 50);
 
-                    // Order matters for layering (back to front)
-                    // Arms behind body
-                    const armL  = this.add.rectangle(-10, -6, 5, 14, 0xef4444).setOrigin(0.5, 0);
-                    const armR  = this.add.rectangle( 10, -6, 5, 14, 0xef4444).setOrigin(0.5, 0);
-                    // Body (shirt)
-                    const shirt = this.add.rectangle(0, -4, 20, 12, 0xef4444);
-                    // Overalls (blue) covering bottom half of body + small straps
-                    const overalls = this.add.rectangle(0, 6, 20, 20, 0x2563eb);
-                    const strapL = this.add.rectangle(-5, -4, 4, 14, 0x2563eb);
-                    const strapR = this.add.rectangle( 5, -4, 4, 14, 0x2563eb);
-                    const buttonL = this.add.circle(-5, 2, 1.6, 0xfbbf24);
-                    const buttonR = this.add.circle( 5, 2, 1.6, 0xfbbf24);
-                    // Hands (white gloves)
-                    const handL = this.add.circle(-10, 8, 3.5, 0xffffff);
-                    const handR = this.add.circle( 10, 8, 3.5, 0xffffff);
-                    // Head (skin tone)
-                    const head  = this.add.circle(0, -18, 10, 0xfcd5b4);
-                    // Mustache
-                    const mustache = this.add.rectangle(0, -15, 12, 3, 0x4a2c1a);
-                    // Eyes
-                    const eyeL = this.add.circle(-3, -19, 1.6, 0x000000);
-                    const eyeR = this.add.circle( 3, -19, 1.6, 0x000000);
-                    // Nose
-                    const nose = this.add.circle(0, -17, 2.5, 0xf9a474);
-                    // Cap (red with brim)
-                    const cap = this.add.rectangle(0, -26, 20, 8, 0xdc2626);
-                    const capBrim = this.add.rectangle(4, -22, 12, 3, 0xdc2626);
-                    const capLogo = this.add.text(0, -27, 'M', {
+                    // Drawing order: back-to-front. Larger overall sprite so
+                    // details read at a distance.
+                    // ARMS (behind body), red sleeve color
+                    const armL  = this.add.rectangle(-13, -8, 6, 18, 0xef4444).setOrigin(0.5, 0);
+                    const armR  = this.add.rectangle( 13, -8, 6, 18, 0xef4444).setOrigin(0.5, 0);
+                    armL.setStrokeStyle(1, 0x991b1b);
+                    armR.setStrokeStyle(1, 0x991b1b);
+                    // GLOVES (white circles at the end of arms)
+                    const handL = this.add.circle(-13, 12, 5, 0xffffff);
+                    const handR = this.add.circle( 13, 12, 5, 0xffffff);
+                    handL.setStrokeStyle(1.5, 0x4b5563);
+                    handR.setStrokeStyle(1.5, 0x4b5563);
+
+                    // BODY/SHIRT (red, visible top portion)
+                    const shirt = this.add.rectangle(0, -8, 26, 16, 0xef4444);
+                    shirt.setStrokeStyle(2, 0x991b1b);
+
+                    // OVERALLS (blue, lower body + 2 straps)
+                    const overalls = this.add.rectangle(0, 8, 26, 22, 0x2563eb);
+                    overalls.setStrokeStyle(2, 0x1e3a8a);
+                    const strapL = this.add.rectangle(-7, -6, 4, 16, 0x2563eb);
+                    const strapR = this.add.rectangle( 7, -6, 4, 16, 0x2563eb);
+                    strapL.setStrokeStyle(1, 0x1e3a8a);
+                    strapR.setStrokeStyle(1, 0x1e3a8a);
+                    // Big yellow buttons (gold) on the straps
+                    const buttonL = this.add.circle(-7, 0, 2.4, 0xfbbf24);
+                    const buttonR = this.add.circle( 7, 0, 2.4, 0xfbbf24);
+                    buttonL.setStrokeStyle(1, 0xb45309);
+                    buttonR.setStrokeStyle(1, 0xb45309);
+
+                    // LEGS (blue) — origin at top so they swing from the hip
+                    const legL = this.add.rectangle(-6, 18, 8, 16, 0x1e3a8a).setOrigin(0.5, 0);
+                    const legR = this.add.rectangle( 6, 18, 8, 16, 0x1e3a8a).setOrigin(0.5, 0);
+                    legL.setStrokeStyle(1, 0x172554);
+                    legR.setStrokeStyle(1, 0x172554);
+                    // SHOES (brown rectangles at the end of the legs)
+                    const shoeL = this.add.rectangle(-6, 34, 12, 6, 0x4a2c1a).setOrigin(0.5, 0);
+                    const shoeR = this.add.rectangle( 6, 34, 12, 6, 0x4a2c1a).setOrigin(0.5, 0);
+                    shoeL.setStrokeStyle(1, 0x1f1308);
+                    shoeR.setStrokeStyle(1, 0x1f1308);
+
+                    // HEAD (bigger, rounder)
+                    const head = this.add.circle(0, -24, 14, 0xfcd5b4);
+                    head.setStrokeStyle(2, 0xc6a087);
+                    // EARS
+                    const earL = this.add.circle(-13, -22, 3, 0xfcd5b4);
+                    const earR = this.add.circle( 13, -22, 3, 0xfcd5b4);
+                    // EYES — white sclera + black pupil
+                    const eyeWL = this.add.ellipse(-4, -26, 5, 6, 0xffffff);
+                    const eyeWR = this.add.ellipse( 4, -26, 5, 6, 0xffffff);
+                    const eyeL  = this.add.circle(-4, -25, 2, 0x000000);
+                    const eyeR  = this.add.circle( 4, -25, 2, 0x000000);
+                    // NOSE (round, slightly down)
+                    const nose = this.add.circle(0, -21, 3.2, 0xf9a474);
+                    nose.setStrokeStyle(1, 0xc6a087);
+                    // MUSTACHE — a single curved-ish shape made of two rectangles
+                    const stachL = this.add.rectangle(-4, -17, 7, 3, 0x3b1f10);
+                    const stachR = this.add.rectangle( 4, -17, 7, 3, 0x3b1f10);
+                    // MOUTH (small dark smile under mustache)
+                    const mouth = this.add.rectangle(0, -14, 6, 1.5, 0x3b1f10);
+                    // SIDEBURNS (small brown patches by ears)
+                    const sideL = this.add.rectangle(-12, -22, 4, 5, 0x3b1f10);
+                    const sideR = this.add.rectangle( 12, -22, 4, 5, 0x3b1f10);
+
+                    // CAP — red with white "M" logo circle at front
+                    const cap = this.add.rectangle(0, -34, 28, 10, 0xdc2626);
+                    cap.setStrokeStyle(2, 0x7f1d1d);
+                    const capBrim = this.add.rectangle(7, -29, 16, 4, 0xdc2626);
+                    capBrim.setStrokeStyle(1, 0x7f1d1d);
+                    // White circle on the cap front, with red "M" inside
+                    const capDisc = this.add.circle(2, -33, 5, 0xffffff);
+                    capDisc.setStrokeStyle(1, 0x7f1d1d);
+                    const capLogo = this.add.text(2, -33, 'M', {
                         fontFamily: 'Courier New, monospace',
-                        fontSize: '10px',
+                        fontSize: '8px',
                         fontStyle: 'bold',
                         color: '#dc2626',
-                        backgroundColor: '#ffffff',
-                        padding: { left: 2, right: 2, top: 0, bottom: 0 },
                     }).setOrigin(0.5);
-                    // Legs (blue, overalls continue) with shoes
-                    const legL = this.add.rectangle(-4, 12, 6, 12, 0x1e3a8a).setOrigin(0.5, 0);
-                    const legR = this.add.rectangle( 4, 12, 6, 12, 0x1e3a8a).setOrigin(0.5, 0);
-                    const shoeL = this.add.rectangle(-4, 24, 8, 4, 0x4a2c1a).setOrigin(0.5, 0);
-                    const shoeR = this.add.rectangle( 4, 24, 8, 4, 0x4a2c1a).setOrigin(0.5, 0);
 
                     player.add([
-                        armL, armR,
-                        shirt, overalls, strapL, strapR, buttonL, buttonR,
+                        // back layer (limbs behind body)
+                        armL, armR, handL, handR,
                         legL, legR, shoeL, shoeR,
-                        handL, handR,
-                        head, mustache, eyeL, eyeR, nose,
-                        cap, capBrim, capLogo,
+                        // body
+                        shirt, overalls, strapL, strapR, buttonL, buttonR,
+                        // head
+                        earL, earR, head,
+                        sideL, sideR,
+                        eyeWL, eyeWR, eyeL, eyeR,
+                        nose, stachL, stachR, mouth,
+                        // cap (in front of head)
+                        cap, capBrim, capDisc, capLogo,
                     ]);
 
                     this.physics.world.enable(player);
                     const body = player.body;
-                    body.setSize(22, 56);
-                    body.setOffset(-11, -32);
+                    body.setSize(28, 76);
+                    body.setOffset(-14, -42);
                     body.setCollideWorldBounds(false);
                     body.setMaxVelocity(280, 1200);
                     this.physics.add.collider(player, this.ground);
@@ -7814,13 +7862,18 @@ GAME_IMPLS['math-platformer-pro'] = {
                         this.tryJump();
                     });
 
-                    // === Math blocks — Mario ? blocks, low enough to comfortably reach ===
+                    // === Math blocks — Mario ? blocks, set just within head-bump reach ===
                     this.qBlocks = this.physics.add.staticGroup();
-                    // Lower than before so the head bump actually connects.
-                    // Jump peak ≈ 90px; block bottom needs to be within that.
-                    const blockY = groundY - 110;
+                    // Jump peak ≈ 100-110px with -460 velocity + g=900. Player
+                    // body is 76px tall, head sits ~40px above the body center.
+                    // Block centre at groundY - 125 → bottom at groundY - 97.
+                    // Player on the ground center y = groundY - 38; head top
+                    // y = groundY - 78. Plus jump peak 105 = head reaches
+                    // groundY - 183, so the block bottom at -97 is well within
+                    // reach (about 86px below the peak head — plenty).
+                    const blockY = groundY - 125;
                     const blockPositions = [];
-                    for (let x = 360; x < WORLD_W - 200; x += 320) {
+                    for (let x = 380; x < WORLD_W - 200; x += 360) {
                         blockPositions.push({ x, y: blockY });
                     }
                     blockPositions.forEach((p) => {
@@ -7903,48 +7956,46 @@ GAME_IMPLS['math-platformer-pro'] = {
                 }
 
                 makeQuestionGroup(cx, cy) {
-                    // 3 Mario ? blocks side-by-side. Each block is composed of:
-                    //  - Gold square with brown stroke (Phaser Rectangle)
-                    //  - Inner inset for 3D depth
-                    //  - 4 stud rivets in the corners
-                    //  - Big "?" centered (becomes the answer number when live)
+                    // 3 Mario ? blocks side-by-side. Bigger and more detailed
+                    // than the first revision: outer gold square + brown stroke,
+                    // inset for 3D, 4 corner studs, big number text.
                     const blocks = [];
-                    const spacing = 56;
-                    const SIZE = 46;
+                    const SIZE = 56;
+                    const SPACING = 64;
                     const group = []; // shared array reference for the triplet
                     for (let i = 0; i < 3; i++) {
-                        const bx = cx + (i - 1) * spacing;
-                        // The "block" itself — a Container of layered shapes.
-                        // The Rectangle that gets the physics body is the outer
-                        // brick; we hang the visual decorations off it.
+                        const bx = cx + (i - 1) * SPACING;
                         const outer = this.add.rectangle(bx, cy, SIZE, SIZE, 0xfbbf24);
-                        outer.setStrokeStyle(3, 0x7c2d12);
-                        const inset = this.add.rectangle(bx, cy, SIZE - 8, SIZE - 8, 0xf59e0b, 1);
-                        inset.setStrokeStyle(1, 0xb45309, 0.8);
-                        // Corner studs
+                        outer.setStrokeStyle(4, 0x7c2d12);
+                        const inset = this.add.rectangle(bx, cy, SIZE - 10, SIZE - 10, 0xf59e0b, 1);
+                        inset.setStrokeStyle(2, 0xb45309, 0.85);
+                        // Inner highlight (top-left subtle gloss)
+                        const gloss = this.add.rectangle(bx - SIZE / 4, cy - SIZE / 4, SIZE / 3, 4, 0xfde047, 0.7);
+                        // Corner studs (rivets)
                         const studs = [
-                            this.add.circle(bx - SIZE / 2 + 6, cy - SIZE / 2 + 6, 2, 0x7c2d12),
-                            this.add.circle(bx + SIZE / 2 - 6, cy - SIZE / 2 + 6, 2, 0x7c2d12),
-                            this.add.circle(bx - SIZE / 2 + 6, cy + SIZE / 2 - 6, 2, 0x7c2d12),
-                            this.add.circle(bx + SIZE / 2 - 6, cy + SIZE / 2 - 6, 2, 0x7c2d12),
+                            this.add.circle(bx - SIZE / 2 + 8, cy - SIZE / 2 + 8, 2.5, 0x7c2d12),
+                            this.add.circle(bx + SIZE / 2 - 8, cy - SIZE / 2 + 8, 2.5, 0x7c2d12),
+                            this.add.circle(bx - SIZE / 2 + 8, cy + SIZE / 2 - 8, 2.5, 0x7c2d12),
+                            this.add.circle(bx + SIZE / 2 - 8, cy + SIZE / 2 - 8, 2.5, 0x7c2d12),
                         ];
                         const txt = this.add.text(bx, cy, '?', {
                             fontFamily: 'Courier New, monospace',
-                            fontSize: '24px',
+                            fontSize: '30px',
                             fontStyle: 'bold',
                             color: '#7c2d12',
                             stroke: '#fde047',
-                            strokeThickness: 2,
+                            strokeThickness: 3,
                         }).setOrigin(0.5);
-                        // Subtle pulse animation while alive
+                        // Pulse animation while alive
                         const pulse = this.tweens.add({
                             targets: outer,
-                            scale: { from: 1, to: 1.04 },
+                            scale: { from: 1, to: 1.05 },
                             duration: 700, yoyo: true, repeat: -1,
                         });
                         this.physics.add.existing(outer, true);
                         outer._numText = txt;
                         outer._inset = inset;
+                        outer._gloss = gloss;
                         outer._studs = studs;
                         outer._pulse = pulse;
                         outer._meta = { laneIdx: i, canHit: false, group, cx: bx, cy: cy, done: false };
@@ -7957,16 +8008,42 @@ GAME_IMPLS['math-platformer-pro'] = {
                 tryJump() {
                     if (!this.player) return;
                     const body = this.player.body;
-                    if (body.blocked.down || body.touching.down) {
+                    const grounded = body.blocked.down || body.touching.down;
+                    if (grounded) {
+                        // First (ground) jump
                         body.setVelocityY(-460);
+                        this.jumpsRemaining = 1; // one more in the air
                         _sfx('jump');
-                        // Tuck legs on jump
                         this.tweens.add({
                             targets: [this.playerLimbs.legL, this.playerLimbs.legR, this.playerLimbs.shoeL, this.playerLimbs.shoeR],
-                            rotation: 0,
-                            duration: 120,
-                            yoyo: true,
+                            rotation: 0, duration: 120, yoyo: true,
                         });
+                    } else if (this.jumpsRemaining > 0) {
+                        // Double-jump in mid-air — slightly weaker, with a
+                        // visible spin so it feels intentional.
+                        body.setVelocityY(-380);
+                        this.jumpsRemaining -= 1;
+                        _sfx('jump');
+                        // Full backflip spin on the whole player
+                        this.tweens.add({
+                            targets: this.player,
+                            angle: { from: 0, to: 360 },
+                            duration: 360,
+                            ease: 'Cubic.easeOut',
+                            onComplete: () => { try { this.player.angle = 0; } catch {} },
+                        });
+                        // Burst a few sparkles where the double-jump fired
+                        for (let i = 0; i < 5; i++) {
+                            const px = this.player.x + (Math.random() - 0.5) * 30;
+                            const py = this.player.y + 18 + Math.random() * 6;
+                            const spark = this.add.circle(px, py, 3, 0xfde047);
+                            this.tweens.add({
+                                targets: spark,
+                                y: '+=24', alpha: 0,
+                                duration: 350,
+                                onComplete: () => spark.destroy(),
+                            });
+                        }
                     }
                 }
 
@@ -8045,14 +8122,15 @@ GAME_IMPLS['math-platformer-pro'] = {
                     const group = block._meta.group;
                     if (group) group.forEach((b) => { b._meta.done = true; b._meta.canHit = false; if (b._pulse) b._pulse.stop(); });
 
-                    // Mario block-bump animation: the entire block (and decorations)
-                    // tween up ~16px then come back down with a subtle squash.
+                    // Mario block-bump animation: the entire block + decorations
+                    // tween up ~18px then come back down with snappy easing.
                     const targets = [block, block._inset, block._numText, ...(block._studs || [])];
+                    if (block._gloss) targets.push(block._gloss);
                     const origY = block.y;
                     this.tweens.add({
                         targets,
-                        y: origY - 18,
-                        duration: 110,
+                        y: origY - 20,
+                        duration: 120,
                         ease: 'Quad.easeOut',
                         yoyo: true,
                     });
@@ -8123,31 +8201,83 @@ GAME_IMPLS['math-platformer-pro'] = {
                     const distEl = document.getElementById('pp-dist');
                     if (distEl) distEl.textContent = this.distance + 'm';
                     // Maintain forward speed
-                    if (body.velocity.x < 140) body.setVelocityX(150);
+                    if (body.velocity.x < 130) body.setVelocityX(140);
+
+                    // Reset double-jump when we land back on the ground
+                    if (body.blocked.down) {
+                        this.jumpsRemaining = 0;
+                    }
+
                     // Adjust limb tween speed based on grounded state
                     if (body.blocked.down) {
                         if (this.runTween && this.runTween.timeScale !== 1) this.runTween.timeScale = 1;
                         if (this.runTween2 && this.runTween2.timeScale !== 1) this.runTween2.timeScale = 1;
                     } else {
-                        // In the air — slow limb cycle
                         if (this.runTween && this.runTween.timeScale !== 0.2) this.runTween.timeScale = 0.2;
                         if (this.runTween2 && this.runTween2.timeScale !== 0.2) this.runTween2.timeScale = 0.2;
                     }
-                    // Drift clouds
+
+                    // Drift clouds (each cloud has its own driftSpeed)
                     if (this.cloudsGroup) {
                         this.cloudsGroup.children.iterate((c) => {
                             if (c) c.x += c.driftSpeed * (dt / 16);
                         });
                     }
-                    // If player falls off the world, respawn at the start
+
+                    // === Auto-miss detection ===
+                    // The bug: if the player ran past a live brick group without
+                    // jumping in time, the group stayed "live" and the next group
+                    // never received numbers. Now we treat passing as a miss —
+                    // burn a life, mark the group done, advance to the next problem.
+                    if (this.target && !this.endHandled) {
+                        const liveGroup = this.findLiveGroup();
+                        if (liveGroup) {
+                            const groupMaxX = Math.max(...liveGroup.map((b) => b.x));
+                            if (this.player.x > groupMaxX + 40) {
+                                liveGroup.forEach((b) => {
+                                    b._meta.done = true;
+                                    b._meta.canHit = false;
+                                    if (b._pulse) b._pulse.stop();
+                                    // Visually fade the missed blocks
+                                    b.setFillStyle(0x6b7280);
+                                    if (b._inset) b._inset.setFillStyle(0x4b5563);
+                                    b._numText.setText('—');
+                                    b._numText.setColor('#e5e7eb');
+                                });
+                                this.lives -= 1;
+                                const livesEl = document.getElementById('pp-lives');
+                                if (livesEl) livesEl.textContent = this.lives;
+                                _sfx('wrong');
+                                try { ctx.onPenalty(2, { x: 0, y: 0 }); } catch {}
+                                if (this.lives <= 0) { this.handleGameOver(); return; }
+                                this.nextProblem();
+                            }
+                        }
+                    }
+
+                    // Off-world respawn
                     if (this.player.y > this.scale.height + 100) {
                         this.player.setPosition(80, 100);
                         body.setVelocity(0, 0);
                         this.lives -= 1;
-                        document.getElementById('pp-lives').textContent = this.lives;
+                        const livesEl = document.getElementById('pp-lives');
+                        if (livesEl) livesEl.textContent = this.lives;
                         try { ctx.onPenalty(3, { x: 0, y: 0 }); } catch {}
                         if (this.lives <= 0) this.handleGameOver();
                     }
+                }
+
+                findLiveGroup() {
+                    // Return the array reference of the currently-active group
+                    // (i.e. the group with canHit=true blocks). There should be
+                    // at most one at any time.
+                    const all = this.qBlocks.getChildren();
+                    for (const b of all) {
+                        if (b._meta && b._meta.canHit && !b._meta.done) {
+                            return b._meta.group;
+                        }
+                    }
+                    return null;
                 }
             }
 
