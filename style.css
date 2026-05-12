@@ -4948,6 +4948,7 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
 .mg-pp-hud {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     background: linear-gradient(180deg, #1e293b, #0f172a);
     border: 3px solid #fbbf24;
     border-radius: 14px;
@@ -4961,6 +4962,39 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     font-size: 1.1rem;
     font-weight: 900;
     text-shadow: 0 2px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000;
+}
+/* Heart row — 5 slots, full or empty */
+.mg-pp-hud-hearts {
+    gap: 3px !important;
+}
+.mg-pp-heart {
+    font-size: 1.1rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    transition: transform 0.15s ease;
+}
+.mg-pp-heart-empty {
+    opacity: 0.45;
+    filter: grayscale(0.6) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+.mg-pp-heart-gain {
+    animation: ppHeartGain 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes ppHeartGain {
+    0%   { transform: scale(0.4); }
+    60%  { transform: scale(1.5); filter: drop-shadow(0 0 12px #fef08a); }
+    100% { transform: scale(1); }
+}
+.mg-pp-heart-lose {
+    animation: ppHeartLose 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes ppHeartLose {
+    0%   { transform: scale(1.5); filter: drop-shadow(0 0 12px #ef4444); opacity: 1; }
+    60%  { transform: scale(0.7); opacity: 0.45; }
+    100% { transform: scale(1); opacity: 0.45; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .mg-pp-heart, .mg-pp-heart-gain, .mg-pp-heart-lose { animation: none !important; transition: none !important; }
 }
 
 /* Question overlay sits INSIDE the canvas-host, so it's always

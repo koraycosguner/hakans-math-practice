@@ -7516,7 +7516,13 @@ GAME_IMPLS['math-platformer-pro'] = {
         const hud = document.createElement('div');
         hud.className = 'mg-pp-hud';
         hud.innerHTML = `
-            <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">❤️</span><span class="mg-pp-hud-val" id="pp-lives">3</span></div>
+            <div class="mg-pp-hud-item mg-pp-hud-hearts" id="pp-hearts">
+                <span class="mg-pp-heart mg-pp-heart-full">❤️</span>
+                <span class="mg-pp-heart mg-pp-heart-full">❤️</span>
+                <span class="mg-pp-heart mg-pp-heart-full">❤️</span>
+                <span class="mg-pp-heart mg-pp-heart-empty">🤍</span>
+                <span class="mg-pp-heart mg-pp-heart-empty">🤍</span>
+            </div>
             <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">🪙</span><span class="mg-pp-hud-val" id="pp-coins">0</span></div>
             <div class="mg-pp-hud-item"><span class="mg-pp-hud-label">📍</span><span class="mg-pp-hud-val" id="pp-dist">0m</span></div>
         `;
@@ -7542,6 +7548,24 @@ GAME_IMPLS['math-platformer-pro'] = {
         wrap.appendChild(ctrlBar);
 
         ctx.area.appendChild(wrap);
+
+        // Heart HUD renderer: visualises lives as ❤️ + 🤍 placeholders. Adds
+        // pop classes for the most-recently-changed slot.
+        function _renderHearts(current, max, change) {
+            const wrap = document.getElementById('pp-hearts');
+            if (!wrap) return;
+            let html = '';
+            for (let i = 0; i < max; i++) {
+                if (i < current) {
+                    const popCls = change === 'gain' && i === current - 1 ? ' mg-pp-heart-gain' : '';
+                    html += `<span class="mg-pp-heart mg-pp-heart-full${popCls}">❤️</span>`;
+                } else {
+                    const popCls = change === 'lose' && i === current ? ' mg-pp-heart-lose' : '';
+                    html += `<span class="mg-pp-heart mg-pp-heart-empty${popCls}">🤍</span>`;
+                }
+            }
+            wrap.innerHTML = html;
+        }
 
         // Web Audio synth for game SFX — short generated tones, no asset files.
         let _audioCtx = null;
@@ -7625,12 +7649,13 @@ GAME_IMPLS['math-platformer-pro'] = {
                 constructor() { super('platform'); }
                 init() {
                     this.lives = 3;
+                    this.maxLives = 5;
                     this.coins = 0;
                     this.distance = 0;
                     this.target = null;
                     this.problemQ = '';
                     this.acceptingHit = true;
-                    this.jumpsRemaining = 0; // ground jump sets to 1 for double-jump
+                    this.jumpsRemaining = 0;
                     this.endHandled = false;
                 }
                 preload() {
@@ -7639,7 +7664,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                 create() {
                     const W = this.scale.width;
                     const H = this.scale.height;
-                    const WORLD_W = 4800;
+                    const WORLD_W = 7200;
 
                     // === Sky gradient (the camera scroll-factors below give parallax) ===
                     const skyGfx = this.add.graphics();
@@ -7866,12 +7891,15 @@ GAME_IMPLS['math-platformer-pro'] = {
                     });
 
                     // === Math blocks — ordered list of question groups ===
+                    // Spacing is now ~900px between triplets (was 360px) so a
+                    // first-grader has ~9 seconds at 95 px/s to read the
+                    // equation and time the jump.
                     this.qBlocks = this.physics.add.staticGroup();
-                    this.groupList = []; // ordered list of {blocks, idx, cx}
-                    this.currentGroupIdx = -1; // which index is the live one
+                    this.groupList = [];
+                    this.currentGroupIdx = -1;
                     const blockY = groundY - 125;
                     let idxCounter = 0;
-                    for (let x = 380; x < WORLD_W - 200; x += 360) {
+                    for (let x = 480; x < WORLD_W - 280; x += 900) {
                         const set = this.makeQuestionGroup(x, blockY);
                         const groupEntry = { blocks: set.blocks, idx: idxCounter, cx: x };
                         set.blocks.forEach((b) => {
@@ -8126,6 +8154,11 @@ GAME_IMPLS['math-platformer-pro'] = {
 
                     if (isCorrect) {
                         // === HUGE GREEN CELEBRATION ===
+                        // 0. Gain a heart (capped at maxLives)
+                        const heartGained = this.lives < this.maxLives;
+                        if (heartGained) this.lives = Math.min(this.maxLives, this.lives + 1);
+                        _renderHearts(this.lives, this.maxLives, heartGained ? 'gain' : null);
+
                         // 1. Block instantly flashes BRIGHT GREEN
                         block.setFillStyle(0x22c55e);
                         if (block._inset) block._inset.setFillStyle(0x16a34a);
@@ -8139,10 +8172,12 @@ GAME_IMPLS['math-platformer-pro'] = {
                             targets, y: origY - 32, duration: 140,
                             ease: 'Quad.easeOut', yoyo: true,
                         });
-                        // 3. Big floating "+3" GREEN text rising up
-                        const plus = this.add.text(block.x, origY - 30, '+3 ✓', {
+                        // 3. Big floating "+3" GREEN text rising up; if a
+                        // heart was gained, include "+1 ❤️" beneath it.
+                        const plusLabel = heartGained ? '+3 ✓  +1 ❤️' : '+3 ✓';
+                        const plus = this.add.text(block.x, origY - 30, plusLabel, {
                             fontFamily: 'Courier New, monospace',
-                            fontSize: '28px', fontStyle: 'bold',
+                            fontSize: '24px', fontStyle: 'bold',
                             color: '#22c55e',
                             stroke: '#ffffff', strokeThickness: 5,
                         }).setOrigin(0.5).setDepth(200);
@@ -8251,8 +8286,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                         });
                         _sfx('bonk'); _sfx('wrong');
                         this.lives -= 1;
-                        const livesEl = document.getElementById('pp-lives');
-                        if (livesEl) livesEl.textContent = this.lives;
+                        _renderHearts(this.lives, this.maxLives, 'lose');
                         try { ctx.onPenalty(2, { x: 0, y: 0 }); } catch {}
                         if (this.lives <= 0) { this.handleGameOver(); return; }
                         this.nextProblem();
@@ -8341,8 +8375,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                                     onComplete: () => { try { missText.destroy(); } catch {} }
                                 });
                                 this.lives -= 1;
-                                const livesEl = document.getElementById('pp-lives');
-                                if (livesEl) livesEl.textContent = this.lives;
+                                _renderHearts(this.lives, this.maxLives, 'lose');
                                 _sfx('wrong');
                                 try { ctx.onPenalty(2, { x: 0, y: 0 }); } catch {}
                                 if (this.lives <= 0) { this.handleGameOver(); return; }
@@ -8356,8 +8389,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                         this.player.setPosition(80, 100);
                         body.setVelocity(0, 0);
                         this.lives -= 1;
-                        const livesEl = document.getElementById('pp-lives');
-                        if (livesEl) livesEl.textContent = this.lives;
+                        _renderHearts(this.lives, this.maxLives, 'lose');
                         try { ctx.onPenalty(3, { x: 0, y: 0 }); } catch {}
                         if (this.lives <= 0) this.handleGameOver();
                     }
