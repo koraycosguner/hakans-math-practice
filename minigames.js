@@ -7902,6 +7902,10 @@ GAME_IMPLS['math-platformer-pro'] = {
                     // Camera follows
                     this.cameras.main.setBounds(0, 0, WORLD_W, H);
                     this.cameras.main.startFollow(player, true, 0.1, 0);
+                    // Physics world must extend to match the camera world,
+                    // otherwise bricks past the default 800px world bound
+                    // may be ignored by Arcade's collision pass.
+                    this.physics.world.setBounds(0, 0, WORLD_W, H);
 
                     // Input
                     this.input.keyboard.on('keydown-SPACE', () => this.tryJump());
