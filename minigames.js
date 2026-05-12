@@ -7672,6 +7672,10 @@ GAME_IMPLS['math-platformer-pro'] = {
                     // Grace timer to keep auto-miss from firing while Hakan
                     // is still leaving a brick he just answered.
                     this._lastHitAt = 0;
+                    // Combo streak for consecutive correct answers
+                    this.streak = 0;
+                    // Invulnerability frames after enemy damage
+                    this.isInvulnerable = false;
                 }
                 preload() {
                     // No external assets — we build everything procedurally.
@@ -8094,6 +8098,108 @@ GAME_IMPLS['math-platformer-pro'] = {
                         });
                     });
 
+                    // === Enemies (math goblins) ===
+                    // Slow patrolling goblins between brick groups. Stomp from
+                    // above for coins + bounce; touch from the side and lose a
+                    // heart (with 1.5s invulnerability blink). Skip the first
+                    // gap so Hakan has time to settle in.
+                    this.enemiesGroup = this.physics.add.group();
+                    for (let i = 1; i < this.groupList.length; i++) {
+                        if (Math.random() > 0.6) continue; // 60% spawn rate per gap
+                        // Place 280-360px past the previous brick group's center
+                        const baseX = this.groupList[i - 1].cx + 280 + Math.random() * 80;
+                        const enemy = this.makeEnemy(baseX, groundY - 22);
+                        this.enemiesGroup.add(enemy);
+                    }
+                    this.physics.add.collider(this.enemiesGroup, this.ground);
+                    this.physics.add.overlap(this.player, this.enemiesGroup, (playerObj, enemy) => {
+                        if (enemy._dead) return;
+                        if (this.isInvulnerable) return;
+                        // Stomp = player is clearly falling onto enemy from above.
+                        const playerBottom = playerObj.y + 38;
+                        const enemyTop = enemy.y - 16;
+                        const fallingOntoEnemy = playerObj.body.velocity.y > 60 && playerBottom < enemyTop + 24;
+                        if (fallingOntoEnemy) {
+                            enemy._dead = true;
+                            if (enemy._patrolTween) enemy._patrolTween.stop();
+                            // Squish + fade
+                            this.tweens.add({
+                                targets: enemy,
+                                scaleY: 0.2,
+                                alpha: 0,
+                                y: enemy.y + 14,
+                                duration: 320,
+                                onComplete: () => { try { enemy.destroy(); } catch {} }
+                            });
+                            // Bounce player up
+                            playerObj.body.setVelocityY(-360);
+                            // Reward: 3 coins + score
+                            this.coins += 3;
+                            const el = document.getElementById('pp-coins');
+                            if (el) el.textContent = this.coins;
+                            try { ctx.onScore(3, { x: 0, y: 0 }); } catch {}
+                            _sfx('bonk'); _sfx('coin');
+                            // Floating "+3 🪙" text
+                            const t = this.add.text(enemy.x, enemy.y - 30, '+3 🪙', {
+                                fontFamily: '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",Arial,sans-serif',
+                                fontSize: '22px', fontStyle: 'bold',
+                                color: '#fbbf24',
+                                stroke: '#7c2d12', strokeThickness: 5,
+                            }).setOrigin(0.5).setDepth(200);
+                            this.tweens.add({
+                                targets: t,
+                                y: t.y - 60, alpha: 0, scale: 1.4,
+                                duration: 800,
+                                onComplete: () => { try { t.destroy(); } catch {} }
+                            });
+                            // Tiny star burst for the stomp
+                            for (let s = 0; s < 5; s++) {
+                                const a = (Math.PI * 2 / 5) * s;
+                                const spark = this.add.star(enemy.x, enemy.y - 6, 5, 3, 6, 0xfde047);
+                                this.tweens.add({
+                                    targets: spark,
+                                    x: enemy.x + Math.cos(a) * 30,
+                                    y: enemy.y - 6 + Math.sin(a) * 30,
+                                    alpha: 0, scale: 0, angle: 360,
+                                    duration: 500,
+                                    onComplete: () => { try { spark.destroy(); } catch {} }
+                                });
+                            }
+                        } else {
+                            // DAMAGE: lose a heart with iframes + knockback
+                            this.isInvulnerable = true;
+                            this.lives -= 1;
+                            _renderHearts(this.lives, this.maxLives, 'lose');
+                            this.streak = 0; // breaks the combo too
+                            _sfx('wrong');
+                            try { ctx.onPenalty(2, { x: 0, y: 0 }); } catch {}
+                            // Knockback (sideways + up)
+                            const kbDir = playerObj.x < enemy.x ? -1 : 1;
+                            playerObj.body.setVelocityX(kbDir * 220);
+                            playerObj.body.setVelocityY(-260);
+                            // Red flash overlay (Container can't be tinted directly)
+                            const dmgFlash = this.add.rectangle(playerObj.x, playerObj.y, 50, 80, 0xef4444, 0.55);
+                            dmgFlash.setDepth(150);
+                            this.tweens.add({
+                                targets: dmgFlash,
+                                alpha: 0, duration: 350,
+                                onComplete: () => { try { dmgFlash.destroy(); } catch {} }
+                            });
+                            // Blink: alternate alpha for 1.5s
+                            this.tweens.add({
+                                targets: playerObj,
+                                alpha: 0.3,
+                                duration: 100, yoyo: true, repeat: 7,
+                                onComplete: () => { try { playerObj.alpha = 1; } catch {} }
+                            });
+                            this.time.delayedCall(1500, () => {
+                                this.isInvulnerable = false;
+                                try { playerObj.alpha = 1; } catch {}
+                            });
+                            if (this.lives <= 0) this.handleGameOver();
+                        }
+                    });
+
                     // === Flag at the end ===
                     const flagX = WORLD_W - 80;
                     // Tall metal pole
@@ -8175,6 +8281,56 @@ GAME_IMPLS['math-platformer-pro'] = {
                         blocks.push(outer);
                     }
                     return { blocks };
+                }
+
+                // Procedural "math goblin" — purple body, white eyes, brown brow
+                // and feet. Dynamic physics, gravity, walks back and forth.
+                makeEnemy(x, y) {
+                    const c = this.add.container(x, y);
+                    const body = this.add.rectangle(0, 0, 28, 28, 0x6d28d9);
+                    body.setStrokeStyle(2, 0x4c1d95);
+                    const eyeL = this.add.circle(-6, -4, 4, 0xffffff);
+                    const eyeR = this.add.circle( 6, -4, 4, 0xffffff);
+                    const pupilL = this.add.circle(-6, -4, 2, 0x000000);
+                    const pupilR = this.add.circle( 6, -4, 2, 0x000000);
+                    // Angry brow
+                    const browL = this.add.rectangle(-7, -11, 7, 2.5, 0x3b1f10);
+                    const browR = this.add.rectangle( 7, -11, 7, 2.5, 0x3b1f10);
+                    browL.setRotation(-0.3);
+                    browR.setRotation(0.3);
+                    // Mouth (small jagged line)
+                    const mouth = this.add.rectangle(0, 6, 10, 2.5, 0x3b1f10);
+                    // Feet
+                    const footL = this.add.rectangle(-7, 15, 7, 5, 0x3b1f10);
+                    const footR = this.add.rectangle( 7, 15, 7, 5, 0x3b1f10);
+                    // Two tiny horns on top for that goblin look
+                    const hornL = this.add.triangle(-9, -16, 0, 0, 5, 0, 2, -6, 0x4c1d95);
+                    const hornR = this.add.triangle( 9, -16, 0, 0, 5, 0, 2, -6, 0x4c1d95);
+                    c.add([hornL, hornR, body, browL, browR, eyeL, eyeR, pupilL, pupilR, mouth, footL, footR]);
+                    this.physics.world.enable(c);
+                    const b = c.body;
+                    b.setSize(28, 36);
+                    b.setOffset(-14, -18);
+                    b.setVelocityX(-30);
+                    b.setCollideWorldBounds(false);
+                    c._patrolDir = -1;
+                    c._patrolMinX = x - 70;
+                    c._patrolMaxX = x + 70;
+                    // Subtle walk-cycle: alternate foot lift
+                    c._patrolTween = this.tweens.add({
+                        targets: footL, y: { from: 15, to: 11 },
+                        duration: 260, yoyo: true, repeat: -1,
+                    });
+                    this.tweens.add({
+                        targets: footR, y: { from: 11, to: 15 },
+                        duration: 260, yoyo: true, repeat: -1,
+                    });
+                    // Body bob in time with feet
+                    this.tweens.add({
+                        targets: body, y: { from: 0, to: -1 },
+                        duration: 260, yoyo: true, repeat: -1,
+                    });
+                    return c;
                 }
 
                 tryJump() {
@@ -8445,6 +8601,56 @@ GAME_IMPLS['math-platformer-pro'] = {
                         });
                         _sfx('bonk'); _sfx('coin');
                         try { ctx.onScore(3, { x: 0, y: 0 }); } catch {}
+                        // === Combo / streak ===
+                        // Every correct answer grows the streak. Milestones
+                        // throw an extra reward so Hakan feels the snowball.
+                        this.streak += 1;
+                        if (this.streak >= 3) {
+                            const fireText = this.add.text(block.x, origY - 70,
+                                this.streak >= 5 ? `🔥🔥 ON FIRE x${this.streak}!` : `🔥 COMBO x${this.streak}!`,
+                                {
+                                    fontFamily: '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",Arial,sans-serif',
+                                    fontSize: this.streak >= 5 ? '28px' : '22px',
+                                    fontStyle: 'bold',
+                                    color: this.streak >= 5 ? '#dc2626' : '#f97316',
+                                    stroke: '#ffffff', strokeThickness: 5,
+                                }
+                            ).setOrigin(0.5).setDepth(210);
+                            this.tweens.add({
+                                targets: fireText,
+                                y: fireText.y - 70, alpha: 0, scale: 1.6,
+                                duration: 1100, ease: 'Quad.easeOut',
+                                onComplete: () => { try { fireText.destroy(); } catch {} }
+                            });
+                        }
+                        // Streak of 5 = bonus heart (if not capped) + extra coin shower
+                        if (this.streak === 5) {
+                            if (this.lives < this.maxLives) {
+                                this.lives = Math.min(this.maxLives, this.lives + 1);
+                                _renderHearts(this.lives, this.maxLives, 'gain');
+                            }
+                            this.coins += 5;
+                            const cel = document.getElementById('pp-coins');
+                            if (cel) cel.textContent = this.coins;
+                            try { ctx.onScore(5, { x: 0, y: 0 }); } catch {}
+                            // Coin shower: 10 little coins burst up + outward
+                            for (let i = 0; i < 10; i++) {
+                                const ang = (Math.PI / 10) * i - Math.PI / 2;
+                                const cx = block.x + Math.cos(ang) * 14;
+                                const cy = origY - 40 + Math.sin(ang) * 14;
+                                const tinyCoin = this.add.circle(cx, cy, 6, 0xfbbf24);
+                                tinyCoin.setStrokeStyle(2, 0xb45309);
+                                this.tweens.add({
+                                    targets: tinyCoin,
+                                    x: cx + Math.cos(ang) * 80,
+                                    y: cy + Math.sin(ang) * 80 + 60,
+                                    alpha: 0, scale: 0.4,
+                                    duration: 900,
+                                    onComplete: () => { try { tinyCoin.destroy(); } catch {} }
+                                });
+                            }
+                            _sfx('win');
+                        }
                         this.nextProblem();
                     } else {
                         // === HUGE RED FAILURE ===
@@ -8495,6 +8701,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                         });
                         _sfx('bonk'); _sfx('wrong');
                         this.lives -= 1;
+                        this.streak = 0; // wrong answer breaks the combo
                         _renderHearts(this.lives, this.maxLives, 'lose');
                         try { ctx.onPenalty(2, { x: 0, y: 0 }); } catch {}
                         if (this.lives <= 0) { this.handleGameOver(); return; }
@@ -8527,8 +8734,24 @@ GAME_IMPLS['math-platformer-pro'] = {
                     this.distance = Math.max(0, Math.floor(this.player.x / 32));
                     const distEl = document.getElementById('pp-dist');
                     if (distEl) distEl.textContent = this.distance + 'm';
-                    // Maintain forward speed
-                    if (body.velocity.x < 85) body.setVelocityX(95);
+                    // Maintain forward speed — but NOT while knocked back from
+                    // an enemy hit (iframes window), so the knockback velocity
+                    // actually moves Hakan visibly.
+                    if (!this.isInvulnerable && body.velocity.x < 85) body.setVelocityX(95);
+
+                    // Enemy patrol AI — reverse at patrol bounds
+                    if (this.enemiesGroup) {
+                        this.enemiesGroup.children.iterate((e) => {
+                            if (!e || !e.body || e._dead) return;
+                            if (e.x <= e._patrolMinX && e._patrolDir < 0) {
+                                e._patrolDir = 1;
+                                e.body.setVelocityX(30);
+                            } else if (e.x >= e._patrolMaxX && e._patrolDir > 0) {
+                                e._patrolDir = -1;
+                                e.body.setVelocityX(-30);
+                            }
+                        });
+                    }
 
                     // Reset double-jump when we land back on the ground
                     if (body.blocked.down) {
@@ -8596,6 +8819,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                                     onComplete: () => { try { missText.destroy(); } catch {} }
                                 });
                                 this.lives -= 1;
+                                this.streak = 0; // missing the group breaks the combo
                                 _renderHearts(this.lives, this.maxLives, 'lose');
                                 _sfx('wrong');
                                 try { ctx.onPenalty(2, { x: 0, y: 0 }); } catch {}
