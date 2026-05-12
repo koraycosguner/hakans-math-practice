@@ -8262,7 +8262,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                         // Backfill if RNG was unlucky
                         let backfill = 0;
                         while (set.size < 3) { set.add(ans + 10 + backfill); backfill += 1; }
-                        const nums = Array.from(set).slice(0, 3).sort(() => Math.random() - 0.5);
+                        const nums = Array.from(set).slice(0, 3).sort((a, b) => a - b);
                         pickedGroup.blocks.forEach((blk, i) => {
                             blk._meta.canHit = true;
                             blk._meta.value = nums[i];
