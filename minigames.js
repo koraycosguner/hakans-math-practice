@@ -7846,8 +7846,10 @@ GAME_IMPLS['math-platformer-pro'] = {
                         duration: 200, yoyo: true, repeat: -1,
                     });
 
-                    // Auto-run right at a comfortable pace
-                    body.setVelocityX(140);
+                    // Auto-run right — Grade-1 pace. Slower than the previous
+                    // 140 px/s so a 6-year-old has time to read the math
+                    // problem AND plan a jump.
+                    body.setVelocityX(95);
 
                     // Camera follows
                     this.cameras.main.setBounds(0, 0, WORLD_W, H);
@@ -7950,6 +7952,33 @@ GAME_IMPLS['math-platformer-pro'] = {
                     this.flag = this.add.rectangle(flagX, groundY - 60, 12, 120, 0xffffff, 0);
                     this.physics.add.existing(this.flag, true);
                     this.physics.add.overlap(this.player, this.flag, () => this.handleFlagReached(), null, this);
+
+                    // === In-canvas Question Banner ===
+                    // The math problem is shown right at the top of the camera
+                    // view (pinned with setScrollFactor(0)) so Hakan never has
+                    // to look away from the action. Big, gold, easy to read.
+                    const bannerBg = this.add.rectangle(W / 2, 36, 360, 56, 0x7c2d12, 0.95);
+                    bannerBg.setStrokeStyle(4, 0xfbbf24);
+                    bannerBg.setScrollFactor(0);
+                    const bannerLabel = this.add.text(W / 2, 18, 'JUMP THE BRICK THAT EQUALS:', {
+                        fontFamily: 'Courier New, monospace',
+                        fontSize: '11px',
+                        fontStyle: 'bold',
+                        color: '#fde047',
+                    }).setOrigin(0.5).setScrollFactor(0);
+                    const bannerEq = this.add.text(W / 2, 42, '— ?', {
+                        fontFamily: 'Courier New, monospace',
+                        fontSize: '28px',
+                        fontStyle: 'bold',
+                        color: '#ffffff',
+                        stroke: '#000000',
+                        strokeThickness: 3,
+                    }).setOrigin(0.5).setScrollFactor(0);
+                    // Drop subtle shadow so the banner pops over the sky
+                    bannerBg.setDepth(100);
+                    bannerLabel.setDepth(101);
+                    bannerEq.setDepth(101);
+                    this.bannerEq = bannerEq;
 
                     // First problem
                     this.nextProblem();
@@ -8060,8 +8089,12 @@ GAME_IMPLS['math-platformer-pro'] = {
                         ans = a - b;
                     }
                     this.target = { a, b, op, ans };
+                    const eqStr = `${a} ${op === '-' ? '−' : '+'} ${b} = ?`;
+                    // In-canvas banner (always visible above the action)
+                    if (this.bannerEq) this.bannerEq.setText(eqStr);
+                    // Redundant DOM readout (kept for screen-readers + small screens)
                     const qEl = document.getElementById('pp-q-text');
-                    if (qEl) qEl.innerHTML = `Hit the brick that says <b>${a} ${op === '-' ? '−' : '+'} ${b}</b> = ?`;
+                    if (qEl) qEl.innerHTML = `Hit the brick that says <b>${eqStr}</b>`;
 
                     const playerX = this.player ? this.player.x : 0;
                     const nextGroup = this.findNextQuestionGroup(playerX);
@@ -8083,8 +8116,10 @@ GAME_IMPLS['math-platformer-pro'] = {
                             if (blk._inset) blk._inset.setFillStyle(0xf59e0b);
                         });
                     } else {
-                        // No more brick groups left — just keep running to the flag.
-                        if (qEl) qEl.innerHTML = '<b>🏁 Run to the flag!</b>';
+                        // No more brick groups — just keep running to the flag.
+                        const msg = '🏁 Run to the flag!';
+                        if (qEl) qEl.innerHTML = `<b>${msg}</b>`;
+                        if (this.bannerEq) this.bannerEq.setText(msg);
                     }
                 }
 
@@ -8201,7 +8236,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                     const distEl = document.getElementById('pp-dist');
                     if (distEl) distEl.textContent = this.distance + 'm';
                     // Maintain forward speed
-                    if (body.velocity.x < 130) body.setVelocityX(140);
+                    if (body.velocity.x < 85) body.setVelocityX(95);
 
                     // Reset double-jump when we land back on the ground
                     if (body.blocked.down) {
