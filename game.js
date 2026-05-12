@@ -4551,6 +4551,12 @@ function selectUser(name) {
         if (statsEl) statsEl.style.display = 'none';
     }
 
+    // Re-render the module grid now that we know which user is playing.
+    // Without this, the home grid keeps the no-user version rendered at
+    // boot (no greeting, no top row, no Today's Adventure), so the page
+    // looks different from what Home returns to later.
+    if (typeof renderHomeModules === 'function') renderHomeModules();
+
     showScreen('start-screen');
 }
 
