@@ -7669,6 +7669,9 @@ GAME_IMPLS['math-platformer-pro'] = {
                     this.acceptingHit = true;
                     this.jumpsRemaining = 0;
                     this.endHandled = false;
+                    // Grace timer to keep auto-miss from firing while Hakan
+                    // is still leaving a brick he just answered.
+                    this._lastHitAt = 0;
                 }
                 preload() {
                     // No external assets — we build everything procedurally.
@@ -8297,6 +8300,12 @@ GAME_IMPLS['math-platformer-pro'] = {
 
                 handleBlockHit(block) {
                     if (!block._meta || block._meta.done) return;
+                    // Record the hit time so the auto-miss check in update()
+                    // can't fire during the cooldown window — this avoids any
+                    // frame-order race where Hakan answers correctly, gains a
+                    // heart, then the auto-miss fires on the same brick before
+                    // he's clear of it.
+                    this._lastHitAt = this.time.now;
                     // Mark whole group done IMMEDIATELY so collider won't re-fire.
                     const group = block._meta.group;
                     if (group) group.forEach((b) => { b._meta.done = true; b._meta.canHit = false; if (b._pulse) b._pulse.stop(); });
@@ -8545,11 +8554,23 @@ GAME_IMPLS['math-platformer-pro'] = {
                     // === Auto-miss detection (deterministic via currentGroupIdx) ===
                     // If we have a live group and the player has run past it
                     // without bumping any brick, treat it as a miss.
-                    if (this.target && !this.endHandled && this.currentGroupIdx >= 0) {
+                    //
+                    // Two safety guards layered in here:
+                    //   1. 1200ms cooldown after any hit — blocks any
+                    //      frame-order race that could let auto-miss fire on
+                    //      the brick Hakan just answered.
+                    //   2. Threshold is the rightmost brick's RIGHT EDGE
+                    //      (cx + 92) plus a 60px buffer — previously it was
+                    //      cx + 64, which is the *center* of the rightmost
+                    //      brick, so the check could trip while Hakan was
+                    //      still horizontally inside the group.
+                    const sinceHit = this.time.now - (this._lastHitAt || 0);
+                    if (sinceHit > 1200 && this.target && !this.endHandled && this.currentGroupIdx >= 0) {
                         const liveGroup = this.groupList[this.currentGroupIdx];
                         if (liveGroup && !liveGroup.blocks[0]._meta.done) {
-                            const maxX = liveGroup.cx + 32; // rightmost brick edge
-                            if (this.player.x > maxX + 32) {
+                            // Rightmost brick: bx = cx + 64, half-width 28 → right edge = cx + 92
+                            const rightEdge = liveGroup.cx + 92;
+                            if (this.player.x > rightEdge + 60) {
                                 // Visually fade the missed group to grey
                                 liveGroup.blocks.forEach((b) => {
                                     b._meta.done = true;
