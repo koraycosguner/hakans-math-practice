@@ -8,15 +8,15 @@
  * Bump CACHE_VERSION when shipping changes that affect this page.
  */
 
-const CACHE_VERSION = 'platformer-v209';
+const CACHE_VERSION = 'platformer-v210';
 const SHELL_CACHE   = `${CACHE_VERSION}-shell`;
 
 const SHELL_URLS = [
     './',
     './index.html',
     './manifest.json',
-    '../minigames.js?v=209',
-    '../style.css?v=209',
+    '../minigames.js?v=210',
+    '../style.css?v=210',
     '../hakan.jpg',
 ];
 

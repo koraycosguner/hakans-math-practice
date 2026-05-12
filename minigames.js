@@ -7945,8 +7945,10 @@ GAME_IMPLS['math-platformer-pro'] = {
                     // to recover hearts mid-run.
                     this.heartPickupsGroup = this.physics.add.staticGroup();
                     for (let i = 0; i < this.groupList.length - 1; i++) {
-                        // ~75% spawn rate so hearts feel like a treat, not wallpaper
-                        if (Math.random() > 0.75) continue;
+                        // ~30% spawn rate. Was 75%, which maxed Hakan to 5
+                        // hearts within the first couple of gaps and made
+                        // every later correct-answer-heart silently cap out.
+                        if (Math.random() > 0.3) continue;
                         const leftG = this.groupList[i];
                         const rightG = this.groupList[i + 1];
                         const hx = (leftG.cx + rightG.cx) / 2;
@@ -8108,7 +8110,7 @@ GAME_IMPLS['math-platformer-pro'] = {
                     // gap so Hakan has time to settle in.
                     this.enemiesGroup = this.physics.add.group();
                     for (let i = 1; i < this.groupList.length; i++) {
-                        if (Math.random() > 0.6) continue; // 60% spawn rate per gap
+                        if (Math.random() > 0.4) continue; // 40% spawn rate per gap (down from 60%)
                         // Place 280-360px past the previous brick group's center
                         const baseX = this.groupList[i - 1].cx + 280 + Math.random() * 80;
                         const enemy = this.makeEnemy(baseX, groundY - 22);
