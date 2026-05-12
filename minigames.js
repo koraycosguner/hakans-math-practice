@@ -8304,12 +8304,26 @@ GAME_IMPLS['math-platformer-pro'] = {
                         block._numText.setText('✓');
                         block._numText.setColor('#ffffff');
                         block._numText.setStroke('#14532d', 4);
-                        // 2. Bump UP big (28px) and back down with springy bounce
+                        // 2. Bump UP big and back down with squash-and-stretch.
+                        // Use RELATIVE deltas (`-=N`) so the inset/studs/gloss
+                        // each move by the same amount from their own y —
+                        // otherwise they all converge to one y and the bump
+                        // visually flattens.
                         const targets = [block, block._inset, block._numText, ...(block._studs || [])];
                         if (block._gloss) targets.push(block._gloss);
+                        // Reset scale (the idle pulse tween may have left it slightly enlarged)
+                        block.setScale(1);
                         this.tweens.add({
-                            targets, y: origY - 32, duration: 140,
-                            ease: 'Quad.easeOut', yoyo: true,
+                            targets, y: '-=48', duration: 200,
+                            ease: 'Quad.easeOut', yoyo: true, hold: 40,
+                        });
+                        // Mario-punch squash on the outer block
+                        this.tweens.add({
+                            targets: block,
+                            scaleY: { from: 1, to: 0.78 },
+                            scaleX: { from: 1, to: 1.2 },
+                            duration: 100, yoyo: true,
+                            onComplete: () => { try { block.setScale(1); } catch {} }
                         });
                         // 3. Big floating "+3" GREEN text rising up; if a
                         // heart was gained, include "+1 ❤️" beneath it.
@@ -8386,11 +8400,13 @@ GAME_IMPLS['math-platformer-pro'] = {
                         block._numText.setText('✕');
                         block._numText.setColor('#ffffff');
                         block._numText.setStroke('#7f1d1d', 4);
-                        // 2. Block bumps SLIGHTLY (small bump — wrong feel)
+                        // 2. Block bumps SLIGHTLY (small bump — wrong feel).
+                        // Relative deltas so all the inner pieces move uniformly.
                         const targets = [block, block._inset, block._numText, ...(block._studs || [])];
                         if (block._gloss) targets.push(block._gloss);
+                        block.setScale(1);
                         this.tweens.add({
-                            targets, y: origY - 8, duration: 80, yoyo: true,
+                            targets, y: '-=14', duration: 110, yoyo: true,
                         });
                         // 3. Camera SHAKE — big juicy feedback for "you missed"
                         this.cameras.main.shake(280, 0.012);
