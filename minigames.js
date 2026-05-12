@@ -7522,17 +7522,18 @@ GAME_IMPLS['math-platformer-pro'] = {
         `;
         wrap.appendChild(hud);
 
-        const qBox = document.createElement('div');
-        qBox.className = 'mg-pp-q';
-        qBox.innerHTML = '<span id="pp-q-text">Loading…</span>';
-        wrap.appendChild(qBox);
-
         const canvasHost = document.createElement('div');
         canvasHost.className = 'mg-pp-canvas-host';
         canvasHost.id = 'mg-pp-canvas-' + Date.now();
-        // Fullscreen button — absolutely positioned in the top-right of the
-        // canvas host so it's always visible, never hidden by HUD layout.
-        canvasHost.innerHTML = `<button class="mg-pp-fs-btn" id="pp-fs-btn" title="Fullscreen">⛶ Fullscreen</button>`;
+        // Question banner + fullscreen button live INSIDE the canvas host so
+        // they remain visible when the host goes fullscreen.
+        canvasHost.innerHTML = `
+            <div class="mg-pp-q-overlay" id="pp-q-overlay">
+                <span class="mg-pp-q-label">JUMP THE BRICK THAT EQUALS:</span>
+                <span class="mg-pp-q-eq" id="pp-q-text">Loading…</span>
+            </div>
+            <button class="mg-pp-fs-btn" id="pp-fs-btn" title="Fullscreen">⛶ Fullscreen</button>
+        `;
         wrap.appendChild(canvasHost);
 
         const ctrlBar = document.createElement('div');
@@ -7864,29 +7865,26 @@ GAME_IMPLS['math-platformer-pro'] = {
                         this.tryJump();
                     });
 
-                    // === Math blocks — Mario ? blocks, set just within head-bump reach ===
+                    // === Math blocks — ordered list of question groups ===
                     this.qBlocks = this.physics.add.staticGroup();
-                    // Jump peak ≈ 100-110px with -460 velocity + g=900. Player
-                    // body is 76px tall, head sits ~40px above the body center.
-                    // Block centre at groundY - 125 → bottom at groundY - 97.
-                    // Player on the ground center y = groundY - 38; head top
-                    // y = groundY - 78. Plus jump peak 105 = head reaches
-                    // groundY - 183, so the block bottom at -97 is well within
-                    // reach (about 86px below the peak head — plenty).
+                    this.groupList = []; // ordered list of {blocks, idx, cx}
+                    this.currentGroupIdx = -1; // which index is the live one
                     const blockY = groundY - 125;
-                    const blockPositions = [];
+                    let idxCounter = 0;
                     for (let x = 380; x < WORLD_W - 200; x += 360) {
-                        blockPositions.push({ x, y: blockY });
+                        const set = this.makeQuestionGroup(x, blockY);
+                        const groupEntry = { blocks: set.blocks, idx: idxCounter, cx: x };
+                        set.blocks.forEach((b) => {
+                            b._meta.idx = idxCounter;
+                            this.qBlocks.add(b);
+                        });
+                        this.groupList.push(groupEntry);
+                        idxCounter += 1;
                     }
-                    blockPositions.forEach((p) => {
-                        const set = this.makeQuestionGroup(p.x, p.y);
-                        set.blocks.forEach((b) => this.qBlocks.add(b));
-                    });
                     this.physics.add.collider(this.player, this.qBlocks, (playerObj, block) => {
                         if (!block._meta) return;
                         if (block._meta.done) return;
                         if (!block._meta.canHit) return;
-                        // Only count as a head-bump if the player is moving upward
                         if (playerObj.body.velocity.y >= 0) return;
                         this.handleBlockHit(block);
                     });
@@ -7953,32 +7951,10 @@ GAME_IMPLS['math-platformer-pro'] = {
                     this.physics.add.existing(this.flag, true);
                     this.physics.add.overlap(this.player, this.flag, () => this.handleFlagReached(), null, this);
 
-                    // === In-canvas Question Banner ===
-                    // The math problem is shown right at the top of the camera
-                    // view (pinned with setScrollFactor(0)) so Hakan never has
-                    // to look away from the action. Big, gold, easy to read.
-                    const bannerBg = this.add.rectangle(W / 2, 36, 360, 56, 0x7c2d12, 0.95);
-                    bannerBg.setStrokeStyle(4, 0xfbbf24);
-                    bannerBg.setScrollFactor(0);
-                    const bannerLabel = this.add.text(W / 2, 18, 'JUMP THE BRICK THAT EQUALS:', {
-                        fontFamily: 'Courier New, monospace',
-                        fontSize: '11px',
-                        fontStyle: 'bold',
-                        color: '#fde047',
-                    }).setOrigin(0.5).setScrollFactor(0);
-                    const bannerEq = this.add.text(W / 2, 42, '— ?', {
-                        fontFamily: 'Courier New, monospace',
-                        fontSize: '28px',
-                        fontStyle: 'bold',
-                        color: '#ffffff',
-                        stroke: '#000000',
-                        strokeThickness: 3,
-                    }).setOrigin(0.5).setScrollFactor(0);
-                    // Drop subtle shadow so the banner pops over the sky
-                    bannerBg.setDepth(100);
-                    bannerLabel.setDepth(101);
-                    bannerEq.setDepth(101);
-                    this.bannerEq = bannerEq;
+                    // Question banner lives in the DOM overlay (visible in
+                    // fullscreen). this.bannerEq stays null — nextProblem()
+                    // handles a missing banner.
+                    this.bannerEq = null;
 
                     // First problem
                     this.nextProblem();
@@ -8090,117 +8066,190 @@ GAME_IMPLS['math-platformer-pro'] = {
                     }
                     this.target = { a, b, op, ans };
                     const eqStr = `${a} ${op === '-' ? '−' : '+'} ${b} = ?`;
-                    // In-canvas banner (always visible above the action)
                     if (this.bannerEq) this.bannerEq.setText(eqStr);
-                    // Redundant DOM readout (kept for screen-readers + small screens)
                     const qEl = document.getElementById('pp-q-text');
-                    if (qEl) qEl.innerHTML = `Hit the brick that says <b>${eqStr}</b>`;
+                    if (qEl) qEl.textContent = eqStr;
 
+                    // === Deterministic next-group lookup ===
+                    // Pick the FIRST group in the ordered list whose idx is past
+                    // the current one AND whose center is in front of the player.
                     const playerX = this.player ? this.player.x : 0;
-                    const nextGroup = this.findNextQuestionGroup(playerX);
-                    if (nextGroup) {
+                    let pickedGroup = null;
+                    for (const g of this.groupList) {
+                        if (g.idx <= this.currentGroupIdx) continue;
+                        if (g.blocks.some((bl) => bl._meta.done)) continue;
+                        if (g.cx <= playerX + 60) continue; // already past it
+                        pickedGroup = g;
+                        break;
+                    }
+                    if (pickedGroup) {
+                        this.currentGroupIdx = pickedGroup.idx;
+                        // 3 candidate numbers — one is the right answer
                         const set = new Set([ans]);
-                        while (set.size < 3) {
-                            const d = (Math.floor(Math.random() * 3) + 1) * (Math.random() < 0.5 ? 1 : -1);
+                        let safety = 0;
+                        while (set.size < 3 && safety < 30) {
+                            const d = (Math.floor(Math.random() * 4) + 1) * (Math.random() < 0.5 ? 1 : -1);
                             set.add(Math.max(0, ans + d));
+                            safety += 1;
                         }
-                        const nums = Array.from(set).sort(() => Math.random() - 0.5);
-                        nextGroup.forEach((blk, i) => {
+                        // Backfill if RNG was unlucky
+                        let backfill = 0;
+                        while (set.size < 3) { set.add(ans + 10 + backfill); backfill += 1; }
+                        const nums = Array.from(set).slice(0, 3).sort(() => Math.random() - 0.5);
+                        pickedGroup.blocks.forEach((blk, i) => {
                             blk._meta.canHit = true;
                             blk._meta.value = nums[i];
                             blk._meta.correct = nums[i] === ans;
+                            blk._meta.done = false;
                             blk._numText.setText(String(nums[i]));
                             blk._numText.setColor('#7c2d12');
-                            // Reset visuals (in case a wrong-hit recolour stuck around)
                             blk.setFillStyle(0xfbbf24);
                             if (blk._inset) blk._inset.setFillStyle(0xf59e0b);
+                            // Brighten the gloss too in case it was cleared
+                            if (blk._gloss) blk._gloss.setAlpha(0.7);
                         });
                     } else {
-                        // No more brick groups — just keep running to the flag.
                         const msg = '🏁 Run to the flag!';
-                        if (qEl) qEl.innerHTML = `<b>${msg}</b>`;
+                        if (qEl) qEl.textContent = msg;
                         if (this.bannerEq) this.bannerEq.setText(msg);
                     }
                 }
 
-                findNextQuestionGroup(playerX) {
-                    // A "group" is the array reference stored in each block's
-                    // _meta.group. We want the leftmost group whose blocks all
-                    // are not done AND whose cx is to the right of the player.
-                    const all = this.qBlocks.getChildren();
-                    const seenGroups = new Set();
-                    const candidates = [];
-                    for (const b of all) {
-                        if (!b._meta) continue;
-                        if (b._meta.done) continue;
-                        if (b._meta.canHit) continue; // already active in a current problem
-                        const g = b._meta.group;
-                        if (!g || seenGroups.has(g)) continue;
-                        seenGroups.add(g);
-                        // All three must be not-done
-                        if (g.some((x) => x._meta.done)) continue;
-                        const minX = Math.min(...g.map((x) => x.x));
-                        if (minX > playerX + 80) {
-                            candidates.push({ g, minX });
-                        }
-                    }
-                    if (!candidates.length) return null;
-                    candidates.sort((a, b) => a.minX - b.minX);
-                    return candidates[0].g;
-                }
-
                 handleBlockHit(block) {
                     if (!block._meta || block._meta.done) return;
-                    // Mark the ENTIRE group as done so future nextProblem() calls
-                    // skip them. (This was the question-mark bug — we only marked
-                    // canHit=false but didn't track "this triplet has been used".)
+                    // Mark whole group done IMMEDIATELY so collider won't re-fire.
                     const group = block._meta.group;
                     if (group) group.forEach((b) => { b._meta.done = true; b._meta.canHit = false; if (b._pulse) b._pulse.stop(); });
 
-                    // Mario block-bump animation: the entire block + decorations
-                    // tween up ~18px then come back down with snappy easing.
-                    const targets = [block, block._inset, block._numText, ...(block._studs || [])];
-                    if (block._gloss) targets.push(block._gloss);
                     const origY = block.y;
-                    this.tweens.add({
-                        targets,
-                        y: origY - 20,
-                        duration: 120,
-                        ease: 'Quad.easeOut',
-                        yoyo: true,
-                    });
+                    const isCorrect = block._meta.correct;
 
-                    if (block._meta.correct) {
-                        _sfx('bonk');
-                        _sfx('coin');
-                        // Turn the block into a "used" brown brick after the bump
-                        this.time.delayedCall(220, () => {
-                            block.setFillStyle(0x92400e);
-                            if (block._inset) block._inset.setFillStyle(0x78350f);
-                            block._numText.setText('✓');
-                            block._numText.setColor('#fde047');
+                    if (isCorrect) {
+                        // === HUGE GREEN CELEBRATION ===
+                        // 1. Block instantly flashes BRIGHT GREEN
+                        block.setFillStyle(0x22c55e);
+                        if (block._inset) block._inset.setFillStyle(0x16a34a);
+                        block._numText.setText('✓');
+                        block._numText.setColor('#ffffff');
+                        block._numText.setStroke('#14532d', 4);
+                        // 2. Bump UP big (28px) and back down with springy bounce
+                        const targets = [block, block._inset, block._numText, ...(block._studs || [])];
+                        if (block._gloss) targets.push(block._gloss);
+                        this.tweens.add({
+                            targets, y: origY - 32, duration: 140,
+                            ease: 'Quad.easeOut', yoyo: true,
                         });
-                        // Coin pop above the block
-                        const popCoin = this.add.circle(block.x, origY - 28, 9, 0xfbbf24);
+                        // 3. Big floating "+3" GREEN text rising up
+                        const plus = this.add.text(block.x, origY - 30, '+3 ✓', {
+                            fontFamily: 'Courier New, monospace',
+                            fontSize: '28px', fontStyle: 'bold',
+                            color: '#22c55e',
+                            stroke: '#ffffff', strokeThickness: 5,
+                        }).setOrigin(0.5).setDepth(200);
+                        this.tweens.add({
+                            targets: plus,
+                            y: origY - 110, alpha: 0, scale: 1.5,
+                            duration: 900, ease: 'Quad.easeOut',
+                            onComplete: () => { try { plus.destroy(); } catch {} }
+                        });
+                        // 4. Sparkle burst — 8 yellow stars exploding outward
+                        for (let i = 0; i < 8; i++) {
+                            const angle = (Math.PI * 2 / 8) * i + Math.random() * 0.3;
+                            const dist = 40 + Math.random() * 20;
+                            const sx = block.x + Math.cos(angle) * 12;
+                            const sy = origY - 16 + Math.sin(angle) * 12;
+                            const sparkle = this.add.star(sx, sy, 5, 4, 8, 0xfde047);
+                            this.tweens.add({
+                                targets: sparkle,
+                                x: sx + Math.cos(angle) * dist,
+                                y: sy + Math.sin(angle) * dist - 20,
+                                alpha: 0,
+                                scale: 0,
+                                angle: 360,
+                                duration: 700,
+                                ease: 'Quad.easeOut',
+                                onComplete: () => { try { sparkle.destroy(); } catch {} }
+                            });
+                        }
+                        // 5. Coin pop
+                        const popCoin = this.add.circle(block.x, origY - 28, 10, 0xfbbf24);
                         popCoin.setStrokeStyle(2, 0xb45309);
-                        const popInner = this.add.circle(block.x, origY - 28, 5, 0xfde047);
+                        const popInner = this.add.circle(block.x, origY - 28, 6, 0xfde047);
                         this.tweens.add({
                             targets: [popCoin, popInner],
-                            y: origY - 90, alpha: 0, scale: 1.4,
+                            y: origY - 90, alpha: 0, scale: 1.5,
                             duration: 700, ease: 'Quad.easeOut',
                             onComplete: () => { try { popCoin.destroy(); popInner.destroy(); } catch {} }
                         });
+                        // 6. Tiny camera zoom-pulse (celebration shake)
+                        this.cameras.main.zoomTo(1.05, 80, 'Quad.easeOut', false, (cam, prog) => {
+                            if (prog >= 1) this.cameras.main.zoomTo(1, 200);
+                        });
+                        // 7. Player happy hop
+                        const playerY = this.player.y;
+                        this.tweens.add({
+                            targets: this.player,
+                            angle: { from: -10, to: 10 },
+                            duration: 100, yoyo: true, repeat: 1,
+                            onComplete: () => { try { this.player.angle = 0; } catch {} }
+                        });
+                        // 8. After 250ms, transition block to "used" brick
+                        this.time.delayedCall(280, () => {
+                            block.setFillStyle(0x92400e);
+                            if (block._inset) block._inset.setFillStyle(0x78350f);
+                            if (block._gloss) block._gloss.setAlpha(0.2);
+                            block._numText.setColor('#fde047');
+                            block._numText.setStroke('#7c2d12', 2);
+                        });
+                        _sfx('bonk'); _sfx('coin');
                         try { ctx.onScore(3, { x: 0, y: 0 }); } catch {}
                         this.nextProblem();
                     } else {
-                        _sfx('bonk');
-                        _sfx('wrong');
-                        this.time.delayedCall(220, () => {
-                            block.setFillStyle(0xb91c1c);
-                            if (block._inset) block._inset.setFillStyle(0x7f1d1d);
-                            block._numText.setText('✕');
-                            block._numText.setColor('#ffffff');
+                        // === HUGE RED FAILURE ===
+                        // 1. Block flashes BRIGHT RED immediately
+                        block.setFillStyle(0xef4444);
+                        if (block._inset) block._inset.setFillStyle(0xb91c1c);
+                        block._numText.setText('✕');
+                        block._numText.setColor('#ffffff');
+                        block._numText.setStroke('#7f1d1d', 4);
+                        // 2. Block bumps SLIGHTLY (small bump — wrong feel)
+                        const targets = [block, block._inset, block._numText, ...(block._studs || [])];
+                        if (block._gloss) targets.push(block._gloss);
+                        this.tweens.add({
+                            targets, y: origY - 8, duration: 80, yoyo: true,
                         });
+                        // 3. Camera SHAKE — big juicy feedback for "you missed"
+                        this.cameras.main.shake(280, 0.012);
+                        // 4. Big floating "-1 ❤️" RED text
+                        const lossText = this.add.text(block.x, origY - 30, '-1 ❤️', {
+                            fontFamily: 'Courier New, monospace',
+                            fontSize: '26px', fontStyle: 'bold',
+                            color: '#ef4444',
+                            stroke: '#ffffff', strokeThickness: 5,
+                        }).setOrigin(0.5).setDepth(200);
+                        this.tweens.add({
+                            targets: lossText,
+                            y: origY - 100, alpha: 0,
+                            duration: 900, ease: 'Quad.easeOut',
+                            onComplete: () => { try { lossText.destroy(); } catch {} }
+                        });
+                        // 5. Player tint red briefly + stagger shake
+                        const heartParts = this.player.list;
+                        // Use a flash effect via setTint won't work on Container,
+                        // so we briefly add a red overlay rectangle that fades.
+                        const flash = this.add.rectangle(this.player.x, this.player.y, 50, 80, 0xef4444, 0.5);
+                        this.tweens.add({
+                            targets: flash,
+                            alpha: 0, duration: 450,
+                            onComplete: () => { try { flash.destroy(); } catch {} }
+                        });
+                        flash.setDepth(150);
+                        this.tweens.add({
+                            targets: this.player,
+                            x: { from: this.player.x - 6, to: this.player.x + 6 },
+                            duration: 60, yoyo: true, repeat: 3,
+                        });
+                        _sfx('bonk'); _sfx('wrong');
                         this.lives -= 1;
                         const livesEl = document.getElementById('pp-lives');
                         if (livesEl) livesEl.textContent = this.lives;
@@ -8259,25 +8308,37 @@ GAME_IMPLS['math-platformer-pro'] = {
                         });
                     }
 
-                    // === Auto-miss detection ===
-                    // The bug: if the player ran past a live brick group without
-                    // jumping in time, the group stayed "live" and the next group
-                    // never received numbers. Now we treat passing as a miss —
-                    // burn a life, mark the group done, advance to the next problem.
-                    if (this.target && !this.endHandled) {
-                        const liveGroup = this.findLiveGroup();
-                        if (liveGroup) {
-                            const groupMaxX = Math.max(...liveGroup.map((b) => b.x));
-                            if (this.player.x > groupMaxX + 40) {
-                                liveGroup.forEach((b) => {
+                    // === Auto-miss detection (deterministic via currentGroupIdx) ===
+                    // If we have a live group and the player has run past it
+                    // without bumping any brick, treat it as a miss.
+                    if (this.target && !this.endHandled && this.currentGroupIdx >= 0) {
+                        const liveGroup = this.groupList[this.currentGroupIdx];
+                        if (liveGroup && !liveGroup.blocks[0]._meta.done) {
+                            const maxX = liveGroup.cx + 32; // rightmost brick edge
+                            if (this.player.x > maxX + 32) {
+                                // Visually fade the missed group to grey
+                                liveGroup.blocks.forEach((b) => {
                                     b._meta.done = true;
                                     b._meta.canHit = false;
                                     if (b._pulse) b._pulse.stop();
-                                    // Visually fade the missed blocks
                                     b.setFillStyle(0x6b7280);
                                     if (b._inset) b._inset.setFillStyle(0x4b5563);
+                                    if (b._gloss) b._gloss.setAlpha(0.15);
                                     b._numText.setText('—');
                                     b._numText.setColor('#e5e7eb');
+                                });
+                                // Floating "missed!" indicator
+                                const missText = this.add.text(liveGroup.cx, this.scale.height / 2 - 60, 'MISSED!', {
+                                    fontFamily: 'Courier New, monospace',
+                                    fontSize: '22px', fontStyle: 'bold',
+                                    color: '#9ca3af',
+                                    stroke: '#ffffff', strokeThickness: 3,
+                                }).setOrigin(0.5);
+                                this.tweens.add({
+                                    targets: missText,
+                                    y: missText.y - 40, alpha: 0,
+                                    duration: 900,
+                                    onComplete: () => { try { missText.destroy(); } catch {} }
                                 });
                                 this.lives -= 1;
                                 const livesEl = document.getElementById('pp-lives');
@@ -8300,19 +8361,6 @@ GAME_IMPLS['math-platformer-pro'] = {
                         try { ctx.onPenalty(3, { x: 0, y: 0 }); } catch {}
                         if (this.lives <= 0) this.handleGameOver();
                     }
-                }
-
-                findLiveGroup() {
-                    // Return the array reference of the currently-active group
-                    // (i.e. the group with canHit=true blocks). There should be
-                    // at most one at any time.
-                    const all = this.qBlocks.getChildren();
-                    for (const b of all) {
-                        if (b._meta && b._meta.canHit && !b._meta.done) {
-                            return b._meta.group;
-                        }
-                    }
-                    return null;
                 }
             }
 

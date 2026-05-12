@@ -4963,24 +4963,41 @@ html.motion-reduced .pv-digit.pv-highlight { animation: none; }
     text-shadow: 0 2px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000;
 }
 
-.mg-pp-q {
-    background: linear-gradient(135deg, #fde047 0%, #facc15 100%);
-    border: 3px solid #ca8a04;
-    border-radius: 14px;
-    padding: 8px 16px;
-    text-align: center;
-    box-shadow: 0 4px 0 #92400e;
-    align-self: center;
-    min-width: 240px;
-    font-weight: 800;
-    color: #7c2d12;
-    font-size: 0.95rem;
+/* Question overlay sits INSIDE the canvas-host, so it's always
+   visible — even when the host goes fullscreen. */
+.mg-pp-q-overlay {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #7c2d12 0%, #451a03 100%);
+    border: 4px solid #fbbf24;
+    border-radius: 16px;
+    padding: 10px 26px;
+    box-shadow: 0 6px 0 #1c0a01, 0 10px 22px rgba(0, 0, 0, 0.45);
+    min-width: 280px;
 }
-.mg-pp-q b {
-    background: linear-gradient(135deg, #f97316, #dc2626);
-    color: white;
-    padding: 1px 8px;
-    border-radius: 6px;
+.mg-pp-q-label {
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: #fde047;
+    letter-spacing: 0.12em;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+.mg-pp-q-eq {
+    font-family: 'Courier New', monospace;
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 2px 0 #000, 0 -1px 0 #000, 1px 0 0 #000, -1px 0 0 #000, 0 0 12px rgba(251, 191, 36, 0.7);
+    letter-spacing: 0.04em;
+    line-height: 1;
 }
 
 .mg-pp-canvas-host {
