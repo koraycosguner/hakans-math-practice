@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#1e293b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Math Platformer">
+    <title>Math Platformer</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/jpeg" href="../hakan.jpg">
+    <link rel="apple-touch-icon" href="../hakan.jpg">
+    <link rel="stylesheet" href="../style.css?v=209">
+    <style>
+        html, body {
+            margin: 0; padding: 0; min-height: 100vh;
+            background: linear-gradient(180deg, #60a5fa 0%, #a5b4fc 100%);
+            font-family: 'Courier New', monospace;
+            overflow-x: hidden;
+            color: white;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pp-shell {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 14px 14px env(safe-area-inset-bottom);
+        }
+        .pp-title-bar {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            color: #fde047;
+            font-size: 1.6rem;
+            font-weight: 900;
+            text-shadow: 0 3px 0 #7c2d12, 0 5px 0 rgba(0, 0, 0, 0.35);
+            margin: 0 0 10px;
+        }
+        .pp-title-emoji { font-size: 1.7rem; }
+        /* Start gate — needed so the first user gesture unlocks audio. */
+        .pp-start-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 9999;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            padding: 16px;
+        }
+        .pp-start-card, .pp-end-card {
+            background: linear-gradient(180deg, #1e293b, #0f172a);
+            border: 4px solid #fbbf24;
+            border-radius: 20px;
+            padding: 28px 32px;
+            text-align: center;
+            max-width: 92vw;
+            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.4);
+        }
+        .pp-start-card h1, .pp-end-card h2 {
+            font-size: 2rem; color: #fde047; margin: 0 0 8px;
+            text-shadow: 0 2px 0 #7c2d12;
+        }
+        .pp-start-card p, .pp-end-card p {
+            font-size: 1.05rem; color: #cbd5e1; margin: 6px 0;
+        }
+        .pp-bigbtn {
+            background: linear-gradient(180deg, #22c55e, #16a34a);
+            color: white;
+            border: 3px solid #14532d;
+            border-radius: 14px;
+            padding: 14px 28px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 0 #14532d;
+            font-family: 'Courier New', monospace;
+            margin-top: 14px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pp-bigbtn:active { transform: translateY(2px); box-shadow: 0 2px 0 #14532d; }
+        .pp-end-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.86);
+            display: none;
+            align-items: center; justify-content: center;
+            z-index: 9999;
+            padding: 16px;
+        }
+        .pp-end-overlay.show { display: flex; }
+        .pp-end-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 18px;
+            margin: 12px 0;
+            font-size: 1.05rem;
+            color: #e5e7eb;
+        }
+        .pp-end-stats span:nth-child(even) { color: #fde047; font-weight: 900; }
+        #game-host {
+            position: relative;
+        }
+        /* The mg-pp-wrap etc. classes come from style.css. The standalone
+           page just contains a single #game-host that the platformer
+           appends its UI into. */
+    </style>
+</head>
+<body>
+    <div class="pp-shell">
+        <div class="pp-title-bar">
+            <span class="pp-title-emoji">🍄</span>
+            <span>Math Platformer</span>
+            <span class="pp-title-emoji">⭐</span>
+        </div>
+        <div id="game-host"></div>
+    </div>
+
+    <div class="pp-start-overlay" id="start-overlay">
+        <div class="pp-start-card">
+            <h1>🍄 Math Platformer</h1>
+            <p>Run, jump, and bump the brick with the right answer.</p>
+            <p>Stomp goblins for coins. Build combos for bonus hearts.</p>
+            <button class="pp-bigbtn" id="start-btn">▶ START</button>
+        </div>
+    </div>
+
+    <div class="pp-end-overlay" id="end-overlay">
+        <div class="pp-end-card">
+            <h2 id="end-title">Game Over</h2>
+            <div class="pp-end-stats">
+                <span>Score</span><span id="end-score">0</span>
+                <span>Coins</span><span id="end-coins">0</span>
+            </div>
+            <button class="pp-bigbtn" id="again-btn">▶ PLAY AGAIN</button>
+        </div>
+    </div>
+
+    <!-- The full minigames bundle. Only the math-platformer-pro entry is
+         booted; the rest of the file's top-level code is gated behind
+         elements that don't exist on this page, so nothing else runs. -->
+    <script src="../minigames.js?v=209"></script>
+    <script>
+        (function () {
+            const host = document.getElementById('game-host');
+            const startOverlay = document.getElementById('start-overlay');
+            const endOverlay   = document.getElementById('end-overlay');
+            const startBtn = document.getElementById('start-btn');
+            const againBtn = document.getElementById('again-btn');
+            const endTitle = document.getElementById('end-title');
+            const endScore = document.getElementById('end-score');
+            const endCoins = document.getElementById('end-coins');
+
+            let scoreSum = 0;
+
+            function buildCtx() {
+                scoreSum = 0;
+                return {
+                    area: host,
+                    config: { difficulty: 'normal' },
+                    onScore: (delta /* , opts */) => { scoreSum += delta; },
+                    onPenalty: (/* seconds, opts */) => { /* no-op standalone */ },
+                    onWin: () => {
+                        // Fired by the game on either level-clear or game-over;
+                        // we sniff the in-canvas question text for "GAME OVER"
+                        // to pick the right title.
+                        const qEl = document.getElementById('pp-q-text');
+                        const isGameOver = qEl && /GAME OVER/i.test(qEl.textContent);
+                        endTitle.textContent = isGameOver ? '💀 Game Over' : '🏁 Level Clear!';
+                        endScore.textContent = String(scoreSum);
+                        const coinsEl = document.getElementById('pp-coins');
+                        endCoins.textContent = coinsEl ? coinsEl.textContent : '0';
+                        endOverlay.classList.add('show');
+                    },
+                };
+            }
+
+            function bootGame() {
+                if (!window.GAME_IMPLS || !window.GAME_IMPLS['math-platformer-pro']) {
+                    host.innerHTML = '<p style="color:#fff;text-align:center">Game failed to load. Refresh the page.</p>';
+                    return;
+                }
+                host.innerHTML = '';
+                startOverlay.style.display = 'none';
+                endOverlay.classList.remove('show');
+                window.GAME_IMPLS['math-platformer-pro'].start(buildCtx());
+            }
+
+            startBtn.addEventListener('click', bootGame);
+            // Play-again reloads the page — simplest way to fully tear down
+            // the Phaser instance + any leftover tweens / colliders so the
+            // next run starts from a clean slate.
+            againBtn.addEventListener('click', () => location.reload());
+
+            // Register the standalone service worker (lives in /play/ so it
+            // can only see /play/* — safe to coexist with the main app's SW).
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js').catch(() => {});
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

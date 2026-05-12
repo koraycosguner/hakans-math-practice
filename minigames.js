@@ -816,6 +816,9 @@ function exitMiniGame() {
 // ----------------------------------------------------------------------
 
 const GAME_IMPLS = {};
+// Expose on window so a standalone /play/ page can boot a single game
+// directly without going through the math-practice hub flow.
+window.GAME_IMPLS = GAME_IMPLS;
 
 // Difficulty scale helpers. Each game reads its own values via ctx.config.difficulty.
 function _diffVal(diff, easy, normal, hard) {
