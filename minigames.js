@@ -7917,6 +7917,129 @@ GAME_IMPLS['math-platformer-pro'] = {
                         this.handleBlockHit(block);
                     });
 
+                    // === Heart pickups in the gaps between brick groups ===
+                    // Alternate single-jump-low and double-jump-high so the
+                    // double-jump skill stays useful and Hakan has more chances
+                    // to recover hearts mid-run.
+                    this.heartPickupsGroup = this.physics.add.staticGroup();
+                    for (let i = 0; i < this.groupList.length - 1; i++) {
+                        // ~75% spawn rate so hearts feel like a treat, not wallpaper
+                        if (Math.random() > 0.75) continue;
+                        const leftG = this.groupList[i];
+                        const rightG = this.groupList[i + 1];
+                        const hx = (leftG.cx + rightG.cx) / 2;
+                        // Alternate every other gap: low (1-jump) vs high (2-jump)
+                        const isHigh = (i % 2 === 1);
+                        const hy = isHigh ? (groundY - 175) : (groundY - 70);
+                        // Build a chunky heart: triangle base + two round lobes
+                        const heart = this.add.container(hx, hy);
+                        const HC = 0xec4899; // hot pink
+                        const HS = 0xbe185d; // darker stroke
+                        const tip = this.add.triangle(0, 4, -14, -3, 14, -3, 0, 14, HC);
+                        tip.setStrokeStyle(2, HS);
+                        const lobeL = this.add.circle(-7, -4, 9, HC);
+                        lobeL.setStrokeStyle(2, HS);
+                        const lobeR = this.add.circle( 7, -4, 9, HC);
+                        lobeR.setStrokeStyle(2, HS);
+                        const shine = this.add.circle(-4, -7, 2.5, 0xffffff, 0.9);
+                        heart.add([tip, lobeL, lobeR, shine]);
+                        // Soft glow halo behind
+                        const halo = this.add.circle(hx, hy, 22, HC, 0.2);
+                        // Invisible overlap box for the static group
+                        const hbox = this.add.rectangle(hx, hy, 30, 30, 0xffffff, 0);
+                        this.physics.add.existing(hbox, true);
+                        hbox._heart = heart;
+                        hbox._halo = halo;
+                        hbox._isHigh = isHigh;
+                        this.heartPickupsGroup.add(hbox);
+                        // Bob up/down so they look alive
+                        this.tweens.add({
+                            targets: [heart, halo],
+                            y: { from: hy - 5, to: hy + 5 },
+                            duration: 750, yoyo: true, repeat: -1,
+                            ease: 'Sine.easeInOut',
+                        });
+                        // Gentle rock so the eye catches them
+                        this.tweens.add({
+                            targets: heart,
+                            angle: { from: -10, to: 10 },
+                            duration: 1100, yoyo: true, repeat: -1,
+                            ease: 'Sine.easeInOut',
+                        });
+                        // Halo pulse
+                        this.tweens.add({
+                            targets: halo,
+                            scale: { from: 0.9, to: 1.3 },
+                            alpha: { from: 0.18, to: 0.34 },
+                            duration: 900, yoyo: true, repeat: -1,
+                        });
+                        // Hint arrows under high hearts so Hakan knows to double-jump
+                        if (isHigh) {
+                            const hint = this.add.text(hx, hy + 32, '⬆⬆', {
+                                fontFamily: 'Courier New, monospace',
+                                fontSize: '12px', fontStyle: 'bold',
+                                color: '#ec4899',
+                                stroke: '#ffffff', strokeThickness: 2,
+                            }).setOrigin(0.5);
+                            this.tweens.add({
+                                targets: hint,
+                                alpha: { from: 0.5, to: 1 },
+                                duration: 600, yoyo: true, repeat: -1,
+                            });
+                            hbox._hint = hint;
+                        }
+                    }
+                    this.physics.add.overlap(this.player, this.heartPickupsGroup, (playerObj, hbox) => {
+                        if (hbox._collected) return;
+                        hbox._collected = true;
+                        const gained = this.lives < this.maxLives;
+                        if (gained) {
+                            this.lives = Math.min(this.maxLives, this.lives + 1);
+                            _renderHearts(this.lives, this.maxLives, 'gain');
+                        }
+                        _sfx('coin');
+                        // Floating "+1 ❤️" (or "❤️ FULL" if we're capped)
+                        const gainText = this.add.text(hbox.x, hbox.y - 12, gained ? '+1 ❤️' : '❤️ MAX', {
+                            fontFamily: 'Courier New, monospace',
+                            fontSize: '22px', fontStyle: 'bold',
+                            color: gained ? '#ec4899' : '#fbbf24',
+                            stroke: '#ffffff', strokeThickness: 4,
+                        }).setOrigin(0.5).setDepth(200);
+                        this.tweens.add({
+                            targets: gainText,
+                            y: gainText.y - 50, alpha: 0, scale: 1.6,
+                            duration: 900, ease: 'Quad.easeOut',
+                            onComplete: () => { try { gainText.destroy(); } catch {} }
+                        });
+                        // 6-spark pink burst
+                        for (let i = 0; i < 6; i++) {
+                            const a = (Math.PI * 2 / 6) * i;
+                            const sx = hbox.x + Math.cos(a) * 8;
+                            const sy = hbox.y + Math.sin(a) * 8;
+                            const spark = this.add.star(sx, sy, 5, 3, 6, gained ? 0xec4899 : 0xfde047);
+                            this.tweens.add({
+                                targets: spark,
+                                x: sx + Math.cos(a) * 40,
+                                y: sy + Math.sin(a) * 40,
+                                alpha: 0, scale: 0, angle: 360,
+                                duration: 600,
+                                onComplete: () => { try { spark.destroy(); } catch {} }
+                            });
+                        }
+                        // Pop the heart out of existence
+                        this.tweens.add({
+                            targets: [hbox._heart, hbox._halo],
+                            scale: 2.2, alpha: 0,
+                            duration: 350, ease: 'Quad.easeOut',
+                            onComplete: () => {
+                                try { hbox._heart.destroy(); } catch {}
+                                try { hbox._halo.destroy(); } catch {}
+                                try { if (hbox._hint) hbox._hint.destroy(); } catch {}
+                                try { hbox.destroy(); } catch {}
+                            }
+                        });
+                    });
+
                     // === Coins floating in the air ===
                     this.coinsGroup = this.physics.add.staticGroup();
                     for (let x = 220; x < WORLD_W - 100; x += 180) {
@@ -8080,15 +8203,31 @@ GAME_IMPLS['math-platformer-pro'] = {
                     }
                 }
 
+                // Dynamic difficulty: scale problem range based on remaining
+                // hearts so Hakan never gets stuck — easier when he's hurting,
+                // harder when he's healthy.
+                currentMaxA() {
+                    // baseline `maxA` comes from the closure
+                    const base = maxA;
+                    const lives = this.lives;
+                    if (lives <= 1) return Math.max(2, Math.floor(base * 0.4));   // 40% of base
+                    if (lives <= 2) return Math.max(3, Math.floor(base * 0.65));  // 65% of base
+                    if (lives >= 5) return Math.min(12, base + 2);                // bonus difficulty
+                    if (lives >= 4) return Math.min(11, base + 1);
+                    return base;
+                }
                 nextProblem() {
-                    const op = Math.random() < 0.5 ? '+' : '-';
+                    const mA = this.currentMaxA();
+                    // When hurting badly (1 ❤️), only use addition — subtraction
+                    // is harder mentally for first-graders.
+                    const op = (this.lives <= 1 ? '+' : (Math.random() < 0.5 ? '+' : '-'));
                     let a, b, ans;
                     if (op === '+') {
-                        a = 1 + Math.floor(Math.random() * maxA);
-                        b = 1 + Math.floor(Math.random() * maxA);
+                        a = 1 + Math.floor(Math.random() * mA);
+                        b = 1 + Math.floor(Math.random() * mA);
                         ans = a + b;
                     } else {
-                        a = 2 + Math.floor(Math.random() * maxA);
+                        a = 2 + Math.floor(Math.random() * mA);
                         b = 1 + Math.floor(Math.random() * a);
                         ans = a - b;
                     }
